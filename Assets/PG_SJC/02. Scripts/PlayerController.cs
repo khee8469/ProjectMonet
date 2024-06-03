@@ -8,17 +8,27 @@ namespace Jc
 {
     public class PlayerController : MonoBehaviour
     {
-        
-        private Camera mainCam;
+        [SerializeField]
+        private PhotoCapture photoCapture;
 
-        // 캡쳐 파일경로
-        private string capturePath = "Assets/PG_SJC/98. ScreenShot/ScreenShot";
+        [SerializeField]
+        private PhotoProjection photoProjection;
+
+        [SerializeField]
+        private CharacterController controller;
 
         [SerializeField]
         private float moveSpeed;
 
         private Vector3 moveDir;
         private Vector2 rotDir;
+
+        private Camera mainCam;
+        // 캡쳐 파일경로
+        private string capturePath = "Assets/PG_SJC/98. ScreenShot/ScreenShot";
+
+        [SerializeField]
+        private Texture2D currentTexture;
 
         private void Awake()
         {
@@ -34,10 +44,6 @@ namespace Jc
         {
             rotDir = value.Get<Vector2>();
         }
-        private void Rotate()
-        {
-
-        }
 
         // 움직임 콜백
         private void OnMove(InputValue value)
@@ -50,7 +56,7 @@ namespace Jc
         {
             if (moveDir == Vector3.zero) return;
 
-            transform.Translate(moveDir * moveSpeed * Time.deltaTime);
+            controller.Move(moveDir * moveSpeed * Time.deltaTime);
         }
 
         // 줌인/아웃 콜백
@@ -70,16 +76,16 @@ namespace Jc
         // 캡쳐 콜백
         private void OnCapture(InputValue value)
         {
-            Capture();
+            currentTexture = photoCapture.CapturePhoto();
         }
-        private void Capture()
+
+        // 투영 콜백
+        private void OnProjection(InputValue value)
         {
-            // 디렉토리 내 파일 개수 추출
-            DirectoryInfo directoryInfo = new DirectoryInfo(capturePath);
-            int fileCount = directoryInfo.GetFiles().Length;
+            if (currentTexture == null)
+                return;
 
-            ScreenCapture.CaptureScreenshot($"{capturePath}/ScreenCapture{fileCount}.png");
-
+            photoProjection.ProjectPhoto(currentTexture, transform.position + transform.forward * 5f, Quaternion.identity);
         }
     }
 }
