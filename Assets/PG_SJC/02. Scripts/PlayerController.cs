@@ -19,11 +19,14 @@ namespace Jc
 
         [SerializeField]
         private float moveSpeed;
+        [SerializeField]
+        private float mouseSensitivity;
 
         private Vector3 moveDir;
         private Vector2 rotDir;
 
         private Camera mainCam;
+        private Transform cameraTr;
         // 캡쳐 파일경로
         private string capturePath = "Assets/PG_SJC/98. ScreenShot/ScreenShot";
 
@@ -33,18 +36,24 @@ namespace Jc
         private void Awake()
         {
             mainCam = Camera.main;
+            cameraTr = mainCam.transform;
         }
 
         private void Update()
         {
             Move();
+            Rotate();
         }
 
         private void OnRotate(InputValue value)
         {
             rotDir = value.Get<Vector2>();
         }
-
+        private void Rotate()
+        {
+            cameraTr.Rotate(Vector3.right, -rotDir.y * mouseSensitivity * Time.deltaTime);
+            transform.Rotate(Vector3.up, rotDir.x * mouseSensitivity * Time.deltaTime);
+        }
         // 움직임 콜백
         private void OnMove(InputValue value)
         {
@@ -56,7 +65,8 @@ namespace Jc
         {
             if (moveDir == Vector3.zero) return;
 
-            controller.Move(moveDir * moveSpeed * Time.deltaTime);
+            controller.Move(transform.forward * moveDir.z * moveSpeed * Time.deltaTime);
+            controller.Move(transform.right * moveDir.x * moveSpeed * Time.deltaTime);
         }
 
         // 줌인/아웃 콜백
@@ -76,7 +86,7 @@ namespace Jc
         // 캡쳐 콜백
         private void OnCapture(InputValue value)
         {
-            currentTexture = photoCapture.CapturePhoto();
+            photoCapture.UpdatePicture();
         }
 
         // 투영 콜백

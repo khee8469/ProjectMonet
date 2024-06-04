@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Jc
 {
@@ -15,11 +16,26 @@ namespace Jc
         // 캡쳐된 텍스쳐 
         public RenderTexture renderTexture;
 
+        [SerializeField]
+        private Image captureUI;
+        private Rect imageRect;
+        private Vector2 imagePivot;
+
+
         private void Awake()
         {
             // 카메라가 렌더링중인 텍스쳐가 없는경우
             if (captureCamera.targetTexture == null)
                 captureCamera.targetTexture = renderTexture;
+
+            imageRect = new Rect(0,0,captureUI.rectTransform.sizeDelta.x, captureUI.rectTransform.sizeDelta.y);
+            imagePivot = new Vector2(0.5f, 0.5f);
+        }
+
+        public void UpdatePicture()
+        {
+            Texture2D texture = CapturePhoto();
+            captureUI.sprite = Sprite.Create(texture, new Rect(0,0, texture.width, texture.height), imagePivot);
         }
 
         public Texture2D CapturePhoto()
@@ -42,11 +58,6 @@ namespace Jc
 
             // 추출한 텍스쳐 이미지 반환
             return image;
-        }
-
-        public void UpdatePicture()
-        {
-
         }
     }
 }
