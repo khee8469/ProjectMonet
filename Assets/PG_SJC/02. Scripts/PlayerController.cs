@@ -35,6 +35,8 @@ namespace Jc
 
         private void Awake()
         {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
             mainCam = Camera.main;
             cameraTr = mainCam.transform;
         }

@@ -15,27 +15,29 @@ namespace Jc
 
         // 캡쳐된 텍스쳐 
         public RenderTexture renderTexture;
-
-        [SerializeField]
-        private Image captureUI;
         private Rect imageRect;
         private Vector2 imagePivot;
+
+        [SerializeField]
+        private GameObject quadObject;
+        [SerializeField]
+        private MeshRenderer quadRenderer; 
 
 
         private void Awake()
         {
-            // 카메라가 렌더링중인 텍스쳐가 없는경우
             if (captureCamera.targetTexture == null)
                 captureCamera.targetTexture = renderTexture;
 
-            imageRect = new Rect(0,0,captureUI.rectTransform.sizeDelta.x, captureUI.rectTransform.sizeDelta.y);
             imagePivot = new Vector2(0.5f, 0.5f);
         }
 
         public void UpdatePicture()
         {
+            quadObject.SetActive(false);
             Texture2D texture = CapturePhoto();
-            captureUI.sprite = Sprite.Create(texture, new Rect(0,0, texture.width, texture.height), imagePivot);
+            quadRenderer.material.mainTexture = texture;
+            StartCoroutine(CaptureRoutine());
         }
 
         public Texture2D CapturePhoto()
@@ -58,6 +60,31 @@ namespace Jc
 
             // 추출한 텍스쳐 이미지 반환
             return image;
+        }
+        
+        IEnumerator CaptureRoutine()
+        {
+            Vector3 originScale = new Vector3(1.92f, 1.08f, 1f);
+            Vector3 upScale = new Vector3(3.84f, 2.16f, 1f);
+            quadObject.SetActive(true);
+
+            float rate = 0f;
+            while(rate < 1)
+            {
+                quadObject.transform.localScale = Vector3.Lerp(originScale, upScale, rate);
+                rate += Time.deltaTime*3f;
+                yield return null;
+            }
+
+            rate = 0f;
+            while(rate <1)
+            {
+                quadObject.transform.localScale = Vector3.Lerp(upScale, originScale, rate);
+                rate += Time.deltaTime*3f;
+                yield return null;
+            }
+
+            yield return null;
         }
     }
 }
