@@ -9,7 +9,10 @@ namespace Jc
     public class PlayerController : MonoBehaviour
     {
         [SerializeField]
-        private PhotoCapture photoCapture;
+        private ScreenCapture screenCapture;
+
+        [SerializeField]
+        private GameObject captureDisplay;
 
         [SerializeField]
         private PhotoProjection photoProjection;
@@ -88,7 +91,12 @@ namespace Jc
         // 캡쳐 콜백
         private void OnCapture(InputValue value)
         {
-            photoCapture.UpdatePicture();
+            screenCapture.Capture();
+        }
+
+        private void OnCapturePopUp(InputValue value)
+        {
+            captureDisplay.SetActive(!captureDisplay.activeSelf);
         }
 
         // 투영 콜백
