@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.IO;
+using UnityEngine.UI;
 
 namespace Jc
 {
@@ -13,9 +14,6 @@ namespace Jc
 
         [SerializeField]
         private GameObject captureDisplay;
-
-        [SerializeField]
-        private PhotoProjection photoProjection;
 
         [SerializeField]
         private CharacterController controller;
@@ -33,13 +31,10 @@ namespace Jc
         // 캡쳐 파일경로
         private string capturePath = "Assets/PG_SJC/98. ScreenShot/ScreenShot";
 
-        [SerializeField]
-        private Texture2D currentTexture;
-
         private void Awake()
         {
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.visible = false;
+            //Cursor.lockState = CursorLockMode.Locked;
             mainCam = Camera.main;
             cameraTr = mainCam.transform;
         }
@@ -97,15 +92,15 @@ namespace Jc
         private void OnCapturePopUp(InputValue value)
         {
             captureDisplay.SetActive(!captureDisplay.activeSelf);
+
+            if (captureDisplay.activeSelf && screenCapture.CurrentSprite != null)
+                captureDisplay.transform.GetChild(0).GetComponent<Image>().sprite = screenCapture.CurrentSprite;
         }
 
         // 투영 콜백
         private void OnProjection(InputValue value)
         {
-            if (currentTexture == null)
-                return;
 
-            photoProjection.ProjectPhoto(currentTexture, transform.position + transform.forward * 5f, Quaternion.identity);
         }
     }
 }
