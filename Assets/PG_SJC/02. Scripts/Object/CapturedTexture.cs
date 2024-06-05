@@ -41,8 +41,10 @@ namespace Jc
         {
             base.OnSelectEntering(args);
             meshRenderer.sharedMaterial = highlightMT;
+
             grabbedFrame.SetActive(!grabbedFrame.activeSelf);
             originFrame.SetActive(!originFrame.activeSelf);
+            
             // 테스트용
             OnHighlighting();
         }
@@ -54,6 +56,7 @@ namespace Jc
 
             grabbedFrame.SetActive(!grabbedFrame.activeSelf);
             originFrame.SetActive(!originFrame.activeSelf);
+
             // 테스트용
             OffHighlighting();
         }

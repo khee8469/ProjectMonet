@@ -25,6 +25,7 @@ namespace Jc
         {
             base.OnSelectEntering(args);
         }
+
         // 상속하는 자식에서 다양화
         protected override void OnSelectExiting(SelectExitEventArgs args)
         {
