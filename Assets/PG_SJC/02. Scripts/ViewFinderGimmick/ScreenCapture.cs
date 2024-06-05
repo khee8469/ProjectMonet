@@ -14,6 +14,8 @@ namespace Jc
         private Image captureImage;
 
         private Texture2D screenCapture;
+        private Sprite currentSprite;
+        public Sprite CurrentSprite {get { return currentSprite; } }
 
         private Coroutine captureRoutine;
 
@@ -57,8 +59,8 @@ namespace Jc
 
         private void UpdateImage()
         {
-            Sprite captureSprite = Sprite.Create(screenCapture, new Rect(0, 0, screenCapture.width, screenCapture.height), new Vector2(0.5f, 0.5f), 100f);
-            captureImage.sprite = captureSprite;
+            currentSprite = Sprite.Create(screenCapture, new Rect(0, 0, screenCapture.width, screenCapture.height), new Vector2(0.5f, 0.5f), 100f);
+            captureImage.sprite = currentSprite;
         }
 
         private void SaveTextureToPNG(Texture2D texture)
