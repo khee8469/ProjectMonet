@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace Jc
 {
-    public class CapturedTexture : InteractObject
+    public class CapturedTexture : InteractObject, IInteractable
     {
         [Header("에디터 세팅")]
         [SerializeField]
@@ -16,6 +16,13 @@ namespace Jc
         [SerializeField]
         private MeshRenderer meshRenderer;  // 액자의 배경으로 사용될 쿼드 메시
 
+        [Tooltip("활성화 데이터")]
+        [SerializeField]
+        private PosRotPair activeData;
+
+        [Tooltip("시네마틱 이벤트 재생시간")]
+        [SerializeField]
+        private float cinematicTime;
 
         [Tooltip("하이라이팅 할 머터리얼 ")]
         [SerializeField]
@@ -26,6 +33,26 @@ namespace Jc
         [SerializeField]
         private Color highlightingColor;    // 하이라이팅 머터리얼 색상
         private Color originColor;          // 기존 머터리얼 색상
+
+        private bool isActive = false;
+        public bool IsActive 
+        {
+            get  { return isActive; } 
+            set
+            {
+                // 그랩된 상태에서만 활성화 여부 체크
+                if (value)
+                    isActive = isGrabbed;
+                else
+                    isActive = value;
+            }
+        }   
+
+        public bool IsGrabbed   // isGrabbed 프로퍼티
+        {
+            get { return isGrabbed; }
+            set { isGrabbed = value; }
+        }
 
         private Coroutine highligtingRoutine;
 
@@ -41,10 +68,13 @@ namespace Jc
         {
             base.OnSelectEntering(args);
             meshRenderer.sharedMaterial = highlightMT;
+
             grabbedFrame.SetActive(!grabbedFrame.activeSelf);
             originFrame.SetActive(!originFrame.activeSelf);
+
+            IsGrabbed = true;
             // 테스트용
-            OnHighlighting();
+            //OnHighlighting();
         }
         protected override void OnSelectExiting(SelectExitEventArgs args)
         {
@@ -54,6 +84,8 @@ namespace Jc
 
             grabbedFrame.SetActive(!grabbedFrame.activeSelf);
             originFrame.SetActive(!originFrame.activeSelf);
+
+            IsGrabbed = false;
             // 테스트용
             OffHighlighting();
         }
@@ -69,7 +101,6 @@ namespace Jc
 
             highligtingRoutine = StartCoroutine(HighlightingRoutine());
         }
-
         // 트리거에서 벗어난 경우 메서드 호출
         public void OffHighlighting()
         {
@@ -104,6 +135,16 @@ namespace Jc
             }
         }
 
+        // 아이템 상호작용
+        public void Interact()
+        {
+            // 상태체크 (트리거에 진입한 경우)
+            if(IsActive)
+            {
+                StartCoroutine(CinematicRoutine());
+            }
+        }
+
         // 시네머신 활성화 (트리거 상태에서 버튼 클릭 시)
         public void ActiveCinemachine()
         {
@@ -113,7 +154,26 @@ namespace Jc
         // 액자 시네마틱 루틴
         IEnumerator CinematicRoutine()
         {
-            yield return null;
+            float rate = 0f;
+
+            // 현 위치 및 회전
+            Vector3 originPos = transform.position;
+            Quaternion originRot = transform.rotation;
+
+            // 활성화 위치 및 회전
+            Vector3 targetPos = activeData.position;
+            Quaternion targetRot = activeData.rotation;
+
+            // 시네마틱 카메라 우선순위 설정
+
+            while(rate < 1f)
+            {
+                rate += Time.deltaTime / cinematicTime;
+
+                transform.position = Vector3.Lerp(originPos, targetPos, rate);
+                transform.rotation = Quaternion.Lerp(originRot, targetRot, rate);
+                yield return null;
+            }
         }
     }
 }

@@ -39,6 +39,10 @@ namespace Jc
             set { rightSeletOB = value; }
         }
 
+        [Header("플레이어 아이템 컨트롤러 (그랩할 수 있는 오브젝트 관리자)")]
+        [SerializeField]
+        private PlayerItemController itemController;
+
         private void OnEnable()
         {
             leftITR.selectEntered.AddListener(OnLeftHandSelectEnter);
