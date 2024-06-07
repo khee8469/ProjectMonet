@@ -20,6 +20,8 @@ namespace Jc
         [SerializeField]
         protected ObjectType objectType;
 
+        protected bool isGrabbed = false;   // 오브젝트의 그랩 여부
+
         // 상속하는 자식에서 다양화
         protected override void OnSelectEntering(SelectEnterEventArgs args)
         {

@@ -16,6 +16,9 @@ namespace Jc
         [SerializeField]
         private MeshRenderer meshRenderer;  // 액자의 배경으로 사용될 쿼드 메시
 
+        [Tooltip("텍스쳐 데이터")]
+        [SerializeField]
+        private CapturedTextureData textureData;
 
         [Tooltip("하이라이팅 할 머터리얼 ")]
         [SerializeField]
@@ -26,6 +29,26 @@ namespace Jc
         [SerializeField]
         private Color highlightingColor;    // 하이라이팅 머터리얼 색상
         private Color originColor;          // 기존 머터리얼 색상
+
+        private bool isActive = false;
+        public bool IsActive 
+        {
+            get  { return isActive; } 
+            set
+            {
+                // 그랩된 상태에서만 활성화 여부 체크
+                if (value)
+                    isActive = isGrabbed;
+                else
+                    isActive = value;
+            }
+        }   
+
+        public bool IsGrabbed   // isGrabbed 프로퍼티
+        {
+            get { return isGrabbed; }
+            set { isGrabbed = value; }
+        }
 
         private Coroutine highligtingRoutine;
 
@@ -44,9 +67,10 @@ namespace Jc
 
             grabbedFrame.SetActive(!grabbedFrame.activeSelf);
             originFrame.SetActive(!originFrame.activeSelf);
-            
+
+            IsGrabbed = true;
             // 테스트용
-            OnHighlighting();
+            //OnHighlighting();
         }
         protected override void OnSelectExiting(SelectExitEventArgs args)
         {
@@ -57,6 +81,7 @@ namespace Jc
             grabbedFrame.SetActive(!grabbedFrame.activeSelf);
             originFrame.SetActive(!originFrame.activeSelf);
 
+            IsGrabbed = false;
             // 테스트용
             OffHighlighting();
         }
@@ -72,7 +97,6 @@ namespace Jc
 
             highligtingRoutine = StartCoroutine(HighlightingRoutine());
         }
-
         // 트리거에서 벗어난 경우 메서드 호출
         public void OffHighlighting()
         {
