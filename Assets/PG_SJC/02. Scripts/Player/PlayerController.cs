@@ -28,8 +28,6 @@ namespace Jc
 
         private Camera mainCam;
         private Transform cameraTr;
-        // 캡쳐 파일경로
-        private string capturePath = "Assets/PG_SJC/98. ScreenShot/ScreenShot";
 
         private void Awake()
         {
@@ -37,6 +35,10 @@ namespace Jc
             //Cursor.lockState = CursorLockMode.Locked;
             mainCam = Camera.main;
             cameraTr = mainCam.transform;
+        }
+
+        private void OnEnable()
+        {
         }
 
         private void Update()

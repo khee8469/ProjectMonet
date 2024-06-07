@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.IO.LowLevel.Unsafe;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -8,7 +9,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 public enum ObjectType
 {
     None = -1,          // 단순 상호작용 오브젝트 
-    CapturedScreen      // 캡쳐된 스크린
+    CapturedScreen,      // 캡쳐된 스크린
+    Button
 }
 
 namespace Jc
@@ -19,6 +21,7 @@ namespace Jc
         [Header("오브젝트의 타입 (상호작용)")]
         [SerializeField]
         protected ObjectType objectType;
+        public ObjectType ObjectType {get { return objectType; } }
 
         protected bool isGrabbed = false;   // 오브젝트의 그랩 여부
 
@@ -33,5 +36,8 @@ namespace Jc
         {
             base.OnSelectExiting(args);
         }
+
+        
+
     }
 }
