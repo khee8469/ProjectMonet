@@ -37,6 +37,10 @@ namespace Jc
             cameraTr = mainCam.transform;
         }
 
+        private void OnEnable()
+        {
+        }
+
         private void Update()
         {
             Move();
