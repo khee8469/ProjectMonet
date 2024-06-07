@@ -36,7 +36,7 @@ public class PositionSyncManager : MonoBehaviour
     }
 
 
-    public void SavePosition(Vector3 position)
+    /*public void SavePosition(Vector3 position)
     {
         positionData = new PositionData { position = position };
     }
@@ -45,6 +45,5 @@ public class PositionSyncManager : MonoBehaviour
     {
         return positionData != null ? positionData.position : Vector3.zero;
     }
-
-
+    */
 }

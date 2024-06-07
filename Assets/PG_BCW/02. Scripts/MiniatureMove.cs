@@ -8,11 +8,11 @@ public class MiniatureMove : MonoBehaviour
     {
         //위치데이터 저장
         //딕셔너리에 같은 key의 데이터가 없으면
-        if(PositionSyncManager.instance.positionData.SavePosition.ContainsKey(transform.name) == null){
+        if(!PositionSyncManager.instance.positionData.SavePosition.ContainsKey(transform.name)){
             PositionSyncManager.instance.positionData.SavePosition.Add(transform.name, transform.position);
         }
         //딕셔너리에 같은 key의 데이터가 있으면
-        else if (PositionSyncManager.instance.positionData.SavePosition.ContainsKey(transform.name) != null)
+        else if (PositionSyncManager.instance.positionData.SavePosition.ContainsKey(transform.name))
         {
             PositionSyncManager.instance.positionData.SavePosition.Remove(transform.name);
             PositionSyncManager.instance.positionData.SavePosition.Add(transform.name, transform.position);
