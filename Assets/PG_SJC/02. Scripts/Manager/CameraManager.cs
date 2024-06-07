@@ -20,7 +20,7 @@ namespace Jc
 
         private void OnEnable()
         {
-            MainCameraSetting();
+            //MainCameraSetting();
         }
 
         // 메인 카메라 및 시네머신 브레인 초기세팅

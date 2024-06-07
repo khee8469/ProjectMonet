@@ -15,6 +15,8 @@ namespace Jc
         private GameObject originFrame;     // 기존 프레임
         [SerializeField]
         private MeshRenderer meshRenderer;  // 액자의 배경으로 사용될 쿼드 메시
+        [SerializeField]
+        private Animator anim;
 
         [Tooltip("활성화 데이터")]
         [SerializeField]
@@ -33,6 +35,10 @@ namespace Jc
         [SerializeField]
         private Color highlightingColor;    // 하이라이팅 머터리얼 색상
         private Color originColor;          // 기존 머터리얼 색상
+
+        [Header("착시 적용 시 활성화 할 오브젝트 리스트")]
+        [SerializeField]
+        public List<GameObject> activableList;
 
         private bool isActive = false;
         public bool IsActive 
@@ -59,6 +65,8 @@ namespace Jc
         protected override void Awake()
         {
             base.Awake();
+            objectType = ObjectType.CapturedScreen;
+
             // 원본 머터리얼을 캐싱
             originMT = meshRenderer.sharedMaterial;
             originColor = originMT.color;
@@ -154,26 +162,14 @@ namespace Jc
         // 액자 시네마틱 루틴
         IEnumerator CinematicRoutine()
         {
-            float rate = 0f;
-
-            // 현 위치 및 회전
-            Vector3 originPos = transform.position;
-            Quaternion originRot = transform.rotation;
-
-            // 활성화 위치 및 회전
-            Vector3 targetPos = activeData.position;
-            Quaternion targetRot = activeData.rotation;
-
-            // 시네마틱 카메라 우선순위 설정
-
-            while(rate < 1f)
-            {
-                rate += Time.deltaTime / cinematicTime;
-
-                transform.position = Vector3.Lerp(originPos, targetPos, rate);
-                transform.rotation = Quaternion.Lerp(originRot, targetRot, rate);
-                yield return null;
-            }
+            yield return Manager.UI.FadeInRoutine(1.5f);
+            // 오브젝트 페이드 아웃 연출
+            anim.SetTrigger("FadeOut");
+            foreach (GameObject go in activableList)
+                go.SetActive(true);
+            yield return Manager.UI.FadeOutRoutine(1.5f);
+            // 오브젝트 삭제
+            Destroy(gameObject);
         }
     }
 }

@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -8,6 +9,10 @@ namespace Jc
 {
     public class PlayerInteractor : MonoBehaviour
     {
+        [Header("디버깅 용")]
+        [SerializeField]
+        private CinemachineVirtualCamera playerVC;
+
         [Header("VR 핸들러")]
         [SerializeField]
         private XRBaseInteractor leftITR;   // 왼쪽 스틱 인터렉터
@@ -45,6 +50,8 @@ namespace Jc
 
         private void OnEnable()
         {
+            //Manager.Camera.PlayerCameraSetUp(playerVC);
+
             leftITR.selectEntered.AddListener(OnLeftHandSelectEnter);
             leftITR.selectExited.AddListener(OnLeftHandSelectExit);
             rightITR.selectEntered.AddListener(OnRightHandSelectEnter);
