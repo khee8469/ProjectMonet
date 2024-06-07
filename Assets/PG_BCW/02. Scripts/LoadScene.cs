@@ -5,12 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class LoadScene : MonoBehaviour
 {
-    [SerializeField] string sceneName;
+    [SerializeField] string lobbyScene;
+    [SerializeField] string gameScene;
 
-    
-
-    public void Load()
+    private void Awake()
     {
-        SceneManager.LoadScene(sceneName);
+        DontDestroyOnLoad(this);
     }
+
+    public void LobbyLoad()
+    {
+        SceneManager.LoadScene(lobbyScene);
+    }
+
+    public void GameScene()
+    {
+        SceneManager.LoadScene(gameScene);
+    }
+    
 }

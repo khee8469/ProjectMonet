@@ -9,5 +9,4 @@ public class PositionData : MonoBehaviour
     public Dictionary<string, Vector3> SavePosition 
     { get { return savePosition; } set { savePosition = value; } }
 
-    public Vector3 position;
 }
