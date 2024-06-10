@@ -17,7 +17,9 @@ namespace Jc
 {
     public class InteractObject : XRGrabInteractable
     {
+        [Space(5)]
         [Header("---- 컴포넌트 커스텀 ----")]
+        [Space(5)]
         [Header("오브젝트의 타입 (상호작용)")]
         [SerializeField]
         protected ObjectType objectType;
