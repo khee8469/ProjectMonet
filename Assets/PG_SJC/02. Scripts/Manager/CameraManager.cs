@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using UnityEngine.InputSystem.XR;
+using static UnityEngine.SpatialTracking.TrackedPoseDriver;
 
 public class CameraManager : Singleton<CameraManager>
 {
     [Header("메인 카메라")]
     public Camera mainCamera;
     private CinemachineBrain cinemachineBrain;
+    private TrackedPoseDriver trackedPose;
     private int originBlendStyle = 0;
     private float originBlendTime = 0f;
 
@@ -18,7 +21,7 @@ public class CameraManager : Singleton<CameraManager>
 
     private void OnEnable()
     {
-        //MainCameraSetting();
+        MainCameraSetting();
     }
 
     // 메인 카메라 및 시네머신 브레인 초기세팅
@@ -26,8 +29,11 @@ public class CameraManager : Singleton<CameraManager>
     {
         mainCamera = Camera.main;
         cinemachineBrain = mainCamera.GetComponent<CinemachineBrain>();
+        if (cinemachineBrain == null) return;
         originBlendStyle = (int)cinemachineBrain.m_DefaultBlend.m_Style;
         originBlendTime = cinemachineBrain.m_DefaultBlend.m_Time;
+
+        trackedPose = mainCamera.GetComponent<TrackedPoseDriver>();
     }
 
     // 플레이어 메인 카메라 세팅 (씬 변경될때마다 호출)
@@ -44,7 +50,7 @@ public class CameraManager : Singleton<CameraManager>
     }
 
     // 카메라 우선순위 세팅
-    public void SetPriority(CinemachineVirtualCamera vc, int style = -1, float blendTime = -1f)
+    public void SetPriority(CinemachineVirtualCamera vc = null, int style = -1, float blendTime = -1f)
     {
         if (playerVC == null || currentVC == null)
         {
@@ -54,7 +60,6 @@ public class CameraManager : Singleton<CameraManager>
 
         if (mainCamera == null)
             MainCameraSetting();
-
 
         // 블렌드 타입 세팅
         if (style == -1)
@@ -67,8 +72,18 @@ public class CameraManager : Singleton<CameraManager>
         else
             cinemachineBrain.m_DefaultBlend.m_Time = blendTime;
 
+        if(vc == null)
+        { 
+            currentVC = playerVC;
+            StartCoroutine(Extension.ActionDelay(blendTime, ()=>trackedPose.enabled = true));
+        }
+        else
+        {
+            trackedPose.enabled = false;
+            currentVC = vc;
+        }
 
-        currentVC = vc;
+        
         currentVC.Priority = 1;
     }
 }
