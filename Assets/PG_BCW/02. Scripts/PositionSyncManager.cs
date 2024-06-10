@@ -9,6 +9,7 @@ public class PositionSyncManager : MonoBehaviour
     public static PositionSyncManager Instance {  get { return instance; } }
 
     //Resources에서 가져오기
+    [SerializeField]
     private PositionData positionData; // 위치데이터 저장
     public PositionData PositionData { get { return positionData; } }
 
@@ -34,21 +35,34 @@ public class PositionSyncManager : MonoBehaviour
         }
     }
 
+
     private void Start()
     {
-        positionData = Resources.Load("PositionData").GetComponent<PositionData>();
-        //npcManager = Resources.Load("NpcManager").GetComponent<NpcManager>();
-
-        if(miniatureManager != null )
+        //미니어처들의 처음위치 저장
+        if (miniatureManager != null)
         {
-            //미니어처들의 처음위치 저장
-            foreach (var a in miniatureManager.Miniatures)
+            foreach (MiniatureMove miniature in miniatureManager.Miniatures)
             {
-                positionData.SavePosition.Add(a.name, a.transform.position);
+                positionData.SavePosition.Add(miniature.name, miniature.transform.localPosition);
             }
         }
     }
 
+    private void OnDisable()
+    {
+        positionData.SavePosition.Clear();
+    }
+
+
+    private void SetMiniaturePosition()
+    {
+
+    }
+
+    private void SetNpcPosition()
+    {
+
+    }
 
 
 
