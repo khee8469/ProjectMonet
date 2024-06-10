@@ -4,41 +4,54 @@ using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-
-public class UIManager : Singleton<UIManager>   
+namespace Jc
 {
-    [Header("페이드 이미지")]
-    [SerializeField]
-    private Image fadeImage;
-
-    private Color32 fadeInColor = new Color32(0,0,0,1);
-    private Color32 fadeOutColor = new Color32(0, 0, 0, 0);
-
-    public IEnumerator FadeInRoutine(float fadeTime = 0f)
+    public class UIManager : Singleton<UIManager>
     {
-        float rate = 0f;
-        while(rate < 1f)
+        [Header("유저 메인 캔버스")]
+        [SerializeField]
+        private Canvas mainCanavas;
+
+        [Header("페이드 이미지")]
+        [SerializeField]
+        private Image fadeImage;
+
+        private Color32 fadeInColor = new Color32(0, 0, 0, 1);
+        private Color32 fadeOutColor = new Color32(0, 0, 0, 0);
+
+        private void OnEnable()
         {
-            rate += Time.deltaTime / fadeTime;
-            fadeImage.color = Color32.Lerp(fadeOutColor, fadeInColor, rate);
-            yield return null;
+            Camera renderCamera = Camera.main;
+            if (renderCamera == null) return;
+
+            mainCanavas.worldCamera = renderCamera;
         }
 
-        fadeImage.color = fadeInColor;
-        yield return null;  
-    }
-    public IEnumerator FadeOutRoutine(float fadeTime = 0f)
-    {
-        float rate = 0f;
-        while (rate < 1f)
+        public IEnumerator FadeInRoutine(float fadeTime = 0f)
         {
-            rate += Time.deltaTime / fadeTime;
-            fadeImage.color = Color32.Lerp(fadeInColor, fadeOutColor, rate);
+            float rate = 0f;
+            while (rate < 1f)
+            {
+                rate += Time.deltaTime / fadeTime;
+                fadeImage.color = Color32.Lerp(fadeOutColor, fadeInColor, rate);
+                yield return null;
+            }
+
+            fadeImage.color = fadeInColor;
             yield return null;
         }
+        public IEnumerator FadeOutRoutine(float fadeTime = 0f)
+        {
+            float rate = 0f;
+            while (rate < 1f)
+            {
+                rate += Time.deltaTime / fadeTime;
+                fadeImage.color = Color32.Lerp(fadeInColor, fadeOutColor, rate);
+                yield return null;
+            }
 
-        fadeImage.color = fadeOutColor;
-        yield return null;
+            fadeImage.color = fadeOutColor;
+            yield return null;
+        }
     }
 }
