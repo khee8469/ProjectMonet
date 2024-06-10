@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PositionSyncManager : MonoBehaviour
 {
+    public enum MiniatureNum { First, Second, Third, Fourth, }
+
     private static PositionSyncManager instance;
     public static PositionSyncManager Instance {  get { return instance; } }
 
@@ -13,12 +15,6 @@ public class PositionSyncManager : MonoBehaviour
     private PositionData positionData; // 위치데이터 저장
     public PositionData PositionData { get { return positionData; } }
 
-    /*[SerializeField]
-    private MiniatureManager miniatureManager;
-    public MiniatureManager MiniatureManager { get { return miniatureManager; } }*/
-
-    /*private NpcManager npcManager;
-    public NpcManager NpcManager { get { return npcManager; } }*/
 
 
 
@@ -35,45 +31,8 @@ public class PositionSyncManager : MonoBehaviour
         }
     }
 
-
-    private void Start()
-    {
-        //미니어처들의 처음위치 저장
-        /*if (miniatureManager != null)
-        {
-            foreach (MiniatureMove miniature in miniatureManager.Miniatures)
-            {
-                positionData.SavePosition.Add(miniature.name, miniature.transform.localPosition);
-            }
-        }*/
-    }
-
     private void OnDisable()
     {
         positionData.SavePosition.Clear();
     }
-
-
-    private void SetMiniaturePosition()
-    {
-
-    }
-
-    private void SetNpcPosition()
-    {
-
-    }
-
-
-
-    /*public void SavePosition(Vector3 position)
-    {
-        positionData = new PositionData { position = position };
-    }
-
-    public Vector3 LoadPosition()
-    {
-        return positionData != null ? positionData.position : Vector3.zero;
-    }
-    */
 }

@@ -8,29 +8,26 @@ public class MiniatureManager : MonoBehaviour
     [SerializeField] List<Miniature> miniatures;
     public List<Miniature> Miniatures { get { return miniatures; } }
 
+    //몇번째 씬과 미니어쳐인지 확인용
+    [SerializeField] private PositionSyncManager.MiniatureNum miniatureNum;
+    public PositionSyncManager.MiniatureNum MiniatureNum { get { return miniatureNum; } }
+
     int sceneNumber;
 
     private void Awake()
     {
         miniatures = GetComponentsInChildren<Miniature>().ToList();
-
-
     }
 
     private void Start()
     {
-        if (gameObject.name == "Scene_1 Miniature")
-            sceneNumber = 0;
-        else if (gameObject.name == "Scene_2 Miniature")
-            sceneNumber = 1;
-        else if (gameObject.name == "Scene_3 Miniature")
-            sceneNumber = 2;
-        else if (gameObject.name == "Scene_4 Miniature")
-            sceneNumber = 3;
-        else
-            Debug.Log("ERROR");
-
-        Debug.Log(sceneNumber);
+        switch (miniatureNum)
+        {
+            case PositionSyncManager.MiniatureNum.First: sceneNumber = 0; break;
+            case PositionSyncManager.MiniatureNum.Second: sceneNumber = 1; break;
+            case PositionSyncManager.MiniatureNum.Third: sceneNumber = 2; break;
+            case PositionSyncManager.MiniatureNum.Fourth: sceneNumber = 3; break;
+        }
 
         SetMiniPosition();
     }
@@ -53,34 +50,4 @@ public class MiniatureManager : MonoBehaviour
             }
         }
     }
-
-
-
-    /*//위치 재배치
-    private void Start()
-    {
-        coroutine = StartCoroutine(DelayStart());
-    }
-
-    Coroutine coroutine;
-    //PositionSyncManager의 start의 초기 딕셔너리값이 안들어가서
-    private IEnumerator DelayStart()
-    {
-        yield return new WaitForSeconds(0.1f);
-
-        foreach (MiniatureMove miniature in miniatures)
-        {
-            //데이터가 잇으면
-            if (PositionSyncManager.Instance.PositionData.SavePosition.ContainsKey(miniature.name))
-            {
-                PositionSyncManager.Instance.PositionData.SavePosition.TryGetValue(miniature.name, out Vector3 position);
-                miniature.transform.localPosition = new Vector3(position.x, 0.5f, position.z);
-            }
-            //데이터가 없으면
-            else if (!PositionSyncManager.Instance.PositionData.SavePosition.ContainsKey(miniature.name))
-            {
-                continue;
-            }
-        }
-    }*/
 }

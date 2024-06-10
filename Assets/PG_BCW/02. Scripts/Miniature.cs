@@ -6,37 +6,45 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Miniature : XRGrabInteractable
 {
-    int sceneNumber;  // 임시 확인용
+    int sceneNumber;  // 씬 위치데이터 접근용
 
     XRGrabInteractable grabInteractable;
+
+    Vector3 startPos;
 
     protected override void Awake()
     {
         base.Awake();
         grabInteractable = GetComponent<XRGrabInteractable>();
 
+        grabInteractable.selectEntered.AddListener(StartGrab);
         grabInteractable.selectExited.AddListener(EndGrab);
+    }
 
-        if (transform.parent.name == "Scene_1 Miniature")
-            sceneNumber = 0;
-        else if (transform.parent.name == "Scene_2 Miniature")
-            sceneNumber = 1;
-        else if (transform.parent.name == "Scene_3 Miniature")
-            sceneNumber = 2;
-        else if (transform.parent.name == "Scene_4 Miniature")
-            sceneNumber = 3;
-        else
-            Debug.Log("ERROR");
+    private void Start()
+    {
+        switch (transform.parent.GetComponent<MiniatureManager>().MiniatureNum)
+        {
+            case PositionSyncManager.MiniatureNum.First: sceneNumber = 0; break;
+            case PositionSyncManager.MiniatureNum.Second: sceneNumber = 1; break;
+            case PositionSyncManager.MiniatureNum.Third: sceneNumber = 2; break;
+            case PositionSyncManager.MiniatureNum.Fourth: sceneNumber = 3; break;
+        }
+    }
 
-        Debug.Log(sceneNumber);
+    public void StartGrab(SelectEnterEventArgs args)
+    {
+        startPos = transform.position;
     }
 
     //XR Grab Interactable의 Select Exited 이벤트에서 사용중
     public void EndGrab(SelectExitEventArgs args)
     {
+        GroundCheck();
         GetPosition();
     }
 
+    //미니어처의 현재 위치를 저장
     public void GetPosition()
     {
         //위치데이터 저장
@@ -55,5 +63,17 @@ public class Miniature : XRGrabInteractable
         //미니어처 놓았을 때 높이와 회전 고정
         transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
         transform.rotation = Quaternion.identity;
+    }
+
+    //미니어처가 장판 밖에 두었을때 원래 위치로 복구
+    public void GroundCheck()
+    {
+        RaycastHit hit;
+        Physics.Raycast(transform.position, Vector3.down, out hit, 1000f);
+
+        if(hit.transform != transform.parent)
+        {
+            transform.position = startPos;
+        }
     }
 }

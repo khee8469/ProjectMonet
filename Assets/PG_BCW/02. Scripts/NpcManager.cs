@@ -10,28 +10,27 @@ public class NpcManager : MonoBehaviour
     [SerializeField] List<Npc> npcs;
     public List<Npc> Npcs {  get { return npcs; } }
 
+    //몇번째 씬과 미니어쳐인지 확인용
+    [SerializeField] private PositionSyncManager.MiniatureNum miniatureNum;
+    public PositionSyncManager.MiniatureNum MiniatureNum { get { return miniatureNum; } }
+
     int sceneNumber;
 
     private void Awake()
     {
-        npcs = GetComponentsInChildren<Npc>().ToList<Npc>();
+        npcs = GetComponentsInChildren<Npc>().ToList();
     }
 
     //위치 재배치
     private void Start()
     {
-        if (gameObject.name == "Scene_1")
-            sceneNumber = 0;
-        else if (gameObject.name == "Scene_2")
-            sceneNumber = 1;
-        else if (gameObject.name == "Scene_3")
-            sceneNumber = 2;
-        else if (gameObject.name == "Scene_4")
-            sceneNumber = 3;
-        else
-            Debug.Log("ERROR");
-
-        Debug.Log(sceneNumber);
+        switch (miniatureNum)
+        {
+            case PositionSyncManager.MiniatureNum.First: sceneNumber = 0; break;
+            case PositionSyncManager.MiniatureNum.Second: sceneNumber = 1; break;
+            case PositionSyncManager.MiniatureNum.Third: sceneNumber = 2; break;
+            case PositionSyncManager.MiniatureNum.Fourth: sceneNumber = 3; break;
+        }
 
         SetNpcPosition();
     }

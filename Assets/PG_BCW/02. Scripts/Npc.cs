@@ -9,18 +9,13 @@ public class Npc : MonoBehaviour
 
     void Start()
     {
-        if (transform.parent.name == "Scene_1")
-            sceneNumber = 0;
-        else if (transform.parent.name == "Scene_2")
-            sceneNumber = 1;
-        else if (transform.parent.name == "Scene_3")
-            sceneNumber = 2;
-        else if (transform.parent.name == "Scene_4")
-            sceneNumber = 3;
-        else
-            Debug.Log("ERROR");
-
-        Debug.Log(sceneNumber);
+        switch (transform.parent.GetComponent<NpcManager>().MiniatureNum)
+        {
+            case PositionSyncManager.MiniatureNum.First: sceneNumber = 0; break;
+            case PositionSyncManager.MiniatureNum.Second: sceneNumber = 1; break;
+            case PositionSyncManager.MiniatureNum.Third: sceneNumber = 2; break;
+            case PositionSyncManager.MiniatureNum.Fourth: sceneNumber = 3; break;
+        }
 
         coroutine = StartCoroutine(NpcTestMove());
     }
