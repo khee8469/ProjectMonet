@@ -9,6 +9,7 @@ public class bcw_LoadScene : MonoBehaviour
     [SerializeField] string Scene_1;
     [SerializeField] string Scene_2;
     [SerializeField] string Scene_3;
+    [SerializeField] string Scene_4;
 
     private void Awake()
     {
@@ -34,5 +35,8 @@ public class bcw_LoadScene : MonoBehaviour
     {
         SceneManager.LoadScene(Scene_3);
     }
-
+    public void Scene_4Load()
+    {
+        SceneManager.LoadScene(Scene_4);
+    }
 }

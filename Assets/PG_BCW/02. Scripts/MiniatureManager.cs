@@ -1,37 +1,59 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class MiniatureManager : MonoBehaviour
 {
     [Tooltip("미니어처 리스트")]
-    [SerializeField] List<MiniatureMove> miniatures;
-    public List<MiniatureMove> Miniatures {  get { return miniatures; } }
+    [SerializeField] List<Miniature> miniatures;
+    public List<Miniature> Miniatures { get { return miniatures; } }
+
+    int sceneNumber;
 
     private void Awake()
     {
-        miniatures = GetComponentsInChildren<MiniatureMove>().ToList<MiniatureMove>();
+        miniatures = GetComponentsInChildren<Miniature>().ToList();
+
+
     }
 
     private void Start()
     {
-        foreach (MiniatureMove miniature in miniatures)
+        if (gameObject.name == "Scene_1 Miniature")
+            sceneNumber = 0;
+        else if (gameObject.name == "Scene_2 Miniature")
+            sceneNumber = 1;
+        else if (gameObject.name == "Scene_3 Miniature")
+            sceneNumber = 2;
+        else if (gameObject.name == "Scene_4 Miniature")
+            sceneNumber = 3;
+        else
+            Debug.Log("ERROR");
+
+        Debug.Log(sceneNumber);
+
+        SetMiniPosition();
+    }
+
+    private void SetMiniPosition()
+    {
+        foreach (Miniature miniature in miniatures)
         {
             //데이터가 잇으면
-            if (PositionSyncManager.Instance.PositionData.SavePosition.ContainsKey(miniature.name))
+            if (PositionSyncManager.Instance.PositionData.SavePosition[sceneNumber].ContainsKey(miniature.name))
             {
-                PositionSyncManager.Instance.PositionData.SavePosition.TryGetValue(miniature.name, out Vector3 position);
+                PositionSyncManager.Instance.PositionData.SavePosition[sceneNumber].TryGetValue(miniature.name, out Vector3 position);
                 miniature.transform.localPosition = new Vector3(position.x, 0.5f, position.z);
             }
             //데이터가 없으면
-            else if (!PositionSyncManager.Instance.PositionData.SavePosition.ContainsKey(miniature.name))
+            else if (!PositionSyncManager.Instance.PositionData.SavePosition[sceneNumber].ContainsKey(miniature.name))
             {
-                continue;
+
+                PositionSyncManager.Instance.PositionData.SavePosition[sceneNumber].Add(miniature.gameObject.name, miniature.transform.localPosition);
             }
         }
     }
+
 
 
     /*//위치 재배치
