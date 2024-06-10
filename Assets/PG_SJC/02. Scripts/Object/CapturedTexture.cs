@@ -77,6 +77,7 @@ namespace Jc
             base.OnSelectEntering(args);
             meshRenderer.sharedMaterial = highlightMT;
 
+            // 프레임 오브젝트를 변경 (XR Visual Feedback을 사용하지 않는 오브젝트로 변경)
             grabbedFrame.SetActive(!grabbedFrame.activeSelf);
             originFrame.SetActive(!originFrame.activeSelf);
 
@@ -109,6 +110,7 @@ namespace Jc
 
             highligtingRoutine = StartCoroutine(HighlightingRoutine());
         }
+
         // 트리거에서 벗어난 경우 메서드 호출
         public void OffHighlighting()
         {
