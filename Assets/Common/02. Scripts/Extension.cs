@@ -11,9 +11,11 @@ public static class Extension
     }
 
     // 일정시간 딜레이 후 Action
-    public static IEnumerator ActionDelay(float delayTime, UnityAction action)
+    public static IEnumerator ActionDelay(float delayTime, UnityAction action, Coroutine thisRoutine = null)
     {
         yield return new WaitForSeconds(delayTime);
         action?.Invoke();
+        if (thisRoutine != null)
+            thisRoutine = null;
     }
 }

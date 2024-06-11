@@ -11,10 +11,14 @@ namespace Jc
     {
         [Header("VR 핸들러")]
         [SerializeField]
-        private XRBaseInteractor leftITR;   // 왼쪽 스틱 인터렉터
+        private ActionBasedController leftCTR;   // 왼쪽 스틱 컨트롤러
 
+        private InteractionState leftGripState;
+        private InteractionState leftTriggerState;
         [SerializeField]
-        private XRBaseInteractor rightITR;  // 오른쪽 스틱 인터렉터
+        private ActionBasedController rightCTR;  // 오른쪽 스틱 컨트롤러
+        private InteractionState rightGripState;
+        private InteractionState rightTriggerState;
 
         private GameObject leftSeletOB;     // 왼손 그랩 오브젝트
         public GameObject LeftSeletOB
@@ -44,48 +48,80 @@ namespace Jc
         [SerializeField]
         private PlayerItemController itemController;
 
+        private void Awake()
+        {
+            leftGripState = leftCTR.selectInteractionState;
+            leftTriggerState = leftCTR.activateInteractionState;
+            rightGripState = rightCTR.selectInteractionState;
+            rightTriggerState = rightCTR.activateInteractionState;
+        }
+
         private void OnEnable()
         {
-            leftITR.selectEntered.AddListener(OnLeftHandSelectEnter);
-            leftITR.selectExited.AddListener(OnLeftHandSelectExit);
-            rightITR.selectEntered.AddListener(OnRightHandSelectEnter);
-            rightITR.selectExited.AddListener(OnRightHandSelectExit);
+
         }
         private void OnDisable()
         {
-            leftITR.selectEntered.RemoveListener(OnLeftHandSelectEnter);
-            leftITR.selectExited.RemoveListener(OnLeftHandSelectExit);
-            rightITR.selectEntered.RemoveListener(OnRightHandSelectEnter);
-            rightITR.selectExited.RemoveListener(OnRightHandSelectExit);
+
         }
 
         #region VR 스틱 상호작용 콜백
-        private void OnLeftHandSelectEnter(SelectEnterEventArgs args)
+
+        #region 왼손 그립
+        private void OnLeftHandGripEnter(SelectEnterEventArgs args)
         {
             XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
             if (grabbedObject == null) return;  // 그랩 오브젝트 예외처리
             LeftSeletOB = grabbedObject.gameObject;
             Debug.Log($"왼손 그랩 : {LeftSeletOB}");
         }
-        private void OnLeftHandSelectExit(SelectExitEventArgs args)
+        private void OnLeftHandGripExit(SelectExitEventArgs args)
         {
             XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
             if (grabbedObject == null) return;  // 그랩 오브젝트 예외처리
             LeftSeletOB = null;
         }
-        private void OnRightHandSelectEnter(SelectEnterEventArgs args)
+        #endregion
+
+        #region 오른손 그립
+        private void OnRightHandGripEnter(SelectEnterEventArgs args)
         {
             XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
             if (grabbedObject == null) return;  // 그랩 오브젝트 예외처리
             RightSeletOB = grabbedObject.gameObject;
             Debug.Log($"오른손 그랩 : {LeftSeletOB}");
         }
-        private void OnRightHandSelectExit(SelectExitEventArgs args)
+        private void OnRightHandGripExit(SelectExitEventArgs args)
         {
             XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
             if (grabbedObject == null) return;  // 그랩 오브젝트 예외처리
             RightSeletOB = null;
         }
         #endregion
+
+        #region 왼손 트리거
+        private void OnLeftHandTriggerEnter(SelectEnterEventArgs args)
+        {
+
+        }
+        private void OnLeftHandTriggerExit(SelectEnterEventArgs args)
+        {
+
+        }
+        #endregion
+
+        #region 오른손 트리거
+        private void OnRightHandTriggerEnter(SelectEnterEventArgs args)
+        {
+
+        }
+        private void OnRightHandTriggerExit(SelectEnterEventArgs args)
+        {
+
+        }
+        #endregion
+
+        #endregion
+        // 퀘스트 추가 후 수정 예정
     }
 }
