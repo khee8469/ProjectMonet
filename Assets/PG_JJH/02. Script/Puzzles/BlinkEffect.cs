@@ -85,7 +85,7 @@ namespace JJH
                 yield break; // id가 맞지 않으면 코루틴 탈출 --> 트리거 된 객체만 제대로 블링크 할 수 있도록 
             }
 
-            elapseTime = 0f;
+           // elapseTime = 0f; -->나갔다 왔을 때 초기화 원하면 주석 삭제 
 
 
             while (true)
