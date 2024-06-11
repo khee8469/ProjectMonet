@@ -12,6 +12,8 @@ namespace JJH
         public static SceneManager Scene { get { return SceneManager.Instance; } }
         public static SoundManager Sound { get { return SoundManager.Instance; } }
         public static UIManager UI { get { return UIManager.Instance; } }
+        
+        public static ChapterManager chapter { get { return ChapterManager.Instance; } }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Initialize()
@@ -23,6 +25,8 @@ namespace JJH
             SceneManager.ReleaseInstance();
             SoundManager.ReleaseInstance();
             UIManager.ReleaseInstance();
+            ChapterManager.ReleaseInstance();
+
 
             GameManager.CreateInstance();
             DataManager.CreateInstance();
@@ -31,6 +35,8 @@ namespace JJH
             SceneManager.CreateInstance();
             SoundManager.CreateInstance();
             UIManager.CreateInstance();
+            ChapterManager.CreateInstance();
+
         }
     }
 }
