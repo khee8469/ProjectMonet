@@ -1,6 +1,7 @@
 using UnityEngine;
+using JJH;
 
-namespace Unity.SpatialFramework.Rendering
+namespace JJH
 {
     /// <summary>
     /// Used to change the materials array of an object when highlighted. Can either add the highlight material to the

@@ -1,4 +1,6 @@
-namespace Unity.SpatialFramework.Rendering
+using JJH;
+
+namespace JJH
 {
     /// <summary>
     /// Specifies how a transform's hierarchy is traversed to locate renderers to highlight

@@ -1,6 +1,8 @@
 using UnityEngine;
+using JJH;
 
-namespace Unity.SpatialFramework.Rendering
+
+namespace JJH
 {
     /// <summary>
     /// Draws an outline on an object when highlighting. Can either transition the color and or size of the out line

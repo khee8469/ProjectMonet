@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using JJH;
 
-namespace Unity.SpatialFramework.Rendering
+namespace JJH
 {
     /// <summary>
     /// All-in-one controller for animated object highlights in different states - hovered, selected, and activated

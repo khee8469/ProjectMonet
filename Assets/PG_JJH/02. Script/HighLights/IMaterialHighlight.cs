@@ -1,6 +1,7 @@
 using UnityEngine;
+using JJH;
 
-namespace Unity.SpatialFramework.Rendering
+namespace JJH
 {
     /// <summary>
     /// Specifies how a material is applied to renderer for highlighting

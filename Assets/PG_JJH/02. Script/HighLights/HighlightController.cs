@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using JJH;
 
-namespace Unity.SpatialFramework.Rendering
+
+namespace JJH
 {
     /// <summary>
     /// The HighlightController manages scripts that highlight objects in some way - those that inherit from IMaterialHighlight
