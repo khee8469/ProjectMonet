@@ -7,6 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 [RequireComponent(typeof(Outlinable))]
 public class OutLineSelect : XRGrabInteractable
 {
+    [Header("아웃라인 컴포넌트")]
     [SerializeField] Outlinable outlineableToUse;
 
 
@@ -38,6 +39,7 @@ public class OutLineSelect : XRGrabInteractable
     {
         base.OnSelectEntered(args);
         Debug.Log("on selected entered");
+        outlineableToUse.enabled = true;
         // 추후에 들었을 때 또 아웃라인을 바꾸고 싶다면 이 부분에서 아웃라인 관련 컴포넌트 수정해주기. 
     }
 
