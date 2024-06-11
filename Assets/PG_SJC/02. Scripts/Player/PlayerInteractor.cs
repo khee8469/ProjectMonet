@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace Jc
@@ -11,10 +12,10 @@ namespace Jc
     {
         [Header("VR 핸들러")]
         [SerializeField]
-        private XRBaseInteractor leftITR;   // 왼쪽 스틱 인터렉터
+        private XRBaseInteractor leftCTR;   // 왼쪽 스틱 컨트롤러
 
         [SerializeField]
-        private XRBaseInteractor rightITR;  // 오른쪽 스틱 인터렉터
+        private XRBaseInteractor rightCTR;  // 오른쪽 스틱 컨트롤러
 
         private GameObject leftSeletOB;     // 왼손 그랩 오브젝트
         public GameObject LeftSeletOB
@@ -44,48 +45,52 @@ namespace Jc
         [SerializeField]
         private PlayerItemController itemController;
 
+        private void Awake()
+        {
+        }
         private void OnEnable()
         {
-            leftITR.selectEntered.AddListener(OnLeftHandSelectEnter);
-            leftITR.selectExited.AddListener(OnLeftHandSelectExit);
-            rightITR.selectEntered.AddListener(OnRightHandSelectEnter);
-            rightITR.selectExited.AddListener(OnRightHandSelectExit);
+            
         }
         private void OnDisable()
         {
-            leftITR.selectEntered.RemoveListener(OnLeftHandSelectEnter);
-            leftITR.selectExited.RemoveListener(OnLeftHandSelectExit);
-            rightITR.selectEntered.RemoveListener(OnRightHandSelectEnter);
-            rightITR.selectExited.RemoveListener(OnRightHandSelectExit);
         }
 
         #region VR 스틱 상호작용 콜백
-        private void OnLeftHandSelectEnter(SelectEnterEventArgs args)
+
+        #region 왼손 그립
+        private void OnLeftHandGripEnter(InputValue value)
         {
-            XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
-            if (grabbedObject == null) return;  // 그랩 오브젝트 예외처리
-            LeftSeletOB = grabbedObject.gameObject;
-            Debug.Log($"왼손 그랩 : {LeftSeletOB}");
+            //XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
+            //if (grabbedObject == null) return;  // 그랩 오브젝트 예외처리
+            //LeftSeletOB = grabbedObject.gameObject;
+            //Debug.Log($"왼손 그랩 : {LeftSeletOB}");
         }
-        private void OnLeftHandSelectExit(SelectExitEventArgs args)
+        private void OnLeftHandGripExit(InputValue value)
         {
-            XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
-            if (grabbedObject == null) return;  // 그랩 오브젝트 예외처리
-            LeftSeletOB = null;
-        }
-        private void OnRightHandSelectEnter(SelectEnterEventArgs args)
-        {
-            XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
-            if (grabbedObject == null) return;  // 그랩 오브젝트 예외처리
-            RightSeletOB = grabbedObject.gameObject;
-            Debug.Log($"오른손 그랩 : {LeftSeletOB}");
-        }
-        private void OnRightHandSelectExit(SelectExitEventArgs args)
-        {
-            XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
-            if (grabbedObject == null) return;  // 그랩 오브젝트 예외처리
-            RightSeletOB = null;
+            //XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
+            //if (grabbedObject == null) return;  // 그랩 오브젝트 예외처리
+            //LeftSeletOB = null;
         }
         #endregion
+
+        #region 오른손 그립
+        private void OnRightHandGripEnter(InputValue value)
+        {
+            //XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
+            //if (grabbedObject == null) return;  // 그랩 오브젝트 예외처리
+            //RightSeletOB = grabbedObject.gameObject;
+            //Debug.Log($"오른손 그랩 : {LeftSeletOB}");
+        }
+        private void OnRightHandGripExit(InputValue value)
+        {
+            //XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
+            //if (grabbedObject == null) return;  // 그랩 오브젝트 예외처리
+            //RightSeletOB = null;
+        }
+        #endregion
+
+        #endregion
+        // 퀘스트 추가 후 수정 예정
     }
 }
