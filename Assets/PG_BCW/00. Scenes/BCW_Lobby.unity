@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.17549343, g: 0.21958363, b: 0.30190635, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2402,7 +2402,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 592545452}
   m_CullTransparentMesh: 1
---- !u!1001 &748036159
+--- !u!1001 &713681642
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -2413,7 +2413,7 @@ PrefabInstance:
     - target: {fileID: 544759194007201487, guid: 6d4cf49d34a14304f86d78af763531ac,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.39
+      value: -1.56
       objectReference: {fileID: 0}
     - target: {fileID: 544759194007201487, guid: 6d4cf49d34a14304f86d78af763531ac,
         type: 3}
@@ -2423,7 +2423,7 @@ PrefabInstance:
     - target: {fileID: 544759194007201487, guid: 6d4cf49d34a14304f86d78af763531ac,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.72
+      value: 3.62
       objectReference: {fileID: 0}
     - target: {fileID: 544759194007201487, guid: 6d4cf49d34a14304f86d78af763531ac,
         type: 3}
@@ -2460,24 +2460,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4897433304871913932, guid: 6d4cf49d34a14304f86d78af763531ac,
+    - target: {fileID: 3533305981453590469, guid: 6d4cf49d34a14304f86d78af763531ac,
         type: 3}
-      propertyPath: m_BackGroundColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4897433304871913932, guid: 6d4cf49d34a14304f86d78af763531ac,
-        type: 3}
-      propertyPath: m_BackGroundColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4897433304871913932, guid: 6d4cf49d34a14304f86d78af763531ac,
-        type: 3}
-      propertyPath: m_BackGroundColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4897433304871913932, guid: 6d4cf49d34a14304f86d78af763531ac,
-        type: 3}
-      propertyPath: m_BackGroundColor.r
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6597976798624862033, guid: 6d4cf49d34a14304f86d78af763531ac,
@@ -2488,11 +2473,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4897433304871913930, guid: 6d4cf49d34a14304f86d78af763531ac,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1811675876}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d4cf49d34a14304f86d78af763531ac, type: 3}
 --- !u!1 &895475225
 GameObject:
@@ -2583,7 +2564,7 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 2
-  m_Camera: {fileID: 1811675872}
+  m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -2752,12 +2733,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 944148195}
   m_CullTransparentMesh: 1
---- !u!1 &959238438 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4897433304871913930, guid: 6d4cf49d34a14304f86d78af763531ac,
-    type: 3}
-  m_PrefabInstance: {fileID: 748036159}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1043011293
 GameObject:
   m_ObjectHideFlags: 0
@@ -5217,13 +5192,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1791430407}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.7243973, y: -0.25874013, z: 0.0063859657, w: 0.6389533}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 68.282, y: -119.71, z: -97.701}
 --- !u!114 &1791430410
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5247,56 +5222,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!20 &1811675872 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 4897433304871913932, guid: 6d4cf49d34a14304f86d78af763531ac,
-    type: 3}
-  m_PrefabInstance: {fileID: 748036159}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1811675876
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 959238438}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_RenderShadows: 1
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
-  m_CameraType: 0
-  m_Cameras: []
-  m_RendererIndex: -1
-  m_VolumeLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
-  m_AntialiasingQuality: 2
-  m_StopNaN: 0
-  m_Dithering: 0
-  m_ClearDepth: 1
-  m_AllowXRRendering: 1
-  m_AllowHDROutput: 1
-  m_UseScreenCoordOverride: 0
-  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
-  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
-  m_RequiresDepthTexture: 0
-  m_RequiresColorTexture: 0
-  m_Version: 2
-  m_TaaSettings:
-    quality: 3
-    frameInfluence: 0.1
-    jitterScale: 1
-    mipBias: 0
-    varianceClampScale: 0.9
-    contrastAdaptiveSharpening: 0
 --- !u!1 &1911217360
 GameObject:
   m_ObjectHideFlags: 0
@@ -6976,7 +6901,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 1791430409}
   - {fileID: 895475230}
-  - {fileID: 748036159}
   - {fileID: 2327582490705203376}
   - {fileID: 23449257529406618}
   - {fileID: 66590734}
@@ -6984,3 +6908,4 @@ SceneRoots:
   - {fileID: 1301350390}
   - {fileID: 463517795}
   - {fileID: 1428281251}
+  - {fileID: 713681642}
