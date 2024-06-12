@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateMachine<TOwner, TState>
+public class StateMachine<TOwner, TState> 
 {
     // 상태머신 소유자
     private TOwner owner;

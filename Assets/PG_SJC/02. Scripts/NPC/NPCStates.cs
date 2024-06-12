@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
 namespace Jc
 {
@@ -63,13 +64,15 @@ namespace Jc
 
             public override void LateUpdate()
             {
-                baseOwner.Anim.SetFloat(AnimParameter.id_MoveSpeed, baseOwner.Agent.speed);
+                Debug.Log(baseOwner.Agent.velocity);
+                baseOwner.Anim.SetFloat(Manager.Param.MoveSpeed, baseOwner.Agent.velocity.sqrMagnitude);
             }
 
             public override void Exit()
             {
                 checkRoutine = null;
                 curDestination = Vector3.zero;
+                baseOwner.Anim.SetFloat(Manager.Param.MoveSpeed, 0f);
             }
 
             IEnumerator CheckArrivalRoutine()
