@@ -79,11 +79,26 @@ namespace Jc
         }
 
         #region 왼손 컨트롤러 콜백
-        public void OnLeftTriggerEnter(InputAction.CallbackContext context) { }
-        public void OnLeftGripEnter(InputAction.CallbackContext context) { }
-        public void OnLeftMenuButtonEnter(InputAction.CallbackContext context) { }
-        public void OnLeftXButtonEnter(InputAction.CallbackContext context) { }
-        public void OnLeftYButtonEnter(InputAction.CallbackContext context) { }
+        public void OnLeftTriggerEnter(InputAction.CallbackContext context) 
+        { 
+
+        }
+        public void OnLeftGripEnter(InputAction.CallbackContext context) 
+        { 
+
+        }
+        public void OnLeftMenuButtonEnter(InputAction.CallbackContext context) 
+        { 
+
+        }
+        public void OnLeftXButtonEnter(InputAction.CallbackContext context) 
+        { 
+
+        }
+        public void OnLeftYButtonEnter(InputAction.CallbackContext context) 
+        { 
+
+        }
 
         public void OnLeftTriggerExit(InputAction.CallbackContext context) { }
         public void OnLeftGripExit(InputAction.CallbackContext context) { }
