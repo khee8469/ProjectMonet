@@ -60,6 +60,12 @@ namespace Jc
                 // 목적지 확인루틴 실행
                 checkRoutine = baseOwner.StartCoroutine(CheckArrivalRoutine());
             }
+
+            public override void LateUpdate()
+            {
+                baseOwner.Anim.SetFloat(AnimParameter.id_MoveSpeed, baseOwner.Agent.speed);
+            }
+
             public override void Exit()
             {
                 checkRoutine = null;
