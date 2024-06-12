@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 /// <summary>
@@ -15,6 +16,10 @@ public class AnimParamManager : Singleton<AnimParamManager>
     private int id_IsMoving;
     public int IsMoving{get { return id_IsMoving; } }
 
+    [SerializeField]
+    private int id_IsInetract;
+    public int IsInteract{get { return id_IsInetract; } }
+
     protected override void Awake()
     {
         base.Awake();
@@ -24,6 +29,7 @@ public class AnimParamManager : Singleton<AnimParamManager>
     private void InitParameters()
     {
         id_MoveSpeed = Animator.StringToHash("MoveSpeed");
+        id_IsInetract = Animator.StringToHash("IsInteract");
     }
 
 }

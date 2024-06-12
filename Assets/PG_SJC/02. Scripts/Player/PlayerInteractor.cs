@@ -10,87 +10,57 @@ namespace Jc
 {
     public class PlayerInteractor : MonoBehaviour
     {
-        [Header("VR 핸들러")]
+        [Header("에디터 세팅")]
         [SerializeField]
-        private XRBaseInteractor leftCTR;   // 왼쪽 스틱 컨트롤러
+        private PlayerTrigger trigger;
 
         [SerializeField]
-        private XRBaseInteractor rightCTR;  // 오른쪽 스틱 컨트롤러
+        private PlayerControllerCallback controllerCallback;
 
-        private GameObject leftSeletOB;     // 왼손 그랩 오브젝트
-        public GameObject LeftSeletOB
-        {
-            get
-            {
-                if (leftSeletOB == null)
-                    Debug.Log("왼손으로 잡은 오브젝트가 존재하지 않습니다.");
-                return leftSeletOB;
-            }
-            set { leftSeletOB = value; }
-        }
-
-        private GameObject rightSeletOB;     // 오른손 그랩 오브젝트
-        public GameObject RightSeletOB
-        {
-            get
-            {
-                if (rightSeletOB == null)
-                    Debug.Log("왼손으로 잡은 오브젝트가 존재하지 않습니다.");
-                return rightSeletOB;
-            }
-            set { rightSeletOB = value; }
-        }
-
-        [Header("플레이어 아이템 컨트롤러 (그랩할 수 있는 오브젝트 관리자)")]
+        [Space(5)]
+        [Header("밸런싱")]
         [SerializeField]
-        private PlayerItemController itemController;
+        private NPC nearNPC;
 
-        private void Awake()
-        {
-        }
         private void OnEnable()
         {
-            
+            trigger.OnNPCEnter += OnEnterNPC;
+            trigger.OnNPCExit += OnExitNPC;
+
+            controllerCallback.leftTriggerRef.action.performed += OnInteractNPC;    // NPC 상호작용 등록
         }
         private void OnDisable()
         {
+            trigger.OnNPCEnter -= OnEnterNPC;
+            trigger.OnNPCExit -= OnExitNPC;
+
+            controllerCallback.leftTriggerRef.action.performed -= OnInteractNPC;
         }
 
-        #region VR 스틱 상호작용 콜백
+        // NPC Trigger Enter 콜백
+        private void OnEnterNPC(NPC target)
+        {
+            // 기존에 충돌한 NPC 할당해제
+            if (nearNPC != null)
+                nearNPC = null;
 
-        #region 왼손 그립
-        private void OnLeftHandGripEnter(InputValue value)
-        {
-            //XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
-            //if (grabbedObject == null) return;  // 그랩 오브젝트 예외처리
-            //LeftSeletOB = grabbedObject.gameObject;
-            //Debug.Log($"왼손 그랩 : {LeftSeletOB}");
+            // 가장 가까운 NPC 재할당 
+            nearNPC = target;
         }
-        private void OnLeftHandGripExit(InputValue value)
+        // NPC Trigger Exit 콜백
+        private void OnExitNPC(NPC target)
         {
-            //XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
-            //if (grabbedObject == null) return;  // 그랩 오브젝트 예외처리
-            //LeftSeletOB = null;
+            if (target == nearNPC)
+                nearNPC = null;
         }
-        #endregion
 
-        #region 오른손 그립
-        private void OnRightHandGripEnter(InputValue value)
+        // NPC 상호작용 콜백
+        private void OnInteractNPC(InputAction.CallbackContext context)
         {
-            //XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
-            //if (grabbedObject == null) return;  // 그랩 오브젝트 예외처리
-            //RightSeletOB = grabbedObject.gameObject;
-            //Debug.Log($"오른손 그랩 : {LeftSeletOB}");
-        }
-        private void OnRightHandGripExit(InputValue value)
-        {
-            //XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
-            //if (grabbedObject == null) return;  // 그랩 오브젝트 예외처리
-            //RightSeletOB = null;
-        }
-        #endregion
+            // 추후 조건추가 (메뉴버튼이 열려있을 경우 우선순위에서 제외됨.)
+            if (nearNPC == null) return;
 
-        #endregion
-        // 퀘스트 추가 후 수정 예정
+            nearNPC.OnInteract(transform.position);
+        }
     }
 }
