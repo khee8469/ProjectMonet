@@ -41,6 +41,16 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         [Header("스프라이트 이미지 관련")]
         [SerializeField] SpriteRenderer spriteRenderer;
         [SerializeField] Texture2D texture;
+        [Tooltip("스프라이트의 실제 월드 크기의 가로")]
+        [SerializeField] private float worldWidth;
+        [Tooltip("스프라이트 실제 월드 크기의 세로")]
+        [SerializeField] private float worldHeight;
+
+        [Tooltip("채워진 부분")]
+        [SerializeField] private float filledArea = 0f;
+        [Tooltip("전체 구역의 크기")]
+        [SerializeField] private float totalArea = 0f;
+
 
 
         private void Start()
@@ -73,15 +83,17 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
                 texture = spriteRenderer.sprite.texture;
             }
 
-            
+            InitializeSpriteSize(); // 시작 시의 각자의 로컬 스케일 적용된 크기를 가져온다. 
 
+            totalArea = worldHeight * worldWidth;
 
         }
 
         //라인 렌더러를 리스트에 추가하는 함수
-        public void AddLineRenderer(LineRenderer lineRenderer)
+        public void AddLineRenderer(LineRenderer lineRenderer, float penWidth)
         {
             lineRenderers.Add(lineRenderer);
+            UpdateFilledArea(lineRenderer, penWidth);
 
         }
 
@@ -92,96 +104,93 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
         }
 
-        // 스프라이트의 크기를 계산하는 함수 
-        public Vector2 GetSpriteSize()
+        private void InitializeSpriteSize()
         {
-            if (spriteRenderer == null)
-            {
-                Debug.Log("스프라이트 없음");
-                return Vector2.zero;
-            }
+            // 텍스처의 크기 가져오기
+            float textureWidth = spriteRenderer.sprite.rect.width;
+            float textureHeight = spriteRenderer.sprite.rect.height;
 
-            return new Vector2(spriteRenderer.sprite.rect.width,
-                spriteRenderer.sprite.rect.height);
-        }
+            // 월드 크기로 변환 
+            worldWidth = textureWidth / spriteRenderer.sprite.pixelsPerUnit;
+            worldHeight = textureHeight / spriteRenderer.sprite.pixelsPerUnit;
 
-        // lineRenderer로 얼마나 채워졌는지를 체크.
-        public float CalculateFilledArea()
-        {
-            if(texture==null)
-            {
-                Debug.Log("텍스처 설정 안됨.");
-                return 0f;
-            }
+            // 스케일 적용
 
-            int totalPixels = texture.width * texture.height;
-            int drawnPixels = 0; // 그려진 픽셀 일단 0 으로 시작.
-
-            // 각 픽셀을 검사하여 그려진 부분을 계산. 
-            // 모든 line의 모든 position을 계산하는 방식
-            foreach( var lineRenderer in lineRenderers)
-            {
-                for(int i=0;i <lineRenderer.positionCount -1;i++)
-                {
-                    Vector3 start = lineRenderer.GetPosition(i);
-                    Vector3 end = lineRenderer.GetPosition(i + 1);
-
-                    // start 와 end 사이의 픽셀을 계산 
-                    drawnPixels += GetDrawnPixelsBetweenPoints(start, end);
-                }
-            }
-
-            return (float)drawnPixels / totalPixels;
-        }
-
-        private int GetDrawnPixelsBetweenPoints(Vector3 start , Vector3 end)
-        {
-            int drawnPixels = 0;
-
-            // 선형 보간으로 두 점 사이의 픽셀을 추적
-            float distance = Vector3.Distance(start, end);
-            int steps = Mathf.CeilToInt(distance * 10); // 해상도 조절 100 -> 10으로 낮춤 
-            // 얼마나 세밀하게 샘플링 할지를 결정 --> 값이 높아질 수록 픽셀 위치 추적이 더 세밀하게 계산됨. 
-
-            // 각 단계마다 점을 샘플링하여 그려진 픽셀 수를 계산
-            for(int i=0; i<= steps; i++)
-            {
-                float t = i / (float)steps;
-                Vector3 point = Vector3.Lerp(start, end, t);
-
-                // 보간된 점을 픽셀 좌표로 변환
-                Vector2Int pixel = WorldToPixel(point);
-
-                if(IsPixelWithinTexture(pixel))
-                {
-                    drawnPixels++;
-                }
-
-                return drawnPixels;
-
-            }
-
+            worldWidth *= spriteRenderer.transform.localScale.x;
+            worldHeight *= spriteRenderer.transform.localScale.y;
 
         }
 
-        //월드 좌표를 픽셀 좌표로 변환하는 함수 
-        private Vector2Int WorldToPixel(Vector3 worldPosition)
+        // 월드 좌표를 텍스처 픽셀 좌표로 변환하는 함수
+        public Vector2Int WorldToPixel(Vector3 worldPosition)
         {
-            Vector2 localPos = spriteRenderer.transform.InverseTransformPoint(worldPosition);
-            Vector2 spriteSize = spriteRenderer.sprite.rect.size;
+            // 월드 좌표를 로컬 좌표로 변환
+            Vector3 localPos = spriteRenderer.transform.InverseTransformPoint(worldPosition);
+
+            // 스프라이트의 피벗 및 스케일 적용
             Vector2 pivot = spriteRenderer.sprite.pivot;
+
+            // 로컬 좌표를 픽셀 좌표로 변환
+            Vector2 pixelPos = new Vector2(
+                (localPos.x * spriteRenderer.sprite.pixelsPerUnit) + pivot.x,
+                (localPos.y * spriteRenderer.sprite.pixelsPerUnit) + pivot.y
+            );
+
+            // 픽셀 좌표를 반올림하여 정수 좌표로 변환
+            Vector2Int roundedPixelPos = new Vector2Int(
+                Mathf.RoundToInt(pixelPos.x),
+                Mathf.RoundToInt(pixelPos.y)
+            );
+
+            return roundedPixelPos;
         }
 
-        //픽셀이 텍슻퍼 범위 내에 있는지 확인하는 함수 
         private bool IsPixelWithinTexture(Vector2Int pixel)
         {
+            if (spriteRenderer == null || spriteRenderer.sprite == null)
+            {
+                return false;
+            }
 
+            Texture2D texture = spriteRenderer.sprite.texture;
+            bool withinBounds = pixel.x >= 0 && pixel.x < texture.width && pixel.y >= 0 && pixel.y < texture.height;
+            Debug.Log($"Pixel Position: {pixel}, Within Texture Bounds: {withinBounds}");
+
+            return withinBounds;
         }
 
-        // 목표 이상 픽셀이 채워지면 부를 함수. 
-        public bool IsFilledMoreThan(float percentage)
+        // 새로운 라인 렌더러의 영역을 계산하여 업데이트하는 함수 
+
+        private void UpdateFilledArea(LineRenderer lineRenderer , float penWidth)
         {
-            return CalculateFilledArea() > percentage;
+            for (int i = 0; i < lineRenderer.positionCount - 1; i++)
+            {
+                Vector3 start = lineRenderer.GetPosition(i);
+                Vector3 end = lineRenderer.GetPosition(i + 1);
+
+                float width = penWidth;  // 라인 렌더러의 너비를 사용
+                float segmentArea = CalculateSegmentArea(start, end, width);
+                filledArea += segmentArea;
+            }
+
+            Debug.Log($"Filled Area: {filledArea}, Total Area: {totalArea}, Fill Percentage: {filledArea / totalArea * 100}%");
+        }
+
+        // 두 점과 너비 사이를 사용하여 영역을 계산하는 함수
+
+        private float CalculateSegmentArea(Vector3 start, Vector3 end, float width)
+        {
+            float length = Vector3.Distance(start, end);
+
+            Debug.Log("세그먼트진입");
+
+            return length * width;
+        }
+
+        // 스프라이트의 채워진 비율을 반환하는 함수
+        public float GetFillPercentage()
+        {
+            return filledArea / totalArea * 100f;
         }
 
     }
