@@ -35,7 +35,8 @@ namespace JJH
         [Tooltip("그리기를 허용할 레이어 마스크")]
         [SerializeField] private LayerMask drawingLayer;
         [Tooltip("레이어 체크 거리")]
-        /*[SerializeField]*/ private float distance = 0.4f;
+        /*[SerializeField]*/
+        private float distance = 0.4f;
 
         [Header("삭제 및 이미지 연계")]
         [Tooltip("생성된 라인렌더러를 저장 해 줄 리스트")]
@@ -45,7 +46,7 @@ namespace JJH
         [Tooltip("해당 캔버스와 관련된 참조")]
         private DrawObjectManager drawManager;
         [Tooltip("Noraml 벡터 크기")]
-        private float NormalDis = 0.015f;
+        private float NormalDis = 0.01f;
 
         private void Start()
         {
@@ -55,19 +56,16 @@ namespace JJH
 
         }
 
-
         // 지금 update 없이 xrBase의 update 용 콜백을 받아도 제대로 동작이 안해서 이 부분 나중에 시간나면 수정하기. 
         // 레이캐스트를 계속 체크해야 하기 때문에 update 밖에 없나? 어떻게 해야할지... 
         private void Update()
         {
-            
             if (isDrawing)
             {
                 Draw();
             }
         }
 
-        
         public void Draw()
         {
             if (!isDrawing) return; // 그리기 상태가 아니면 리턴 
@@ -77,10 +75,8 @@ namespace JJH
             if (Physics.Raycast(tip.position, tip.forward, out hit, distance, drawingLayer))
             {
                 Debug.DrawRay(tip.position, tip.forward * distance, Color.red);
-                Debug.DrawRay(hit.point, hit.normal *1f, Color.green); // 법선 벡터를 시각적으로 표시
 
                 Vector3 drawPosition = hit.point + hit.normal * NormalDis;
-
                 drawManager = hit.collider?.GetComponent<DrawObjectManager>();
 
                 if (!CheckColorType(drawManager))
@@ -88,7 +84,6 @@ namespace JJH
                     DrawingStop();
                     return;
                 }
-
 
                 if (currentDrawing == null) //이 부분에서 현재 물감에 알맞는 색상으로 만들어줘야 할 것 같아. 
                 {
@@ -100,10 +95,8 @@ namespace JJH
                     currentDrawing = lineObj.AddComponent<LineRenderer>();
 
                     currentDrawing.material = drawingMaterial; // 현재 마테리얼 
-                    
-                    currentDrawing.material.color = penColors[currentColorIndex];
 
-                    
+                    currentDrawing.material.color = penColors[currentColorIndex];
 
                     currentDrawing.startColor = currentDrawing.endColor = penColors[currentColorIndex]; //현재 색깔
 
@@ -111,34 +104,36 @@ namespace JJH
                     currentDrawing.positionCount = 1; // 시작 포지션 카운트 1
 
                     // hit를 이용하여 hit 포지션에 드로잉을 하기
-                    currentDrawing.SetPosition(0, drawPosition);
                     
-                    drawManager.AddLineRenderer(currentDrawing);
+                    currentDrawing.SetPosition(0, drawPosition);
+
+                    drawManager.AddLineRenderer(currentDrawing, penWidth);
 
                     lineList.Add(lineObj);
 
+                    Vector2Int pixelPosition = drawManager.WorldToPixel(drawPosition);  
                 }
                 else // 즉 이미 생성된 경우. 
                 {
-                    Debug.Log("else 진입");
+                    
                     var currentPos = currentDrawing.GetPosition(index);
-
                     currentDrawing.material.color = penColors[currentColorIndex];
 
                     if (Vector3.Distance(currentPos, drawPosition) > 0.01f)
                     {
                         index++;
                         currentDrawing.positionCount = index + 1;
+
                         currentDrawing.SetPosition(index, drawPosition);
+
+                        Vector2Int pixelPosition = drawManager.WorldToPixel(drawPosition);
                     }
                 }
             }
             else
             {
-                DrawingStop(); // 레이어 밖이면 드로우 중지.                
+                DrawingStop(); 
             }
-
-            
         }
 
         private bool CheckColorType(DrawObjectManager drawObjectManager)
@@ -147,23 +142,22 @@ namespace JJH
             {
                 return false;
             }
-           
+
             return drawObjectManager.ObjectMyColor == penColors[currentColorIndex];
 
         }
 
-
         public void StartDrawing()
         {
             isDrawing = true; // 그리기 상태로 전환
-            
+
         }
 
         public void DrawingStop()
         {
             isDrawing = false; //그리기 상태 중지로 설정
-            
-            if(currentDrawing!=null)
+
+            if (currentDrawing != null)
             {
                 currentDrawing = null;
             }
@@ -193,20 +187,16 @@ namespace JJH
 
             for (int i = lineList.Count - 1; i >= 0; i--)
             {
-                LineRenderer lineObj = lineList[i]?.GetComponent<LineRenderer>();            
+                LineRenderer lineObj = lineList[i]?.GetComponent<LineRenderer>();
                 drawManager?.RemoveLineRenderer(lineObj);
 
                 Destroy(lineObj.gameObject);
                 lineList.RemoveAt(i);
             }
 
-            Debug.Log("All lines removed. List count: " + lineList.Count);
         }
 
-
-        
-
-
+       
     }
 }
 
