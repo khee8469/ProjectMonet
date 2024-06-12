@@ -121,7 +121,7 @@ namespace JJH
         {
             if (!currentLine)
             {
-                RaycastHit hit;
+                /*RaycastHit hit;
 
                 if (Physics.Raycast(rayCastStartPos.position, rayCastStartPos.forward,
                         out hit, distance, targetLayer))
@@ -130,8 +130,10 @@ namespace JJH
                         transform.rotation, hit.transform);
 
                     ApplySettings(currentLine);
-                }
+                }*/
 
+                currentLine = Instantiate(linePrefab, transform.position, transform.rotation, transform);
+                ApplySettings(currentLine);
 
             }
         }
