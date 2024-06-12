@@ -5,7 +5,9 @@ namespace JJH
 {
     public class Pen : MonoBehaviour
     {
-        // 라인렌더러를 이용해서 그림을 그리기. --> 캔버스로 지정된 곳에만 그림을 그릴 수 있어야 한다. 
+        // 어차피 한 번에 하나의 색 밖에 안되니까 크게 문제 없을것 같기는함. 
+        // 새로운 line을 생성해주는거니까. 나중에 문제 생기면 마테리얼이 같이 바뀌는거는 그때 해결해주자. 
+
         [Header("펜의 속성")]
         [Tooltip("펜의 펜촉 (그려지는 부분)")]
         public Transform tip;
@@ -33,8 +35,17 @@ namespace JJH
         [Tooltip("그리기를 허용할 레이어 마스크")]
         [SerializeField] private LayerMask drawingLayer;
         [Tooltip("레이어 체크 거리")]
-        [SerializeField] private float distance = 3f;
+        /*[SerializeField]*/ private float distance = 0.4f;
 
+        [Header("삭제 및 이미지 연계")]
+        [Tooltip("생성된 라인렌더러를 저장 해 줄 리스트")]
+        [SerializeField] List<GameObject> lineList = new List<GameObject>();
+
+        [SerializeField]
+        [Tooltip("해당 캔버스와 관련된 참조")]
+        private DrawObjectManager drawManager;
+        [Tooltip("Noraml 벡터 크기")]
+        private float NormalDis = 0.015f;
 
         private void Start()
         {
@@ -49,12 +60,14 @@ namespace JJH
         // 레이캐스트를 계속 체크해야 하기 때문에 update 밖에 없나? 어떻게 해야할지... 
         private void Update()
         {
+            
             if (isDrawing)
             {
                 Draw();
             }
         }
 
+        
         public void Draw()
         {
             if (!isDrawing) return; // 그리기 상태가 아니면 리턴 
@@ -63,63 +76,97 @@ namespace JJH
 
             if (Physics.Raycast(tip.position, tip.forward, out hit, distance, drawingLayer))
             {
-                Debug.Log("레이캐스트 도착"); // 지금 도착이 안나옴... 문제가 뭔지 생각할 것. 
+                Debug.DrawRay(tip.position, tip.forward * distance, Color.red);
+                Debug.DrawRay(hit.point, hit.normal *1f, Color.green); // 법선 벡터를 시각적으로 표시
+
+                Vector3 drawPosition = hit.point + hit.normal * NormalDis;
+
+                drawManager = hit.collider?.GetComponent<DrawObjectManager>();
+
+                if (!CheckColorType(drawManager))
+                {
+                    DrawingStop();
+                    return;
+                }
+
+
+                if (currentDrawing == null) //이 부분에서 현재 물감에 알맞는 색상으로 만들어줘야 할 것 같아. 
+                {
+                    index = 0;
+
+                    GameObject lineObj = new GameObject("Line");
+
+                    lineObj.transform.position = tip.position;
+                    currentDrawing = lineObj.AddComponent<LineRenderer>();
+
+                    currentDrawing.material = drawingMaterial; // 현재 마테리얼 
+                    
+                    currentDrawing.material.color = penColors[currentColorIndex];
+
+                    
+
+                    currentDrawing.startColor = currentDrawing.endColor = penColors[currentColorIndex]; //현재 색깔
+
+                    currentDrawing.startWidth = currentDrawing.endWidth = penWidth; //일정한 굵기. 
+                    currentDrawing.positionCount = 1; // 시작 포지션 카운트 1
+
+                    // hit를 이용하여 hit 포지션에 드로잉을 하기
+                    currentDrawing.SetPosition(0, drawPosition);
+                    
+                    drawManager.AddLineRenderer(currentDrawing);
+
+                    lineList.Add(lineObj);
+
+                }
+                else // 즉 이미 생성된 경우. 
+                {
+                    Debug.Log("else 진입");
+                    var currentPos = currentDrawing.GetPosition(index);
+
+                    currentDrawing.material.color = penColors[currentColorIndex];
+
+                    if (Vector3.Distance(currentPos, drawPosition) > 0.01f)
+                    {
+                        index++;
+                        currentDrawing.positionCount = index + 1;
+                        currentDrawing.SetPosition(index, drawPosition);
+                    }
+                }
             }
             else
             {
-                //DrawingStop(); // 레이어 밖이면 드로우 중지. 
-                Debug.Log("레이 밖");
+                DrawingStop(); // 레이어 밖이면 드로우 중지.                
             }
 
-            if (currentDrawing == null) //이 부분에서 현재 물감에 알맞는 색상으로 만들어줘야 할 것 같아. 
-            {
-                Debug.Log("Draw함수 내부 진입 ");
-
-
-                index = 0;
-
-                GameObject lineObj = new GameObject("Line");
-                lineObj.transform.position = tip.position;
-                currentDrawing = lineObj.AddComponent<LineRenderer>();
-
-                currentDrawing.material = drawingMaterial; // 현재 마테리얼 
-
-                // 이 부분 일단 추가하기는 했는데... 이거 lineRenderer랑 연계가 되면 없어도 되는디... 
-                currentDrawing.material.color = penColors[currentColorIndex];
-
-                currentDrawing.startColor = currentDrawing.endColor = penColors[currentColorIndex]; //현재 색깔
-
-                currentDrawing.startWidth = currentDrawing.endWidth = penWidth; //일정한 굵기. 
-                currentDrawing.positionCount = 1; // 시작 포지션 카운트 1
-                currentDrawing.SetPosition(0, tip.position); // 0번째 인덱스의 포지션은 펜촉(tip)의 위치.
-                Debug.Log("LineRenderer 생성됨: " + tip.position);
-            }
-            else // 즉 이미 생성된 경우. 
-            {
-                var currentPos = currentDrawing.GetPosition(index);
-                Debug.Log("현재 위치: " + currentPos);
-                currentDrawing.material.color = penColors[currentColorIndex];
-
-                if (Vector3.Distance(currentPos, tip.position) > 0.01f)
-                {
-                    index++;
-                    currentDrawing.positionCount = index + 1;
-                    currentDrawing.SetPosition(index, tip.position);
-                    Debug.Log("새 위치 추가됨: " + tip.position);
-                }
-            }
+            
         }
+
+        private bool CheckColorType(DrawObjectManager drawObjectManager)
+        {
+            if (drawObjectManager == null)
+            {
+                return false;
+            }
+           
+            return drawObjectManager.ObjectMyColor == penColors[currentColorIndex];
+
+        }
+
 
         public void StartDrawing()
         {
             isDrawing = true; // 그리기 상태로 전환
-            Debug.Log("LineRenderer 시작됨");
+            
         }
 
         public void DrawingStop()
         {
             isDrawing = false; //그리기 상태 중지로 설정
-            Debug.Log("LineRenderer 중지됨");
+            
+            if(currentDrawing!=null)
+            {
+                currentDrawing = null;
+            }
         }
 
         // 물감과의 연계가 필요하기 때문에 
@@ -137,6 +184,29 @@ namespace JJH
             tipMaterial.color = penColors[currentColorIndex];
 
         }
+
+
+        //한 라인 씩 Undo 할 필요는 없을 듯 함. --> 한 번에 라인 삭제 가능한 함수. 
+        public void RemoveALLLine() // 삭제가 지금 한 번에 안되니까 생각해보자. 
+        {
+            if (lineList.Count == 0) return;
+
+            for (int i = lineList.Count - 1; i >= 0; i--)
+            {
+                LineRenderer lineObj = lineList[i]?.GetComponent<LineRenderer>();            
+                drawManager?.RemoveLineRenderer(lineObj);
+
+                Destroy(lineObj.gameObject);
+                lineList.RemoveAt(i);
+            }
+
+            Debug.Log("All lines removed. List count: " + lineList.Count);
+        }
+
+
+        
+
+
     }
 }
 
