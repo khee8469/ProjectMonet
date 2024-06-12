@@ -74,11 +74,11 @@ namespace Jc
         // 줌인/아웃 콜백
         private void OnZoom(InputValue value)
         {
-            float yAxis = value.Get<Vector2>().y;
-            if (yAxis >= 120)
-                Zoom(true);
-            else if (yAxis <= -120)
-                Zoom(false);
+            //float yAxis = value.Get<Vector2>().y;
+            //if (yAxis >= 120)
+            //    Zoom(true);
+            //else if (yAxis <= -120)
+            //    Zoom(false);
         }
         private void Zoom(bool isZoomIn)
         {
