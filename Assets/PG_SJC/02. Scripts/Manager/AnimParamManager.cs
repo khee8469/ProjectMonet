@@ -7,9 +7,11 @@ using UnityEngine;
 /// </summary>
 public class AnimParamManager : Singleton<AnimParamManager>
 {
+    [SerializeField]
     private int id_MoveSpeed;
     public int MoveSpeed {get { return id_MoveSpeed; } }
 
+    [SerializeField]
     private int id_IsMoving;
     public int IsMoving{get { return id_IsMoving; } }
 

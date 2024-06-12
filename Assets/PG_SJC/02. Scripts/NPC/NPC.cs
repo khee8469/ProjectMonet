@@ -52,10 +52,20 @@ namespace Jc
 
         protected abstract void OnDrawGizmosSelected();
 
-        private void Update()
+        protected virtual void Update()
         {
             if (fsm.CurState != curState)
                 curState = fsm.CurState;
+
+            fsm.Update();
+        }
+        protected virtual void LateUpdate()
+        {
+            fsm.LateUpdate();
+        }
+        protected virtual void FixedUpdate()
+        {
+            fsm.FixedUpdate();
         }
     }
 }
