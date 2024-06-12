@@ -9,7 +9,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 public enum ObjectType
 {
     None = -1,          // 단순 상호작용 오브젝트 
-    CapturedScreen,      // 캡쳐된 스크린
+    CapturedScreen,     // 캡쳐된 스크린
+    Resizing,           // 크기 변화 착시 오브젝트
     Button
 }
 
@@ -38,8 +39,5 @@ namespace Jc
         {
             base.OnSelectExiting(args);
         }
-
-        
-
     }
 }
