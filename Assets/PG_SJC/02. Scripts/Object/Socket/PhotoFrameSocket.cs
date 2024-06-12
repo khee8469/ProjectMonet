@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using static UnityEngine.SpatialTracking.TrackedPoseDriver;
 
 namespace Jc
 {
@@ -32,12 +33,13 @@ namespace Jc
         {
             // 페이드 인 / 아웃
             // 카메라 변경
-            Manager.Camera.SetPriority(actionVC,-1,1.5f);
+            Manager.Camera.TrackedPose.enabled = false;
             yield return Manager.UI.FadeInRoutine(1.5f);
-
+            Manager.Camera.SetPriority(actionVC, -1, 1.5f);
             yield return Manager.UI.FadeOutRoutine(1.5f);
 
             yield return photoFrame.ActivePhotoFrame();
+
             Destroy(photoFrame.gameObject);
             Manager.Camera.SetPriority(null, -1, 1f);
         }

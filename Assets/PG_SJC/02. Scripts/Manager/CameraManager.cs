@@ -11,6 +11,7 @@ public class CameraManager : Singleton<CameraManager>
     public Camera mainCamera;
     private CinemachineBrain cinemachineBrain;
     private TrackedPoseDriver trackedPose;
+    public TrackedPoseDriver TrackedPose {get { return trackedPose; } }
     private int originBlendStyle = 0;
     private float originBlendTime = 0f;
 

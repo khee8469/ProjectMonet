@@ -8,9 +8,6 @@ namespace Jc
 {
     public class PhotoFrame : InteractObject
     {
-        // 애니메이터 파라미터 ID
-        enum AnimationParamID {FadeOut = 0}
-
         [Header("에디터 세팅")]
         [SerializeField]
         private GameObject grabbedFrame;    // 그랩 시 프레임

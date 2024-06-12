@@ -44,18 +44,42 @@ namespace Jc
         protected NPCStateType curState;        // 현재 상태
 
         [SerializeField]
-        protected bool isInteracted = false;    // 상호작용 여부
+        protected bool isInteracted = true;    // 상호작용 여부
         public bool IsInteracted { get { return isInteracted; }}
+
+        public Vector3 playerPos;       // 상호작용 한 플레이어 위치
+       
 
         // 목적지 계산
         public abstract Vector3 CalculateDestination();
+        // 상호작용 시 
+        public virtual void OnInteract(Vector3 targetPos)
+        {
+            // 추후 조건추가 : NPC가 상호작용할 수 있는 상태인지?
+            // 해당 조건에 따른 다른 상호작용 적용 예정
+
+            playerPos = targetPos;
+            // 상호작용 상태로 전이
+            fsm.ChangeState(NPCStateType.Interact);
+        }
 
         protected abstract void OnDrawGizmosSelected();
 
-        private void Update()
+
+        protected virtual void Update()
         {
             if (fsm.CurState != curState)
                 curState = fsm.CurState;
+
+            fsm.Update();
+        }
+        protected virtual void LateUpdate()
+        {
+            fsm.LateUpdate();
+        }
+        protected virtual void FixedUpdate()
+        {
+            fsm.FixedUpdate();
         }
     }
 }

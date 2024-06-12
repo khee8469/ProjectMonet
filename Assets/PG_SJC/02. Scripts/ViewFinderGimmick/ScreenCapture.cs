@@ -48,12 +48,21 @@ namespace Jc
             // 해당 영역의 픽셀값을 할당
             screenCapture.ReadPixels(regionToRead, 0, 0, false);
             screenCapture.Apply();
-            
+
+            // 경로 내 파일개수 카운팅
+            int count = new DirectoryInfo(filePath).GetFiles().Length;
+            string filename = $"{filePath}/capture{count}";
+
             // 텍스쳐파일 저장 (시간 소요)
-            SaveTextureToPNG(screenCapture);
+            SaveTextureToPNG(screenCapture, filename);
+
+            CapturedData data = new CapturedData(transform.position, transform.rotation.eulerAngles);
+
+            SaveTransformData(data,filename);
             // 이미지 렌더링
             UpdateImage();
-
+            Debug.Log($"Camera Position : {transform.position}");
+            Debug.Log($"Camera Rotation : {transform.rotation.eulerAngles}");
             captureRoutine = null;
         }
 
@@ -63,7 +72,12 @@ namespace Jc
             captureImage.sprite = currentSprite;
         }
 
-        private void SaveTextureToPNG(Texture2D texture)
+        private void SaveTransformData(CapturedData data, string filename)
+        {
+            string jsonData = JsonUtility.ToJson(data);
+            File.WriteAllText($"{filename}.txt", jsonData);
+        }
+        private void SaveTextureToPNG(Texture2D texture, string filename)
         {
             // 파일 경로가 존재하지 않을 경우
             if (string.IsNullOrEmpty(filePath))
@@ -75,8 +89,18 @@ namespace Jc
 
             // 텍스쳐를 PNG Bytes로 인코딩
             byte[] texturePNGBytes = texture.EncodeToPNG();
-            int count = new DirectoryInfo(filePath).GetFiles().Length;
-            File.WriteAllBytes($"{filePath}/capture{count}.png", texturePNGBytes);
+            File.WriteAllBytes($"{filename}.png", texturePNGBytes);
+        }
+    }
+
+    public class CapturedData
+    {
+        public Vector3 cameraTransform;
+        public Vector3 cameraRotation;
+        public CapturedData(Vector3 cameraTransform, Vector3 cameraRotation)
+        {
+            this.cameraTransform = cameraTransform;
+            this.cameraRotation = cameraRotation;   
         }
     }
 }
