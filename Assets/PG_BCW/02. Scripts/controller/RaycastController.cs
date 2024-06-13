@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.Receiver.Rendering;
 using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.State;
 
 
@@ -18,7 +19,9 @@ public class RaycastController : XRRayInteractor
     [Tooltip("그랩 가능 거리")]
     [SerializeField] float distance;
     [Tooltip("호버 할 때 매터리얼 변경")]
-    XRInteractableAffordanceStateProvider renderer;
+    ColorMaterialPropertyAffordanceReceiver colorReceiver;
+
+    XRRayInteractor abc;
 
     //호버한 오브젝트 위치
     Vector3 interactable;
@@ -35,6 +38,7 @@ public class RaycastController : XRRayInteractor
     {
         base.Start();
         xRInteractorLineVisual.enabled = false;
+        maxRaycastDistance = 1f;
     }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -59,10 +63,10 @@ public class RaycastController : XRRayInteractor
     private void LineVisualOff()
     {
         xRInteractorLineVisual.enabled = false;
-
+        
     }
 
-    protected override void OnHoverEntered(HoverEnterEventArgs args)
+    /*protected override void OnHoverEntered(HoverEnterEventArgs args)
     {
         base.OnHoverEntered(args);
 
@@ -73,17 +77,18 @@ public class RaycastController : XRRayInteractor
     {
         base.OnHoverExited(args);
 
-        SelectActiveOff(args);
+        //SelectActiveOff(args);
     }
 
     private void SelectActiveCheck(HoverEnterEventArgs args)
     {
-        renderer = args.interactable.GetComponent<XRInteractableAffordanceStateProvider>();
+        //colorReceiver = args.interactable.GetComponent<XRInteractableAffordanceStateProvider>();
         interactable = args.interactableObject.transform.position;
 
         //오브젝트와 컨트롤러의 거리를 비교해서 select 가능 여부 확인
         if((interactable - transform.position).sqrMagnitude < distance * distance)
         {
+            //colorReceiver
             allowSelect = true;
             distanceCheck = StartCoroutine(DistanceCheck( args));
         }
@@ -96,7 +101,7 @@ public class RaycastController : XRRayInteractor
 
     private void SelectActiveOff(HoverExitEventArgs args)
     {
-        allowSelect = false;
+        //allowSelect = false;
         
         if (distanceCheck == null)
             return;
@@ -121,5 +126,5 @@ public class RaycastController : XRRayInteractor
                 allowSelect = false;
             }
         }
-    }
+    }*/
 }

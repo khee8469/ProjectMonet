@@ -59,7 +59,7 @@ public class Miniature : InteractObject
         positionData[transform.name] = transform.localPosition;
 
         //미니어처 놓았을 때 높이와 회전 고정
-        transform.position = new Vector3(transform.position.x, hit.point.y , transform.position.z);
+        transform.position = new Vector3(transform.position.x, hit.point.y *0.5f, transform.position.z);
         transform.rotation = Quaternion.identity;
     }
 
