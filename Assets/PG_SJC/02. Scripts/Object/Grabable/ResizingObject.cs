@@ -75,6 +75,7 @@ namespace Jc
             mainCamera = Camera.main;
             resetTransform = new V_Transform(transform);
         }
+
         private void Update()
         {
             if (!IsGrabbed) return;
@@ -82,6 +83,7 @@ namespace Jc
             SetPosition();
 
             Resize();
+            SetPosition();
         }
         private void Resize()
         {
@@ -138,6 +140,7 @@ namespace Jc
 
             IsGrabbed = true;
         }
+
         protected override void OnSelectExiting(SelectExitEventArgs args)
         {
             base.OnSelectExiting(args);

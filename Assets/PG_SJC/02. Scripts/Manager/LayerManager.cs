@@ -7,6 +7,6 @@ public class LayerManager : Singleton<LayerManager>
     [Header("NPC")]
     public LayerMask npcLM;
 
-    [Header("Wall (크기 착시 오브젝트)")]
+    [Header("Wall (?�기 착시 ?�브?�트)")]
     public LayerMask wallLM;
 }
