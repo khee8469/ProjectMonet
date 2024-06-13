@@ -1,11 +1,13 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. --> 차라리 진짜 이미지에 붙이는 방법으로 가보자. 
 {
+    // 자신의 알파값이 1F로 증가할 때 같은 ENUM인 친구들을 찾아서 걔네도 같이 알파값을 업데이트 해줘야한다. 
     public enum DrawBoardNumber
     {
-        Stage1, Stage2, Stage3, Stage4
+        Compartment1, Compartment2, Compartment3, Compartment4, END
     }
 
 
@@ -15,7 +17,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
     }
 
     [RequireComponent(typeof(SpriteRenderer))]
-    public class DrawObjectManager : MonoBehaviour
+    public class DrawObjectManager : MonoBehaviour 
     {
 
         public List<LineRenderer> lineRenderers = new List<LineRenderer>();
@@ -48,10 +50,17 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
         [Tooltip("채워진 부분")]
         [SerializeField] private float filledArea = 0f;
-        [Tooltip("전체 구역의 크기")]
+        [Tooltip("스프라이트의 전체 구역의 크기")]
         [SerializeField] private float totalArea = 0f;
+        [Tooltip("투명한 부분을 제외한 구역의 크기")]
+        [SerializeField] private float nonTransparentArea;
 
-
+        [Tooltip("동일 부분을 체크할 해시셋")]
+        [SerializeField]
+        private HashSet<Vector2Int> checkPointsSet =
+            new HashSet<Vector2Int>();
+        [Tooltip("좌표 보정 값 float값 보정위함")]
+        [SerializeField] private float tolerance = 0.02f;
 
         private void Start()
         {
@@ -81,11 +90,20 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             if (spriteRenderer != null)
             {
                 texture = spriteRenderer.sprite.texture;
+
+                if (!texture.isReadable)
+                {
+                    Debug.Log("텍스처 읽기 불가능 읽기 가능하도록 설정");
+                    MakeTextureReadable(ref texture);
+                }
+
             }
 
-            InitializeSpriteSize(); // 시작 시의 각자의 로컬 스케일 적용된 크기를 가져온다. 
 
+            InitializeSpriteSize(); // 시작 시의 각자의 로컬 스케일 적용된 크기를 가져온다. 
             totalArea = worldHeight * worldWidth;
+            nonTransparentArea = CalculateNonTransparentArea();
+
 
         }
 
@@ -94,15 +112,17 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         {
             lineRenderers.Add(lineRenderer);
             UpdateFilledArea(lineRenderer, penWidth);
-            
-
 
         }
 
         // 라인 렌더러를 리스트에서 제거하는 함수
         public void RemoveLineRenderer(LineRenderer lineRenderer)
         {
+            // 여기서 리무브 대신에 코루틴을 진행시켜야 할듯? 
+            LineRemove(lineRenderer);
+
             lineRenderers.Remove(lineRenderer);
+
 
         }
 
@@ -163,22 +183,26 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
         // 새로운 라인 렌더러의 영역을 계산하여 업데이트하는 함수 
 
-        private void UpdateFilledArea(LineRenderer lineRenderer , float penWidth)
+        private void UpdateFilledArea(LineRenderer lineRenderer, float penWidth)
         {
-
-            Debug.Log(lineRenderer.positionCount);
-            
-
             for (int i = 0; i < lineRenderer.positionCount - 1; i++)
             {
-
                 Vector3 start = lineRenderer.GetPosition(i);
                 Vector3 end = lineRenderer.GetPosition(i + 1);
 
+                Vector2Int normalizedStart = NormalizePoint(start, tolerance);
+                Vector2Int normalizedEnd = NormalizePoint(end, tolerance);
+
+                if (checkPointsSet.Contains(normalizedStart) && checkPointsSet.Contains(normalizedEnd))
+                {
+                    continue;
+                }
+
+                checkPointsSet.Add(normalizedStart);
+                checkPointsSet.Add(normalizedEnd);
+
                 float width = penWidth;  // 라인 렌더러의 너비를 사용
                 float segmentArea = CalculateSegmentArea(start, end, width);
-
-                
 
                 filledArea += segmentArea;
             }
@@ -186,8 +210,19 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             Debug.Log($"Filled Area: {filledArea}, Total Area: {totalArea}, Fill Percentage: {filledArea / totalArea * 100}%");
         }
 
-        // 두 점과 너비 사이를 사용하여 영역을 계산하는 함수
+        private Vector2Int NormalizePoint(Vector3 point, float tolerance)
+        {
+            return new Vector2Int(Mathf.RoundToInt(point.x / tolerance),
+                Mathf.RoundToInt(point.y / tolerance));
 
+
+            // point.x 가 0.15 일 때 tolerance가 0.1 이면 0.15/0.1 -> 1.5 이므로 반올림int 하면 2가 된다.
+            // point.x가 0.25 일 때 0.25 /0.1 이면 반올림int 하면 2가 된다. --> 0.15 와 0.25 가 같은 값이라고
+            // 판단이 가능해진다. 대박사건!
+
+        }
+
+        // 두 점과 너비 사이를 사용하여 영역을 계산하는 함수
         private float CalculateSegmentArea(Vector3 start, Vector3 end, float width)
         {
             float length = Vector3.Distance(start, end);
@@ -200,6 +235,120 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         {
             return filledArea / totalArea * 100f;
         }
+
+        public void ImageAlphaUp()
+        {
+            Debug.Log("이미지 알파 업 함수발동");
+            StartCoroutine(SpriteAlphaUpRoutine());
+            
+        }
+
+        public void LineRemove(LineRenderer lineRenderer)
+        {
+            StartCoroutine(RendererAlphaRoutine(lineRenderer));
+        }
+
+        private IEnumerator SpriteAlphaUpRoutine()
+        {
+            //어차피 같은 로비 내에 모두 존재할 것이기 때문에...
+            // 나중에 인스펙터로 해야 하면 수정해주지 머.. 
+            DrawObjectManager[] drawingBoards = FindObjectsOfType<DrawObjectManager>();
+            
+            foreach (DrawObjectManager drawObjectManager in drawingBoards)
+            {
+                SpriteRenderer spriteRenderer =drawObjectManager.GetComponent<SpriteRenderer>();
+                Color spriteColor = spriteRenderer.color;
+
+                while(true)
+                {
+                    spriteColor.a++;
+                    yield return null; 
+
+                    if(spriteColor.a >= 1f)
+                    {
+                        spriteRenderer.color = spriteColor;
+                        drawObjectManager.gameObject.layer = 0;
+                        break;
+                    }
+                }
+            }
+            yield return null;
+        }
+
+        // 해당 오브젝트 뿐만이 아닌.. 같은 id? 등을 가진 다른 오브젝트가 있으면 걔네도 켜줘야함.
+
+        private IEnumerator RendererAlphaRoutine(LineRenderer lineRenderer)
+        {
+            // 생성된 라인렌더러의 마테리얼을 복제하여 생성 --> 원본 마테리얼에 영향이 가지 않도록
+            Material materialInstance = Instantiate(lineRenderer.material);
+
+
+
+            while(true)
+            {
+                
+            }
+
+
+
+
+            yield return null;
+        }
+
+
+
+
+        private float CalculateNonTransparentArea()
+        {
+
+            Color32[] pixels = texture.GetPixels32();
+
+            int trasparentPixelCount = 0;
+
+            foreach (var pixel in pixels)
+            {
+                if (pixel.a == 0) //알파값이 0 이면 완전히 투명한 픽셀. 
+                {
+                    trasparentPixelCount++;
+                }
+            }
+
+            // 투명하지 않은 픽셀의 숫자를 계산
+            float nonTransparentPixelCount = pixels.Length - trasparentPixelCount;
+
+            // 스프라이트의 전체 영역 계산
+            float spriteArea = worldWidth * worldHeight;
+
+            // 투명하지 않은 부분의 실제 영역 계산 
+
+            float realArea = spriteArea * (nonTransparentPixelCount / pixels.Length);
+            return realArea;
+
+        }
+
+        private void MakeTextureReadable(ref Texture2D texture)
+        {
+            RenderTexture renderTexture = RenderTexture.GetTemporary(
+         texture.width,
+         texture.height,
+         0,
+         RenderTextureFormat.Default,
+         RenderTextureReadWrite.Linear);
+
+            Graphics.Blit(texture, renderTexture);
+            RenderTexture previous = RenderTexture.active;
+            RenderTexture.active = renderTexture;
+
+            Texture2D readableTexture = new Texture2D(texture.width, texture.height);
+            readableTexture.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+            readableTexture.Apply();
+
+            RenderTexture.active = previous;
+            RenderTexture.ReleaseTemporary(renderTexture);
+
+            texture = readableTexture;
+        }
+
 
     }
 

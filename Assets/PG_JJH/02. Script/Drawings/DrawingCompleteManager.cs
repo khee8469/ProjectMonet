@@ -6,12 +6,13 @@ using UnityEngine.Events;
 
 namespace JJH
 {
-    public class StageMaterialManager : Singleton<StageMaterialManager>
+    public class DrawingCompleteManager : Singleton<DrawingCompleteManager>
     {
 
-        // 아니면 dictionary 로 value 값에 color 값을 저장해두고 color 값 맞는 마테리얼 key를 통해
-        // tryGetKey로 접근해서 그 부분만 다른 value로 넣어주고 그 value에 맞게 material을 바꿔주는 방식도 괜찮을지도?
-
+        // 로딩 루틴과연계 해서 event를 달아두고
+        // 각 씬의 로딩루틴 들은 마테리얼 변경 작업을 진행해주고
+        // 로비에서 그림 이미지 변경 이벤트도 등록 후 발생 --> 로비 씬 루팅에서 할당해주는 방법으로
+        // 직접 인스펙터에 넣어도 괜찮을지도. 
 
         [Header("각 씬의 마테리얼을 관리 할 stage material 매니저")]
 
@@ -27,11 +28,13 @@ namespace JJH
         [SerializeField]
         private List<Material> stage4_MatList = new List<Material>();
 
+
         [SerializeField]
         [Header("씬 마테리얼 변경 이벤트")]
         [Tooltip("씬에 알맞게 마테리얼을 변경해주자.")]
         public static UnityEvent< int, int > MaterialEvent = new UnityEvent< int , int>();
-        // 일단 임시로 인트 형으로 이벤트 진행 
+
+        public List<SpriteRenderer> Stage1_Imges = new List<SpriteRenderer>();
 
         protected override void Awake()
         {
