@@ -71,7 +71,7 @@ namespace Jc
         protected override void Awake()
         {
             base.Awake();
-            objectType = ObjectType.CapturedScreen;
+            grabType = GrabType.Ray;
 
             // 원본 머터리얼을 캐싱
             originMT = meshRenderer.sharedMaterial;
