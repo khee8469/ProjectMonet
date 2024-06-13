@@ -7,12 +7,11 @@ using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
 
 // 상호작용할 오브젝트의 타입
-public enum ObjectType
+public enum GrabType
 {
     None = -1,          // 단순 상호작용 오브젝트 
-    CapturedScreen,     // 캡쳐된 스크린
-    Resizing,           // 크기 변화 착시 오브젝트
-    Button
+    Direct,
+    Ray
 }
 
 namespace Jc
@@ -22,10 +21,10 @@ namespace Jc
         [Space(5)]
         [Header("---- 컴포넌트 커스텀 ----")]
         [Space(5)]
-        [Header("오브젝트의 타입 (상호작용)")]
+        [Header("오브젝트의 그랩 타입 (상호작용)")]
         [SerializeField]
-        protected ObjectType objectType;
-        public ObjectType ObjectType {get { return objectType; } }
+        protected GrabType grabType;
+        public GrabType GrabType {get { return grabType; } }
 
         protected bool isGrabbed = false;   // 오브젝트의 그랩 여부
 
