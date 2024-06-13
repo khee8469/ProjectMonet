@@ -982,7 +982,6 @@ GameObject:
   - component: {fileID: 191866582}
   - component: {fileID: 191866581}
   - component: {fileID: 191866580}
-  - component: {fileID: 191866579}
   m_Layer: 30
   m_Name: TestPlayer(VR)
   m_TagString: Untagged
@@ -1026,23 +1025,6 @@ MonoBehaviour:
   m_CameraFloorOffsetObject: {fileID: 1555707614}
   m_RequestedTrackingOriginMode: 1
   m_CameraYOffset: 3.4
---- !u!114 &191866579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 191866576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c6e478796d07084781874fe065d78c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  screenCapture: {fileID: 0}
-  captureDisplay: {fileID: 0}
-  controller: {fileID: 0}
-  moveSpeed: 0
-  mouseSensitivity: 0
 --- !u!114 &191866580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1050,7 +1032,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 191866576}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a646ed4386e17a438a2c48e7baed768, type: 3}
   m_Name: 
@@ -1124,7 +1106,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 191866576}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: af6bf904e410ee8479f9093d8830d1f8, type: 3}
   m_Name: 
@@ -2114,6 +2096,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ray Interactor
+      objectReference: {fileID: 0}
+    - target: {fileID: 4924506573850889901, guid: ad818c36731146e994540a1896ad8f24,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4924506573850889901, guid: ad818c36731146e994540a1896ad8f24,
         type: 3}
