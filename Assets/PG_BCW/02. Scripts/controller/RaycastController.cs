@@ -37,9 +37,9 @@ public class RaycastController : XRRayInteractor
     protected override void Start()
     {
         base.Start();
-        xRInteractorLineVisual.enabled = false;
-        maxRaycastDistance = 1f;
+        //xRInteractorLineVisual.enabled = false;
     }
+
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
@@ -65,66 +65,23 @@ public class RaycastController : XRRayInteractor
         xRInteractorLineVisual.enabled = false;
         
     }
-
-    /*protected override void OnHoverEntered(HoverEnterEventArgs args)
+    public override bool CanHover(IXRHoverInteractable interactable)
     {
-        base.OnHoverEntered(args);
-
-        SelectActiveCheck(args);
-    }
-
-    protected override void OnHoverExited(HoverExitEventArgs args)
-    {
-        base.OnHoverExited(args);
-
-        //SelectActiveOff(args);
-    }
-
-    private void SelectActiveCheck(HoverEnterEventArgs args)
-    {
-        //colorReceiver = args.interactable.GetComponent<XRInteractableAffordanceStateProvider>();
-        interactable = args.interactableObject.transform.position;
-
-        //오브젝트와 컨트롤러의 거리를 비교해서 select 가능 여부 확인
-        if((interactable - transform.position).sqrMagnitude < distance * distance)
+        float distance = (interactable.transform.position - transform.position).sqrMagnitude;
+        if (distance > Mathf.Pow(this.distance, 2f))
         {
-            //colorReceiver
-            allowSelect = true;
-            distanceCheck = StartCoroutine(DistanceCheck( args));
+            return false;
         }
-        else
-        {
-            allowSelect = false;
-            distanceCheck = StartCoroutine(DistanceCheck( args));
-        }
+        return base.CanHover(interactable);
     }
-
-    private void SelectActiveOff(HoverExitEventArgs args)
+    public override bool CanSelect(IXRSelectInteractable interactable)
     {
-        //allowSelect = false;
-        
-        if (distanceCheck == null)
-            return;
-        StopCoroutine(distanceCheck);
-    }
-
-    Coroutine distanceCheck;
-    private IEnumerator DistanceCheck(HoverEnterEventArgs args)
-    {
-        while (true)
+        float distance = (interactable.transform.position - transform.position).sqrMagnitude;
+        if (distance > Mathf.Pow(this.distance, 2f))
         {
-            yield return new WaitForSeconds(0.2f);
-            
-            if ((interactable - transform.position).sqrMagnitude < distance * distance)
-            {
-                allowSelect = true;
-            }
-            else
-            {
-                Debug.Log(13123213);
-                //args.interactable.GetComponent<IXRHoverInteractable>().isHovered = false;
-                allowSelect = false;
-            }
+            return false;
         }
-    }*/
+
+        return base.CanSelect(interactable);
+    }
 }

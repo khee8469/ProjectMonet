@@ -681,6 +681,7 @@ GameObject:
   - component: {fileID: 358723531}
   - component: {fileID: 358723530}
   - component: {fileID: 358723532}
+  - component: {fileID: 358723529}
   m_Layer: 8
   m_Name: Wall_Right
   m_TagString: Untagged
@@ -2492,6 +2493,7 @@ GameObject:
   - component: {fileID: 991395011}
   - component: {fileID: 991395010}
   - component: {fileID: 991395012}
+  - component: {fileID: 991395009}
   m_Layer: 8
   m_Name: Wall_Front
   m_TagString: Untagged
@@ -2722,6 +2724,7 @@ GameObject:
   - component: {fileID: 1091497800}
   - component: {fileID: 1091497799}
   - component: {fileID: 1091497801}
+  - component: {fileID: 1091497798}
   m_Layer: 8
   m_Name: Floor
   m_TagString: Untagged
@@ -2849,6 +2852,7 @@ GameObject:
   - component: {fileID: 1097102103}
   - component: {fileID: 1097102102}
   - component: {fileID: 1097102104}
+  - component: {fileID: 1097102101}
   m_Layer: 8
   m_Name: Wall_Left
   m_TagString: Untagged
@@ -3081,98 +3085,6 @@ Transform:
   - {fileID: 2136841478}
   m_Father: {fileID: 1994319481}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1236663378
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1236663381}
-  - component: {fileID: 1236663380}
-  - component: {fileID: 1236663379}
-  m_Layer: 0
-  m_Name: Main Camera
-  m_TagString: MainCamera
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!81 &1236663379
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1236663378}
-  m_Enabled: 1
---- !u!20 &1236663380
-Camera:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1236663378}
-  m_Enabled: 1
-  serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
-  m_projectionMatrixMode: 1
-  m_GateFitMode: 2
-  m_FOVAxisMode: 0
-  m_Iso: 200
-  m_ShutterSpeed: 0.005
-  m_Aperture: 16
-  m_FocusDistance: 10
-  m_FocalLength: 50
-  m_BladeCount: 5
-  m_Curvature: {x: 2, y: 11}
-  m_BarrelClipping: 0.25
-  m_Anamorphism: 0
-  m_SensorSize: {x: 36, y: 24}
-  m_LensShift: {x: 0, y: 0}
-  m_NormalizedViewPortRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
-  orthographic: 0
-  orthographic size: 5
-  m_Depth: -1
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_RenderingPath: -1
-  m_TargetTexture: {fileID: 0}
-  m_TargetDisplay: 0
-  m_TargetEye: 3
-  m_HDR: 1
-  m_AllowMSAA: 1
-  m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
-  m_StereoConvergence: 10
-  m_StereoSeparation: 0.022
---- !u!4 &1236663381
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1236663378}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1256960352
 GameObject:
   m_ObjectHideFlags: 0
@@ -3185,6 +3097,7 @@ GameObject:
   - component: {fileID: 1256960356}
   - component: {fileID: 1256960355}
   - component: {fileID: 1256960357}
+  - component: {fileID: 1256960354}
   m_Layer: 8
   m_Name: Wall_Back
   m_TagString: Untagged
@@ -4081,6 +3994,7 @@ GameObject:
   - component: {fileID: 1502182441}
   - component: {fileID: 1502182440}
   - component: {fileID: 1502182442}
+  - component: {fileID: 1502182439}
   m_Layer: 8
   m_Name: Ceil
   m_TagString: Untagged
@@ -5513,7 +5427,7 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  objectType: 1
+  grabType: 0
   grabDistance: 5
   limitScale: 4
   maxScale: {x: 3, y: 3, z: 3}
@@ -6280,7 +6194,6 @@ MonoBehaviour:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1236663381}
   - {fileID: 144000239}
   - {fileID: 900974641}
   - {fileID: 1887129126}
