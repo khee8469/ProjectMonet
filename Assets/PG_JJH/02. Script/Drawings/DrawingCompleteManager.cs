@@ -8,47 +8,14 @@ namespace JJH
 {
     public class DrawingCompleteManager : Singleton<DrawingCompleteManager>
     {
-
-        // 로딩 루틴과연계 해서 event를 달아두고
-        // 각 씬의 로딩루틴 들은 마테리얼 변경 작업을 진행해주고
-        // 로비에서 그림 이미지 변경 이벤트도 등록 후 발생 --> 로비 씬 루팅에서 할당해주는 방법으로
-        // 직접 인스펙터에 넣어도 괜찮을지도. 
-
-        [Header("각 씬의 마테리얼을 관리 할 stage material 매니저")]
-
-        [SerializeField]
-        private List<Material> stage1_MatList = new List<Material>();
-
-        [SerializeField]
-        private List<Material> stage2_MatList = new List<Material>();
-
-        [SerializeField]
-        private List<Material> stage3_MatList = new List<Material>();
-
-        [SerializeField]
-        private List<Material> stage4_MatList = new List<Material>();
+        // 어차피 각 씬은 baseScene을 상속 중이니까 로딩 루틴 중에 변경시키던가... 하고싶은데
+        // 변경을 시키던지 아니면... 흑백으로 만들어두고 변수에 따라 켜주던지... 
 
 
-        [SerializeField]
-        [Header("씬 마테리얼 변경 이벤트")]
-        [Tooltip("씬에 알맞게 마테리얼을 변경해주자.")]
-        public static UnityEvent< int, int > MaterialEvent = new UnityEvent< int , int>();
 
-        public List<SpriteRenderer> Stage1_Imges = new List<SpriteRenderer>();
+        
 
-        protected override void Awake()
-        {
-            base.Awake();
-
-            // 추가적으로 해야 할 작업 (Awake 는 싱글턴이므로 한 번 만 실행됨)
-
-
-        }
-
-        protected void ChangeMat(int sceneNumber , int MatList)
-        {
-
-        }
+        
 
 
         

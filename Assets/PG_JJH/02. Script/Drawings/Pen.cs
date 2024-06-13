@@ -143,11 +143,12 @@ namespace JJH
                     Debug.Log("퍼센티지 다 참");
                     drawManager.ImageAlphaUp();
                     RemoveALLLine();
+                    DrawingStop();
 
                     // 여기서 필 이상 차버리면 더이상 못 그리게 하거나 자신의 레이어를 바꾸는 작업을 하는것도 괜찮음
                     // 더이상 그 부분 위에 라인렌더러가 생기지 않도록
                     // 실제 그림 붙여서 해보는게 좋을 것 같은디 
-                    
+
                 }
             }
             else

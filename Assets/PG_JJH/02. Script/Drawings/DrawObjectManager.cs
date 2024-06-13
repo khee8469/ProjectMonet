@@ -17,7 +17,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
     }
 
     [RequireComponent(typeof(SpriteRenderer))]
-    public class DrawObjectManager : MonoBehaviour 
+    public class DrawObjectManager : MonoBehaviour
     {
 
         public List<LineRenderer> lineRenderers = new List<LineRenderer>();
@@ -33,6 +33,8 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         [Tooltip("각 컬러타입에 맞는 마테리얼 color만 색칠 할 수 있도록")]
         [SerializeField]
         public List<Color> boardColorTypeList = new List<Color>();
+
+
 
         [Tooltip("자신의 컬러타입")]
         [SerializeField]
@@ -93,7 +95,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
                 if (!texture.isReadable)
                 {
-                    Debug.Log("텍스처 읽기 불가능 읽기 가능하도록 설정");
+                    
                     MakeTextureReadable(ref texture);
                 }
 
@@ -118,12 +120,8 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         // 라인 렌더러를 리스트에서 제거하는 함수
         public void RemoveLineRenderer(LineRenderer lineRenderer)
         {
-            // 여기서 리무브 대신에 코루틴을 진행시켜야 할듯? 
+            // 여기서 리스트 리무브 대신 발동  -->리스 삭제를 코루틴 내부로 이동 
             LineRemove(lineRenderer);
-
-            lineRenderers.Remove(lineRenderer);
-
-
         }
 
         private void InitializeSpriteSize()
@@ -239,40 +237,58 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         public void ImageAlphaUp()
         {
             Debug.Log("이미지 알파 업 함수발동");
-            StartCoroutine(SpriteAlphaUpRoutine());
-            
+            StartCoroutine(StartAlphaRoutine());
+
         }
 
         public void LineRemove(LineRenderer lineRenderer)
         {
+            Debug.Log("라인 렌더러 삭제 함수 발동");
             StartCoroutine(RendererAlphaRoutine(lineRenderer));
         }
 
-        private IEnumerator SpriteAlphaUpRoutine()
+
+        private IEnumerator StartAlphaRoutine()
         {
-            //어차피 같은 로비 내에 모두 존재할 것이기 때문에...
-            // 나중에 인스펙터로 해야 하면 수정해주지 머.. 
             DrawObjectManager[] drawingBoards = FindObjectsOfType<DrawObjectManager>();
-            
+
+            //현재 오브젝트의 스크립트 가져오기
+            DrawObjectManager currentDrawObjectManager = GetComponent<DrawObjectManager>();
+
             foreach (DrawObjectManager drawObjectManager in drawingBoards)
             {
-                SpriteRenderer spriteRenderer =drawObjectManager.GetComponent<SpriteRenderer>();
-                Color spriteColor = spriteRenderer.color;
-
-                while(true)
+                if(currentDrawObjectManager!=null && drawObjectManager.drawBoardNumber == currentDrawObjectManager.drawBoardNumber)
                 {
-                    spriteColor.a++;
-                    yield return null; 
-
-                    if(spriteColor.a >= 1f)
-                    {
-                        spriteRenderer.color = spriteColor;
-                        drawObjectManager.gameObject.layer = 0;
-                        break;
-                    }
+                    StartCoroutine(SpriteAlphaUpRoutine(drawObjectManager));
                 }
+                
             }
+
             yield return null;
+        }
+
+        private IEnumerator SpriteAlphaUpRoutine(DrawObjectManager drawObjectManager)
+        {
+            SpriteRenderer spriteRenderer = drawObjectManager.GetComponent<SpriteRenderer>();
+            Color spriteColor = spriteRenderer.color;
+
+            float duration = 2f; //2초간 알파값 변경 진행
+            float elaspedTime = 0f;
+
+            while (elaspedTime < duration)
+            {
+                elaspedTime += Time.deltaTime;
+                float alpha = Mathf.Clamp01(elaspedTime / duration); // 0에서 1까지 점진적으로 증가
+
+                spriteColor.a = alpha;
+                spriteRenderer.color = spriteColor;
+                yield return null;
+            }
+
+            spriteColor.a = 1f;
+            spriteRenderer.color = spriteColor;
+            drawObjectManager.gameObject.layer = 0;
+
         }
 
         // 해당 오브젝트 뿐만이 아닌.. 같은 id? 등을 가진 다른 오브젝트가 있으면 걔네도 켜줘야함.
@@ -281,16 +297,38 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         {
             // 생성된 라인렌더러의 마테리얼을 복제하여 생성 --> 원본 마테리얼에 영향이 가지 않도록
             Material materialInstance = Instantiate(lineRenderer.material);
+            lineRenderer.material = materialInstance; //생성한 마테리얼로 변경 
+
+            float duration = 2f; //2초간 알파값 변경 진행
+            float elaspedTime = 0f;
+
+            Color materialColor = materialInstance.color;
+
+            // 초기 알파값
+            float initialAlpha = materialColor.a;
+            // 최종 알파값 (예: 0으로 설정하여 투명하게 만들기)
+            float targetAlpha = 0f;
 
 
-
-            while(true)
+            while (elaspedTime < duration)
             {
-                
+                elaspedTime += Time.deltaTime;
+                float t = elaspedTime / duration;
+
+                // 알파값 보간
+                float newAlpha = Mathf.Lerp(initialAlpha, targetAlpha, t);
+                materialColor.a = newAlpha;
+                materialInstance.color = materialColor;
+
+                yield return null;
             }
 
+            // 최종 알파값 설정
+            materialColor.a = targetAlpha;
+            materialInstance.color = materialColor;
 
 
+            lineRenderers.Remove(lineRenderer);
 
             yield return null;
         }
