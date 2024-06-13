@@ -94,6 +94,8 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         {
             lineRenderers.Add(lineRenderer);
             UpdateFilledArea(lineRenderer, penWidth);
+            
+
 
         }
 
@@ -163,13 +165,21 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
         private void UpdateFilledArea(LineRenderer lineRenderer , float penWidth)
         {
+
+            Debug.Log(lineRenderer.positionCount);
+            
+
             for (int i = 0; i < lineRenderer.positionCount - 1; i++)
             {
+
                 Vector3 start = lineRenderer.GetPosition(i);
                 Vector3 end = lineRenderer.GetPosition(i + 1);
 
                 float width = penWidth;  // 라인 렌더러의 너비를 사용
                 float segmentArea = CalculateSegmentArea(start, end, width);
+
+                
+
                 filledArea += segmentArea;
             }
 
@@ -181,8 +191,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         private float CalculateSegmentArea(Vector3 start, Vector3 end, float width)
         {
             float length = Vector3.Distance(start, end);
-
-            Debug.Log("세그먼트진입");
 
             return length * width;
         }

@@ -70,6 +70,8 @@ namespace JJH
         {
             if (!isDrawing) return; // 그리기 상태가 아니면 리턴 
 
+            
+
             RaycastHit hit;
 
             if (Physics.Raycast(tip.position, tip.forward, out hit, distance, drawingLayer))
@@ -82,6 +84,8 @@ namespace JJH
                 if (!CheckColorType(drawManager))
                 {
                     DrawingStop();
+
+
                     return;
                 }
 
@@ -125,6 +129,8 @@ namespace JJH
                         currentDrawing.positionCount = index + 1;
 
                         currentDrawing.SetPosition(index, drawPosition);
+                        //drawManager.AddLineRenderer(currentDrawing, penWidth);
+
 
                         Vector2Int pixelPosition = drawManager.WorldToPixel(drawPosition);
                     }
