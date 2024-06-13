@@ -1,19 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using JJH;
 
-public class ShaderChanger : MonoBehaviour
+namespace JJH
 {
-    [SerializeField] private Shader newShader; //할당할 새로운 셰이더? 
-    // 보통은 urp Lit 인거 같아. 
-
-    private Material[] newMaterials; 
-
+    public class ShaderChanger : MonoBehaviour
+    {
+        
 
 
 
 
-
-
+    }
 
 }
+
