@@ -1,10 +1,11 @@
+using Jc;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class Miniature : XRGrabInteractable
+public class Miniature : InteractObject
 {
     int sceneNumber;  // 씬 위치데이터 접근용
     Vector3 startPos;
@@ -15,8 +16,8 @@ public class Miniature : XRGrabInteractable
     {
         base.Awake();
 
-        selectEntered.AddListener(StartGrab);
-        selectExited.AddListener(EndGrab);
+        /*selectEntered.AddListener(StartGrab);
+        selectExited.AddListener(EndGrab);*/
     }
 
     private void Start()
@@ -25,7 +26,21 @@ public class Miniature : XRGrabInteractable
         sceneNumber = (int)transform.parent.GetComponent<MiniatureManager>().MiniatureNum;
     }
 
-    public void StartGrab(SelectEnterEventArgs args)
+    protected override void OnSelectEntering(SelectEnterEventArgs args)
+    {
+        base.OnSelectEntering(args);
+        startPos = transform.position;
+    }
+
+    protected override void OnSelectExiting(SelectExitEventArgs args)
+    {
+        base.OnSelectExiting(args);
+        GroundCheck();
+        SavePosition();
+    }
+
+
+    /*public void StartGrab(SelectEnterEventArgs args)
     {
         startPos = transform.position;
     }
@@ -35,7 +50,7 @@ public class Miniature : XRGrabInteractable
     {
         GroundCheck();
         SavePosition();
-    }
+    }*/
 
     //미니어처의 현재 위치를 저장
     public void SavePosition()
