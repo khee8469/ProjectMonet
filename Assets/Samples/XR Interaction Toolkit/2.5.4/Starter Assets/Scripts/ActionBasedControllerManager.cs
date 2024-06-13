@@ -438,7 +438,8 @@ namespace UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets
 
         void DisableLocomotionActions()
         {
-            DisableAction(m_Move);
+            /// 커스텀 : 그립 시 이동이 가능.
+            //DisableAction(m_Move);
             DisableAction(m_TeleportModeActivate);
             DisableAction(m_TeleportModeCancel);
             DisableAction(m_Turn);
