@@ -27,6 +27,7 @@ public class MiniatureManager : MonoBehaviour
         SetMiniPosition();
     }
 
+    //씬 로드시 미니어처들 위치 지정
     private void SetMiniPosition()
     {
         foreach (Miniature miniature in miniatures)
@@ -45,6 +46,10 @@ public class MiniatureManager : MonoBehaviour
         }
     }
 
+    private void PositionFixation()
+    {
+        
+    }
 
-    
+
 }

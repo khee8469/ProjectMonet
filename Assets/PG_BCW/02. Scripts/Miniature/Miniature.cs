@@ -8,6 +8,8 @@ public class Miniature : XRGrabInteractable
 {
     int sceneNumber;  // 씬 위치데이터 접근용
     Vector3 startPos;
+    RaycastHit hit;
+
 
     protected override void Awake()
     {
@@ -42,14 +44,14 @@ public class Miniature : XRGrabInteractable
         positionData[transform.name] = transform.localPosition;
 
         //미니어처 놓았을 때 높이와 회전 고정
-        transform.position = new Vector3(transform.position.x, 0.5f, transform.position.z);
+        transform.position = new Vector3(transform.position.x, hit.point.y , transform.position.z);
         transform.rotation = Quaternion.identity;
     }
 
     //미니어처가 장판 밖에 두었을때 원래 위치로 복구
     public void GroundCheck()
     {
-        Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, 1000f);
+        Physics.Raycast(transform.position, Vector3.down, out hit, 1000f);
 
         if(hit.transform != transform.parent)
         {
