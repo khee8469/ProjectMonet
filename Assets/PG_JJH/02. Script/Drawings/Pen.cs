@@ -47,6 +47,8 @@ namespace JJH
         private DrawObjectManager drawManager;
         [Tooltip("Noraml 벡터 크기")]
         private float NormalDis = 0.01f;
+        [Tooltip("원하는 완료 퍼센트")]
+        [SerializeField]private int percent = 5;
 
         private void Start()
         {
@@ -129,11 +131,24 @@ namespace JJH
                         currentDrawing.positionCount = index + 1;
 
                         currentDrawing.SetPosition(index, drawPosition);
-                        //drawManager.AddLineRenderer(currentDrawing, penWidth);
+                        drawManager.AddLineRenderer(currentDrawing, penWidth);
 
 
                         Vector2Int pixelPosition = drawManager.WorldToPixel(drawPosition);
                     }
+                }
+
+                if(drawManager.GetFillPercentage() >= percent)
+                {
+                    Debug.Log("퍼센티지 다 참");
+                    drawManager.ImageAlphaUp();
+                    RemoveALLLine();
+                    DrawingStop();
+
+                    // 여기서 필 이상 차버리면 더이상 못 그리게 하거나 자신의 레이어를 바꾸는 작업을 하는것도 괜찮음
+                    // 더이상 그 부분 위에 라인렌더러가 생기지 않도록
+                    // 실제 그림 붙여서 해보는게 좋을 것 같은디 
+
                 }
             }
             else
@@ -187,7 +202,7 @@ namespace JJH
 
 
         //한 라인 씩 Undo 할 필요는 없을 듯 함. --> 한 번에 라인 삭제 가능한 함수. 
-        public void RemoveALLLine() // 삭제가 지금 한 번에 안되니까 생각해보자. 
+        public void RemoveALLLine() 
         {
             if (lineList.Count == 0) return;
 

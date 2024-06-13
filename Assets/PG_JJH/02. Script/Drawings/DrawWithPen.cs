@@ -14,7 +14,6 @@ namespace JJH
         {
             pen = GetComponent<Pen>();
         }
-
         protected override void OnActivated(ActivateEventArgs args)
         {
             
@@ -44,9 +43,6 @@ namespace JJH
                 pen.RemoveALLLine(); 
             }
         }
-
-
-
 
     }
 }
