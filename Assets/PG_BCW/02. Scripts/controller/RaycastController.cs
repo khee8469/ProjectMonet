@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.Receiver.Rendering;
 using UnityEngine.XR.Interaction.Toolkit.AffordanceSystem.State;
 
 
@@ -18,7 +19,9 @@ public class RaycastController : XRRayInteractor
     [Tooltip("그랩 가능 거리")]
     [SerializeField] float distance;
     [Tooltip("호버 할 때 매터리얼 변경")]
-    XRInteractableAffordanceStateProvider renderer;
+    ColorMaterialPropertyAffordanceReceiver colorReceiver;
+
+    XRRayInteractor abc;
 
     //호버한 오브젝트 위치
     Vector3 interactable;
@@ -60,9 +63,8 @@ public class RaycastController : XRRayInteractor
     private void LineVisualOff()
     {
         xRInteractorLineVisual.enabled = false;
-
+        
     }
-
     public override bool CanHover(IXRHoverInteractable interactable)
     {
         float distance = (interactable.transform.position - transform.position).sqrMagnitude;
@@ -72,7 +74,6 @@ public class RaycastController : XRRayInteractor
         }
         return base.CanHover(interactable);
     }
-
     public override bool CanSelect(IXRSelectInteractable interactable)
     {
         float distance = (interactable.transform.position - transform.position).sqrMagnitude;
@@ -80,6 +81,7 @@ public class RaycastController : XRRayInteractor
         {
             return false;
         }
+
         return base.CanSelect(interactable);
     }
 }
