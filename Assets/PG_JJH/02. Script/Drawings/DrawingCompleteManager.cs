@@ -1,34 +1,31 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using JJH;
 using UnityEngine.Events;
 
 namespace JJH
 {
     public class DrawingCompleteManager : Singleton<DrawingCompleteManager>
     {
-        // 이 Don`t Destroy를 통해서 채색 관리를 씬 간 연계 해주자. 
+        // 로비씬에서 이거를 가지고 있어서. 
+        // 완료 되면 여기 있는 오브젝트들 하나씩 켜주기.
 
-        // 어차피 각 씬은 baseScene을 상속 중이니까 로딩 루틴 중에 변경시키던가... 하고싶은데
-        // 변경을 시키던지 아니면... 흑백으로 만들어두고 변수에 따라 켜주던지... 
+        [SerializeField] private GameObject[] completeImages = new GameObject[4];
 
-        // 각 씬에서 또 다시 마테리얼을 변경하는 작업을 하지 않을 수 있도록 static + 싱글턴으로 관리할 bool 변수
-        public static bool isColor_First_Completed;
-        public static bool isColor_Second_Completed;
-        public static bool isColor_Third_Completed;
-        public static bool isColor_Fourth_Completed;
+        // 여기서 이제 중요한 작업 --> 그림이 완성될 시 스테이지 해금 (알맞는 해금)
+        // 그림이 완성될 시 --> 해당 맵에 있는 포스트 프로세싱 제거
 
-        // 그리고 로딩 루틴에서 루틴 돌릴 때 bool 변수와 스크립트들의 타입에 맞춰서
-        // 흑백으로 사용할 애들만 흑백으로 전환시키기 (어차피 기본 상태는 원래 마테리얼 이기 때문 ) 
+        // 그림이 완성 될 시 --> 완성 이미지 띄워주고 그동안 그린 이미지는 삭제해주기 (안보이게 하기 )
 
-        // 아직 흑백인 상황일 때만 흑백 전이 함수를 사용하고 아닐때는 그냥 return 때려서? 해주기?
+        // 3가지를 한 번에 하기 위해서는 이벤트가 최고
+
+        // ++ 중요한 것은 이제 그림의 완성을 어떻게 체크를 해줄지가 중요하다. 
 
 
-        
 
 
-        
+
+
+
+
 
     }
 }

@@ -16,30 +16,60 @@ namespace JJH
         [Tooltip("컬러 데이터 스크립터블 오브젝트")]
         public PaintTypeManager paintTypeManager;
 
+        [Tooltip("각자 자신이 가지고 있는 컬러의 상태")]
+        [SerializeField] private Color color;
+
         private void Start() // 자신의 색깔을 시작할 때 가지고 오도록 (물감의 색깔임) 
         {
-            Color color = GetColorByType(paintType);
-            GetComponent<Renderer>().material.color = color; // 마테리얼의 컬러 변경 
+            if (paintTypeManager != null)
+            {
+                color = paintTypeManager.GetColorByType(paintType);
+                GetComponent<Renderer>().material.color = color;
+            }
+            else
+            {
+                Debug.LogWarning("PaintTypeManager is not assigned.");
+            }
 
         }
 
+        public PaintTypeEnum GetPaintType()
+        {
+            return paintType;
+        }
+
+
         public Color GetColorByType(PaintTypeEnum paintType)
         {
-            Color color;
-
             if (paintTypeManager != null) // 스크립터블 오브젝트가 할당되어 있는 상태라면 
             {
                 color = paintTypeManager.GetColorByType(paintType);
                 GetComponent<Renderer>().material.color = color;
-                
+
             }
             else
             {
-                color= Color.white;
+                color = Color.white;
             }
 
-            return color; 
+            return color;
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.gameObject.CompareTag("PaintPen"))
+            {
+                Debug.Log("트리거 진입함");
+                Pen pen =other.gameObject?.GetComponent<Pen>();
+
+                pen.ChangeColor(GetPaintType());
+
+            }
+
+        }
+
+        
+
     }
 
 }
