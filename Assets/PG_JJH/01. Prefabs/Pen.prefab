@@ -186,7 +186,7 @@ MonoBehaviour:
   tip: {fileID: 4900535816607281654}
   drawingMaterial: {fileID: 2100000, guid: 3a3177e3e83ec2d4e9d75480d30353c7, type: 2}
   tipMaterial: {fileID: 2100000, guid: 785b1a453eb114946a2e16655db343b2, type: 2}
-  penWidth: 0.1
+  penWidth: 0.01
   penColors:
   - {r: 1, g: 0, b: 0, a: 1}
   - {r: 0, g: 1, b: 0, a: 1}
@@ -364,6 +364,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4900535816607281654}
+  - component: {fileID: 3895170020354043674}
   m_Layer: 0
   m_Name: Tip
   m_TagString: Untagged
@@ -386,6 +387,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3316055840863569098}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!135 &3895170020354043674
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6249770555503700350}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.8
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7300425526765048839
 GameObject:
   m_ObjectHideFlags: 0
