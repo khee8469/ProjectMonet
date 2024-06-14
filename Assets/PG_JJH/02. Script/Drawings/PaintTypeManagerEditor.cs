@@ -38,6 +38,12 @@ namespace JJH
                 paintTypeColor.color = EditorGUILayout.ColorField(paintTypeColor.color);
                 EditorGUILayout.EndHorizontal();
             }
+
+            // 변경 사항이 있으면 ScriptableObject를 저장합니다.
+            if (GUI.changed)
+            {
+                EditorUtility.SetDirty(manager);
+            }
         }
     }
 }
