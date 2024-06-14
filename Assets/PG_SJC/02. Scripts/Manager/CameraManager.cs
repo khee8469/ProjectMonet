@@ -83,7 +83,6 @@ public class CameraManager : Singleton<CameraManager>
             trackedPose.enabled = false;
             currentVC = vc;
         }
-
         
         currentVC.Priority = 1;
     }

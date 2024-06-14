@@ -35,8 +35,12 @@ namespace Jc.NPCStates
         {
             //animID_isMoving = Animator.StringToHash("isMoving");
         }
+
+        // 목적지 계산
         public override Vector3 CalculateDestination()
         {
+            // Patrol 행동
+            // 정해진 시작 지점과 도착 지점을 왕복
             Vector3 startPos = startTr.transform.position;
             Vector3 endPos = endTr.transform.position;
 
