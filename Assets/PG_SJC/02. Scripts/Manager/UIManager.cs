@@ -26,6 +26,7 @@ namespace Jc
             mainCanavas.worldCamera = renderCamera;
         }
 
+        // 페이드 인
         public IEnumerator FadeInRoutine(float fadeTime = 0f)
         {
             float rate = 0f;
@@ -39,6 +40,8 @@ namespace Jc
                 yield return null;
             }
         }
+        
+        // 페이드 아웃
         public IEnumerator FadeOutRoutine(float fadeTime = 0f)
         {
             float rate = 0f;

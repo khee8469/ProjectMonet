@@ -89,8 +89,6 @@ namespace Jc
             meshRenderer.sharedMaterial = highlightMT;
 
             IsGrabbed = true;
-            // 테스트용
-            //OnHighlighting();
         }
         protected override void OnSelectExiting(SelectExitEventArgs args)
         {
@@ -104,54 +102,6 @@ namespace Jc
 
 
             IsGrabbed = false;
-            // 테스트용
-            OffHighlighting();
-        }
-
-        // 트리거에 진입한 경우 메서드 호출
-        public void OnHighlighting()
-        {
-            if (highligtingRoutine != null)
-            {
-                StopCoroutine(highligtingRoutine);
-                highligtingRoutine = null;
-            }
-
-            highligtingRoutine = StartCoroutine(HighlightingRoutine());
-        }
-
-        // 트리거에서 벗어난 경우 메서드 호출
-        public void OffHighlighting()
-        {
-            if (highligtingRoutine == null)
-                return;
-
-            StopCoroutine(highligtingRoutine);
-            highligtingRoutine = null;
-        }
-
-        // 프레임 오브젝트 하이라이트 루틴
-        IEnumerator HighlightingRoutine()
-        {
-            bool isHighlight = true;
-            float rate = 0f;
-            while (true)
-            {
-                if (rate >= 1f)
-                {
-                    isHighlight = !isHighlight;
-                    rate = 0f;
-                }
-
-                rate += Time.deltaTime;
-
-                if (isHighlight)
-                    highlightMT.color = Color.Lerp(originColor, highlightingColor, rate);
-                else
-                    highlightMT.color = Color.Lerp(highlightingColor, originColor, rate);
-
-                yield return null;
-            }
         }
 
         // 액자 활성화 액션 실행

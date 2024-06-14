@@ -16,6 +16,21 @@ namespace Jc
         [SerializeField]
         public CinemachineVirtualCamera actionVC;
 
+        // PhotoFrame 만 상호작용
+        public override bool CanHover(IXRHoverInteractable interactable)
+        {
+            if (interactable is not PhotoFrame) return false;
+
+            return base.CanHover(interactable);
+        }
+        public override bool CanSelect(IXRSelectInteractable interactable)
+        {
+            if (interactable is not PhotoFrame) return false;
+
+            return base.CanSelect(interactable);    
+        }
+
+        // 소켓에 액자가 놓여진 경우
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             Debug.Log("Socket Select Enter");
@@ -25,7 +40,6 @@ namespace Jc
             targetFrame.gameObject.transform.rotation = attachTransform.rotation;
 
             base.OnSelectEntered(args);
-
             StartCoroutine(CameraActionRoutine(targetFrame));
         }
 

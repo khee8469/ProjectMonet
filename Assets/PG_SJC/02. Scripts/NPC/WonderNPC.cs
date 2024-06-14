@@ -28,6 +28,8 @@ namespace Jc.NPCStates
             fsm.AddState(NPCStateType.Interact, new Interact(this));    // 상호작용 상태
             fsm.Init(NPCStateType.Idle);
         }
+        
+        // 도착지 계산
         public override Vector3 CalculateDestination()
         {
             // maxRadius의 반지름을 가지는 원 내부의 임의의 점을 도출
@@ -35,6 +37,7 @@ namespace Jc.NPCStates
             // 에이전트의 최초 위치에 더해 목적지 세팅
             return originPos + new Vector3(randPos.x, 0, randPos.y);
         }
+
         protected override void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
