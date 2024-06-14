@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -69,6 +70,10 @@ namespace Jc
             set { isGrabbed = value; }
         }
         public float scaleRatio;
+
+        float ognDist;
+        float ognScale;
+        Vector3 targetScale;
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -81,10 +86,9 @@ namespace Jc
             if (!IsGrabbed) return;
 
             SetPosition();
-
-            Resize();
-            SetPosition();
+            //Resize();
         }
+
         private void Resize()
         {
             //float scaleRatio = 0f;
@@ -118,24 +122,47 @@ namespace Jc
         // 오브젝트의 위치값 고정 (메인 카메라 기준)
         private void SetPosition()
         {
-            transform.position = mainCamera.transform.position + mainCamera.transform.forward * grabDistance;
+            Vector3 rayDir = mainCamera.transform.forward;
+            Ray ray = new Ray(mainCamera.transform.position, rayDir);
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, Manager.Layer.wallLM))
+            {
+                // 닿은 벽을 기준으로 오브젝트의 위치설정
+                transform.position = hitInfo.point - rayDir * targetScale.x;
+
+                if (originDist == -1f)
+                {
+                    originDist = (mainCamera.transform.position - transform.position).sqrMagnitude;
+                }
+
+                Debug.DrawRay(mainCamera.transform.position, hitInfo.point, Color.yellow);
+                
+                float curDist = (mainCamera.transform.position - transform.position).sqrMagnitude;
+                float ratio = curDist / originDist;
+                targetScale.x = targetScale.y = targetScale.z = ratio;
+
+                transform.localScale = targetScale * originScaleX;
+            }
+
+            //transform.position = mainCamera.transform.position + mainCamera.transform.forward * grabDistance;
         }
 
         private void SetTransform()
         {
             originScaleX = transform.localScale.x;
+            targetScale = transform.localScale;
             originDist = -1f;
-            // 오브젝트의 현재 크기를 기준으로 최대 크기를 지정
-            float extendScale = originScaleX * maxScale.x;
-            maxScale = new Vector3(extendScale, extendScale, extendScale);
-            // 비율 설정
-            originRatio = originScaleX / maxScale.x;
+            //// 오브젝트의 현재 크기를 기준으로 최대 크기를 지정
+            //float extendScale = originScaleX * maxScale.x;
+            //maxScale = new Vector3(extendScale, extendScale, extendScale);
+            //// 비율 설정
+            //originRatio = originScaleX / maxScale.x;
         }
+
 
         protected override void OnSelectEntering(SelectEnterEventArgs args)
         {
             base.OnSelectEntering(args);
-
+            transform.GetComponent<Rigidbody>().isKinematic = true;
             SetTransform();
 
             IsGrabbed = true;
@@ -144,14 +171,15 @@ namespace Jc
         protected override void OnSelectExiting(SelectExitEventArgs args)
         {
             base.OnSelectExiting(args);
+            transform.GetComponent<Rigidbody>().isKinematic = false;
 
             IsGrabbed = false;
 
             // 오브젝트의 크기가 최대치 이상이 되면 원상복구
-            if(transform.localScale.x >= limitScale)
-            {
-                StartCoroutine(ResetRoutine());
-            }
+            //if(transform.localScale.x >= limitScale)
+            //{
+            //    StartCoroutine(ResetRoutine());
+            //}
         }
 
         // 원복 루틴
@@ -175,5 +203,11 @@ namespace Jc
             transform.rotation = resetTransform.rotation;
             transform.localScale = resetTransform.scale;
         }
+
+        //// 일정시간동안 충돌이 유지된다면 Reset
+        //IEnumerator CollisionTimer()
+        //{
+            
+        //}
     }
 }
