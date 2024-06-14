@@ -24,13 +24,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 295820617310953829}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3316055840863569098}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &5427997708200635151
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,11 +136,11 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5000001
+  m_Radius: 3.88
   m_Height: 2.0000002
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
@@ -167,7 +167,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -184,17 +184,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tip: {fileID: 4900535816607281654}
-  drawingMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  drawingMaterial: {fileID: 2100000, guid: 3a3177e3e83ec2d4e9d75480d30353c7, type: 2}
   tipMaterial: {fileID: 2100000, guid: 785b1a453eb114946a2e16655db343b2, type: 2}
-  penWidth: 0.01
+  penWidth: 0.1
   penColors:
-  - {r: 1, g: 0, b: 0, a: 0}
-  - {r: 0, g: 1, b: 0, a: 0}
-  - {r: 0, g: 0, b: 1, a: 0}
+  - {r: 1, g: 0, b: 0, a: 1}
+  - {r: 0, g: 1, b: 0, a: 1}
+  - {r: 0, g: 0, b: 1, a: 1}
   - {r: 1, g: 1, b: 0, a: 1}
   currentDrawing: {fileID: 0}
   index: 0
   currentColorIndex: 0
+  isDrawing: 0
+  drawingLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  lineList: []
+  drawManager: {fileID: 0}
+  percent: 5
 --- !u!114 &4346324526861788593
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,7 +220,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4294967295
   m_DistanceCalculationMode: 1
   m_SelectMode: 0
   m_FocusMode: 1
@@ -372,13 +379,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6249770555503700350}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -1.237, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3316055840863569098}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &7300425526765048839
 GameObject:
   m_ObjectHideFlags: 0
