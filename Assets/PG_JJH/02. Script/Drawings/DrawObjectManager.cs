@@ -11,11 +11,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
     }
 
 
-    public enum ColorDrawType
-    {
-        Color1, Color2, Color3, Color4, END
-    }
-
     [RequireComponent(typeof(SpriteRenderer))]
     public class DrawObjectManager : MonoBehaviour
     {
@@ -26,15 +21,10 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         [Tooltip("스테이지 별 캔버스 구분")]
         [SerializeField] private DrawBoardNumber drawBoardNumber;
 
-        [Tooltip("그림판의 타입-- 색상 정하기.")]
-        [SerializeField] private ColorDrawType colorDrawType;
-
         [Header("각 드로우판의 컬러타입 지정")]
         [Tooltip("각 컬러타입에 맞는 마테리얼 color만 색칠 할 수 있도록")]
         [SerializeField]
         public List<Color> boardColorTypeList = new List<Color>();
-
-
 
         [Tooltip("자신의 컬러타입")]
         [SerializeField]
@@ -64,29 +54,17 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         [Tooltip("좌표 보정 값 float값 보정위함")]
         [SerializeField] private float tolerance = 0.02f;
 
+        [Tooltip("스크립터블 오브젝트 공유")]
+        [SerializeField] private PaintTypeManager paintTypeManager;
+
+        [Tooltip("색깔상태")]
+        [SerializeField] private PaintTypeEnum currentPaintType;
+
         private void Start()
         {
-            // 임시로 start에서 색깔 지정해주자. 
-            boardColorTypeList.Add(new Color32(255, 0, 0, 255));
-            boardColorTypeList.Add(new Color32(0, 255, 0, 255));
-            boardColorTypeList.Add(new Color32(0, 0, 255, 255));
-            boardColorTypeList.Add(new Color32(255, 255, 0, 255));
+            myColor = paintTypeManager.GetColorByType(currentPaintType);
+            Debug.Log($"드로우 오브젝트의 현재 색깔은 {myColor}");
 
-            switch (colorDrawType)
-            {
-                case ColorDrawType.Color1:
-                    myColor = boardColorTypeList[0];
-                    break;
-                case ColorDrawType.Color2:
-                    myColor = boardColorTypeList[1];
-                    break;
-                case ColorDrawType.Color3:
-                    myColor = boardColorTypeList[2];
-                    break;
-                case ColorDrawType.Color4:
-                    myColor = boardColorTypeList[3];
-                    break;
-            }
 
             spriteRenderer = GetComponent<SpriteRenderer>();
             if (spriteRenderer != null)
@@ -101,11 +79,9 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
             }
 
-
             InitializeSpriteSize(); // 시작 시의 각자의 로컬 스케일 적용된 크기를 가져온다. 
             totalArea = worldHeight * worldWidth;
             nonTransparentArea = CalculateNonTransparentArea();
-
 
         }
 
@@ -237,7 +213,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         public void ImageAlphaUp()
         {
             Debug.Log("이미지 알파 업 함수발동");
-            StartCoroutine(StartAlphaRoutine());
+            StartCoroutine((SpriteAlphaUpRoutine()));
 
         }
 
@@ -248,7 +224,8 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         }
 
 
-        private IEnumerator StartAlphaRoutine()
+        // 이 부분 수정 필요.. 자기 자신의 그림만 나와야 하니까. 그냥 찾지말고. 
+        /*private IEnumerator StartAlphaRoutine()
         {
             DrawObjectManager[] drawingBoards = FindObjectsOfType<DrawObjectManager>();
 
@@ -266,10 +243,10 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
             yield return null;
         }
-
-        private IEnumerator SpriteAlphaUpRoutine(DrawObjectManager drawObjectManager)
+*/
+        private IEnumerator SpriteAlphaUpRoutine() //DrawObjectManager drawObjectManager
         {
-            SpriteRenderer spriteRenderer = drawObjectManager.GetComponent<SpriteRenderer>();
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
             Color spriteColor = spriteRenderer.color;
 
             float duration = 2f; //2초간 알파값 변경 진행
@@ -287,7 +264,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
             spriteColor.a = 1f;
             spriteRenderer.color = spriteColor;
-            drawObjectManager.gameObject.layer = 0;
+            gameObject.layer = 0;
 
         }
 
@@ -332,9 +309,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
             yield return null;
         }
-
-
-
 
         private float CalculateNonTransparentArea()
         {
@@ -391,5 +365,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
     }
 
 }
+
+
 
 
