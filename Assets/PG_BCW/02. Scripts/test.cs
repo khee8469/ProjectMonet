@@ -6,7 +6,6 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class NewBehaviourScript : XRDirectInteractor
 {
     XRHandSubsystem handSubsystem;
-    XRBaseInteractor xRBaseInteractor;
 
     protected override void Awake()
     {
@@ -27,6 +26,7 @@ public class NewBehaviourScript : XRDirectInteractor
         }
     }
 
+    //손의 위치가 변할때마다 실행되는 함수
     void OnUpdatedHands(XRHandSubsystem subsystem, XRHandSubsystem.UpdateSuccessFlags updateSuccessFlags, XRHandSubsystem.UpdateType updateType)
     {
         if (updateSuccessFlags.HasFlag(XRHandSubsystem.UpdateSuccessFlags.LeftHandJoints))
@@ -85,13 +85,13 @@ public class NewBehaviourScript : XRDirectInteractor
 
         if (interactable != null)
         {
-            var args = new SelectEnterEventArgs
+            /*SelectEnterEventArgs args = new SelectEnterEventArgs
             {
                 interactableObject = interactable,
                 interactorObject = this
-            };
+            };*/
 
-            interactionManager.SelectEnter(args.interactorObject, args.interactableObject);
+            interactionManager.SelectEnter(this , interactable);
         }
     }
 
@@ -102,13 +102,13 @@ public class NewBehaviourScript : XRDirectInteractor
 
         if (interactable != null)
         {
-            var args = new SelectEnterEventArgs
+            /*var args = new SelectEnterEventArgs
             {
                 interactableObject = interactable,
                 interactorObject = this
-            };
+            };*/
 
-            interactionManager.SelectExit(args.interactorObject, args.interactableObject);
+            interactionManager.SelectExit(this , interactable);
         }
     }
 
@@ -118,7 +118,11 @@ public class NewBehaviourScript : XRDirectInteractor
         // interactablesHovered는 호버링 중인 객체 목록을 반환하는 프로퍼티입니다.
         if (interactablesHovered.Count > 0)
         {
-            return interactablesHovered[0] as XRBaseInteractable; ; // 첫 번째 호버링 중인 객체를 반환
+            /*for(int i = 0;  i < interactablesHovered.Count; i++)
+            {
+                interactablesHovered[i].transform.GetComponent<>
+            }*/
+            return interactablesHovered[0] as XRBaseInteractable;
         }
 
         return null;

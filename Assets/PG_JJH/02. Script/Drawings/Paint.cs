@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace JJH
 {
-    /*public class Paint : MonoBehaviour
+    public class Paint : MonoBehaviour
     {
         // < 물감 >에 붙일 친구 니까 이거를 이제 펜과 연계해서
         // 펜이 이 물감의 color를 가져와서 그 부분을 펜의 tip에 컬러에 넣는다.
