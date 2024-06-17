@@ -4,167 +4,110 @@ using UnityEngine.XR.Hands.Gestures;
 
 namespace UnityEngine.XR.Hands.Samples.GestureSample
 {
-    /// <summary>
-    /// A gesture that detects when a hand is held in a static shape and orientation for a minimum amount of time.
-    /// </summary>
     public class StaticHandGesture : MonoBehaviour
     {
         [SerializeField]
-        [Tooltip("The hand tracking events component to subscribe to receive updated joint data to be used for gesture detection.")]
-        XRHandTrackingEvents m_HandTrackingEvents;
+        [Tooltip("왼손 트래킹용")]
+        XRHandTrackingEvents m_LeftHandTrackingEvents;
 
         [SerializeField]
-        [Tooltip("The hand shape or pose that must be detected for the gesture to be performed.")]
+        [Tooltip("오른손 트래킹용")]
+        XRHandTrackingEvents m_RightHandTrackingEvents;
+
+        [SerializeField]
+        [Tooltip("확인 할 제스처")]
         ScriptableObject m_HandShapeOrPose;
 
         [SerializeField]
-        [Tooltip("The target Transform to user for target conditions in the hand shape or pose.")]
+        [Tooltip("손 모양 또는 포즈의 대상 조건에 대한 사용자 변환 대상")]
         Transform m_TargetTransform;
 
         [SerializeField]
-        [Tooltip("The image component that draws the background for gesture icons.")]
-        Image m_Background;
-
-        [SerializeField]
-        [Tooltip("The event fired when the gesture is performed.")]
+        [Tooltip("제스처 실행 이벤트")]
         UnityEvent m_GesturePerformed;
 
         [SerializeField]
-        [Tooltip("The event fired when the gesture is ended.")]
+        [Tooltip("제스처 종료 이벤트")]
         UnityEvent m_GestureEnded;
 
         [SerializeField]
-        [Tooltip("The minimum amount of time the hand must be held in the required shape and orientation for the gesture to be performed.")]
+        [Tooltip("제스처 최소 실행 시간")]
         float m_MinimumHoldTime = 0.2f;
 
         [SerializeField]
-        [Tooltip("The interval at which the gesture detection is performed.")]
+        [Tooltip("제스처 감지가 수행되는 간격")]
         float m_GestureDetectionInterval = 0.1f;
 
-        [SerializeField]
-        [Tooltip("The static gestures associated with this gestures handedness.")]
-        StaticHandGesture[] m_StaticGestures;
-
-        [SerializeField]
-        [Tooltip("The image component that draws the highlighted gesture icon border.")]
-        Image m_Highlight;
 
         XRHandShape m_HandShape;
         XRHandPose m_HandPose;
-        bool m_WasDetected;
-        public bool m_PerformedTriggered;
-        float m_TimeOfLastConditionCheck;
-        float m_HoldStartTime;
-        Color m_BackgroundDefaultColor;
-        Color m_BackgroundHighlightColor = new Color(0f, 0.627451f, 1f);
+        bool leftWasDetected;
+        bool rightWasDetected;
+        public bool leftPerformedTriggered;
+        public bool rightPerformedTriggered;
+        float leftTimeOfLastConditionCheck;
+        float rightTimeOfLastConditionCheck;
+        float leftHoldStartTime;
+        float rightHoldStartTime;
 
-        /// <summary>
-        /// The hand tracking events component to subscribe to receive updated joint data to be used for gesture detection.
-        /// </summary>
-        public XRHandTrackingEvents handTrackingEvents
+
+        public XRHandTrackingEvents leftHandTrackingEvents
         {
-            get => m_HandTrackingEvents;
-            set => m_HandTrackingEvents = value;
+            get => m_LeftHandTrackingEvents;
+            set => m_LeftHandTrackingEvents = value;
         }
 
-        /// <summary>
-        /// The hand shape or pose that must be detected for the gesture to be performed.
-        /// </summary>
+        public XRHandTrackingEvents rightHnadTrackingEvents
+        {
+            get => m_RightHandTrackingEvents;
+            set => m_RightHandTrackingEvents = value;
+        }
+ 
         public ScriptableObject handShapeOrPose
         {
             get => m_HandShapeOrPose;
             set => m_HandShapeOrPose = value;
         }
 
-        /// <summary>
-        /// The target Transform to user for target conditions in the hand shape or pose.
-        /// </summary>
         public Transform targetTransform
         {
             get => m_TargetTransform;
             set => m_TargetTransform = value;
         }
 
-        /// <summary>
-        /// The image component that draws the background for gesture icons.
-        /// </summary>
-        public Image background
-        {
-            get => m_Background;
-            set => m_Background = value;
-        }
-
-        /// <summary>
-        /// The image component that draws the highlight state drawn on top of the gesture icon background.
-        /// </summary>
-        public Image highlight
-        {
-            get => m_Highlight;
-            set => m_Highlight = value;
-        }
-
-        /// <summary>
-        /// The event fired when the gesture is performed.
-        /// </summary>
         public UnityEvent gesturePerformed
         {
             get => m_GesturePerformed;
             set => m_GesturePerformed = value;
         }
 
-        /// <summary>
-        /// The event fired when the gesture is ended.
-        /// </summary>
         public UnityEvent gestureEnded
         {
             get => m_GestureEnded;
             set => m_GestureEnded = value;
         }
 
-        /// <summary>
-        /// The minimum amount of time the hand must be held in the required shape and orientation for the gesture to be performed.
-        /// </summary>
         public float minimumHoldTime
         {
             get => m_MinimumHoldTime;
             set => m_MinimumHoldTime = value;
         }
 
-        /// <summary>
-        /// The interval at which the gesture detection is performed.
-        /// </summary>
         public float gestureDetectionInterval
         {
             get => m_GestureDetectionInterval;
             set => m_GestureDetectionInterval = value;
         }
 
-        /// <summary>
-        /// Sets any assigned highlight UI component as visible/hidden
-        /// </summary>
-        public bool highlightVisible
-        {
-            set
-            {
-                if (m_Highlight)
-                    m_Highlight.enabled = value;
-            }
-        }
-
         void Awake()
         {
-            m_BackgroundDefaultColor = m_Background.color;
 
-            if (m_Highlight)
-            {
-                m_Highlight.enabled = false;
-                m_Highlight.gameObject.SetActive(true);
-            }
         }
 
         void OnEnable()
         {
-            m_HandTrackingEvents.jointsUpdated.AddListener(OnJointsUpdated);
+            m_LeftHandTrackingEvents.jointsUpdated.AddListener(OnLeftJointsUpdated);
+            m_RightHandTrackingEvents.jointsUpdated.AddListener(OnRightJointsUpdated);
 
             m_HandShape = m_HandShapeOrPose as XRHandShape;
             m_HandPose = m_HandShapeOrPose as XRHandPose;
@@ -172,55 +115,86 @@ namespace UnityEngine.XR.Hands.Samples.GestureSample
                 m_HandPose.relativeOrientation.targetTransform = m_TargetTransform;
         }
 
-        void OnDisable() => m_HandTrackingEvents.jointsUpdated.RemoveListener(OnJointsUpdated);
-
-        void OnJointsUpdated(XRHandJointsUpdatedEventArgs eventArgs)
+        void OnDisable()
         {
-            if (!isActiveAndEnabled || Time.timeSinceLevelLoad < m_TimeOfLastConditionCheck + m_GestureDetectionInterval)
+            m_LeftHandTrackingEvents.jointsUpdated.RemoveListener(OnLeftJointsUpdated);
+            m_RightHandTrackingEvents.jointsUpdated.RemoveListener(OnRightJointsUpdated);
+        }
+
+        void OnLeftJointsUpdated(XRHandJointsUpdatedEventArgs eventArgs)
+        {
+            if (!isActiveAndEnabled || Time.timeSinceLevelLoad < leftTimeOfLastConditionCheck + m_GestureDetectionInterval)
                 return;
 
-            var detected =
-                m_HandTrackingEvents.handIsTracked &&
+            bool detected =
+                (m_LeftHandTrackingEvents.handIsTracked &&
                 m_HandShape != null && m_HandShape.CheckConditions(eventArgs) ||
-                m_HandPose != null && m_HandPose.CheckConditions(eventArgs);
+                m_HandPose != null && m_HandPose.CheckConditions(eventArgs));
 
-            if (!m_WasDetected && detected)
+
+            //이전 프레임에서 감지되었는지
+            if (!leftWasDetected && detected)
             {
-                m_HoldStartTime = Time.timeSinceLevelLoad;
+                leftHoldStartTime = Time.timeSinceLevelLoad;
             }
-            else if (m_WasDetected && !detected)
+            else if (leftWasDetected && !detected)
             {
-                m_PerformedTriggered = false;
+                leftPerformedTriggered = false;
                 m_GestureEnded?.Invoke();
-                m_Background.color = m_BackgroundDefaultColor;
             }
 
-            m_WasDetected = detected;
+            leftWasDetected = detected;
 
-            if (!m_PerformedTriggered && detected)
+            //제스처를 실행햇는지
+            if (!leftPerformedTriggered && detected)
             {
-                var holdTimer = Time.timeSinceLevelLoad - m_HoldStartTime;
+                float holdTimer = Time.timeSinceLevelLoad - leftHoldStartTime;
                 if (holdTimer > m_MinimumHoldTime)
                 {
                     m_GesturePerformed?.Invoke();
-                    m_PerformedTriggered = true;
-                    m_Background.color = m_BackgroundHighlightColor;
-
-                    if (m_Highlight)
-                        m_Highlight.enabled = true;
-
-                    foreach (var gesture in m_StaticGestures)
-                    {
-                        if (gesture != this)
-                            gesture.highlightVisible = false;
-                    }
+                    leftPerformedTriggered = true;
                 }
             }
 
-            m_TimeOfLastConditionCheck = Time.timeSinceLevelLoad;
+            leftTimeOfLastConditionCheck = Time.timeSinceLevelLoad;
         }
 
 
+        void OnRightJointsUpdated(XRHandJointsUpdatedEventArgs eventArgs)
+        {
+            if (!isActiveAndEnabled || Time.timeSinceLevelLoad < rightTimeOfLastConditionCheck + m_GestureDetectionInterval)
+                return;
 
+            bool detected =
+                (m_RightHandTrackingEvents.handIsTracked &&
+                m_HandShape != null && m_HandShape.CheckConditions(eventArgs) ||
+                m_HandPose != null && m_HandPose.CheckConditions(eventArgs));
+
+            //이전 프레임에서 감지되었는지
+            if (!rightWasDetected && detected)
+            {
+                rightHoldStartTime = Time.timeSinceLevelLoad;
+            }
+            else if (rightWasDetected && !detected)
+            {
+                rightPerformedTriggered = false;
+                m_GestureEnded?.Invoke();
+            }
+
+            rightWasDetected = detected;
+
+            //제스처를 실행햇는지
+            if (!rightPerformedTriggered && detected)
+            {
+                float holdTimer = Time.timeSinceLevelLoad - rightHoldStartTime;
+                if (holdTimer > m_MinimumHoldTime)
+                {
+                    m_GesturePerformed?.Invoke();
+                    rightPerformedTriggered = true;
+                }
+            }
+
+            rightTimeOfLastConditionCheck = Time.timeSinceLevelLoad;
+        }
     }
 }
