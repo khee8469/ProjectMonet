@@ -67,9 +67,7 @@ namespace JJH
 
 
         private void StageUnLock(int number, bool unLock) //  < 이벤트 > 에 등록된 메서드 --> 외부에서 이벤트 발동시켜주기. 
-        {
-            number = number - 1; // 외부에서 2챕터 부르면 2챕터 unlock 시키기 위해. ( 내부는 0 부터 시작하므로)
-
+        {           
             print("챕터 개방 이벤트 발동됨");
 
             if (number >= 0 && number < doors.Length)

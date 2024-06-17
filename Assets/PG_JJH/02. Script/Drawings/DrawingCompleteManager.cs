@@ -39,6 +39,25 @@ namespace JJH
             {
                 drawCompleteCheckDic.Add(drawObjectManagers[i], ChapterManager.isDrawing_Complete[i]);
 
+                if(drawCompleteCheckDic.TryGetValue(drawObjectManagers[i] , out bool isTure))
+                {
+                    if(isTure) // ture 라면 그 알파값을 full 로 올려줘서 보이도록 해줘야함. 
+                    {
+                        DrawObjectManager dr= drawObjectManagers[i].GetComponent<DrawObjectManager>();
+                        if(dr != null)
+                        {
+                            SpriteRenderer sprite = dr.GetComponent<SpriteRenderer>();
+                            Color color = sprite.color;
+                            color.a = 1f;
+                            sprite.color= color;
+                            
+
+                        }
+                        
+                    }
+                }
+
+
             }
             // start 에서 이벤트 발동 시켜서... 씬 해금 상태 유지 및 씬 컬러 상태 체크 해주기.
             // 씬 컬러 상태는 유지라기 보다는 한 번만 발동해주면 (static bool만 바꿔주면 계속 유지됨. )
@@ -96,15 +115,13 @@ namespace JJH
                 Debug.Log("올컴플리트 if문 진입");
 
                 // 0 1 2 3 --> 4개의 씬 
-                ChapterManager.Instance.CheckDrawComplete(drawingNumber, true);
+                ChapterManager.Instance.CheckDrawComplete(drawingNumber, true); // 씬의 필터 해제
 
-                // 내부 코드에서 어차피 -1 붙어있음... 
-                ChapterManager.Instance.UnlockStage(drawingNumber, true);
-
-                // 이제 그 타입에 맞춰서 실제 그림 active 해주기 ? 
-                // 0번 씬이면 --> 1챕터 --> 1챕터의 필터 해제 
-                ChapterManager.is_Colored[drawingNumber] = true;
-
+                // 내부코드는 그대로 받아들이도록 수정함 --> 결국 0 이면 1챕터 개방이므로 + 1 필요 ??
+                if(drawingNumber<=2)
+                {
+                    ChapterManager.Instance.UnlockStage(drawingNumber + 1, true); // 3 부터는 인덱스 터짐. 
+                }              
                 // 완성본 그림 알파값 업그레이드 해주기
 
                 FinishedDraw.FinishAlphaUp.Invoke(drawingNumber);
