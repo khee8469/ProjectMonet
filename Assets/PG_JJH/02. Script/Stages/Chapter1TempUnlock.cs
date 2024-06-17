@@ -22,11 +22,13 @@ namespace JJH
 
             }
 
+
+            if(Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                Manager.Scene.LoadScene("Chapter1");
+            }
+
         }
-
-       
-
-
     }
 
 }

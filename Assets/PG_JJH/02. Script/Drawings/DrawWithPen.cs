@@ -29,18 +29,11 @@ namespace JJH
             pen.DrawingStop(); 
         }
 
-
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Alpha1)) // 라인 색깔 변경 함수
+            if(Input.GetKeyDown(KeyCode.Alpha1))
             {
-                
                 pen.SwitchColor();
-            }
-
-            if(Input.GetKeyDown(KeyCode.Alpha2)) // 라인 렌더러 삭제 함수
-            {               
-                pen.RemoveALLLine(); 
             }
         }
 

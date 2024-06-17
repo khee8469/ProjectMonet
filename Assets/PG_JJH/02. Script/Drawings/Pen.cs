@@ -11,49 +11,84 @@ namespace JJH
         [Header("펜의 속성")]
         [Tooltip("펜의 펜촉 (그려지는 부분)")]
         public Transform tip;
+
         [Tooltip("Defalut-Line 으로 설정할 것")]
         public Material drawingMaterial;
+
         [Tooltip("펜촉 부분의 마테리얼")]
         public Material tipMaterial;
+
         [Tooltip("펜의 크기 조절 기능")]
         [Range(0.01f, 0.1f)] public float penWidth = 0.01f;
-        [Tooltip("펜의 색상 배열")] //추후에 이 리스트를 이용해서 아이템과 연계로 색 변화 발생시키기? 이 부분은 나중에 추가로 생각해보기. 
-        public List<Color> penColors = new List<Color>();
+
+        /*[Tooltip("펜의 색상 배열")] //추후에 이 리스트를 이용해서 아이템과 연계로 색 변화 발생시키기? 이 부분은 나중에 추가로 생각해보기. 
+        public List<Color> penColors = new List<Color>();*/
 
         [Header("렌더러와 컬러 관리")]
         [Tooltip("그려줄 라인 렌더러")]
         [SerializeField] private LineRenderer currentDrawing;
-        [Tooltip("컬러 리스트의 인덱스")] // 이거 리스트 말고 딕셔너리로 해야하나? 컬러 색깔 구분해 줄 때 뭐가 편할지 생각해보자. 
-        [SerializeField] private int index;
-        [Tooltip("현재 컬러 인덱스")]
-        [SerializeField] int currentColorIndex;
+
+        /* [Tooltip("컬러 리스트의 인덱스")] // 이거 리스트 말고 딕셔너리로 해야하나? 컬러 색깔 구분해 줄 때 뭐가 편할지 생각해보자. 
+         [SerializeField] private int index;
+
+         [Tooltip("현재 컬러 인덱스")]
+         [SerializeField] int currentColorIndex;*/
+
+        [Header("스크립터블 오브젝트 관련")]
+        [Tooltip("현재 컬러 타입")]
+        [SerializeField] private PaintTypeEnum currentPaintType;
+
+        [Tooltip("색상 데이터를 관리하는 스크립터블 오브젝트")]
+        public PaintTypeManager paintTypeManager;
+
 
         [Tooltip("그리기 상태 관리")]
         [SerializeField] private bool isDrawing = false;
 
+        [Header("플레이어의 움직임 방지(그림그리는 중)")]
+        [SerializeField] private bool isNotMove = false;
+
         [Header("상호작용 오브젝트 관리")]
         [Tooltip("그리기를 허용할 레이어 마스크")]
+
         [SerializeField] private LayerMask drawingLayer;
         [Tooltip("레이어 체크 거리")]
-        /*[SerializeField]*/
-        private float distance = 0.4f;
+        private float distance = 1f;
 
         [Header("삭제 및 이미지 연계")]
         [Tooltip("생성된 라인렌더러를 저장 해 줄 리스트")]
         [SerializeField] List<GameObject> lineList = new List<GameObject>();
-
-        [SerializeField]
+        
         [Tooltip("해당 캔버스와 관련된 참조")]
         private DrawObjectManager drawManager;
+
         [Tooltip("Noraml 벡터 크기")]
         private float NormalDis = 0.01f;
+
         [Tooltip("원하는 완료 퍼센트")]
         [SerializeField]private int percent = 5;
 
-        private void Start()
+        [Tooltip("라인렌더러의 포지션 위한 인덱스")]
+        [SerializeField] private int index;
+
+
+        [Header("레이캐스트 박스 설정")]
+        [Tooltip("박스의 크기")]
+        public Vector3 boxSize = new Vector3(0.1f, 0.1f, 0.1f);
+        [Tooltip("박스의 방향")]
+        public Quaternion boxOrientation = Quaternion.identity;
+
+        
+
+        private void Start() // 시작 시에는 무조건 하얀색. 
         {
-            currentColorIndex = 0;
-            tipMaterial.color = penColors[currentColorIndex]; //현재 팁의 마테리얼은 펜컬러의 인덱스와 같다. 
+            currentPaintType = PaintTypeEnum.None; //기본 색상으로 지정해주기. 
+
+            if(paintTypeManager != null)
+            {
+                // 스크립터블 오브젝트의 타입에 따라 tip의 컬러를 조정해 줄 예정 
+                tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType); 
+            }
             drawingLayer = LayerMask.GetMask("DrawBoard");
 
         }
@@ -62,7 +97,8 @@ namespace JJH
         // 레이캐스트를 계속 체크해야 하기 때문에 update 밖에 없나? 어떻게 해야할지... 
         private void Update()
         {
-            if (isDrawing)
+
+            if (isDrawing && currentPaintType != PaintTypeEnum.None)
             {
                 Draw();
             }
@@ -70,24 +106,25 @@ namespace JJH
 
         public void Draw()
         {
-            if (!isDrawing) return; // 그리기 상태가 아니면 리턴 
-
-            
+            if (!isDrawing || currentPaintType == PaintTypeEnum.None) return; // 그리기 상태가 아니면 리턴 
 
             RaycastHit hit;
 
-            if (Physics.Raycast(tip.position, tip.forward, out hit, distance, drawingLayer))
+            // 레이 캐스트 박스의 센터 
+            Vector3 boxCenter = tip.position;
+
+            if (Physics.BoxCast(boxCenter, boxSize, tip.forward, out hit, boxOrientation, distance, drawingLayer))
             {
                 Debug.DrawRay(tip.position, tip.forward * distance, Color.red);
 
                 Vector3 drawPosition = hit.point + hit.normal * NormalDis;
                 drawManager = hit.collider?.GetComponent<DrawObjectManager>();
 
+                Debug.Log("박스 캐스트로 레이들어감.");
+
                 if (!CheckColorType(drawManager))
                 {
                     DrawingStop();
-
-
                     return;
                 }
 
@@ -100,17 +137,18 @@ namespace JJH
                     lineObj.transform.position = tip.position;
                     currentDrawing = lineObj.AddComponent<LineRenderer>();
 
-                    currentDrawing.material = drawingMaterial; // 현재 마테리얼 
+                    currentDrawing.material = new Material(drawingMaterial);
 
-                    currentDrawing.material.color = penColors[currentColorIndex];
+                    // 현재 색상 설정
+                    currentDrawing.material.color = paintTypeManager.GetColorByType(currentPaintType);
 
-                    currentDrawing.startColor = currentDrawing.endColor = penColors[currentColorIndex]; //현재 색깔
-
+                    // 현재 색상 설정
+                    currentDrawing.startColor = currentDrawing.endColor = paintTypeManager.GetColorByType(currentPaintType); 
+                   
                     currentDrawing.startWidth = currentDrawing.endWidth = penWidth; //일정한 굵기. 
-                    currentDrawing.positionCount = 1; // 시작 포지션 카운트 1
 
-                    // hit를 이용하여 hit 포지션에 드로잉을 하기
-                    
+                    currentDrawing.positionCount = 1; // 시작 포지션 카운트 1
+                  
                     currentDrawing.SetPosition(0, drawPosition);
 
                     drawManager.AddLineRenderer(currentDrawing, penWidth);
@@ -123,7 +161,7 @@ namespace JJH
                 {
                     
                     var currentPos = currentDrawing.GetPosition(index);
-                    currentDrawing.material.color = penColors[currentColorIndex];
+                    currentDrawing.material.color = paintTypeManager.GetColorByType(currentPaintType);
 
                     if (Vector3.Distance(currentPos, drawPosition) > 0.01f)
                     {
@@ -133,22 +171,25 @@ namespace JJH
                         currentDrawing.SetPosition(index, drawPosition);
                         drawManager.AddLineRenderer(currentDrawing, penWidth);
 
-
                         Vector2Int pixelPosition = drawManager.WorldToPixel(drawPosition);
                     }
                 }
 
-                if(drawManager.GetFillPercentage() >= percent)
+                // 이 부분이 완성된 상태니까. 여기서 추가 함수를 불러서 실제 이미지를 On 해주고 
+                // 더이상 그려지지 않는 작업을 추가해주고
+                // 
+                if(drawManager.GetFillPercentage() >= percent) // 다 찬 상황일 때 플레이어를 해방시켜 줘야함. (어차피 한 부분만 해결해도 탈출 가능함 ) 
                 {
                     Debug.Log("퍼센티지 다 참");
                     drawManager.ImageAlphaUp();
                     RemoveALLLine();
                     DrawingStop();
+                    isNotMove = false;
+                    PlayerNotMove(isNotMove);
 
                     // 여기서 필 이상 차버리면 더이상 못 그리게 하거나 자신의 레이어를 바꾸는 작업을 하는것도 괜찮음
                     // 더이상 그 부분 위에 라인렌더러가 생기지 않도록
                     // 실제 그림 붙여서 해보는게 좋을 것 같은디 
-
                 }
             }
             else
@@ -164,19 +205,40 @@ namespace JJH
                 return false;
             }
 
-            return drawObjectManager.ObjectMyColor == penColors[currentColorIndex];
+    
+            return drawObjectManager.ObjectMyColor == paintTypeManager.GetColorByType(currentPaintType);
 
         }
 
         public void StartDrawing()
         {
             isDrawing = true; // 그리기 상태로 전환
+            isNotMove = true;
+            PlayerNotMove(isNotMove);
+
+            // not move 와 함께 --> 플레이어의 움직임 막아버리는 함수 발동 
 
         }
+
+        private void PlayerNotMove(bool isNotMove)
+        {
+            if(isNotMove)  // true면 움직임 방지 
+            {
+                Debug.Log("플레이어의 움직임 방지");
+            }
+            else
+            {
+                Debug.Log("플레이어의 움직임 다시 가능해짐.");
+            }
+        }
+
+
 
         public void DrawingStop()
         {
             isDrawing = false; //그리기 상태 중지로 설정
+            
+
 
             if (currentDrawing != null)
             {
@@ -184,22 +246,34 @@ namespace JJH
             }
         }
 
-        // 물감과의 연계가 필요하기 때문에 
+        // 이 부분은 그냥 잘 바뀌나 확인용으로 둔 함수 --> 실제 사용 x 
         public void SwitchColor()  // 색상 전환은 일단 나중에.
         {
-            if (currentColorIndex == penColors.Count - 1)
-            {
-                currentColorIndex = 0;
-            }
-            else
-            {
-                currentColorIndex++;
-            }
+            // PaintTypeEnum의 모든 값을 배열로 가져옵니다.
+            PaintTypeEnum[] paintTypes = (PaintTypeEnum[])System.Enum.GetValues(typeof(PaintTypeEnum));
 
-            tipMaterial.color = penColors[currentColorIndex];
+            // 현재 색상 타입의 인덱스를 배열에서 찾습니다.
+            int currentIndex = System.Array.IndexOf(paintTypes, currentPaintType);
+
+            // 인덱스를 하나 증가시킵니다. 배열의 끝에 도달하면 다시 처음으로 순환합니다.
+            currentIndex = (currentIndex + 1) % paintTypes.Length;
+
+            // 증가된 인덱스를 사용하여 새로운 색상 타입을 설정합니다.
+            currentPaintType = paintTypes[currentIndex];
+
+            // 새로운 색상 타입에 해당하는 색상을 가져와 펜촉의 마테리얼에 적용합니다.
+            tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType);
 
         }
 
+        public void ChangeColor(PaintTypeEnum _paintTypeEnum)
+        {
+            currentPaintType = _paintTypeEnum;
+            Debug.Log($"색깔 변경 +{_paintTypeEnum} ");
+            tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType);
+        }
+
+        
 
         //한 라인 씩 Undo 할 필요는 없을 듯 함. --> 한 번에 라인 삭제 가능한 함수. 
         public void RemoveALLLine() 

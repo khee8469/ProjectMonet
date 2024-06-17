@@ -191,7 +191,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5fb50d88689f9d49a3d970b26f12513, type: 3}
---- !u!1 &274443118
+--- !u!1 &146498802
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -199,42 +199,37 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 274443120}
-  - component: {fileID: 274443119}
+  - component: {fileID: 146498804}
+  - component: {fileID: 146498803}
   m_Layer: 0
-  m_Name: Global Volume
+  m_Name: scene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &274443119
+--- !u!114 &146498803
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 274443118}
+  m_GameObject: {fileID: 146498802}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Script: {fileID: 11500000, guid: 51ac3feb5f9ce2546abc67fc111ffdb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_IsGlobal: 1
-  priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 626072b1059c904458ff8335bce38823, type: 2}
---- !u!4 &274443120
+--- !u!4 &146498804
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 274443118}
+  m_GameObject: {fileID: 146498802}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.7138443, y: 3.3991432, z: -15.094549}
+  m_LocalPosition: {x: 8.403313, y: 0.39115715, z: 16.427437}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -456,5 +451,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 2004010273}
   - {fileID: 1064045996}
-  - {fileID: 274443120}
   - {fileID: 29164394}
+  - {fileID: 146498804}
