@@ -36,7 +36,7 @@ public class MiniatureManager : MonoBehaviour
             //데이터가 잇으면
             if (positionData.ContainsKey(miniature.name))
             {
-                miniature.transform.localPosition = new Vector3(positionData[miniature.name].x, 0.5f, positionData[miniature.name].z);
+                miniature.transform.localPosition = new Vector3(positionData[miniature.name].x, 0, positionData[miniature.name].z);
             }
             //데이터가 없으면
             else

@@ -5,7 +5,7 @@ using JJH;
 
 namespace JJH
 {
-    public class Paint : MonoBehaviour
+    /*public class Paint : MonoBehaviour
     {
         [Header("컬러 관련 데이터")]
         [Tooltip("컬러 열거형을 설정함.")]
@@ -14,7 +14,7 @@ namespace JJH
         [Tooltip("컬러 데이터 스크립터블 오브젝트")]
         public PaintTypeManager paintTypeManager;
 
-        private void Start()
+        /private void Start()
         {
             if (paintTypeManager != null) // 스크립터블 오브젝트가 할당되어 있는 상태라면 
             {
@@ -38,7 +38,7 @@ namespace JJH
             return Color.white; // 기본색상. 
         }
 
-    }
+    }*/
 
 }
 
