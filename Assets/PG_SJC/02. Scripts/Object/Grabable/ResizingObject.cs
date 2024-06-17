@@ -236,7 +236,7 @@ namespace Jc
 
             while (rate < 1f)
             {
-                rate += Time.deltaTime * 2f;
+                rate += Time.deltaTime;
                 transform.position = Vector3.Lerp(startPos, resetTransform.position, rate);
                 transform.rotation = Quaternion.Lerp(startRot, resetTransform.rotation, rate);
                 transform.localScale = Vector3.Lerp(startScale, resetTransform.scale, rate);

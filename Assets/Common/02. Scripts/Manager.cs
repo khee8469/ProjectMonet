@@ -10,6 +10,7 @@ public static class Manager
     public static UIManager UI {get { return UIManager.Instance; } }
     public static AnimParamManager Param {get { return AnimParamManager.Instance; } }
     public static LayerManager Layer { get { return LayerManager.Instance;}}
+    public static DataManager Data { get { return DataManager.Instance;}}
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void Initialize()
@@ -19,11 +20,13 @@ public static class Manager
         UIManager.ReleaseInstance();
         AnimParamManager.ReleaseInstance();
         LayerManager.ReleaseInstance();
+        DataManager.ReleaseInstance();
 
         // 싱글턴 객체생성
         CameraManager.CreateInstance();
         UIManager.CreateInstance();
         AnimParamManager.CreateInstance();
         LayerManager.CreateInstance();
+        DataManager.CreateInstance();
     }
 }

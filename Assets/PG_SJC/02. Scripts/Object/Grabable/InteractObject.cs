@@ -29,6 +29,7 @@ namespace Jc
 
         protected bool isGrabbed = false;   // 오브젝트의 그랩 여부
 
+        [SerializeField]
         protected float grabDistance;
         public float GrabDistance {get { return grabDistance; } }
 
