@@ -8,6 +8,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
     // 자신의 알파값이 1F로 증가할 때 같은 ENUM인 친구들을 찾아서 걔네도 같이 알파값을 업데이트 해줘야한다. 
     public enum DrawBoardNumber 
     {
+        // 0 1 2 3 
         Compartment1, Compartment2, Compartment3, Compartment4, Finished , END
     }
 

@@ -24,7 +24,7 @@ namespace JJH
         [Tooltip("그림의 컬러를 비교해 줄 스크립터블 오브젝트")]
         [SerializeField] private PaintTypeManager paintTypeManager;
 
-        [Tooltip("딕셔너리의 무결성 유지를 위한 임시 key 저장용 리스트")]        
+        [Tooltip("딕셔너리의 무결성 유지를 위한 임시 key 저장용 리스트")]
         List<DrawObjectManager> keysToModifty = new List<DrawObjectManager>();
         private void Start()
         {
@@ -38,7 +38,7 @@ namespace JJH
             for (int i = 0; i < drawObjectManagers.Length; i++) //어차피 이 둘은 길이가 똑같음. 
             {
                 drawCompleteCheckDic.Add(drawObjectManagers[i], ChapterManager.isDrawing_Complete[i]);
-                
+
             }
             // start 에서 이벤트 발동 시켜서... 씬 해금 상태 유지 및 씬 컬러 상태 체크 해주기.
             // 씬 컬러 상태는 유지라기 보다는 한 번만 발동해주면 (static bool만 바꿔주면 계속 유지됨. )
@@ -46,17 +46,10 @@ namespace JJH
 
         }
 
-        public void DrawComplete(int drawingNumber, bool finishied , int instanceID) // 그림이 완성되었을 때 (완전히) 진행할 함수 
-                                                                    // 챕터도 해금 시켜줘야 하고. 포스트프로세싱도 종료 시켜줘야하기 때문에 
-                                                                    // 싱글턴 매니저와 연계가 필요하다. 
+        public void DrawComplete(int drawingNumber, bool finishied, int instanceID) // 그림이 완성되었을 때 (완전히) 진행할 함수 
+                                                                                    // 챕터도 해금 시켜줘야 하고. 포스트프로세싱도 종료 시켜줘야하기 때문에 
+                                                                                    // 싱글턴 매니저와 연계가 필요하다. 
         {
-            if (ChapterManager.isDrawing_Complete[drawingNumber] == finishied)
-            {
-                return; // 스택 오버 플로우 방지를 위한 return 때려 버리기 
-            }
-
-            // 여기서 true 파악 해서 내 그림이 완성되었는지, 해금이 되었는지 체크한다. 
-            // 내 그림이 완성이 되었다면 -> unlockstage를 발동해서 
 
             ChapterManager.isDrawing_Complete[drawingNumber] = finishied; // 드로우 컴플리트를 부를 때 값을 지정?
 
@@ -68,10 +61,11 @@ namespace JJH
             {
                 if (obj.Key.drawBoardNumber == (DrawBoardNumber)drawingNumber) // 결국은 매개변수를 다른곳에서 받아야함
                 {
-                    if(obj.Key.GetInstanceID() == instanceID)
-
-                    keysToModifty.Add(obj.Key);
-
+                    if (obj.Key.GetInstanceID() == instanceID)
+                    {
+                        Debug.Log($"{obj.Key} 의 if문 들어가서 true 값으로 변환됨.");
+                        keysToModifty.Add(obj.Key);
+                    }
                 }
             }
 
@@ -87,7 +81,7 @@ namespace JJH
 
             foreach (var kvp in drawCompleteCheckDic)
             {
-                if ((kvp.Key.drawBoardNumber == (DrawBoardNumber)drawingNumber ) && kvp.Value == false)
+                if ((kvp.Key.drawBoardNumber == (DrawBoardNumber)drawingNumber) && kvp.Value == false)
                 {
                     Debug.Log($"{kvp.Key}의 작업이 아직 완료되지 않았습니다.");
                     allComplete = false;
@@ -99,7 +93,7 @@ namespace JJH
 
             if (allComplete) // 이게 지금 모두 true 라면 
             {
-                // 여기서 타입에 맞는 완성된 이미지를 띄워줘야함. 
+                Debug.Log("올컴플리트 if문 진입");
 
                 // 0 1 2 3 --> 4개의 씬 
                 ChapterManager.Instance.CheckDrawComplete(drawingNumber, true);
@@ -112,7 +106,7 @@ namespace JJH
                 ChapterManager.is_Colored[drawingNumber] = true;
 
                 // 완성본 그림 알파값 업그레이드 해주기
-                // 이벤트를 이용해 전역적으로 불러버리기. 
+
                 FinishedDraw.FinishAlphaUp.Invoke(drawingNumber);
             }
 

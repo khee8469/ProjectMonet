@@ -49,13 +49,15 @@ public class FinishedDraw : MonoBehaviour
 
     public void finishedPaint_AlphaUp(int number)
     {
-        if(number== drawID)
+        Debug.Log("원본이미지 알파값 이벤트 발생 ");
+        if (number== drawID)
         {
             Color color = spriteRenderer.color;
 
+            Debug.Log("이벤트의 if문 내부 진입");
             color.a = 1f; // 1로 돌려주기. 
             spriteRenderer.color = color; //구조체라 다시 대입 필요 
-
+            
             
         }
     }
