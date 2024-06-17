@@ -11,6 +11,7 @@ public enum GrabType
 {
     None = -1,          // 단순 상호작용 오브젝트 
     Direct,
+    DirectRay,
     Ray
 }
 
@@ -27,6 +28,10 @@ namespace Jc
         public GrabType GrabType {get { return grabType; } }
 
         protected bool isGrabbed = false;   // 오브젝트의 그랩 여부
+
+        [SerializeField]
+        protected float grabDistance;
+        public float GrabDistance {get { return grabDistance; } }
 
         // 상속하는 자식에서 다양화
         protected override void OnSelectEntering(SelectEnterEventArgs args)

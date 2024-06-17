@@ -39,9 +39,6 @@ namespace Jc
 
         [Header("에디터 세팅")]
         [SerializeField]
-        private float grabDistance;
-
-        [SerializeField]
         private float limitScale;   // 크기의 한계치 (넘어서면 원복)
 
         [SerializeField]
@@ -71,8 +68,8 @@ namespace Jc
         }
         public float scaleRatio;
 
-        float ognDist;
-        float ognScale;
+        //float ognDist;
+        //float ognScale;
         Vector3 targetScale;
         protected override void OnEnable()
         {
@@ -124,6 +121,37 @@ namespace Jc
         {
             Vector3 rayDir = mainCamera.transform.forward;
             Ray ray = new Ray(mainCamera.transform.position, rayDir);
+
+            // 구체 레이
+            //if (Physics.SphereCast(ray, transform.localScale.x, out RaycastHit hitInfo, Mathf.Infinity, Manager.Layer.wallLM))
+            //{
+            //    // 닿은 벽을 기준으로 오브젝트의 위치설정
+            //    transform.position = hitInfo.point + hitInfo.normal * targetScale.x;
+
+            //    if (originDist == -1f)
+            //    {
+            //        originDist = (mainCamera.transform.position - transform.position).sqrMagnitude;
+            //    }
+
+            //    Debug.DrawRay(mainCamera.transform.position, rayDir * 500f, Color.yellow);
+
+            //    float curDist = (mainCamera.transform.position - transform.position).sqrMagnitude;
+            //    float ratio = curDist / originDist;
+            //    targetScale.x = targetScale.y = targetScale.z = ratio;
+
+            //    // 최소 스케일 지정
+            //    if (ratio * originScaleX < 0.1f)
+            //        transform.localScale = minScale;
+            //    else
+            //        transform.localScale = targetScale * originScaleX;
+            //}
+            //else
+            //{
+            //    Debug.Log("레이가 닿지 않습니다.");
+            //    // 레이가 닿지 않은 경우 강제로 Detach 
+            //    //ForceDetach();
+            //}
+
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, Manager.Layer.wallLM))
             {
                 // 닿은 벽을 기준으로 오브젝트의 위치설정
@@ -135,17 +163,26 @@ namespace Jc
                 }
 
                 Debug.DrawRay(mainCamera.transform.position, hitInfo.point, Color.yellow);
-                
+
                 float curDist = (mainCamera.transform.position - transform.position).sqrMagnitude;
                 float ratio = curDist / originDist;
                 targetScale.x = targetScale.y = targetScale.z = ratio;
 
-                transform.localScale = targetScale * originScaleX;
+                // 최소 스케일 지정
+                if (ratio * originScaleX < 0.1f)
+                    transform.localScale = minScale;
+                else
+                    transform.localScale = targetScale * originScaleX;
+            }
+            else
+            {
+                if (!isSelected) return;
+                // 레이가 닿지 않은 경우 강제로 Detach
+                //ForceDetach();
             }
 
             //transform.position = mainCamera.transform.position + mainCamera.transform.forward * grabDistance;
         }
-
         private void SetTransform()
         {
             originScaleX = transform.localScale.x;
@@ -158,16 +195,23 @@ namespace Jc
             //originRatio = originScaleX / maxScale.x;
         }
 
-
+        // 인터렉터에 SelectExit 호출
+        private void ForceDetach()
+        {
+            foreach (var interactor in interactorsSelecting)
+            {
+                interactionManager.SelectExit(interactor, this);
+            }
+        }
         protected override void OnSelectEntering(SelectEnterEventArgs args)
         {
             base.OnSelectEntering(args);
             transform.GetComponent<Rigidbody>().isKinematic = true;
+
             SetTransform();
 
             IsGrabbed = true;
         }
-
         protected override void OnSelectExiting(SelectExitEventArgs args)
         {
             base.OnSelectExiting(args);
@@ -176,10 +220,10 @@ namespace Jc
             IsGrabbed = false;
 
             // 오브젝트의 크기가 최대치 이상이 되면 원상복구
-            //if(transform.localScale.x >= limitScale)
-            //{
-            //    StartCoroutine(ResetRoutine());
-            //}
+            if (transform.localScale.x >= limitScale)
+            {
+                StartCoroutine(ResizeRoutine());
+            }
         }
 
         // 원복 루틴
@@ -190,9 +234,9 @@ namespace Jc
             Quaternion startRot = transform.rotation;
             Vector3 startScale = transform.localScale;
 
-            while(rate < 1f)
+            while (rate < 1f)
             {
-                rate += Time.deltaTime / 2f;
+                rate += Time.deltaTime;
                 transform.position = Vector3.Lerp(startPos, resetTransform.position, rate);
                 transform.rotation = Quaternion.Lerp(startRot, resetTransform.rotation, rate);
                 transform.localScale = Vector3.Lerp(startScale, resetTransform.scale, rate);
@@ -204,10 +248,24 @@ namespace Jc
             transform.localScale = resetTransform.scale;
         }
 
-        //// 일정시간동안 충돌이 유지된다면 Reset
-        //IEnumerator CollisionTimer()
-        //{
-            
-        //}
+        IEnumerator ResizeRoutine()
+        {
+            float rate = 0f;
+            Vector3 startScale = transform.localScale;
+
+            while (rate < 1f)
+            {
+                rate += Time.deltaTime * 2f;
+                //transform.position = Vector3.Lerp(startPos, resetTransform.position, rate);
+                ///transform.rotation = Quaternion.Lerp(startRot, resetTransform.rotation, rate);
+                transform.localScale = Vector3.Lerp(startScale, resetTransform.scale, rate);
+                yield return null;
+            }
+
+            //transform.position = resetTransform.position;
+            //transform.rotation = resetTransform.rotation;
+            transform.localScale = resetTransform.scale;
+
+        }
     }
 }

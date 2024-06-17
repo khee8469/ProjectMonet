@@ -19,6 +19,10 @@ namespace Jc
         public Animator Anim { get { return anim; } }
 
         [SerializeField]
+        protected Quest npcQuest;
+        public Quest NPCQuest { get { return npcQuest; } }  
+
+        [SerializeField]
         protected float moveSpeed;  // 이동속도 설정
         public float MoveSpeed 
         { 
