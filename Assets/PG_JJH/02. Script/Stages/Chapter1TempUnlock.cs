@@ -10,20 +10,13 @@ namespace JJH
     {
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 Manager.Scene.LoadScene("LobbyScene");
                 
             }
-            if(Input.GetKeyDown(KeyCode.Tab))
-            {
-                ChapterManager.Instance.UnlockStage(1, true);
-                
-
-            }
-
-
-            if(Input.GetKeyDown(KeyCode.Alpha0))
+         
+            if(Input.GetKeyDown(KeyCode.Alpha2))
             {
                 Manager.Scene.LoadScene("Chapter1");
             }

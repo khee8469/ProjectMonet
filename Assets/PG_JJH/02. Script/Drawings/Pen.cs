@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -58,7 +59,7 @@ namespace JJH
         [Header("삭제 및 이미지 연계")]
         [Tooltip("생성된 라인렌더러를 저장 해 줄 리스트")]
         [SerializeField] List<GameObject> lineList = new List<GameObject>();
-        
+
         [Tooltip("해당 캔버스와 관련된 참조")]
         private DrawObjectManager drawManager;
 
@@ -66,7 +67,7 @@ namespace JJH
         private float NormalDis = 0.01f;
 
         [Tooltip("원하는 완료 퍼센트")]
-        [SerializeField]private int percent = 5;
+        [SerializeField] private int percent = 5;
 
         [Tooltip("라인렌더러의 포지션 위한 인덱스")]
         [SerializeField] private int index;
@@ -78,16 +79,19 @@ namespace JJH
         [Tooltip("박스의 방향")]
         public Quaternion boxOrientation = Quaternion.identity;
 
-        
+        [Tooltip("update 여러번 진입 방지를 위한 bool 변수")]
+        [SerializeField] private bool isNotEntered;
+
+
 
         private void Start() // 시작 시에는 무조건 하얀색. 
         {
             currentPaintType = PaintTypeEnum.None; //기본 색상으로 지정해주기. 
 
-            if(paintTypeManager != null)
+            if (paintTypeManager != null)
             {
                 // 스크립터블 오브젝트의 타입에 따라 tip의 컬러를 조정해 줄 예정 
-                tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType); 
+                tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType);
             }
             drawingLayer = LayerMask.GetMask("DrawBoard");
 
@@ -120,8 +124,6 @@ namespace JJH
                 Vector3 drawPosition = hit.point + hit.normal * NormalDis;
                 drawManager = hit.collider?.GetComponent<DrawObjectManager>();
 
-                Debug.Log("박스 캐스트로 레이들어감.");
-
                 if (!CheckColorType(drawManager))
                 {
                     DrawingStop();
@@ -143,23 +145,23 @@ namespace JJH
                     currentDrawing.material.color = paintTypeManager.GetColorByType(currentPaintType);
 
                     // 현재 색상 설정
-                    currentDrawing.startColor = currentDrawing.endColor = paintTypeManager.GetColorByType(currentPaintType); 
-                   
+                    currentDrawing.startColor = currentDrawing.endColor = paintTypeManager.GetColorByType(currentPaintType);
+
                     currentDrawing.startWidth = currentDrawing.endWidth = penWidth; //일정한 굵기. 
 
                     currentDrawing.positionCount = 1; // 시작 포지션 카운트 1
-                  
+
                     currentDrawing.SetPosition(0, drawPosition);
 
                     drawManager.AddLineRenderer(currentDrawing, penWidth);
 
                     lineList.Add(lineObj);
 
-                    Vector2Int pixelPosition = drawManager.WorldToPixel(drawPosition);  
+                    Vector2Int pixelPosition = drawManager.WorldToPixel(drawPosition);
                 }
                 else // 즉 이미 생성된 경우. 
                 {
-                    
+
                     var currentPos = currentDrawing.GetPosition(index);
                     currentDrawing.material.color = paintTypeManager.GetColorByType(currentPaintType);
 
@@ -178,14 +180,24 @@ namespace JJH
                 // 이 부분이 완성된 상태니까. 여기서 추가 함수를 불러서 실제 이미지를 On 해주고 
                 // 더이상 그려지지 않는 작업을 추가해주고
                 // 
-                if(drawManager.GetFillPercentage() >= percent) // 다 찬 상황일 때 플레이어를 해방시켜 줘야함. (어차피 한 부분만 해결해도 탈출 가능함 ) 
+                if (drawManager.GetFillPercentage() >= percent) // 다 찬 상황일 때 플레이어를 해방시켜 줘야함. (어차피 한 부분만 해결해도 탈출 가능함 ) 
                 {
-                    Debug.Log("퍼센티지 다 참");
+                    if (isNotEntered)
+                    {
+                        return;
+                    }
+
+                    isNotEntered = true;
+                    DrawingStop();
                     drawManager.ImageAlphaUp();
                     RemoveALLLine();
-                    DrawingStop();
                     isNotMove = false;
                     PlayerNotMove(isNotMove);
+                    drawManager.DrawFinished();
+
+                    StartCoroutine(blockRoutine());
+                    Debug.Log($"지금 update문 내부 진입 몇번했는지 확인 {isNotEntered}");
+
 
                     // 여기서 필 이상 차버리면 더이상 못 그리게 하거나 자신의 레이어를 바꾸는 작업을 하는것도 괜찮음
                     // 더이상 그 부분 위에 라인렌더러가 생기지 않도록
@@ -194,9 +206,20 @@ namespace JJH
             }
             else
             {
-                DrawingStop(); 
+                DrawingStop();
             }
         }
+
+        private IEnumerator blockRoutine()
+        {
+
+            yield return new WaitForSeconds(1f);
+            isNotEntered = false;
+            yield return null;
+
+
+        }
+
 
         private bool CheckColorType(DrawObjectManager drawObjectManager)
         {
@@ -205,7 +228,7 @@ namespace JJH
                 return false;
             }
 
-    
+
             return drawObjectManager.ObjectMyColor == paintTypeManager.GetColorByType(currentPaintType);
 
         }
@@ -222,13 +245,13 @@ namespace JJH
 
         private void PlayerNotMove(bool isNotMove)
         {
-            if(isNotMove)  // true면 움직임 방지 
+            if (isNotMove)  // true면 움직임 방지 
             {
-                Debug.Log("플레이어의 움직임 방지");
+                
             }
             else
             {
-                Debug.Log("플레이어의 움직임 다시 가능해짐.");
+                
             }
         }
 
@@ -237,7 +260,7 @@ namespace JJH
         public void DrawingStop()
         {
             isDrawing = false; //그리기 상태 중지로 설정
-            
+
 
 
             if (currentDrawing != null)
@@ -273,10 +296,10 @@ namespace JJH
             tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType);
         }
 
-        
+
 
         //한 라인 씩 Undo 할 필요는 없을 듯 함. --> 한 번에 라인 삭제 가능한 함수. 
-        public void RemoveALLLine() 
+        public void RemoveALLLine()
         {
             if (lineList.Count == 0) return;
 
@@ -291,7 +314,7 @@ namespace JJH
 
         }
 
-       
+
     }
 }
 

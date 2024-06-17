@@ -13,9 +13,8 @@ namespace JJH
         public static SoundManager Sound { get { return SoundManager.Instance; } }
         public static UIManager UI { get { return UIManager.Instance; } }
         
-        public static ChapterManager chapter { get { return ChapterManager.Instance; } }
+        public static ChapterManager Chapter { get { return ChapterManager.Instance; } }
 
-        public static DrawingCompleteManager Draw { get { return DrawingCompleteManager.Instance; } }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Initialize()
@@ -28,7 +27,7 @@ namespace JJH
             SoundManager.ReleaseInstance();
             UIManager.ReleaseInstance();
             ChapterManager.ReleaseInstance();
-            DrawingCompleteManager.ReleaseInstance();
+            
 
             GameManager.CreateInstance();
             DataManager.CreateInstance();
@@ -38,7 +37,7 @@ namespace JJH
             SoundManager.CreateInstance();
             UIManager.CreateInstance();
             ChapterManager.CreateInstance();
-            DrawingCompleteManager.CreateInstance();
+            
 
         }
     }
