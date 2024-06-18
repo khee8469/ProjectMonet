@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 4346324526861788593}
   m_Layer: 0
   m_Name: Pen
-  m_TagString: Untagged
+  m_TagString: PaintPen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -187,21 +187,19 @@ MonoBehaviour:
   drawingMaterial: {fileID: 2100000, guid: 3a3177e3e83ec2d4e9d75480d30353c7, type: 2}
   tipMaterial: {fileID: 2100000, guid: 785b1a453eb114946a2e16655db343b2, type: 2}
   penWidth: 0.01
-  penColors:
-  - {r: 1, g: 0, b: 0, a: 1}
-  - {r: 0, g: 1, b: 0, a: 1}
-  - {r: 0, g: 0, b: 1, a: 1}
-  - {r: 1, g: 1, b: 0, a: 1}
   currentDrawing: {fileID: 0}
-  index: 0
-  currentColorIndex: 0
+  currentPaintType: 0
+  paintTypeManager: {fileID: 11400000, guid: e3bb3a82badd59e488a56163b21dd1dc, type: 2}
   isDrawing: 0
+  isNotMove: 0
   drawingLayer:
     serializedVersion: 2
     m_Bits: 0
   lineList: []
-  drawManager: {fileID: 0}
   percent: 5
+  index: 0
+  boxSize: {x: 0.1, y: 0.1, z: 0.1}
+  boxOrientation: {x: 0, y: 0, z: 0, w: 1}
 --- !u!114 &4346324526861788593
 MonoBehaviour:
   m_ObjectHideFlags: 0
