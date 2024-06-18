@@ -15,6 +15,7 @@ namespace JJH
         
         public static ChapterManager Chapter { get { return ChapterManager.Instance; } }
 
+        public static InventoryManager Inventory { get { return InventoryManager.Instance; } }
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Initialize()
@@ -27,7 +28,9 @@ namespace JJH
             SoundManager.ReleaseInstance();
             UIManager.ReleaseInstance();
             ChapterManager.ReleaseInstance();
-            
+            InventoryManager.ReleaseInstance();
+
+
 
             GameManager.CreateInstance();
             DataManager.CreateInstance();
@@ -37,7 +40,9 @@ namespace JJH
             SoundManager.CreateInstance();
             UIManager.CreateInstance();
             ChapterManager.CreateInstance();
-            
+            InventoryManager.CreateInstance();
+
+
 
         }
     }
