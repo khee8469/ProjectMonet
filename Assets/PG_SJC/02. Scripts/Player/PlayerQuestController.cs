@@ -6,16 +6,19 @@ namespace Jc
 {
     public class PlayerQuestController : MonoBehaviour
     {
+        // 수락한 퀘스트 목록
         [SerializeField]
-        private Dictionary<QuestID, Quest> acceptsQuest = new Dictionary<QuestID, Quest>();
+        private List<Quest> acceptQuests = new List<Quest>(); 
+        public List<Quest> AcceptQuests { get { return acceptQuests; } }    
 
-        public void ClearQuest(QuestID id)
+        public void OnClearQuest(QuestID id)
         {
-            if (!acceptsQuest.ContainsKey(id))
-                return;
 
-            // 할당 해제
-            acceptsQuest.Remove(id);
+        }
+
+        public void OnGetQuest(Quest quest)
+        {
+            acceptQuests.Add(quest);
         }
     }
 }

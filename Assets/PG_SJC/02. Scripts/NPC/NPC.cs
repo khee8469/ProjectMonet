@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -23,8 +24,8 @@ namespace Jc
         public Animator Anim { get { return anim; } }
 
         [SerializeField]
-        protected Quest npcQuest;
-        public Quest NPCQuest { get { return npcQuest; } }  
+        protected List<QuestID> questIDList = new List<QuestID>();
+        public List<QuestID> QuestIDList { get { return questIDList; }}
 
         [SerializeField]
         protected float moveSpeed;  // 이동속도 설정
@@ -72,7 +73,6 @@ namespace Jc
         }
 
         protected abstract void OnDrawGizmosSelected();
-
 
         protected virtual void Update()
         {
