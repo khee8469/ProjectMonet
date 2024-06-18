@@ -16,6 +16,8 @@ public class Miniature : InteractObject
     protected override void Awake()
     {
         base.Awake();
+
+        XRBaseControllerInteractor a;
     }
 
     private void Start()
