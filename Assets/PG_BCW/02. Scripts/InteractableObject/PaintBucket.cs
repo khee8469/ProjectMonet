@@ -8,23 +8,18 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class PaintBucket : InteractObject
 {
+    [SerializeField] ParticleSystem paintParticle;
+
+
     
-    LayerMask handLayer;
-    [SerializeField] GameObject prefab;
-
-
-    XRHandJointsUpdatedEventArgs handPosition;
-
-    private void OnTriggerStay(Collider collider)
+    public void PaintPlay()
     {
-        if((0<<collider.gameObject.layer & handLayer) != 0)
-        {
-            XRHand a;
-        }
-
-        
+        paintParticle.Play();
     }
 
+    public void PaintStop()
+    {
+        paintParticle.Stop();
+    }
 
-    
 }
