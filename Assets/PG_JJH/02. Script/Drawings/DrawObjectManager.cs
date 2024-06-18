@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,19 +8,28 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
     // 자신의 알파값이 1F로 증가할 때 같은 ENUM인 친구들을 찾아서 걔네도 같이 알파값을 업데이트 해줘야한다. 
     public enum DrawBoardNumber 
     {
-        Compartment1, Compartment2, Compartment3, Compartment4, END
+        // 0 1 2 3 
+        Compartment1, Compartment2, Compartment3, Compartment4, Finished , END
     }
+
+    
+    
 
 
     [RequireComponent(typeof(SpriteRenderer))]
-    public class DrawObjectManager : MonoBehaviour
+    public class DrawObjectManager : MonoBehaviour , IComparable<DrawObjectManager>
     {
 
         public List<LineRenderer> lineRenderers = new List<LineRenderer>();
 
         [Header("캔버스 구분 열겨형 변수")]
         [Tooltip("스테이지 별 캔버스 구분")]
-        [SerializeField] private DrawBoardNumber drawBoardNumber;
+        [SerializeField] public DrawBoardNumber drawBoardNumber;
+
+        [Tooltip("결국은 이거 구분해주려면 고유한 ID가 있어야 하네...")]
+        [SerializeField] public int instanceID;
+
+
 
         [Header("각 드로우판의 컬러타입 지정")]
         [Tooltip("각 컬러타입에 맞는 마테리얼 color만 색칠 할 수 있도록")]
@@ -57,15 +67,22 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         [Tooltip("스크립터블 오브젝트 공유")]
         [SerializeField] private PaintTypeManager paintTypeManager;
 
-        [Tooltip("색깔상태")]
+        [Tooltip("색깔상태 스크립터블 오브젝트와 연계되어있음. ")]
         [SerializeField] private PaintTypeEnum currentPaintType;
+
+        [Tooltip("그림 완성 매니저 참조")]
+        [SerializeField] private DrawingCompleteManager drawingCompleteManager;
+
+
+        private void Awake()
+        {
+            instanceID = GetInstanceID();
+        }
 
         private void Start()
         {
             myColor = paintTypeManager.GetColorByType(currentPaintType);
-            Debug.Log($"드로우 오브젝트의 현재 색깔은 {myColor}");
-
-
+            
             spriteRenderer = GetComponent<SpriteRenderer>();
             if (spriteRenderer != null)
             {
@@ -82,7 +99,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             InitializeSpriteSize(); // 시작 시의 각자의 로컬 스케일 적용된 크기를 가져온다. 
             totalArea = worldHeight * worldWidth;
             nonTransparentArea = CalculateNonTransparentArea();
-
         }
 
         //라인 렌더러를 리스트에 추가하는 함수
@@ -181,7 +197,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
                 filledArea += segmentArea;
             }
 
-            Debug.Log($"Filled Area: {filledArea}, Total Area: {totalArea}, Fill Percentage: {filledArea / totalArea * 100}%");
+            //Debug.Log($"Filled Area: {filledArea}, Total Area: {totalArea}, Fill Percentage: {filledArea / totalArea * 100}%");
         }
 
         private Vector2Int NormalizePoint(Vector3 point, float tolerance)
@@ -205,21 +221,32 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         }
 
         // 스프라이트의 채워진 비율을 반환하는 함수
-        public float GetFillPercentage()
+        public float GetFillPercentage() // 완성 되었는지 확인하는 함수 --> Pen 에서 부르고 있다. 
         {
-            return filledArea / totalArea * 100f;
+           
+            return ( filledArea / totalArea )* 100f;
+
+        }
+
+
+        public void DrawFinished() // 열거형 drawingNumber를 int로 형변환 해서 넘겨줌 . 
+        {
+            drawingCompleteManager.DrawComplete((int)drawBoardNumber, true, instanceID);
         }
 
         public void ImageAlphaUp()
         {
-            Debug.Log("이미지 알파 업 함수발동");
+            // 여기서 루틴 돌리면서... bool 변수 바꿔주자.
+            // 자신의 타입에 맞춰 --> static bool 바꿔주고... 거기서 이제 다 켜지는거 까지 확인해주고
+            // 다 켜지면 (어차피 그려진 layer 바꿔주니까... 상관은 없을듯 하다. -->더이상 못그리는건 마찬가지임.)
+
+
             StartCoroutine((SpriteAlphaUpRoutine()));
 
         }
 
         public void LineRemove(LineRenderer lineRenderer)
         {
-            Debug.Log("라인 렌더러 삭제 함수 발동");
             StartCoroutine(RendererAlphaRoutine(lineRenderer));
         }
 
@@ -246,6 +273,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 */
         private IEnumerator SpriteAlphaUpRoutine() //DrawObjectManager drawObjectManager
         {
+            gameObject.layer = 0;
             SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
             Color spriteColor = spriteRenderer.color;
 
@@ -264,7 +292,8 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
             spriteColor.a = 1f;
             spriteRenderer.color = spriteColor;
-            gameObject.layer = 0;
+            
+
 
         }
 
@@ -362,6 +391,14 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         }
 
 
+        
+        
+
+        public int CompareTo(DrawObjectManager other)
+        {
+            if (other == null) return 0;
+            return instanceID.CompareTo(other.instanceID);
+        }
     }
 
 }
