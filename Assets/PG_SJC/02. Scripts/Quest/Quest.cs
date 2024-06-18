@@ -12,10 +12,6 @@ namespace Jc
     [Serializable]
     public class Quest : MonoBehaviour
     {
-        // 퀘스트를 수락한 경우 할당
-        [HideInInspector]
-        public PlayerQuestController owner;
-
         [Tooltip("퀘스트 상태")]
         [SerializeField]
         protected QuestState state;
@@ -24,15 +20,19 @@ namespace Jc
         [Tooltip("퀘스트 ID")]
         [SerializeField]
         protected QuestID questID;
-        public QuestID QuestID { get { return questID; } }  
+        public QuestID QuestID { get { return questID; } }
 
-        public virtual void OnClearQuest()
-        {
-            owner.ClearQuest(questID);
-        }
-        public virtual void OnActiveQuest()
-        {
+        [Tooltip("퀘스트 데이터")]
+        [SerializeField]
+        protected QuestData questData;
+        public QuestData QuestData { get { return questData; }}
 
+        public UnityAction OnChangeState;
+
+        // 퀘스트 상태변경
+        protected void ChangeState(QuestState state)
+        {
+            OnChangeState?.Invoke();
         }
     }
 }

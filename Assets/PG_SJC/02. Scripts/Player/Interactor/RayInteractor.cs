@@ -20,7 +20,7 @@ namespace Jc
         private float canvasWidth;
         private float canvasHeight;
         [SerializeField]
-        private RectTransform aimRect;
+        private Transform aimTr;
 
         [Header("밸런싱")]
         private bool isGrab = false;
@@ -40,7 +40,7 @@ namespace Jc
             lineVisual = GetComponent<XRInteractorLineVisual>();
             lr = GetComponent<LineRenderer>();
             cam = Camera.main;
-            lineVisual.enabled = false;
+            //lineVisual.enabled = false;
             canvasHeight = canvasRect.sizeDelta.y;
             canvasWidth = canvasRect.sizeDelta.x;
             aimRect.gameObject.SetActive(true);
@@ -53,23 +53,23 @@ namespace Jc
 
         public override bool CanHover(IXRHoverInteractable interactable)
         {
-            //InteractObject itrObject = interactable as InteractObject;
-            //if (itrObject == null)
-            //    return false;
+            InteractObject itrObject = interactable as InteractObject;
+            if (itrObject == null)
+                return false;
 
-            //if (!GrabableDistance(itrObject))
-            //    return false;
+            if (!GrabableDistance(itrObject))
+                return false;
 
             return base.CanHover(interactable);
         }
         public override bool CanSelect(IXRSelectInteractable interactable)
         {
-            //InteractObject itrObject = interactable as InteractObject;
-            //if (itrObject == null)
-            //    return false;
+            InteractObject itrObject = interactable as InteractObject;
+            if (itrObject == null)
+                return false;
 
-            //if (!GrabableDistance(itrObject))
-            //    return false;
+            if (!GrabableDistance(itrObject))
+                return false;
 
             return base.CanSelect(interactable);
         }
@@ -80,7 +80,7 @@ namespace Jc
 
             grabbedTr = args.interactableObject.transform;
             isGrab = true;
-            lineVisual.enabled = true;
+            //lineVisual.enabled = true;
             //aimRect.gameObject.SetActive(false);
         }
         protected override void OnSelectExited(SelectExitEventArgs args)
@@ -89,7 +89,7 @@ namespace Jc
 
             isGrab = false;
             grabbedTr = null;
-            lineVisual.enabled = false;
+            //lineVisual.enabled = false;
             //aimRect.gameObject.SetActive(true);
         }
 
@@ -119,18 +119,20 @@ namespace Jc
 
             if (isGrab)
             {
-                viewportPos = cam.WorldToViewportPoint(grabbedTr.position);
+                aimTr.transform.position= grabbedTr.position;
             }
             else
             {
-                viewportPos = cam.WorldToViewportPoint(rayEndPoint);
+                aimTr.transform.position = rayEndPoint;
             }
+            aimTr.transform.forward = -cam.transform.forward;
 
-            Vector2 screenPos = new Vector2(
-                ((viewportPos.x * canvasWidth) - (canvasWidth * 0.5f)),
-                ((viewportPos.y * canvasHeight) - (canvasHeight * 0.5f)));
+            //Vector2 screenPos = new Vector2(
+            //    ((viewportPos.x * canvasWidth) - (canvasWidth * 0.5f)),
+            //    ((viewportPos.y * canvasHeight) - (canvasHeight * 0.5f)));
 
-            aimRect.anchoredPosition = screenPos;
+            //aimRect.anchoredPosition = screenPos;
+
 
         }
     }
