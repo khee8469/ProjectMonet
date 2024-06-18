@@ -33,6 +33,10 @@ namespace Jc
         protected override void Awake()
         {
             base.Awake();
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
             lineVisual = GetComponent<XRInteractorLineVisual>();
             lr = GetComponent<LineRenderer>();
             cam = Camera.main;
@@ -49,23 +53,23 @@ namespace Jc
 
         public override bool CanHover(IXRHoverInteractable interactable)
         {
-            InteractObject itrObject = interactable as InteractObject;
-            if (itrObject == null)
-                return false;
+            //InteractObject itrObject = interactable as InteractObject;
+            //if (itrObject == null)
+            //    return false;
 
-            if (!GrabableDistance(itrObject))
-                return false;
+            //if (!GrabableDistance(itrObject))
+            //    return false;
 
             return base.CanHover(interactable);
         }
         public override bool CanSelect(IXRSelectInteractable interactable)
         {
-            InteractObject itrObject = interactable as InteractObject;
-            if (itrObject == null)
-                return false;
+            //InteractObject itrObject = interactable as InteractObject;
+            //if (itrObject == null)
+            //    return false;
 
-            if (!GrabableDistance(itrObject))
-                return false;
+            //if (!GrabableDistance(itrObject))
+            //    return false;
 
             return base.CanSelect(interactable);
         }

@@ -46,8 +46,6 @@ namespace Jc
             trigger.OnNPCExit -= OnExitNPC;
 
             controllerCallback.leftMenuBTNRef.action.performed -= OnPopUpCanvas;
-            //controllerCallback.debugMenuBTNRef.action.performed -= OnPopUpCanvas;
-
             controllerCallback.leftTriggerRef.action.performed -= OnInteractNPC;
         }
 
