@@ -88,13 +88,13 @@ namespace Jc
         {
             popUpCanvas.SetActive(isEnable);
             
-            if(isEnable)
-            {
-                // 활성화 시 캔버스 위칫 값 설정
-                popUpCanvas.transform.position = camTr.transform.position + camTr.forward * 8f;
-                popUpCanvas.transform.position = new Vector3(popUpCanvas.transform.position.x, 4f, popUpCanvas.transform.position.z);
-                //popUpCanvas.transform.forward = 
-            }
+            //if(isEnable)
+            //{
+            //    // 활성화 시 캔버스 위칫 값 설정
+            //    popUpCanvas.transform.position = camTr.transform.position + camTr.forward * 8f;
+            //    popUpCanvas.transform.position = new Vector3(popUpCanvas.transform.position.x, 4f, popUpCanvas.transform.position.z);
+            //    popUpCanvas.transform.forward = transform.forward;
+            //}
         }
     }
 }
