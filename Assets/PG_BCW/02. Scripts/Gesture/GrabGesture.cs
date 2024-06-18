@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.InputSystem.EnhancedTouch;
-using UnityEngine.XR.Hands;
 using UnityEngine.XR.Hands.Samples.GestureSample;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -25,41 +21,33 @@ public class GrabGesture : MonoBehaviour
 
     void Update()
     {
-        // Left hand gesture control
-        if (!isLeftGestureActive)
+        Debug.Log(GrabHandGesture.leftPerformedTriggered);
+        if (GrabHandGesture.leftPerformedTriggered && !leftHandInteractor.hasSelection)
         {
-            if (GrabHandGesture.leftPerformedTriggered && !leftHandInteractor.hasSelection)
-            {
-                GrabEnter(leftHandInteractor);
-                isLeftGestureActive = true;
-            }
-        }
-        else
-        {
-            if (!GrabHandGesture.leftPerformedTriggered && leftHandInteractor.hasSelection)
-            {
-                GrabExit(leftHandInteractor);
-                isLeftGestureActive = false;
-            }
+            GrabEnter(leftHandInteractor);
+
         }
 
-        // Right hand gesture control
-        if (!isRightGestureActive)
+        if (!GrabHandGesture.leftPerformedTriggered && leftHandInteractor.hasSelection)
         {
-            if (GrabHandGesture.rightPerformedTriggered && !rightHandInteractor.hasSelection)
-            {
-                GrabEnter(rightHandInteractor);
-                isRightGestureActive = true;
-            }
+            GrabExit(leftHandInteractor);
+
         }
-        else
+
+
+
+        if (GrabHandGesture.rightPerformedTriggered && !rightHandInteractor.hasSelection)
         {
-            if (!GrabHandGesture.rightPerformedTriggered && rightHandInteractor.hasSelection)
-            {
-                GrabExit(rightHandInteractor);
-                isRightGestureActive = false;
-            }
+            GrabEnter(rightHandInteractor);
+
         }
+
+        if (!GrabHandGesture.rightPerformedTriggered && rightHandInteractor.hasSelection)
+        {
+            GrabExit(rightHandInteractor);
+
+        }
+
     }
 
     // 물건잡기
@@ -67,15 +55,18 @@ public class GrabGesture : MonoBehaviour
     {
         // 호버중인 오브젝트가 있는지 확인
         IXRSelectInteractable hoveredInteractable = interactor.interactablesHovered.FirstOrDefault() as IXRSelectInteractable;
+        
 
         if (hoveredInteractable != null && hoveredInteractable.transform.GetComponent<XRGrabInteractable>() != null)
         {
+            Debug.Log(hoveredInteractable.transform.name);
             // 인터랙션 매니저에 인터랙터가 인터랙터블을 선택하도록 요청
             interactor.interactionManager.SelectEnter(interactor, hoveredInteractable);
-
+            
             // 왼손 오른손 잡은 오브젝트 정보 저장
             if (interactor == leftHandInteractor)
             {
+                Debug.Log(22222222222222);
                 leftSelectedInteractable = hoveredInteractable;
             }
             else
