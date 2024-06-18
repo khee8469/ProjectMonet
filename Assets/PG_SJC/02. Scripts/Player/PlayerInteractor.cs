@@ -17,15 +17,26 @@ namespace Jc
         [SerializeField]
         private PlayerControllerCallback controllerCallback;
 
+        [SerializeField]
+        private GameObject popUpCanvas; // 인벤토리 / 퀘스트
+
         [Space(5)]
         [Header("밸런싱")]
         [SerializeField]
         private NPC nearNPC;
 
+        private bool isEnabledPopup = false;   // 팝업 활성화
+        private Transform camTr;               // 메인 카메라 트랜스폼
+
         private void OnEnable()
         {
             trigger.OnNPCEnter += OnEnterNPC;
             trigger.OnNPCExit += OnExitNPC;
+
+            camTr = Camera.main.transform;
+
+            controllerCallback.leftMenuBTNRef.action.performed += OnPopUpCanvas;    // 인벤토리/퀘스트 버튼 등록
+            //controllerCallback.debugMenuBTNRef.action.performed += OnPopUpCanvas;   // 디버그 인벤토리/퀘스트 버튼 등록
 
             controllerCallback.leftTriggerRef.action.performed += OnInteractNPC;    // NPC 상호작용 등록
         }
@@ -33,6 +44,9 @@ namespace Jc
         {
             trigger.OnNPCEnter -= OnEnterNPC;
             trigger.OnNPCExit -= OnExitNPC;
+
+            controllerCallback.leftMenuBTNRef.action.performed -= OnPopUpCanvas;
+            //controllerCallback.debugMenuBTNRef.action.performed -= OnPopUpCanvas;
 
             controllerCallback.leftTriggerRef.action.performed -= OnInteractNPC;
         }
@@ -61,6 +75,26 @@ namespace Jc
             if (nearNPC == null) return;
 
             nearNPC.OnInteract(transform.position);
+        }
+
+        private void OnPopUpCanvas(InputAction.CallbackContext context)
+        {
+            Debug.Log("메뉴 버튼 클릭");
+            isEnabledPopup = !isEnabledPopup;
+            OnPopUp(isEnabledPopup);
+        }
+
+        private void OnPopUp(bool isEnable)
+        {
+            popUpCanvas.SetActive(isEnable);
+            
+            if(isEnable)
+            {
+                // 활성화 시 캔버스 위칫 값 설정
+                popUpCanvas.transform.position = camTr.transform.position + camTr.forward * 8f;
+                popUpCanvas.transform.position = new Vector3(popUpCanvas.transform.position.x, 4f, popUpCanvas.transform.position.z);
+                //popUpCanvas.transform.forward = 
+            }
         }
     }
 }

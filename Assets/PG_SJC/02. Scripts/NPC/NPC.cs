@@ -11,6 +11,10 @@ namespace Jc
     {
         [Header("에디터 세팅")]
         [SerializeField]
+        protected string npcName;
+        public string NpcName { get { return npcName; } }   
+
+        [SerializeField]
         protected NavMeshAgent agent;
         public NavMeshAgent Agent { get { return agent; } } 
 

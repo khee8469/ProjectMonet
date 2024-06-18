@@ -13,6 +13,11 @@ namespace Jc
         public InputActionReference leftMenuBTNRef;         // 왼손 메뉴 버튼    (인벤토리 / 퀘스트)
         public InputActionReference leftXBTNRef;            // 왼손 X 버튼       
         public InputActionReference leftYBTNRef;            // 왼손 Y 버튼
+
+        public InputActionReference debugMenuBTNRef;        // 디버그용 왼손 메뉴 버튼
+        public InputActionReference debugXBTNRef;           // 디버그용 왼손 X 버튼
+        public InputActionReference debugYBTNRef;           // 디버그용 왼손 Y 버튼
+
         [Space(5)]
         [Header("오른손 Input")]
         public InputActionReference rightTriggerRef;        // 오른손 트리거     ( "" )
@@ -21,12 +26,16 @@ namespace Jc
         public InputActionReference rightABTNRef;           // 오른손 A 버튼
         public InputActionReference rightBBTNRef;           // 오른손 B 버튼
 
+        public InputActionReference debugOculusBTNRef;      // 디버그용 오큘러스 버튼
+        public InputActionReference debugABTNRef;           // 디버그용 오른손 A 버튼
+        public InputActionReference debugBBTNRef;           // 디버그용 오른손 B 버튼
+            
         private void OnEnable()
         {
             // 왼손 콜백 등록
             leftTriggerRef.action.performed += OnLeftTriggerEnter;
             leftGripRef.action.performed += OnLeftGripEnter;
-            leftMenuBTNRef.action.performed += OnLeftMenuButtonEnter;
+            //leftMenuBTNRef.action.performed += OnLeftMenuButtonEnter;
             leftXBTNRef.action.performed += OnLeftXButtonEnter;
             leftYBTNRef.action.performed += OnLeftYButtonEnter;
 
@@ -54,7 +63,7 @@ namespace Jc
             // 왼손 콜백 해제
             leftTriggerRef.action.performed -= OnLeftTriggerEnter;
             leftGripRef.action.performed -= OnLeftGripEnter;
-            leftMenuBTNRef.action.performed -= OnLeftMenuButtonEnter;
+            //leftMenuBTNRef.action.performed -= OnLeftMenuButtonEnter;
             leftXBTNRef.action.performed -= OnLeftXButtonEnter;
             leftYBTNRef.action.performed -= OnLeftYButtonEnter;
 
