@@ -43,12 +43,12 @@ namespace Jc
             //lineVisual.enabled = false;
             canvasHeight = canvasRect.sizeDelta.y;
             canvasWidth = canvasRect.sizeDelta.x;
-            aimRect.gameObject.SetActive(true);
+            //aimRect.gameObject.SetActive(true);
         }
 
         private void Update()
         {
-            AimPosition();
+            //AimPosition();
         }
 
         public override bool CanHover(IXRHoverInteractable interactable)

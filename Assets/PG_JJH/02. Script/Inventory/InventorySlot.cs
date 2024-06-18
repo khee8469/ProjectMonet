@@ -13,33 +13,63 @@ namespace JJH
         public float shrinkedSize = 0.1f;
         [Tooltip("슬롯 자신의 Transform")]
         public Transform itemTransform; // 아이템의 크기 조절을 위한 트랜스폼
-        [Tooltip("아이템 슬롯의 id")]
-        public int slotID;
+        // 아이템 슬롯의 ID --> -1 로 설정 하여 MANAGER에서 자동할당 시킨다. 
+        public int slotID = -1;
         [Tooltip("실패 시 나올 사운드")]
         [SerializeField] AudioClip InventoryAddFailure; //인벤토리 add 실패 시 재생.
+
+        private void Start() // 슬롯을 인벤토리 매니저에 등록한다. 
+        {
+            itemTransform= GetComponent<Transform>();
+
+            Manager.Inventory.RegisterSlot(this); //THIS 시에 슬롯 아이디를 설정해줘야한다. 
+        }
+
+        private void OnDestroy() // 만약 슬롯이 파괴된다면
+        {
+            Manager.Inventory.UnregisterSlot(this);
+        }
+
+        public void AddSlots() // 혹시 만약 슬롯을 추가 할 일이 생긴다면...
+        {
+            Manager.Inventory.RegisterSlot(this);
+        }
+
+
 
         private void OnTriggerEnter(Collider other)
         {
             IInventory item = other.GetComponent<IInventory>();
-            if(item != null)
+            if (item != null)
             {
                 InventoryItem inventoryItem = item as InventoryItem;
+
                 AddItem(inventoryItem); //Add 가능한 Item은 오로지 Inventory 아이템이다. 
             }
             else // 넣을 수 없는 아이템이라면.. 실패 사운드 재생해줘야함.. 사운드매니저 이용하자. 
             {
-                if(InventoryAddFailure!=null)
+                if (InventoryAddFailure != null)
                 {
                     Manager.Sound.PlaySFX(InventoryAddFailure); // 노란 오류 발생 방지
                 }
-                
+
             }
         }
 
-        // Add 하는 부분에서 enum 체크해서 겹쳐지는지 아닌지 확인하고 
-        // 
+        
+        private void OnTriggerExit(Collider other)
+        {
+            IInventory item = other.GetComponent<IInventory>();
+            if (item != null)
+            {
+                InventoryItem inventoryItem = item as InventoryItem;
+
+                //RemoveItem(inventoryItem); //Add 가능한 Item은 오로지 Inventory 아이템이다. 
+            }
+        }
 
 
+        //ADD 하는 부분에서 추가적으로 함수를 더 부른던 해서 열거형 체크하고 데이터테이블과 연동시켜줘야한다. 
 
         public void AddItem(InventoryItem item)
         {
@@ -47,32 +77,61 @@ namespace JJH
             item.transform.SetParent(itemTransform); // 자기 자신 슬롯의 자식으로 아이템을 만든는건가?
             item.transform.localPosition = Vector3.zero; // 슬롯 위치에 딱 맞도록 로컬 포지션을 0 으로 설정
             item.transform.localRotation = Quaternion.identity;
-            
+
+            Debug.Log($"Item {item.itemData.itemName} added to slot {slotID} as child of {this.transform.name}");
+
+            Rigidbody rigidbody = item.GetComponent<Rigidbody>();
+            if( rigidbody != null )
+            {
+                rigidbody.isKinematic = true;
+            }
+
+
             RectTransform slotRectTransfrom = GetComponent<RectTransform>(); // ui는 RectTransform 있음.
             if(slotRectTransfrom != null)
             {
                 ResizeItemToFitSlot(item.transform , slotRectTransfrom);
             }
 
-
-            Manager.Inventory.inventoryData.items.Add(item.itemData); // List에 Add 하는 작업
-            Manager.Inventory.SaveInventoryData(); //Json을 통한 데이터 저장.
+            Manager.Inventory.UpdateInventoryData();
         }
 
         // 아이템 삭제 ( 꺼내기)
         public InventoryItem RemoveItem()
         {
-            // 자기 자신의 transform의 첫 번 째 자식 --> 실제 오브젝트 아이템
-            InventoryItem item = itemTransform.GetChild(0).GetComponent<InventoryItem>();
-            item.transform.SetParent(null); // 부모 자식 관계를 해제시킴.
-            item.itemData.RestoreOriginalTransform(item.transform); //아이템의 원래 transfomr으로 복구 시킴
+            // 소켓에 자동으로 생기는 자식오브젝트인 [attack]를 피하기 위한 추가 로직.
+            InventoryItem item = null;
 
-            Manager.Inventory.inventoryData.items.Remove(item.itemData); //리스트에서 삭제.
-            Manager.Inventory.SaveInventoryData(); // json을 통한 데이터 저장
-            return item;
+            foreach (Transform child in this.transform)
+            {
+                item = child.GetComponent<InventoryItem>();
+                if(item != null )
+                {
+                    break; // null 이 아닐 때 
+                }
+            }
 
+            if(item !=null)
+            {
+                item.transform.SetParent(null); //부모 자식 관계 해제
+                item.itemData.RestoreOriginalTransform(itemTransform); //원래 오브젝트의 크기로 다시 변경
+
+                Rigidbody rigidbody= item.GetComponent<Rigidbody>();
+                if(rigidbody != null )
+                {
+                    rigidbody.isKinematic = false; // 다시 키네마틱 꺼주기. 
+                }
+
+                Manager.Inventory.UpdateInventoryData(); // 인벤토리 데이터를 업데이트
+                return item;
+
+            }
+            else
+            {
+                Debug.Log("No item to remove from the inventory slot.");
+                return null; 
+            }           
         }
-
 
         private void ItemState() // 아이템의 상태 -> 중력 , 콜라이더 등등의 컴포넌트를 변경해줄 함수.
         {
