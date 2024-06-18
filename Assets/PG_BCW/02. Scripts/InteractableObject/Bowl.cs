@@ -23,7 +23,7 @@ public class Bowl : InteractObject
     {
         base.OnSelectEntered(args);
 
-        AttachSerach(args);
+        //AttachSerach(args);
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
@@ -34,7 +34,7 @@ public class Bowl : InteractObject
     }
 
 
-    //왼손 기준 (오른손으로 잡으면 회전시켜줘야할듯)
+    /*//왼손 기준 (오른손으로 잡으면 회전시켜줘야할듯)
     private void AttachSerach(SelectEnterEventArgs args)
     {
         Transform interactor = args.interactorObject.transform;
@@ -42,19 +42,15 @@ public class Bowl : InteractObject
         float distance=9999;
         foreach (Transform attach in attachPoints)
         {
-            /*Debug.Log($"interactor : {interactor.position}");
-            Debug.Log($"attach : {attach.position}");*/
+            *//*Debug.Log($"interactor : {interactor.position}");
+            Debug.Log($"attach : {attach.position}");*//*
 
             float currentDistance = (interactor.position - attach.position).sqrMagnitude;
-            Debug.Log($"Attach : {attach.name} , Current Distance: {currentDistance}");
-            Debug.Log(currentDistance < distance);
             if (currentDistance < distance)
             {
                 distance = currentDistance;
                 attachTransform = attach;
-                Debug.Log(attach.name);
             }
         }
-        Debug.Log(attachTransform.name); 
-    }
+    }*/
 }
