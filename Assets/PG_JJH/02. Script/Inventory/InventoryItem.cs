@@ -10,7 +10,7 @@ namespace JJH
     public class InventoryItem : InteractObject , IInventory
     {
         // 실제 아이템이 가지고 있을 아이템의 기본적인 id , 타입 등의 데이터 
-        public InvenItem itemData; // 실제 아이템의 데이터
+        public InvenItem itemData; // 실제 아이템의 데이터 --가지고 있어야 데이터 쓸 수 있을듯? 
         private Transform originalParent; // 원래 부모 trasform 
 
 

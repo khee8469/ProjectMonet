@@ -23,19 +23,19 @@ namespace JJH
     [System.Serializable]
     public class InvenItem
     {
+
         //실제 아이템들이 가지고 있을 정보를 저장한다. 
-        public int itemID;
-        public string itemName;
-        public InventoryObjectType objectType;
-        public StackTypeItem stackType;
+        public int itemID; // 이 ID를 이용해서 일치하는 프리팹을 생성해주는 방식으로 할까?
+        public string itemName; // 아이템의 이름 
+        public InventoryObjectType objectType; // 아이템의 한 손 , 두 손 , 이벤트용 
+        public StackTypeItem stackType; // 겹쳐질 수 있는지의 여부 
 
         // 실제 오브젝트를 인벤토리에 넣는 상황을 가정하여 물체의 Transform을 저장한다.
-        public Vector3 originalPosition;
-        public Quaternion originalRotation;
-        public Vector3 originalScale;
+        public Vector3 originalPosition; // 아이템의 원래 위치 
+        public Quaternion originalRotation; // 아이템의 원래 회전 값
+        public Vector3 originalScale; // 아이템의 원래 스케일 값
 
-
-
+        // position 과 roatation 은 굳이 저장할 필요가 없을 듯함. --> Scale만 조정해주기 때문에.
         public void SaveOriginalTransform (Transform transform)
         {
             originalPosition = transform.position;

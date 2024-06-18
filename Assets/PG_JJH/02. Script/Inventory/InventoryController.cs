@@ -22,14 +22,12 @@ namespace JJH
 
         // 플레이어에게 붙어서 플레이어의 컨트롤러와 연계 되어 인벤토리를 On / Off 한다. 
 
-
-
         private void Start()
         {
             AudioSource = GetComponent<AudioSource>();
         }
 
-        public void OnMenuButton(InputAction.CallbackContext context)
+       /* public void OnMenuButton(InputAction.CallbackContext context)
         {
             Debug.Log("인벤토리 키 매핑 성공"); // L키 매핑해뒀음. 
 
@@ -38,19 +36,20 @@ namespace JJH
                 OpenInventory();
                 
             }
-        }
+        }*/
 
+        // 메인메뉴키와 연계되어 있어서 열고 닫고를 굳이 따로 해 줄 필요가없다. 
 
         //인벤토리를 여는 함수
         private void OpenInventory()
         {
-
+            // 열었을 때 이벤트가 필요하다면.. 써야겠지?
         }
 
         // 인벤토리를 닫는 함수 --> event와 연결하여 조작 연계
         private void CloseInventory()
         {
-
+            // 닫았을 때 이벤트가 필요하다면 사용해야겠지.. 
         }
 
         // 인벤토리에 직접 Add를 할 때 실패하면 사운드 발생.
