@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LayerManager : Singleton<LayerManager>
+namespace Jc
 {
-    [Header("NPC")]
-    public LayerMask npcLM;
+    public class LayerManager : Singleton<LayerManager>
+    {
+        [Header("NPC")]
+        public LayerMask npcLM;
 
-    [Header("Wall (?�기 착시 ?�브?�트)")]
-    public LayerMask wallLM;
+        [Header("Wall (?ш린 李⑹떆 ?ㅻ툕?앺듃)")]
+        public LayerMask wallLM;
+    }
 }
