@@ -10,22 +10,46 @@ namespace Jc
         [SerializeField]
         private TextMeshProUGUI titleText;
         [SerializeField]
-        private TextMeshProUGUI typeText;
-        [SerializeField]
         private TextMeshProUGUI npcNameText;
+        [SerializeField]
+        private TextMeshProUGUI stateText;
 
         [SerializeField]
         private Quest ownerQuest; 
         public Quest OwnerQuest { get { return ownerQuest; } set { ownerQuest = value; }}
+
+        private string proceedText = "(진행중)";
+        private string clearText = "(완료)";
 
         private void OnEnable()
         {
             UpdateUI();
         }
 
+        public void InitSetting()
+        {
+            if(ownerQuest == null)
+            {
+                Debug.Log("엔트리에 해당하는 퀘스트가 할당되지 않았습니다.");
+                return;
+            }
+
+            titleText.text = ownerQuest.QuestData.title;
+            npcNameText.text = ownerQuest.QuestData.npcName;
+        }
+
         public void UpdateUI()
         {
-
+            // 진행상태 텍스트 업데이트
+            switch(ownerQuest.State)
+            {
+                case QuestState.Proceed:
+                    stateText.text = proceedText;
+                    break;
+                case QuestState.Clear:
+                    stateText.text = clearText;
+                    break;
+            }
         }
 
         public void OnClickQuestButton()

@@ -33,6 +33,12 @@ namespace Jc
         protected QuestData questData;
         public QuestData QuestData { get { return questData; }}
 
+        [Tooltip("퀘스트 수주 나레이션 id 리스트")]
+        public List<int> receiveNarrationIDs;
+
+        [Tooltip("퀘스트 클리어 나레이션 id 리스트")]
+        public List<int> clearNarrationIDs;
+
         public UnityAction<QuestState> OnChangeState;
 
         protected virtual void Awake()
@@ -85,7 +91,10 @@ namespace Jc
         protected virtual void OnActiveQuest(){ }
 
         // 퀘스트 수주 시
-        protected virtual void OnProceedQuest(){ }
+        protected virtual void OnProceedQuest()
+        { 
+
+        }
 
         // 퀘스트 클리어 시 (수락 대기)
         protected virtual void OnClearQuest(){ }

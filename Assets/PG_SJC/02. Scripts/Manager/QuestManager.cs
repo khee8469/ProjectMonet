@@ -3,35 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace Jc
-{
-    // 퀘스트 ID (데이터 테이블 연동)
-    public enum QuestID { }
-    
+{    
     // 퀘스트 상태타입
     //                      {비활성화,      활성화,  진행중, 수락대기}
     public enum QuestState { DisActive = 0, Active, Proceed, Clear}
 
-    public enum QuestType { Main = 0, Sub}
+    // 퀘스트 타입
+    //                    { 기본형, 자동 클리어형, 연계형 } 
+    public enum QuestType { Normal = 0, AutoClear, Link}
 
     public class QuestManager : Singleton<QuestManager>
     {
-        [SerializeField]
-        private Dictionary<QuestID, Quest> questDic;
+        // 데이터 테이블 파일경로
+        private string path_narrationBundleData = "DataTable/NarrationBundleDT";
+        private string path_narrationData = "DataTable/NarrationDT";
+        private string path_questData = "DataTable/QuestDT";
 
+        [SerializeField]
+        private Dictionary<int, Quest> questDic;
+
+        [SerializeField]
+        private Dictionary<int, List<int>> narrationBundleDic;  // <나레이션 번들 ID, 나레이션 ID 리스트>
+        [SerializeField]
+        private Dictionary<int, NarrtionData> narrationDic;           // <나레이션 ID, 나레이션 문자열>
+                                                                
         protected override void Awake()
         {
             base.Awake();
 
+            LoadCSVData();
             RegistQuest();
         }
 
         // 퀘스트 등록
         private void RegistQuest()
         {
-            questDic = new Dictionary<QuestID, Quest>();
+            questDic = new Dictionary<int, Quest>();
             Quest[] quests = Resources.LoadAll<Quest>($"Quests");
 
-            foreach(Quest quest in quests)
+            foreach(Quest quest in quests) 
             {
                 // id 예외처리
                 if(questDic.ContainsKey(quest.QuestID))
@@ -46,16 +56,19 @@ namespace Jc
             }
         }
 
-        public void LoadQuestData()
+        public void LoadCSVData()
         {
-
+            LoadNarrationData();
+            LoadNarrationBundleData();
+            LoadQuestData();
+            // 로컬에 세이브된 데이터가 있다면 다음 줄부터 로드 후 덮어쓰기 실행 
         }
         public void SaveQuestData()
         {
 
         }
 
-        public Quest GetQuest(QuestID id)
+        public Quest GetQuest(int id)
         {
             if(!questDic.ContainsKey(id))
             {
@@ -64,6 +77,63 @@ namespace Jc
             }
 
             return questDic[id];
+        }
+
+        private void LoadNarrationData()
+        {
+            List<Dictionary<string, object>> csvData = CSVReader.Read(path_narrationData);
+            if (csvData == null || csvData.Count < 1)
+            {
+                Debug.Log("나레이션 데이터가 존재하지 않습니다.");
+                return;
+            }
+
+            narrationDic = new Dictionary<int, NarrtionData>();
+
+            for(int i =0; i<csvData.Count; i++)
+            {
+                int narrationID = (int)csvData[i]["id"] - DataID.NARRATION;     // 나레이션 ID 할당
+                NarrtionData data = new NarrtionData();
+                data.npcID = (int)csvData[i]["id_target"] - DataID.NPC;
+                data.text = (string)csvData[i]["id_text"];
+
+                narrationDic.Add(narrationID, data);
+            }
+        }
+        private void LoadNarrationBundleData()
+        {
+            List<Dictionary<string, object>> csvData = CSVReader.Read(path_narrationBundleData);
+            if(csvData == null || csvData.Count < 1)
+            {
+                Debug.Log("나레이션 번들데이터가 존재하지 않습니다.");
+                return;
+            }
+
+            narrationBundleDic = new Dictionary<int, List<int>>();
+
+            for (int i =0; i<csvData.Count; i++)
+            {
+                int bundleID = (int)csvData[i]["id"] - DataID.NARRATION_BUNDLE;       // 번들 ID 할당
+                List<int> narrationIDs = new List<int>();
+
+                narrationBundleDic.Add(bundleID, narrationIDs);
+
+                // 번들 당 나레이션의 개수는 30개
+                for(int j=1; j<=30; j++)
+                {
+                    // 선형적 필드 (다음 열에 데이터가 없다면 break)
+                    // 예외처리
+                    if (csvData[i][$"id_nar_{j}"] is not int)
+                        break;
+
+                    int narrationID = (int)csvData[i][$"id_nar_{j}"] - DataID.NARRATION;    // 나레이션 ID 할당
+                    // 리스트에 할당
+                    narrationIDs.Add(narrationID);
+                }
+            }
+        }
+        private void LoadQuestData()
+        {
         }
     }
 }
