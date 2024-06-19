@@ -8,78 +8,67 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class PinchGesture : Gesture
 {
-    private PaintBucket paintBucket;
+    /*PaintBucket paintBucket;
 
-    public XRNode handType;
-    private XRHandSubsystem handSubsystem;
 
-    void Start()
-    {
-        List<XRHandSubsystem> handSubsystems = new List<XRHandSubsystem>();
-        SubsystemManager.GetInstances(handSubsystems);
-        if (handSubsystems.Count > 0)
-        {
-            handSubsystem = handSubsystems[0];
-        }
-    }
-    // 위치 변화 감지 필요
+    bool isLeftPinch = false;
+    bool isRightPinch = false;
 
     void Update()
     {
-        /*if (handSubsystem != null)
+        //조건 다시 봐야함 막썻음
+        //Debug.Log(HandGesture.leftPerformedTriggered);
+        if (HandGesture.leftPerformedTriggered && !leftHandInteractor.hasSelection)
         {
-            Hand hand;
-            if (handSubsystem.TryGetHand(handType, out hand))
-            {
-                HandJointLocation jointLocation;
-                if (hand.TryGetJoint(HandJoint.IndexTip, out jointLocation))
-                {
-                    Vector3 indexTipPosition = jointLocation.position;
-                    Quaternion indexTipRotation = jointLocation.rotation;
+            GestureEnter(leftHandInteractor);
+        }
 
-                    // 이제 indexTipPosition과 indexTipRotation에 검지손가락 끝의 위치와 회전 정보가 있습니다.
-                    Debug.Log("Index Finger Tip Position: " + indexTipPosition);
-                    Debug.Log("Index Finger Tip Rotation: " + indexTipRotation);
-                }
-            }
-        }*/
+        if (!HandGesture.leftPerformedTriggered && leftHandInteractor.hasSelection)
+        {
+            GestureExit(leftHandInteractor);
+        }
+
+        if (HandGesture.rightPerformedTriggered && !rightHandInteractor.hasSelection)
+        {
+            GestureEnter(rightHandInteractor);
+        }
+
+        if (!HandGesture.rightPerformedTriggered && rightHandInteractor.hasSelection)
+        {
+            GestureExit(rightHandInteractor);
+        }
     }
 
 
-
+    //기능 1. 물감을 짜낸다.
     public override void GestureEnter(XRBaseInteractor interactor)
     {
-        //Debug.Log("핀치 제스처");
-        paintBucket = interactor.interactablesHovered.FirstOrDefault() as PaintBucket;
-
-        coroutine = StartCoroutine(HandPosition());
-
-
-        //물감나오는거 함수 호출
-        if( paintBucket != null )
+        Debug.Log("핀치 제스처");
+        paintBucket = null;
+        //호버중인 오브젝트중 물감통 찾기
+        if (interactor.interactablesHovered.Count > 0)
         {
-            paintBucket.PaintPlay();
+            foreach (var a in interactor.interactablesHovered)
+            {
+                paintBucket = a as PaintBucket;
+                if (paintBucket != null)
+                {
+                    //물감나오는거 함수 호출
+                    paintBucket.PaintPlay();
+                    Debug.Log("물감호출");
+                    break;
+                }
+            }
         }
     }
 
     public override void GestureExit(XRBaseInteractor interactor)
-    {
-        StopCoroutine(coroutine);
-
+    {       
         if (paintBucket != null)
         {
             paintBucket.PaintStop();
         }
 
         paintBucket = null;
-    }
-
-
-    Coroutine coroutine;
-    IEnumerator HandPosition()
-    {
-        
-
-        yield return new WaitForSeconds(0.1f);
-    }
+    }*/
 }

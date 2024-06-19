@@ -193,7 +193,7 @@ namespace UnityEngine.XR.Hands.Samples.GestureSample
                     rightPerformedTriggered = true;
                 }
             }
-
+            //Debug.Log($"{m_HandShapeOrPose.name} : {rightPerformedTriggered}");
             rightTimeOfLastConditionCheck = Time.timeSinceLevelLoad;
         }
     }

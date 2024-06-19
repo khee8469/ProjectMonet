@@ -1,47 +1,45 @@
+using System.Collections;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class GrabGesture : Gesture
+public class FistGesture : Gesture
 {
-    bool isLeftGrab = false;
-    bool isRightGrab = false;
+    PaintBucket paintBucket;
+
+    bool isLeftFist = false;
+    bool isRightFist = false;
 
     void Update()
     {
-        Debug.Log(HandGesture.rightPerformedTriggered);
-        if (HandGesture.leftPerformedTriggered && !leftHandInteractor.hasSelection && !isLeftGrab)
+        //조건 다시 봐야함 막썻음
+        //Debug.Log(HandGesture.leftPerformedTriggered);
+        if (HandGesture.leftPerformedTriggered && !leftHandInteractor.hasSelection && !isLeftFist)
         {
             GestureEnter(leftHandInteractor);
-            
         }
 
-        if (!HandGesture.leftPerformedTriggered && leftHandInteractor.hasSelection && isLeftGrab)
+        if (!HandGesture.leftPerformedTriggered && leftHandInteractor.hasSelection && isLeftFist)
         {
             GestureExit(leftHandInteractor);
-            
         }
 
-        if (HandGesture.rightPerformedTriggered && !rightHandInteractor.hasSelection && !isRightGrab)
+        if (HandGesture.rightPerformedTriggered && !rightHandInteractor.hasSelection && !isRightFist)
         {
             GestureEnter(rightHandInteractor);
-
         }
 
-        if (!HandGesture.rightPerformedTriggered && rightHandInteractor.hasSelection && isRightGrab)
+        if (!HandGesture.rightPerformedTriggered && rightHandInteractor.hasSelection && isRightFist)
         {
             GestureExit(rightHandInteractor);
-            
         }
     }
 
-
-
-    // 물건잡기
+    //기능 1. 물감을 짜낸다.
     public override void GestureEnter(XRBaseInteractor interactor)
     {
-        // 호버중인 오브젝트가 있는지 확인
-        Debug.Log("그랩 제스처");
+        Debug.Log("피스트 제스처");
 
         IXRSelectInteractable hoveredInteractable = null;
         foreach (var interactable in interactor.interactablesHovered)
@@ -53,7 +51,7 @@ public class GrabGesture : Gesture
                 Debug.Log(hoveredInteractable.transform.name);
                 break;
             }
-                
+
         }
         //Debug.Log(hoveredInteractable);
         if (hoveredInteractable != null && hoveredInteractable.transform.GetComponent<XRGrabInteractable>() != null)
@@ -66,22 +64,37 @@ public class GrabGesture : Gesture
             {
                 leftSelectedInteractable = hoveredInteractable;
 
-                isLeftGrab = true;
+                isLeftFist = true;
             }
             else
             {
                 rightSelectedInteractable = hoveredInteractable;
 
-                isRightGrab = true;
+                isRightFist = true;
+            }
+        }
+
+
+        paintBucket = null;
+        //호버중인 오브젝트중 물감통 찾기
+        if (interactor.interactablesHovered.Count > 0)
+        {
+            foreach (var a in interactor.interactablesHovered)
+            {
+                paintBucket = a as PaintBucket;
+                if (paintBucket != null)
+                {
+                    //물감나오는거 함수 호출
+                    paintBucket.PaintPlay();
+                    Debug.Log("물감호출");
+                    break;
+                }
             }
         }
     }
 
-    // 물건놓기
     public override void GestureExit(XRBaseInteractor interactor)
     {
-        Debug.Log("그랩 제스처 끝");
-
         // 저장된 손 오브젝트 놓기
         if (interactor == leftHandInteractor)
         {
@@ -91,7 +104,7 @@ public class GrabGesture : Gesture
                 interactor.interactionManager.SelectExit(interactor, leftSelectedInteractable);
                 leftSelectedInteractable = null;
 
-                isLeftGrab = false;
+                isLeftFist = false;
             }
         }
         else
@@ -102,8 +115,16 @@ public class GrabGesture : Gesture
                 interactor.interactionManager.SelectExit(interactor, rightSelectedInteractable);
                 rightSelectedInteractable = null;
 
-                isRightGrab = false;
+                isRightFist = false;
             }
         }
+
+
+        if (paintBucket != null)
+        {
+            paintBucket.PaintStop();
+        }
+
+        paintBucket = null;
     }
 }

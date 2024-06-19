@@ -18,6 +18,10 @@ public class Gesture : MonoBehaviour
     protected IXRSelectInteractable leftSelectedInteractable;
     protected IXRSelectInteractable rightSelectedInteractable;
 
+    /*[SerializeField] public GrabGesture grabGesture;
+    [SerializeField] public FistGesture fistGesture;
+
+
 
     void Update()
     {
@@ -45,7 +49,7 @@ public class Gesture : MonoBehaviour
             GestureExit(rightHandInteractor);
 
         }
-    }
+    }*/
 
     public virtual void GestureEnter(XRBaseInteractor interactor)
     {
