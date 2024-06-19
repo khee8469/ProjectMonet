@@ -45,18 +45,14 @@ namespace JJH
         // position 과 roatation 은 굳이 저장할 필요가 없을 듯함. --> Scale만 조정해주기 때문에.
         public void SaveOriginalTransform (Transform transform)
         {
-            //originalPosition = transform.position;
-            //originalRotation = transform.rotation;
-            originalScale = transform.localScale;  
+            originalScale = transform.localScale;
 
         }
-
         // 물체의 트랜스폼을 원상복구 한다. --> 스케일을 제외한 부분은 저장하면 안될듯 하다. 
         public void RestoreOriginalTransform(Transform transform)
         {
-            //transform.position = originalPosition;
-            //transform.rotation = originalRotation;
             transform.localScale = originalScale;
+            
         }
     }
 
