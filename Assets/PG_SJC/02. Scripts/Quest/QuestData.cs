@@ -14,9 +14,6 @@ namespace Jc
         [Header("퀘스트 ID")]
         public int id;
 
-        [Header("퀘스트 종류")]
-        public QuestType questType;
-
         [Header("NPC 이름")]
         public string npcName;
     }
