@@ -5,4 +5,5 @@ public static class DataID
 {
     // 퀘스트 ID
     public static int ID_QUEST = 1510000;
+
 }

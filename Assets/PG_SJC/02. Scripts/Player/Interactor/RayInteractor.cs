@@ -20,7 +20,7 @@ namespace Jc
         private float canvasWidth;
         private float canvasHeight;
         [SerializeField]
-        private Transform aimTr;
+        private RectTransform aimRect;
 
         [Header("밸런싱")]
         private bool isGrab = false;
@@ -117,23 +117,21 @@ namespace Jc
         {
             Vector2 viewportPos = Vector2.zero;
 
+            // 오브젝트를 Select중 일 경우
             if (isGrab)
             {
-                aimTr.transform.position= grabbedTr.position;
+                viewportPos = cam.WorldToViewportPoint(grabbedTr.position);
             }
             else
             {
-                aimTr.transform.position = rayEndPoint;
+                viewportPos = cam.WorldToViewportPoint(rayEndPoint);
             }
-            aimTr.transform.forward = -cam.transform.forward;
 
-            //Vector2 screenPos = new Vector2(
-            //    ((viewportPos.x * canvasWidth) - (canvasWidth * 0.5f)),
-            //    ((viewportPos.y * canvasHeight) - (canvasHeight * 0.5f)));
+            Vector2 screenPos = new Vector2(
+                ((viewportPos.x * canvasWidth) - (canvasWidth * 0.5f)),
+                ((viewportPos.y * canvasHeight) - (canvasHeight * 0.5f)));
 
-            //aimRect.anchoredPosition = screenPos;
-
-
+            aimRect.anchoredPosition = screenPos;
         }
     }
 }
