@@ -13,20 +13,10 @@ namespace Jc
     public class Quest : MonoBehaviour
     {
         [Header("에디터 세팅")]
-        [Tooltip("퀘스트 종류")]
-        [SerializeField]
-        protected QuestType questType;
-        public QuestType QuestType { get { return questType; }}
-
         [Tooltip("퀘스트 상태")]
         [SerializeField]
         protected QuestState state;
         public QuestState State { get { return state; } }
-
-        [Tooltip("퀘스트 ID")]
-        [SerializeField]
-        protected int questID;
-        public int QuestID { get { return questID; } }
 
         [Tooltip("퀘스트 데이터")]
         [SerializeField]
@@ -40,16 +30,6 @@ namespace Jc
         public List<int> clearNarrationIDs;
 
         public UnityAction<QuestState> OnChangeState;
-
-        protected virtual void Awake()
-        {
-            if(questData == null)
-            {
-                Debug.Log($"{questID} : 퀘스트 데이터가 할당되어있지 않습니다.");
-            }
-            // 퀘스트 ID 세팅
-            questID = QuestData.id;
-        }
 
         // 퀘스트 상태변경
         public void ChangeState(QuestState state)
@@ -77,10 +57,10 @@ namespace Jc
         protected virtual void ActiveNextQuest()
         {
             // 다음 퀘스트 탐색
-            Quest nextQuest = Manager.Quest.GetQuest(questID + 1);
+            Quest nextQuest = Manager.Quest.GetQuest(questData.id + 1);
             if(nextQuest == null)
             {
-                Debug.Log($"{questID} : 다음 퀘스트가 존재하지 않습니다.");
+                Debug.Log($"{questData.id} : 다음 퀘스트가 존재하지 않습니다.");
                 return;
             }
             // 다음 퀘스트 활성화

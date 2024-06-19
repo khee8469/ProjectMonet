@@ -6,12 +6,6 @@ namespace Jc
 {
     public class QuestAutoClear : Quest
     {
-        protected override void Awake()
-        {
-            base.Awake();
-            // 퀘스트 타입 세팅
-            questType = QuestType.AutoClear;
-        }
         // 퀘스트 활성화 시
         protected override void OnActiveQuest()
         {

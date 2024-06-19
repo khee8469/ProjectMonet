@@ -34,8 +34,8 @@ namespace Jc
                 return;
             }
 
-            titleText.text = ownerQuest.QuestData.title;
-            npcNameText.text = ownerQuest.QuestData.npcName;
+            titleText.text = ownerQuest.QuestData.questName;
+            //npcNameText.text = ownerQuest.QuestData.npcName;
         }
 
         public void UpdateUI()

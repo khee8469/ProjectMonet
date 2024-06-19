@@ -5,16 +5,27 @@ using UnityEngine;
 
 namespace Jc
 {
-    [CreateAssetMenu(fileName = "Quest Data", menuName = "Scriptable Object/Quest Data", order = int.MaxValue)]
     public class QuestData : ScriptableObject
     {
-        [Header("퀘스트 제목")]
-        public string title;
-
         [Header("퀘스트 ID")]
         public int id;
 
-        [Header("NPC 이름")]
-        public string npcName;
+        [Header("퀘스트 제목")]
+        public string questName;
+
+        [Header("퀘스트 타입")]
+        public QuestType type;
+
+        [Header("NPC ID")]
+        public int npcID;
+
+        [Header("보상 아이템 ID")]
+        public int rewardItemID;
+
+        [Header("수락 나레이션 번들 ID")]
+        public int receiveNarrationBundleID;
+
+        [Header("완료 나레이션 번들 ID")]
+        public int clearNarrationBundleID;
     }
 }

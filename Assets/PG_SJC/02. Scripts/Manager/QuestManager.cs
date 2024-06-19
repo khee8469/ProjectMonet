@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Jc
 {    
@@ -10,7 +11,7 @@ namespace Jc
 
     // 퀘스트 타입
     //                    { 기본형, 자동 클리어형, 연계형 } 
-    public enum QuestType { Normal = 0, AutoClear, Link}
+    public enum QuestType { Normal = 1, AutoClear, Link}
 
     public class QuestManager : Singleton<QuestManager>
     {
@@ -22,6 +23,8 @@ namespace Jc
         [SerializeField]
         private Dictionary<int, Quest> questDic;
 
+        [SerializeField]
+        private Dictionary<int, QuestData> questDataDic;
         [SerializeField]
         private Dictionary<int, List<int>> narrationBundleDic;  // <나레이션 번들 ID, 나레이션 ID 리스트>
         [SerializeField]
@@ -43,16 +46,16 @@ namespace Jc
 
             foreach(Quest quest in quests) 
             {
-                // id 예외처리
-                if(questDic.ContainsKey(quest.QuestID))
-                {
-                    Debug.Log($"{quest.QuestID}는 {questDic[quest.QuestID]}에 이미 할당 된 QuestID 입니다.");
-                    continue;
-                }
+                //// id 예외처리
+                //if(questDic.ContainsKey(quest.QuestID))
+                //{
+                //    Debug.Log($"{quest.QuestID}는 {questDic[quest.QuestID]}에 이미 할당 된 QuestID 입니다.");
+                //    continue;
+                //}
 
-                // 퀘스트 생성 및 할당
-                Quest inst = Instantiate(quest, transform);
-                questDic.Add(quest.QuestID, inst);
+                //// 퀘스트 생성 및 할당
+                //Quest inst = Instantiate(quest, transform);
+                //questDic.Add(quest.QuestID, inst);
             }
         }
 
@@ -134,6 +137,28 @@ namespace Jc
         }
         private void LoadQuestData()
         {
+            List<Dictionary<string, object>> csvData = CSVReader.Read(path_questData);
+            if (csvData == null || csvData.Count < 1)
+            {
+                Debug.Log("퀘스트 데이터가 존재하지 않습니다.");
+                return;
+            }
+
+            questDataDic = new Dictionary<int, QuestData>();
+
+            for(int i =0; i<csvData.Count; i++)
+            {
+                int questID = (int)csvData[i]["id"];
+                QuestData questData = ScriptableObject.CreateInstance<QuestData>();
+                questData.id = questID;
+                questData.questName = csvData[i]["quest_name"] as string;
+                questData.type = (QuestType)(int)csvData[i]["condition"];
+                questData.npcID = (int)csvData[i]["quest_acc"];
+                questData.receiveNarrationBundleID = (int)csvData[i]["narr_start"];
+                questData.clearNarrationBundleID = (int)csvData[i]["narr_fin"];
+
+                questDataDic.Add(questID, questData);
+            }
         }
     }
 }
