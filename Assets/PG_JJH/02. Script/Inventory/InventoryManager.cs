@@ -45,7 +45,6 @@ namespace JJH
                 slot.slotID = currentSlotID++; // 할당 후 +1 
             }
 
-
             if (!inventorySlots.ContainsKey(slot.slotID))
             {
                 inventorySlots.Add(slot.slotID, slot); //키가 없을 때만 삭제 
@@ -57,11 +56,11 @@ namespace JJH
         {
             if (inventorySlots.ContainsKey(slot.slotID))
             {
-                inventorySlots.Remove(slot.slotID); // 키가 있읠 때만 삭제
+                inventorySlots.Remove(slot.slotID); // 키가 있을 때만 삭제
             }       
         }
 
-        // 인벤토리 데이터를 업데이트하는 메서드 
+        // 인벤토리 데이터를 업데이트하는 메서드 --> Socket 에는 첫번째 자식으로 [Attach]가 새성됩니다. 
         public void UpdateInventoryData()
         {
             inventoryData.items.Clear(); // 기존 아이템 리스트를 초기화 (무결성 유지 위해서)
@@ -81,8 +80,7 @@ namespace JJH
                     };
                     data.SaveOriginalTransform(item.transform); //Transform 저장 + 이거 아마 scale만 필요할듯?
                     inventoryData.items.Add(data); //업데이트 한 값을 리스트에 저장 
-                }
-                
+                }             
             }
             SaveInventoryData(); // JSON으로 저장 --> 업데이트 이후 그 상태 저장. 
         }
@@ -96,8 +94,7 @@ namespace JJH
         public void LoadInventoryData() // 인벤토리의 데이터를 json으로 로드함.
         {
             string json = PlayerPrefs.GetString("InventoryData", "{}");
-            inventoryData = InventoryData.FromJson(json);
-            
+            inventoryData = InventoryData.FromJson(json);            
         }
 
         // 로드한 인벤토리 데이터에 따라 인벤토리에 아이템 생성 및 복원
@@ -117,8 +114,6 @@ namespace JJH
                 }
             }
         }
-
-
         private GameObject InstantiateItem(InvenItem itemData)
         {
             GameObject itemPrefab = Resources.Load<GameObject>($"{itemData.itemName}"); // 이름 맞추기
@@ -137,7 +132,6 @@ namespace JJH
 
             return null; 
         }
-
         private void SetupInteractable(GameObject itemObject, InvenItem itemData)
         {
             // 만약 Grab이 사라졌다면 다시 붙여주기 위한 함수. 
@@ -163,9 +157,10 @@ namespace JJH
                 Vector3 itemSize = itemRenderer.bounds.size; // 렌더러의 사각 크기 구함. 
                 float scaleFactor = Mathf.Min(slotSize.x / itemSize.x, slotSize.y / itemSize.y);
                 itemTransform.localScale *= scaleFactor; // 크기를 조정
+                // z축 을 완전히 납작하게 해버릴까 고민
+                
             }
         }
 
     }
-
 }

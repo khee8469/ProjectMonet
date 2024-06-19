@@ -11,6 +11,7 @@ namespace JJH
     public class InventoryItem : InteractObject, IInventory
     {
         // 실제 아이템이 가지고 있을 아이템의 기본적인 id , 타입 등의 데이터 
+        [Header("아이템이 가지고 있을 데이터")]
         public InvenItem itemData; // 실제 아이템의 데이터 --가지고 있어야 데이터 쓸 수 있을듯? 
         private Transform originalParent; // 원래 부모 trasform 
 
@@ -26,6 +27,11 @@ namespace JJH
             if (itemData == null)
             {
                 itemData = new InvenItem();
+                Debug.Log("itemData가 null이어서 새로운 InvenItem 인스턴스를 생성했습니다.");
+            }
+            else
+            {
+                Debug.Log($"itemData는 null이 아닙니다. 현재 itemData: {itemData.itemName}");
             }
 
         }

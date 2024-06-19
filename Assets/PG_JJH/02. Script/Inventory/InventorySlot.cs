@@ -1,4 +1,5 @@
 using UnityEngine;
+using JJH;
 
 namespace JJH
 {
@@ -36,7 +37,6 @@ namespace JJH
         }
 
 
-
         private void OnTriggerEnter(Collider other)
         {
             IInventory item = other.GetComponent<IInventory>();
@@ -56,7 +56,6 @@ namespace JJH
             }
         }
 
-        
         private void OnTriggerExit(Collider other)
         {
             IInventory item = other.GetComponent<IInventory>();
@@ -64,10 +63,9 @@ namespace JJH
             {
                 InventoryItem inventoryItem = item as InventoryItem;
 
-                //RemoveItem(inventoryItem); //Add 가능한 Item은 오로지 Inventory 아이템이다. 
+                RemoveItem(inventoryItem); 
             }
         }
-
 
         //ADD 하는 부분에서 추가적으로 함수를 더 부른던 해서 열거형 체크하고 데이터테이블과 연동시켜줘야한다. 
 
@@ -97,39 +95,27 @@ namespace JJH
         }
 
         // 아이템 삭제 ( 꺼내기)
-        public InventoryItem RemoveItem()
+        public void RemoveItem(InventoryItem item)
         {
             // 소켓에 자동으로 생기는 자식오브젝트인 [attack]를 피하기 위한 추가 로직.
-            InventoryItem item = null;
 
-            foreach (Transform child in this.transform)
+            if(item.transform.parent ==this.transform) // 이 슬롯의 자식이라면. 
             {
-                item = child.GetComponent<InventoryItem>();
-                if(item != null )
-                {
-                    break; // null 이 아닐 때 
-                }
-            }
+                item.transform.SetParent(null); //자식 해제 
+                item.itemData.RestoreOriginalTransform(item.transform); //오브젝트의 실제 scale을 리턴해줌. 
 
-            if(item !=null)
-            {
-                item.transform.SetParent(null); //부모 자식 관계 해제
-                item.itemData.RestoreOriginalTransform(itemTransform); //원래 오브젝트의 크기로 다시 변경
+                Rigidbody rigidbody = item.GetComponent<Rigidbody>();
 
-                Rigidbody rigidbody= item.GetComponent<Rigidbody>();
-                if(rigidbody != null )
+                if (rigidbody != null)
                 {
                     rigidbody.isKinematic = false; // 다시 키네마틱 꺼주기. 
                 }
 
                 Manager.Inventory.UpdateInventoryData(); // 인벤토리 데이터를 업데이트
-                return item;
-
             }
             else
             {
                 Debug.Log("No item to remove from the inventory slot.");
-                return null; 
             }           
         }
 
@@ -153,14 +139,7 @@ namespace JJH
                 float scaleFactor = Mathf.Min((slotSize.x / itemSize.x), (slotSize.y / itemSize.y));
                 itemTransform.localScale = itemTransform.localScale * scaleFactor; //크기 줄여주기.
             }
-
-
         }
-
-
-
-        
-
     }
 }
 

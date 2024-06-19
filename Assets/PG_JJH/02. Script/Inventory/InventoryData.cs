@@ -10,7 +10,13 @@ namespace JJH
     {
         // 한 손 , 두 손 , 이벤트용 아이템
 
-        OneHandItem , TwoHandItem, EventItem , END
+        OneHandItem , TwoHandItem,  END
+    }
+
+    // 이벤트 아이템인지 체크 하는 부분은 나중에 수정하자.
+    public enum EventItem
+    {
+        Non_Event , Event , END
     }
 
     public enum StackTypeItem
@@ -32,28 +38,26 @@ namespace JJH
         public int slotID; // 슬롯 ID를 저장
 
         // 실제 오브젝트를 인벤토리에 넣는 상황을 가정하여 물체의 Transform을 저장한다.
-        public Vector3 originalPosition; // 아이템의 원래 위치 
-        public Quaternion originalRotation; // 아이템의 원래 회전 값
+        /*public Vector3 originalPosition; // 아이템의 원래 위치 
+        public Quaternion originalRotation; // 아이템의 원래 회전 값*/
         public Vector3 originalScale; // 아이템의 원래 스케일 값
 
         // position 과 roatation 은 굳이 저장할 필요가 없을 듯함. --> Scale만 조정해주기 때문에.
         public void SaveOriginalTransform (Transform transform)
         {
-            originalPosition = transform.position;
-            originalRotation = transform.rotation;
-            originalScale = transform.localScale; // 스케일은 로컬 스케일. 
+            //originalPosition = transform.position;
+            //originalRotation = transform.rotation;
+            originalScale = transform.localScale;  
 
         }
 
-        // 물체의 트랜스폼을 원상복구 한다. 
+        // 물체의 트랜스폼을 원상복구 한다. --> 스케일을 제외한 부분은 저장하면 안될듯 하다. 
         public void RestoreOriginalTransform(Transform transform)
         {
-            transform.position = originalPosition;
-            transform.rotation = originalRotation;
+            //transform.position = originalPosition;
+            //transform.rotation = originalRotation;
             transform.localScale = originalScale;
         }
-
-
     }
 
     [System.Serializable]
