@@ -1,6 +1,4 @@
-using System.Linq;
 using UnityEngine;
-using UnityEngine.XR.Hands.Samples.GestureSample;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class GrabGesture : Gesture
@@ -8,7 +6,7 @@ public class GrabGesture : Gesture
     // 물건잡기
     public override  void GestureEnter(XRBaseInteractor interactor)
     {
-        Debug.Log("그랩 제스처");
+        //Debug.Log("그랩 제스처");
         // 호버중인 오브젝트가 있는지 확인
         //IXRSelectInteractable hoveredInteractable = interactor.interactablesHovered.FirstOrDefault() as IXRSelectInteractable;
         IXRSelectInteractable hoveredInteractable = null;
@@ -19,7 +17,7 @@ public class GrabGesture : Gesture
             if (hoveredInteractable != null)
                 break;
         }
-        Debug.Log(hoveredInteractable);
+        //Debug.Log(hoveredInteractable);
         if (hoveredInteractable != null && hoveredInteractable.transform.GetComponent<XRGrabInteractable>() != null)
         {
             Debug.Log(hoveredInteractable.transform.name);

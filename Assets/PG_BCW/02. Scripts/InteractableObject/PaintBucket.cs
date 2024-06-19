@@ -1,17 +1,13 @@
 using Jc;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.Hands;
-using UnityEngine.XR.Hands.OpenXR;
-using UnityEngine.XR.Interaction.Toolkit;
 
 public class PaintBucket : InteractObject
 {
-    [SerializeField] ParticleSystem paintParticle;
-
+    [SerializeField] 
+    private ParticleSystem paintParticle;
 
     
+    //물감나오는거 구현
     public void PaintPlay()
     {
         paintParticle.Play();
@@ -21,5 +17,7 @@ public class PaintBucket : InteractObject
     {
         paintParticle.Stop();
     }
+
+    //레이를 쏴서 아래가 팔렛트면 물감을 생성한다
 
 }
