@@ -43,7 +43,6 @@ namespace Jc
             lineVisual.enabled = false;
             canvasHeight = canvasRect.sizeDelta.y;
             canvasWidth = canvasRect.sizeDelta.x;
-            //aimRect.gameObject.SetActive(true);
         }
 
         private void Update()
