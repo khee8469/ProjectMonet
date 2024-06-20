@@ -40,15 +40,15 @@ namespace Jc
             lineVisual = GetComponent<XRInteractorLineVisual>();
             lr = GetComponent<LineRenderer>();
             cam = Camera.main;
-            //lineVisual.enabled = false;
+            lineVisual.enabled = false;
             canvasHeight = canvasRect.sizeDelta.y;
             canvasWidth = canvasRect.sizeDelta.x;
-            aimRect.gameObject.SetActive(true);
+            //aimRect.gameObject.SetActive(true);
         }
 
         private void Update()
         {
-            AimPosition();
+            //AimPosition();
         }
 
         public override bool CanHover(IXRHoverInteractable interactable)
@@ -80,7 +80,7 @@ namespace Jc
 
             grabbedTr = args.interactableObject.transform;
             isGrab = true;
-            //lineVisual.enabled = true;
+            lineVisual.enabled = true;
             //aimRect.gameObject.SetActive(false);
         }
         protected override void OnSelectExited(SelectExitEventArgs args)
@@ -89,7 +89,7 @@ namespace Jc
 
             isGrab = false;
             grabbedTr = null;
-            //lineVisual.enabled = false;
+            lineVisual.enabled = false;
             //aimRect.gameObject.SetActive(true);
         }
 

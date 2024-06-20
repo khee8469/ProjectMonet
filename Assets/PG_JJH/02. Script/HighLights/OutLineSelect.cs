@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 [RequireComponent(typeof(Outlinable))]
-public class OutLineSelect : XRGrabInteractable
+public class OutLineSelect : XRGrabInteractable // 이 부분 상속 순서 변경 생각할것. 
 {
     [Header("아웃라인 컴포넌트")]
     [SerializeField] Outlinable outlineableToUse;
