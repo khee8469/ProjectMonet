@@ -1,30 +1,38 @@
 using Jc;
 using JJH;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Pallet : InteractObject
 {
+    [Tooltip("물감 프리펩")]
     [SerializeField]
-    Paint paintPrefab;
+    private Paint paint;
+    [SerializeField] 
+    private LayerMask layer;
 
-    [SerializeField] LayerMask layerMask;
+    [SerializeField]
+    private Transform attach;
 
-    bool isOk;
-
-
-    private void OnTriggerEnter(Collider collider)
+    
+    private void OnCollisionEnter(Collision collision)
     {
-        if (!layerMask.Contain(collider.gameObject.layer))
-            return;
-
-        if (!isOk)
+        if (layer.Contain(collision.gameObject.layer))
         {
-            Paint paint = Instantiate(paintPrefab, collider.transform.position, Quaternion.Euler(0, collider.transform.position.y, 0));
+            Debug.Log("생성");
+            //충돌체의 색타입으로 변경하여 생성
+            paint.paintType = collision.gameObject.GetComponent<Paint>().paintType;
+            //떨어진 위치
+            Vector3 position = collision.contacts[0].point;
+            //충돌체 삭제
+            Destroy(collision.gameObject);
+            //프리팹 생성 후 위치 고정
+            Paint prefab = Instantiate(paint, position, transform.rotation, transform);
+            prefab.gameObject.GetComponent<Rigidbody>().isKinematic = true;
         }
-        isOk=true;
     }
+
+
+
 
 
 }

@@ -4,6 +4,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class GrabGesture : Gesture
 {
+    //물건 잡기용 제스처
+
     public override void Awake()
     {
         base.Awake();
@@ -47,15 +49,7 @@ public class GrabGesture : Gesture
     // 왼손 물건놓기
     public override void LeftGestureExit()
     {
-        /*Debug.Log("그랩 제스처 끝");
 
-        // 저장된 손 오브젝트 놓기
-        if (LeftSelectedInteractable != null)
-        {
-            // 인터랙션 매니저에 인터랙터가 인터랙터블을 선택 해제하도록 요청
-            LeftHandInteractor.interactionManager.SelectExit(LeftHandInteractor, LeftSelectedInteractable);
-            LeftSelectedInteractable = null;
-        }*/
     }
 
 
@@ -94,14 +88,6 @@ public class GrabGesture : Gesture
     // 오른손 물건놓기
     public override void RightGestureExit()
     {
-        /*Debug.Log("그랩 제스처 끝");
 
-        // 저장된 손 오브젝트 놓기
-        if (RightSelectedInteractable != null)
-        {
-            // 인터랙션 매니저에 인터랙터가 인터랙터블을 선택 해제하도록 요청
-            RightHandInteractor.interactionManager.SelectExit(RightHandInteractor, RightSelectedInteractable);
-            RightSelectedInteractable = null;
-        }*/
     }
 }
