@@ -88,6 +88,7 @@ namespace Jc
         private void OnPopUp(bool isEnable)
         {
             popUpCanvas.SetActive(isEnable);
+            JJH.Manager.Inventory.isEnable = isEnable;
         }
     }
 }

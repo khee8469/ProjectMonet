@@ -101,6 +101,7 @@ namespace Jc
 
             // 데이터에 따른 퀘스트 할당
             questIDList = npcData.questIDList;
+            debugNameText.text = npcData.npcName;
         }
 
         // 목적지 계산
