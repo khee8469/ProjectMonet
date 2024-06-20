@@ -1,7 +1,9 @@
+using JJH;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace Jc
@@ -12,6 +14,12 @@ namespace Jc
     public class RayInteractor : XRRayInteractor
     {
         [Header("커스텀 세팅")]
+        [SerializeField]
+        private PlayerControllerCallback controllerCallback;
+
+        [SerializeField]
+        private bool isLeftController = false;
+
         [SerializeField]
         private GameObject controller;
 
@@ -45,10 +53,54 @@ namespace Jc
             canvasWidth = canvasRect.sizeDelta.x;
         }
 
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            if(isLeftController)
+            {
+                controllerCallback.leftTriggerRef.action.performed += OnSlotTriggerEnter;
+                controllerCallback.leftTriggerRef.action.canceled += OnSlotTriggerExit;
+            }
+            else
+            {
+                controllerCallback.rightTriggerRef.action.performed += OnSlotTriggerEnter;
+                controllerCallback.rightTriggerRef.action.canceled += OnSlotTriggerExit;
+            }
+        }
+        protected override void OnDisable()
+        {
+            if(isLeftController)
+            {
+                controllerCallback.leftTriggerRef.action.performed -= OnSlotTriggerEnter;
+                controllerCallback.leftTriggerRef.action.canceled -= OnSlotTriggerExit;
+            }
+            else
+            {
+                controllerCallback.rightTriggerRef.action.performed -= OnSlotTriggerEnter;
+                controllerCallback.rightTriggerRef.action.canceled -= OnSlotTriggerExit;
+            }
+            base.OnDisable();
+        }
+
         private void Update()
         {
             AimPosition();
         }
+
+        #region 컨트롤러 콜백
+        public void OnSlotTriggerEnter(InputAction.CallbackContext context)
+        {
+            InventorySlot curSlot = FindSlot();
+            if (curSlot == null) return;
+
+            Debug.Log(curSlot);
+        }
+        public void OnSlotTriggerExit(InputAction.CallbackContext context)
+        {
+
+        }
+        #endregion
+
 
         public override bool CanHover(IXRHoverInteractable interactable)
         {
@@ -131,6 +183,24 @@ namespace Jc
                 ((viewportPos.y * canvasHeight) - (canvasHeight * 0.5f)));
 
             aimRect.anchoredPosition = screenPos;
+        }
+
+        private InventorySlot FindSlot()
+        {
+            // 컨트롤러의 전방으로 레이캐스팅
+            Ray ray = new Ray(transform.position, transform.forward);
+            
+            if(Physics.Raycast(ray, out RaycastHit hitInfo, 500f, Manager.Layer.slotLM))
+            {
+                InventorySlot hitSlot = hitInfo.collider.GetComponent<InventorySlot>();
+
+                if (hitSlot == null)
+                    return null;
+                else
+                    return hitSlot;
+            }
+
+            return null;
         }
     }
 }
