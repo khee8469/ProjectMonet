@@ -34,9 +34,10 @@ namespace Jc
                 return;
             }
 
+            // 퀘스트 제목 할당
             titleText.text = ownerQuest.QuestData.questName;
-            // 추후 ID로 찾기
-            //npcNameText.text = ownerQuest.QuestData.npcName;
+            // NPC 이름 할당
+            npcNameText.text = Manager.Quest.NPCDataDic[ownerQuest.QuestID].npcName;
         }
 
         public void UpdateUI()

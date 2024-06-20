@@ -75,7 +75,7 @@ namespace Jc
             // 추후 조건추가 (메뉴버튼이 열려있을 경우 우선순위에서 제외됨.)
             if (nearNPC == null) return;
 
-            nearNPC.OnInteract(transform.position);
+            nearNPC.OnInteract(questController);
         }
 
         private void OnPopUpCanvas(InputAction.CallbackContext context)

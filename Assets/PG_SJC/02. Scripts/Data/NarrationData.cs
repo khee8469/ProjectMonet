@@ -8,13 +8,9 @@ namespace Jc
     [Serializable]
     public struct NarrtionData
     {
+        [Header("NPC ID")]
         public int npcID;
+        [Header("나레이션 텍스트")]
         public string text;
-
-        public NarrtionData(int npcID, string text)
-        {
-            this.npcID = npcID;
-            this.text = text;
-        }
     }
 }

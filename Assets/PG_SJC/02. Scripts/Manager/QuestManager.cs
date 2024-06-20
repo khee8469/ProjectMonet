@@ -18,23 +18,28 @@ namespace Jc
     public class QuestManager : Singleton<QuestManager>
     {
         // 데이터 테이블 파일경로
-        private string path_narrationBundleData = "DataTable/NarrationBundleDT";
-        private string path_narrationData = "DataTable/NarrationDT";
-        private string path_questData = "DataTable/QuestDT";
+        private const string path_narrationBundleData = "DataTable/NarrationBundleDT";
+        private const string path_narrationData = "DataTable/NarrationDT";
+        private const string path_questData = "DataTable/QuestDT";
+        private const string path_npcData = "DataTable/NPCDT";
 
         [SerializeField]
         private Dictionary<int, Quest> questDic;
         public Dictionary<int, Quest> QuestDic {get { return questDic; } }
 
-        [SerializeField]
-        private Dictionary<int, QuestData> questDataDic;
+        private Dictionary<int, NPCData> npcDataDic; 
+        public Dictionary<int, NPCData> NPCDataDic {get { return npcDataDic; } }    
+
+        private Dictionary<int, QuestData> questDataDic;    // 퀘스트 데이터
         public Dictionary<int, QuestData> QuestDataDic {get { return questDataDic; } }
-        [SerializeField]
+        
         private Dictionary<int, List<int>> narrationBundleDic;  // <나레이션 번들 ID, 나레이션 ID 리스트>
         public Dictionary<int, List<int>> NarrationBundleDic { get { return narrationBundleDic; } }
-        [SerializeField]
-        private Dictionary<int, NarrtionData> narrationDic;           // <나레이션 ID, 나레이션 문자열>
-        public Dictionary<int, NarrtionData> NarrationDic {get { return narrationDic; } }
+        
+        private Dictionary<int, NarrtionData> narrationDataDic;           // <나레이션 ID, 나레이션 문자열>
+        public Dictionary<int, NarrtionData> NarrationDataDic {get { return narrationDataDic; } }
+
+
                                                                 
         protected override void Awake()
         {
@@ -81,10 +86,10 @@ namespace Jc
                 {
                     foreach(int bundleID in narrationBundleDic[data.receiveNarrationBundleID])
                     {
-                        if(!narrationDic.ContainsKey(bundleID))
+                        if(!narrationDataDic.ContainsKey(bundleID))
                             break;
 
-                        inst.receiveNarrations.Add(narrationDic[bundleID]);
+                        inst.receiveNarrations.Add(narrationDataDic[bundleID]);
                     }
                 }
 
@@ -94,10 +99,10 @@ namespace Jc
                 {
                     foreach (int bundleID in narrationBundleDic[data.clearNarrationBundleID])
                     {
-                        if (!narrationDic.ContainsKey(bundleID))
+                        if (!narrationDataDic.ContainsKey(bundleID))
                             break;
 
-                        inst.clearNarrations.Add(narrationDic[bundleID]);
+                        inst.clearNarrations.Add(narrationDataDic[bundleID]);
                     }
                 }
 
@@ -110,6 +115,7 @@ namespace Jc
             LoadNarrationData();
             LoadNarrationBundleData();
             LoadQuestData();
+            LoadNPCData();
             // 로컬에 세이브된 데이터가 있다면 다음 줄부터 로드 후 덮어쓰기 실행 
         }
         public void SaveQuestData()
@@ -137,7 +143,7 @@ namespace Jc
                 return;
             }
 
-            narrationDic = new Dictionary<int, NarrtionData>();
+            narrationDataDic = new Dictionary<int, NarrtionData>();
 
             for(int i =0; i<csvData.Count; i++)
             {
@@ -146,7 +152,7 @@ namespace Jc
                 data.npcID = (int)csvData[i]["id_target"] - DataID.NPC;
                 data.text = (string)csvData[i]["id_text"];
 
-                narrationDic.Add(narrationID, data);
+                narrationDataDic.Add(narrationID, data);
             }
         }
         private void LoadNarrationBundleData()
@@ -197,7 +203,7 @@ namespace Jc
             {
                 int questID = (int)csvData[i]["id"] - DataID.QUEST;
                 
-                QuestData questData = ScriptableObject.CreateInstance<QuestData>();
+                QuestData questData = new QuestData();
 
                 questData.id = questID;
                 questData.questName = csvData[i]["quest_name"] as string;
@@ -207,6 +213,37 @@ namespace Jc
                 questData.clearNarrationBundleID = (int)csvData[i]["narr_fin"] - DataID.NARRATION_BUNDLE;
 
                 questDataDic.Add(questID, questData);
+            }
+        }
+        private void LoadNPCData()
+        {
+            List<Dictionary<string, object>> csvData = CSVReader.Read(path_npcData);
+
+            if(csvData == null || csvData.Count < 1)
+            {
+                Debug.Log("NPC 데이터가 존재하지 않습니다.");
+                return;
+            }
+
+            npcDataDic = new Dictionary<int, NPCData>();
+
+            for(int i =0; i<csvData.Count; i++)
+            {
+                // 선형적 필드
+                // NPC의 최대 퀘스트 갯수는 5개
+                int id = (int)csvData[i]["id"] - DataID.NPC;
+                NPCData data = new NPCData();
+                data.id = id;
+                data.npcName = (string)csvData[i]["name_npc"];
+                data.questIDList = new List<int>();
+                for(int j =1; j<=5; j++)
+                {
+                    if (csvData[i][$"id_quest_{j}"] is not int)
+                        break;
+                    data.questIDList.Add((int)csvData[i][$"id_quest_{j}"] - DataID.QUEST);
+                }
+
+                npcDataDic.Add(id, data);
             }
         }
     }

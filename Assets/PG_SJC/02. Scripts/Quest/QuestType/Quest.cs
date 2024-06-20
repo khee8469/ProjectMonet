@@ -41,21 +41,21 @@ namespace Jc
         // 퀘스트 상태변경
         public void ChangeState(QuestState state)
         {
+            this.state = state;
             OnChangeState?.Invoke(state);
-
-            switch(state)
+            switch (state)
             {
                 case QuestState.Active:
-                    OnActiveQuest();
+                    ActiveQuest();
                     break;
                 case QuestState.Proceed:
-                    OnProceedQuest();
+                    ProceedQuest();
                     break;
                 case QuestState.Clear:
-                    OnClearQuest();
+                    ClearQuest();
                     break;
                 case QuestState.DisActive:
-                    OnDisActiveQuest();
+                    DisActiveQuest();
                     break;
             }
         }
@@ -75,17 +75,21 @@ namespace Jc
         }
 
         // 퀘스트 활성화 시
-        protected virtual void ActiveQuest(){ }
+        protected virtual void ActiveQuest()
+        {
+            Debug.Log($"퀘스트 {questID} : 가 활성화 되었습니다.");
+        }
 
         // 퀘스트 수주 시
         protected virtual void ProceedQuest()
         {
-
+            Debug.Log($"퀘스트 {questID} : 가 진행됩니다.");
         }
 
         // 퀘스트 클리어 시 (수락 대기)
         protected virtual void ClearQuest()
         {
+            Debug.Log($"퀘스트 {questID} : 가 완료되었습니다.");
         }
 
         // 퀘스트 수락 이후 비활성화

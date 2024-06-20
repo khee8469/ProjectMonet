@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Jc
 {
     [Serializable]
-    public class QuestData : ScriptableObject
+    public struct QuestData
     {
         [Header("퀘스트 ID")]
         public int id;

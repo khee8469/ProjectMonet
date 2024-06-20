@@ -22,6 +22,10 @@ namespace Jc
         private int id_OnInetract;
         public int OnInteract { get { return id_OnInetract; } }
 
+        [SerializeField]
+        private int id_IsInteract;
+        public int IsInteract {get { return id_IsInteract; } }
+
         protected override void Awake()
         {
             base.Awake();
@@ -32,6 +36,7 @@ namespace Jc
         {
             id_MoveSpeed = Animator.StringToHash("MoveSpeed");
             id_OnInetract = Animator.StringToHash("OnInteract");
+            id_IsInteract = Animator.StringToHash("IsInteract");
         }
 
     }

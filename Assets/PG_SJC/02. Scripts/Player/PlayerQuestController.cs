@@ -22,6 +22,7 @@ namespace Jc
 
             // 콜백 등록해제
             quest.OnClearQuest -= OnClearQuest;
+            //
         }
 
         // 퀘스트 수락 시 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
@@ -12,9 +13,13 @@ namespace Jc
     public abstract class NPC : MonoBehaviour
     {
         [Header("에디터 세팅")]
+        [SerializeField]    
+        protected int id;
+        public int ID { get { return id; } }
+
         [SerializeField]
-        protected string npcName;
-        public string NpcName { get { return npcName; } }
+        protected NPCData npcData;
+        public NPCData NPCData { get { return npcData; } }
 
         [SerializeField]
         private TextMeshProUGUI debugNameText;
@@ -76,15 +81,32 @@ namespace Jc
         [SerializeField]
         private int maxDialogIndex = 0;     // 대화 진행 최대 인덱스
 
-        private void Awake()
+        private void Start()
         {
-            debugNameText.text = npcName;
+            LoadData();
+        }
+
+        /// <summary>
+        /// NPC 데이터 로드
+        /// </summary>
+        private void LoadData()
+        {
+            // NPC 데이터 할당
+            if (!Manager.Quest.NPCDataDic.ContainsKey(id))
+            {
+                Debug.Log($"{id}에 해당하는 NPC 데이터가 존재하지 않습니다.");
+                return;
+            }
+            npcData = Manager.Quest.NPCDataDic[id];
+
+            // 데이터에 따른 퀘스트 할당
+            questIDList = npcData.questIDList;
         }
 
         // 목적지 계산
         public abstract Vector3 CalculateDestination();
         // 상호작용 시 
-        public virtual void OnInteract(Vector3 targetPos, PlayerQuestController questController)
+        public virtual void OnInteract(PlayerQuestController questController)
         {
             // 최초 상호작용 처리
             if (fsm.CurState != NPCStateType.Interact)
@@ -94,17 +116,16 @@ namespace Jc
                     currentQuest = GetQuest();
                 // 진행할 퀘스트가 없다면 일정시간 딜레이 후 다시 순찰루틴 진행
                 else
+                {
+                    StartCoroutine(Extension.ActionDelay(5.0f, () => dialogText.enabled = false));
                     StartCoroutine(Extension.ActionDelay(5.5f, () => fsm.ChangeState(NPCStateType.Patrol)));
+                }
                 // 상호작용 상태로 전이
                 fsm.ChangeState(NPCStateType.Interact);
+                anim.SetBool(Manager.Param.IsInteract, true);
             }
 
             UpdateDialog(questController);
-
-            anim.SetTrigger(Manager.Param.OnInteract);
-            // 플레이어 방향으로 전환
-            Vector3 dir = (targetPos - transform.position).normalized;
-            transform.forward = dir;
         }
 
         // 상호작용 도중 이탈 시
@@ -146,16 +167,22 @@ namespace Jc
             {
                 // 퀘스트 수주
                 case QuestState.Active:
-                    dialogText.text = currentQuest.receiveNarrations[curDialogIndex++].text;
                     // 대화 종료 체크
                     if (curDialogIndex >= currentQuest.receiveNarrations.Count)
                     {
+                        dialogText.enabled = false;
                         // 최초 등록 (수주 시에만 최초로 등록)
                         // 플레이어에 퀘스트 등록
                         questController.ReceiveQuest(currentQuest);
                         // 퀘스트 진행중 상태로 변경
                         currentQuest.ChangeState(QuestState.Proceed);
+                        // NPC 상태 변경
+                        fsm.ChangeState(NPCStateType.Patrol);
+                        anim.SetBool(Manager.Param.IsInteract, false);
+                        return;
                     }
+                    // 대화 진행
+                    dialogText.text = currentQuest.receiveNarrations[curDialogIndex++].text;
                     break;
                 // 퀘스트 진행중
                 case QuestState.Proceed:
@@ -163,19 +190,31 @@ namespace Jc
                     break;
                 // 퀘스트 완료
                 case QuestState.Clear:
-                    dialogText.text = currentQuest.clearNarrations[curDialogIndex++].text;
                     // 대화 종료 체크
                     if (curDialogIndex >= currentQuest.clearNarrations.Count)
                     {
+                        dialogText.enabled = false;
                         // 퀘스트 비활성화 상태로 변경
                         currentQuest.ChangeState(QuestState.DisActive);
                         // 리워드 지급은 퀘스트 자체에서 진행
+                        // NPC 상태 변경
+                        fsm.ChangeState(NPCStateType.Patrol);
+                        anim.SetBool(Manager.Param.IsInteract, false);
+                        return;
                     }
+                    // 대화 진행
+                    dialogText.text = currentQuest.clearNarrations[curDialogIndex++].text;
                     break;
                 default:
                     dialogText.text = basicDialog;
                     break;
             }
+
+            anim.SetTrigger(Manager.Param.OnInteract);
+            // 플레이어 방향으로 전환
+            Vector3 dir = (questController.transform.position - transform.position).normalized;
+            transform.forward = dir;
+            dialogText.enabled = true;
         }
 
 
