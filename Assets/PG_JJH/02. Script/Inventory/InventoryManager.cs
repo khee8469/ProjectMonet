@@ -19,6 +19,8 @@ namespace JJH
 
         public static UnityEvent ExitGame_InventoryEvent = new UnityEvent();
 
+        public bool isEnable = false;
+
         protected override void Awake()
         {
             // 저장 후 종료 등. 

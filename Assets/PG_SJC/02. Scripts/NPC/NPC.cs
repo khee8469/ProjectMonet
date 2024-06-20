@@ -101,6 +101,7 @@ namespace Jc
 
             // 데이터에 따른 퀘스트 할당
             questIDList = npcData.questIDList;
+            debugNameText.text = npcData.npcName;
         }
 
         // 목적지 계산
@@ -133,9 +134,12 @@ namespace Jc
         {
             if (fsm.CurState == NPCStateType.Interact)
             {
+                dialogText.enabled = false;
+
                 // 다이얼로그 인덱스 수정
                 curDialogIndex = 0;
                 fsm.ChangeState(NPCStateType.Patrol);
+                anim.SetBool(Manager.Param.IsInteract, false);
             }
         }
 

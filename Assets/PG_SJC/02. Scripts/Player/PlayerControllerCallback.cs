@@ -39,11 +39,11 @@ namespace Jc
             leftXBTNRef.action.performed += OnLeftXButtonEnter;
             leftYBTNRef.action.performed += OnLeftYButtonEnter;
 
-            leftTriggerRef.action.canceled += OnLeftTriggerExit;
-            leftGripRef.action.canceled += OnLeftGripExit;
-            leftMenuBTNRef.action.canceled += OnLeftMenuButtonExit;
-            leftXBTNRef.action.canceled += OnLeftXButtonExit;
-            leftYBTNRef.action.canceled += OnLeftYButtonExit;
+            //leftTriggerRef.action.canceled += OnLeftTriggerExit;
+            //leftGripRef.action.canceled += OnLeftGripExit;
+            //leftMenuBTNRef.action.canceled += OnLeftMenuButtonExit;
+            //leftXBTNRef.action.canceled += OnLeftXButtonExit;
+            //leftYBTNRef.action.canceled += OnLeftYButtonExit;
 
             // 오른손 콜백 등록
             rightTriggerRef.action.performed += OnRightTriggerEnter;
@@ -52,11 +52,11 @@ namespace Jc
             rightABTNRef.action.performed += OnRightAButtonEnter;
             rightBBTNRef.action.performed += OnRightBButtonEnter;
 
-            rightTriggerRef.action.canceled += OnRightTriggerEnter;
-            rightGripRef.action.canceled += OnRightGripEnter;
-            rightOculusBTNRef.action.canceled += OnRightOculusButtonEnter;
-            rightABTNRef.action.canceled += OnRightAButtonEnter;
-            rightBBTNRef.action.canceled += OnRightBButtonEnter;
+            //rightTriggerRef.action.canceled += OnRightTriggerEnter;
+            //rightGripRef.action.canceled += OnRightGripEnter;
+            //rightOculusBTNRef.action.canceled += OnRightOculusButtonEnter;
+            //rightABTNRef.action.canceled += OnRightAButtonEnter;
+            //rightBBTNRef.action.canceled += OnRightBButtonEnter;
         }
         private void OnDisable()
         {
@@ -67,11 +67,11 @@ namespace Jc
             leftXBTNRef.action.performed -= OnLeftXButtonEnter;
             leftYBTNRef.action.performed -= OnLeftYButtonEnter;
 
-            leftTriggerRef.action.canceled -= OnLeftTriggerExit;
-            leftGripRef.action.canceled -= OnLeftGripExit;
-            leftMenuBTNRef.action.canceled -= OnLeftMenuButtonExit;
-            leftXBTNRef.action.canceled -= OnLeftXButtonExit;
-            leftYBTNRef.action.canceled -= OnLeftYButtonExit;
+            //leftTriggerRef.action.canceled -= OnLeftTriggerExit;
+            //leftGripRef.action.canceled -= OnLeftGripExit;
+            //leftMenuBTNRef.action.canceled -= OnLeftMenuButtonExit;
+            //leftXBTNRef.action.canceled -= OnLeftXButtonExit;
+            //leftYBTNRef.action.canceled -= OnLeftYButtonExit;
 
             // 오른손 콜백 해제
             rightTriggerRef.action.performed -= OnRightTriggerEnter;
@@ -80,11 +80,11 @@ namespace Jc
             rightABTNRef.action.performed -= OnRightAButtonEnter;
             rightBBTNRef.action.performed -= OnRightBButtonEnter;
 
-            rightTriggerRef.action.canceled -= OnRightTriggerEnter;
-            rightGripRef.action.canceled -= OnRightGripEnter;
-            rightOculusBTNRef.action.canceled -= OnRightOculusButtonEnter;
-            rightABTNRef.action.canceled -= OnRightAButtonEnter;
-            rightBBTNRef.action.canceled -= OnRightBButtonEnter;
+            //rightTriggerRef.action.canceled -= OnRightTriggerEnter;
+            //rightGripRef.action.canceled -= OnRightGripEnter;
+            //rightOculusBTNRef.action.canceled -= OnRightOculusButtonEnter;
+            //rightABTNRef.action.canceled -= OnRightAButtonEnter;
+            //rightBBTNRef.action.canceled -= OnRightBButtonEnter;
         }
 
         #region 왼손 컨트롤러 콜백
