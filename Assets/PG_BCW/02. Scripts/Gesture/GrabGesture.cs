@@ -1,109 +1,107 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
+
 public class GrabGesture : Gesture
 {
-    bool isLeftGrab = false;
-    bool isRightGrab = false;
-
-    void Update()
+    public override void Awake()
     {
-        Debug.Log(HandGesture.rightPerformedTriggered);
-        if (HandGesture.leftPerformedTriggered && !leftHandInteractor.hasSelection && !isLeftGrab)
-        {
-            GestureEnter(leftHandInteractor);
-            
-        }
-
-        if (!HandGesture.leftPerformedTriggered && leftHandInteractor.hasSelection && isLeftGrab)
-        {
-            GestureExit(leftHandInteractor);
-            
-        }
-
-        if (HandGesture.rightPerformedTriggered && !rightHandInteractor.hasSelection && !isRightGrab)
-        {
-            GestureEnter(rightHandInteractor);
-
-        }
-
-        if (!HandGesture.rightPerformedTriggered && rightHandInteractor.hasSelection && isRightGrab)
-        {
-            GestureExit(rightHandInteractor);
-            
-        }
+        base.Awake();
     }
 
-
-
-    // 물건잡기
-    public override void GestureEnter(XRBaseInteractor interactor)
+    public override void Start()
     {
-        // 호버중인 오브젝트가 있는지 확인
-        Debug.Log("그랩 제스처");
+        base.Start();
+    }
 
+    // 왼손 물건잡기
+    public override void LeftGestureEnter()
+    {
+        //Debug.Log("그랩 제스처");
+
+        //호버된 오브젝트 중에서 잡을수있는 오브젝트 찾기
         IXRSelectInteractable hoveredInteractable = null;
-        foreach (var interactable in interactor.interactablesHovered)
+
+        foreach (var interactable in LeftHandInteractor.interactablesHovered)
         {
             hoveredInteractable = interactable as IXRSelectInteractable;
 
             if (hoveredInteractable != null)
             {
-                Debug.Log(hoveredInteractable.transform.name);
+                //Debug.Log(hoveredInteractable.transform.name);
                 break;
             }
-                
+
         }
         //Debug.Log(hoveredInteractable);
         if (hoveredInteractable != null && hoveredInteractable.transform.GetComponent<XRGrabInteractable>() != null)
         {
             // 인터랙션 매니저에 인터랙터가 인터랙터블을 선택하도록 요청
-            interactor.interactionManager.SelectEnter(interactor, hoveredInteractable);
+            LeftHandInteractor.interactionManager.SelectEnter(LeftHandInteractor, hoveredInteractable);
 
-            // 왼손 오른손 잡은 오브젝트 정보 저장
-            if (interactor == leftHandInteractor)
-            {
-                leftSelectedInteractable = hoveredInteractable;
-
-                isLeftGrab = true;
-            }
-            else
-            {
-                rightSelectedInteractable = hoveredInteractable;
-
-                isRightGrab = true;
-            }
+            // 왼손 오브젝트 정보 저장
+            LeftSelectedInteractable = hoveredInteractable;
         }
     }
 
-    // 물건놓기
-    public override void GestureExit(XRBaseInteractor interactor)
+    // 왼손 물건놓기
+    public override void LeftGestureExit()
     {
-        Debug.Log("그랩 제스처 끝");
+        /*Debug.Log("그랩 제스처 끝");
 
         // 저장된 손 오브젝트 놓기
-        if (interactor == leftHandInteractor)
+        if (LeftSelectedInteractable != null)
         {
-            if (leftSelectedInteractable != null)
-            {
-                // 인터랙션 매니저에 인터랙터가 인터랙터블을 선택 해제하도록 요청
-                interactor.interactionManager.SelectExit(interactor, leftSelectedInteractable);
-                leftSelectedInteractable = null;
+            // 인터랙션 매니저에 인터랙터가 인터랙터블을 선택 해제하도록 요청
+            LeftHandInteractor.interactionManager.SelectExit(LeftHandInteractor, LeftSelectedInteractable);
+            LeftSelectedInteractable = null;
+        }*/
+    }
 
-                isLeftGrab = false;
-            }
-        }
-        else
+
+
+
+    // 오른손 물건잡기
+    public override void RightGestureEnter()
+    {
+        // 호버중인 오브젝트가 있는지 확인
+        //Debug.Log("그랩 제스처");
+
+        IXRSelectInteractable hoveredInteractable = null;
+
+        foreach (var interactable in RightHandInteractor.interactablesHovered)
         {
-            if (rightSelectedInteractable != null)
-            {
-                // 인터랙션 매니저에 인터랙터가 인터랙터블을 선택 해제하도록 요청
-                interactor.interactionManager.SelectExit(interactor, rightSelectedInteractable);
-                rightSelectedInteractable = null;
+            hoveredInteractable = interactable as IXRSelectInteractable;
 
-                isRightGrab = false;
+            if (hoveredInteractable != null)
+            {
+                //Debug.Log(hoveredInteractable.transform.name);
+                break;
             }
+
         }
+        //Debug.Log(hoveredInteractable);
+        if (hoveredInteractable != null && hoveredInteractable.transform.GetComponent<XRGrabInteractable>() != null)
+        {
+            // 인터랙션 매니저에 인터랙터가 인터랙터블을 선택하도록 요청
+            RightHandInteractor.interactionManager.SelectEnter(RightHandInteractor, hoveredInteractable);
+
+            // 왼손 오브젝트 정보 저장
+            RightSelectedInteractable = hoveredInteractable;
+        }
+    }
+
+    // 오른손 물건놓기
+    public override void RightGestureExit()
+    {
+        /*Debug.Log("그랩 제스처 끝");
+
+        // 저장된 손 오브젝트 놓기
+        if (RightSelectedInteractable != null)
+        {
+            // 인터랙션 매니저에 인터랙터가 인터랙터블을 선택 해제하도록 요청
+            RightHandInteractor.interactionManager.SelectExit(RightHandInteractor, RightSelectedInteractable);
+            RightSelectedInteractable = null;
+        }*/
     }
 }

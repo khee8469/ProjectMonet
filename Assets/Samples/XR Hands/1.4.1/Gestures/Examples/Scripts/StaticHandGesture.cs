@@ -23,12 +23,20 @@ namespace UnityEngine.XR.Hands.Samples.GestureSample
         Transform m_TargetTransform;
 
         [SerializeField]
-        [Tooltip("제스처 실행 이벤트")]
-        UnityEvent m_GesturePerformed;
+        [Tooltip("왼손 제스처 실행 이벤트")]
+        UnityEvent m_LeftGesturePerformed;
 
         [SerializeField]
-        [Tooltip("제스처 종료 이벤트")]
-        UnityEvent m_GestureEnded;
+        [Tooltip("오른손 제스처 실행 이벤트")]
+        UnityEvent m_RightGesturePerformed;
+
+        [SerializeField]
+        [Tooltip("왼손 제스처 종료 이벤트")]
+        UnityEvent m_LeftGestureEnded;
+
+        [SerializeField]
+        [Tooltip("오른손 제스처 종료 이벤트")]
+        UnityEvent m_RightGestureEnded;
 
         [SerializeField]
         [Tooltip("제스처 최소 실행 시간")]
@@ -75,16 +83,26 @@ namespace UnityEngine.XR.Hands.Samples.GestureSample
             set => m_TargetTransform = value;
         }
 
-        public UnityEvent gesturePerformed
+        public UnityEvent leftGesturePerformed
         {
-            get => m_GesturePerformed;
-            set => m_GesturePerformed = value;
+            get => m_LeftGesturePerformed;
+            set => m_LeftGesturePerformed = value;
+        }
+        public UnityEvent rightGesturePerformed
+        {
+            get => m_RightGesturePerformed;
+            set => m_RightGesturePerformed = value;
         }
 
-        public UnityEvent gestureEnded
+        public UnityEvent leftGestureEnded
         {
-            get => m_GestureEnded;
-            set => m_GestureEnded = value;
+            get => m_LeftGestureEnded;
+            set => m_LeftGestureEnded = value;
+        }
+        public UnityEvent rightGestureEnded
+        {
+            get => m_RightGestureEnded;
+            set => m_RightGestureEnded = value;
         }
 
         public float minimumHoldTime
@@ -140,7 +158,7 @@ namespace UnityEngine.XR.Hands.Samples.GestureSample
             else if (leftWasDetected && !detected)
             {
                 leftPerformedTriggered = false;
-                m_GestureEnded?.Invoke();
+                m_LeftGestureEnded?.Invoke();
             }
 
             leftWasDetected = detected;
@@ -151,7 +169,7 @@ namespace UnityEngine.XR.Hands.Samples.GestureSample
                 float holdTimer = Time.timeSinceLevelLoad - leftHoldStartTime;
                 if (holdTimer > m_MinimumHoldTime)
                 {
-                    m_GesturePerformed?.Invoke();
+                    m_LeftGesturePerformed?.Invoke();
                     leftPerformedTriggered = true;
                 }
             }
@@ -178,7 +196,7 @@ namespace UnityEngine.XR.Hands.Samples.GestureSample
             else if (rightWasDetected && !detected)
             {
                 rightPerformedTriggered = false;
-                m_GestureEnded?.Invoke();
+                m_RightGestureEnded?.Invoke();
             }
 
             rightWasDetected = detected;
@@ -189,7 +207,7 @@ namespace UnityEngine.XR.Hands.Samples.GestureSample
                 float holdTimer = Time.timeSinceLevelLoad - rightHoldStartTime;
                 if (holdTimer > m_MinimumHoldTime)
                 {
-                    m_GesturePerformed?.Invoke();
+                    m_RightGesturePerformed?.Invoke();
                     rightPerformedTriggered = true;
                 }
             }
