@@ -102,7 +102,6 @@ namespace Jc
         // 상호작용
         public class Interact : NPCBaseState
         {
-            private Coroutine interactRoutine;
             public Interact(NPC owner)
             {
                 baseOwner = owner;
@@ -111,47 +110,6 @@ namespace Jc
             public override void Enter()
             {
                 baseOwner.Agent.isStopped = true;
-                interactRoutine = baseOwner.StartCoroutine(InteractRoutine());
-            }
-
-            public override void Exit()
-            {
-                baseOwner.Anim.SetBool(Manager.Param.IsInteract, false);
-
-                if (interactRoutine != null)
-                {
-                    baseOwner.StopCoroutine(interactRoutine);
-                    interactRoutine = null;
-                }
-            }
-
-            IEnumerator InteractRoutine()
-            {
-                //yield return RotateRoutine();
-                baseOwner.Anim.SetBool(Manager.Param.IsInteract, true);
-                baseOwner.transform.forward = (baseOwner.playerPos - baseOwner.transform.position).normalized;
-                // 테스트 모드 : 일정시간 뒤 순찰상태로 전이
-                yield return new WaitForSeconds(5f);
-                interactRoutine = null;
-                baseOwner.FSM.ChangeState(NPCStateType.Patrol);
-            }
-
-            // 플레이어 위치로 자연스러운 회전
-            IEnumerator RotateRoutine()
-            {
-                float rate = 0f;
-                float rotTime = 2f;
-                Quaternion startRot = baseOwner.transform.rotation;
-                Quaternion endRot = Quaternion.Euler((baseOwner.playerPos - baseOwner.transform.position).normalized);
-
-                while (rate < 1f)
-                {
-                    baseOwner.transform.rotation = Quaternion.Lerp(startRot, endRot, rate);
-                    rate += Time.deltaTime * rotTime;
-                    yield return null;
-                }
-
-                baseOwner.transform.rotation = endRot;
             }
         }
     }

@@ -18,6 +18,9 @@ namespace Jc
         private PlayerControllerCallback controllerCallback;
 
         [SerializeField]
+        private PlayerQuestController questController;
+
+        [SerializeField]
         private GameObject popUpCanvas; // 인벤토리 / 퀘스트
 
         [Space(5)]
@@ -72,7 +75,7 @@ namespace Jc
             // 추후 조건추가 (메뉴버튼이 열려있을 경우 우선순위에서 제외됨.)
             if (nearNPC == null) return;
 
-            nearNPC.OnInteract(transform.position);
+            nearNPC.OnInteract(questController);
         }
 
         private void OnPopUpCanvas(InputAction.CallbackContext context)
@@ -85,14 +88,6 @@ namespace Jc
         private void OnPopUp(bool isEnable)
         {
             popUpCanvas.SetActive(isEnable);
-            
-            //if(isEnable)
-            //{
-            //    // 활성화 시 캔버스 위칫 값 설정
-            //    popUpCanvas.transform.position = camTr.transform.position + camTr.forward * 8f;
-            //    popUpCanvas.transform.position = new Vector3(popUpCanvas.transform.position.x, 4f, popUpCanvas.transform.position.z);
-            //    popUpCanvas.transform.forward = transform.forward;
-            //}
         }
     }
 }
