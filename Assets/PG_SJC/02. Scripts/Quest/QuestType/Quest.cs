@@ -61,10 +61,10 @@ namespace Jc
         }
 
         // 다음 퀘스트 활성화
-        protected virtual void ActiveNextQuest()
+        protected virtual void ActiveNextQuest(int id)
         {
             // 다음 퀘스트 탐색
-            Quest nextQuest = Manager.Quest.GetQuest(questData.id + 1);
+            Quest nextQuest = Manager.Quest.GetQuest(id);
             if(nextQuest == null)
             {
                 Debug.Log($"{questData.id} : 다음 퀘스트가 존재하지 않습니다.");
@@ -84,18 +84,35 @@ namespace Jc
         protected virtual void ProceedQuest()
         {
             Debug.Log($"퀘스트 {questID} : 가 진행됩니다.");
+
+            // 링크 퀘스트의 경우 현재 ID 기준 다음 퀘스트를 활성화
+            if(questData.type == QuestType.Link)
+            {
+                ActiveNextQuest(questID + 1);
+            }
         }
 
         // 퀘스트 클리어 시 (수락 대기)
         protected virtual void ClearQuest()
         {
             Debug.Log($"퀘스트 {questID} : 가 완료되었습니다.");
+            // 자동 클리어 퀘스트의 경우 바로 DisActive 상태로 전환 (보상 수령)
+            if (questData.type == QuestType.AutoClear)
+            {
+                ChangeState(QuestState.DisActive);
+            }
         }
 
         // 퀘스트 수락 이후 비활성화
         protected virtual void DisActiveQuest()
         {
             OnClearQuest?.Invoke(this);
+
+            if (questData.next_id < 1)
+                return;
+
+            // 연결된 다음 퀘스트 활성화
+            ActiveNextQuest(questData.next_id);
         }
     }
 }

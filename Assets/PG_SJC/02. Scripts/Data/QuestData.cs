@@ -20,6 +20,9 @@ namespace Jc
         [Header("NPC ID")]
         public int npcID;
 
+        [Header("완료 시 활성화 퀘스트 ID")]
+        public int next_id;
+
         [Header("보상 아이템 ID")]
         public int rewardItemID;
 
