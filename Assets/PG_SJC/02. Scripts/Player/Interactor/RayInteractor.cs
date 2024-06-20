@@ -48,7 +48,7 @@ namespace Jc
 
         private void Update()
         {
-            //AimPosition();
+            AimPosition();
         }
 
         public override bool CanHover(IXRHoverInteractable interactable)
@@ -81,7 +81,7 @@ namespace Jc
             grabbedTr = args.interactableObject.transform;
             isGrab = true;
             lineVisual.enabled = true;
-            //aimRect.gameObject.SetActive(false);
+            aimRect.gameObject.SetActive(false);
         }
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
@@ -90,7 +90,7 @@ namespace Jc
             isGrab = false;
             grabbedTr = null;
             lineVisual.enabled = false;
-            //aimRect.gameObject.SetActive(true);
+            aimRect.gameObject.SetActive(true);
         }
 
         // 오브젝트를 잡을 수 있는 거리체크
