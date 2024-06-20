@@ -8,7 +8,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace JJH
 {
     // 아이템을 체크 하기 위한 인터페이스 상속 --> 실제 아이템에 붙을 친구.
-    public class InventoryItem : InteractObject, IInventory
+    public class InventoryItem : InteractObject, IInventory 
     {
         // 실제 아이템이 가지고 있을 아이템의 기본적인 id , 타입 등의 데이터 
         [Header("아이템이 가지고 있을 데이터")]
@@ -41,13 +41,6 @@ namespace JJH
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
-            // 상호작용이 플레이어의 그랩에 의한 것인지 확인? 
-            /* if(isSelected==true)
-             {
-                 isGrabbed = true;
-                 Debug.Log($"{gameObject.name} 의 그랩이 true 상태로 변경됨");
-             }
- */
 
             if (args.interactorObject is XRSocketInteractor)
             {               
@@ -65,14 +58,6 @@ namespace JJH
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
-
-            /* if (args.interactorObject is XRBaseControllerInteractor)
-             {
-                 StartCoroutine(ExitRoutine()); // 0.7초 딜레이 
-                 isGrabbed = false;
-                 Debug.Log($"{gameObject.name} 의 그랩이 false상태로변경됨");
-             }
- */
             StartCoroutine(ExitRoutine()); // 0.7초 딜레이 
 
             if (args.interactorObject is XRSocketInteractor)
@@ -91,6 +76,7 @@ namespace JJH
             yield return new WaitForSeconds(0.7f);
         }
 
+        
 
     }
 }

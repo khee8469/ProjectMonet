@@ -33,10 +33,14 @@ namespace Jc
         [Header("밸런싱")]
         private bool isGrab = false;
 
+        private InteractObject currentGrabObject;   // 현재 잡고있는 오브젝트
+
         private XRInteractorLineVisual lineVisual;  // 라인 비주얼
         private LineRenderer lr;                    // 라인 렌더러
         private Camera cam;                         // 메인 카메라
         private Transform grabbedTr;                // 그랩한 오브젝트 트랜스폼
+
+        public InventorySlot hoveredSlot;
 
         protected override void Awake()
         {
@@ -81,23 +85,85 @@ namespace Jc
             }
             base.OnDisable();
         }
-
         private void Update()
         {
             AimPosition();
+            
         }
 
         #region 컨트롤러 콜백
+        //인벤토리에서 아이템 꺼낼 때 체크해줘야하는 Enter 함수 
         public void OnSlotTriggerEnter(InputAction.CallbackContext context)
         {
             InventorySlot curSlot = FindSlot();
-            if (curSlot == null) return;
+            if (curSlot == null)
+            {
+                Debug.Log("curSlot is null");
+                return;
+            }
 
-            Debug.Log(curSlot);
+            if (JJH.Manager.Inventory.isEnable == false)
+            {
+                Debug.Log("Inventory is not enabled");
+                return;
+            }
+            if (isGrab == true)
+            {
+                return;
+            }
+
+            if (currentGrabObject == null) return;
+
+            Debug.Log($"Attempting to SelectExit: {currentGrabObject.name} from {curSlot.name}");
+
+            // 인벤토리에서 내 손으로 옮겨줘야 하고 
+            curSlot.SetRayHovering(true);
+            
+            this.interactionManager.SelectExit(curSlot as IXRSelectInteractor, currentGrabObject as IXRSelectInteractable);
+            
+            Debug.Log($"enter  --> 아이템 꺼낼 시 : {curSlot}");
         }
+
+        // 인벤토리에 아이템을 추가 할 때 체크할 Exit 함수 
         public void OnSlotTriggerExit(InputAction.CallbackContext context)
         {
+            InventorySlot curSlot = FindSlot();
+            Debug.Log(curSlot);
+            if (curSlot == null)
+            {
+                Debug.Log("curSlot is null");
+                return;
+            }
+            if (JJH.Manager.Inventory.isEnable == false)
+            {
+                Debug.Log("Inventory is not enabled");
+                return;
+            }
+            if (isGrab == false)
+            {
+                return;
+            }
+            curSlot.SetRayHovering(true);
 
+            // 내 손에서 인벤토리로 넘겨주기. 
+
+            if (currentGrabObject == null)
+            {
+                Debug.Log("currentGrabObject is null");
+                return;
+            }
+            InventoryItem item = currentGrabObject as InventoryItem;
+
+            if (item == null)
+            {
+                Debug.Log("currentGrabObject is not an InventoryItem");
+                return;
+            }
+
+            this.interactionManager.SelectEnter(curSlot as IXRSelectInteractor, currentGrabObject as IXRSelectInteractable); 
+            //interactionManager.SelectExit(this as IXRSelectInteractor , currentGrabObject as IXRSelectInteractable);
+
+            Debug.Log($"exit -->아이템 추가 시 : {curSlot}");
         }
         #endregion
 
@@ -129,6 +195,8 @@ namespace Jc
         {
             base.OnSelectEntered(args);
 
+            currentGrabObject = args.interactableObject as InteractObject;
+
             grabbedTr = args.interactableObject.transform;
             isGrab = true;
             lineVisual.enabled = true;
@@ -137,6 +205,8 @@ namespace Jc
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
+
+            currentGrabObject = null;
 
             isGrab = false;
             grabbedTr = null;
@@ -188,8 +258,9 @@ namespace Jc
         private InventorySlot FindSlot()
         {
             // 컨트롤러의 전방으로 레이캐스팅
-            Ray ray = new Ray(transform.position, transform.forward);
-            
+
+            Ray ray = new Ray(transform.position + new Vector3(0,0,0.5f), transform.forward);
+            Debug.DrawRay(transform.position, transform.forward * 500f, Color.red, 5f);
             if(Physics.Raycast(ray, out RaycastHit hitInfo, 500f, Manager.Layer.slotLM))
             {
                 InventorySlot hitSlot = hitInfo.collider.GetComponent<InventorySlot>();
@@ -197,9 +268,17 @@ namespace Jc
                 if (hitSlot == null)
                     return null;
                 else
-                    return hitSlot;
-            }
+                {
+                    SpriteRenderer renderer= hitSlot.GetComponent<SpriteRenderer>();
+                    if(renderer!= null)
+                    {
+                        renderer.color = Color.red;
+                    }
 
+                    return hitSlot;
+                }
+                    
+            }
             return null;
         }
     }

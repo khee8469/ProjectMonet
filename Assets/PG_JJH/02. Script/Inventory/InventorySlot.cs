@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -24,6 +25,12 @@ namespace JJH
         [Tooltip("아이템의 숫자")]
         [SerializeField] int itemCount;
 
+        [Tooltip("count text list")]
+        public List<TextMeshProUGUI> countTextList = new List<TextMeshProUGUI>();
+
+        [Tooltip("레이 닿는지 확인용")]
+        private bool isRayHovering = false;
+
 
         public SlotData slotData;
 
@@ -42,6 +49,8 @@ namespace JJH
             Manager.Inventory.RegisterSlot(this); //THIS 시에 슬롯 아이디를 설정해줘야한다. 
 
             countText = GetComponentInChildren<TextMeshProUGUI>();
+            countTextList.Add(countText);
+
         }
 
         /*protected override void OnDestroy() // 만약 슬롯이 파괴된다면
@@ -50,48 +59,32 @@ namespace JJH
             Manager.Inventory.UnregisterSlot(this);
         }*/
 
+
         public void AddSlots() // 혹시 만약 슬롯을 추가 할 일이 생긴다면...
         {
             Manager.Inventory.RegisterSlot(this);
         }
 
-        /* public override bool CanSelect(IXRSelectInteractable interactable)
-         {
-             // InventoryItem 컴포넌트를 가져옵니다. 
-             // 이게 지금 아이템이랑 닿으면 이게 계속 돌아가고 있음
-             // 정확히 무슨 효과지? 
-             Debug.Log("캔 셀렉트 ");
-             IInventory item = interactable.transform.GetComponent<IInventory>();
-             if (item != null)
-             {
-                 Debug.Log("캔 셀렉트 if문 내부");
 
-                 InventoryItem inventoryItem = item as InventoryItem;
-                 if (inventoryItem.ISGraped == true)
-                 {
-                     Debug.Log(inventoryItem.ISGraped);
-                     return inventoryItem.ISGraped;
-                 }
-             }
-             return base.CanSelect(interactable);
-         }*/
-
-        // 이거 Add 하는 순간에 조건 추가 해줘야함. bool 변수 같은거 써서 
-        // item 에서 Grab 되었을 때 bool 변수 하나 넣고 하는 식으로 하자. 
-
-
-        protected override void OnHoverEntered(HoverEnterEventArgs args)
+        protected override void OnHoverEntering(HoverEnterEventArgs args)
         {
-            base.OnHoverEntered(args);
-            Debug.Log("Hover entered on socket by");
+            base.OnHoverEntering(args);
+            
+        }
+        protected override void OnSelectEntering(SelectEnterEventArgs args)
+        {
+            Debug.Log("selecting enter");
+            base.OnSelectEntering(args);
         }
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
-            
-            if (Manager.Inventory.isEnable == false) return;
-
             base.OnSelectEntered(args); // 잡을 수 있는 아이템 체크 
+            Debug.Log("Slot Select");
+            if (Manager.Inventory.isEnable == false) return;
+            if (!isRayHovering) return;
+
+            
             IInventory item = args.interactableObject.transform.GetComponent<IInventory>();
             if (item != null)
             {
@@ -110,10 +103,13 @@ namespace JJH
         }
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
+            base.OnSelectExited(args);
+            Debug.Log("SLOT SELECTED EXIT");
+            if (!isRayHovering) return;
             // 에디터 끌 때 붉은색 발생하는데 어쩌죵?
             if (!Manager.Inventory.isEnable || !Application.isPlaying) return;
 
-            base.OnSelectExited(args);
+            
             IInventory item = args.interactableObject.transform.GetComponent<IInventory>();
             if (item != null)
             {
@@ -175,9 +171,26 @@ namespace JJH
             return false;
         }*/
 
+        public void SetRayHovering(bool isHovering)
+        {
+            isRayHovering = isHovering;
+            Debug.Log($"{isRayHovering} --> 레이 호버링 상태는?");
+        }
+
+        public override bool CanSelect(IXRSelectInteractable interactable)
+        {
+            Debug.Log("캔셀렉트");
+            if (!isRayHovering) return false;
+
+            Debug.Log(base.CanSelect(interactable) + "canselet 상태");
+            return base.CanSelect(interactable);
+        }
+
+
+
         public void AddItem(InventoryItem item)
         {
-
+            Debug.Log($"{this} : get Item ({item})");
             item.itemData.SaveOriginalTransform(item.transform);
             item.transform.SetParent(itemTransform);
             // 아이템의 원래 트랜스폼을 저장
@@ -311,7 +324,7 @@ namespace JJH
 
         public void EventItemAdd(IInventory item) // 인벤토리의 빈 공간에 바로 들어가져야함.
         {
-
+            
         }
 
         public void EventItemRemove(IInventory item) // 인벤토리를 순회하고 id가 같으면 그 때 상태체크 필요. 
