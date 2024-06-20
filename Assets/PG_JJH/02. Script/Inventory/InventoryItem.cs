@@ -38,16 +38,27 @@ namespace JJH
         }
 
         //XR interaction을 똑같이 상속 하기 때문에 소켓에 닿앗을 때도 발동하는 문제가 발생한다. 
-
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
             // 상호작용이 플레이어의 그랩에 의한 것인지 확인? 
-            if (args.interactorObject is XRBaseControllerInteractor) // IS로 형변환 체크 가능하면 TRUE RETURN 
+            /* if(isSelected==true)
+             {
+                 isGrabbed = true;
+                 Debug.Log($"{gameObject.name} 의 그랩이 true 상태로 변경됨");
+             }
+ */
+
+            if (args.interactorObject is XRSocketInteractor)
+            {               
+                Debug.Log($"{gameObject.name} is now socketed.");
+            }
+            else if (args.interactorObject is XRGrabInteractable)
             {
                 isGrabbed = true;
-                Debug.Log($"{gameObject.name} 의 그랩이 true 상태로 변경됨");
+                Debug.Log($"{gameObject.name} is now being grabbed."); 
             }
+
         }
 
         // 아이템이 놓이는 순간에 슬롯 안에 있는지 확인.
@@ -55,12 +66,25 @@ namespace JJH
         {
             base.OnSelectExited(args);
 
-            if (args.interactorObject is XRBaseControllerInteractor)
+            /* if (args.interactorObject is XRBaseControllerInteractor)
+             {
+                 StartCoroutine(ExitRoutine()); // 0.7초 딜레이 
+                 isGrabbed = false;
+                 Debug.Log($"{gameObject.name} 의 그랩이 false상태로변경됨");
+             }
+ */
+            StartCoroutine(ExitRoutine()); // 0.7초 딜레이 
+
+            if (args.interactorObject is XRSocketInteractor)
             {
-                StartCoroutine(ExitRoutine()); // 0.7초 딜레이 
-                isGrabbed = false;
-                Debug.Log($"{gameObject.name} 의 그랩이 false상태로변경됨");
+                Debug.Log($"{gameObject.name} is no longer socketed.");
             }
+            else if (args.interactorObject is XRGrabInteractable)
+            {
+                isGrabbed = false;
+                Debug.Log($"{gameObject.name} is no longer being grabbed.");
+            }
+
         }
         private IEnumerator ExitRoutine()
         {

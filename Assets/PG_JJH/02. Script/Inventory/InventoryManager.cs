@@ -14,10 +14,13 @@ namespace JJH
         private Dictionary<int, InventorySlot> inventorySlots
             = new Dictionary<int, InventorySlot>();
 
+
         // 슬롯 아이디를 자동으로 할당해 주기 위한 변수
         private int currentSlotID = 0;
 
         public static UnityEvent ExitGame_InventoryEvent = new UnityEvent();
+
+        public bool isEnable = false;
 
         protected override void Awake()
         {
@@ -44,6 +47,7 @@ namespace JJH
             {
                 inventorySlots.Add(slot.slotID, slot); //키가 없을 때만 삭제 
             }
+
         }
 
         // 슬롯 등록 해제하는 메서드
