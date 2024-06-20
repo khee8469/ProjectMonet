@@ -44,7 +44,7 @@ public class Temp_Slot : MonoBehaviour
 
     public void ResetColor()
     {
-        slotImage.color=originalColor;
+        slotImage.color = originalColor;
     }
 
 

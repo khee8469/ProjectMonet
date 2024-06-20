@@ -78,7 +78,6 @@ namespace JJH
                     {
                         itemID = item.itemData.itemID,
                         itemName = item.itemData.itemName,
-                        objectType = item.itemData.objectType,
                         stackType = item.itemData.stackType,
                         slotID = slot.slotID
                     };
