@@ -9,7 +9,10 @@ namespace Jc
         [Header("NPC")]
         public LayerMask npcLM;
 
-        [Header("Wall (?ш린 李⑹떆 ?ㅻ툕?앺듃)")]
+        [Header("Wall")]
         public LayerMask wallLM;
+
+        [Header("Inventory Slot")]
+        public LayerMask slotLM;
     }
 }

@@ -8,10 +8,12 @@ namespace JJH
     public class LobbyScene : BaseScene
     {
 
-
-        private void OnEnable()
+        private void Update()
         {
-            
+            if(Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                Manager.Scene.LoadScene("Chapter1");
+            }
         }
 
         public override IEnumerator LoadingRoutine()

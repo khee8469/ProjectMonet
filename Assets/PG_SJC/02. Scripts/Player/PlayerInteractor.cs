@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -18,6 +19,9 @@ namespace Jc
         private PlayerControllerCallback controllerCallback;
 
         [SerializeField]
+        private PlayerQuestController questController;
+
+        [SerializeField]
         private GameObject popUpCanvas; // 인벤토리 / 퀘스트
 
         [Space(5)]
@@ -27,6 +31,10 @@ namespace Jc
 
         private bool isEnabledPopup = false;   // 팝업 활성화
         private Transform camTr;               // 메인 카메라 트랜스폼
+
+        public UnityAction OnEndInteract;   // NPC와 상호작용 해제
+
+        private bool isEnablePopUp = false;
 
         private void OnEnable()
         {
@@ -63,16 +71,21 @@ namespace Jc
         private void OnExitNPC(NPC target)
         {
             if (target == nearNPC)
+            {
+                OnEndInteract?.Invoke();
+                OnEndInteract -= target.OnExitInteract;
                 nearNPC = null;
+            }
         }
 
         // NPC 상호작용 콜백
         private void OnInteractNPC(InputAction.CallbackContext context)
         {
-            // 추후 조건추가 (메뉴버튼이 열려있을 경우 우선순위에서 제외됨.)
-            if (nearNPC == null) return;
+            if (isEnablePopUp) return;   // 팝업이 열려있는 경우 
+            if (nearNPC == null) return; // 근처 NPC가 없는 경우
 
-            nearNPC.OnInteract(transform.position);
+            nearNPC.OnInteract(questController);
+            OnEndInteract += nearNPC.OnExitInteract;  // 상호작용 해제 등록
         }
 
         private void OnPopUpCanvas(InputAction.CallbackContext context)
@@ -84,15 +97,9 @@ namespace Jc
 
         private void OnPopUp(bool isEnable)
         {
+            JJH.Manager.Inventory.isEnable = isEnable;
+            isEnablePopUp = isEnable;
             popUpCanvas.SetActive(isEnable);
-            
-            //if(isEnable)
-            //{
-            //    // 활성화 시 캔버스 위칫 값 설정
-            //    popUpCanvas.transform.position = camTr.transform.position + camTr.forward * 8f;
-            //    popUpCanvas.transform.position = new Vector3(popUpCanvas.transform.position.x, 4f, popUpCanvas.transform.position.z);
-            //    popUpCanvas.transform.forward = transform.forward;
-            //}
         }
     }
 }
