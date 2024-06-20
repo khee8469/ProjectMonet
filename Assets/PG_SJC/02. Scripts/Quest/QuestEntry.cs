@@ -35,6 +35,7 @@ namespace Jc
             }
 
             titleText.text = ownerQuest.QuestData.questName;
+            // 추후 ID로 찾기
             //npcNameText.text = ownerQuest.QuestData.npcName;
         }
 

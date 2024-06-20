@@ -72,7 +72,7 @@ namespace Jc
         private Quest currentQuest;
 
         [SerializeField]
-        private int curDialogIndex = -1;     // 대화 진행 인덱스
+        private int curDialogIndex = 0;     // 대화 진행 인덱스
         [SerializeField]
         private int maxDialogIndex = 0;     // 대화 진행 최대 인덱스
 
@@ -84,13 +84,13 @@ namespace Jc
         // 목적지 계산
         public abstract Vector3 CalculateDestination();
         // 상호작용 시 
-        public virtual void OnInteract(Vector3 targetPos)
+        public virtual void OnInteract(Vector3 targetPos, PlayerQuestController questController)
         {
             // 최초 상호작용 처리
             if (fsm.CurState != NPCStateType.Interact)
             {
                 // 현재 진행할 퀘스트 할당
-                if (currentQuest != GetQuest())
+                if (GetQuest() != null)
                     currentQuest = GetQuest();
                 // 진행할 퀘스트가 없다면 일정시간 딜레이 후 다시 순찰루틴 진행
                 else
@@ -99,7 +99,8 @@ namespace Jc
                 fsm.ChangeState(NPCStateType.Interact);
             }
 
-            UpdateDialog();
+            UpdateDialog(questController);
+
             anim.SetTrigger(Manager.Param.OnInteract);
             // 플레이어 방향으로 전환
             Vector3 dir = (targetPos - transform.position).normalized;
@@ -112,7 +113,7 @@ namespace Jc
             if (fsm.CurState == NPCStateType.Interact)
             {
                 // 다이얼로그 인덱스 수정
-                curDialogIndex = -1;
+                curDialogIndex = 0;
                 fsm.ChangeState(NPCStateType.Patrol);
             }
         }
@@ -121,13 +122,14 @@ namespace Jc
         {
             foreach (int id in questIDList)
             {
-                if (Manager.Quest.GetQuest(id).State == QuestState.Active)
+                // 비활성화 상태가 아닌 퀘스트를 반환
+                if (Manager.Quest.GetQuest(id).State != QuestState.DisActive)
                     return Manager.Quest.GetQuest(id);
             }
             return null;
         }
 
-        private void UpdateDialog()
+        private void UpdateDialog(PlayerQuestController questController)
         {
             dialogText.gameObject.SetActive(true);
 
@@ -142,17 +144,41 @@ namespace Jc
             // 퀘스트 상태에 따른 대화 출력
             switch (currentQuest.State)
             {
+                // 퀘스트 수주
                 case QuestState.Active:
-
+                    dialogText.text = currentQuest.receiveNarrations[curDialogIndex++].text;
+                    // 대화 종료 체크
+                    if (curDialogIndex >= currentQuest.receiveNarrations.Count)
+                    {
+                        // 최초 등록 (수주 시에만 최초로 등록)
+                        // 플레이어에 퀘스트 등록
+                        questController.ReceiveQuest(currentQuest);
+                        // 퀘스트 진행중 상태로 변경
+                        currentQuest.ChangeState(QuestState.Proceed);
+                    }
                     break;
+                // 퀘스트 진행중
+                case QuestState.Proceed:
+                    dialogText.text = currentQuest.receiveNarrations[currentQuest.receiveNarrations.Count - 1].text;
+                    break;
+                // 퀘스트 완료
                 case QuestState.Clear:
-
+                    dialogText.text = currentQuest.clearNarrations[curDialogIndex++].text;
+                    // 대화 종료 체크
+                    if (curDialogIndex >= currentQuest.clearNarrations.Count)
+                    {
+                        // 퀘스트 비활성화 상태로 변경
+                        currentQuest.ChangeState(QuestState.DisActive);
+                        // 리워드 지급은 퀘스트 자체에서 진행
+                    }
                     break;
                 default:
                     dialogText.text = basicDialog;
                     break;
             }
         }
+
+
 
         protected abstract void OnDrawGizmosSelected();
 

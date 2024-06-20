@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Jc
 {
+    [Serializable]
     public class QuestData : ScriptableObject
     {
         [Header("퀘스트 ID")]

@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -22,13 +24,17 @@ namespace Jc
 
         [SerializeField]
         private Dictionary<int, Quest> questDic;
+        public Dictionary<int, Quest> QuestDic {get { return questDic; } }
 
         [SerializeField]
         private Dictionary<int, QuestData> questDataDic;
+        public Dictionary<int, QuestData> QuestDataDic {get { return questDataDic; } }
         [SerializeField]
         private Dictionary<int, List<int>> narrationBundleDic;  // <나레이션 번들 ID, 나레이션 ID 리스트>
+        public Dictionary<int, List<int>> NarrationBundleDic { get { return narrationBundleDic; } }
         [SerializeField]
         private Dictionary<int, NarrtionData> narrationDic;           // <나레이션 ID, 나레이션 문자열>
+        public Dictionary<int, NarrtionData> NarrationDic {get { return narrationDic; } }
                                                                 
         protected override void Awake()
         {
@@ -46,16 +52,56 @@ namespace Jc
 
             foreach(Quest quest in quests) 
             {
-                //// id 예외처리
-                //if(questDic.ContainsKey(quest.QuestID))
-                //{
-                //    Debug.Log($"{quest.QuestID}는 {questDic[quest.QuestID]}에 이미 할당 된 QuestID 입니다.");
-                //    continue;
-                //}
+                // id 예외처리
+                if(quest.QuestID < 1)
+                {
+                    Debug.Log($"{quest} : QuestID가 할당되지 않았습니다.");
+                    continue;
+                }
 
-                //// 퀘스트 생성 및 할당
-                //Quest inst = Instantiate(quest, transform);
-                //questDic.Add(quest.QuestID, inst);
+                if (questDic.ContainsKey(quest.QuestID))
+                {
+                    Debug.Log($"{quest.QuestID}는 {questDic[quest.QuestID]}에 이미 할당 된 QuestID 입니다.");
+                    continue;
+                }
+
+                // 데이터 id 예외처리
+                if (!questDataDic.ContainsKey(quest.QuestID))
+                    continue;
+
+                // 퀘스트 생성
+                Quest inst = Instantiate(quest, transform);
+                QuestData data = questDataDic[quest.QuestID];
+                // 퀘스트 데이터 할당
+                inst.QuestData = data;
+
+                // 수주 나레이션 할당
+                inst.receiveNarrations = new List<NarrtionData>();
+                if(narrationBundleDic.ContainsKey(data.receiveNarrationBundleID))
+                {
+                    foreach(int bundleID in narrationBundleDic[data.receiveNarrationBundleID])
+                    {
+                        if(!narrationDic.ContainsKey(bundleID))
+                            break;
+
+                        inst.receiveNarrations.Add(narrationDic[bundleID]);
+                    }
+                }
+
+                // 클리어 나레이션 할당
+                inst.clearNarrations = new List<NarrtionData>();
+                if(narrationBundleDic.ContainsKey(data.clearNarrationBundleID))
+                {
+                    foreach (int bundleID in narrationBundleDic[data.clearNarrationBundleID])
+                    {
+                        if (!narrationDic.ContainsKey(bundleID))
+                            break;
+
+                        inst.clearNarrations.Add(narrationDic[bundleID]);
+                    }
+                }
+
+                questDic.Add(quest.QuestID, inst);
             }
         }
 
@@ -138,6 +184,7 @@ namespace Jc
         private void LoadQuestData()
         {
             List<Dictionary<string, object>> csvData = CSVReader.Read(path_questData);
+
             if (csvData == null || csvData.Count < 1)
             {
                 Debug.Log("퀘스트 데이터가 존재하지 않습니다.");
@@ -148,14 +195,16 @@ namespace Jc
 
             for(int i =0; i<csvData.Count; i++)
             {
-                int questID = (int)csvData[i]["id"];
+                int questID = (int)csvData[i]["id"] - DataID.QUEST;
+                
                 QuestData questData = ScriptableObject.CreateInstance<QuestData>();
+
                 questData.id = questID;
                 questData.questName = csvData[i]["quest_name"] as string;
                 questData.type = (QuestType)(int)csvData[i]["condition"];
                 questData.npcID = (int)csvData[i]["quest_acc"];
-                questData.receiveNarrationBundleID = (int)csvData[i]["narr_start"];
-                questData.clearNarrationBundleID = (int)csvData[i]["narr_fin"];
+                questData.receiveNarrationBundleID = (int)csvData[i]["narr_start"] - DataID.NARRATION_BUNDLE;
+                questData.clearNarrationBundleID = (int)csvData[i]["narr_fin"] - DataID.NARRATION_BUNDLE;
 
                 questDataDic.Add(questID, questData);
             }

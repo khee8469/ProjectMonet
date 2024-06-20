@@ -13,6 +13,11 @@ namespace Jc
     public class Quest : MonoBehaviour
     {
         [Header("에디터 세팅")]
+        [Tooltip("퀘스트 ID")]
+        [SerializeField]
+        protected int questID;
+        public int QuestID { get { return questID; }}
+
         [Tooltip("퀘스트 상태")]
         [SerializeField]
         protected QuestState state;
@@ -21,15 +26,17 @@ namespace Jc
         [Tooltip("퀘스트 데이터")]
         [SerializeField]
         protected QuestData questData;
-        public QuestData QuestData { get { return questData; }}
+        public QuestData QuestData { get { return questData; } set { questData = value; } }
 
-        [Tooltip("퀘스트 수주 나레이션 id 리스트")]
-        public List<int> receiveNarrationIDs;
+        [Tooltip("퀘스트 수주 나레이션 리스트")]
+        public List<NarrtionData> receiveNarrations;
 
-        [Tooltip("퀘스트 클리어 나레이션 id 리스트")]
-        public List<int> clearNarrationIDs;
+        [Tooltip("퀘스트 클리어 나레이션 리스트")]
+        public List<NarrtionData> clearNarrations;
 
         public UnityAction<QuestState> OnChangeState;
+
+        public UnityAction<Quest> OnClearQuest;
 
         // 퀘스트 상태변경
         public void ChangeState(QuestState state)
@@ -68,18 +75,23 @@ namespace Jc
         }
 
         // 퀘스트 활성화 시
-        protected virtual void OnActiveQuest(){ }
+        protected virtual void ActiveQuest(){ }
 
         // 퀘스트 수주 시
-        protected virtual void OnProceedQuest()
-        { 
+        protected virtual void ProceedQuest()
+        {
 
         }
 
         // 퀘스트 클리어 시 (수락 대기)
-        protected virtual void OnClearQuest(){ }
+        protected virtual void ClearQuest()
+        {
+        }
 
         // 퀘스트 수락 이후 비활성화
-        protected virtual void OnDisActiveQuest(){ }
+        protected virtual void DisActiveQuest()
+        {
+            OnClearQuest?.Invoke(this);
+        }
     }
 }

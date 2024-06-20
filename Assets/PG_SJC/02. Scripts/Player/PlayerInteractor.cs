@@ -18,6 +18,9 @@ namespace Jc
         private PlayerControllerCallback controllerCallback;
 
         [SerializeField]
+        private PlayerQuestController questController;
+
+        [SerializeField]
         private GameObject popUpCanvas; // 인벤토리 / 퀘스트
 
         [Space(5)]
