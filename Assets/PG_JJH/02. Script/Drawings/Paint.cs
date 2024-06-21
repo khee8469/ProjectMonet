@@ -72,15 +72,6 @@ namespace JJH
             
             
         }
-
-        /*private void OnCollisionEnter(Collision collision)
-        {
-            if (colliderLayer.Contain(collision.gameObject.layer))
-            {
-                Destroy(gameObject, 0.1f);
-            }
-        }*/
-
     }
 
 }
