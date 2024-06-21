@@ -45,6 +45,8 @@ namespace Jc
 
         private void LoadNarrationData()
         {
+            // CSVReader를 통한 csvData 읽기
+            // Resources 폴더 내에 데이터 테이블이 존재해야함.
             List<Dictionary<string, object>> csvData = CSVReader.Read(DataPath.NarrationData);
             if (csvData == null || csvData.Count < 1)
             {
@@ -52,11 +54,17 @@ namespace Jc
                 return;
             }
 
+            // 딕셔너리 객체화
             narrationDataDic = new Dictionary<int, NarrtionData>();
 
             for (int i = 0; i < csvData.Count; i++)
             {
+                // 테이블 1행은 각 열이 Key 값으로 할당.
+                // 매핑된 ID 값을 빼서 객체화된 딕셔너리에 할당.
+
                 int narrationID = (int)csvData[i]["id"] - DataID.NARRATION;     // 나레이션 ID 할당
+
+                // NarrationData 구조체 생성 후 로드한 데이터 할당.
                 NarrtionData data = new NarrtionData();
                 data.npcID = (int)csvData[i]["id_target"] - DataID.NPC;
                 data.text = (string)csvData[i]["id_text"];
