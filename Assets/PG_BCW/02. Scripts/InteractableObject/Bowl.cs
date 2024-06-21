@@ -32,25 +32,4 @@ public class Bowl : InteractObject
 
         
     }
-
-
-    /*//왼손 기준 (오른손으로 잡으면 회전시켜줘야할듯)
-    private void AttachSerach(SelectEnterEventArgs args)
-    {
-        Transform interactor = args.interactorObject.transform;
-        
-        float distance=9999;
-        foreach (Transform attach in attachPoints)
-        {
-            *//*Debug.Log($"interactor : {interactor.position}");
-            Debug.Log($"attach : {attach.position}");*//*
-
-            float currentDistance = (interactor.position - attach.position).sqrMagnitude;
-            if (currentDistance < distance)
-            {
-                distance = currentDistance;
-                attachTransform = attach;
-            }
-        }
-    }*/
 }

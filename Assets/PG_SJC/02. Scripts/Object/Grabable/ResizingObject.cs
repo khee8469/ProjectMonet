@@ -67,10 +67,10 @@ namespace Jc
             set { isGrabbed = value; }
         }
         public float scaleRatio;
-
-        //float ognDist;
-        //float ognScale;
         Vector3 targetScale;
+
+        IXRSelectInteractor currentInteractor;  // 오브젝트를 Select중 인 인터렉터
+
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -122,36 +122,6 @@ namespace Jc
             Vector3 rayDir = mainCamera.transform.forward;
             Ray ray = new Ray(mainCamera.transform.position, rayDir);
 
-            // 구체 레이
-            //if (Physics.SphereCast(ray, transform.localScale.x, out RaycastHit hitInfo, Mathf.Infinity, Manager.Layer.wallLM))
-            //{
-            //    // 닿은 벽을 기준으로 오브젝트의 위치설정
-            //    transform.position = hitInfo.point + hitInfo.normal * targetScale.x;
-
-            //    if (originDist == -1f)
-            //    {
-            //        originDist = (mainCamera.transform.position - transform.position).sqrMagnitude;
-            //    }
-
-            //    Debug.DrawRay(mainCamera.transform.position, rayDir * 500f, Color.yellow);
-
-            //    float curDist = (mainCamera.transform.position - transform.position).sqrMagnitude;
-            //    float ratio = curDist / originDist;
-            //    targetScale.x = targetScale.y = targetScale.z = ratio;
-
-            //    // 최소 스케일 지정
-            //    if (ratio * originScaleX < 0.1f)
-            //        transform.localScale = minScale;
-            //    else
-            //        transform.localScale = targetScale * originScaleX;
-            //}
-            //else
-            //{
-            //    Debug.Log("레이가 닿지 않습니다.");
-            //    // 레이가 닿지 않은 경우 강제로 Detach 
-            //    //ForceDetach();
-            //}
-
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, Manager.Layer.wallLM))
             {
                 // 닿은 벽을 기준으로 오브젝트의 위치설정
@@ -178,7 +148,7 @@ namespace Jc
             {
                 if (!isSelected) return;
                 // 레이가 닿지 않은 경우 강제로 Detach
-                //ForceDetach();
+                ForceDettach();
             }
 
             //transform.position = mainCamera.transform.position + mainCamera.transform.forward * grabDistance;
@@ -188,25 +158,25 @@ namespace Jc
             originScaleX = transform.localScale.x;
             targetScale = transform.localScale;
             originDist = -1f;
-            //// 오브젝트의 현재 크기를 기준으로 최대 크기를 지정
-            //float extendScale = originScaleX * maxScale.x;
-            //maxScale = new Vector3(extendScale, extendScale, extendScale);
-            //// 비율 설정
-            //originRatio = originScaleX / maxScale.x;
         }
 
         // 인터렉터에 SelectExit 호출
-        private void ForceDetach()
+        private void ForceDettach()
         {
-            foreach (var interactor in interactorsSelecting)
-            {
-                interactionManager.SelectExit(interactor, this);
-            }
+            DettachSetting();
+            interactionManager.SelectExit(currentInteractor, this);
         }
+
+        private void DettachSetting()
+        {
+            transform.GetComponent<Rigidbody>().isKinematic = false;
+        }
+
         protected override void OnSelectEntering(SelectEnterEventArgs args)
         {
             base.OnSelectEntering(args);
             transform.GetComponent<Rigidbody>().isKinematic = true;
+            currentInteractor = args.interactorObject;  // 인터렉터 할당
 
             SetTransform();
 
@@ -216,36 +186,17 @@ namespace Jc
         {
             base.OnSelectExiting(args);
             transform.GetComponent<Rigidbody>().isKinematic = false;
+            currentInteractor = null;   // 인터렉터 할당해제
 
             IsGrabbed = false;
+
+            DettachSetting();
 
             // 오브젝트의 크기가 최대치 이상이 되면 원상복구
             if (transform.localScale.x >= limitScale)
             {
                 StartCoroutine(ResizeRoutine());
             }
-        }
-
-        // 원복 루틴
-        IEnumerator ResetRoutine()
-        {
-            float rate = 0f;
-            Vector3 startPos = transform.position;
-            Quaternion startRot = transform.rotation;
-            Vector3 startScale = transform.localScale;
-
-            while (rate < 1f)
-            {
-                rate += Time.deltaTime;
-                transform.position = Vector3.Lerp(startPos, resetTransform.position, rate);
-                transform.rotation = Quaternion.Lerp(startRot, resetTransform.rotation, rate);
-                transform.localScale = Vector3.Lerp(startScale, resetTransform.scale, rate);
-                yield return null;
-            }
-
-            transform.position = resetTransform.position;
-            transform.rotation = resetTransform.rotation;
-            transform.localScale = resetTransform.scale;
         }
 
         IEnumerator ResizeRoutine()

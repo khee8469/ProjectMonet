@@ -21,8 +21,9 @@ public static class Manager
         UIManager.ReleaseInstance();
         AnimParamManager.ReleaseInstance();
         LayerManager.ReleaseInstance();
-        DataManager.ReleaseInstance();
         QuestManager.ReleaseInstance();
+        DataManager.ReleaseInstance();
+
 
         // 싱글턴 객체생성
         CameraManager.CreateInstance();
