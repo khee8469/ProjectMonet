@@ -1,8 +1,8 @@
 using System.Collections;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+
 namespace JJH
 {
     public class InventorySlot : XRSocketInteractor
@@ -34,16 +34,14 @@ namespace JJH
             base.Awake();
             slotData = new SlotData();
             countText = GetComponentInChildren<TextMeshProUGUI>();
-            countText.text = $"{itemCount}";
+            countText.text = $" ";
             itemTransform = GetComponent<Transform>();
-            Debug.Log("인벤토리 슬롯의 awake가 발동됨");
         }
 
         protected override void Start() // 슬롯을 인벤토리 매니저에 등록한다. 
         {
             base.Start();
             Manager.Inventory.RegisterSlot(this); //THIS 시에 슬롯 아이디를 설정해줘야한다. 
-            Debug.Log("인벤토리 슬롯의 start가 발동됨.");
         }
         /*protected override void OnDestroy() // 만약 슬롯이 파괴된다면
         {
@@ -57,50 +55,21 @@ namespace JJH
         }
 
 
-        protected override void OnHoverEntering(HoverEnterEventArgs args)
-        {
-            base.OnHoverEntering(args);
-
-        }
-        protected override void OnSelectEntering(SelectEnterEventArgs args)
-        {
-            Debug.Log("selecting enter");
-            base.OnSelectEntering(args);
-        }
-
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args); // 잡을 수 있는 아이템 체크 
-            Debug.Log("Slot Select");
             if (Manager.Inventory.isEnable == false) return;
             if (!isRayHovering) return;
 
             IInventory item = args.interactableObject.transform.GetComponent<IInventory>();
             if (item != null)
             {
-                InventoryItem inventoryItem = item as InventoryItem;
-
-                // 아이템의 스택 가능 여부를 파악해서 Add 함수를 두가지로 나눈다. 
-
-                inventoryItem.RestoreScale(); // 스케일을 정상 복구 하고 Add 하기. 
-                if (inventoryItem.itemData.stackType == StackTypeItem.Stackable) 
+                if (item is InventoryItem)
                 {
-
-
-
-                    Debug.Log("이거 스택형 아이템임.");
-                    Debug.Log("아이템의 id가 같음.");
-
-
-
-                    StackItemAdd(inventoryItem);
-                }
-                else
-                {
-                    AddItem(inventoryItem); //Add 가능한 Item은 오로지 Inventory 아이템이다.
+                    AddItem(item as InventoryItem);
                 }
             }
-            else // 넣을 수 없는 아이템이라면.. 실패 사운드 재생해줘야함.. 사운드매니저 이용하자. 
+            else
             {
                 if (InventoryAddFailure != null)
                 {
@@ -191,15 +160,49 @@ namespace JJH
             return base.CanSelect(interactable);
         }
 
+        public override bool CanHover(IXRHoverInteractable interactable)
+        {
+            // Hover 될 수 있는지 
+            return;
+
+            return base.CanHover(interactable);
+
+        }
+
 
         public void AddItem(InventoryItem item)
         {
             // item.itemData.SaveOriginalTransform(item.transform);
             // 아이템의 원래 트랜스폼을 저장
+            InventoryItem inventoryItem = item as InventoryItem;
+            inventoryItem.RestoreScale(); // 스케일을 정상 복구 하고 Add 하기. 
+
+            if (inventoryItem.itemData.stackType == StackTypeItem.Stackable) //아이템이 스택 타입일 때 
+            {
+                if(inventoryItem.itemData.itemID == GetItemIDInSlot(slotID)) // 이미 그 slot에 아이템이 존재한다면
+                {
+                    Debug.Log("이미 있는 곳에 스택 중첩할것.");
+                }
+                else if(hasSelection) 
+                // 스택형 아이템 일 때 그 슬롯에 id가 일치하지 않아도 아이템이 들어있을 수 있어.
+                // 그럴 때 그 아이템이 스택형이라면 --> 아무것도 하지않는다.
+                {
+
+                }
+            }
+            else if (inventoryItem.itemData.eventItemType == EventItemType.Event) // 아이템이 이벤트 타입일 때 
+            {
+
+            }
+            else // 일반적인 1개 짜리 오브젝트 타입이라면.
+            {
+
+            }
             item.transform.SetParent(itemTransform);
 
             item.transform.localPosition = Vector3.zero; // 슬롯 위치에 딱 맞도록 로컬 포지션을 0 으로 설정
             item.transform.localRotation = Quaternion.identity;
+
 
             Rigidbody rigidbody = item.GetComponent<Rigidbody>();
             if (rigidbody != null)
@@ -278,13 +281,20 @@ namespace JJH
 
         // 스택용 아이템을 위한 추가 함수 --> IF문 분기 등으로 체크해주기. 
         private void StackItemAdd(InventoryItem item) // 스택 아이템이 불러질 때 이거 막 원래 있던 템이 나오니까
-            // 그 템을 누적해주고... 뺄 때 instantiate 하고. 추가로 막 아이템이 튀어나오면 이거 삭제해주고
-            // 추가로 ITEM의 id가 일치해야 스택이 가능함. 
+                                                      // 그 템을 누적해주고... 뺄 때 instantiate 하고. 추가로 막 아이템이 튀어나오면 이거 삭제해주고
+                                                      // 추가로 ITEM의 id가 일치해야 스택이 가능함. 
         {
-            itemCount++; // 아이템 text와 연계 
-            countText.text = $"{itemCount}";
-            Debug.Log(itemCount);
-
+            if (itemCount == 0) // 아직 하나도 없는 경우라면 
+            {
+                AddItem(item);
+                itemCount++;
+                countText.text = $"{itemCount}";
+            }
+            else if (itemCount >= 1) // 1개 이상 이미 스택 아이템이 들어가 있는 경우라면 
+            {
+                itemCount++; // 아이템 text와 연계 
+                countText.text = $"{itemCount}";
+            }
         }
         private void StackItemRemove(InventoryItem item)
         {
@@ -327,6 +337,30 @@ namespace JJH
         {
 
         }
+
+
+        public int GetItemIDInSlot(int slotID)
+        {
+            Manager.Inventory.UpdateInventoryData(); //인벤토리 최신화
+
+            foreach (var item in Manager.Inventory.inventoryData.items)
+            {
+                if (item.slotID == slotID)
+                {
+                    return item.itemID;
+                }
+            }
+
+            return -1; // slot에서 id가 겹치지 않으면 -1을 리턴한다. 
+        }
+
+        public bool GetItemTypeInSlot()
+        {
+            return false;
+        }
+
+
+
     }
 }
 

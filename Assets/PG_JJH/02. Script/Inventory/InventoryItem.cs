@@ -88,13 +88,11 @@ namespace JJH
         protected override void OnSelectExiting(SelectExitEventArgs args)
         {
             base.OnSelectExiting(args);
-            Debug.Log("아이템의 셀렉트 엑시팅");
             RestoreScale();
         }
 
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
-            Debug.Log("아이템의 셀렉티드 엑시트");
             base.OnSelectExited(args);
             RestoreScale();
         }

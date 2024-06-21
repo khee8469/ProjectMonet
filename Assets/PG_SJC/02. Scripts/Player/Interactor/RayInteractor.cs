@@ -205,7 +205,6 @@ namespace Jc
                     // 손에 있는거를 넣고. --> 그게 그러면 [1] 인덱스일테니까 그거를 빼면 되지않을까?
                     this.interactionManager.SelectEnter(curSlot as IXRSelectInteractor, currentGrabObject as IXRSelectInteractable);
                     curSlot.interactionManager.SelectEnter(this as IXRSelectInteractor, slotItem.interactablesSelected[0] as IXRSelectInteractable);
-
                 }
                 else
                 {

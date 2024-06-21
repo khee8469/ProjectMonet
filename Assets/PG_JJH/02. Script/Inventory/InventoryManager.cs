@@ -66,8 +66,6 @@ namespace JJH
             foreach (var slot in inventorySlots.Values) // value를 통해 InventorySlot의 값을 확인.
             {
                 InventoryItem item = null;
-
-                Debug.Log("업데이트 인벤토리 데이터");
                 //모든 자식 오브젝트를 순회하여 InventoryItem 찾기
                 foreach (Transform child in slot.itemTransform)
                 {
@@ -84,8 +82,17 @@ namespace JJH
                         itemID = item.itemData.itemID,
                         itemName = item.itemData.itemName,
                         stackType = item.itemData.stackType,
-                        slotID = slot.slotID
+                        slotID = slot.slotID,
+                        itemCount =item.itemData.itemCount
+                        
+                     
                     };
+                    /*Debug.Log(data.itemID);
+                    Debug.Log(data.itemName);
+                    Debug.Log(data.stackType);
+                    Debug.Log(data.slotID);
+                    Debug.Log(data.itemCount);*/
+
                     //여기서 업데이트 된 오리지널 트랜스폼을 save 해버리는 문제가 발생하고 있다. 
                     //data.SaveOriginalTransform(item.transform);
                     inventoryData.items.Add(data); //업데이트 한 값을 리스트에 저장 
