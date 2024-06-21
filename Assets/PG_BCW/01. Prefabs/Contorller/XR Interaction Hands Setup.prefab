@@ -4750,6 +4750,80 @@ Transform:
   - {fileID: 4907743043277045986}
   m_Father: {fileID: 329506549091739753}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3485224069985426292
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5979062506649468614}
+  - component: {fileID: 2209690009146640641}
+  - component: {fileID: 550322383637772790}
+  m_Layer: 0
+  m_Name: PinchGesture
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5979062506649468614
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3485224069985426292}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5929272682827156908}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2209690009146640641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3485224069985426292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d3de5cfbcca5214890092a709d78643, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftHandInteractor: {fileID: 1488149337711822609}
+  rightHandInteractor: {fileID: 4073327084821189851}
+  HandGesture: {fileID: 550322383637772790}
+--- !u!114 &550322383637772790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3485224069985426292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf93899325d5df74eb9176e097ee3d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LeftHandTrackingEvents: {fileID: 971373899418630825}
+  m_RightHandTrackingEvents: {fileID: 8617754208447119573}
+  m_HandShapeOrPose: {fileID: 11400000, guid: 5d1d7010a62e8fe4d929c9f557faf6e4, type: 2}
+  m_TargetTransform: {fileID: 0}
+  m_GesturePerformed:
+    m_PersistentCalls:
+      m_Calls: []
+  m_GestureEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  m_MinimumHoldTime: 0.2
+  m_GestureDetectionInterval: 0.1
+  leftPerformedTriggered: 0
+  rightPerformedTriggered: 0
 --- !u!1 &3720660644746067881
 GameObject:
   m_ObjectHideFlags: 0
@@ -7329,7 +7403,8 @@ MonoBehaviour:
   m_UseOptimizedControls: 0
   m_LeftHandMesh: {fileID: 5328987817877170742}
   m_RightHandMesh: {fileID: 3805152693951240719}
-  m_HandMeshMaterial: {fileID: 2100000, guid: 613690cd962241049a0ec289a6ff835e, type: 2}
+  m_HandMeshMaterial: {fileID: -876546973899608171, guid: bd11349dc99f3fd4083ef2f86cee9c1f,
+    type: 3}
   m_DrawMeshes: 1
   m_DebugDrawPrefab: {fileID: 6507399986997092475, guid: 254b742d65a15d14b9df756ae77de868,
     type: 3}
@@ -7936,6 +8011,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3257432356374641439}
+  - {fileID: 5979062506649468614}
   m_Father: {fileID: 4167019498160293808}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5933005018350172685
@@ -15330,7 +15406,7 @@ GameObject:
   - component: {fileID: 6090199400290661417}
   - component: {fileID: 5866142044418013738}
   m_Layer: 0
-  m_Name: LeftGrabGesture
+  m_Name: GrabGesture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15365,7 +15441,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHandInteractor: {fileID: 1488149337711822609}
   rightHandInteractor: {fileID: 4073327084821189851}
-  GrabHandGesture: {fileID: 5866142044418013738}
+  HandGesture: {fileID: 5866142044418013738}
 --- !u!114 &5866142044418013738
 MonoBehaviour:
   m_ObjectHideFlags: 0
