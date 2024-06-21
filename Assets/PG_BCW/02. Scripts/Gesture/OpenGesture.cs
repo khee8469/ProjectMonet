@@ -20,36 +20,35 @@ public class OpenGesture : Gesture
 
     public override void LeftGestureEnter()
     {
+        Debug.Log("왼손손펴기");
 
+        // 저장된 손 오브젝트 놓기
+        if (LeftHandInteractor.hasSelection)
+        {
+            // 인터랙션 매니저에 인터랙터가 인터랙터블을 선택 해제하도록 요청
+            LeftHandInteractor.interactionManager.SelectExit(LeftHandInteractor, LeftHandInteractor.interactablesSelected[0]);
+        }
     }
 
     public override void LeftGestureExit()
     {
-        Debug.Log("왼손손펴기");
-        // 저장된 손 오브젝트 놓기
-        if (LeftSelectedInteractable != null)
-        {
-            // 인터랙션 매니저에 인터랙터가 인터랙터블을 선택 해제하도록 요청
-            LeftHandInteractor.interactionManager.SelectExit(LeftHandInteractor, LeftSelectedInteractable);
-            LeftSelectedInteractable = null;
-        }
+        
     }
 
 
     public override void RightGestureEnter()
     {
-
+        Debug.Log("오른손손펴기");
+        // 저장된 손 오브젝트 놓기
+        if (RightHandInteractor.hasSelection)
+        {
+            // 인터랙션 매니저에 인터랙터가 인터랙터블을 선택 해제하도록 요청
+            RightHandInteractor.interactionManager.SelectExit(RightHandInteractor, RightHandInteractor.interactablesSelected[0]);
+        }
     }
 
     public override void RightGestureExit()
     {
-        Debug.Log("오른손손펴기");
-        // 저장된 손 오브젝트 놓기
-        if (RightSelectedInteractable != null)
-        {
-            // 인터랙션 매니저에 인터랙터가 인터랙터블을 선택 해제하도록 요청
-            RightHandInteractor.interactionManager.SelectExit(RightHandInteractor, RightSelectedInteractable);
-            RightSelectedInteractable = null;
-        }
+        
     }
 }

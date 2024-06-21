@@ -21,6 +21,10 @@ public class GrabGesture : Gesture
     {
         //Debug.Log("그랩 제스처");
 
+        //호버된거도 없으면 끝
+        if (LeftHandInteractor.interactablesHovered.Count == 0)
+            return;
+
         //호버된 오브젝트 중에서 잡을수있는 오브젝트 찾기
         IXRSelectInteractable hoveredInteractable = null;
 
@@ -30,19 +34,10 @@ public class GrabGesture : Gesture
 
             if (hoveredInteractable != null)
             {
-                //Debug.Log(hoveredInteractable.transform.name);
+                // 인터랙션 매니저에 인터랙터가 인터랙터블을 선택하도록 요청
+                LeftHandInteractor.interactionManager.SelectEnter(LeftHandInteractor, hoveredInteractable);
                 break;
             }
-
-        }
-        //Debug.Log(hoveredInteractable);
-        if (hoveredInteractable != null && hoveredInteractable.transform.GetComponent<XRGrabInteractable>() != null)
-        {
-            // 인터랙션 매니저에 인터랙터가 인터랙터블을 선택하도록 요청
-            LeftHandInteractor.interactionManager.SelectEnter(LeftHandInteractor, hoveredInteractable);
-
-            // 왼손 오브젝트 정보 저장
-            LeftSelectedInteractable = hoveredInteractable;
         }
     }
 
@@ -58,9 +53,13 @@ public class GrabGesture : Gesture
     // 오른손 물건잡기
     public override void RightGestureEnter()
     {
-        // 호버중인 오브젝트가 있는지 확인
+        
         //Debug.Log("그랩 제스처");
 
+        //호버된거도 없으면 끝
+        if (RightHandInteractor.interactablesHovered.Count == 0)
+            return;
+        // 호버중인 오브젝트가 있는지 확인
         IXRSelectInteractable hoveredInteractable = null;
 
         foreach (var interactable in RightHandInteractor.interactablesHovered)
@@ -69,19 +68,10 @@ public class GrabGesture : Gesture
 
             if (hoveredInteractable != null)
             {
-                //Debug.Log(hoveredInteractable.transform.name);
+                // 인터랙션 매니저에 인터랙터가 인터랙터블을 선택하도록 요청
+                RightHandInteractor.interactionManager.SelectEnter(RightHandInteractor, hoveredInteractable);
                 break;
             }
-
-        }
-        //Debug.Log(hoveredInteractable);
-        if (hoveredInteractable != null && hoveredInteractable.transform.GetComponent<XRGrabInteractable>() != null)
-        {
-            // 인터랙션 매니저에 인터랙터가 인터랙터블을 선택하도록 요청
-            RightHandInteractor.interactionManager.SelectEnter(RightHandInteractor, hoveredInteractable);
-
-            // 왼손 오브젝트 정보 저장
-            RightSelectedInteractable = hoveredInteractable;
         }
     }
 

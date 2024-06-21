@@ -17,17 +17,10 @@ public abstract class Gesture : MonoBehaviour
     private XRBaseInteractor rightHandInteractor;
     public XRBaseInteractor RightHandInteractor { get { return rightHandInteractor; } }
 
-    [Tooltip("잡은 오브젝트 정보 임시 저장용")]
-    private IXRSelectInteractable leftSelectedInteractable;
-    public IXRSelectInteractable LeftSelectedInteractable { get { return leftSelectedInteractable; } set { leftSelectedInteractable = value; } }
-
-    private IXRSelectInteractable rightSelectedInteractable;
-    public IXRSelectInteractable RightSelectedInteractable { get { return rightSelectedInteractable; } set { rightSelectedInteractable = value; } }
-
     [Tooltip("왼손 오른손 모션 이벤트를 각각 넣어줘야함")]//각 제스처 오브젝트에
     [SerializeField]
-    private StaticHandGesture staticHandGesture;
-    public StaticHandGesture StaticHandGesture { get { return staticHandGesture; } }
+    private StaticGesture staticHandGesture;
+    public StaticGesture StaticHandGesture { get { return staticHandGesture; } }
 
     [Tooltip("왼손 충돌체 끄기")]//Hand Interaction Visual오브젝트에있음
     [SerializeField]
@@ -43,7 +36,7 @@ public abstract class Gesture : MonoBehaviour
     {
         if (staticHandGesture != null)
             return;
-        staticHandGesture = GetComponent<StaticHandGesture>();
+        staticHandGesture = GetComponent<StaticGesture>();
     }
 
     public virtual void Start()
