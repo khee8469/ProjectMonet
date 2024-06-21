@@ -155,6 +155,12 @@ namespace JJH
 
         public override bool CanSelect(IXRSelectInteractable interactable)
         {
+            // 여기 앞부분에서 변수를 하나 더 만들어서 만약 select 되어서는 안된다면
+            // 스택 아이템이 들어가 있는 곳에 내가 아이템을 들고 select를 하고 있다면 같은 상황들... 
+            // 안들어가지기는 하는대 발사는 되는 상황.... 
+            Debug.Log("이게 작동하면 false를 뚫었다??");
+            return false; 
+
             if (!isRayHovering) return false;
 
             return base.CanSelect(interactable);
@@ -162,9 +168,7 @@ namespace JJH
 
         public override bool CanHover(IXRHoverInteractable interactable)
         {
-            // Hover 될 수 있는지 
-            return;
-
+           
             return base.CanHover(interactable);
 
         }
