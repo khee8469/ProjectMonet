@@ -11,7 +11,7 @@ namespace JJH
         public InventoryData inventoryData = new InventoryData();
 
         // 인벤토리의 슬롯을 관리해줄 딕셔너리
-        private Dictionary<int, InventorySlot> inventorySlots
+        public Dictionary<int, InventorySlot> inventorySlots
             = new Dictionary<int, InventorySlot>();
 
 
@@ -20,7 +20,7 @@ namespace JJH
 
         public static UnityEvent ExitGame_InventoryEvent = new UnityEvent();
 
-        public bool isEnable = false;
+        public bool isEnable { get; set; } = false;
 
         protected override void Awake()
         {
@@ -67,6 +67,7 @@ namespace JJH
             {
                 InventoryItem item = null;
 
+                Debug.Log("업데이트 인벤토리 데이터");
                 //모든 자식 오브젝트를 순회하여 InventoryItem 찾기
                 foreach (Transform child in slot.itemTransform)
                 {
@@ -86,8 +87,9 @@ namespace JJH
                         slotID = slot.slotID
                     };
                     //여기서 업데이트 된 오리지널 트랜스폼을 save 해버리는 문제가 발생하고 있다. 
-                    data.SaveOriginalTransform(item.transform);
+                    //data.SaveOriginalTransform(item.transform);
                     inventoryData.items.Add(data); //업데이트 한 값을 리스트에 저장 
+                    
                 }
             }
             SaveInventoryData(); // JSON으로 저장 --> 업데이트 이후 그 상태 저장. 
