@@ -3,95 +3,103 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace Jc
 {
     public class PlayerInteractor : MonoBehaviour
     {
-        [Header("디버깅 용")]
+        [Header("에디터 세팅")]
         [SerializeField]
-        private CinemachineVirtualCamera playerVC;
-
-        [Header("VR 핸들러")]
-        [SerializeField]
-        private XRBaseInteractor leftITR;   // 왼쪽 스틱 인터렉터
+        private PlayerTrigger trigger;
 
         [SerializeField]
-        private XRBaseInteractor rightITR;  // 오른쪽 스틱 인터렉터
+        private PlayerControllerCallback controllerCallback;
 
-        private GameObject leftSeletOB;     // 왼손 그랩 오브젝트
-        public GameObject LeftSeletOB
-        {
-            get
-            {
-                if (leftSeletOB == null)
-                    Debug.Log("왼손으로 잡은 오브젝트가 존재하지 않습니다.");
-                return leftSeletOB;
-            }
-            set { leftSeletOB = value; }
-        }
-
-        private GameObject rightSeletOB;     // 오른손 그랩 오브젝트
-        public GameObject RightSeletOB
-        {
-            get
-            {
-                if (rightSeletOB == null)
-                    Debug.Log("왼손으로 잡은 오브젝트가 존재하지 않습니다.");
-                return rightSeletOB;
-            }
-            set { rightSeletOB = value; }
-        }
-
-        [Header("플레이어 아이템 컨트롤러 (그랩할 수 있는 오브젝트 관리자)")]
         [SerializeField]
-        private PlayerItemController itemController;
+        private PlayerQuestController questController;
+
+        [SerializeField]
+        private GameObject popUpCanvas; // 인벤토리 / 퀘스트
+
+        [Space(5)]
+        [Header("밸런싱")]
+        [SerializeField]
+        private NPC nearNPC;
+
+        private bool isEnabledPopup = false;   // 팝업 활성화
+        private Transform camTr;               // 메인 카메라 트랜스폼
+
+        public UnityAction OnEndInteract;   // NPC와 상호작용 해제
+
+        private bool isEnablePopUp = false;
 
         private void OnEnable()
         {
-            //Manager.Camera.PlayerCameraSetUp(playerVC);
+            trigger.OnNPCEnter += OnEnterNPC;
+            trigger.OnNPCExit += OnExitNPC;
 
-            leftITR.selectEntered.AddListener(OnLeftHandSelectEnter);
-            leftITR.selectExited.AddListener(OnLeftHandSelectExit);
-            rightITR.selectEntered.AddListener(OnRightHandSelectEnter);
-            rightITR.selectExited.AddListener(OnRightHandSelectExit);
+            camTr = Camera.main.transform;
+
+            controllerCallback.leftMenuBTNRef.action.performed += OnPopUpCanvas;    // 인벤토리/퀘스트 버튼 등록
+            //controllerCallback.debugMenuBTNRef.action.performed += OnPopUpCanvas;   // 디버그 인벤토리/퀘스트 버튼 등록
+
+            controllerCallback.leftTriggerRef.action.performed += OnInteractNPC;    // NPC 상호작용 등록
         }
         private void OnDisable()
         {
-            leftITR.selectEntered.RemoveListener(OnLeftHandSelectEnter);
-            leftITR.selectExited.RemoveListener(OnLeftHandSelectExit);
-            rightITR.selectEntered.RemoveListener(OnRightHandSelectEnter);
-            rightITR.selectExited.RemoveListener(OnRightHandSelectExit);
+            trigger.OnNPCEnter -= OnEnterNPC;
+            trigger.OnNPCExit -= OnExitNPC;
+
+            controllerCallback.leftMenuBTNRef.action.performed -= OnPopUpCanvas;
+            controllerCallback.leftTriggerRef.action.performed -= OnInteractNPC;
         }
 
-        #region VR 스틱 상호작용 콜백
-        private void OnLeftHandSelectEnter(SelectEnterEventArgs args)
+        // NPC Trigger Enter 콜백
+        private void OnEnterNPC(NPC target)
         {
-            XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
-            if (grabbedObject == null) return;  // 그랩 오브젝트 예외처리
-            LeftSeletOB = grabbedObject.gameObject;
-            Debug.Log($"왼손 그랩 : {LeftSeletOB}");
+            // 기존에 충돌한 NPC 할당해제
+            if (nearNPC != null)
+                nearNPC = null;
+
+            // 가장 가까운 NPC 재할당 
+            nearNPC = target;
         }
-        private void OnLeftHandSelectExit(SelectExitEventArgs args)
+        // NPC Trigger Exit 콜백
+        private void OnExitNPC(NPC target)
         {
-            XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
-            if (grabbedObject == null) return;  // 그랩 오브젝트 예외처리
-            LeftSeletOB = null;
+            if (target == nearNPC)
+            {
+                OnEndInteract?.Invoke();
+                OnEndInteract -= target.OnExitInteract;
+                nearNPC = null;
+            }
         }
-        private void OnRightHandSelectEnter(SelectEnterEventArgs args)
+
+        // NPC 상호작용 콜백
+        private void OnInteractNPC(InputAction.CallbackContext context)
         {
-            XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
-            if (grabbedObject == null) return;  // 그랩 오브젝트 예외처리
-            RightSeletOB = grabbedObject.gameObject;
-            Debug.Log($"오른손 그랩 : {LeftSeletOB}");
+            if (isEnablePopUp) return;   // 팝업이 열려있는 경우 
+            if (nearNPC == null) return; // 근처 NPC가 없는 경우
+
+            nearNPC.OnInteract(questController);
+            OnEndInteract += nearNPC.OnExitInteract;  // 상호작용 해제 등록
         }
-        private void OnRightHandSelectExit(SelectExitEventArgs args)
+
+        private void OnPopUpCanvas(InputAction.CallbackContext context)
         {
-            XRGrabInteractable grabbedObject = args.interactableObject as XRGrabInteractable;
-            if (grabbedObject == null) return;  // 그랩 오브젝트 예외처리
-            RightSeletOB = null;
+            Debug.Log("메뉴 버튼 클릭");
+            isEnabledPopup = !isEnabledPopup;
+            OnPopUp(isEnabledPopup);
         }
-        #endregion
+
+        private void OnPopUp(bool isEnable)
+        {
+            JJH.Manager.Inventory.isEnable = isEnable;
+            isEnablePopUp = isEnable;
+            popUpCanvas.SetActive(isEnable);
+        }
     }
 }

@@ -16,42 +16,44 @@ namespace Jc
         [SerializeField]
         private Image fadeImage;
 
-        private Color32 fadeInColor = new Color32(0, 0, 0, 1);
-        private Color32 fadeOutColor = new Color32(0, 0, 0, 0);
-
         private void OnEnable()
         {
+            Debug.Log("UIManager Enable");
+
             Camera renderCamera = Camera.main;
             if (renderCamera == null) return;
 
             mainCanavas.worldCamera = renderCamera;
         }
 
+        // 페이드 인
         public IEnumerator FadeInRoutine(float fadeTime = 0f)
         {
             float rate = 0f;
+            Color fadeInColor = new Color(fadeImage.color.r, fadeImage.color.g, fadeImage.color.b, 1f);
+            Color fadeOutColor = new Color(fadeImage.color.r, fadeImage.color.g, fadeImage.color.b, 0f);
+            
             while (rate < 1f)
             {
                 rate += Time.deltaTime / fadeTime;
-                fadeImage.color = Color32.Lerp(fadeOutColor, fadeInColor, rate);
+                fadeImage.color = Color.Lerp(fadeOutColor, fadeInColor, rate);
                 yield return null;
             }
-
-            fadeImage.color = fadeInColor;
-            yield return null;
         }
+        
+        // 페이드 아웃
         public IEnumerator FadeOutRoutine(float fadeTime = 0f)
         {
             float rate = 0f;
+            Color fadeInColor = new Color(fadeImage.color.r, fadeImage.color.g, fadeImage.color.b, 1f);
+            Color fadeOutColor = new Color(fadeImage.color.r, fadeImage.color.g, fadeImage.color.b, 0f);
+
             while (rate < 1f)
             {
                 rate += Time.deltaTime / fadeTime;
-                fadeImage.color = Color32.Lerp(fadeInColor, fadeOutColor, rate);
+                fadeImage.color = Color.Lerp(fadeInColor, fadeOutColor, rate);
                 yield return null;
             }
-
-            fadeImage.color = fadeOutColor;
-            yield return null;
         }
     }
 }

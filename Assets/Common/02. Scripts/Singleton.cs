@@ -26,7 +26,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
     // 싱글턴 객체 생성
     public static void CreateInstance()
     {
-        T resource = Resources.Load<T>($"{typeof(T).Name}");
+        T resource = Resources.Load<T>($"Managers/{typeof(T).Name}");
         instance = Instantiate(resource);
     }
 
