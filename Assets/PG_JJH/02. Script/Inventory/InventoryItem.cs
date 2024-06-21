@@ -37,7 +37,7 @@ namespace JJH
             trackScale = false;
 
             RestoreSclaeObject.AddListener(RestoreScale);
-
+            SaveScale();
         }
 
         public void SaveScale()
@@ -76,7 +76,6 @@ namespace JJH
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
-            SaveScale();
             // 추후에 GetComponenet 등으로 한 다면 이 부분 수정 할 것. --> 최적화 필요한 부분 
             if (args.interactorObject.transform.GetComponentInParent<XROrigin>())
             {
@@ -88,7 +87,6 @@ namespace JJH
         protected override void OnSelectExiting(SelectExitEventArgs args)
         {
             base.OnSelectExiting(args);
-            RestoreScale();
         }
 
         protected override void OnSelectExited(SelectExitEventArgs args)

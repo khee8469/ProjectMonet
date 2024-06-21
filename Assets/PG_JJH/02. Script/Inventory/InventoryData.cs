@@ -79,9 +79,7 @@ namespace JJH
             return JsonUtility.FromJson<InventoryData>(json);
         }
 
-
     }
-
 
     public struct SlotData
     {

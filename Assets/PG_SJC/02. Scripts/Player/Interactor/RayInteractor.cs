@@ -110,7 +110,8 @@ namespace Jc
         }
 
         #region 컨트롤러 콜백
-        //인벤토리에서 아이템 꺼낼 때 체크해줘야하는 Enter 함수 
+        //인벤토리에서 아이템 < 꺼낼 > 때 체크해줘야하는 Enter 함수 
+        // 스택형 아이템은 destroy했기 때문에 생성한 다음에 손에 붙여줘야 한다는 것 잊지 말기. 
         public void OnSlotTriggerEnter(InputAction.CallbackContext context)
         {
             InventorySlot curSlot = FindSlot();
@@ -136,21 +137,35 @@ namespace Jc
             Debug.Log("꺼내기 시도");
             // 인벤토리에서 내 손으로 옮겨줘야 하고 
             curSlot.SetRayHovering(true);
-            XRSocketInteractor A = curSlot.GetComponent<XRSocketInteractor>();
+            InventorySlot slotItem = curSlot.GetComponent<InventorySlot>();
 
-            Debug.Log(A.name);
+            // 이 부분도 고쳐줘야함.. 
+            if (slotItem == null) return;
 
-            // 여기서 >0 이어도. 그 내부의 curslot의 item이 stack형의 아이템이라면
-            // 꺼낼 때 또 분기 처리 해줘야한다. 
-
-
-            if (curSlot.interactablesSelected.Count > 0)
+            // 꺼내는 상황은...
+            InventoryItem item = null; 
+            if (curSlot.interactablesSelected.Count>0) // 일단 있어야 꺼낼 수 있다는 것. 
             {
-                curSlot.interactionManager.SelectEnter(this as IXRSelectInteractor, A.interactablesSelected[0] as IXRSelectInteractable);
-                curSlot.SetRayHovering(false);
-                StartCoroutine(startHoverRouitne());
+                IXRSelectInteractable xRSelectInteractable = curSlot.interactablesSelected[0];
+
+                if (xRSelectInteractable is InventoryItem inventoryItem)
+                {
+                    item = inventoryItem;
+                    Debug.Log(item.name+"꺼냈습니다.");
+
+                    // 이 형변환 한 아이템은 이제 type 체크 하고 count 체크하고... 해야함. 
+
+
+                    curSlot.interactionManager.SelectEnter(this as IXRSelectInteractor, slotItem.interactablesSelected[0] as IXRSelectInteractable);
+                    curSlot.SetRayHovering(false);
+                    StartCoroutine(startHoverRouitne());
+                }
             }
-            Debug.Log($"enter  --> 아이템 꺼낼 시 : {curSlot}");
+            else // 아이템이 하나도 들어있지 않은 상황. 
+            {
+                Debug.Log("꺼낼 아이템이 없습니다.");
+            }
+
         }
 
         // 아이템을 빼는 순간에 다시 아이템이 들어가는 상황을 방지하기 위한 코루틴 딜레이
@@ -160,11 +175,10 @@ namespace Jc
             yield return new WaitForSeconds(0.5f);
         }
 
-        // 인벤토리에 아이템을 추가 할 때 체크할 Exit 함수 
+        // 인벤토리에 아이템을 < 추가 > 할 때 체크할 Exit 함수 
         public void OnSlotTriggerExit(InputAction.CallbackContext context)
         {
             InventorySlot curSlot = FindSlot();
-            Debug.Log(curSlot);
             if (curSlot == null)
             {
                 Debug.Log("curSlot is null");
@@ -197,29 +211,58 @@ namespace Jc
             }
 
             // 아이템을 추가 할 때 슬롯에 아이템이 있다면 자신의 손으로 빼주는 로직. 
-            XRSocketInteractor slotItem = curSlot.GetComponent<XRSocketInteractor>();
+            InventorySlot slotItem = curSlot.GetComponent<InventorySlot>();
+            
             if (slotItem != null)
             {
-                if (slotItem.interactablesSelected.Count > 0) //지금 내부에 하나 이상 있으면. 
+                // item은 player가 들고 있는 아이템 slotItem은 현재 ray된 slot 
+                if (item.itemData.stackType == StackTypeItem.Stackable) // 아이템이 스택 타입일 때
                 {
-                    // 손에 있는거를 넣고. --> 그게 그러면 [1] 인덱스일테니까 그거를 빼면 되지않을까?
-                    this.interactionManager.SelectEnter(curSlot as IXRSelectInteractor, currentGrabObject as IXRSelectInteractable);
-                    curSlot.interactionManager.SelectEnter(this as IXRSelectInteractor, slotItem.interactablesSelected[0] as IXRSelectInteractable);
-                }
-                else
-                {
-                    this.interactionManager.SelectEnter(curSlot as IXRSelectInteractor, currentGrabObject as IXRSelectInteractable);
-                }
+                    if(slotItem.interactablesSelected.Count >=1) //이미 내부에 아이템이 있을 때. (스택 타입 아이템)
+                    {
+                        // slotID 안의 아이템 ID 체크
+                        if(item.itemData.itemID==slotItem.GetItemIDInSlot(slotItem.slotID))
+                        {
+                            Debug.Log("같은 스택 아이템 추가됨.");
+                            this.interactionManager.SelectEnter(curSlot as IXRSelectInteractor, currentGrabObject as IXRSelectInteractable);
+                            // 넣은 아이템을 비활성화하던 디스트로이를 하던 무조건 뭔가 해야하고
+                            // 메시만 지우고 빈오브젝트처럼 둘 수도 있기는 하지만 그건 뭔가 애매하다.
+                            // 이게 OnExit을 못하게 막거나 뭔가 방법을 생각해야함. 
+                            // 그러면 OnEexited 하는 slot에서 item 체크를 해서 스택 타입일 때 
+                            // 
 
+
+
+
+
+
+                        } 
+                        else //아이템이 다르면 (스택 아이템 일 때 )
+                        {
+                            slotItem.NotAddText();
+                        }
+                    }
+                    else if(slotItem.interactablesSelected.Count<=0) //내부에 아이템이 없을 때 (스택 타입 아이템)
+                    {
+                        this.interactionManager.SelectEnter(curSlot as IXRSelectInteractor, currentGrabObject as IXRSelectInteractable);
+                        Debug.Log("스택 타입 아이템 빈 곳에 들어감.");
+                    }
+                }
+                else // 아이템이 일반 타입일 때.
+                {
+                    if (slotItem.interactablesSelected.Count > 0) //지금 내부에 하나 이상 있으면. 
+                    {
+                        this.interactionManager.SelectEnter(curSlot as IXRSelectInteractor, currentGrabObject as IXRSelectInteractable);
+                        curSlot.interactionManager.SelectEnter(this as IXRSelectInteractor, slotItem.interactablesSelected[0] as IXRSelectInteractable);
+                        Debug.Log("일반아이템 교환");
+                    }
+                    else
+                    {
+                        this.interactionManager.SelectEnter(curSlot as IXRSelectInteractor, currentGrabObject as IXRSelectInteractable);
+                        Debug.Log("일반 아이템 투입");
+                    }
+                }
             }
-
-            /* if(slotItem != null)
-             {
-                 this.interactionManager.SelectEnter(curSlot as IXRSelectInteractor, currentGrabObject as IXRSelectInteractable);
-
-                 curSlot.interactionManager.SelectEnter(this as IXRSelectInteractor, slotItem.interactablesSelected[0] as IXRSelectInteractable);
-             }*/
-            Debug.Log($"exit -->아이템 추가 시 : {curSlot}");
         }
         #endregion
 

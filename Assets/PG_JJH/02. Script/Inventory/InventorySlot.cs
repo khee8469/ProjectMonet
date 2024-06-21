@@ -22,7 +22,11 @@ namespace JJH
         [Tooltip("아이템의 숫자를 보여줄 text")]
         [SerializeField] TextMeshProUGUI countText; // 그냥 이거 start에서 getcomponent 하고 쓰면 될듯?
         [Tooltip("아이템의 숫자")]
-        [SerializeField] int itemCount = 0;
+        [SerializeField] int itemCount { get; set; }
+        
+        [Tooltip("넣기 불가능 text 출력")]
+        [SerializeField] TextMeshProUGUI notAddText;
+
 
         [Tooltip("레이 닿는지 확인용")]
         private bool isRayHovering = false;
@@ -42,6 +46,7 @@ namespace JJH
         {
             base.Start();
             Manager.Inventory.RegisterSlot(this); //THIS 시에 슬롯 아이디를 설정해줘야한다. 
+            notAddText.enabled = false;
         }
         /*protected override void OnDestroy() // 만약 슬롯이 파괴된다면
         {
@@ -155,12 +160,6 @@ namespace JJH
 
         public override bool CanSelect(IXRSelectInteractable interactable)
         {
-            // 여기 앞부분에서 변수를 하나 더 만들어서 만약 select 되어서는 안된다면
-            // 스택 아이템이 들어가 있는 곳에 내가 아이템을 들고 select를 하고 있다면 같은 상황들... 
-            // 안들어가지기는 하는대 발사는 되는 상황.... 
-            Debug.Log("이게 작동하면 false를 뚫었다??");
-            return false; 
-
             if (!isRayHovering) return false;
 
             return base.CanSelect(interactable);
@@ -173,15 +172,22 @@ namespace JJH
 
         }
 
-
         public void AddItem(InventoryItem item)
         {
             // item.itemData.SaveOriginalTransform(item.transform);
             // 아이템의 원래 트랜스폼을 저장
             InventoryItem inventoryItem = item as InventoryItem;
-            inventoryItem.RestoreScale(); // 스케일을 정상 복구 하고 Add 하기. 
 
-            if (inventoryItem.itemData.stackType == StackTypeItem.Stackable) //아이템이 스택 타입일 때 
+            // 여기서 count 증가 등의 작업 하면 될듯? 
+            if(item.itemData.stackType==StackTypeItem.Stackable)
+            {
+                itemCount++;
+                countText.text = $"{itemCount}";
+            }
+
+
+            inventoryItem.RestoreScale(); // 스케일을 정상 복구 하고 Add 하기. 
+           /* if (inventoryItem.itemData.stackType == StackTypeItem.Stackable) //아이템이 스택 타입일 때 
             {
                 if(inventoryItem.itemData.itemID == GetItemIDInSlot(slotID)) // 이미 그 slot에 아이템이 존재한다면
                 {
@@ -201,13 +207,11 @@ namespace JJH
             else // 일반적인 1개 짜리 오브젝트 타입이라면.
             {
 
-            }
+            }*/
             item.transform.SetParent(itemTransform);
 
             item.transform.localPosition = Vector3.zero; // 슬롯 위치에 딱 맞도록 로컬 포지션을 0 으로 설정
             item.transform.localRotation = Quaternion.identity;
-
-
             Rigidbody rigidbody = item.GetComponent<Rigidbody>();
             if (rigidbody != null)
             {
@@ -221,11 +225,29 @@ namespace JJH
         // 아이템 삭제 ( 꺼내기)
         public void RemoveItem(InventoryItem item)
         {
+            // 제거 시에 스택 타입이라면.
+            if(item.itemData.stackType==StackTypeItem.Stackable)
+            {
+                itemCount--;
+                countText.text = $"{itemCount}";
+                if (itemCount < 0) itemCount = 0;
+                countText.text = $" "; // 0 이면 그냥 안보이게 하자. 
+
+            }
+
+            // 제거 시에 이벤트 타입이라면
+            if(item.itemData.eventItemType==EventItemType.Event)
+            {
+                // 상속한 인터페이스를 통해 각 이벤트 아이템 마다 해야 하는 작업을 지정해주자.
+                // ex ) interface 에서 public void Use 등을 상속한다. 아마도? 
+            }
 
             if (item.transform.parent != null && gameObject.activeSelf)
             {
                 item.transform.SetParent(null); //자식 해제 --> 소켓에서 때면 자동으로 자식이 해제가 되는데요?? 
             }
+
+
             item.itemData.RestoreOriginalTransform(item.transform); //오브젝트의 실제 scale을 리턴해줌. 
             // 이게 인벤토리를 그냥 닫으면 실행되는거라 그냥 자동적으로 원래 스케일이 리턴되는듯하다. 
 
@@ -363,6 +385,24 @@ namespace JJH
             return false;
         }
 
+
+        Coroutine notAddCoroutine;
+        public void NotAddText()
+        {
+            if(notAddCoroutine == null)
+            {
+                notAddCoroutine = StartCoroutine(NotAddRoutine());
+            }
+        }
+
+        private IEnumerator NotAddRoutine()
+        {
+            notAddText.enabled = true;
+            yield return new WaitForSecondsRealtime(1f);
+            notAddText.enabled = false;
+            notAddCoroutine = null;
+
+        }
 
 
     }
