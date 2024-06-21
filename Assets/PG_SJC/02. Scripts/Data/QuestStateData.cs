@@ -17,12 +17,12 @@ namespace Jc
         public int questID;
 
         [Header("퀘스트 상태")]
-        public QuestState state;
+        public int stateNum;
 
-        public QuestStateData(int questID, QuestState state)
+        public QuestStateData(int questID, int stateNum)
         {
             this.questID = questID;
-            this.state = state;
+            this.stateNum = stateNum;
         }
     }
 }

@@ -47,7 +47,7 @@ namespace Jc
         {
             // CSVReader를 통한 csvData 읽기
             // Resources 폴더 내에 데이터 테이블이 존재해야함.
-            List<Dictionary<string, object>> csvData = CSVReader.Read(DataPath.NarrationData);
+            List<Dictionary<string, object>> csvData = CSVReader.Read(ResourcesPath.NarrationData);
             if (csvData == null || csvData.Count < 1)
             {
                 Debug.Log("나레이션 데이터가 존재하지 않습니다.");
@@ -74,7 +74,7 @@ namespace Jc
         }
         private void LoadNarrationBundleData()
         {
-            List<Dictionary<string, object>> csvData = CSVReader.Read(DataPath.NarrationBundleData);
+            List<Dictionary<string, object>> csvData = CSVReader.Read(ResourcesPath.NarrationBundleData);
             if (csvData == null || csvData.Count < 1)
             {
                 Debug.Log("나레이션 번들데이터가 존재하지 않습니다.");
@@ -107,7 +107,7 @@ namespace Jc
         }
         private void LoadQuestData()
         {
-            List<Dictionary<string, object>> csvData = CSVReader.Read(DataPath.QuestData);
+            List<Dictionary<string, object>> csvData = CSVReader.Read(ResourcesPath.QuestData);
 
             if (csvData == null || csvData.Count < 1)
             {
@@ -137,7 +137,7 @@ namespace Jc
         }
         private void LoadNPCData()
         {
-            List<Dictionary<string, object>> csvData = CSVReader.Read(DataPath.NPCData);
+            List<Dictionary<string, object>> csvData = CSVReader.Read(ResourcesPath.NPCData);
 
             if (csvData == null || csvData.Count < 1)
             {
