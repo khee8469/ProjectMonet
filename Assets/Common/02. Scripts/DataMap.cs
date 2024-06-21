@@ -20,7 +20,7 @@ namespace Jc
 
 namespace Jc
 {
-    public static class DataPath
+    public static class ResourcesPath
     {
         // 나레이션 번들 DT
         public const string NarrationBundleData = "DataTable/NarrationBundleDT";
@@ -30,5 +30,11 @@ namespace Jc
         public const string QuestData = "DataTable/QuestDT";
         // NPC DT
         public const string NPCData = "DataTable/NPCDT";
+
+        // Json 플레이어블 데이터
+        public const string JsonQuestData = "Json/Quest";
+
+        // Json 플레이어블 데이터
+        public const string JsonInventoryData = "Json/Inventory";
     }
 }
