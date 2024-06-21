@@ -1,8 +1,9 @@
 using Jc;
 using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
+using Unity.XR.CoreUtils;
 using UnityEngine;
-using JJH;
+using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace JJH
@@ -20,10 +21,33 @@ namespace JJH
 
         public bool ISGraped { get { return isGraped; } }
 
+        public Vector3 grabbedScale = new Vector3(0.01f, 0.01f, 0.01f);
+        public Vector3 originalScale;
+
+        public static UnityEvent RestoreSclaeObject = new UnityEvent();
+
+
         private void Start()
         {
             InitializeItemData();
             isGraped = false;
+
+            // 아 그냥 이거 각 오브젝트마다 시작할 때 자신의 transform을 저장하고 시작하자. 
+            originalScale = transform.localScale;
+            trackScale = false;
+
+            RestoreSclaeObject.AddListener(RestoreScale);
+
+        }
+
+        public void SaveScale()
+        {
+            itemData.SaveOriginalTransform(transform); //자신의 오브젝트의 트랜스폼을 저장해준다. 
+        }
+
+        public void RestoreScale()
+        {
+            itemData.RestoreOriginalTransform(transform);
         }
 
         private void InitializeItemData()
@@ -37,35 +61,48 @@ namespace JJH
             }*/
         }
 
-        //XR interaction을 똑같이 상속 하기 때문에 소켓에 닿앗을 때도 발동하는 문제가 발생한다. 
 
+        protected override void OnSelectEntering(SelectEnterEventArgs args)
+        {
+            base.OnSelectEntering(args);
+        }
+
+        public void AdjustScale()
+        {
+            transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
+        }
+
+        //XR interaction을 똑같이 상속 하기 때문에 소켓에 닿앗을 때도 발동하는 문제가 발생한다. 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
-            // 상호작용이 플레이어의 그랩에 의한 것인지 확인? 
-            if (args.interactorObject is XRBaseControllerInteractor) // IS로 형변환 체크 가능하면 TRUE RETURN 
+            SaveScale();
+            // 추후에 GetComponenet 등으로 한 다면 이 부분 수정 할 것. --> 최적화 필요한 부분 
+            if (args.interactorObject.transform.GetComponentInParent<XROrigin>())
             {
-                isGrabbed = true;
-                Debug.Log($"{gameObject.name} 의 그랩이 true 상태로 변경됨");
+                // 사람에게 붙잡혔을 때 해야하는 작업? 
             }
         }
-
         // 아이템이 놓이는 순간에 슬롯 안에 있는지 확인.
+        // 이거 interactor 에서 exit을 발동시킬 수 있도록 할 수가 있나? 
+        protected override void OnSelectExiting(SelectExitEventArgs args)
+        {
+            base.OnSelectExiting(args);
+            RestoreScale();
+        }
+
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
-
-            if (args.interactorObject is XRBaseControllerInteractor)
-            {
-                StartCoroutine(ExitRoutine()); // 0.7초 딜레이 
-                isGrabbed = false;
-                Debug.Log($"{gameObject.name} 의 그랩이 false상태로변경됨");
-            }
+            RestoreScale();
         }
+
+        //IsGrab 쓰게 되면 사용할 코루틴 
         private IEnumerator ExitRoutine()
         {
             yield return new WaitForSeconds(0.7f);
         }
+
 
 
     }

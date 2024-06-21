@@ -11,15 +11,16 @@ namespace JJH
         public InventoryData inventoryData = new InventoryData();
 
         // 인벤토리의 슬롯을 관리해줄 딕셔너리
-        private Dictionary<int, InventorySlot> inventorySlots
+        public Dictionary<int, InventorySlot> inventorySlots
             = new Dictionary<int, InventorySlot>();
+
 
         // 슬롯 아이디를 자동으로 할당해 주기 위한 변수
         private int currentSlotID = 0;
 
         public static UnityEvent ExitGame_InventoryEvent = new UnityEvent();
 
-        public bool isEnable = false;
+        public bool isEnable { get; set; } = false;
 
         protected override void Awake()
         {
@@ -46,6 +47,7 @@ namespace JJH
             {
                 inventorySlots.Add(slot.slotID, slot); //키가 없을 때만 삭제 
             }
+
         }
 
         // 슬롯 등록 해제하는 메서드
@@ -64,7 +66,6 @@ namespace JJH
             foreach (var slot in inventorySlots.Values) // value를 통해 InventorySlot의 값을 확인.
             {
                 InventoryItem item = null;
-
                 //모든 자식 오브젝트를 순회하여 InventoryItem 찾기
                 foreach (Transform child in slot.itemTransform)
                 {
@@ -81,11 +82,21 @@ namespace JJH
                         itemID = item.itemData.itemID,
                         itemName = item.itemData.itemName,
                         stackType = item.itemData.stackType,
-                        slotID = slot.slotID
+                        slotID = slot.slotID,
+                        itemCount =item.itemData.itemCount
+                        
+                     
                     };
+                    /*Debug.Log(data.itemID);
+                    Debug.Log(data.itemName);
+                    Debug.Log(data.stackType);
+                    Debug.Log(data.slotID);
+                    Debug.Log(data.itemCount);*/
+
                     //여기서 업데이트 된 오리지널 트랜스폼을 save 해버리는 문제가 발생하고 있다. 
-                    data.SaveOriginalTransform(item.transform);
+                    //data.SaveOriginalTransform(item.transform);
                     inventoryData.items.Add(data); //업데이트 한 값을 리스트에 저장 
+                    
                 }
             }
             SaveInventoryData(); // JSON으로 저장 --> 업데이트 이후 그 상태 저장. 

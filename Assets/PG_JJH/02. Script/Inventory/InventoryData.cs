@@ -14,7 +14,7 @@ namespace JJH
     }
 
     // 이벤트 아이템인지 체크 하는 부분은 나중에 수정하자.
-    public enum EventItem
+    public enum EventItemType
     {
         Non_Event , Event , END
     }
@@ -35,12 +35,14 @@ namespace JJH
         public string itemName; // 아이템의 이름 
         //public InventoryObjectType objectType; // 아이템의 한 손 , 두 손 , 이벤트용 
         public StackTypeItem stackType; // 겹쳐질 수 있는지의 여부 
+        public EventItemType eventItemType; //임시로 넣은 (어떻게 쓸지 몰라서 ) 이벤트 아이템용 체크 
         public int slotID; // 슬롯 ID를 저장
 
         // 실제 오브젝트를 인벤토리에 넣는 상황을 가정하여 물체의 Transform을 저장한다.
         /*public Vector3 originalPosition; // 아이템의 원래 위치 
         public Quaternion originalRotation; // 아이템의 원래 회전 값*/
         public Vector3 originalScale; // 아이템의 원래 스케일 값
+        public int itemCount; // 아이템의 스택 되어 있는 숫자. 
 
         // position 과 roatation 은 굳이 저장할 필요가 없을 듯함. --> Scale만 조정해주기 때문에.
         public void SaveOriginalTransform (Transform transform)
