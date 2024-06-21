@@ -188,11 +188,7 @@ namespace Jc
             originScaleX = transform.localScale.x;
             targetScale = transform.localScale;
             originDist = -1f;
-            //// 오브젝트의 현재 크기를 기준으로 최대 크기를 지정
-            //float extendScale = originScaleX * maxScale.x;
-            //maxScale = new Vector3(extendScale, extendScale, extendScale);
-            //// 비율 설정
-            //originRatio = originScaleX / maxScale.x;
+
         }
 
         // 인터렉터에 SelectExit 호출
@@ -224,28 +220,6 @@ namespace Jc
             {
                 StartCoroutine(ResizeRoutine());
             }
-        }
-
-        // 원복 루틴
-        IEnumerator ResetRoutine()
-        {
-            float rate = 0f;
-            Vector3 startPos = transform.position;
-            Quaternion startRot = transform.rotation;
-            Vector3 startScale = transform.localScale;
-
-            while (rate < 1f)
-            {
-                rate += Time.deltaTime;
-                transform.position = Vector3.Lerp(startPos, resetTransform.position, rate);
-                transform.rotation = Quaternion.Lerp(startRot, resetTransform.rotation, rate);
-                transform.localScale = Vector3.Lerp(startScale, resetTransform.scale, rate);
-                yield return null;
-            }
-
-            transform.position = resetTransform.position;
-            transform.rotation = resetTransform.rotation;
-            transform.localScale = resetTransform.scale;
         }
 
         IEnumerator ResizeRoutine()

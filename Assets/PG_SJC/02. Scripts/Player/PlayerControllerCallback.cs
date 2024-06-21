@@ -14,22 +14,14 @@ namespace Jc
         public InputActionReference leftXBTNRef;            // 왼손 X 버튼       
         public InputActionReference leftYBTNRef;            // 왼손 Y 버튼
 
-        public InputActionReference debugMenuBTNRef;        // 디버그용 왼손 메뉴 버튼
-        public InputActionReference debugXBTNRef;           // 디버그용 왼손 X 버튼
-        public InputActionReference debugYBTNRef;           // 디버그용 왼손 Y 버튼
-
         [Space(5)]
         [Header("오른손 Input")]
         public InputActionReference rightTriggerRef;        // 오른손 트리거     ( "" )
         public InputActionReference rightGripRef;           // 오른손 그립       ( "" )
         public InputActionReference rightOculusBTNRef;      // 오른손 오큘러스 버튼
         public InputActionReference rightABTNRef;           // 오른손 A 버튼
-        public InputActionReference rightBBTNRef;           // 오른손 B 버튼
-
-        public InputActionReference debugOculusBTNRef;      // 디버그용 오큘러스 버튼
-        public InputActionReference debugABTNRef;           // 디버그용 오른손 A 버튼
-        public InputActionReference debugBBTNRef;           // 디버그용 오른손 B 버튼
-            
+        public InputActionReference rightBBTNRef;           // 오른손 B 버튼            
+        
         private void OnEnable()
         {
             // 왼손 콜백 등록

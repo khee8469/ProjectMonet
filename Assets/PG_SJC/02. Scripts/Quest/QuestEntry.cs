@@ -37,7 +37,7 @@ namespace Jc
             // 퀘스트 제목 할당
             titleText.text = ownerQuest.QuestData.questName;
             // NPC 이름 할당
-            npcNameText.text = Manager.Quest.NPCDataDic[ownerQuest.QuestID].npcName;
+            npcNameText.text = Manager.Data.NPCDataDic[ownerQuest.QuestID].npcName;
         }
 
         public void UpdateUI()

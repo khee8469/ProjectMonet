@@ -92,12 +92,12 @@ namespace Jc
         private void LoadData()
         {
             // NPC 데이터 할당
-            if (!Manager.Quest.NPCDataDic.ContainsKey(id))
+            if (!Manager.Data.NPCDataDic.ContainsKey(id))
             {
                 Debug.Log($"{id}에 해당하는 NPC 데이터가 존재하지 않습니다.");
                 return;
             }
-            npcData = Manager.Quest.NPCDataDic[id];
+            npcData = Manager.Data.NPCDataDic[id];
 
             // 데이터에 따른 퀘스트 할당
             questIDList = npcData.questIDList;
