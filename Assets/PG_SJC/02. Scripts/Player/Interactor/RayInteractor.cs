@@ -2,6 +2,7 @@ using JJH;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace Jc
@@ -40,6 +41,8 @@ namespace Jc
 
         public InventorySlot hoveredSlot;
 
+        [Tooltip("슬롯의 이미 색 변경을 위한 Image 컴포넌트")]
+        private Image slotImage;
 
         protected override void Awake()
         {
@@ -118,13 +121,11 @@ namespace Jc
 
             if (curSlot == null)
             {
-                Debug.Log("curSlot is null");
                 return;
             }
 
             if (JJH.Manager.Inventory.isEnable == false)
             {
-                Debug.Log("Inventory is not enabled");
                 return;
             }
             if (isGrab == true)
@@ -132,38 +133,69 @@ namespace Jc
                 return;
             }
 
-            //if (currentGrabObject == null) return;
-
-            Debug.Log("꺼내기 시도");
-            // 인벤토리에서 내 손으로 옮겨줘야 하고 
-            curSlot.SetRayHovering(true);
             InventorySlot slotItem = curSlot.GetComponent<InventorySlot>();
-
-            // 이 부분도 고쳐줘야함.. 
             if (slotItem == null) return;
+            //if (currentGrabObject == null) return;
+            if (curSlot.interactablesSelected.Count <= 0) return; // 슬롯에 아이템이 하나도 없는 경우. 
+            IXRSelectInteractable xrGrab = curSlot.interactablesSelected[0];
 
-            // 꺼내는 상황은...
-            InventoryItem item = null; 
-            if (curSlot.interactablesSelected.Count>0) // 일단 있어야 꺼낼 수 있다는 것. 
+            if (!(xrGrab is InteractObject objects))
+            {
+                Debug.Log("상호작용이 불가능한 이벤트용 아이템 --> 빼기 불가능");
+                return;
+            }
+
+            curSlot.SetRayHovering(true);
+
+            InventoryItem item = null;
+            if (curSlot.interactablesSelected.Count > 0) // 일단 있어야 꺼낼 수 있다는 것. 
             {
                 IXRSelectInteractable xRSelectInteractable = curSlot.interactablesSelected[0];
 
                 if (xRSelectInteractable is InventoryItem inventoryItem)
                 {
-                    item = inventoryItem;
-                    Debug.Log(item.name+"꺼냈습니다.");
+                    item = inventoryItem; // item -> 현재 슬롯에 넣어져 있는 아이템 
 
-                    // 이 형변환 한 아이템은 이제 type 체크 하고 count 체크하고... 해야함. 
+                    // Event 아이템은 체크 할 필요가 없다 -> 어차피 interactor가 불가능하도록 설정되었기 때문에.
+
+                    if (item.itemData.stackType == StackTypeItem.Stackable) // 꺼내려는 아이템이 스택 타입이라면.
+                    {
+                        // 스택 아이템이 여러개 있는 상황이라면 (실제로 여러개가 있는게 아니기 때문에 생성을 해서 손에 붙여줘야한다.)
+                        if (slotItem.ItemCount >= 2) // 2개 이상이라면.
+                        {
+                            slotItem.MinusItemNumber();
+
+                            // 이미 잡을 수 있다는 이 ifㅣ문 안으로 들어온거 자체가 이미 xrgrab이 가능하다는 의미다.
+                            Vector3 newItemScale = item.originalScale; // 원본 아이템의 오리지널 scale을 복사해온다.
+                            GameObject newItem = Instantiate(item.gameObject, item.transform.position, item.transform.rotation);
+                            newItem.GetComponent<InventoryItem>().originalScale = newItemScale;
+                            // 오리지널 스케일 덮어써서 재설정해주기. 
+                            Debug.Log($"새롭게 생성된 오브젝트의 스케일 상태 -> {newItem.transform.localScale}");
+                            Rigidbody rb = newItem.GetComponent<Rigidbody>();//일단 키네마틱으로 해놓고. 내 손에 들어오면 kinematic 풀어준다.
+                            rb.isKinematic = true;
 
 
-                    curSlot.interactionManager.SelectEnter(this as IXRSelectInteractor, slotItem.interactablesSelected[0] as IXRSelectInteractable);
-                    curSlot.SetRayHovering(false);
-                    StartCoroutine(startHoverRouitne());
+                            //this.interactionManager.SelectEnter(this as IXRSelectInteractor, newItem as IXRSelectInteractable);
+                            rb.isKinematic = false;
+
+                        }
+                        else if (slotItem.ItemCount == 1) // 1개 라면 그냥 하던대로 작업해주면 된다. 
+                        {
+                            slotItem.MinusItemNumber();
+
+                            curSlot.interactionManager.SelectEnter(this as IXRSelectInteractor, slotItem.interactablesSelected[0] as IXRSelectInteractable);
+                            curSlot.SetRayHovering(false);
+                            Debug.Log("1개 일 때의 스택 아이템 remove");
+                        }
+                    }
+                    else if (item.itemData.stackType == StackTypeItem.Non_Stack) // 꺼내려는 아이템이 일반 아이템 이라면. 
+                    {
+                        curSlot.interactionManager.SelectEnter(this as IXRSelectInteractor, slotItem.interactablesSelected[0] as IXRSelectInteractable);
+                        curSlot.SetRayHovering(false);
+                    }
+
+                    //StartCoroutine(startHoverRouitne());
                 }
-            }
-            else // 아이템이 하나도 들어있지 않은 상황. 
-            {
-                Debug.Log("꺼낼 아이템이 없습니다.");
             }
 
         }
@@ -172,7 +204,7 @@ namespace Jc
         // 그런데 이거 작동하나? 안하는거 같은데.
         private IEnumerator startHoverRouitne()
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.7f);
         }
 
         // 인벤토리에 아이템을 < 추가 > 할 때 체크할 Exit 함수 
@@ -210,41 +242,53 @@ namespace Jc
                 return;
             }
 
-            // 아이템을 추가 할 때 슬롯에 아이템이 있다면 자신의 손으로 빼주는 로직. 
+            // 아이템을 <추가> 할 때 슬롯에 아이템이 있다면 자신의 손으로 빼주는 로직. 
             InventorySlot slotItem = curSlot.GetComponent<InventorySlot>();
-            
+
             if (slotItem != null)
             {
                 // item은 player가 들고 있는 아이템 slotItem은 현재 ray된 slot 
                 if (item.itemData.stackType == StackTypeItem.Stackable) // 아이템이 스택 타입일 때
                 {
-                    if(slotItem.interactablesSelected.Count >=1) //이미 내부에 아이템이 있을 때. (스택 타입 아이템)
+                    if (slotItem.interactablesSelected.Count >= 1) //이미 내부에 아이템이 있을 때. (스택 타입 아이템)
                     {
                         // slotID 안의 아이템 ID 체크
-                        if(item.itemData.itemID==slotItem.GetItemIDInSlot(slotItem.slotID))
+                        if (item.itemData.itemID == slotItem.GetItemIDInSlot(slotItem.slotID))
                         {
                             Debug.Log("같은 스택 아이템 추가됨.");
-                            this.interactionManager.SelectEnter(curSlot as IXRSelectInteractor, currentGrabObject as IXRSelectInteractable);
-                            // 넣은 아이템을 비활성화하던 디스트로이를 하던 무조건 뭔가 해야하고
-                            // 메시만 지우고 빈오브젝트처럼 둘 수도 있기는 하지만 그건 뭔가 애매하다.
-                            // 이게 OnExit을 못하게 막거나 뭔가 방법을 생각해야함. 
-                            // 그러면 OnEexited 하는 slot에서 item 체크를 해서 스택 타입일 때 
-                            // 
+                            // 함수를 나눠서 count를 증가 시키는 함수를 따로 만들고 destroy 하기. 
 
+                            slotItem.AddItemNumber();
+                            Destroy(item.gameObject);
+                            Debug.Log("똑같은 스택형 아이템 추가 후 아이템 파괴.");
 
-
-
-
-
-                        } 
-                        else //아이템이 다르면 (스택 아이템 일 때 )
+                        }
+                        else //내가 들고 있는 아이템이 스택형 아이템일때 slot 내부의 아이템이 다르다면. 
                         {
-                            slotItem.NotAddText();
+                            IXRSelectInteractable interactable = slotItem.interactablesSelected[0];
+                            InventoryItem slotInventoryItem = interactable.transform.GetComponent<InventoryItem>();
+
+                            if (slotInventoryItem != null)
+                            {
+                                // 이 때 슬롯 내부의 아이템이 일반 아이템이라면 ( non - stack) 교체 가능해야함. 
+                                if (slotInventoryItem.itemData.stackType == StackTypeItem.Non_Stack)
+                                {
+                                    slotItem.AddItemNumber();
+                                    this.interactionManager.SelectEnter(curSlot as IXRSelectInteractor, currentGrabObject as IXRSelectInteractable);
+                                    curSlot.interactionManager.SelectEnter(this as IXRSelectInteractor, slotItem.interactablesSelected[0] as IXRSelectInteractable);
+                                    Debug.Log("일반 아이템 꺼내고 스택형 아이템 추가함.");
+                                }
+                                else // event 형 + 다른 id를 가진 stack 아이템 이면 추가 불가능. 
+                                {
+                                    slotItem.NotAddText(); // 다른 스택형 아이템에 스택형 아이템 투입 불가능. 
+                                }
+                            }
                         }
                     }
-                    else if(slotItem.interactablesSelected.Count<=0) //내부에 아이템이 없을 때 (스택 타입 아이템)
+                    else if (slotItem.interactablesSelected.Count <= 0) //내부에 아이템이 없을 때 (스택 타입 아이템)
                     {
                         this.interactionManager.SelectEnter(curSlot as IXRSelectInteractor, currentGrabObject as IXRSelectInteractable);
+                        slotItem.AddItemNumber();
                         Debug.Log("스택 타입 아이템 빈 곳에 들어감.");
                     }
                 }
@@ -378,17 +422,17 @@ namespace Jc
                     return null;
                 else
                 {
-                    SpriteRenderer renderer = hitSlot.GetComponent<SpriteRenderer>();
-                    if (renderer != null)
-                    {
-                        renderer.color = Color.red; //임시 변경 코루틴 같은거로 바꾸기. 
-                    }
-
+                    hitSlot.slotImage.color = Color.red;
                     return hitSlot;
                 }
 
             }
-            return null;
+            else
+            {
+
+                return null;
+            }
+
         }
     }
 }

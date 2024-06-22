@@ -1,6 +1,5 @@
 using Jc;
 using System.Collections;
-using Unity.VisualScripting;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.Events;
@@ -43,11 +42,13 @@ namespace JJH
         public void SaveScale()
         {
             itemData.SaveOriginalTransform(transform); //자신의 오브젝트의 트랜스폼을 저장해준다. 
+            Debug.Log($"SaveScale 함수 ->{transform.localScale} 크기 저장");
         }
 
         public void RestoreScale()
         {
             itemData.RestoreOriginalTransform(transform);
+            Debug.Log("RestoreScale 함수 발동됨");
         }
 
         private void InitializeItemData()
@@ -79,20 +80,33 @@ namespace JJH
             // 추후에 GetComponenet 등으로 한 다면 이 부분 수정 할 것. --> 최적화 필요한 부분 
             if (args.interactorObject.transform.GetComponentInParent<XROrigin>())
             {
-                // 사람에게 붙잡혔을 때 해야하는 작업? 
+                Debug.Log("사람에게 붙잡힘.");
             }
         }
         // 아이템이 놓이는 순간에 슬롯 안에 있는지 확인.
         // 이거 interactor 에서 exit을 발동시킬 수 있도록 할 수가 있나? 
         protected override void OnSelectExiting(SelectExitEventArgs args)
         {
+            // 여기서 selected 되던 exit 하던 소켓 내부에 있는 상황이라면 ( slot과 상호작용 하고 있다면)
+            // scale의 회복을 발동 시킬 필요가 없음. 
             base.OnSelectExiting(args);
+            if (args.interactorObject.transform.GetComponent<InventorySlot>()) //슬롯과 상호작용 중이라면.
+            {
+                Debug.Log("그랩 오브젝트의 소켓과의 상호작용");
+            }
+            else
+            {
+                RestoreScale();
+                Debug.Log("소켓이 아닌 오브젝트 와의 상호작용 Exit 으로 스케일이 복구됨");
+                Debug.Log(gameObject.transform.localScale+"현재 로컬 스케일");
+            }
+
         }
 
+       
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
-            RestoreScale();
         }
 
         //IsGrab 쓰게 되면 사용할 코루틴 

@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace JJH
@@ -21,11 +22,21 @@ namespace JJH
 
         [Tooltip("아이템의 숫자를 보여줄 text")]
         [SerializeField] TextMeshProUGUI countText; // 그냥 이거 start에서 getcomponent 하고 쓰면 될듯?
+
         [Tooltip("아이템의 숫자")]
-        [SerializeField] int itemCount { get; set; }
+        private int itemCount;
+
+        public int ItemCount { get { return itemCount; }  private set { itemCount = value; } }
+       
         
         [Tooltip("넣기 불가능 text 출력")]
         [SerializeField] TextMeshProUGUI notAddText;
+
+        [Tooltip("슬롯의 이미지 컬러")]
+        [SerializeField] public Image slotImage;
+
+        [Tooltip("슬롯의 기본 이미지 색깔")]
+        private Color originalColor;
 
 
         [Tooltip("레이 닿는지 확인용")]
@@ -47,6 +58,7 @@ namespace JJH
             base.Start();
             Manager.Inventory.RegisterSlot(this); //THIS 시에 슬롯 아이디를 설정해줘야한다. 
             notAddText.enabled = false;
+            originalColor = slotImage.color;
         }
         /*protected override void OnDestroy() // 만약 슬롯이 파괴된다면
         {
@@ -85,10 +97,8 @@ namespace JJH
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
-            Debug.Log("SLOT SELECTED EXIT");
-            if (!isRayHovering) return;
-            // 에디터 끌 때 붉은색 발생하는데 어쩌죵?
             if (!Manager.Inventory.isEnable || !Application.isPlaying) return;
+            if (!isRayHovering) return;
 
             IInventory item = args.interactableObject.transform.GetComponent<IInventory>();
             if (item != null)
@@ -178,36 +188,6 @@ namespace JJH
             // 아이템의 원래 트랜스폼을 저장
             InventoryItem inventoryItem = item as InventoryItem;
 
-            // 여기서 count 증가 등의 작업 하면 될듯? 
-            if(item.itemData.stackType==StackTypeItem.Stackable)
-            {
-                itemCount++;
-                countText.text = $"{itemCount}";
-            }
-
-
-            inventoryItem.RestoreScale(); // 스케일을 정상 복구 하고 Add 하기. 
-           /* if (inventoryItem.itemData.stackType == StackTypeItem.Stackable) //아이템이 스택 타입일 때 
-            {
-                if(inventoryItem.itemData.itemID == GetItemIDInSlot(slotID)) // 이미 그 slot에 아이템이 존재한다면
-                {
-                    Debug.Log("이미 있는 곳에 스택 중첩할것.");
-                }
-                else if(hasSelection) 
-                // 스택형 아이템 일 때 그 슬롯에 id가 일치하지 않아도 아이템이 들어있을 수 있어.
-                // 그럴 때 그 아이템이 스택형이라면 --> 아무것도 하지않는다.
-                {
-
-                }
-            }
-            else if (inventoryItem.itemData.eventItemType == EventItemType.Event) // 아이템이 이벤트 타입일 때 
-            {
-
-            }
-            else // 일반적인 1개 짜리 오브젝트 타입이라면.
-            {
-
-            }*/
             item.transform.SetParent(itemTransform);
 
             item.transform.localPosition = Vector3.zero; // 슬롯 위치에 딱 맞도록 로컬 포지션을 0 으로 설정
@@ -225,15 +205,6 @@ namespace JJH
         // 아이템 삭제 ( 꺼내기)
         public void RemoveItem(InventoryItem item)
         {
-            // 제거 시에 스택 타입이라면.
-            if(item.itemData.stackType==StackTypeItem.Stackable)
-            {
-                itemCount--;
-                countText.text = $"{itemCount}";
-                if (itemCount < 0) itemCount = 0;
-                countText.text = $" "; // 0 이면 그냥 안보이게 하자. 
-
-            }
 
             // 제거 시에 이벤트 타입이라면
             if(item.itemData.eventItemType==EventItemType.Event)
@@ -248,7 +219,7 @@ namespace JJH
             }
 
 
-            item.itemData.RestoreOriginalTransform(item.transform); //오브젝트의 실제 scale을 리턴해줌. 
+            //item.itemData.RestoreOriginalTransform(item.transform); //오브젝트의 실제 scale을 리턴해줌. 
             // 이게 인벤토리를 그냥 닫으면 실행되는거라 그냥 자동적으로 원래 스케일이 리턴되는듯하다. 
 
             Rigidbody rigidbody = item.GetComponent<Rigidbody>();
@@ -310,26 +281,26 @@ namespace JJH
                                                       // 그 템을 누적해주고... 뺄 때 instantiate 하고. 추가로 막 아이템이 튀어나오면 이거 삭제해주고
                                                       // 추가로 ITEM의 id가 일치해야 스택이 가능함. 
         {
-            if (itemCount == 0) // 아직 하나도 없는 경우라면 
+            if (ItemCount == 0) // 아직 하나도 없는 경우라면 
             {
                 AddItem(item);
-                itemCount++;
-                countText.text = $"{itemCount}";
+                ItemCount++;
+                countText.text = $"{ItemCount}";
             }
-            else if (itemCount >= 1) // 1개 이상 이미 스택 아이템이 들어가 있는 경우라면 
+            else if (ItemCount >= 1) // 1개 이상 이미 스택 아이템이 들어가 있는 경우라면 
             {
-                itemCount++; // 아이템 text와 연계 
-                countText.text = $"{itemCount}";
+                ItemCount++; // 아이템 text와 연계 
+                countText.text = $"{ItemCount}";
             }
         }
         private void StackItemRemove(InventoryItem item)
         {
             if (item.itemData.stackType == StackTypeItem.Stackable)
             {
-                if (itemCount >= 2) // 2개 이상 겹쳐있는 상태 
+                if (ItemCount >= 2) // 2개 이상 겹쳐있는 상태 
                 {
                     // 그대로 오브젝트를 꺼내고
-                    itemCount--;
+                    ItemCount--;
 
                     int id = item.itemData.itemID; // Item id 등을 받아서
                     string name = item.itemData.itemName;
@@ -380,8 +351,15 @@ namespace JJH
             return -1; // slot에서 id가 겹치지 않으면 -1을 리턴한다. 
         }
 
-        public bool GetItemTypeInSlot()
+        public bool GetItemTypeInSlot(StackTypeItem itemStackType)
         {
+            Manager.Inventory.UpdateInventoryData();
+
+            foreach(var item in Manager.Inventory.inventoryData.items)
+            {
+                
+            }
+
             return false;
         }
 
@@ -404,6 +382,42 @@ namespace JJH
 
         }
 
+        public void AddItemNumber()
+        {
+            ItemCount++;
+            countText.text = $"{ItemCount}";
+
+        }
+
+        public void MinusItemNumber()
+        {
+            ItemCount--;
+            countText.text = $"{ItemCount}";
+
+            if (ItemCount <= 0)
+            {
+                ItemCount = 0;
+                countText.text = $" "; // 0 이면 그냥 안보이게 하자. 
+            }
+            
+            // 0 이라는 거는 어쨋든 아이템이 전부 빠진 상태니까 안 나오도록 고정한다. 
+        }
+
+        public void SlotRayedColor(InventorySlot slot)
+        {
+            if (slotImage != null)
+            {
+                slotImage.color = Color.yellow;
+            }
+        }
+
+        public void SlotOriginalColor(InventorySlot slot)
+        {
+            if(slotImage != null)
+            {
+                slotImage.color = originalColor;
+            }
+        }
 
     }
 }
