@@ -98,7 +98,7 @@ namespace Jc
 
                 if (current != null)
                 {
-                    current.AdjustScale();
+                    //current.AdjustScale();
                 }
             }
             else if (isGrab && JJH.Manager.Inventory.isEnable == false)
@@ -107,7 +107,7 @@ namespace Jc
 
                 if (current != null)
                 {
-                    current.RestoreScale();
+                    //current.RestoreScale();
                 }
             }
         }
@@ -168,9 +168,13 @@ namespace Jc
                             // 이미 잡을 수 있다는 이 ifㅣ문 안으로 들어온거 자체가 이미 xrgrab이 가능하다는 의미다.
                             Vector3 newItemScale = item.originalScale; // 원본 아이템의 오리지널 scale을 복사해온다.
                             GameObject newItem = Instantiate(item.gameObject, item.transform.position, item.transform.rotation);
-                            newItem.GetComponent<InventoryItem>().originalScale = newItemScale;
-                            // 오리지널 스케일 덮어써서 재설정해주기. 
-                            Debug.Log($"새롭게 생성된 오브젝트의 스케일 상태 -> {newItem.transform.localScale}");
+                            InventoryItem newInventoryItem = newItem.GetComponent<InventoryItem>();
+
+                            newInventoryItem.originalScale= newItemScale; // 오리지널 스케일 덮어써서 재설정해주기. 
+
+                            Debug.Log($"새롭게 생성된 오브젝트의 스케일 상태 -> {newInventoryItem.transform.localScale}");
+                            Debug.Log($"새롭게 생성된 오브젝트의 오리지널 스케일 필드 값 ->{newInventoryItem.originalScale}");
+
                             Rigidbody rb = newItem.GetComponent<Rigidbody>();//일단 키네마틱으로 해놓고. 내 손에 들어오면 kinematic 풀어준다.
                             rb.isKinematic = true;
 

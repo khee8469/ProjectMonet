@@ -27,8 +27,7 @@ namespace JJH
         private int itemCount;
 
         public int ItemCount { get { return itemCount; }  private set { itemCount = value; } }
-       
-        
+
         [Tooltip("넣기 불가능 text 출력")]
         [SerializeField] TextMeshProUGUI notAddText;
 
@@ -60,21 +59,11 @@ namespace JJH
             notAddText.enabled = false;
             originalColor = slotImage.color;
         }
-        /*protected override void OnDestroy() // 만약 슬롯이 파괴된다면
-        {
-            base.OnDestroy();
-            Manager.Inventory.UnregisterSlot(this);
-        }*/
-
-        public void AddSlots() // 혹시 만약 슬롯을 추가 할 일이 생긴다면...
-        {
-            Manager.Inventory.RegisterSlot(this);
-        }
-
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args); // 잡을 수 있는 아이템 체크 
+            Debug.Log($"OnSelectEntered - Scale: {args.interactableObject.transform.localScale}");
             if (Manager.Inventory.isEnable == false) return;
             if (!isRayHovering) return;
 
@@ -97,6 +86,9 @@ namespace JJH
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
+
+            Debug.Log($"OnSelectExited - Scale: {args.interactableObject.transform.localScale}");
+
             if (!Manager.Inventory.isEnable || !Application.isPlaying) return;
             if (!isRayHovering) return;
 
@@ -192,6 +184,9 @@ namespace JJH
 
             item.transform.localPosition = Vector3.zero; // 슬롯 위치에 딱 맞도록 로컬 포지션을 0 으로 설정
             item.transform.localRotation = Quaternion.identity;
+
+            // 생각해보면 add 될 때 , remove 될 때만 한 번 스케일을 조정해 볼까? 여러군대에서 하지 말고. 
+
             Rigidbody rigidbody = item.GetComponent<Rigidbody>();
             if (rigidbody != null)
             {
@@ -205,23 +200,19 @@ namespace JJH
         // 아이템 삭제 ( 꺼내기)
         public void RemoveItem(InventoryItem item)
         {
-
             // 제거 시에 이벤트 타입이라면
             if(item.itemData.eventItemType==EventItemType.Event)
             {
                 // 상속한 인터페이스를 통해 각 이벤트 아이템 마다 해야 하는 작업을 지정해주자.
                 // ex ) interface 에서 public void Use 등을 상속한다. 아마도? 
             }
-
             if (item.transform.parent != null && gameObject.activeSelf)
             {
                 item.transform.SetParent(null); //자식 해제 --> 소켓에서 때면 자동으로 자식이 해제가 되는데요?? 
             }
 
-
             //item.itemData.RestoreOriginalTransform(item.transform); //오브젝트의 실제 scale을 리턴해줌. 
             // 이게 인벤토리를 그냥 닫으면 실행되는거라 그냥 자동적으로 원래 스케일이 리턴되는듯하다. 
-
             Rigidbody rigidbody = item.GetComponent<Rigidbody>();
 
             if (rigidbody != null)
@@ -230,50 +221,11 @@ namespace JJH
             }
 
             Manager.Inventory.UpdateInventoryData(); // 인벤토리 데이터를 업데이트
-
         }
 
         private IEnumerator DetachAndRestore()
         {
             yield return new WaitForEndOfFrame(); // 부모 오브젝트의 상태 변경 후 한 프레임 대기
-        }
-
-
-        private void ItemState() // 아이템의 상태 -> 중력 , 콜라이더 등등의 컴포넌트를 변경해줄 함수.
-        {
-
-        }
-
-        private void ResizeItemToFitSlot(Transform itemTransform)
-        {
-            // 슬롯의 크기를 구하기 위해 슬롯의 bounds를 사용
-            Renderer slotRenderer = GetComponent<Renderer>();
-            Vector3 slotSize = slotRenderer.bounds.size;
-            Debug.Log($"슬롯의 크기: {slotSize}");
-
-            Renderer itemRenderer = itemTransform.GetComponent<Renderer>();
-            if (itemRenderer != null)
-            {
-                Vector3 itemSize = itemRenderer.bounds.size;
-                Debug.Log($"아이템의 크기: {itemSize}");
-
-                // Z축 크기는 무시하고 X, Y 축만을 고려하여 스케일을 조정
-                float scaleFactorX = slotSize.x / itemSize.x;
-                float scaleFactorY = slotSize.y / itemSize.y;
-                float scaleFactor = Mathf.Min(scaleFactorX, scaleFactorY);
-
-                Debug.Log($"스케일 팩터 크기 {scaleFactor}");
-
-                // 여기서 아이템의 트랜스폼도 x y 만 하고 싶은데 그게 반영이 된건지 모르겠네... 
-                Vector3 newLocalScale = itemTransform.localScale * scaleFactor;
-                newLocalScale.z = itemTransform.localScale.z; // Z축 크기 유지
-                itemTransform.localScale = newLocalScale;
-                Debug.Log($"조정된 아이템 로컬 스케일: {itemTransform.localScale}");
-            }
-            else
-            {
-                //Debug.LogWarning("아이템에 Renderer 컴포넌트가 없습니다.");
-            }
         }
 
         // 스택용 아이템을 위한 추가 함수 --> IF문 분기 등으로 체크해주기. 
@@ -351,19 +303,6 @@ namespace JJH
             return -1; // slot에서 id가 겹치지 않으면 -1을 리턴한다. 
         }
 
-        public bool GetItemTypeInSlot(StackTypeItem itemStackType)
-        {
-            Manager.Inventory.UpdateInventoryData();
-
-            foreach(var item in Manager.Inventory.inventoryData.items)
-            {
-                
-            }
-
-            return false;
-        }
-
-
         Coroutine notAddCoroutine;
         public void NotAddText()
         {
@@ -401,22 +340,6 @@ namespace JJH
             }
             
             // 0 이라는 거는 어쨋든 아이템이 전부 빠진 상태니까 안 나오도록 고정한다. 
-        }
-
-        public void SlotRayedColor(InventorySlot slot)
-        {
-            if (slotImage != null)
-            {
-                slotImage.color = Color.yellow;
-            }
-        }
-
-        public void SlotOriginalColor(InventorySlot slot)
-        {
-            if(slotImage != null)
-            {
-                slotImage.color = originalColor;
-            }
         }
 
     }

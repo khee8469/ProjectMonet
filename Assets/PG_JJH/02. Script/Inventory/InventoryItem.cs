@@ -20,11 +20,11 @@ namespace JJH
 
         public bool ISGraped { get { return isGraped; } }
 
-        public Vector3 grabbedScale = new Vector3(0.01f, 0.01f, 0.01f);
         public Vector3 originalScale;
 
         public static UnityEvent RestoreSclaeObject = new UnityEvent();
 
+        public new Renderer renderer;
 
         private void Start()
         {
@@ -33,21 +33,20 @@ namespace JJH
 
             // 아 그냥 이거 각 오브젝트마다 시작할 때 자신의 transform을 저장하고 시작하자. 
             originalScale = transform.localScale;
-            trackScale = false;
-
-            RestoreSclaeObject.AddListener(RestoreScale);
-            SaveScale();
+            //SaveScale();
+            renderer= GetComponent<Renderer>();
+            Debug.Log(renderer.bounds.size + "오브젝트들의 사이즈 체크");
         }
 
         public void SaveScale()
         {
-            itemData.SaveOriginalTransform(transform); //자신의 오브젝트의 트랜스폼을 저장해준다. 
-            Debug.Log($"SaveScale 함수 ->{transform.localScale} 크기 저장");
+            // 시작 시의 자신의 로컬 스케일을 저장한다. 
+            //itemData.SaveOriginalTransform(transform); //자신의 오브젝트의 트랜스폼을 저장해준다. 
+            
         }
-
         public void RestoreScale()
         {
-            itemData.RestoreOriginalTransform(transform);
+            //itemData.RestoreOriginalTransform(transform);
             Debug.Log("RestoreScale 함수 발동됨");
         }
 
@@ -92,13 +91,12 @@ namespace JJH
             base.OnSelectExiting(args);
             if (args.interactorObject.transform.GetComponent<InventorySlot>()) //슬롯과 상호작용 중이라면.
             {
-                Debug.Log("그랩 오브젝트의 소켓과의 상호작용");
+                
             }
             else
             {
-                RestoreScale();
+                //RestoreScale();
                 Debug.Log("소켓이 아닌 오브젝트 와의 상호작용 Exit 으로 스케일이 복구됨");
-                Debug.Log(gameObject.transform.localScale+"현재 로컬 스케일");
             }
 
         }

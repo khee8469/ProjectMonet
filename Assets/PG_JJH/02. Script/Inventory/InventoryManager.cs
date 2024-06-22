@@ -164,37 +164,7 @@ namespace JJH
             UpdateInventoryData(); // 현재 인벤토리의 상태를 저장한다. 게임종료 또는 저장 후 종료 등에 실시한다.
         }
 
-        // 슬롯의 크기에 맞춰 아이템 크기를 조정하는 메서드 (다시 프리팹을 생성해 줄 때 이 슬롯 크기에 맞춰야한다.
-        private void ResizeItemToFitSlot(Transform itemTransform, InventorySlot slot)
-        {
-            itemTransform.localScale = Vector3.one;
-            Debug.Log($"아이템트랜스폼의 로컬 스케일 -> 1로 초기화: {itemTransform.localScale}");
-
-            // 슬롯의 크기를 구하기 위해 슬롯의 bounds를 사용
-            Renderer slotRenderer = slot.GetComponent<Renderer>();
-            Vector3 slotSize = slotRenderer.bounds.size;
-            Debug.Log($"슬롯의 크기: {slotSize}");
-
-            Renderer itemRenderer = itemTransform.GetComponent<Renderer>();
-            if (itemRenderer != null)
-            {
-                Vector3 itemSize = itemRenderer.bounds.size;
-                Debug.Log($"아이템의 크기: {itemSize}");
-
-                float scaleFactorX = slotSize.x / itemSize.x;
-                float scaleFactorY = slotSize.y / itemSize.y;
-                float scaleFactor = Mathf.Min(scaleFactorX, scaleFactorY);
-                Debug.Log($"스케일 팩터: {scaleFactor}");
-
-                Vector3 newLocalScale = itemTransform.localScale * scaleFactor;
-                itemTransform.localScale = newLocalScale;
-                Debug.Log($"조정된 아이템 로컬 스케일: {itemTransform.localScale}");
-            }
-            else
-            {
-                Debug.LogWarning("아이템에 Renderer 컴포넌트가 없습니다.");
-            }
-        }
+       
     }
 }
 
