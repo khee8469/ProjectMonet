@@ -18,7 +18,6 @@ public class Pallet : InteractObject
     {
         if (layer.Contain(collision.gameObject.layer))
         {
-            Debug.Log("생성");
             //충돌체의 색타입으로 변경하여 생성
             paint.paintType = collision.gameObject.GetComponent<Paint>().paintType;
             //떨어진 위치

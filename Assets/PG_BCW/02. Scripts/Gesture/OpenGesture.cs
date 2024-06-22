@@ -20,8 +20,6 @@ public class OpenGesture : Gesture
 
     public override void LeftGestureEnter()
     {
-        Debug.Log("왼손손펴기");
-
         // 저장된 손 오브젝트 놓기
         if (LeftHandInteractor.hasSelection)
         {
@@ -38,7 +36,6 @@ public class OpenGesture : Gesture
 
     public override void RightGestureEnter()
     {
-        Debug.Log("오른손손펴기");
         // 저장된 손 오브젝트 놓기
         if (RightHandInteractor.hasSelection)
         {
