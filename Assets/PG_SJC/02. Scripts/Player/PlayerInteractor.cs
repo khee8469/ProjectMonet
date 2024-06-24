@@ -106,13 +106,12 @@ namespace Jc
         {
             JJH.Manager.Inventory.isEnable = isEnable;
             isEnablePopUp = isEnable;
-            popUpCanvas.SetActive(isEnable);
 
             // 활성화 시 메인 카메라 트랜스폼을 추적
             if (isEnable)
-                popUpCanvas.transform.parent = mainCam;
+                Manager.UI.OpenInfoGroup();
             else
-                popUpCanvas.transform.parent = Manager.PlableData.transform;
+                Manager.UI.CloseInfoGroup();
         }
     }
 }
