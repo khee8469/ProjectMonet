@@ -1,3 +1,4 @@
+using Jc;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,43 +17,93 @@ namespace JJH
         public Dictionary<int, InventorySlot> inventorySlots
             = new Dictionary<int, InventorySlot>();
 
+        // item_id, 프리팹 매칭
+        public Dictionary<int , InventoryItem> itemPrefabDic = new Dictionary<int , InventoryItem>();
+
 
         // 슬롯 아이디를 자동으로 할당해 주기 위한 변수
         private int currentSlotID = 0;
 
         public static UnityEvent ExitGame_InventoryEvent = new UnityEvent();
 
-        public bool isEnable { get; set; } = false;
+        [SerializeField]
+        private int maxSlotCount;
+        public bool isEnable { get; set; } = true;
 
         protected override void Awake()
         {
             // 저장 후 종료 등. 
             base.Awake();
             ExitGame_InventoryEvent.AddListener(ExitGameSave); // 게임 종료시에 인벤토리 저장 필요.
+            // 리소스 등록 (프리팹)
+            RegistItemResource();
+            // 데이터 로드
 
         }
 
         private void Start()
         {
-            /*LoadInventoryData(); // 싱글턴 이므로 게임 시작시 인벤토리 데이터를 Load 
-            RestoreItemInScene();*/
 
         }
+
+        private void RegistItemResource()
+        {
+            itemPrefabDic = new Dictionary<int, InventoryItem>();
+            InventoryItem [] items = Resources.LoadAll<InventoryItem>($"Items");
+
+            foreach(var i in items)
+            {
+                if (itemPrefabDic.ContainsKey(i.itemData.itemID)) continue;
+
+                itemPrefabDic.Add(i.itemData.itemID, i);
+            }
+        }
+
+        /*private void Start()
+        {
+            *//*LoadInventoryData(); // 싱글턴 이므로 게임 시작시 인벤토리 데이터를 Load 
+            RestoreItemInScene();*//*
+
+        }*/
         // 슬롯을 등록하는 메서드 --> 슬롯과 매니저의 순서를 맞추기 위해서. 딕셔너리의 key를 이용한다. 
         public void RegisterSlot(InventorySlot slot) // 슬롯에서 불러서 id 이용해서 list와 맞춘다.
         {
-            if (slot.slotID == -1)
-            {
-                Debug.Log("Manager의 Register 등록됨");
-                slot.slotID = currentSlotID++; // 할당 후 +1 
-            }
-
             if (!inventorySlots.ContainsKey(slot.slotID))
             {
-                Debug.Log(" slot 키 할당됨."); // 이게 지금 
                 inventorySlots.Add(slot.slotID, slot); //키가 없을 때만 삭제 
+                maxSlotCount--;
+
+                if(maxSlotCount <= 0)
+                {
+                    LoadSlot();
+                }
+            }
+        }
+
+        private void LoadSlot()
+        {
+            Manager.PlableData.InitSlot();
+
+            foreach (SlotData slotData in Manager.PlableData.InventorySlotDatas)
+            {
+                if (slotData.id_item == -1) continue;
+
+                InventorySlot slot = Manager.Inventory.inventorySlots[slotData.id_slot];
+                InventoryItem item = Instantiate(Manager.Inventory.itemPrefabDic[slotData.id_item]);
+
+                Debug.Log("item prefab 생성"+item.name);
+
+                // 이 해당 슬롯에 이제 해당하는 item id 값을 가진 프리팹을 붙여준다.
+                slot.SetRayHovering(true);
+                slot.interactionManager.SelectEnter(slot as IXRSelectInteractor, item as IXRSelectInteractable);
+                slot.AddItem(item);
+                for (int i = 0; i < slotData.count; i++)
+                {
+                    slot.AddItemNumber();
+                }
             }
 
+            Manager.UI.CloseInfoGroup();
         }
 
         private void Update()
@@ -70,8 +121,6 @@ namespace JJH
                 RestoreItemInScene();
             }
         }
-
-
 
         // 슬롯 등록 해제하는 메서드
         public void UnregisterSlot(InventorySlot slot)
@@ -98,6 +147,7 @@ namespace JJH
                         break;
                     }
                 }
+
                 if (item != null)
                 {
                     InvenItem data = new InvenItem
@@ -109,6 +159,7 @@ namespace JJH
                         itemCount =item.itemData.itemCount
 
                     };
+
                     Debug.Log(data.itemID);
                     Debug.Log(data.itemName);
                     Debug.Log(data.stackType);
@@ -213,7 +264,7 @@ namespace JJH
             UpdateInventoryData(); // 현재 인벤토리의 상태를 저장한다. 게임종료 또는 저장 후 종료 등에 실시한다.
         }
 
-       
+
     }
 }
 

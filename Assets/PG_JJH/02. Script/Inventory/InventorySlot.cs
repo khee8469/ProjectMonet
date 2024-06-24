@@ -1,9 +1,10 @@
+using JetBrains.Annotations;
 using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
-
+using Jc;
 namespace JJH
 {
     public class InventorySlot : XRSocketInteractor
@@ -13,6 +14,10 @@ namespace JJH
         // 인벤토리에 넣는 함수 --> 이 슬롯은 player에게 붙어있기 때문에 매 씬 마다 같이 start를 돈다.
         // 그 부분을 염두에 두고 데이터를 연계하자. 
 
+        [Tooltip("아이템의 id")]
+        [SerializeField] 
+        private int itemID = -1; //슬롯에 아무것도 없으면 -1 할당.
+        public int ItemID { get { return itemID; } }
         [Tooltip("슬롯 자신의 Transform")]
         public Transform itemTransform; // 아이템의 크기 조절을 위한 트랜스폼
         // 아이템 슬롯의 ID --> -1 로 설정 하여 MANAGER에서 자동할당 시킨다. 
@@ -47,6 +52,8 @@ namespace JJH
         protected override void Awake() // 이거 처음부터 active false로 있는 상태면 Awake도 발동안함. 켜야 발동됨. 
         {
             base.Awake();
+            itemID = -1;
+            Debug.Log("아이템 아이디 ->" + itemID);
             slotData = new SlotData();
             countText = GetComponentInChildren<TextMeshProUGUI>();
             countText.text = $" ";
@@ -71,8 +78,10 @@ namespace JJH
             base.OnSelectEntered(args); // 잡을 수 있는 아이템 체크 
             
             Debug.Log($"OnSelectEntered - Scale: {args.interactableObject.transform.localScale}");
-            if (Manager.Inventory.isEnable == false) return;
-            if (!isRayHovering) return;
+            if (Manager.Inventory.isEnable == false) 
+                return;
+            if (!isRayHovering) 
+                return;
 
             IInventory item = args.interactableObject.transform.GetComponent<IInventory>();
 
@@ -91,7 +100,7 @@ namespace JJH
             {
                 if (InventoryAddFailure != null)
                 {
-                    Manager.Sound.PlaySFX(InventoryAddFailure); // 노란 오류 발생 방지
+                    //Manager.Sound.PlaySFX(InventoryAddFailure); // 노란 오류 발생 방지
                 }
             }
         }
@@ -189,7 +198,8 @@ namespace JJH
 
         public override bool CanSelect(IXRSelectInteractable interactable)
         {
-            if (!isRayHovering) return false;
+            if (!isRayHovering) 
+                return false;
 
             return base.CanSelect(interactable);
         }
@@ -231,8 +241,9 @@ namespace JJH
             //Add 했으면 색 깔 변경? 
             slotImage.color = Color.yellow;
 
+            itemID = item.itemData.itemID;
 
-            Manager.Inventory.UpdateInventoryData();
+            //Manager.Inventory.UpdateInventoryData();
         }
 
         // 아이템 삭제 ( 꺼내기)
@@ -262,7 +273,9 @@ namespace JJH
 
             slotImage.color = originalColor;
 
-            Manager.Inventory.UpdateInventoryData(); // 인벤토리 데이터를 업데이트
+            itemID = -1;
+
+            //Manager.Inventory.UpdateInventoryData(); // 인벤토리 데이터를 업데이트
         }
 
         private IEnumerator DetachAndRestore()
@@ -330,7 +343,7 @@ namespace JJH
         }
 
 
-        public int GetItemIDInSlot(int slotID)
+        public int GetItemIDInSlot(int slotID) // 이 부분 SLOT ID FOR문 안돌릴 수 있도록 수정하기. 
         {
             Manager.Inventory.UpdateInventoryData(); //인벤토리 최신화
 
@@ -363,18 +376,18 @@ namespace JJH
 
         }
 
-        public void AddItemNumber(InventoryItem item)
+        public void AddItemNumber()
         {
             ItemCount++;
             countText.text = $"{ItemCount}";
 
-            item.itemData.itemCount = ItemCount; // itemdata의 카운트는 현재 슬롯의 카운트와 같다.
+            //item.itemData.itemCount = ItemCount; // itemdata의 카운트는 현재 슬롯의 카운트와 같다.
 
-            Debug.Log($"Plus 저장된 아이템의 카운트 data ->{item.itemData.itemCount}");
+            //Debug.Log($"Plus 저장된 아이템의 카운트 data ->{item.itemData.itemCount}");
 
         }
 
-        public void MinusItemNumber(InventoryItem item)
+        public void MinusItemNumber()
         {
             ItemCount--;
             countText.text = $"{ItemCount}";
@@ -384,9 +397,6 @@ namespace JJH
                 ItemCount = 0;
                 countText.text = $" "; // 0 이면 그냥 안보이게 하자. 
             }
-
-            Debug.Log($"Minus 저장된 아이템의 카운트 data ->{item.itemData.itemCount}");
-            item.itemData.itemCount = ItemCount;
             
             // 0 이라는 거는 어쨋든 아이템이 전부 빠진 상태니까 안 나오도록 고정한다. 
         }

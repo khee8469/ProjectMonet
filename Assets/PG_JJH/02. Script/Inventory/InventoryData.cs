@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using JJH;
+using System;
 
 namespace JJH
 {
@@ -84,11 +85,22 @@ namespace JJH
 
     }
 
+    [Serializable]
     public struct SlotData
     {
-        public int id;
-        public int itemCount;
+        [Header("슬롯id")]
+        public int id_slot;
+        [Header("아이템id")]
+        public int id_item;
+        [Header("갯순id")]
+        public int count;
 
+        public SlotData(int id_slot, int id_item, int count)
+        {
+            this.id_slot = id_slot;
+            this.id_item = id_item;
+            this.count = count;
+        }
     }
 }
 
