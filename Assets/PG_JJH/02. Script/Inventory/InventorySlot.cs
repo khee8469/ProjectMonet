@@ -63,18 +63,22 @@ namespace JJH
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args); // 잡을 수 있는 아이템 체크 
+            
             Debug.Log($"OnSelectEntered - Scale: {args.interactableObject.transform.localScale}");
             if (Manager.Inventory.isEnable == false) return;
             if (!isRayHovering) return;
 
             IInventory item = args.interactableObject.transform.GetComponent<IInventory>();
 
+            
             if (item != null)
             {
                 if (item is InventoryItem)
                 {
                     Debug.Log($"[CustomXRSocketInteractor] OnSelectEntered - Before Scaling: {args.interactableObject.transform.localScale}");
-                    AddItem(item as InventoryItem);
+                    InventoryItem inventoryItem = item as InventoryItem;
+                    inventoryItem.transform.SetParent(itemTransform); // 아 이 자식으로 만드는 위치를 어디서 해줘야 될지 너무 고민되는데... 
+                    AddItem(inventoryItem);
                 }
             }
             else
@@ -116,7 +120,7 @@ namespace JJH
             if (item != null)
             {
                 InventoryItem inventoryItem = item as InventoryItem;
-                inventoryItem.transform.SetParent(itemTransform);
+                
                 Debug.Log($"[CustomXRSocketInteractor] OnSelectEntering - Initial Scale: {args.interactableObject.transform.localScale}");
                 // 리스토어가 먼지인지 이게 먼저이지 확인할것. 
                 Debug.Log("Entering 이벤트에서 item 체크");

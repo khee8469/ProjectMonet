@@ -175,11 +175,15 @@ namespace Jc
 
                             newInventoryItem.originalScale= newItemScale; // 오리지널 스케일 덮어써서 재설정해주기. 
 
+                            Debug.Log("저장될 슬롯에 있는 아이템의 오리지널 스케일" + newItemScale);
                             Debug.Log($"새롭게 생성된 오브젝트의 스케일 상태 -> {newInventoryItem.transform.localScale}");
                             Debug.Log($"새롭게 생성된 오브젝트의 오리지널 스케일 필드 값 ->{newInventoryItem.originalScale}");
 
-                            Rigidbody rb = newInventoryItem.GetComponent<Rigidbody>();//일단 키네마틱으로 해놓고. 내 손에 들어오면 kinematic 풀어준다.
-                            rb.isKinematic = true;
+                            newInventoryItem.transform.localScale= newItemScale;
+                            newInventoryItem.SaveScale(); // 세이브를 다시 저장? 
+
+                            Rigidbody rb = newInventoryItem.GetComponent<Rigidbody>();
+                            rb.isKinematic = true; // 어차피 손에 붙으면 자동으로 kinematic 된다. 
                             
                             this.interactionManager.SelectEnter(this as IXRSelectInteractor, newInventoryItem as IXRSelectInteractable);
                             rb.isKinematic = false;

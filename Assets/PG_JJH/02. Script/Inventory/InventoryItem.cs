@@ -1,6 +1,5 @@
 using Jc;
 using System.Collections;
-using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -32,10 +31,16 @@ namespace JJH
         [Tooltip(" 소켓에 들어갔을 때 조정 해 줄 아이템의 스케일...")]
         [SerializeField] private Vector3 socketScale;
 
-        public Vector3 SocketScale { get { return socketScale; } private set { socketScale = value; }  }
+        public Vector3 SocketScale { get { return socketScale; } private set { socketScale = value; } }
 
-        
-        
+
+        protected override void Awake()
+        {
+            base.Awake();
+            originalScale = transform.localScale;
+
+        }
+
         private void Start()
         {
             InitializeItemData();
@@ -43,19 +48,20 @@ namespace JJH
             rigid = GetComponent<Rigidbody>();
 
             // 아 그냥 이거 각 오브젝트마다 시작할 때 자신의 transform을 저장하고 시작하자. 
-            originalScale = transform.localScale;
-            SaveScale();
-            renderer= GetComponent<Renderer>();
+
+            renderer = GetComponent<Renderer>();
             //Debug.Log(renderer.bounds.size + "오브젝트들의 사이즈 체크 --> bound. size");
 
             trackScale = false; //스케일 조정을 위한 트랙 스케일 제거.
+            SaveScale();
         }
 
         public void SaveScale()
         {
             // 시작 시의 자신의 로컬 스케일을 저장한다. 
+            transform.localScale = originalScale;
             itemData.SaveOriginalTransform(transform); //자신의 오브젝트의 트랜스폼을 저장해준다. 
-            
+
         }
         public void RestoreScale()
         {
@@ -89,7 +95,7 @@ namespace JJH
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
-            
+
         }
         // 아이템이 놓이는 순간에 슬롯 안에 있는지 확인.
         // 이거 interactor 에서 exit을 발동시킬 수 있도록 할 수가 있나? 
@@ -100,23 +106,21 @@ namespace JJH
             base.OnSelectExiting(args);
             if (args.interactorObject.transform.GetComponent<InventorySlot>()) //슬롯과 상호작용 중이라면.
             {
-                
+
             }
             else
             {
                 RestoreScale();
                 Debug.Log("소켓이 아닌 오브젝트 와의 상호작용 Exit 으로 스케일이 복구됨");
 
-                if(rigid.isKinematic==true)
-                {
-                    rigid.isKinematic = false;
-                    Debug.Log("키네마틱 해제 시킴");
-                }
+                rigid.isKinematic = false;
+                rigid.useGravity = true;
+
             }
 
         }
 
-       
+
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
