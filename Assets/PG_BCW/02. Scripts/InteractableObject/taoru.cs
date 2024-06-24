@@ -9,6 +9,8 @@ using System;
 
 public class taoru : InteractObject
 {
+    //닦은 구역 표시하기
+
     [Tooltip("그리기를 허용할 레이어 마스크")]
     [SerializeField] private LayerMask targetLayer;
 
@@ -41,7 +43,7 @@ public class taoru : InteractObject
         if (isSelecting )
         {
             Cleaning();
-            Debug.Log("청소중");
+            //Debug.Log("청소중");
         }
             
     }
@@ -109,38 +111,4 @@ public class taoru : InteractObject
             }
         }
     }
-
-
-    /*[Tooltip("대상 오브젝트")]
-    [SerializeField] private GameObject targetObject;
-
-    private float objectArea;
-    private float lineCoveredArea;
-
-    private void Start()
-    {
-        objectArea = CalculateObjectArea(targetObject);
-    }
-
-    private float CalculateObjectArea(GameObject obj)
-    {
-        // 예를 들어, 평면 오브젝트의 경우
-        var mesh = obj.GetComponent<MeshFilter>().mesh;
-        var bounds = mesh.bounds;
-        return bounds.size.x * bounds.size.z;
-    }
-
-    private void CalculateCoveredPercentage()
-    {
-        float coveredPercentage = (lineCoveredArea / objectArea) * 100f;
-        Debug.Log($"Covered Area: {coveredPercentage}%");
-    }*/
-
-
-    /*private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-
-        Gizmos.DrawLine(transform.position, Vector3.down);
-    }*/
 }
