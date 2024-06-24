@@ -21,7 +21,7 @@ namespace Jc
         [Tooltip("퀘스트 상태")]
         [SerializeField]
         protected QuestState state;
-        public QuestState State { get { return state; } }
+        public QuestState State { get { return state; } set { state = value; } }
 
         [Tooltip("퀘스트 데이터")]
         [SerializeField]
@@ -58,6 +58,9 @@ namespace Jc
                     DisActiveQuest();
                     break;
             }
+
+            // 퀘스트의 상태가 변경될 때마다 데이터 저장
+            Manager.PlableData.SaveQuestData();
         }
 
         // 다음 퀘스트 활성화
