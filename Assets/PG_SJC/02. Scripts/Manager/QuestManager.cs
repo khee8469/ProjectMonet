@@ -4,6 +4,7 @@ using System.Xml;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
+using static UnityEngine.EventSystems.EventTrigger;
 
 namespace Jc
 {    
@@ -20,9 +21,6 @@ namespace Jc
         [SerializeField]
         private Dictionary<int, Quest> questDic;    // 퀘스트 리소스 (ID 매핑)
         public Dictionary<int, Quest> QuestDic { get { return questDic; } }
-
-        [SerializeField]
-        private GameObject questEntry; 
 
         protected override void Awake()
         {
@@ -117,15 +115,6 @@ namespace Jc
             }
 
             return questDic[id];
-        }
-
-        public void CreateEntry(Quest quest)
-        {
-
-        }
-        public void RemoveEntry(Quest quest)
-        {
-
         }
     }
 }
