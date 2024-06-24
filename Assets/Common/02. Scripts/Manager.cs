@@ -12,6 +12,7 @@ public static class Manager
     public static LayerManager Layer { get { return LayerManager.Instance; } }
     public static DataManager Data { get { return DataManager.Instance; } }
     public static QuestManager Quest { get { return QuestManager.Instance; } }
+    public static PlableDataManager PlableData { get { return PlableDataManager.Instance;}}
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void Initialize()
@@ -23,7 +24,7 @@ public static class Manager
         LayerManager.ReleaseInstance();
         QuestManager.ReleaseInstance();
         DataManager.ReleaseInstance();
-
+        PlableDataManager.ReleaseInstance();
 
         // 싱글턴 객체생성
         CameraManager.CreateInstance();
@@ -32,5 +33,6 @@ public static class Manager
         LayerManager.CreateInstance();
         DataManager.CreateInstance();
         QuestManager.CreateInstance();
+        PlableDataManager.CreateInstance();
     }
 }
