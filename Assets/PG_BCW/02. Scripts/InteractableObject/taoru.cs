@@ -9,39 +9,32 @@ using System;
 
 public class taoru : InteractObject
 {
-    [Tooltip("해당 캔버스와 관련된 참조")]
-    private DrawObjectManager drawManager;
-
     [Tooltip("그리기를 허용할 레이어 마스크")]
-    [SerializeField] private LayerMask drawingLayer;
+    [SerializeField] private LayerMask targetLayer;
 
     [Tooltip("닦아지는 거리")]
     [SerializeField] float rayDistance;
-    
-    [Tooltip("그려줄 라인 렌더러")]
-    [SerializeField] private LineRenderer currentDrawing;
+
+    [Tooltip("생성되는 라인렌더러")]
+    private LineRenderer lineRenderer;
 
     [Tooltip("Defalut-Line 으로 설정할 것")]
     public Material drawingMaterial;
 
-    [Tooltip("라인렌더러의 포지션 위한 인덱스")]
+    [Tooltip("라인렌더러 굵기")]
+    [Range(0f, 1f)]
+    [SerializeField] private float width;
+
+    [Tooltip("라인렌더러 index")]
     [SerializeField] private int index;
 
-    [Tooltip("펜의 크기 조절 기능")]
-    [Range(0.01f, 0.1f)] public float penWidth = 0.01f;
-
-    [Tooltip("박스의 크기")]
-    public Vector3 boxSize = new Vector3(0.1f, 0.1f, 0.1f);
-
-    [Tooltip("박스의 방향")]
-    public Quaternion boxOrientation = Quaternion.identity;
-
     [Tooltip("Noraml 벡터 크기")]
-    private float NormalDis = 0.01f;
-    //잡으면 레이로 책상을 확인하는 이벤트 시작
+    [SerializeField] private float NormalDis;
 
+    [Tooltip("오브젝트를 잡았는지 확인용")]
     private bool isSelecting;
-    //private bool 
+
+    private HashSet<Vector3> uniquePositions = new HashSet<Vector3>();
 
     private void Update()
     {
@@ -67,70 +60,87 @@ public class taoru : InteractObject
         isSelecting = false;
     }
 
-
     private void Cleaning()
     {
         RaycastHit hit;
 
-        if (Physics.BoxCast(transform.position, boxSize, transform.forward, out hit, boxOrientation, rayDistance, drawingLayer))
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, rayDistance, targetLayer))
         {
-            Debug.DrawRay(transform.position, transform.forward * rayDistance, Color.red);
-
-            Vector3 drawPosition = hit.point + hit.normal * NormalDis;
-            Debug.Log("칠하는중");
-
-            if (currentDrawing == null) //이 부분에서 현재 물감에 알맞는 색상으로 만들어줘야 할 것 같아. 
+            if (lineRenderer == null) //이 부분에서 현재 물감에 알맞는 색상으로 만들어줘야 할 것 같아. 
             {
-                index = 0;
-
+                //오브젝트 생성
                 GameObject lineObj = new GameObject("Line");
-
-                lineObj.transform.position = transform.position;
-                currentDrawing = lineObj.AddComponent<LineRenderer>();
-
-                currentDrawing.material = new Material(drawingMaterial);
+                //오브젝트 위치 지정
+                lineObj.transform.position = hit.point + hit.normal * 0.01f;
+                lineObj.transform.rotation = Quaternion.identity;
+                //라인렌더러 추가
+                lineRenderer = lineObj.AddComponent<LineRenderer>();
+                //라인렌더러 메터리얼 지정
+                lineRenderer.material = new Material(drawingMaterial);
+                //라인렌더러를 바닥과 일치하게 만들기
+                lineRenderer.alignment = LineAlignment.TransformZ;
+                lineRenderer.transform.rotation = Quaternion.Euler(90, 0, 0);
 
                 // 현재 색상 설정
-                currentDrawing.material.color = Color.clear;
+                lineRenderer.material.color = Color.blue;
+                //일정한 굵기
+                lineRenderer.startWidth = lineRenderer.endWidth = width; 
+                //굴곡
+                lineRenderer.numCornerVertices = 0;
+                lineRenderer.numCapVertices = 0;
 
-                currentDrawing.startWidth = currentDrawing.endWidth = penWidth; //일정한 굵기. 
+                //렌더러 넘버당 위치 지정
+                lineRenderer.positionCount = 1; // 시작 포지션 카운트 1
+                lineRenderer.SetPosition(0, hit.point + hit.normal * 0.001f);
 
-                currentDrawing.positionCount = 1; // 시작 포지션 카운트 1
-
-                currentDrawing.SetPosition(0, drawPosition);
-
-                drawManager.AddLineRenderer(currentDrawing, penWidth);
-
-                //lineList.Add(lineObj);
-
-                Vector2Int pixelPosition = drawManager.WorldToPixel(drawPosition);
-
-                
             }
-
-            else //생성된 경우. 
+            else // 즉 이미 생성된 경우. 
             {
 
-                var currentPos = currentDrawing.GetPosition(index);
-                
+                var currentPos = lineRenderer.GetPosition(index);
+                lineRenderer.material.color = Color.blue;
 
-                if (Vector3.Distance(currentPos, drawPosition) > 0.01f)
+                if (Vector3.Distance(currentPos, hit.point) > 0.01f)
                 {
                     index++;
-                    currentDrawing.positionCount = index + 1;
-
-                    currentDrawing.SetPosition(index, drawPosition);
-                    drawManager.AddLineRenderer(currentDrawing, penWidth);
-
-                    Vector2Int pixelPosition = drawManager.WorldToPixel(drawPosition);
+                    lineRenderer.positionCount = index + 1;
+                    lineRenderer.SetPosition(index, hit.point + hit.normal * 0.001f);
                 }
             }
         }
-
-        
- 
     }
 
 
+    /*[Tooltip("대상 오브젝트")]
+    [SerializeField] private GameObject targetObject;
 
+    private float objectArea;
+    private float lineCoveredArea;
+
+    private void Start()
+    {
+        objectArea = CalculateObjectArea(targetObject);
+    }
+
+    private float CalculateObjectArea(GameObject obj)
+    {
+        // 예를 들어, 평면 오브젝트의 경우
+        var mesh = obj.GetComponent<MeshFilter>().mesh;
+        var bounds = mesh.bounds;
+        return bounds.size.x * bounds.size.z;
+    }
+
+    private void CalculateCoveredPercentage()
+    {
+        float coveredPercentage = (lineCoveredArea / objectArea) * 100f;
+        Debug.Log($"Covered Area: {coveredPercentage}%");
+    }*/
+
+
+    /*private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.green;
+
+        Gizmos.DrawLine(transform.position, Vector3.down);
+    }*/
 }

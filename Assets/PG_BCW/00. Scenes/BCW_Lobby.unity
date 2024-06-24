@@ -1336,6 +1336,7 @@ GameObject:
   - component: {fileID: 125473028}
   - component: {fileID: 125473030}
   - component: {fileID: 125473029}
+  - component: {fileID: 125473031}
   m_Layer: 21
   m_Name: Cube
   m_TagString: Untagged
@@ -1408,6 +1409,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 125473027}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &125473031
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 125473027}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000001, y: 1, z: 1.0000001}
+  m_Center: {x: 0.00000023841858, y: 0.0000009536743, z: 0}
 --- !u!1 &134444532
 GameObject:
   m_ObjectHideFlags: 0
@@ -4516,6 +4538,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1190601848}
     m_Modifications:
+    - target: {fileID: 1289613481537042562, guid: d5fb50d88689f9d49a3d970b26f12513,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2035615035377409019, guid: d5fb50d88689f9d49a3d970b26f12513,
         type: 3}
       propertyPath: penWidth
@@ -4585,6 +4612,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4346324526861788593, guid: d5fb50d88689f9d49a3d970b26f12513,
+        type: 3}
+      propertyPath: m_InteractionLayers.m_Bits
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5427997708200635151, guid: d5fb50d88689f9d49a3d970b26f12513,
         type: 3}
@@ -5711,16 +5743,14 @@ MonoBehaviour:
   m_AddDefaultGrabTransformers: 1
   grabType: 0
   grabDistance: 0
-  drawingLayer:
+  targetLayer:
     serializedVersion: 2
     m_Bits: 2097152
-  rayDistance: 0.5
-  currentDrawing: {fileID: 0}
-  drawingMaterial: {fileID: 0}
+  rayDistance: 0.05
+  drawingMaterial: {fileID: 2100000, guid: b6dbee6e581772249bf9e0fa53eaccbe, type: 2}
+  width: 0.075
   index: 0
-  penWidth: 0.01
-  boxSize: {x: 0.1, y: 0.1, z: 0.1}
-  boxOrientation: {x: 0, y: 0, z: 0, w: 1}
+  NormalDis: 0.05
 --- !u!54 &650560289
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -9733,7 +9763,7 @@ Transform:
   m_GameObject: {fileID: 1190601847}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.115, y: 0, z: -1.487}
+  m_LocalPosition: {x: -0.115, y: 0, z: -1.715}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11158,6 +11188,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1342588954}
+  - component: {fileID: 1342588955}
   m_Layer: 0
   m_Name: Table
   m_TagString: Untagged
@@ -11181,6 +11212,27 @@ Transform:
   - {fileID: 125473028}
   m_Father: {fileID: 1190601848}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1342588955
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342588953}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1363689671
 GameObject:
   m_ObjectHideFlags: 0
@@ -19925,7 +19977,7 @@ PrefabInstance:
     - target: {fileID: 8651369858978762708, guid: 9de1dd57afb5e494dadb64a41549cf94,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9099269959749876831, guid: 9de1dd57afb5e494dadb64a41549cf94,
         type: 3}
