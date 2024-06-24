@@ -9,7 +9,7 @@ namespace Jc
 {    
     // 퀘스트 상태타입
     //                      {비활성화,      활성화,  진행중, 수락대기}
-    public enum QuestState { DisActive = 0, Active, Proceed, Clear}
+    public enum QuestState { DisActive = -1, Active = 1, Proceed, Clear}
 
     // 퀘스트 타입
     //                    { 기본형, 자동 클리어형, 연계형 } 
@@ -20,6 +20,9 @@ namespace Jc
         [SerializeField]
         private Dictionary<int, Quest> questDic;    // 퀘스트 리소스 (ID 매핑)
         public Dictionary<int, Quest> QuestDic { get { return questDic; } }
+
+        [SerializeField]
+        private GameObject questEntry; 
 
         protected override void Awake()
         {
@@ -33,7 +36,6 @@ namespace Jc
         private void InitSetting()
         {
             RegistQuest();   // 퀘스트 리소스 등록
-            LoadQuestData(); // 퀘스트 로컬 데이터 불러오기 및 덮어쓰기
         }
 
         /// <summary>
@@ -70,6 +72,10 @@ namespace Jc
                 // 퀘스트 데이터 할당
                 inst.QuestData = data;
 
+                // 최초 퀘스트는 활성화 상태로 변경
+                if (inst.QuestID == 1)
+                    inst.State = QuestState.Active;
+
                 // 수주 나레이션 할당
                 inst.receiveNarrations = new List<NarrtionData>();
                 if (Manager.Data.NarrationBundleDic.ContainsKey(data.receiveNarrationBundleID))
@@ -99,10 +105,6 @@ namespace Jc
                 questDic.Add(quest.QuestID, inst);
             }
         }
-        private void LoadQuestData()
-        {
-
-        }
 
         #endregion
 
@@ -115,6 +117,15 @@ namespace Jc
             }
 
             return questDic[id];
+        }
+
+        public void CreateEntry(Quest quest)
+        {
+
+        }
+        public void RemoveEntry(Quest quest)
+        {
+
         }
     }
 }

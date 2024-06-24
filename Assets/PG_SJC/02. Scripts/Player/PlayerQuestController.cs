@@ -15,6 +15,20 @@ namespace Jc
         [SerializeField]
         private RectTransform questEntryTr;
 
+        private void Start()
+        {
+            InitSetting();
+        }
+        private void InitSetting()
+        {
+            // 퀘스트 데이터 로드 후 엔트리 등록
+            foreach(int key in Manager.Quest.QuestDic.Keys)
+            {
+                if (Manager.Quest.QuestDic[key].State == QuestState.Proceed)
+                    ReceiveQuest(Manager.Quest.QuestDic[key]);
+            }
+        }
+
         // 퀘스트 클리어 콜백
         public void OnClearQuest(Quest quest)
         {
@@ -22,7 +36,6 @@ namespace Jc
 
             // 콜백 등록해제
             quest.OnClearQuest -= OnClearQuest;
-            //
         }
 
         // 퀘스트 수락 시 
