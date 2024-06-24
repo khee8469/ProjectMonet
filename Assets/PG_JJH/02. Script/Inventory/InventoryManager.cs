@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -33,6 +34,8 @@ namespace JJH
         private void Start()
         {
             LoadInventoryData(); // 싱글턴 이므로 게임 시작시 인벤토리 데이터를 Load 
+            RestoreItemInScene();
+
         }
 
         // 슬롯을 등록하는 메서드 --> 슬롯과 매니저의 순서를 맞추기 위해서. 딕셔너리의 key를 이용한다. 
@@ -40,11 +43,13 @@ namespace JJH
         {
             if (slot.slotID == -1)
             {
+                Debug.Log("Manager의 Register 등록됨");
                 slot.slotID = currentSlotID++; // 할당 후 +1 
             }
 
             if (!inventorySlots.ContainsKey(slot.slotID))
             {
+                Debug.Log(" slot 키 할당됨."); // 이게 지금 
                 inventorySlots.Add(slot.slotID, slot); //키가 없을 때만 삭제 
             }
 
@@ -84,8 +89,7 @@ namespace JJH
                         stackType = item.itemData.stackType,
                         slotID = slot.slotID,
                         itemCount =item.itemData.itemCount
-                        
-                     
+
                     };
                     /*Debug.Log(data.itemID);
                     Debug.Log(data.itemName);
@@ -124,14 +128,35 @@ namespace JJH
                     // 생성해줄 때 포지션 이랑 로테이션 어떻게 지정해 줄지 고민해야해. --> 자신의 앞에 나와야하니까
                     Debug.Log("씬 전환 혹은 load 시 아이템 복원");
                     GameObject itemObject = InstantiateItem(item);
-                    itemObject.transform.SetParent(slot.itemTransform); //Id에 맞는 슬롯의 자식으로 들어감.
+                    Debug.Log("생성된 슬롯의 이름들" + slot.name);
+                    itemObject.transform.SetParent(slot.itemTransform , false); //Id에 맞는 슬롯의 자식으로 들어감.
+                    
+                    Debug.Log($"생성되는 아이템들의 위치 + {itemObject.transform.position}");
+                    // 해당 슬롯의 아이템 카운트 저장 필요함. 
+                    slot.ItemCount = item.itemCount;
+                    Debug.Log($"아이템 프리팹 생성시의 카운트 ->{item.itemCount}");
                     itemObject.transform.localPosition = Vector3.zero;
                     itemObject.transform.localRotation = Quaternion.identity;
                     //ResizeItemToFitSlot(itemObject.transform, slot); // 슬롯 크기에 맞게 아이템 크기 조정
                     //SetupInteractable(itemObject, item); // grab이 만약 사라지면 다시 붙여줌. 
+                    
                 }
             }
         }
+
+
+        private IEnumerator RestoreItemRoutine()
+        {
+            yield return new WaitForEndOfFrame();
+            RestoreItemInScene();
+        }
+
+        public void RestoreItem()
+        {
+            StartCoroutine(RestoreItemRoutine());
+        }
+
+
         private GameObject InstantiateItem(InvenItem itemData)
         {
             GameObject itemPrefab = Resources.Load<GameObject>($"{itemData.itemID}"); // 이름 맞추기

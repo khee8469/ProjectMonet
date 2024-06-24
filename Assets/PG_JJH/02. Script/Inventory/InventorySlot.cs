@@ -26,7 +26,7 @@ namespace JJH
         [Tooltip("아이템의 숫자")]
         private int itemCount;
 
-        public int ItemCount { get { return itemCount; }  private set { itemCount = value; } }
+        public int ItemCount { get { return itemCount; } set { itemCount = value; } }
 
         [Tooltip("넣기 불가능 text 출력")]
         [SerializeField] TextMeshProUGUI notAddText;
@@ -51,6 +51,10 @@ namespace JJH
             countText = GetComponentInChildren<TextMeshProUGUI>();
             countText.text = $" ";
             itemTransform = GetComponent<Transform>();
+
+            // 이게 list에 slot을 할당 시키려면 처음에 켜둬서 slot 할당을 다 시키고 그게 마무리 되면 active false로 꺼줘야 한다. 
+
+
         }
 
         protected override void Start() // 슬롯을 인벤토리 매니저에 등록한다. 
@@ -59,6 +63,7 @@ namespace JJH
             Manager.Inventory.RegisterSlot(this); //THIS 시에 슬롯 아이디를 설정해줘야한다. 
             notAddText.enabled = false;
             originalColor = slotImage.color;
+            //Manager.Game.ChangeScene(); // 그런데 start 에서 돌리면 이거 한 번도 인벤토리를 안 킨다면 어떻게 되는데?? --> 이 부분 어떻게 할지 조금 더 생각 할 것. 
         }
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -173,15 +178,12 @@ namespace JJH
         protected override void OnHoverEntered(HoverEnterEventArgs args)
         {
             base.OnHoverEntered(args);
-
-            Debug.Log("Slot is hoverred");
         }
 
         protected override void OnHoverExited(HoverExitEventArgs args)
         {
             base.OnHoverExited(args);
 
-            Debug.Log("slot is not hoverr");
         }
 
 
@@ -361,14 +363,18 @@ namespace JJH
 
         }
 
-        public void AddItemNumber()
+        public void AddItemNumber(InventoryItem item)
         {
             ItemCount++;
             countText.text = $"{ItemCount}";
 
+            item.itemData.itemCount = ItemCount; // itemdata의 카운트는 현재 슬롯의 카운트와 같다.
+
+            Debug.Log($"Plus 저장된 아이템의 카운트 data ->{item.itemData.itemCount}");
+
         }
 
-        public void MinusItemNumber()
+        public void MinusItemNumber(InventoryItem item)
         {
             ItemCount--;
             countText.text = $"{ItemCount}";
@@ -378,6 +384,9 @@ namespace JJH
                 ItemCount = 0;
                 countText.text = $" "; // 0 이면 그냥 안보이게 하자. 
             }
+
+            Debug.Log($"Minus 저장된 아이템의 카운트 data ->{item.itemData.itemCount}");
+            item.itemData.itemCount = ItemCount;
             
             // 0 이라는 거는 어쨋든 아이템이 전부 빠진 상태니까 안 나오도록 고정한다. 
         }

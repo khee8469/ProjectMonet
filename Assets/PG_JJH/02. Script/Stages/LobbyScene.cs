@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using JJH;
+using System.Diagnostics.Contracts;
 
 namespace JJH
 {
     public class LobbyScene : BaseScene
     {
+        [SerializeField] private CanvasOnOff infoCanvas;
+
 
         private void Update()
         {
@@ -20,6 +23,7 @@ namespace JJH
         {
             Debug.Log("로비씬 로딩 루틴");
             yield return null;
+            infoCanvas.gameObject.SetActive(false);
         }
     }
 

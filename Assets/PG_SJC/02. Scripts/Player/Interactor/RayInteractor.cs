@@ -164,7 +164,7 @@ namespace Jc
                         // 스택 아이템이 여러개 있는 상황이라면 (실제로 여러개가 있는게 아니기 때문에 생성을 해서 손에 붙여줘야한다.)
                         if (slotItem.ItemCount >= 2) // 2개 이상이라면.
                         {
-                            slotItem.MinusItemNumber();
+                            slotItem.MinusItemNumber(item);
 
                             Debug.Log("2개 이상 일 때의 아이템의 카운트 -->" + slotItem.ItemCount);
 
@@ -196,7 +196,7 @@ namespace Jc
                         else if (slotItem.ItemCount == 1) // 1개 라면 그냥 하던대로 작업해주면 된다. 
                         {
                             Debug.Log("아이템 카 운트가 1 인 상황" +slotItem.ItemCount);
-                            slotItem.MinusItemNumber();
+                            slotItem.MinusItemNumber(item);
 
                             curSlot.interactionManager.SelectEnter(this as IXRSelectInteractor, slotItem.interactablesSelected[0] as IXRSelectInteractable);
                             curSlot.SetRayHovering(false);
@@ -269,7 +269,7 @@ namespace Jc
                             Debug.Log("같은 스택 아이템 추가됨.");
                             // 함수를 나눠서 count를 증가 시키는 함수를 따로 만들고 destroy 하기. 
 
-                            slotItem.AddItemNumber();
+                            slotItem.AddItemNumber(item);
                             Destroy(item.gameObject);
                             Debug.Log("똑같은 스택형 아이템 추가 후 아이템 파괴.");
 
@@ -284,7 +284,7 @@ namespace Jc
                                 // 이 때 슬롯 내부의 아이템이 일반 아이템이라면 ( non - stack) 교체 가능해야함. 
                                 if (slotInventoryItem.itemData.stackType == StackTypeItem.Non_Stack) // non stack 이라면 어차피 1개일 거니까. 
                                 {
-                                    slotItem.AddItemNumber();
+                                    slotItem.AddItemNumber(item);
                                     this.interactionManager.SelectEnter(curSlot as IXRSelectInteractor, currentGrabObject as IXRSelectInteractable);
                                     curSlot.interactionManager.SelectEnter(this as IXRSelectInteractor, slotItem.interactablesSelected[0] as IXRSelectInteractable);
 
@@ -302,7 +302,7 @@ namespace Jc
                     {
                         // 그런데 current item 이랑 어차피 똑같은거 아닌가 싶은대 
                         this.interactionManager.SelectEnter(curSlot as IXRSelectInteractor, item as IXRSelectInteractable);
-                        slotItem.AddItemNumber();
+                        slotItem.AddItemNumber(item);
                         Debug.Log("스택 타입 아이템 빈 곳에 투입함.");
                     }
                 }
@@ -325,7 +325,7 @@ namespace Jc
                                 }
                                 else if(curSlot.ItemCount<=1)
                                 {
-                                    slotItem.MinusItemNumber(); // 숫자 빼주기 필요. 
+                                    slotItem.MinusItemNumber(item); // 숫자 빼주기 필요. 
                                     this.interactionManager.SelectEnter(curSlot as IXRSelectInteractor, currentGrabObject as IXRSelectInteractable);
                                     curSlot.interactionManager.SelectEnter(this as IXRSelectInteractor, slotItem.interactablesSelected[0] as IXRSelectInteractable);
                                     Debug.Log("내부의 스택아이템과 손에 있는 일반 아이템 교환");
