@@ -54,7 +54,7 @@ public class GrabGesture : Gesture
     public override void RightGestureEnter()
     {
         
-        //Debug.Log("그랩 제스처");
+        Debug.Log("그랩 제스처");
 
         //호버된거도 없으면 끝
         if (RightHandInteractor.interactablesHovered.Count == 0)

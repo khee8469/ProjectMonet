@@ -1,8 +1,8 @@
 using Jc;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.XR.Interaction.Toolkit.Utilities.Pooling;
 
 public class DirectInteractor : XRDirectInteractor
 {
@@ -12,21 +12,24 @@ public class DirectInteractor : XRDirectInteractor
     private PlayerControllerCallback controllerCallback;
 
     [Tooltip("왼손 오른손 확인")]
-    /*[SerializeField]
-    private bool isLeftController = false;*/
+    [SerializeField]
+    private bool isLeftController = false;
     public enum Hand {  Left, Right };
     [SerializeField]
     private Hand interactorHand;
     public Hand InteractorHand { get { return interactorHand; } }
 
+    //구현하고싶은 기능
+    //1.양손다 잡혓는지 확인필요 양손다 잡혓을떄 그네 이동가능?
+    //2.특정 오브젝트를 잡을떄 Attach포즈 저장
+    //Dictionary<IXRSelectInteractable, Pose> m_AttachPoseOnSelect
+    //Dictionary<IXRSelectInteractable, Pose> m_LocalAttachPoseOnSelect
 
-    // 양손다 잡혓는지 확인필요 양손다 잡혓을떄 그네 이동가능?
 
 
     protected override void Awake()
     {
         base.Awake();
-        
     }
 
     protected override void Start()

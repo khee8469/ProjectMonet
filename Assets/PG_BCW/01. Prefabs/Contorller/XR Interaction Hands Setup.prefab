@@ -100,8 +100,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db326439c5b50ae4ab6ccaf4dccad68c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftHandInteractor: {fileID: 1488149337711822609}
-  rightHandInteractor: {fileID: 4073327084821189851}
+  leftHandInteractor: {fileID: 0}
+  rightHandInteractor: {fileID: 0}
   staticHandGesture: {fileID: 0}
   lefthandColliderController: {fileID: 6575556882857503496}
   righthandColliderController: {fileID: 6650049192175299006}
@@ -1992,8 +1992,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71437a819711eb3448327cea60279cfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftHandInteractor: {fileID: 1488149337711822609}
-  rightHandInteractor: {fileID: 4073327084821189851}
+  leftHandInteractor: {fileID: 0}
+  rightHandInteractor: {fileID: 0}
   staticHandGesture: {fileID: 0}
   lefthandColliderController: {fileID: 6575556882857503496}
   righthandColliderController: {fileID: 6650049192175299006}
@@ -2307,7 +2307,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4746705158893827594}
-  - component: {fileID: 4073327084821189851}
   - component: {fileID: 4910061428089546098}
   - component: {fileID: 3238635322202239139}
   m_Layer: 0
@@ -2333,96 +2332,6 @@ Transform:
   - {fileID: 4504195026077393328}
   m_Father: {fileID: 3156449484435655822}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4073327084821189851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1403250447661524890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4253f32900bcc4d499d675566142ded0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 23
-  m_InteractionLayers:
-    m_Bits: 1
-  m_AttachTransform: {fileID: 4504195026077393328}
-  m_KeepSelectedTargetValid: 1
-  m_DisableVisualsWhenBlockedInGroup: 1
-  m_StartingSelectedInteractable: {fileID: 0}
-  m_StartingTargetFilter: {fileID: 0}
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
-  m_OnHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectActionTrigger: 1
-  m_HideControllerOnSelect: 0
-  m_AllowHoveredActivate: 0
-  m_TargetPriorityMode: 0
-  m_PlayAudioClipOnSelectEntered: 0
-  m_AudioClipForOnSelectEntered: {fileID: 0}
-  m_PlayAudioClipOnSelectExited: 0
-  m_AudioClipForOnSelectExited: {fileID: 0}
-  m_PlayAudioClipOnSelectCanceled: 0
-  m_AudioClipForOnSelectCanceled: {fileID: 0}
-  m_PlayAudioClipOnHoverEntered: 0
-  m_AudioClipForOnHoverEntered: {fileID: 0}
-  m_PlayAudioClipOnHoverExited: 0
-  m_AudioClipForOnHoverExited: {fileID: 0}
-  m_PlayAudioClipOnHoverCanceled: 0
-  m_AudioClipForOnHoverCanceled: {fileID: 0}
-  m_AllowHoverAudioWhileSelecting: 0
-  m_PlayHapticsOnSelectEntered: 1
-  m_HapticSelectEnterIntensity: 0.5
-  m_HapticSelectEnterDuration: 0.1
-  m_PlayHapticsOnSelectExited: 1
-  m_HapticSelectExitIntensity: 0.5
-  m_HapticSelectExitDuration: 0.1
-  m_PlayHapticsOnSelectCanceled: 0
-  m_HapticSelectCancelIntensity: 0
-  m_HapticSelectCancelDuration: 0
-  m_PlayHapticsOnHoverEntered: 1
-  m_HapticHoverEnterIntensity: 0.25
-  m_HapticHoverEnterDuration: 0.1
-  m_PlayHapticsOnHoverExited: 1
-  m_HapticHoverExitIntensity: 0.25
-  m_HapticHoverExitDuration: 0.1
-  m_PlayHapticsOnHoverCanceled: 0
-  m_HapticHoverCancelIntensity: 0
-  m_HapticHoverCancelDuration: 0
-  m_AllowHoverHapticsWhileSelecting: 0
-  m_ImproveAccuracyWithSphereCollider: 1
-  m_PhysicsLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_PhysicsTriggerInteraction: 1
 --- !u!135 &4910061428089546098
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4893,8 +4802,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d3de5cfbcca5214890092a709d78643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftHandInteractor: {fileID: 1488149337711822609}
-  rightHandInteractor: {fileID: 4073327084821189851}
+  leftHandInteractor: {fileID: 0}
+  rightHandInteractor: {fileID: 0}
   staticHandGesture: {fileID: 0}
   lefthandColliderController: {fileID: 6575556882857503496}
   righthandColliderController: {fileID: 6650049192175299006}
@@ -7777,13 +7686,13 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 0}
   m_StartingGroupMembers:
   - {fileID: 7109521501160369472}
-  - {fileID: 4073327084821189851}
+  - {fileID: 0}
   - {fileID: 7488960007177955276}
   m_StartingInteractionOverridesMap:
   - groupMember: {fileID: 7109521501160369472}
     overrideGroupMembers:
-    - {fileID: 4073327084821189851}
-  - groupMember: {fileID: 4073327084821189851}
+    - {fileID: 0}
+  - groupMember: {fileID: 0}
     overrideGroupMembers:
     - {fileID: 7488960007177955276}
 --- !u!114 &6134374444407095256
@@ -9084,7 +8993,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransitionDuration: 0.125
-  m_InteractorSource: {fileID: 1488149337711822609}
+  m_InteractorSource: {fileID: 0}
   m_IgnoreHoverEvents: 0
   m_IgnoreSelectEvents: 0
   m_IgnoreActivateEvents: 1
@@ -12282,7 +12191,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7586915072292895856}
-  - component: {fileID: 1488149337711822609}
   - component: {fileID: 2261311294305568132}
   - component: {fileID: 329871039680582458}
   m_Layer: 0
@@ -12308,96 +12216,6 @@ Transform:
   - {fileID: 3476057895497260448}
   m_Father: {fileID: 31464554154730379}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1488149337711822609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7834916990790165721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4253f32900bcc4d499d675566142ded0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 23
-  m_InteractionLayers:
-    m_Bits: 1
-  m_AttachTransform: {fileID: 3476057895497260448}
-  m_KeepSelectedTargetValid: 1
-  m_DisableVisualsWhenBlockedInGroup: 1
-  m_StartingSelectedInteractable: {fileID: 0}
-  m_StartingTargetFilter: {fileID: 0}
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
-  m_OnHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectActionTrigger: 1
-  m_HideControllerOnSelect: 0
-  m_AllowHoveredActivate: 0
-  m_TargetPriorityMode: 0
-  m_PlayAudioClipOnSelectEntered: 0
-  m_AudioClipForOnSelectEntered: {fileID: 0}
-  m_PlayAudioClipOnSelectExited: 0
-  m_AudioClipForOnSelectExited: {fileID: 0}
-  m_PlayAudioClipOnSelectCanceled: 0
-  m_AudioClipForOnSelectCanceled: {fileID: 0}
-  m_PlayAudioClipOnHoverEntered: 0
-  m_AudioClipForOnHoverEntered: {fileID: 0}
-  m_PlayAudioClipOnHoverExited: 0
-  m_AudioClipForOnHoverExited: {fileID: 0}
-  m_PlayAudioClipOnHoverCanceled: 0
-  m_AudioClipForOnHoverCanceled: {fileID: 0}
-  m_AllowHoverAudioWhileSelecting: 0
-  m_PlayHapticsOnSelectEntered: 1
-  m_HapticSelectEnterIntensity: 0.5
-  m_HapticSelectEnterDuration: 0.1
-  m_PlayHapticsOnSelectExited: 1
-  m_HapticSelectExitIntensity: 0.5
-  m_HapticSelectExitDuration: 0.1
-  m_PlayHapticsOnSelectCanceled: 0
-  m_HapticSelectCancelIntensity: 0
-  m_HapticSelectCancelDuration: 0
-  m_PlayHapticsOnHoverEntered: 1
-  m_HapticHoverEnterIntensity: 0.25
-  m_HapticHoverEnterDuration: 0.1
-  m_PlayHapticsOnHoverExited: 1
-  m_HapticHoverExitIntensity: 0.25
-  m_HapticHoverExitDuration: 0.1
-  m_PlayHapticsOnHoverCanceled: 0
-  m_HapticHoverCancelIntensity: 0
-  m_HapticHoverCancelDuration: 0
-  m_AllowHoverHapticsWhileSelecting: 0
-  m_ImproveAccuracyWithSphereCollider: 1
-  m_PhysicsLayerMask:
-    serializedVersion: 2
-    m_Bits: 1
-  m_PhysicsTriggerInteraction: 1
 --- !u!135 &2261311294305568132
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -12759,7 +12577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransitionDuration: 0.125
-  m_InteractorSource: {fileID: 4073327084821189851}
+  m_InteractorSource: {fileID: 0}
   m_IgnoreHoverEvents: 0
   m_IgnoreSelectEvents: 0
   m_IgnoreActivateEvents: 1
@@ -13091,13 +12909,13 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 0}
   m_StartingGroupMembers:
   - {fileID: 6642865740717249010}
-  - {fileID: 1488149337711822609}
+  - {fileID: 0}
   - {fileID: 376910073684974443}
   m_StartingInteractionOverridesMap:
   - groupMember: {fileID: 6642865740717249010}
     overrideGroupMembers:
-    - {fileID: 1488149337711822609}
-  - groupMember: {fileID: 1488149337711822609}
+    - {fileID: 0}
+  - groupMember: {fileID: 0}
     overrideGroupMembers:
     - {fileID: 376910073684974443}
 --- !u!114 &8033172403585486114
@@ -15577,8 +15395,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0faad2abcb3a02f4aace925e2abafe87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftHandInteractor: {fileID: 1488149337711822609}
-  rightHandInteractor: {fileID: 4073327084821189851}
+  leftHandInteractor: {fileID: 0}
+  rightHandInteractor: {fileID: 0}
   staticHandGesture: {fileID: 0}
   lefthandColliderController: {fileID: 6575556882857503496}
   righthandColliderController: {fileID: 6650049192175299006}

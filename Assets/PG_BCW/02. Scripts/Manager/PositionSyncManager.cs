@@ -16,8 +16,6 @@ public class PositionSyncManager : MonoBehaviour
     public PositionData PositionData { get { return positionData; } }
 
 
-
-
     private void Awake()
     {
         if(instance == null)
