@@ -6,13 +6,13 @@ using UnityEngine;
 
 public class BCW_DrawObjectManager : MonoBehaviour
 {
-    // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. --> 차라리 진짜 이미지에 붙이는 방법으로 가보자. 
+    /*// 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. --> 차라리 진짜 이미지에 붙이는 방법으로 가보자. 
     // 자신의 알파값이 1F로 증가할 때 같은 ENUM인 친구들을 찾아서 걔네도 같이 알파값을 업데이트 해줘야한다. 
-    /*public enum DrawBoardNumber
+    *//*public enum DrawBoardNumber
     {
         // 0 1 2 3 
         Compartment1, Compartment2, Compartment3, Compartment4, Finished, END
-    }*/
+    }*//*
 
     [RequireComponent(typeof(SpriteRenderer))]
     public class DrawObjectManager : MonoBehaviour, IComparable<DrawObjectManager>
@@ -20,7 +20,7 @@ public class BCW_DrawObjectManager : MonoBehaviour
         //그려진 렌더러 저장
         public List<LineRenderer> lineRenderers = new List<LineRenderer>();
 
-        /*[Header("캔버스 구분 열겨형 변수")]
+        *//*[Header("캔버스 구분 열겨형 변수")]
         [Tooltip("스테이지 별 캔버스 구분")]
         [SerializeField] public DrawBoardNumber drawBoardNumber;*/
 
@@ -32,7 +32,7 @@ public class BCW_DrawObjectManager : MonoBehaviour
         /*[Header("각 드로우판의 컬러타입 지정")]
         [Tooltip("각 컬러타입에 맞는 마테리얼 color만 색칠 할 수 있도록")]
         [SerializeField]
-        public List<Color> boardColorTypeList = new List<Color>();*/
+        public List<Color> boardColorTypeList = new List<Color>();*//*
 
         [Tooltip("자신의 컬러타입")]
         [SerializeField]
@@ -251,7 +251,7 @@ public class BCW_DrawObjectManager : MonoBehaviour
 
 
         // 이 부분 수정 필요.. 자기 자신의 그림만 나와야 하니까. 그냥 찾지말고. 
-        /*private IEnumerator StartAlphaRoutine()
+        *//*private IEnumerator StartAlphaRoutine()
         {
             DrawObjectManager[] drawingBoards = FindObjectsOfType<DrawObjectManager>();
 
@@ -269,7 +269,7 @@ public class BCW_DrawObjectManager : MonoBehaviour
 
             yield return null;
         }
-*/
+*//*
         private IEnumerator SpriteAlphaUpRoutine() //DrawObjectManager drawObjectManager
         {
             gameObject.layer = 0;
@@ -398,5 +398,5 @@ public class BCW_DrawObjectManager : MonoBehaviour
             if (other == null) return 0;
             return instanceID.CompareTo(other.instanceID);
         }
-    }
+    }*/
 }
