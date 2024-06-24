@@ -36,6 +36,7 @@ namespace JJH
 
         [Tooltip("슬롯의 기본 이미지 색깔")]
         private Color originalColor;
+        public Color OriginalColor { get { return originalColor; } private set { originalColor = value; } } 
 
 
         [Tooltip("레이 닿는지 확인용")]
@@ -165,7 +166,24 @@ namespace JJH
         public void SetRayHovering(bool isHovering)
         {
             isRayHovering = isHovering;
+            
         }
+
+
+        protected override void OnHoverEntered(HoverEnterEventArgs args)
+        {
+            base.OnHoverEntered(args);
+
+            Debug.Log("Slot is hoverred");
+        }
+
+        protected override void OnHoverExited(HoverExitEventArgs args)
+        {
+            base.OnHoverExited(args);
+
+            Debug.Log("slot is not hoverr");
+        }
+
 
         public override bool CanSelect(IXRSelectInteractable interactable)
         {
@@ -207,6 +225,11 @@ namespace JJH
             }
             //ResizeItemToFitSlot(item.transform); // 이거 load save 할 때 써야되지 원래 크기 가지고 있어야지. 아닌가?
             // 아이템을 슬롯의 자식으로 설정
+
+            //Add 했으면 색 깔 변경? 
+            slotImage.color = Color.yellow;
+
+
             Manager.Inventory.UpdateInventoryData();
         }
 
@@ -234,6 +257,8 @@ namespace JJH
                 Debug.Log("Remove로 키네마틱 켜줘도 이게 플레이어가 grab 중이면 자동으로 키네마틱이 true로 바뀜 --> 플레이어가 잡고 잇을 때 물리적용 받을까봐");
                 rigidbody.isKinematic = false; // 다시 키네마틱 꺼주기. 
             }
+
+            slotImage.color = originalColor;
 
             Manager.Inventory.UpdateInventoryData(); // 인벤토리 데이터를 업데이트
         }

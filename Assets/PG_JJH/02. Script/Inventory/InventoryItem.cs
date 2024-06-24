@@ -117,9 +117,7 @@ namespace JJH
                 rigid.useGravity = true;
 
             }
-
         }
-
 
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
@@ -131,7 +129,6 @@ namespace JJH
         {
             yield return new WaitForSeconds(0.7f);
         }
-
 
 
     }
