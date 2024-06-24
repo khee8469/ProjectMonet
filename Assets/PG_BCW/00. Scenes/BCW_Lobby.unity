@@ -479,7 +479,7 @@ GameObject:
   - component: {fileID: 125473030}
   - component: {fileID: 125473029}
   - component: {fileID: 125473031}
-  m_Layer: 21
+  m_Layer: 22
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -883,7 +883,7 @@ Transform:
   m_GameObject: {fileID: 273679091}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.081, y: -0.12027998, z: -0.285}
+  m_LocalPosition: {x: 0.016, y: -0.12027998, z: -0.042}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -2799,8 +2799,9 @@ MonoBehaviour:
   grabDistance: 0
   targetLayer:
     serializedVersion: 2
-    m_Bits: 2097152
+    m_Bits: 4194304
   rayDistance: 0.05
+  materialColor: {r: 0, g: 0.7519927, b: 1, a: 0}
   drawingMaterial: {fileID: 2100000, guid: b6dbee6e581772249bf9e0fa53eaccbe, type: 2}
   width: 0.075
   index: 0
@@ -2882,7 +2883,7 @@ HingeJoint:
   m_Anchor: {x: 0, y: 1.7, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 1.406, y: 0.24900004, z: -1.47628}
+  m_ConnectedAnchor: {x: 0.684, y: 0.24900004, z: -2.039}
   serializedVersion: 2
   m_UseSpring: 1
   m_Spring:
@@ -6276,10 +6277,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   table: {fileID: 125473027}
+  taoru: {fileID: 650560288}
   colliderPrefab: {fileID: 8720092311708613775, guid: a3da1239b9f79db41845b08908e776ab,
     type: 3}
-  colliderWidth: 0.1
-  colliderHeight: 0.1
+  colliderWidth: 0.02
+  colliderHeight: 0.02
   CreatedColliderLayer:
     serializedVersion: 2
     m_Bits: 2097152

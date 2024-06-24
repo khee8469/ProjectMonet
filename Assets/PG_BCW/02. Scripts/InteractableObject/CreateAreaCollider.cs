@@ -6,9 +6,10 @@ public class CreateAreaCollider : MonoBehaviour
     // 오브젝트의 전체 면적에 영역마다 콜라이더 생성
 
     [SerializeField] public GameObject table; // 책상 오브젝트
+    [SerializeField] public Taoru taoru; // 타올 오브젝트
     [SerializeField] public GameObject colliderPrefab; // 생성할 박스 콜라이더 프리팹
-    [SerializeField] public float colliderWidth = 0.1f; // 박스 콜라이더의 가로 크기
-    [SerializeField] public float colliderHeight = 0.1f; // 박스 콜라이더의 세로 크기
+    [SerializeField] public float colliderWidth; // 박스 콜라이더의 가로 크기
+    [SerializeField] public float colliderHeight; // 박스 콜라이더의 세로 크기
 
     //수건이 부딪힌 부분은 true로 변경 전체중 80퍼 true로 바뀌면 클리어
     [SerializeField] public Dictionary<GameObject, bool> cleaningCheck = new Dictionary<GameObject, bool>();
@@ -74,9 +75,14 @@ public class CreateAreaCollider : MonoBehaviour
         }
 
         float cleanedPercentage = (float)cleanedCount / cleaningCheck.Count;
-        if (cleanedPercentage >= 0.8f)
+        if (cleanedPercentage >= 0.95f)
         {
             Debug.Log("청소 완료!");
+            //콜라이더들 삭제
+            cleaningCheck.Clear();
+            //라인렌더러 삭제
+            Destroy(taoru.LineObject);
+            taoru.IsSuccess = true;
         }
     }
 }
