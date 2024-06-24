@@ -20,22 +20,35 @@ namespace JJH
 
         public bool ISGraped { get { return isGraped; } }
 
+        [Tooltip("Start 에서 저장 해 줄 아이템의 원래 스케일")]
         public Vector3 originalScale;
 
         public static UnityEvent RestoreSclaeObject = new UnityEvent();
 
         public new Renderer renderer;
 
+        public Rigidbody rigid;
+
+        [Tooltip(" 소켓에 들어갔을 때 조정 해 줄 아이템의 스케일...")]
+        [SerializeField] private Vector3 socketScale;
+
+        public Vector3 SocketScale { get { return socketScale; } private set { socketScale = value; }  }
+
+        
+        
         private void Start()
         {
             InitializeItemData();
             isGraped = false;
+            rigid = GetComponent<Rigidbody>();
 
             // 아 그냥 이거 각 오브젝트마다 시작할 때 자신의 transform을 저장하고 시작하자. 
             originalScale = transform.localScale;
             SaveScale();
             renderer= GetComponent<Renderer>();
             //Debug.Log(renderer.bounds.size + "오브젝트들의 사이즈 체크 --> bound. size");
+
+            trackScale = false; //스케일 조정을 위한 트랙 스케일 제거.
         }
 
         public void SaveScale()
@@ -76,11 +89,7 @@ namespace JJH
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
-            // 추후에 GetComponenet 등으로 한 다면 이 부분 수정 할 것. --> 최적화 필요한 부분 
-            if (args.interactorObject.transform.GetComponentInParent<XROrigin>())
-            {
-                Debug.Log("사람에게 붙잡힘.");
-            }
+            
         }
         // 아이템이 놓이는 순간에 슬롯 안에 있는지 확인.
         // 이거 interactor 에서 exit을 발동시킬 수 있도록 할 수가 있나? 
@@ -97,6 +106,12 @@ namespace JJH
             {
                 RestoreScale();
                 Debug.Log("소켓이 아닌 오브젝트 와의 상호작용 Exit 으로 스케일이 복구됨");
+
+                if(rigid.isKinematic==true)
+                {
+                    rigid.isKinematic = false;
+                    Debug.Log("키네마틱 해제 시킴");
+                }
             }
 
         }

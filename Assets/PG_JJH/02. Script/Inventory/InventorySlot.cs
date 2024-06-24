@@ -68,10 +68,12 @@ namespace JJH
             if (!isRayHovering) return;
 
             IInventory item = args.interactableObject.transform.GetComponent<IInventory>();
+
             if (item != null)
             {
                 if (item is InventoryItem)
                 {
+                    Debug.Log($"[CustomXRSocketInteractor] OnSelectEntered - Before Scaling: {args.interactableObject.transform.localScale}");
                     AddItem(item as InventoryItem);
                 }
             }
@@ -105,21 +107,22 @@ namespace JJH
         //ADD 하는 부분에서 추가적으로 함수를 더 부른던 해서 열거형 체크하고 데이터테이블과 연동시켜줘야한다. 
 
         // 소켓안에 있는 아이템과 교체 시도. 
-        /*protected override void OnSelectEntering(SelectEnterEventArgs args)
+        protected override void OnSelectEntering(SelectEnterEventArgs args)
         {
             base.OnSelectEntering(args);
-
-            Debug.Log("최초의 한 번만 작동되나?");
             // 이미 소켓 안에 아이템이 존재하는 경우에 제거 시도.
 
             IInventory item = args.interactableObject.transform.GetComponent<IInventory>();
             if (item != null)
             {
                 InventoryItem inventoryItem = item as InventoryItem;
-                ChangeItem(inventoryItem);
+                inventoryItem.transform.SetParent(itemTransform);
+                Debug.Log($"[CustomXRSocketInteractor] OnSelectEntering - Initial Scale: {args.interactableObject.transform.localScale}");
+                // 리스토어가 먼지인지 이게 먼저이지 확인할것. 
+                Debug.Log("Entering 이벤트에서 item 체크");
             }
 
-        }*/
+        }
 
         /*public void ChangeItem(InventoryItem _item)
         {
@@ -179,14 +182,20 @@ namespace JJH
             // item.itemData.SaveOriginalTransform(item.transform);
             // 아이템의 원래 트랜스폼을 저장
             InventoryItem inventoryItem = item as InventoryItem;
+            
 
-            item.transform.SetParent(itemTransform);
+            Debug.Log("자식으로 만든 직후의 로컬 스케일" + item.transform.localScale);
 
             item.transform.localPosition = Vector3.zero; // 슬롯 위치에 딱 맞도록 로컬 포지션을 0 으로 설정
             item.transform.localRotation = Quaternion.identity;
 
             // 생각해보면 add 될 때 , remove 될 때만 한 번 스케일을 조정해 볼까? 여러군대에서 하지 말고. 
+            // 이거 그냥 여기서 강제로 스케일 조정해 줘야 될 것 같음.
+            // 이거 그냥 여기서 강제로 소켓 크기에 맞춰서 조정해 줘야 될 것 같음. 크기 조정이 안됨....
+            item.transform.localScale = item.SocketScale; 
+            Debug.Log($"item의 크기 조정됨.--> 타입에 따라 다른가? {item.transform.localScale}");
 
+            Debug.Log("Add 함수 내부 진입.");
             Rigidbody rigidbody = item.GetComponent<Rigidbody>();
             if (rigidbody != null)
             {
@@ -206,6 +215,7 @@ namespace JJH
                 // 상속한 인터페이스를 통해 각 이벤트 아이템 마다 해야 하는 작업을 지정해주자.
                 // ex ) interface 에서 public void Use 등을 상속한다. 아마도? 
             }
+
             if (item.transform.parent != null && gameObject.activeSelf)
             {
                 item.transform.SetParent(null); //자식 해제 --> 소켓에서 때면 자동으로 자식이 해제가 되는데요?? 
@@ -217,6 +227,7 @@ namespace JJH
 
             if (rigidbody != null)
             {
+                Debug.Log("Remove로 키네마틱 켜줘도 이게 플레이어가 grab 중이면 자동으로 키네마틱이 true로 바뀜 --> 플레이어가 잡고 잇을 때 물리적용 받을까봐");
                 rigidbody.isKinematic = false; // 다시 키네마틱 꺼주기. 
             }
 

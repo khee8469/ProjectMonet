@@ -181,7 +181,6 @@ namespace Jc
                             Rigidbody rb = newInventoryItem.GetComponent<Rigidbody>();//일단 키네마틱으로 해놓고. 내 손에 들어오면 kinematic 풀어준다.
                             rb.isKinematic = true;
                             
-
                             this.interactionManager.SelectEnter(this as IXRSelectInteractor, newInventoryItem as IXRSelectInteractable);
                             rb.isKinematic = false;
 
@@ -207,8 +206,6 @@ namespace Jc
 
         }
 
-        // 아이템을 빼는 순간에 다시 아이템이 들어가는 상황을 방지하기 위한 코루틴 딜레이
-        // 그런데 이거 작동하나? 안하는거 같은데.
         private IEnumerator startHoverRouitne()
         {
             yield return new WaitForSeconds(0.7f);
@@ -220,12 +217,12 @@ namespace Jc
             InventorySlot curSlot = FindSlot();
             if (curSlot == null)
             {
-                Debug.Log("curSlot is null");
+                
                 return;
             }
             if (JJH.Manager.Inventory.isEnable == false)
             {
-                Debug.Log("Inventory is not enabled");
+                
                 return;
             }
             if (isGrab == false)
@@ -238,14 +235,14 @@ namespace Jc
 
             if (currentGrabObject == null)
             {
-                Debug.Log("currentGrabObject is null");
+                
                 return;
             }
             InventoryItem item = currentGrabObject as InventoryItem;
 
             if (item == null)
             {
-                Debug.Log("currentGrabObject is not an InventoryItem");
+                
                 return;
             }
 
@@ -266,11 +263,11 @@ namespace Jc
                             // 함수를 나눠서 count를 증가 시키는 함수를 따로 만들고 destroy 하기. 
 
                             slotItem.AddItemNumber();
-                            Destroy(item.gameObject);
+                            Destroy(item.gameObject); 
                             Debug.Log("똑같은 스택형 아이템 추가 후 아이템 파괴.");
 
                         }
-                        else //내가 들고 있는 아이템이 스택형 아이템일때 slot 내부의 아이템이 다르다면. 
+                        else //내가 들고 있는 아이템이 스택형 아이템일때 slot 내부의 아이템이 다르다면. (어차피 
                         {
                             IXRSelectInteractable interactable = slotItem.interactablesSelected[0];
                             InventoryItem slotInventoryItem = interactable.transform.GetComponent<InventoryItem>();
@@ -278,11 +275,13 @@ namespace Jc
                             if (slotInventoryItem != null)
                             {
                                 // 이 때 슬롯 내부의 아이템이 일반 아이템이라면 ( non - stack) 교체 가능해야함. 
-                                if (slotInventoryItem.itemData.stackType == StackTypeItem.Non_Stack)
+                                if (slotInventoryItem.itemData.stackType == StackTypeItem.Non_Stack) // non stack 이라면 어차피 1개일 거니까. 
                                 {
                                     slotItem.AddItemNumber();
-                                    this.interactionManager.SelectEnter(curSlot as IXRSelectInteractor, currentGrabObject as IXRSelectInteractable);
+                                    this.interactionManager.SelectEnter(curSlot as IXRSelectInteractor, slotInventoryItem as IXRSelectInteractable);
                                     curSlot.interactionManager.SelectEnter(this as IXRSelectInteractor, slotItem.interactablesSelected[0] as IXRSelectInteractable);
+
+                                    // 이부분 SlectEnter라 크기 조정이 발동이 안되나?
                                     Debug.Log("일반 아이템 꺼내고 스택형 아이템 추가함.");
                                 }
                                 else // event 형 + 다른 id를 가진 stack 아이템 이면 추가 불가능. 
@@ -294,9 +293,10 @@ namespace Jc
                     }
                     else if (slotItem.interactablesSelected.Count <= 0) //내부에 아이템이 없을 때 (스택 타입 아이템)
                     {
-                        this.interactionManager.SelectEnter(curSlot as IXRSelectInteractor, currentGrabObject as IXRSelectInteractable);
+                        // 그런데 current item 이랑 어차피 똑같은거 아닌가 싶은대 
+                        this.interactionManager.SelectEnter(curSlot as IXRSelectInteractor, item as IXRSelectInteractable);
                         slotItem.AddItemNumber();
-                        Debug.Log("스택 타입 아이템 빈 곳에 들어감.");
+                        Debug.Log("스택 타입 아이템 빈 곳에 투입함.");
                     }
                 }
                 else // 아이템이 일반 타입일 때.
