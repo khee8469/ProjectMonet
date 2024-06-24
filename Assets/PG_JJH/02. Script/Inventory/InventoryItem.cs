@@ -33,20 +33,20 @@ namespace JJH
 
             // 아 그냥 이거 각 오브젝트마다 시작할 때 자신의 transform을 저장하고 시작하자. 
             originalScale = transform.localScale;
-            //SaveScale();
+            SaveScale();
             renderer= GetComponent<Renderer>();
-            Debug.Log(renderer.bounds.size + "오브젝트들의 사이즈 체크");
+            //Debug.Log(renderer.bounds.size + "오브젝트들의 사이즈 체크 --> bound. size");
         }
 
         public void SaveScale()
         {
             // 시작 시의 자신의 로컬 스케일을 저장한다. 
-            //itemData.SaveOriginalTransform(transform); //자신의 오브젝트의 트랜스폼을 저장해준다. 
+            itemData.SaveOriginalTransform(transform); //자신의 오브젝트의 트랜스폼을 저장해준다. 
             
         }
         public void RestoreScale()
         {
-            //itemData.RestoreOriginalTransform(transform);
+            itemData.RestoreOriginalTransform(transform);
             Debug.Log("RestoreScale 함수 발동됨");
         }
 
@@ -95,7 +95,7 @@ namespace JJH
             }
             else
             {
-                //RestoreScale();
+                RestoreScale();
                 Debug.Log("소켓이 아닌 오브젝트 와의 상호작용 Exit 으로 스케일이 복구됨");
             }
 
