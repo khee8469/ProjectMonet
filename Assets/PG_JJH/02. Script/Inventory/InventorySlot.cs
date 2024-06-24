@@ -63,7 +63,7 @@ namespace JJH
             Manager.Inventory.RegisterSlot(this); //THIS 시에 슬롯 아이디를 설정해줘야한다. 
             notAddText.enabled = false;
             originalColor = slotImage.color;
-            //Manager.Game.ChangeScene(); // 그런데 start 에서 돌리면 이거 한 번도 인벤토리를 안 킨다면 어떻게 되는데?? --> 이 부분 어떻게 할지 조금 더 생각 할 것. 
+             
         }
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
