@@ -1182,9 +1182,9 @@ Transform:
   m_GameObject: {fileID: 2826883964654116476}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.74, y: 0.51, z: 0.92}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 8232313006539724048}
   - {fileID: 5688902281971758233}
@@ -2180,7 +2180,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 7290109923011699308}
   m_Father: {fileID: 4119349307750242670}
@@ -5377,6 +5377,8 @@ MonoBehaviour:
   canvasRect: {fileID: 7738198462876539369}
   aimRect: {fileID: 8635420100473272977}
   hoveredSlot: {fileID: 0}
+  hitBox: {fileID: 0}
+  currentSlot: {fileID: 0}
 --- !u!4 &8535689743212683632 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5888765399538998960, guid: ad818c36731146e994540a1896ad8f24,
@@ -5394,7 +5396,7 @@ PrefabInstance:
     - target: {fileID: 197324182422097615, guid: 46edc55507253d0409f0046ff68cb9e1,
         type: 3}
       propertyPath: m_Size.z
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 994969088007419076, guid: 46edc55507253d0409f0046ff68cb9e1,
         type: 3}
@@ -5414,12 +5416,12 @@ PrefabInstance:
     - target: {fileID: 1427328824585252709, guid: 46edc55507253d0409f0046ff68cb9e1,
         type: 3}
       propertyPath: m_Size.z
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1542317049752660289, guid: 46edc55507253d0409f0046ff68cb9e1,
         type: 3}
       propertyPath: m_Size.z
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1663172153178653422, guid: 46edc55507253d0409f0046ff68cb9e1,
         type: 3}
@@ -5435,6 +5437,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TargetBoundsSize.z
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1861704817349004575, guid: 46edc55507253d0409f0046ff68cb9e1,
+        type: 3}
+      propertyPath: m_SocketScaleMode
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1861704817349004575, guid: 46edc55507253d0409f0046ff68cb9e1,
         type: 3}
@@ -5474,12 +5481,12 @@ PrefabInstance:
     - target: {fileID: 4171071041867858668, guid: 46edc55507253d0409f0046ff68cb9e1,
         type: 3}
       propertyPath: m_Size.z
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4684064295566518550, guid: 46edc55507253d0409f0046ff68cb9e1,
         type: 3}
       propertyPath: m_Size.z
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4940752950900643155, guid: 46edc55507253d0409f0046ff68cb9e1,
         type: 3}
@@ -5525,6 +5532,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754986389920110507, guid: 46edc55507253d0409f0046ff68cb9e1,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754986389920110507, guid: 46edc55507253d0409f0046ff68cb9e1,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6754986389920110507, guid: 46edc55507253d0409f0046ff68cb9e1,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6754986389920110507, guid: 46edc55507253d0409f0046ff68cb9e1,
         type: 3}
@@ -5594,7 +5616,7 @@ PrefabInstance:
     - target: {fileID: 8534305252252999666, guid: 46edc55507253d0409f0046ff68cb9e1,
         type: 3}
       propertyPath: m_Size.z
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6795,6 +6817,8 @@ MonoBehaviour:
   canvasRect: {fileID: 7738198462876539369}
   aimRect: {fileID: 2779736408148115086}
   hoveredSlot: {fileID: 0}
+  hitBox: {fileID: 0}
+  currentSlot: {fileID: 0}
 --- !u!1001 &5981947417610023521
 PrefabInstance:
   m_ObjectHideFlags: 0

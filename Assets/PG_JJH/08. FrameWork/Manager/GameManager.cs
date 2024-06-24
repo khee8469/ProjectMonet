@@ -14,7 +14,8 @@ namespace JJH
         // 로딩 루틴에서 불러서 사용할 함수 --> 씬 전환 간에 데이터를 저장해준다. (인벤토리 유지)
         public void ChangeScene()
         {
-            Manager.Inventory.LoadInventoryData();
+           Manager.Inventory.LoadInventoryData();
+            Manager.Inventory.RestoreItemInScene();
         }
 
 

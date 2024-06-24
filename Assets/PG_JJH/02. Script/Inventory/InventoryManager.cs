@@ -115,13 +115,14 @@ namespace JJH
         }
 
         // 로드한 인벤토리 데이터에 따라 인벤토리에 아이템 생성 및 복원
-        private void RestoreItemInScene() // 씬을 전환한 후에 실제 오브젝트 프리팹을 생성해준다. 
+        public void RestoreItemInScene() // 씬을 전환한 후에 실제 오브젝트 프리팹을 생성해준다. 
         {
             foreach (var item in inventoryData.items) // List에 접근 
             {
                 if (inventorySlots.TryGetValue(item.slotID, out InventorySlot slot))
                 {
                     // 생성해줄 때 포지션 이랑 로테이션 어떻게 지정해 줄지 고민해야해. --> 자신의 앞에 나와야하니까
+                    Debug.Log("씬 전환 혹은 load 시 아이템 복원");
                     GameObject itemObject = InstantiateItem(item);
                     itemObject.transform.SetParent(slot.itemTransform); //Id에 맞는 슬롯의 자식으로 들어감.
                     itemObject.transform.localPosition = Vector3.zero;
@@ -133,7 +134,7 @@ namespace JJH
         }
         private GameObject InstantiateItem(InvenItem itemData)
         {
-            GameObject itemPrefab = Resources.Load<GameObject>($"{itemData.itemName}"); // 이름 맞추기
+            GameObject itemPrefab = Resources.Load<GameObject>($"{itemData.itemID}"); // 이름 맞추기
             if (itemPrefab != null)
             {
                 GameObject itemObject = Instantiate(itemPrefab); // 이 부분 위치 조절 필요하다.

@@ -348,8 +348,6 @@ namespace Jc
             }
         }
         #endregion
-
-
         public override bool CanHover(IXRHoverInteractable interactable)
         {
             InteractObject itrObject = interactable as InteractObject;
