@@ -24,6 +24,8 @@ namespace Jc
         [SerializeField]
         private GameObject popUpCanvas; // 인벤토리 / 퀘스트
 
+        private Transform mainCam; // 메인 카메라
+
         [Space(5)]
         [Header("밸런싱")]
         [SerializeField]
@@ -35,6 +37,11 @@ namespace Jc
         public UnityAction OnEndInteract;   // NPC와 상호작용 해제
 
         private bool isEnablePopUp = false;
+
+        private void Awake()
+        {
+            mainCam = Camera.main.transform;
+        }
 
         private void OnEnable()
         {
@@ -99,7 +106,12 @@ namespace Jc
         {
             JJH.Manager.Inventory.isEnable = isEnable;
             isEnablePopUp = isEnable;
-            popUpCanvas.SetActive(isEnable);
+
+            // 활성화 시 메인 카메라 트랜스폼을 추적
+            if (isEnable)
+                Manager.UI.OpenInfoGroup();
+            else
+                Manager.UI.CloseInfoGroup();
         }
     }
 }

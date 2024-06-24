@@ -1,26 +1,25 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Jc
 {
-    /// <summary>
-    /// 퀘스트 Plable Data 저장 전용 구조체
-    /// </summary>
     [Serializable]
-    public struct QuestStateData
+    public struct QuestListData
     {
+        [Header("퀘스트 리스트 ID")]
+        public int id;
+
         [Header("퀘스트 ID")]
         public int id_quest;
 
-        [Header("퀘스트 상태")]
+        [Header("진행도")]
         public int progress;
 
-        public QuestStateData(int id_quest, int progress)
+        public QuestListData(int id, int id_quest, int progress)
         {
+            this.id = id;
             this.id_quest = id_quest;
             this.progress = progress;
         }
