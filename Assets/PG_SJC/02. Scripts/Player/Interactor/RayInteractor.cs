@@ -91,6 +91,7 @@ namespace Jc
             if (isAimming)
                 Aimming();  // 에이밍
 
+            // update 부분 최적화 필요 
             // 잡고 있는 상황에서 인벤토리가 켜져있다면. --> 잡고 있는 오브젝트의 스케일을 조정해준다. 
             if (isGrab && Manager.Inventory.isEnable)
             {
@@ -374,15 +375,20 @@ namespace Jc
             return base.CanSelect(interactable);
         }
 
+
+         
+
         protected override void OnHoverEntered(HoverEnterEventArgs args)
         {
             base.OnHoverEntered(args);
+
             isAimming = true;
             aimTransform.gameObject.SetActive(isAimming);
         }
         protected override void OnHoverExited(HoverExitEventArgs args)
         {
             base.OnHoverExited(args);
+
             isAimming = false;
             aimTransform.gameObject.SetActive(isAimming);
         }

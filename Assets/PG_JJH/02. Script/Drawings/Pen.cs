@@ -101,10 +101,13 @@ namespace JJH
         // 레이캐스트를 계속 체크해야 하기 때문에 update 밖에 없나? 어떻게 해야할지... 
         private void Update()
         {
+            // 컬러의 타입이 None이 아니고 동시에 isDrawing 상태면 그리기 가능. 
+
 
             if (isDrawing && currentPaintType != PaintTypeEnum.None)
             {
                 Draw();
+                Debug.Log("업데이트 상황");
             }
         }
 
@@ -113,6 +116,7 @@ namespace JJH
             if (!isDrawing || currentPaintType == PaintTypeEnum.None) return; // 그리기 상태가 아니면 리턴 
 
             RaycastHit hit;
+            Debug.Log("그리는 상황 진입");
 
             // 레이 캐스트 박스의 센터 
             Vector3 boxCenter = tip.position;

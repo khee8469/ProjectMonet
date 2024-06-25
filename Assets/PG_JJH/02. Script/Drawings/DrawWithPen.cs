@@ -18,15 +18,23 @@ namespace JJH
         }
         protected override void OnActivated(ActivateEventArgs args)
         {
-            
+            Debug.Log("pen의 on activate");   
             base.OnActivated(args);
             pen.StartDrawing();  // 그리기 시작
             // 여기서 라인 렌더러 생성. 
         }
 
+        protected override void OnSelectExited(SelectExitEventArgs args)
+        {
+            base.OnSelectExited(args);
+            Debug.Log("pen의 on selected exit");
+        }
+
+
         protected override void OnDeactivated(DeactivateEventArgs args)
         {
-            
+
+            Debug.Log("pen의 de activate ");
             base.OnDeactivated(args);
             pen.DrawingStop(); 
         }

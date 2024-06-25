@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 2364216493997707983}
   - component: {fileID: 734252155278683099}
   - component: {fileID: 3563693689113065548}
+  - component: {fileID: 8059384152284996098}
+  - component: {fileID: 4354041940226470681}
+  - component: {fileID: 4635638241042764062}
   m_Layer: 13
   m_Name: CH1_Yellow
   m_TagString: Untagged
@@ -27,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 360548591256623011}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -101,7 +104,7 @@ MonoBehaviour:
   drawBoardNumber: 0
   instanceID: 0
   boardColorTypeList: []
-  myColor: {r: 0.21960786, g: 0.21960786, b: 0.21960786, a: 0}
+  myColor: {r: 1, g: 1, b: 1, a: 0}
   spriteRenderer: {fileID: 0}
   texture: {fileID: 0}
   worldWidth: 0
@@ -113,6 +116,69 @@ MonoBehaviour:
   paintTypeManager: {fileID: 11400000, guid: e3bb3a82badd59e488a56163b21dd1dc, type: 2}
   currentPaintType: 4
   drawingCompleteManager: {fileID: 0}
+--- !u!65 &8059384152284996098
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360548591256623011}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 12.5, y: 3.6640193, z: 0.2000001}
+  m_Center: {x: 0.0000018032719, y: 2.8398726, z: -0.0000019455367}
+--- !u!65 &4354041940226470681
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360548591256623011}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.0979452, y: 9.343751, z: 0.2000001}
+  m_Center: {x: 1.8248576, y: -0.000003857638, z: 0.0000041963035}
+--- !u!65 &4635638241042764062
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 360548591256623011}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.8620467, y: 5.3517413, z: 0.2000001}
+  m_Center: {x: 4.819052, y: 1.9960088, z: 0.0000085525135}
 --- !u!1 &1533135822798477437
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,7 +284,7 @@ MonoBehaviour:
   drawBoardNumber: 0
   instanceID: 0
   boardColorTypeList: []
-  myColor: {r: 0, g: 0, b: 0, a: 0}
+  myColor: {r: 1, g: 1, b: 1, a: 0}
   spriteRenderer: {fileID: 0}
   texture: {fileID: 0}
   worldWidth: 0
@@ -325,6 +391,10 @@ GameObject:
   - component: {fileID: 7128447384597631546}
   - component: {fileID: 1065572293352298151}
   - component: {fileID: 7173982049489409059}
+  - component: {fileID: 2524332579098970949}
+  - component: {fileID: 4127518773482382096}
+  - component: {fileID: 179640677061437937}
+  - component: {fileID: 3111164099189171974}
   m_Layer: 13
   m_Name: CH1_Blue
   m_TagString: Untagged
@@ -341,7 +411,7 @@ Transform:
   m_GameObject: {fileID: 2557022790448891104}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -415,7 +485,7 @@ MonoBehaviour:
   drawBoardNumber: 0
   instanceID: 0
   boardColorTypeList: []
-  myColor: {r: 0, g: 0, b: 0, a: 0}
+  myColor: {r: 1, g: 1, b: 1, a: 0}
   spriteRenderer: {fileID: 0}
   texture: {fileID: 0}
   worldWidth: 0
@@ -427,6 +497,90 @@ MonoBehaviour:
   paintTypeManager: {fileID: 11400000, guid: e3bb3a82badd59e488a56163b21dd1dc, type: 2}
   currentPaintType: 2
   drawingCompleteManager: {fileID: 0}
+--- !u!65 &2524332579098970949
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2557022790448891104}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7.1318927, y: 2.4751437, z: 0.2000001}
+  m_Center: {x: -2.6840744, y: -3.4343238, z: 0.0000041169337}
+--- !u!65 &4127518773482382096
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2557022790448891104}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.947597, y: 7.4427485, z: 0.2000001}
+  m_Center: {x: 3.7762368, y: -0.8556805, z: 0.000012113937}
+--- !u!65 &179640677061437937
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2557022790448891104}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 12.5, y: 0, z: 0.2000001}
+  m_Center: {x: 0.000000005500336, y: 1.5986292, z: -0.0000070361934}
+--- !u!65 &3111164099189171974
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2557022790448891104}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 9.495543, y: 5.8663177, z: 0.2000001}
+  m_Center: {x: 1.5022486, y: 1.7387301, z: -0.0000035269968}
 --- !u!1 &2943315977263788450
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,7 +689,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3235969543819799050}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.070581846, y: 0.3424115, z: -0.025805673, w: 0.9365397}
+  m_LocalRotation: {x: 0.07058317, y: 0.34240997, z: -0.025806027, w: 0.9365402}
   m_LocalPosition: {x: 2.094, y: 2.759, z: 1.545}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 1
@@ -558,8 +712,11 @@ GameObject:
   m_Component:
   - component: {fileID: 258104287942017181}
   - component: {fileID: 7060503661047280612}
+  - component: {fileID: 3013448070765669375}
+  - component: {fileID: 750949566399087902}
+  - component: {fileID: 4889945193067435433}
   m_Layer: 0
-  m_Name: Ch1_CompletePaint
+  m_Name: Ch1_CompletePaint_Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -632,6 +789,159 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3013448070765669375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7309105109079898778}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 312d33ba52fbfb041b10e3c33bca2d44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_Colliders: []
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_InteractionLayers:
+    m_Bits: 4294967295
+  m_DistanceCalculationMode: 1
+  m_SelectMode: 0
+  m_FocusMode: 1
+  m_CustomReticle: {fileID: 0}
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 0
+  m_OverrideGazeTimeToSelect: 0
+  m_GazeTimeToSelect: 0.5
+  m_OverrideTimeToAutoDeselectGaze: 0
+  m_TimeToAutoDeselectGaze: 3
+  m_AllowGazeAssistance: 0
+  m_FirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FirstFocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_LastFocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FocusExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Activated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Deactivated:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_StartingInteractionStrengthFilters: []
+  m_OnFirstHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnLastHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectCanceled:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnActivate:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnDeactivate:
+    m_PersistentCalls:
+      m_Calls: []
+  doorID: 0
+  unLockController: {fileID: 0}
+  SceneName: Chapter1
+--- !u!65 &750949566399087902
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7309105109079898778}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 12.499999, y: 9.343751, z: 0.20000008}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &4889945193067435433
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7309105109079898778}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7471620894821303265
 GameObject:
   m_ObjectHideFlags: 0
@@ -643,6 +953,9 @@ GameObject:
   - component: {fileID: 1149774184405792022}
   - component: {fileID: 757734840737260456}
   - component: {fileID: 1820972420265210303}
+  - component: {fileID: 5858679179679893046}
+  - component: {fileID: 7269131826428694189}
+  - component: {fileID: 6810208807902148353}
   m_Layer: 13
   m_Name: Ch1_Green
   m_TagString: Untagged
@@ -659,7 +972,7 @@ Transform:
   m_GameObject: {fileID: 7471620894821303265}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -733,7 +1046,7 @@ MonoBehaviour:
   drawBoardNumber: 0
   instanceID: 0
   boardColorTypeList: []
-  myColor: {r: 0, g: 0, b: 0, a: 0}
+  myColor: {r: 1, g: 1, b: 1, a: 0}
   spriteRenderer: {fileID: 0}
   texture: {fileID: 0}
   worldWidth: 0
@@ -745,3 +1058,66 @@ MonoBehaviour:
   paintTypeManager: {fileID: 11400000, guid: e3bb3a82badd59e488a56163b21dd1dc, type: 2}
   currentPaintType: 3
   drawingCompleteManager: {fileID: 0}
+--- !u!65 &5858679179679893046
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7471620894821303265}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7.8372545, y: 4.8304687, z: 0.2000001}
+  m_Center: {x: -2.3313963, y: 2.25665, z: -0.0000059686236}
+--- !u!65 &7269131826428694189
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7471620894821303265}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7.8486867, y: 2.3468468, z: 0.2000001}
+  m_Center: {x: -2.3256898, y: -3.498467, z: -0.000003260939}
+--- !u!65 &6810208807902148353
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7471620894821303265}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.3610358, y: 7.111744, z: 0.2000001}
+  m_Center: {x: 4.569538, y: 1.1160089, z: 0.000007986046}
