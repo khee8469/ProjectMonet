@@ -104,7 +104,7 @@ namespace JJH
 
         [SerializeField] Transform rayCastStartPos;
 
-        [SerializeField] private float distance = 1f;
+        //[SerializeField] private float distance = 1f;
 
         private float width = 0.01f;
         private Color color = Color.black;
