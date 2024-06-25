@@ -2213,7 +2213,6 @@ GameObject:
   - component: {fileID: 7332889433744204144}
   - component: {fileID: 757914720702343760}
   - component: {fileID: 4141967430211984720}
-  - component: {fileID: 7680252941009377395}
   - component: {fileID: 5644053308547469139}
   - component: {fileID: 7092889893786557753}
   - component: {fileID: 378289701096742425}
@@ -2319,34 +2318,6 @@ MonoBehaviour:
   m_MotionControllerModeEnded:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7680252941009377395
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5096718176013836551}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9b3d17eeb2e6bc47ada81d8f7f638d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_GazeInteractor: {fileID: 8085657357449213353}
-  m_FallbackDivergence: 60
-  m_HideCursorWithNoActiveRays: 1
-  m_RayInteractors:
-  - m_Interactor: {fileID: 0}
-    m_TeleportRay: 0
-  - m_Interactor: {fileID: 6235176850877780552}
-    m_TeleportRay: 1
-  - m_Interactor: {fileID: 0}
-    m_TeleportRay: 0
-  - m_Interactor: {fileID: 8164999283688216659}
-    m_TeleportRay: 1
-  m_AimAssistRequiredAngle: 30
-  m_AimAssistRequiredSpeed: 0.25
-  m_AimAssistPercent: 0.8
-  m_AimAssistMaxSpeedPercent: 10
 --- !u!114 &5644053308547469139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2477,9 +2448,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a680a09dfe1bcff44af2b3857588ac2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questEntryPrefab: {fileID: 1926772084977889938, guid: 88bd5812bad749f4d81324bd3f6a710e,
-    type: 3}
-  questEntryTr: {fileID: 750655292684902647}
 --- !u!1 &5262873356430446358
 GameObject:
   m_ObjectHideFlags: 0
@@ -4550,18 +4518,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3305329354737836526}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8085657357449213353 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6766910295942714439, guid: b84cd05e1160fe34cab2585022c8cd99,
-    type: 3}
-  m_PrefabInstance: {fileID: 3305329354737836526}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 556747796524089309}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c416f1a5c494e224fb5564fd1362b50d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &3445601277266955171
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5137,6 +5093,9 @@ MonoBehaviour:
   controller: {fileID: 2737897633884892499}
   canvasRect: {fileID: 1576083640515270461}
   aimRect: {fileID: 1572573642690570140}
+  hoveredSlot: {fileID: 0}
+  hitBox: {fileID: 0}
+  currentSlot: {fileID: 0}
 --- !u!4 &8023198237763627574 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5888765399538998960, guid: ad818c36731146e994540a1896ad8f24,
@@ -6129,6 +6088,9 @@ MonoBehaviour:
   controller: {fileID: 6512544508722491950}
   canvasRect: {fileID: 1576083640515270461}
   aimRect: {fileID: 2973629569098063621}
+  hoveredSlot: {fileID: 0}
+  hitBox: {fileID: 0}
+  currentSlot: {fileID: 0}
 --- !u!1001 &8130158094987755951
 PrefabInstance:
   m_ObjectHideFlags: 0
