@@ -42,10 +42,7 @@ namespace JJH
                     }
                 }
             }
-
-
-
-            //Manager.Game.ChangeScene(); // yield return 크게 잡아서 start 보다 늦는데 어째서 slot이 null인지?? 
+ 
             yield return null;
         }
 
