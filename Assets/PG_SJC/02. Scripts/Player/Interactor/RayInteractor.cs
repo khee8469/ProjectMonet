@@ -192,7 +192,7 @@ namespace Jc
                         }
                         else if (slotItem.ItemCount == 1) // 1개 라면 그냥 하던대로 작업해주면 된다. 
                         {
-                            Debug.Log("아이템 카 운트가 1 인 상황" +slotItem.ItemCount);
+                            Debug.Log("아이템 카 운트가 1 인 상황" + slotItem.ItemCount);
                             slotItem.MinusItemNumber();
 
                             curSlot.interactionManager.SelectEnter(this as IXRSelectInteractor, slotItem.interactablesSelected[0] as IXRSelectInteractable);
@@ -273,7 +273,7 @@ namespace Jc
                         else //내가 들고 있는 아이템이 스택형 아이템일때 slot 내부의 아이템이 다르다면. (어차피 
                         {
                             IXRSelectInteractable interactable = slotItem.interactablesSelected[0];
-                            
+
                             // 슬롯 내부 아이템
                             InventoryItem slotInventoryItem = interactable.transform.GetComponent<InventoryItem>();
 
@@ -314,14 +314,14 @@ namespace Jc
                         InventoryItem slotInventoryItem = interactable.transform.GetComponent<InventoryItem>();
                         if (slotInventoryItem != null)
                         {
-                            if(slotInventoryItem.itemData.stackType==StackTypeItem.Stackable) // 내부에 있던 아이템이 스택 아이템이라면
+                            if (slotInventoryItem.itemData.stackType == StackTypeItem.Stackable) // 내부에 있던 아이템이 스택 아이템이라면
                             {
-                                if(curSlot.ItemCount>=2)
+                                if (curSlot.ItemCount >= 2)
                                 {
                                     slotItem.NotAddText(); // 다른 스택형 아이템에 스택형 아이템 투입 불가능. 
                                     Debug.Log("스택형 아이템이 여러개 일 때 일반형 아이템도 투입 불가능");
                                 }
-                                else if(curSlot.ItemCount<=1)
+                                else if (curSlot.ItemCount <= 1)
                                 {
                                     slotItem.MinusItemNumber(); // 숫자 빼주기 필요. 
                                     this.interactionManager.SelectEnter(curSlot as IXRSelectInteractor, currentGrabObject as IXRSelectInteractable);
@@ -474,9 +474,9 @@ namespace Jc
                 if (currentSlot != null)
                 {
                     // 내부에 아이템이 없을 때만 색을 다시 오리지널 컬러로 되돌려줌 
-                    if(currentSlot.interactablesSelected.Count<=0)
+                    if (currentSlot.interactablesSelected.Count <= 0)
                     {
-                        currentSlot.slotImage.color = currentSlot.OriginalColor;                       
+                        currentSlot.slotImage.color = currentSlot.OriginalColor;
                     }
 
                     currentSlot = null; // 현재 레이캐스트가 닿은 슬롯 초기화

@@ -26,6 +26,15 @@ namespace JJH
             unLockController = FindObjectOfType<UnLockController>();
         }
 
+
+        protected override void OnHoverEntered(HoverEnterEventArgs args)
+        {
+
+            base.OnHoverEntered(args);
+            Debug.Log(" 온 호버 엔티드");
+        }
+
+
         protected override void OnActivated(ActivateEventArgs args)
         {
             base.OnActivated(args);
