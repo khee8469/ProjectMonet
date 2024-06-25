@@ -12,12 +12,12 @@ namespace JJH
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            Manager.UI.SelectWindowUI(this);
+            //Manager.UI.SelectWindowUI(this);
         }
 
         public void Close()
         {
-            Manager.UI.CloseWindowUI(this);
+            //Manager.UI.CloseWindowUI(this);
         }
     }
 

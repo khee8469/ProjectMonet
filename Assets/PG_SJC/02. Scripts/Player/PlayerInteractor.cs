@@ -36,7 +36,6 @@ namespace Jc
 
         public UnityAction OnEndInteract;   // NPC와 상호작용 해제
 
-        private bool isEnablePopUp = false;
 
         private void Awake()
         {
@@ -88,7 +87,7 @@ namespace Jc
         // NPC 상호작용 콜백
         private void OnInteractNPC(InputAction.CallbackContext context)
         {
-            if (isEnablePopUp) return;   // 팝업이 열려있는 경우 
+            if (Manager.Inventory.isEnable) return;   // 팝업이 열려있는 경우 
             if (nearNPC == null) return; // 근처 NPC가 없는 경우
 
             nearNPC.OnInteract(questController);
@@ -104,8 +103,6 @@ namespace Jc
 
         private void OnPopUp(bool isEnable)
         {
-            JJH.Manager.Inventory.isEnable = isEnable;
-            isEnablePopUp = isEnable;
 
             // 활성화 시 메인 카메라 트랜스폼을 추적
             if (isEnable)

@@ -16,6 +16,9 @@ namespace JJH
         // 로딩 루틴 별로 카메라 찾아서 포스트 프로세싱 조절 해줄 것 
         public override IEnumerator LoadingRoutine()
         {
+            Debug.Log("챕터1 씬 로딩루틴 진행");
+
+
             // Volume 하나에 뭉쳐놓는게 낫지 어차피 여러 기능 쓸 거니까 그냥 volume을 찾자.
             Volume globalVolume = GameObject.FindObjectOfType<Volume>()?.GetComponent<Volume>();
 
@@ -40,10 +43,12 @@ namespace JJH
                 }
             }
 
-            Manager.Game.ChangeScene();
 
+
+            //Manager.Game.ChangeScene(); // yield return 크게 잡아서 start 보다 늦는데 어째서 slot이 null인지?? 
             yield return null;
         }
+
     }
 
 }
