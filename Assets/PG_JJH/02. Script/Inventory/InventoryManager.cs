@@ -22,7 +22,7 @@ namespace JJH
 
 
         // 슬롯 아이디를 자동으로 할당해 주기 위한 변수
-        private int currentSlotID = 0;
+        //private int currentSlotID = 0;
 
         public static UnityEvent ExitGame_InventoryEvent = new UnityEvent();
 
