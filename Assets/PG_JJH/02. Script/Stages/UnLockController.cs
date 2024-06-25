@@ -49,6 +49,7 @@ namespace JJH
             }
         }
 
+        // interaction layer 를 바꿔줘서 더이상 select 하지 못하도록 만든다. 
         public void SaveStageData()
         {
             for (int i = 0; i < doors.Length; i++)
@@ -57,6 +58,7 @@ namespace JJH
             }
         }
 
+        // bool 변수를 true로 만들어서 해방시킨다. 
         public void UnlockStage(int stageIndex)
         {
             if (stageIndex >= 0 && stageIndex < ChapterManager.Instance.runtimeStageData.stageUnlockStatus.Count)

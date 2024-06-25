@@ -9,12 +9,23 @@ namespace JJH
 {
     public class DrawWithPen : InteractObject
     {
+        // Interactor Obejct 상속함. 
         [SerializeField] private Pen pen;
 
         private void Start()
         {
             pen = GetComponent<Pen>();
         }
+
+
+        // 임시로 이거 계속 true로 변경해주자.
+
+        private void FixedUpdate()
+        {
+            pen.StartDrawing();
+            
+        }
+
         protected override void OnActivated(ActivateEventArgs args)
         {
             
@@ -23,11 +34,16 @@ namespace JJH
             // 여기서 라인 렌더러 생성. 
         }
 
+        protected override void OnSelectExited(SelectExitEventArgs args)
+        {
+            base.OnSelectExited(args);
+        }
+
+
         protected override void OnDeactivated(DeactivateEventArgs args)
         {
-            
             base.OnDeactivated(args);
-            pen.DrawingStop(); 
+            //pen.DrawingStop();  임시 제거 해보기. 
         }
 
         private void Update()

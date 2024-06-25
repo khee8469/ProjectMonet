@@ -53,7 +53,8 @@ namespace JJH
         Green,
         Yellow,
         Black,
-        White
+        White,
+        Brown
     }
 }
 

@@ -67,7 +67,7 @@ namespace JJH
         private float NormalDis = 0.01f;
 
         [Tooltip("원하는 완료 퍼센트")]
-        [SerializeField] private int percent = 5;
+        [SerializeField] private float percent = 5;
 
         [Tooltip("라인렌더러의 포지션 위한 인덱스")]
         [SerializeField] private int index;
@@ -101,10 +101,13 @@ namespace JJH
         // 레이캐스트를 계속 체크해야 하기 때문에 update 밖에 없나? 어떻게 해야할지... 
         private void Update()
         {
+            // 컬러의 타입이 None이 아니고 동시에 isDrawing 상태면 그리기 가능. 
+
 
             if (isDrawing && currentPaintType != PaintTypeEnum.None)
             {
                 Draw();
+                
             }
         }
 
@@ -186,7 +189,7 @@ namespace JJH
                     {
                         return;
                     }
-
+                    Debug.Log("퍼센트 완료");
                     isNotEntered = true;
                     DrawingStop();
                     drawManager.ImageAlphaUp();
@@ -233,7 +236,6 @@ namespace JJH
             isDrawing = true; // 그리기 상태로 전환
             isNotMove = true;
             PlayerNotMove(isNotMove);
-
             // not move 와 함께 --> 플레이어의 움직임 막아버리는 함수 발동 
 
         }
@@ -250,13 +252,9 @@ namespace JJH
             }
         }
 
-
-
         public void DrawingStop()
         {
             isDrawing = false; //그리기 상태 중지로 설정
-
-
 
             if (currentDrawing != null)
             {
@@ -290,8 +288,6 @@ namespace JJH
             Debug.Log($"색깔 변경 +{_paintTypeEnum} ");
             tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType);
         }
-
-
 
         //한 라인 씩 Undo 할 필요는 없을 듯 함. --> 한 번에 라인 삭제 가능한 함수. 
         public void RemoveALLLine()
