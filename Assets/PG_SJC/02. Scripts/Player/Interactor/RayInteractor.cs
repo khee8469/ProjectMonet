@@ -34,8 +34,6 @@ namespace Jc
 
         private InteractObject currentGrabObject { get; set; }   // 현재 잡고있는 오브젝트
 
-        private XRInteractorLineVisual lineVisual;  // 라인 비주얼
-        private LineRenderer lr;                    // 라인 렌더러
         private Camera cam;                         // 메인 카메라
         private Transform grabbedTr;                // 그랩한 오브젝트 트랜스폼
 
@@ -51,10 +49,7 @@ namespace Jc
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
-            lineVisual = GetComponent<XRInteractorLineVisual>();
-            lr = GetComponent<LineRenderer>();
             cam = Camera.main;
-            lineVisual.enabled = false;
             canvasHeight = canvasRect.sizeDelta.y;
             canvasWidth = canvasRect.sizeDelta.x;
         }
@@ -386,7 +381,6 @@ namespace Jc
 
             grabbedTr = args.interactableObject.transform;
             isGrab = true;
-            lineVisual.enabled = true;
             aimRect.gameObject.SetActive(false);
 
             // save origin 값의 변경. 조정 필요할듯? 
@@ -397,13 +391,10 @@ namespace Jc
         {
             base.OnSelectExited(args);
 
-
-
             currentGrabObject = null;
 
             isGrab = false;
             grabbedTr = null;
-            lineVisual.enabled = false;
             aimRect.gameObject.SetActive(true);
         }
 
@@ -429,17 +420,7 @@ namespace Jc
         // 에임 포지셔닝
         private void AimPosition()
         {
-            Vector2 viewportPos = Vector2.zero;
-
-            // 오브젝트를 Select중 일 경우
-            if (isGrab)
-            {
-                viewportPos = cam.WorldToViewportPoint(grabbedTr.position);
-            }
-            else
-            {
-                viewportPos = cam.WorldToViewportPoint(rayEndPoint);
-            }
+            Vector2 viewportPos = cam.WorldToViewportPoint(rayEndPoint);
 
             Vector2 screenPos = new Vector2(
                 ((viewportPos.x * canvasWidth) - (canvasWidth * 0.5f)),
