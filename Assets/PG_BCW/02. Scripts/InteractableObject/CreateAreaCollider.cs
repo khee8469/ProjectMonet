@@ -20,7 +20,8 @@ public class CreateAreaCollider : MonoBehaviour
 
     void Start()
     {
-        Renderer tableRenderer = table.GetComponent<Renderer>();
+        BoxCollider tableRenderer = table.GetComponent<BoxCollider>();
+        
         // 오브젝트 윗 면적
         //float tableSize = tableRenderer.bounds.size.x * tableRenderer.bounds.size.z;
         Vector3 tableSize = tableRenderer.bounds.size;
