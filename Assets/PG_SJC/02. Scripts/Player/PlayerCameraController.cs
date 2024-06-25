@@ -10,6 +10,7 @@ public class PlayerCameraController : MonoBehaviour
 
     private void OnEnable()
     {
+        Manager.Camera.MainCameraSetting();
         Manager.Camera.PlayerCameraSetUp(playerVC);
     }
 }
