@@ -27,7 +27,7 @@ namespace Jc
         private float canvasWidth;
         private float canvasHeight;
         [SerializeField]
-        private RectTransform aimRect;
+        private Transform aimTransform;
 
         [Header("밸런싱")]
         private bool isGrab = false;
@@ -42,9 +42,12 @@ namespace Jc
         [Tooltip("슬롯의 이미 색 변경을 위한 Image 컴포넌트")]
         private Image slotImage;
 
+        private bool isAimming = false;      // 에이밍
+
         protected override void Awake()
         {
             base.Awake();
+            aimTransform.gameObject.SetActive(false);
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -84,7 +87,9 @@ namespace Jc
         }
         private void Update()
         {
-            AimPosition();
+            // 에임이 잡힌 상태 (Hover 상태)
+            if (isAimming)
+                Aimming();  // 에이밍
 
             // 잡고 있는 상황에서 인벤토리가 켜져있다면. --> 잡고 있는 오브젝트의 스케일을 조정해준다. 
             if (isGrab && Manager.Inventory.isEnable)
@@ -369,9 +374,22 @@ namespace Jc
             return base.CanSelect(interactable);
         }
 
+        protected override void OnHoverEntered(HoverEnterEventArgs args)
+        {
+            base.OnHoverEntered(args);
+            isAimming = true;
+            aimTransform.gameObject.SetActive(isAimming);
+        }
+        protected override void OnHoverExited(HoverExitEventArgs args)
+        {
+            base.OnHoverExited(args);
+            isAimming = false;
+            aimTransform.gameObject.SetActive(isAimming);
+        }
+
+
         // 플레이어가 아이템 잡은 상황. --> 인벤토리가 켜져있다면 이 CurrentGrabObject의 스케일 조정 필요
         // 
-
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
@@ -381,11 +399,6 @@ namespace Jc
 
             grabbedTr = args.interactableObject.transform;
             isGrab = true;
-            aimRect.gameObject.SetActive(false);
-
-            // save origin 값의 변경. 조정 필요할듯? 
-
-
         }
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
@@ -395,7 +408,6 @@ namespace Jc
 
             isGrab = false;
             grabbedTr = null;
-            aimRect.gameObject.SetActive(true);
         }
 
         // 오브젝트를 잡을 수 있는 거리체크
@@ -418,15 +430,9 @@ namespace Jc
         }
 
         // 에임 포지셔닝
-        private void AimPosition()
+        private void Aimming()
         {
-            Vector2 viewportPos = cam.WorldToViewportPoint(rayEndPoint);
-
-            Vector2 screenPos = new Vector2(
-                ((viewportPos.x * canvasWidth) - (canvasWidth * 0.5f)),
-                ((viewportPos.y * canvasHeight) - (canvasHeight * 0.5f)));
-
-            aimRect.anchoredPosition = screenPos;
+            aimTransform.position = rayEndPoint - transform.forward;
         }
 
 
