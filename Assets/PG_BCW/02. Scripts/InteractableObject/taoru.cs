@@ -7,16 +7,22 @@ using Unity.VisualScripting;
 using JJH;
 using System;
 
-public class taoru : InteractObject
+public class Taoru : InteractObject
 {
+    //닦은 구역 표시하기
+
     [Tooltip("그리기를 허용할 레이어 마스크")]
     [SerializeField] private LayerMask targetLayer;
 
-    [Tooltip("닦아지는 거리")]
+    [Tooltip("라인렌더러가 그려지는 거리")]
     [SerializeField] float rayDistance;
 
     [Tooltip("생성되는 라인렌더러")]
     private LineRenderer lineRenderer;
+    public LineRenderer LineRenderer { set { lineRenderer = value; } }
+
+    [Tooltip("생성되는 라인렌더러 색상")]
+    [SerializeField] Color materialColor;
 
     [Tooltip("Defalut-Line 으로 설정할 것")]
     public Material drawingMaterial;
@@ -34,16 +40,21 @@ public class taoru : InteractObject
     [Tooltip("오브젝트를 잡았는지 확인용")]
     private bool isSelecting;
 
-    private HashSet<Vector3> uniquePositions = new HashSet<Vector3>();
+    [Tooltip("청소가 끝났는지 확인용")]
+    private bool isSuccess;
+    public bool IsSuccess { get { return isSuccess; } set { isSuccess = value; } }
+
+    [Tooltip("렌더러 생성 및 지우기용")]
+    private GameObject lineObject;
+    public GameObject LineObject { get { return lineObject; } set { lineObject = value; } }
 
     private void Update()
     {
-        if (isSelecting )
+        if (isSelecting && !isSuccess)
         {
             Cleaning();
-            Debug.Log("청소중");
+            //Debug.Log("청소중");
         }
-            
     }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -69,12 +80,12 @@ public class taoru : InteractObject
             if (lineRenderer == null) //이 부분에서 현재 물감에 알맞는 색상으로 만들어줘야 할 것 같아. 
             {
                 //오브젝트 생성
-                GameObject lineObj = new GameObject("Line");
+                lineObject = new GameObject("Line");
                 //오브젝트 위치 지정
-                lineObj.transform.position = hit.point + hit.normal * 0.01f;
-                lineObj.transform.rotation = Quaternion.identity;
+                lineObject.transform.position = hit.point + hit.normal * 0.01f;
+                lineObject.transform.rotation = Quaternion.identity;
                 //라인렌더러 추가
-                lineRenderer = lineObj.AddComponent<LineRenderer>();
+                lineRenderer = lineObject.AddComponent<LineRenderer>();
                 //라인렌더러 메터리얼 지정
                 lineRenderer.material = new Material(drawingMaterial);
                 //라인렌더러를 바닥과 일치하게 만들기
@@ -82,7 +93,8 @@ public class taoru : InteractObject
                 lineRenderer.transform.rotation = Quaternion.Euler(90, 0, 0);
 
                 // 현재 색상 설정
-                lineRenderer.material.color = Color.blue;
+                lineRenderer.material.color = materialColor;
+
                 //일정한 굵기
                 lineRenderer.startWidth = lineRenderer.endWidth = width; 
                 //굴곡
@@ -98,7 +110,7 @@ public class taoru : InteractObject
             {
 
                 var currentPos = lineRenderer.GetPosition(index);
-                lineRenderer.material.color = Color.blue;
+                //lineRenderer.material.color = materialColor;
 
                 if (Vector3.Distance(currentPos, hit.point) > 0.01f)
                 {
@@ -109,38 +121,4 @@ public class taoru : InteractObject
             }
         }
     }
-
-
-    /*[Tooltip("대상 오브젝트")]
-    [SerializeField] private GameObject targetObject;
-
-    private float objectArea;
-    private float lineCoveredArea;
-
-    private void Start()
-    {
-        objectArea = CalculateObjectArea(targetObject);
-    }
-
-    private float CalculateObjectArea(GameObject obj)
-    {
-        // 예를 들어, 평면 오브젝트의 경우
-        var mesh = obj.GetComponent<MeshFilter>().mesh;
-        var bounds = mesh.bounds;
-        return bounds.size.x * bounds.size.z;
-    }
-
-    private void CalculateCoveredPercentage()
-    {
-        float coveredPercentage = (lineCoveredArea / objectArea) * 100f;
-        Debug.Log($"Covered Area: {coveredPercentage}%");
-    }*/
-
-
-    /*private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-
-        Gizmos.DrawLine(transform.position, Vector3.down);
-    }*/
 }
