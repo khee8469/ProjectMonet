@@ -50,21 +50,16 @@ namespace JJH
                             Color color = sprite.color;
                             color.a = 1f;
                             sprite.color= color;
-                            
 
                         }
                         
                     }
                 }
-
-
             }
             // start 에서 이벤트 발동 시켜서... 씬 해금 상태 유지 및 씬 컬러 상태 체크 해주기.
             // 씬 컬러 상태는 유지라기 보다는 한 번만 발동해주면 (static bool만 바꿔주면 계속 유지됨. )
 
-
         }
-
         public void DrawComplete(int drawingNumber, bool finishied, int instanceID) // 그림이 완성되었을 때 (완전히) 진행할 함수 
                                                                                     // 챕터도 해금 시켜줘야 하고. 포스트프로세싱도 종료 시켜줘야하기 때문에 
                                                                                     // 싱글턴 매니저와 연계가 필요하다. 

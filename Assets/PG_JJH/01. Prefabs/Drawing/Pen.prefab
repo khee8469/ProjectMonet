@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 690152396845437660}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Attach
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,8 @@ GameObject:
   - component: {fileID: 1289613481537042562}
   - component: {fileID: 2035615035377409019}
   - component: {fileID: 4346324526861788593}
-  m_Layer: 12
+  - component: {fileID: 455533288311405762}
+  m_Layer: 0
   m_Name: Pen
   m_TagString: PaintPen
   m_Icon: {fileID: 0}
@@ -140,7 +141,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0000001, y: 2.0000002, z: 1.0000002}
+  m_Size: {x: 2, y: 2.0000002, z: 2}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!54 &1289613481537042562
 Rigidbody:
@@ -164,8 +165,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -194,7 +195,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   lineList: []
-  percent: 5
+  percent: 30
   index: 0
   boxSize: {x: 0.1, y: 0.1, z: 0.1}
   boxOrientation: {x: 0, y: 0, z: 0, w: 1}
@@ -303,7 +304,7 @@ MonoBehaviour:
       m_Calls: []
   m_AttachTransform: {fileID: 690152396845437660}
   m_SecondaryAttachTransform: {fileID: 0}
-  m_UseDynamicAttach: 1
+  m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
   m_MatchAttachRotation: 1
   m_SnapToColliderVolume: 1
@@ -322,7 +323,7 @@ MonoBehaviour:
   m_SmoothRotation: 0
   m_SmoothRotationAmount: 8
   m_TightenRotation: 0.1
-  m_TrackScale: 1
+  m_TrackScale: 0
   m_SmoothScale: 0
   m_SmoothScaleAmount: 8
   m_TightenScale: 0.1
@@ -354,6 +355,18 @@ MonoBehaviour:
   grabType: 0
   grabDistance: 3
   pen: {fileID: 2035615035377409019}
+--- !u!114 &455533288311405762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5427997708200635151}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62fb9fb1177925e4b8a383be2b9db66c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6249770555503700350
 GameObject:
   m_ObjectHideFlags: 0
@@ -364,7 +377,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4900535816607281654}
   - component: {fileID: 3895170020354043674}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: Tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -418,7 +431,7 @@ GameObject:
   - component: {fileID: 4319670385494838098}
   - component: {fileID: 6743274714947923321}
   - component: {fileID: 1760800712229436911}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: ColorInddicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

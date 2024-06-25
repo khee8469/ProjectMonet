@@ -32,6 +32,7 @@ namespace JJH
 
             Debug.Log("온 액티베이트 진입");
 
+            // 맵이 열려 있으면 해당 씬 로딩 가능. 
             if (ChapterManager.Instance.runtimeStageData.stageUnlockStatus.Count > doorID &&
                 ChapterManager.Instance.runtimeStageData.stageUnlockStatus[doorID])
             {
