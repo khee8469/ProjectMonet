@@ -45,6 +45,7 @@ namespace JJH
         public Vector3 originalScale; // 아이템의 원래 스케일 값
         public int itemCount; // 아이템의 스택 되어 있는 숫자. 
 
+
         // position 과 roatation 은 굳이 저장할 필요가 없을 듯함. --> Scale만 조정해주기 때문에.
         public void SaveOriginalTransform (Transform transform)
         {
@@ -85,6 +86,7 @@ namespace JJH
 
     }
 
+    // csv 연계하여 데이터를 저장해줄 슬롯 관련 구조체
     [Serializable]
     public struct SlotData
     {
@@ -92,7 +94,7 @@ namespace JJH
         public int id_slot;
         [Header("아이템id")]
         public int id_item;
-        [Header("갯순id")]
+        [Header("갯수id")]
         public int count;
 
         public SlotData(int id_slot, int id_item, int count)
