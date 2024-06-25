@@ -18,8 +18,8 @@ public class CreatedCollider : MonoBehaviour
     {
         if (!IsCheak && triggerLayer.Contain(collider.gameObject.layer))
         {
-            Debug.Log("청소중");
-            createAreaCollider.cleaningCheck[gameObject] = true;
+            //Debug.Log("청소중");
+            createAreaCollider.CleaningCheck[gameObject] = true;
             createAreaCollider.CheckCleaningProgress();
 
             IsCheak = true;
