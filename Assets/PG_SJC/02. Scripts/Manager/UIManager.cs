@@ -80,12 +80,15 @@ namespace Jc
             infoGruop.transform.localRotation = Quaternion.identity;
 
             infoGruop.SetActive(true);
-
+            Manager.Inventory.isEnable = true;
         }
         // 인벤토리/퀘스트 창 닫기
         public void CloseInfoGroup()
         {
+            Manager.PlableData.SaveSlotData();
+
             infoGruop.transform.parent = this.transform;
+            Manager.Inventory.isEnable = false;
             infoGruop.SetActive(false);
         }
 
