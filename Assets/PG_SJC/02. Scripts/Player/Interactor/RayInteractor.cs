@@ -376,8 +376,6 @@ namespace Jc
         }
 
 
-         
-
         protected override void OnHoverEntered(HoverEnterEventArgs args)
         {
             base.OnHoverEntered(args);

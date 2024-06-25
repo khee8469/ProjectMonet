@@ -189,7 +189,6 @@ namespace JJH
                     {
                         return;
                     }
-
                     Debug.Log("퍼센트 완료");
                     isNotEntered = true;
                     DrawingStop();

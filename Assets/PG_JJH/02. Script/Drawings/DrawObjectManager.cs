@@ -242,14 +242,12 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             // 자신의 타입에 맞춰 --> static bool 바꿔주고... 거기서 이제 다 켜지는거 까지 확인해주고
             // 다 켜지면 (어차피 그려진 layer 바꿔주니까... 상관은 없을듯 하다. -->더이상 못그리는건 마찬가지임.)
             StartCoroutine((SpriteAlphaUpRoutine()));
-
         }
 
         public void LineRemove(LineRenderer lineRenderer)
         {
             StartCoroutine(RendererAlphaRoutine(lineRenderer));
         }
-
 
         // 이 부분 수정 필요.. 자기 자신의 그림만 나와야 하니까. 그냥 찾지말고. 
         /*private IEnumerator StartAlphaRoutine()
