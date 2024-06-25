@@ -53,7 +53,6 @@ namespace JJH
         {
             base.Awake();
             itemID = -1;
-            Debug.Log("아이템 아이디 ->" + itemID);
             slotData = new SlotData();
             countText = GetComponentInChildren<TextMeshProUGUI>();
             countText.text = $" ";
