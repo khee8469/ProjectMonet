@@ -9,6 +9,7 @@ namespace JJH
 {
     public class DrawWithPen : InteractObject
     {
+        // Interactor Obejct 상속함. 
         [SerializeField] private Pen pen;
 
         private void Start()

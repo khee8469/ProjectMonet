@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 690152396845437660}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Attach
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 1289613481537042562}
   - component: {fileID: 2035615035377409019}
   - component: {fileID: 4346324526861788593}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Pen
   m_TagString: PaintPen
   m_Icon: {fileID: 0}
@@ -63,8 +63,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.02, y: 0.07, z: 0.02}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.049999997, y: 0.175, z: 0.049999997}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4319670385494838098}
   - {fileID: 4900535816607281654}
@@ -184,7 +184,7 @@ MonoBehaviour:
   tip: {fileID: 4900535816607281654}
   drawingMaterial: {fileID: 2100000, guid: 3a3177e3e83ec2d4e9d75480d30353c7, type: 2}
   tipMaterial: {fileID: 2100000, guid: 785b1a453eb114946a2e16655db343b2, type: 2}
-  penWidth: 0.01
+  penWidth: 0.05
   currentDrawing: {fileID: 0}
   currentPaintType: 0
   paintTypeManager: {fileID: 11400000, guid: e3bb3a82badd59e488a56163b21dd1dc, type: 2}
@@ -192,7 +192,7 @@ MonoBehaviour:
   isNotMove: 0
   drawingLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8192
   lineList: []
   percent: 5
   index: 0
@@ -351,7 +351,9 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  pen: {fileID: 0}
+  grabType: 0
+  grabDistance: 3
+  pen: {fileID: 2035615035377409019}
 --- !u!1 &6249770555503700350
 GameObject:
   m_ObjectHideFlags: 0
@@ -362,7 +364,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4900535816607281654}
   - component: {fileID: 3895170020354043674}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Tip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -416,7 +418,7 @@ GameObject:
   - component: {fileID: 4319670385494838098}
   - component: {fileID: 6743274714947923321}
   - component: {fileID: 1760800712229436911}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ColorInddicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
