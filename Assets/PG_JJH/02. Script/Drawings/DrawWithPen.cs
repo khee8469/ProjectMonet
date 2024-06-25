@@ -16,9 +16,19 @@ namespace JJH
         {
             pen = GetComponent<Pen>();
         }
+
+
+        // 임시로 이거 계속 true로 변경해주자.
+
+        private void FixedUpdate()
+        {
+            pen.StartDrawing();
+            
+        }
+
         protected override void OnActivated(ActivateEventArgs args)
         {
-            Debug.Log("pen의 on activate");   
+            
             base.OnActivated(args);
             pen.StartDrawing();  // 그리기 시작
             // 여기서 라인 렌더러 생성. 
@@ -27,16 +37,13 @@ namespace JJH
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
-            Debug.Log("pen의 on selected exit");
         }
 
 
         protected override void OnDeactivated(DeactivateEventArgs args)
         {
-
-            Debug.Log("pen의 de activate ");
             base.OnDeactivated(args);
-            pen.DrawingStop(); 
+            //pen.DrawingStop();  임시 제거 해보기. 
         }
 
         private void Update()
