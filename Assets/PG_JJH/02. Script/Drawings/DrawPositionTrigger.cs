@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using JJH;
+using Jc;
+using UnityEngine.XR.Interaction.Toolkit;
 
 namespace JJH
 {
     // 플레이어의 이동을 방지 + 고개는 돌릴 수 있음. 
     // 이 상태에서만 그림을 그릴 수 있음. 
-    public class DrawPositionTrigger : MonoBehaviour , IActivatable
+    public class DrawPositionTrigger : InteractObject , IActivatable
     {
         [SerializeField] private Transform playerMovePos;
         [SerializeField] private LayerMask playerLayer; 
@@ -47,12 +49,16 @@ namespace JJH
             //  player가 참조 되면 이제 바로 앞으로 이동 시키고 고정 시키기. 
             if(player != null)
             {
-
+                Debug.Log("엔터 드로잉");
             }
         }
 
 
-        
+        protected override void OnActivated(ActivateEventArgs args)
+        {
+            base.OnActivated(args);
+            EnterDrawing();
+        }
 
 
 
