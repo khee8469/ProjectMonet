@@ -78,8 +78,6 @@ namespace Jc
 
         [SerializeField]
         private int curDialogIndex = 0;     // 대화 진행 인덱스
-        [SerializeField]
-        private int maxDialogIndex = 0;     // 대화 진행 최대 인덱스
 
         private void Start()
         {

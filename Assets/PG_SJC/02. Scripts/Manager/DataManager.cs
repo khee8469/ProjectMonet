@@ -5,9 +5,6 @@ using UnityEngine.Events;
 
 namespace Jc
 {
-    /// <summary>
-    /// 각각의 데이터 로드 메서드는 partial로 구성
-    /// </summary>
     public class DataManager : Singleton<DataManager>
     {
         private Dictionary<int, List<int>> narrationBundleDic;  // 나레이션 번들 데이터 <나레이션 번들 ID, 나레이션 ID 리스트>
@@ -45,18 +42,26 @@ namespace Jc
 
         private void LoadNarrationData()
         {
-            List<Dictionary<string, object>> csvData = CSVReader.Read(DataPath.NarrationData);
+            // CSVReader를 통한 csvData 읽기
+            // Resources 폴더 내에 데이터 테이블이 존재해야함.
+            List<Dictionary<string, object>> csvData = CSVHelper.Read(ResourcesPath.NarrationData);
             if (csvData == null || csvData.Count < 1)
             {
                 Debug.Log("나레이션 데이터가 존재하지 않습니다.");
                 return;
             }
 
+            // 딕셔너리 객체화
             narrationDataDic = new Dictionary<int, NarrtionData>();
 
             for (int i = 0; i < csvData.Count; i++)
             {
+                // 테이블 1행은 각 열이 Key 값으로 할당.
+                // 매핑된 ID 값을 빼서 객체화된 딕셔너리에 할당.
+
                 int narrationID = (int)csvData[i]["id"] - DataID.NARRATION;     // 나레이션 ID 할당
+
+                // NarrationData 구조체 생성 후 로드한 데이터 할당.
                 NarrtionData data = new NarrtionData();
                 data.npcID = (int)csvData[i]["id_target"] - DataID.NPC;
                 data.text = (string)csvData[i]["id_text"];
@@ -66,7 +71,7 @@ namespace Jc
         }
         private void LoadNarrationBundleData()
         {
-            List<Dictionary<string, object>> csvData = CSVReader.Read(DataPath.NarrationBundleData);
+            List<Dictionary<string, object>> csvData = CSVHelper.Read(ResourcesPath.NarrationBundleData);
             if (csvData == null || csvData.Count < 1)
             {
                 Debug.Log("나레이션 번들데이터가 존재하지 않습니다.");
@@ -99,7 +104,7 @@ namespace Jc
         }
         private void LoadQuestData()
         {
-            List<Dictionary<string, object>> csvData = CSVReader.Read(DataPath.QuestData);
+            List<Dictionary<string, object>> csvData = CSVHelper.Read(ResourcesPath.QuestData);
 
             if (csvData == null || csvData.Count < 1)
             {
@@ -125,11 +130,10 @@ namespace Jc
 
                 questDataDic.Add(questID, questData);
             }
-
         }
         private void LoadNPCData()
         {
-            List<Dictionary<string, object>> csvData = CSVReader.Read(DataPath.NPCData);
+            List<Dictionary<string, object>> csvData = CSVHelper.Read(ResourcesPath.NPCData);
 
             if (csvData == null || csvData.Count < 1)
             {
@@ -158,21 +162,7 @@ namespace Jc
                 npcDataDic.Add(id, data);
             }
         }
-        #endregion
 
-
-        #region Plable 데이터 세이브 / 로드
-        /// <summary>
-        /// 게임 플레이 데이터 저장
-        /// </summary>
-        public void SavePlableData()
-        {
-
-        }
-        public void LoadPlableData()
-        {
-
-        }
         #endregion
     }
 }

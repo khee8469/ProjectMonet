@@ -1,25 +1,35 @@
 using Jc;
+using JJH;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.Hands;
-using UnityEngine.XR.Hands.OpenXR;
-using UnityEngine.XR.Interaction.Toolkit;
 
 public class PaintBucket : InteractObject
 {
-    [SerializeField] ParticleSystem paintParticle;
+    [Tooltip("생성 할 물감 색상")]
+    [SerializeField]
+    private PaintTypeEnum color;
+    [Tooltip("물감 프리펩")]
+    [SerializeField]
+    private Paint paint;
+    [Tooltip("물감 생성 위치")]
+    [SerializeField]
+    private Transform attach;
 
 
-    
+    //물감나오는거 구현
     public void PaintPlay()
     {
-        paintParticle.Play();
+        Paint paintPrefab = Instantiate(paint, attach.position, Quaternion.identity);
+        paintPrefab.paintType = color;
     }
 
     public void PaintStop()
     {
-        paintParticle.Stop();
+        //paintParticle.Stop();
     }
+
+
+
+    //레이를 쏴서 아래가 팔렛트면 물감을 생성한다
 
 }

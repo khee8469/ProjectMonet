@@ -24,6 +24,8 @@ namespace Jc
         [SerializeField]
         private GameObject popUpCanvas; // 인벤토리 / 퀘스트
 
+        private Transform mainCam; // 메인 카메라
+
         [Space(5)]
         [Header("밸런싱")]
         [SerializeField]
@@ -34,7 +36,11 @@ namespace Jc
 
         public UnityAction OnEndInteract;   // NPC와 상호작용 해제
 
-        private bool isEnablePopUp = false;
+
+        private void Awake()
+        {
+            mainCam = Camera.main.transform;
+        }
 
         private void OnEnable()
         {
@@ -81,7 +87,7 @@ namespace Jc
         // NPC 상호작용 콜백
         private void OnInteractNPC(InputAction.CallbackContext context)
         {
-            if (isEnablePopUp) return;   // 팝업이 열려있는 경우 
+            if (Manager.Inventory.isEnable) return;   // 팝업이 열려있는 경우 
             if (nearNPC == null) return; // 근처 NPC가 없는 경우
 
             nearNPC.OnInteract(questController);
@@ -97,9 +103,12 @@ namespace Jc
 
         private void OnPopUp(bool isEnable)
         {
-            JJH.Manager.Inventory.isEnable = isEnable;
-            isEnablePopUp = isEnable;
-            popUpCanvas.SetActive(isEnable);
+
+            // 활성화 시 메인 카메라 트랜스폼을 추적
+            if (isEnable)
+                Manager.UI.OpenInfoGroup();
+            else
+                Manager.UI.CloseInfoGroup();
         }
     }
 }

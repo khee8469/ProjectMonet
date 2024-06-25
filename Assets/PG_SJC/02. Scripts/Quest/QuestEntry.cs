@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static UnityEngine.EventSystems.EventTrigger;
 
 namespace Jc
 {
@@ -17,6 +18,8 @@ namespace Jc
         [SerializeField]
         private Quest ownerQuest; 
         public Quest OwnerQuest { get { return ownerQuest; } set { ownerQuest = value; }}
+
+        public int entryID;
 
         private string proceedText = "(진행중)";
         private string clearText = "(완료)";
@@ -50,6 +53,8 @@ namespace Jc
                     break;
                 case QuestState.Clear:
                     stateText.text = clearText;
+                    break;
+                default:
                     break;
             }
         }

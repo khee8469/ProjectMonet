@@ -391,9 +391,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         }
 
 
-        
-        
-
         public int CompareTo(DrawObjectManager other)
         {
             if (other == null) return 0;

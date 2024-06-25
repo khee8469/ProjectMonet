@@ -1,3 +1,4 @@
+using Jc;
 using JJH;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace JJH
 {
-    public class DrawWithPen : XRGrabInteractable
+    public class DrawWithPen : InteractObject
     {
         [SerializeField] private Pen pen;
 
