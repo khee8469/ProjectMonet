@@ -21,12 +21,12 @@ namespace Jc
         public InputActionReference rightOculusBTNRef;      // 오른손 오큘러스 버튼
         public InputActionReference rightABTNRef;           // 오른손 A 버튼
         public InputActionReference rightBBTNRef;           // 오른손 B 버튼            
-        
+
         private void OnEnable()
         {
             // 왼손 콜백 등록
             leftTriggerRef.action.performed += OnLeftTriggerEnter;
-            leftGripRef.action.performed += OnLeftGripEnter;
+            //leftGripRef.action.performed += OnLeftGripEnter;
             //leftMenuBTNRef.action.performed += OnLeftMenuButtonEnter;
             leftXBTNRef.action.performed += OnLeftXButtonEnter;
             leftYBTNRef.action.performed += OnLeftYButtonEnter;
@@ -39,7 +39,7 @@ namespace Jc
 
             // 오른손 콜백 등록
             rightTriggerRef.action.performed += OnRightTriggerEnter;
-            rightGripRef.action.performed += OnRightGripEnter;
+            //rightGripRef.action.performed += OnRightGripEnter;
             rightOculusBTNRef.action.performed += OnRightOculusButtonEnter;
             rightABTNRef.action.performed += OnRightAButtonEnter;
             rightBBTNRef.action.performed += OnRightBButtonEnter;
@@ -54,7 +54,7 @@ namespace Jc
         {
             // 왼손 콜백 해제
             leftTriggerRef.action.performed -= OnLeftTriggerEnter;
-            leftGripRef.action.performed -= OnLeftGripEnter;
+            //leftGripRef.action.performed -= OnLeftGripEnter;
             //leftMenuBTNRef.action.performed -= OnLeftMenuButtonEnter;
             leftXBTNRef.action.performed -= OnLeftXButtonEnter;
             leftYBTNRef.action.performed -= OnLeftYButtonEnter;
@@ -67,7 +67,7 @@ namespace Jc
 
             // 오른손 콜백 해제
             rightTriggerRef.action.performed -= OnRightTriggerEnter;
-            rightGripRef.action.performed -= OnRightGripEnter;
+            //rightGripRef.action.performed -= OnRightGripEnter;
             rightOculusBTNRef.action.performed -= OnRightOculusButtonEnter;
             rightABTNRef.action.performed -= OnRightAButtonEnter;
             rightBBTNRef.action.performed -= OnRightBButtonEnter;
