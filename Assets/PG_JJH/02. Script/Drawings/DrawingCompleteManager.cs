@@ -32,8 +32,6 @@ namespace JJH
             DrawObjectManager[] drawObjectManagers =
                 GameObject.FindObjectsOfType<DrawObjectManager>();
 
-            Debug.Log("오브젝트찾음" + drawObjectManagers[0].name);
-
 
             // DrawObjectManager 에 붙어있는 IComparable 을 이용하여 정렬한다.
             Array.Sort(drawObjectManagers); //어차피 둘이 같은 타입을 찾는 find를 하기 때문에 길이는 무조건 같

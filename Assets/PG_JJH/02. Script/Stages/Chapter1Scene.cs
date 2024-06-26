@@ -18,7 +18,6 @@ namespace JJH
         {
             Debug.Log("챕터1 씬 로딩루틴 진행");
 
-
             // Volume 하나에 뭉쳐놓는게 낫지 어차피 여러 기능 쓸 거니까 그냥 volume을 찾자.
             Volume globalVolume = GameObject.FindObjectOfType<Volume>()?.GetComponent<Volume>();
 
