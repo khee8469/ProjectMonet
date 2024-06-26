@@ -24,12 +24,22 @@ public class MainCameraController : MonoBehaviour
         subCamera.depth = 1;
 
         SetUpSubCamera();
+        SetUpMainCamera();
     }
 
     private void SetUpMainCamera()
     {
         mainCamera.clearFlags = CameraClearFlags.Skybox;
-        mainCamera.cullingMask = LayerMask.GetMask("Everything");
+        //mainCamera.cullingMask = LayerMask.GetMask("Everything");
+
+        UniversalAdditionalCameraData mainCamera1 = mainCamera.GetComponent<UniversalAdditionalCameraData>();
+        if(mainCamera1 != null )
+        {
+            mainCamera1.renderPostProcessing = true;
+           // mainCamera1.volumeLayerMask = LayerMask.GetMask("GlobalVolume");
+        }
+
+
     }
 
     private void Update()
@@ -51,7 +61,7 @@ public class MainCameraController : MonoBehaviour
         if(subCamera != null)
         {
             subCamera1.renderPostProcessing = true;
-            subCamera1.volumeLayerMask = LayerMask.GetMask("LocalVolume");
+            //subCamera1.volumeLayerMask = LayerMask.GetMask("LocalVolume");
         }
         
 
