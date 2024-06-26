@@ -18,7 +18,7 @@ namespace JJH
             pen = GetComponent<Pen>();
         }
 
-        private void FixedUpdate()
+       /* private void FixedUpdate()
         {
             pen.StartDrawing();
         }
@@ -41,7 +41,7 @@ namespace JJH
         {
             base.OnDeactivated(args);
             pen.DrawingStop();
-        }
+        }*/
 
         private void Update()
         {
