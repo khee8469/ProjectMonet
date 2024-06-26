@@ -152,7 +152,7 @@ namespace Jc
             return null;
         }
 
-        private void UpdateDialog(PlayerQuestController questController)
+        protected virtual void UpdateDialog(PlayerQuestController questController)
         {
             dialogText.gameObject.SetActive(true);
 

@@ -20,7 +20,7 @@ namespace Jc
         public override bool CanHover(IXRHoverInteractable interactable)
         {
             if (interactable is not PhotoFrame) return false;
-
+            if ((interactable.transform.position - attachTransform.position).sqrMagnitude > 0.3f) return false;
             return base.CanHover(interactable);
         }
         public override bool CanSelect(IXRSelectInteractable interactable)
@@ -37,6 +37,7 @@ namespace Jc
             PhotoFrame targetFrame = args.interactableObject as PhotoFrame;
             if (targetFrame == null) return;
 
+            targetFrame.gameObject.transform.position = attachTransform.position;
             targetFrame.gameObject.transform.rotation = attachTransform.rotation;
 
             base.OnSelectEntered(args);

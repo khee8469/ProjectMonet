@@ -46,6 +46,10 @@ namespace Jc
         [SerializeField]
         public List<GameObject> activableList;
 
+        [Header("착시 적용 시 비활성화 할 오브젝트 리스트")]
+        [SerializeField]
+        public List<GameObject> disActivableList;
+
         private bool isActive = false;
         public bool IsActive
         {
@@ -110,14 +114,24 @@ namespace Jc
             // 이미지 애니메이션 출력
             anim.SetTrigger("FadeOut");
 
-            // 그림과 치환된 오브젝트 활성화
-            foreach (GameObject go in activableList)
-                go.SetActive(true);
+            if (activableList != null && activableList.Count > 0)
+            {
+                // 그림과 치환된 오브젝트 활성화
+                foreach (GameObject go in activableList)
+                    go.SetActive(true);
+            }
+
+            if (disActivableList!= null && disActivableList.Count > 0)
+            {
+                // 충돌체 등 비활성화 할 오브젝트를 비활성화
+                foreach (GameObject go in disActivableList)
+                    go.SetActive(false);
+            }
 
             // 페이드아웃용 머터리얼로 변경
             meshRenderer.sharedMaterial = fadeOutMT;
             float rate = 0f;
-            while(rate < 1f)
+            while (rate < 1f)
             {
                 rate += Time.deltaTime / 0.9f;
                 fadeOutMT.color = Color.Lerp(originColor, fadeOutColor, rate);
