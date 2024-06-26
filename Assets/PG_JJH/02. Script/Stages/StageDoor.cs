@@ -1,5 +1,6 @@
 using Jc;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -23,6 +24,8 @@ namespace JJH
 
         new Rigidbody rigidbody;
 
+        List<Collider> myColliderList = new List<Collider>();
+
         private void Start()
         {
             unLockController = FindObjectOfType<UnLockController>();
@@ -39,9 +42,9 @@ namespace JJH
         protected override void OnActivated(ActivateEventArgs args)
         {
             base.OnActivated(args);
-            Debug.Log("oNaCTIVATE");
-            Activate();
+            //Activate();
         }
+
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
@@ -49,6 +52,7 @@ namespace JJH
 
         protected override void OnSelectEntering(SelectEnterEventArgs args)
         {
+            return;
             base.OnSelectEntering(args);
         }
         // 할당된 ID 순서대로 정렬 . 
@@ -72,6 +76,13 @@ namespace JJH
                 Debug.Log("해당 스테이지는 잠겨 있습니다.");
                 return false;
             }
+        }
+
+
+        // Static object의 끌려 들어온 coliider를 원 상태로 복구 시켜준다. 
+        public void ResetColliderPosition()
+        {
+
         }
     }
 }
