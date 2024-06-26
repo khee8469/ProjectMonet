@@ -3710,7 +3710,7 @@ PrefabInstance:
     - target: {fileID: 4290079744498428665, guid: ccfc97d7595343c45857d25fbbf5a8e1,
         type: 3}
       propertyPath: m_Height
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4428335688138582191, guid: ccfc97d7595343c45857d25fbbf5a8e1,
         type: 3}
@@ -3775,17 +3775,37 @@ PrefabInstance:
     - target: {fileID: 8687793630058020936, guid: ccfc97d7595343c45857d25fbbf5a8e1,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.000003755093
+      value: -127.48907
+      objectReference: {fileID: 0}
+    - target: {fileID: 8687793630058020936, guid: ccfc97d7595343c45857d25fbbf5a8e1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.1999998
       objectReference: {fileID: 0}
     - target: {fileID: 8687793630058020936, guid: ccfc97d7595343c45857d25fbbf5a8e1,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.0000010430813
+      value: 81.86871
+      objectReference: {fileID: 0}
+    - target: {fileID: 8687793630058020936, guid: ccfc97d7595343c45857d25fbbf5a8e1,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.069225565
+      objectReference: {fileID: 0}
+    - target: {fileID: 8687793630058020936, guid: ccfc97d7595343c45857d25fbbf5a8e1,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.0006041246
       objectReference: {fileID: 0}
     - target: {fileID: 8687793630058020936, guid: ccfc97d7595343c45857d25fbbf5a8e1,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000005960463
+      value: 0.9975629
+      objectReference: {fileID: 0}
+    - target: {fileID: 8687793630058020936, guid: ccfc97d7595343c45857d25fbbf5a8e1,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.008705621
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4632,7 +4652,9 @@ GameObject:
   - component: {fileID: 163310727}
   - component: {fileID: 163310726}
   - component: {fileID: 163310729}
+  - component: {fileID: 163310730}
   - component: {fileID: 163310728}
+  - component: {fileID: 163310731}
   m_Layer: 0
   m_Name: 4
   m_TagString: Untagged
@@ -4809,7 +4831,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 163310727}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
@@ -4817,7 +4839,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 1
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -4830,11 +4852,11 @@ MonoBehaviour:
   m_SmoothRotation: 0
   m_SmoothRotationAmount: 8
   m_TightenRotation: 0.1
-  m_TrackScale: 1
+  m_TrackScale: 0
   m_SmoothScale: 0
   m_SmoothScaleAmount: 8
   m_TightenScale: 0.1
-  m_ThrowOnDetach: 1
+  m_ThrowOnDetach: 0
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
     serializedVersion: 2
@@ -4860,8 +4882,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
-  grabDistance: 0
-  targetSocket: {fileID: 767284742}
+  grabDistance: 3
   isEnable: 0
 --- !u!54 &163310729
 Rigidbody:
@@ -4885,11 +4906,44 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &163310730
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163310725}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.1200013, y: 5.57, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &163310731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163310725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62fb9fb1177925e4b8a383be2b9db66c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &166413237 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4330417576706480, guid: 737755ded67dca042ab01806f71f63ce,
@@ -5954,7 +6008,9 @@ GameObject:
   - component: {fileID: 245064898}
   - component: {fileID: 245064897}
   - component: {fileID: 245064900}
+  - component: {fileID: 245064901}
   - component: {fileID: 245064899}
+  - component: {fileID: 245064902}
   m_Layer: 0
   m_Name: 7
   m_TagString: Untagged
@@ -6131,7 +6187,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 245064898}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
@@ -6139,7 +6195,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 1
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -6152,11 +6208,11 @@ MonoBehaviour:
   m_SmoothRotation: 0
   m_SmoothRotationAmount: 8
   m_TightenRotation: 0.1
-  m_TrackScale: 1
+  m_TrackScale: 0
   m_SmoothScale: 0
   m_SmoothScaleAmount: 8
   m_TightenScale: 0.1
-  m_ThrowOnDetach: 1
+  m_ThrowOnDetach: 0
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
     serializedVersion: 2
@@ -6182,8 +6238,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
-  grabDistance: 0
-  targetSocket: {fileID: 1176598633}
+  grabDistance: 3
   isEnable: 0
 --- !u!54 &245064900
 Rigidbody:
@@ -6207,11 +6262,44 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &245064901
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245064896}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.4200015, y: 6.19, z: 0.5}
+  m_Center: {x: 0, y: 0.0000038146973, z: 0}
+--- !u!114 &245064902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 245064896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62fb9fb1177925e4b8a383be2b9db66c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &246990285
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6541,7 +6629,11 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 896498281}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: e712748253b139349b2a6e8544f23013,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1697239362}
   m_SourcePrefab: {fileID: 100100000, guid: e712748253b139349b2a6e8544f23013, type: 3}
 --- !u!4 &258822025 stripped
 Transform:
@@ -10542,7 +10634,9 @@ GameObject:
   - component: {fileID: 538159108}
   - component: {fileID: 538159107}
   - component: {fileID: 538159110}
+  - component: {fileID: 538159111}
   - component: {fileID: 538159109}
+  - component: {fileID: 538159112}
   m_Layer: 0
   m_Name: 2
   m_TagString: Untagged
@@ -10719,7 +10813,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 538159108}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
@@ -10727,7 +10821,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 1
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -10740,11 +10834,11 @@ MonoBehaviour:
   m_SmoothRotation: 0
   m_SmoothRotationAmount: 8
   m_TightenRotation: 0.1
-  m_TrackScale: 1
+  m_TrackScale: 0
   m_SmoothScale: 0
   m_SmoothScaleAmount: 8
   m_TightenScale: 0.1
-  m_ThrowOnDetach: 1
+  m_ThrowOnDetach: 0
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
     serializedVersion: 2
@@ -10770,8 +10864,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
-  grabDistance: 0
-  targetSocket: {fileID: 1199315262}
+  grabDistance: 3
   isEnable: 0
 --- !u!54 &538159110
 Rigidbody:
@@ -10795,11 +10888,44 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &538159111
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538159106}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7.6800017, y: 7.1, z: 0.5}
+  m_Center: {x: 0, y: 0.0000038146973, z: 0}
+--- !u!114 &538159112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 538159106}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62fb9fb1177925e4b8a383be2b9db66c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &543845733 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7937272590893367522, guid: 971892cfab0afaf4bb59b83d8d7c679c,
@@ -10878,7 +11004,9 @@ GameObject:
   - component: {fileID: 564610652}
   - component: {fileID: 564610651}
   - component: {fileID: 564610654}
+  - component: {fileID: 564610655}
   - component: {fileID: 564610653}
+  - component: {fileID: 564610656}
   m_Layer: 0
   m_Name: 8
   m_TagString: Untagged
@@ -11055,7 +11183,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 564610652}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
@@ -11063,7 +11191,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 1
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -11076,11 +11204,11 @@ MonoBehaviour:
   m_SmoothRotation: 0
   m_SmoothRotationAmount: 8
   m_TightenRotation: 0.1
-  m_TrackScale: 1
+  m_TrackScale: 0
   m_SmoothScale: 0
   m_SmoothScaleAmount: 8
   m_TightenScale: 0.1
-  m_ThrowOnDetach: 1
+  m_ThrowOnDetach: 0
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
     serializedVersion: 2
@@ -11107,7 +11235,6 @@ MonoBehaviour:
   m_AddDefaultGrabTransformers: 1
   grabType: 0
   grabDistance: 3
-  targetSocket: {fileID: 1003149662}
   isEnable: 0
 --- !u!54 &564610654
 Rigidbody:
@@ -11131,11 +11258,44 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &564610655
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564610650}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.740001, y: 4.13, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &564610656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 564610650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62fb9fb1177925e4b8a383be2b9db66c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &565673261
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13719,7 +13879,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 4294967295
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 767284741}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
   m_StartingSelectedInteractable: {fileID: 0}
@@ -13751,16 +13911,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 0}
+  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: af929ce582c833c4aa6945da7e6df38a,
+    type: 2}
   m_InteractableCantHoverMeshMaterial: {fileID: 0}
   m_SocketActive: 1
   m_InteractableHoverScale: 1
   m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 0
+  m_HoverSocketSnapping: 1
   m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 0
+  m_SocketScaleMode: 1
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+  targetPicture: {fileID: 163310728}
 --- !u!65 &767284743
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13776,12 +13938,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6.1200013, y: 5.57, z: 0.20000005}
-  m_Center: {x: 0.00012207031, y: 0.0000038146973, z: 0}
+  m_Size: {x: 6.1200013, y: 5.57, z: 1}
+  m_Center: {x: 0.00012207031, y: 0.0000038146973, z: -0.5}
 --- !u!212 &767284744
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14408,7 +14570,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 4294967295
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 812041112}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
   m_StartingSelectedInteractable: {fileID: 0}
@@ -14440,16 +14602,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 0}
+  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: af929ce582c833c4aa6945da7e6df38a,
+    type: 2}
   m_InteractableCantHoverMeshMaterial: {fileID: 0}
   m_SocketActive: 1
   m_InteractableHoverScale: 1
   m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 0
+  m_HoverSocketSnapping: 1
   m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 0
+  m_SocketScaleMode: 1
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+  targetPicture: {fileID: 1559706761}
 --- !u!65 &812041114
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14465,12 +14629,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6.7000012, y: 5.95, z: 0.20000005}
-  m_Center: {x: 0, y: -0.0000076293945, z: 0}
+  m_Size: {x: 6.7000012, y: 5.95, z: 1}
+  m_Center: {x: 0, y: -0.0000076293945, z: -0.5}
 --- !u!212 &812041115
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17349,7 +17513,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 4294967295
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 1003149661}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
   m_StartingSelectedInteractable: {fileID: 0}
@@ -17381,16 +17545,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 0}
+  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: af929ce582c833c4aa6945da7e6df38a,
+    type: 2}
   m_InteractableCantHoverMeshMaterial: {fileID: 0}
   m_SocketActive: 1
   m_InteractableHoverScale: 1
   m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 0
+  m_HoverSocketSnapping: 1
   m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 0
+  m_SocketScaleMode: 1
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+  targetPicture: {fileID: 564610653}
 --- !u!65 &1003149663
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17406,12 +17572,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.740001, y: 4.13, z: 0.20000005}
-  m_Center: {x: 0.00012207031, y: 0.0000076293945, z: 0}
+  m_Size: {x: 5.740001, y: 4.13, z: 1}
+  m_Center: {x: 0.00012207031, y: 0.0000076293945, z: -0.5}
 --- !u!212 &1003149664
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18247,7 +18413,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 4294967295
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 1054028674}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
   m_StartingSelectedInteractable: {fileID: 0}
@@ -18279,16 +18445,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 0}
+  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: af929ce582c833c4aa6945da7e6df38a,
+    type: 2}
   m_InteractableCantHoverMeshMaterial: {fileID: 0}
   m_SocketActive: 1
   m_InteractableHoverScale: 1
   m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 0
+  m_HoverSocketSnapping: 1
   m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 0
+  m_SocketScaleMode: 1
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+  targetPicture: {fileID: 1979412252}
 --- !u!65 &1054028676
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18304,12 +18472,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6.4000015, y: 4.39, z: 0.20000005}
-  m_Center: {x: 0.00012207031, y: 0.0000076293945, z: 0}
+  m_Size: {x: 6.4000015, y: 4.39, z: 1}
+  m_Center: {x: 0.00012207031, y: 0.0000076293945, z: -0.5}
 --- !u!212 &1054028677
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18950,7 +19118,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 4294967295
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 1087825788}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
   m_StartingSelectedInteractable: {fileID: 0}
@@ -18982,16 +19150,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 0}
+  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: af929ce582c833c4aa6945da7e6df38a,
+    type: 2}
   m_InteractableCantHoverMeshMaterial: {fileID: 0}
   m_SocketActive: 1
   m_InteractableHoverScale: 1
   m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 0
+  m_HoverSocketSnapping: 1
   m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 0
+  m_SocketScaleMode: 1
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+  targetPicture: {fileID: 1981458244}
 --- !u!65 &1087825790
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19007,12 +19177,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 7.7000017, y: 5.26, z: 0.20000005}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 7.7000017, y: 5.26, z: 1}
+  m_Center: {x: 0, y: 0, z: -0.5}
 --- !u!212 &1087825791
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20011,7 +20181,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 4294967295
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 1176598632}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
   m_StartingSelectedInteractable: {fileID: 0}
@@ -20043,16 +20213,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 0}
+  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: af929ce582c833c4aa6945da7e6df38a,
+    type: 2}
   m_InteractableCantHoverMeshMaterial: {fileID: 0}
   m_SocketActive: 1
   m_InteractableHoverScale: 1
   m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 0
+  m_HoverSocketSnapping: 1
   m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 0
+  m_SocketScaleMode: 1
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+  targetPicture: {fileID: 245064899}
 --- !u!65 &1176598634
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20068,12 +20240,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6.4200015, y: 6.19, z: 0.20000005}
-  m_Center: {x: -0.00012207031, y: 0.0000038146973, z: 0}
+  m_Size: {x: 6.4200015, y: 6.19, z: 1}
+  m_Center: {x: -0.00012207031, y: 0.0000038146973, z: -0.5}
 --- !u!212 &1176598635
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20730,7 +20902,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 4294967295
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 1199315261}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
   m_StartingSelectedInteractable: {fileID: 0}
@@ -20762,16 +20934,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 0}
+  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: af929ce582c833c4aa6945da7e6df38a,
+    type: 2}
   m_InteractableCantHoverMeshMaterial: {fileID: 0}
   m_SocketActive: 1
   m_InteractableHoverScale: 1
   m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 0
+  m_HoverSocketSnapping: 1
   m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 0
+  m_SocketScaleMode: 1
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+  targetPicture: {fileID: 538159109}
 --- !u!65 &1199315263
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20787,12 +20961,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 7.6800017, y: 7.1, z: 0.20000005}
-  m_Center: {x: 0.00012207031, y: 0.0000076293945, z: 0}
+  m_Size: {x: 7.6800017, y: 7.1, z: 1}
+  m_Center: {x: 0.00012207031, y: 0.0000076293945, z: -0.5}
 --- !u!212 &1199315264
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -25697,7 +25871,9 @@ GameObject:
   - component: {fileID: 1559706760}
   - component: {fileID: 1559706759}
   - component: {fileID: 1559706762}
+  - component: {fileID: 1559706763}
   - component: {fileID: 1559706761}
+  - component: {fileID: 1559706764}
   m_Layer: 0
   m_Name: 1
   m_TagString: Untagged
@@ -25874,7 +26050,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 1559706760}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
@@ -25882,7 +26058,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 1
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -25895,11 +26071,11 @@ MonoBehaviour:
   m_SmoothRotation: 0
   m_SmoothRotationAmount: 8
   m_TightenRotation: 0.1
-  m_TrackScale: 1
+  m_TrackScale: 0
   m_SmoothScale: 0
   m_SmoothScaleAmount: 8
   m_TightenScale: 0.1
-  m_ThrowOnDetach: 1
+  m_ThrowOnDetach: 0
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
     serializedVersion: 2
@@ -25924,9 +26100,8 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  grabType: 0
-  grabDistance: 0
-  targetSocket: {fileID: 812041113}
+  grabType: 2
+  grabDistance: 3
   isEnable: 0
 --- !u!54 &1559706762
 Rigidbody:
@@ -25950,11 +26125,44 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1559706763
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559706758}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.7000012, y: 5.95, z: 0.5}
+  m_Center: {x: 0, y: -0.0000076293945, z: 0}
+--- !u!114 &1559706764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559706758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62fb9fb1177925e4b8a383be2b9db66c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1561095849
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27248,7 +27456,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 4294967295
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 1620341141}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
   m_StartingSelectedInteractable: {fileID: 0}
@@ -27280,16 +27488,18 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 0}
+  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: af929ce582c833c4aa6945da7e6df38a,
+    type: 2}
   m_InteractableCantHoverMeshMaterial: {fileID: 0}
   m_SocketActive: 1
   m_InteractableHoverScale: 1
   m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 0
+  m_HoverSocketSnapping: 1
   m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 0
+  m_SocketScaleMode: 1
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+  targetPicture: {fileID: 1853190430}
 --- !u!65 &1620341143
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27305,12 +27515,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 5.5700016, y: 7.14, z: 0.20000005}
-  m_Center: {x: 0.00012207031, y: 0.0000038146973, z: 0}
+  m_Size: {x: 5.5700016, y: 7.14, z: 1}
+  m_Center: {x: 0.00012207031, y: 0.0000038146973, z: -0.5}
 --- !u!212 &1620341144
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -27363,6 +27573,74 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &1620423207
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7174426867657814776, guid: c1b900465e26f6a4289af0455ea1deaa,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7174426867657814776, guid: c1b900465e26f6a4289af0455ea1deaa,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7174426867657814776, guid: c1b900465e26f6a4289af0455ea1deaa,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7174426867657814776, guid: c1b900465e26f6a4289af0455ea1deaa,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7174426867657814776, guid: c1b900465e26f6a4289af0455ea1deaa,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7174426867657814776, guid: c1b900465e26f6a4289af0455ea1deaa,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7174426867657814776, guid: c1b900465e26f6a4289af0455ea1deaa,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7174426867657814776, guid: c1b900465e26f6a4289af0455ea1deaa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7174426867657814776, guid: c1b900465e26f6a4289af0455ea1deaa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7174426867657814776, guid: c1b900465e26f6a4289af0455ea1deaa,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7874254089255770255, guid: c1b900465e26f6a4289af0455ea1deaa,
+        type: 3}
+      propertyPath: m_Name
+      value: CaptureScreenAction
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c1b900465e26f6a4289af0455ea1deaa, type: 3}
 --- !u!1 &1627911172 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c7cf8ca9efa239b4e9fe16a9868157f5,
@@ -27923,6 +28201,33 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1690358437}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1697239359 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: e712748253b139349b2a6e8544f23013,
+    type: 3}
+  m_PrefabInstance: {fileID: 258822024}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1697239362
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1697239359}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.2026399, y: 0.4882973, z: 0.08194729}
+  m_Center: {x: -0.0000038146973, y: 0.00000023841858, z: -0.055975072}
 --- !u!1001 &1708315354
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29392,7 +29697,9 @@ GameObject:
   - component: {fileID: 1853190429}
   - component: {fileID: 1853190428}
   - component: {fileID: 1853190431}
+  - component: {fileID: 1853190432}
   - component: {fileID: 1853190430}
+  - component: {fileID: 1853190433}
   m_Layer: 0
   m_Name: 3
   m_TagString: Untagged
@@ -29569,7 +29876,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 1853190429}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
@@ -29577,7 +29884,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 1
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -29590,11 +29897,11 @@ MonoBehaviour:
   m_SmoothRotation: 0
   m_SmoothRotationAmount: 8
   m_TightenRotation: 0.1
-  m_TrackScale: 1
+  m_TrackScale: 0
   m_SmoothScale: 0
   m_SmoothScaleAmount: 8
   m_TightenScale: 0.1
-  m_ThrowOnDetach: 1
+  m_ThrowOnDetach: 0
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
     serializedVersion: 2
@@ -29620,8 +29927,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
-  grabDistance: 0
-  targetSocket: {fileID: 1620341142}
+  grabDistance: 3
   isEnable: 0
 --- !u!54 &1853190431
 Rigidbody:
@@ -29645,11 +29951,44 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1853190432
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853190427}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.5700016, y: 7.14, z: 0.5}
+  m_Center: {x: 0, y: 0.0000076293945, z: 0}
+--- !u!114 &1853190433
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1853190427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62fb9fb1177925e4b8a383be2b9db66c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1855756799 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 438716, guid: 5a71281fa261db54c887ae14f598e41f,
@@ -31228,7 +31567,9 @@ GameObject:
   - component: {fileID: 1979412251}
   - component: {fileID: 1979412250}
   - component: {fileID: 1979412253}
+  - component: {fileID: 1979412254}
   - component: {fileID: 1979412252}
+  - component: {fileID: 1979412255}
   m_Layer: 0
   m_Name: 6
   m_TagString: Untagged
@@ -31405,7 +31746,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 1979412251}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
@@ -31413,7 +31754,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 1
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -31426,11 +31767,11 @@ MonoBehaviour:
   m_SmoothRotation: 0
   m_SmoothRotationAmount: 8
   m_TightenRotation: 0.1
-  m_TrackScale: 1
+  m_TrackScale: 0
   m_SmoothScale: 0
   m_SmoothScaleAmount: 8
   m_TightenScale: 0.1
-  m_ThrowOnDetach: 1
+  m_ThrowOnDetach: 0
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
     serializedVersion: 2
@@ -31456,8 +31797,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
-  grabDistance: 0
-  targetSocket: {fileID: 1054028675}
+  grabDistance: 3
   isEnable: 0
 --- !u!54 &1979412253
 Rigidbody:
@@ -31481,11 +31821,44 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1979412254
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979412249}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6.4000015, y: 4.39, z: 0.5}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1979412255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1979412249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62fb9fb1177925e4b8a383be2b9db66c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1980401933
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -31558,7 +31931,9 @@ GameObject:
   - component: {fileID: 1981458243}
   - component: {fileID: 1981458242}
   - component: {fileID: 1981458245}
+  - component: {fileID: 1981458246}
   - component: {fileID: 1981458244}
+  - component: {fileID: 1981458247}
   m_Layer: 0
   m_Name: 5
   m_TagString: Untagged
@@ -31735,7 +32110,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 1981458243}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
@@ -31743,7 +32118,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 1
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -31756,11 +32131,11 @@ MonoBehaviour:
   m_SmoothRotation: 0
   m_SmoothRotationAmount: 8
   m_TightenRotation: 0.1
-  m_TrackScale: 1
+  m_TrackScale: 0
   m_SmoothScale: 0
   m_SmoothScaleAmount: 8
   m_TightenScale: 0.1
-  m_ThrowOnDetach: 1
+  m_ThrowOnDetach: 0
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
     serializedVersion: 2
@@ -31786,8 +32161,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
-  grabDistance: 0
-  targetSocket: {fileID: 1087825789}
+  grabDistance: 3
   isEnable: 0
 --- !u!54 &1981458245
 Rigidbody:
@@ -31811,11 +32185,44 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1981458246
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981458241}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7.7000017, y: 5.26, z: 0.5}
+  m_Center: {x: 0, y: 0.0000038146973, z: 0}
+--- !u!114 &1981458247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1981458241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62fb9fb1177925e4b8a383be2b9db66c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1987844498
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -34170,3 +34577,4 @@ SceneRoots:
   - {fileID: 596834343}
   - {fileID: 102269487}
   - {fileID: 383460246}
+  - {fileID: 1620423207}
