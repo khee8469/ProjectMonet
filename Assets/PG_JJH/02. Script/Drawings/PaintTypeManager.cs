@@ -33,9 +33,6 @@ namespace JJH
 
     }
 
-
-
-
     [System.Serializable]
     public class PaintTypeColor
     {

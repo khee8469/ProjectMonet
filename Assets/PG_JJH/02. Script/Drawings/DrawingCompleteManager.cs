@@ -19,7 +19,7 @@ namespace JJH
 
         [Tooltip("완성된 그림을 가지고 있는 배열")]
         // 이를 이용해 변수에 따라 오브젝트를 켜줘서 해당 오브젝트에서 onEnable 발동 할 수 있도록 한다. 
-        [SerializeField] private GameObject[] finishedPainting;
+        [SerializeField] private GameObject[] finishedPainting { get; set; }
 
         [Tooltip("그림의 컬러를 비교해 줄 스크립터블 오브젝트")]
         [SerializeField] private PaintTypeManager paintTypeManager;
@@ -35,10 +35,18 @@ namespace JJH
 
             // DrawObjectManager 에 붙어있는 IComparable 을 이용하여 정렬한다.
             Array.Sort(drawObjectManagers); //어차피 둘이 같은 타입을 찾는 find를 하기 때문에 길이는 무조건 같
+            
+            // DrawobjectMnager 들은 지금 drawID 값에 따라서 0 1 2 3... 순으로 정렬되고 있다.
+
 
             for (int i = 0; i < drawObjectManagers.Length; i++) //어차피 이 둘은 길이가 똑같음. 
             {
+
+               /* // 이 부분만 조금 수정해주면 될 것 같음. 
                 drawCompleteCheckDic.Add(drawObjectManagers[i], ChapterManager.isDrawing_Complete[i]);
+
+                Debug.Log($"DrawComplete 상황에서 제대로 매칭이 되고 있는지 확인하기.{drawObjectManagers[i]}  , {ChapterManager.isDrawing_Complete[i]}");
+
 
                 if(drawCompleteCheckDic.TryGetValue(drawObjectManagers[i] , out bool isTure))
                 {
@@ -55,6 +63,24 @@ namespace JJH
                         }
                         
                     }
+                }*/
+                drawCompleteCheckDic.Add(drawObjectManagers[i], ChapterManager.drawPartCheck[i]);
+                Debug.Log($"DrawComplete 상황에서 제대로 매칭이 되고 있는지 확인하기.{drawObjectManagers[i]}  , {ChapterManager.drawPartCheck[i]}");
+
+                if (drawCompleteCheckDic.TryGetValue(drawObjectManagers[i], out bool isTrue))
+                {
+                    if (isTrue)
+                    {
+                        DrawObjectManager dr = drawObjectManagers[i].GetComponent<DrawObjectManager>();
+                        if (dr != null)
+                        {
+                            SpriteRenderer sprite = dr.GetComponent<SpriteRenderer>();
+                            Color color = sprite.color;
+                            color.a = 1f;
+                            sprite.color = color;
+                            dr.gameObject.layer = 0; // 레이어 변경 시켜줘서 다시 라인 렌더러가 생성 되지 않도록 해줘야한다. 
+                        }
+                    }
                 }
             }
             // start 에서 이벤트 발동 시켜서... 씬 해금 상태 유지 및 씬 컬러 상태 체크 해주기.
@@ -66,7 +92,8 @@ namespace JJH
                                                                                     // 싱글턴 매니저와 연계가 필요하다. 
         {
 
-            ChapterManager.isDrawing_Complete[drawingNumber] = finishied; // 드로우 컴플리트를 부를 때 값을 지정?
+            ChapterManager.isDrawing_Complete[drawingNumber] = finishied; // 드로우 컴플리트를 부를 때 값을 지정? --> 이거는 지금 완전히 완성되었을 때의 변수인대 
+            ChapterManager.drawPartCheck[instanceID] = finishied;
 
             // 임시 키 저장용 리스트 초기화
             keysToModifty.Clear(); // 초기화 안하면 이거 계속 들어있음. 
@@ -76,7 +103,7 @@ namespace JJH
             {
                 if (obj.Key.drawBoardNumber == (DrawBoardNumber)drawingNumber) // 결국은 매개변수를 다른곳에서 받아야함
                 {
-                    if (obj.Key.GetInstanceID() == instanceID)
+                    if (obj.Key.DrawID == instanceID)
                     {
                         Debug.Log($"{obj.Key} 의 if문 들어가서 true 값으로 변환됨.");
                         keysToModifty.Add(obj.Key);
@@ -87,7 +114,7 @@ namespace JJH
             // foreach 문 종료 후 딕셔너리 수정 
             foreach (var key in keysToModifty)
             {
-                drawCompleteCheckDic[key] = finishied;
+                drawCompleteCheckDic[key] = finishied;  // 이 부분은 지금 PART1의 모든 그림이 완성되었는지를 체크하고 있는 로직이다. 
             }
 
 
@@ -96,7 +123,7 @@ namespace JJH
 
             foreach (var kvp in drawCompleteCheckDic)
             {
-                if ((kvp.Key.drawBoardNumber == (DrawBoardNumber)drawingNumber) && kvp.Value == false)
+                if ((kvp.Key.drawBoardNumber == (DrawBoardNumber)drawingNumber) && kvp.Value == false) // 같은 PART 에 있는 그림이 전부 그려졌는지를 체크하는 반복문 
                 {
                     Debug.Log($"{kvp.Key}의 작업이 아직 완료되지 않았습니다.");
                     allComplete = false;
