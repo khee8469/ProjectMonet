@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
+using JJH;
 
 namespace Jc
 {
@@ -52,7 +53,7 @@ namespace Jc
             controllerCallback.leftMenuBTNRef.action.performed += OnPopUpCanvas;    // 인벤토리/퀘스트 버튼 등록
             //controllerCallback.debugMenuBTNRef.action.performed += OnPopUpCanvas;   // 디버그 인벤토리/퀘스트 버튼 등록
 
-            controllerCallback.leftTriggerRef.action.performed += OnInteractNPC;    // NPC 상호작용 등록
+            controllerCallback.leftTriggerRef.action.performed += OnInteract;    // NPC 상호작용 등록
         }
         private void OnDisable()
         {
@@ -60,7 +61,7 @@ namespace Jc
             trigger.OnNPCExit -= OnExitNPC;
 
             controllerCallback.leftMenuBTNRef.action.performed -= OnPopUpCanvas;
-            controllerCallback.leftTriggerRef.action.performed -= OnInteractNPC;
+            controllerCallback.leftTriggerRef.action.performed -= OnInteract;
         }
 
         // NPC Trigger Enter 콜백
@@ -85,8 +86,9 @@ namespace Jc
         }
 
         // NPC 상호작용 콜백
-        private void OnInteractNPC(InputAction.CallbackContext context)
+        private void OnInteract(InputAction.CallbackContext context)
         {
+            // NPC 상호작용
             if (Manager.Inventory.isEnable) return;   // 팝업이 열려있는 경우 
             if (nearNPC == null) return; // 근처 NPC가 없는 경우
 
