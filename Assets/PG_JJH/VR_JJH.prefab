@@ -2500,7 +2500,7 @@ MonoBehaviour:
   m_StartingGroupMembers:
   - {fileID: 300498268967345533}
   - {fileID: 7243338515968838580}
-  - {fileID: 3445475356671676041}
+  - {fileID: 0}
   m_StartingInteractionOverridesMap:
   - groupMember: {fileID: 300498268967345533}
     overrideGroupMembers:
@@ -5464,7 +5464,7 @@ MonoBehaviour:
   m_ImproveAccuracyWithSphereCollider: 1
   m_PhysicsLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 4294967295
   m_PhysicsTriggerInteraction: 1
 --- !u!135 &2853146313313193143
 SphereCollider:
@@ -8358,7 +8358,7 @@ MonoBehaviour:
   m_PhysicsLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_PhysicsTriggerInteraction: 1
+  m_PhysicsTriggerInteraction: 0
   m_RequirePokeFilter: 1
   m_EnableUIInteraction: 1
   m_DebugVisualizationsEnabled: 0
@@ -10084,8 +10084,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5762220346699238359}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.00000005960463, z: -0, w: 1}
-  m_LocalPosition: {x: -0.000015318396, y: 0, z: 0.00000423193}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.000007569791, y: 0, z: -0.0000033974648}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11565,8 +11565,8 @@ MonoBehaviour:
   m_ConeCastAngle: 0
   m_RaycastMask:
     serializedVersion: 2
-    m_Bits: 2147483681
-  m_RaycastTriggerInteraction: 1
+    m_Bits: 4294967295
+  m_RaycastTriggerInteraction: 2
   m_RaycastSnapVolumeInteraction: 1
   m_HitClosestOnly: 0
   m_HoverToSelect: 0
@@ -11595,7 +11595,7 @@ MonoBehaviour:
   isLeftController: 1
   controller: {fileID: 1656800146963677677}
   canvasRect: {fileID: 1274549913272370820}
-  aimRect: {fileID: 1770707046554789078}
+  aimTransform: {fileID: 1770707046554789078}
   hoveredSlot: {fileID: 0}
   hitBox: {fileID: 0}
   currentSlot: {fileID: 0}
@@ -12638,7 +12638,7 @@ MonoBehaviour:
   m_PhysicsLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_PhysicsTriggerInteraction: 1
+  m_PhysicsTriggerInteraction: 0
   m_RequirePokeFilter: 1
   m_EnableUIInteraction: 1
   m_DebugVisualizationsEnabled: 0
@@ -14291,8 +14291,8 @@ MonoBehaviour:
   m_ConeCastAngle: 6
   m_RaycastMask:
     serializedVersion: 2
-    m_Bits: 2147483681
-  m_RaycastTriggerInteraction: 1
+    m_Bits: 4294967295
+  m_RaycastTriggerInteraction: 2
   m_RaycastSnapVolumeInteraction: 1
   m_HitClosestOnly: 0
   m_HoverToSelect: 0
@@ -14321,7 +14321,7 @@ MonoBehaviour:
   isLeftController: 0
   controller: {fileID: 6480753328667115956}
   canvasRect: {fileID: 1274549913272370820}
-  aimRect: {fileID: 6270703871139121157}
+  aimTransform: {fileID: 6270703871139121157}
   hoveredSlot: {fileID: 0}
   hitBox: {fileID: 0}
   currentSlot: {fileID: 0}
@@ -15281,7 +15281,7 @@ GameObject:
   - component: {fileID: 5056680764597477000}
   m_Layer: 30
   m_Name: TestPlayer(VR)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15326,7 +15326,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 1.5
-  m_Radius: 0.5
+  m_Radius: 0.2
   m_SlopeLimit: 45
   m_StepOffset: 0.5
   m_SkinWidth: 0.08
@@ -16481,7 +16481,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1274549913272370820
 RectTransform:
   m_ObjectHideFlags: 0

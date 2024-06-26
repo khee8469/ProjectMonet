@@ -43,7 +43,7 @@ namespace JJH
         protected override void OnDeactivated(DeactivateEventArgs args)
         {
             base.OnDeactivated(args);
-            //pen.DrawingStop();  임시 제거 해보기. 
+            pen.DrawingStop();  
         }
 
         private void Update()
