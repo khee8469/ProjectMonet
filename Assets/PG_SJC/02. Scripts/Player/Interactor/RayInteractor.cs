@@ -384,6 +384,8 @@ namespace Jc
         {
             base.OnHoverEntered(args);
 
+
+
             isAimming = true;
             aimTransform.gameObject.SetActive(isAimming);
         }
@@ -395,8 +397,18 @@ namespace Jc
             aimTransform.gameObject.SetActive(isAimming);
         }
 
+        protected override void OnSelectEntering(SelectEnterEventArgs args)
+        {
+            if (args.interactableObject is IActivatable)
+            {
+                IActivatable active = args.interactableObject as IActivatable;
+                active.Activate();
+                return;
+            }
 
-        
+            base.OnSelectEntering(args);
+        }
+
 
         // 플레이어가 아이템 잡은 상황. --> 인벤토리가 켜져있다면 이 CurrentGrabObject의 스케일 조정 필요
         // 

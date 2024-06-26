@@ -60,8 +60,10 @@ namespace JJH
             EnterDrawing();
         }
 
+        public void ResetColliderPosition()
+        {
 
-
+        }
     }
 
 }
