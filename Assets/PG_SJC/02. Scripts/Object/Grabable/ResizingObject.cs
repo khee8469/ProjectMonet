@@ -69,6 +69,8 @@ namespace Jc
         public float scaleRatio;
         Vector3 targetScale;
 
+        private Coroutine resizeRoutine;
+
         IXRSelectInteractor currentInteractor;  // 오브젝트를 Select중 인 인터렉터
 
         protected override void OnEnable()
@@ -82,7 +84,7 @@ namespace Jc
         {
             if (!IsGrabbed) return;
 
-            SetPosition();
+            //SetPosition();
             //Resize();
         }
 
@@ -121,7 +123,6 @@ namespace Jc
         {
             Vector3 rayDir = mainCamera.transform.forward;
             Ray ray = new Ray(mainCamera.transform.position, rayDir);
-
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, Manager.Layer.wallLM))
             {
                 // 닿은 벽을 기준으로 오브젝트의 위치설정
@@ -137,6 +138,8 @@ namespace Jc
                 float curDist = (mainCamera.transform.position - transform.position).sqrMagnitude;
                 float ratio = curDist / originDist;
                 targetScale.x = targetScale.y = targetScale.z = ratio;
+
+                Debug.Log(ratio);
 
                 // 최소 스케일 지정
                 if (ratio * originScaleX < 0.1f)
@@ -181,6 +184,7 @@ namespace Jc
             SetTransform();
 
             IsGrabbed = true;
+            resizeRoutine = StartCoroutine(ResizeRoutine());
         }
         protected override void OnSelectExiting(SelectExitEventArgs args)
         {
@@ -189,17 +193,30 @@ namespace Jc
             currentInteractor = null;   // 인터렉터 할당해제
 
             IsGrabbed = false;
-
+            if(resizeRoutine != null)
+            {
+                StopCoroutine(resizeRoutine);
+                resizeRoutine = null;
+            }
             DettachSetting();
 
             // 오브젝트의 크기가 최대치 이상이 되면 원상복구
             if (transform.localScale.x >= limitScale)
             {
-                StartCoroutine(ResizeRoutine());
+                StartCoroutine(ResetRoutine());
             }
         }
 
+
         IEnumerator ResizeRoutine()
+        {
+            while(isGrabbed)
+            {
+                yield return new WaitForSeconds(0.01f);
+                SetPosition();
+            }
+        }
+        IEnumerator ResetRoutine()
         {
             float rate = 0f;
             Vector3 startScale = transform.localScale;
