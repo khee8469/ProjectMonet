@@ -1,10 +1,12 @@
+using Jc;
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace JJH
 {
-    public class StageDoor : XRSimpleInteractable , IComparable<StageDoor> , IActivatable
+    public class StageDoor : InteractObject , IComparable<StageDoor> , IActivatable
     {
         [Header("Door 관리 ID")]
         [Tooltip("id에 따라 on /off 결정")]
@@ -20,36 +22,40 @@ namespace JJH
         [Tooltip("string으로 관리할 씬 이름")]
         [SerializeField] string SceneName;
 
+        new Rigidbody rigidbody;
+
+        List<Collider> myColliderList = new List<Collider>();
 
         private void Start()
         {
             unLockController = FindObjectOfType<UnLockController>();
+            rigidbody =GetComponent<Rigidbody>();
+            rigidbody.isKinematic = true;
+            throwOnDetach = false;
         }
 
         protected override void OnHoverEntered(HoverEnterEventArgs args)
         {
-
             base.OnHoverEntered(args);
-            Debug.Log(" 온 호버 엔티드");
         }
+
         protected override void OnActivated(ActivateEventArgs args)
         {
             base.OnActivated(args);
-
-            Debug.Log("온 액티베이트 진입");
-
-            // 맵이 열려 있으면 해당 씬 로딩 가능. 
-            if (Manager.Chapter.runtimeStageData.stageUnlockStatus.Count > doorID &&
-                Manager.Chapter.runtimeStageData.stageUnlockStatus[doorID])
-            {
-                Manager.Scene.LoadScene(SceneName);
-            }
-            else
-            {
-                Debug.Log("해당 스테이지는 잠겨 있습니다.");
-            }
+            //Activate();
         }
 
+        protected override void OnSelectEntered(SelectEnterEventArgs args)
+        {
+            base.OnSelectEntered(args);
+        }
+
+        protected override void OnSelectEntering(SelectEnterEventArgs args)
+        {
+            return;
+            base.OnSelectEntering(args);
+        }
+        // 할당된 ID 순서대로 정렬 . 
         public int CompareTo(StageDoor other)
         {
             if (other == null) return 1;
@@ -70,6 +76,13 @@ namespace JJH
                 Debug.Log("해당 스테이지는 잠겨 있습니다.");
                 return false;
             }
+        }
+
+
+        // Static object의 끌려 들어온 coliider를 원 상태로 복구 시켜준다. 
+        public void ResetColliderPosition()
+        {
+
         }
     }
 }

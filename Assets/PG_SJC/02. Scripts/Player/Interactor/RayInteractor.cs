@@ -1,5 +1,6 @@
 using JJH;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -355,6 +356,7 @@ namespace Jc
         public override bool CanHover(IXRHoverInteractable interactable)
         {
             InteractObject itrObject = interactable as InteractObject;
+     
             if (itrObject == null)
                 return false;
 
@@ -366,19 +368,23 @@ namespace Jc
         public override bool CanSelect(IXRSelectInteractable interactable)
         {
             InteractObject itrObject = interactable as InteractObject;
+
             if (itrObject == null)
                 return false;
 
+           
             if (!GrabableDistance(itrObject))
                 return false;
+
 
             return base.CanSelect(interactable);
         }
 
-
         protected override void OnHoverEntered(HoverEnterEventArgs args)
         {
             base.OnHoverEntered(args);
+
+
 
             isAimming = true;
             aimTransform.gameObject.SetActive(isAimming);
@@ -391,19 +397,37 @@ namespace Jc
             aimTransform.gameObject.SetActive(isAimming);
         }
 
+        protected override void OnSelectEntering(SelectEnterEventArgs args)
+        {
+            if (args.interactableObject is IActivatable)
+            {
+                IActivatable active = args.interactableObject as IActivatable;
+                active.Activate();
+                return;
+            }
+
+            base.OnSelectEntering(args);
+        }
+
 
         // 플레이어가 아이템 잡은 상황. --> 인벤토리가 켜져있다면 이 CurrentGrabObject의 스케일 조정 필요
         // 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
+            /*if (currentGrabObject is IActivatable)
+            {
+                IActivatable active = currentGrabObject as IActivatable;
+                Debug.Log("entered 에서 리턴함"); // 여기 안들어가지는데?? 
+                return;
+            }*/
+
             base.OnSelectEntered(args);
 
             currentGrabObject = args.interactableObject as InteractObject; // 현재 플레이어가 쥐고 있는 아이템. 
-
-
             grabbedTr = args.interactableObject.transform;
             isGrab = true;
         }
+
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);

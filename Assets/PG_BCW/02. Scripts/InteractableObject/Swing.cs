@@ -5,11 +5,19 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Swing : InteractObject
 {
+    //범위에 닿앗는지 확인용
     [SerializeField] LayerMask trigger;
+    //일정 범위까지 당겼는지
     bool OnTrigger;
-
+    //밀어준 횟수
     [SerializeField] int swingCount;
-    [SerializeField] Rigidbody rb;
+    //움직임 제한용
+    private Rigidbody rb;
+
+    //미션 클리어
+    private bool isSucess;
+    public bool IsSucess {  get { return isSucess; } }
+
 
     protected override void Awake()
     {
@@ -44,7 +52,16 @@ public class Swing : InteractObject
             this.interactionManager.SelectExit(args.interactableObject.interactorsSelecting[0], args.interactableObject);
             //두손으로 잡고 일정 거리까지 당긴 후 놔야 카운트 증가
             if (OnTrigger)
+            {
                 swingCount++;
+                if(swingCount > 2) 
+                {
+                    isSucess = true;
+                }
+                
+            }
+                
+
         }
         rb.constraints = RigidbodyConstraints.None;
 

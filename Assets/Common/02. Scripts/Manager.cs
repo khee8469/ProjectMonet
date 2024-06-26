@@ -35,7 +35,7 @@ public static class Manager
 
         // 싱글턴 객체생성
         Jc.UIManager.CreateInstance();
-        JJH.SceneManager.ReleaseInstance();
+        JJH.SceneManager.CreateInstance();
         JJH.ChapterManager.CreateInstance();
         AnimParamManager.CreateInstance();
         LayerManager.CreateInstance();
