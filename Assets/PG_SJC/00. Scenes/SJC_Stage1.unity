@@ -3695,7 +3695,7 @@ PrefabInstance:
     - target: {fileID: 1039083554589869300, guid: ccfc97d7595343c45857d25fbbf5a8e1,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2033911713257000453, guid: ccfc97d7595343c45857d25fbbf5a8e1,
         type: 3}
@@ -3710,7 +3710,12 @@ PrefabInstance:
     - target: {fileID: 4290079744498428665, guid: ccfc97d7595343c45857d25fbbf5a8e1,
         type: 3}
       propertyPath: m_Height
-      value: 1.5
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290079744498428665, guid: ccfc97d7595343c45857d25fbbf5a8e1,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4428335688138582191, guid: ccfc97d7595343c45857d25fbbf5a8e1,
         type: 3}
@@ -3720,7 +3725,7 @@ PrefabInstance:
     - target: {fileID: 8050435051536060242, guid: ccfc97d7595343c45857d25fbbf5a8e1,
         type: 3}
       propertyPath: m_CameraYOffset
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8212601359558205089, guid: ccfc97d7595343c45857d25fbbf5a8e1,
         type: 3}
@@ -4883,7 +4888,9 @@ MonoBehaviour:
   m_AddDefaultGrabTransformers: 1
   grabType: 0
   grabDistance: 3
-  isEnable: 0
+  boxCollider: {fileID: 767284743}
+  socketTransfrom: {fileID: 767284741}
+  minDistance: 0.3
 --- !u!54 &163310729
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6239,7 +6246,9 @@ MonoBehaviour:
   m_AddDefaultGrabTransformers: 1
   grabType: 0
   grabDistance: 3
-  isEnable: 0
+  boxCollider: {fileID: 245064901}
+  socketTransfrom: {fileID: 1176598632}
+  minDistance: 0.3
 --- !u!54 &245064900
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10865,7 +10874,9 @@ MonoBehaviour:
   m_AddDefaultGrabTransformers: 1
   grabType: 0
   grabDistance: 3
-  isEnable: 0
+  boxCollider: {fileID: 538159111}
+  socketTransfrom: {fileID: 1199315261}
+  minDistance: 0.3
 --- !u!54 &538159110
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11235,7 +11246,9 @@ MonoBehaviour:
   m_AddDefaultGrabTransformers: 1
   grabType: 0
   grabDistance: 3
-  isEnable: 0
+  boxCollider: {fileID: 564610655}
+  socketTransfrom: {fileID: 1003149661}
+  minDistance: 0.3
 --- !u!54 &564610654
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -13838,7 +13851,6 @@ GameObject:
   - component: {fileID: 767284741}
   - component: {fileID: 767284744}
   - component: {fileID: 767284743}
-  - component: {fileID: 767284742}
   m_Layer: 0
   m_Name: 4
   m_TagString: Untagged
@@ -13861,68 +13873,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1134438506}
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
---- !u!114 &767284742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767284740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5403e2abbdf5ab749b95d4178d97f838, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_InteractionLayers:
-    m_Bits: 4294967295
-  m_AttachTransform: {fileID: 767284741}
-  m_KeepSelectedTargetValid: 1
-  m_DisableVisualsWhenBlockedInGroup: 1
-  m_StartingSelectedInteractable: {fileID: 0}
-  m_StartingTargetFilter: {fileID: 0}
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
-  m_OnHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: af929ce582c833c4aa6945da7e6df38a,
-    type: 2}
-  m_InteractableCantHoverMeshMaterial: {fileID: 0}
-  m_SocketActive: 1
-  m_InteractableHoverScale: 1
-  m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 1
-  m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 1
-  m_FixedScale: {x: 1, y: 1, z: 1}
-  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
-  targetPicture: {fileID: 163310728}
 --- !u!65 &767284743
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13986,7 +13936,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d2abab3a0e35d8e44a16a760fad5add1, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.101960786}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -14529,7 +14479,6 @@ GameObject:
   - component: {fileID: 812041112}
   - component: {fileID: 812041115}
   - component: {fileID: 812041114}
-  - component: {fileID: 812041113}
   m_Layer: 0
   m_Name: 1
   m_TagString: Untagged
@@ -14552,68 +14501,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1134438506}
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
---- !u!114 &812041113
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 812041111}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5403e2abbdf5ab749b95d4178d97f838, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_InteractionLayers:
-    m_Bits: 4294967295
-  m_AttachTransform: {fileID: 812041112}
-  m_KeepSelectedTargetValid: 1
-  m_DisableVisualsWhenBlockedInGroup: 1
-  m_StartingSelectedInteractable: {fileID: 0}
-  m_StartingTargetFilter: {fileID: 0}
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
-  m_OnHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: af929ce582c833c4aa6945da7e6df38a,
-    type: 2}
-  m_InteractableCantHoverMeshMaterial: {fileID: 0}
-  m_SocketActive: 1
-  m_InteractableHoverScale: 1
-  m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 1
-  m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 1
-  m_FixedScale: {x: 1, y: 1, z: 1}
-  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
-  targetPicture: {fileID: 1559706761}
 --- !u!65 &812041114
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14677,7 +14564,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ab25500e2b7b84544a225d87544c4812, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.101960786}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -17472,7 +17359,6 @@ GameObject:
   - component: {fileID: 1003149661}
   - component: {fileID: 1003149664}
   - component: {fileID: 1003149663}
-  - component: {fileID: 1003149662}
   m_Layer: 0
   m_Name: 8
   m_TagString: Untagged
@@ -17495,68 +17381,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1134438506}
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
---- !u!114 &1003149662
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1003149660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5403e2abbdf5ab749b95d4178d97f838, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_InteractionLayers:
-    m_Bits: 4294967295
-  m_AttachTransform: {fileID: 1003149661}
-  m_KeepSelectedTargetValid: 1
-  m_DisableVisualsWhenBlockedInGroup: 1
-  m_StartingSelectedInteractable: {fileID: 0}
-  m_StartingTargetFilter: {fileID: 0}
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
-  m_OnHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: af929ce582c833c4aa6945da7e6df38a,
-    type: 2}
-  m_InteractableCantHoverMeshMaterial: {fileID: 0}
-  m_SocketActive: 1
-  m_InteractableHoverScale: 1
-  m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 1
-  m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 1
-  m_FixedScale: {x: 1, y: 1, z: 1}
-  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
-  targetPicture: {fileID: 564610653}
 --- !u!65 &1003149663
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17620,7 +17444,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c9022fba53f13744db5e195b9146e069, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.101960786}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -18372,7 +18196,6 @@ GameObject:
   - component: {fileID: 1054028674}
   - component: {fileID: 1054028677}
   - component: {fileID: 1054028676}
-  - component: {fileID: 1054028675}
   m_Layer: 0
   m_Name: 6
   m_TagString: Untagged
@@ -18395,68 +18218,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1134438506}
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
---- !u!114 &1054028675
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1054028673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5403e2abbdf5ab749b95d4178d97f838, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_InteractionLayers:
-    m_Bits: 4294967295
-  m_AttachTransform: {fileID: 1054028674}
-  m_KeepSelectedTargetValid: 1
-  m_DisableVisualsWhenBlockedInGroup: 1
-  m_StartingSelectedInteractable: {fileID: 0}
-  m_StartingTargetFilter: {fileID: 0}
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
-  m_OnHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: af929ce582c833c4aa6945da7e6df38a,
-    type: 2}
-  m_InteractableCantHoverMeshMaterial: {fileID: 0}
-  m_SocketActive: 1
-  m_InteractableHoverScale: 1
-  m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 1
-  m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 1
-  m_FixedScale: {x: 1, y: 1, z: 1}
-  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
-  targetPicture: {fileID: 1979412252}
 --- !u!65 &1054028676
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18520,7 +18281,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8ca766f8fa0a52d449440844229cdc5e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.101960786}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -19077,7 +18838,6 @@ GameObject:
   - component: {fileID: 1087825788}
   - component: {fileID: 1087825791}
   - component: {fileID: 1087825790}
-  - component: {fileID: 1087825789}
   m_Layer: 0
   m_Name: 5
   m_TagString: Untagged
@@ -19100,68 +18860,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1134438506}
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
---- !u!114 &1087825789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1087825787}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5403e2abbdf5ab749b95d4178d97f838, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_InteractionLayers:
-    m_Bits: 4294967295
-  m_AttachTransform: {fileID: 1087825788}
-  m_KeepSelectedTargetValid: 1
-  m_DisableVisualsWhenBlockedInGroup: 1
-  m_StartingSelectedInteractable: {fileID: 0}
-  m_StartingTargetFilter: {fileID: 0}
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
-  m_OnHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: af929ce582c833c4aa6945da7e6df38a,
-    type: 2}
-  m_InteractableCantHoverMeshMaterial: {fileID: 0}
-  m_SocketActive: 1
-  m_InteractableHoverScale: 1
-  m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 1
-  m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 1
-  m_FixedScale: {x: 1, y: 1, z: 1}
-  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
-  targetPicture: {fileID: 1981458244}
 --- !u!65 &1087825790
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19225,7 +18923,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9316f4fdf3831354096cdbf81c37c2ac, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.101960786}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -20140,7 +19838,6 @@ GameObject:
   - component: {fileID: 1176598632}
   - component: {fileID: 1176598635}
   - component: {fileID: 1176598634}
-  - component: {fileID: 1176598633}
   m_Layer: 0
   m_Name: 7
   m_TagString: Untagged
@@ -20163,68 +19860,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1134438506}
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
---- !u!114 &1176598633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1176598631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5403e2abbdf5ab749b95d4178d97f838, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_InteractionLayers:
-    m_Bits: 4294967295
-  m_AttachTransform: {fileID: 1176598632}
-  m_KeepSelectedTargetValid: 1
-  m_DisableVisualsWhenBlockedInGroup: 1
-  m_StartingSelectedInteractable: {fileID: 0}
-  m_StartingTargetFilter: {fileID: 0}
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
-  m_OnHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: af929ce582c833c4aa6945da7e6df38a,
-    type: 2}
-  m_InteractableCantHoverMeshMaterial: {fileID: 0}
-  m_SocketActive: 1
-  m_InteractableHoverScale: 1
-  m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 1
-  m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 1
-  m_FixedScale: {x: 1, y: 1, z: 1}
-  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
-  targetPicture: {fileID: 245064899}
 --- !u!65 &1176598634
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20288,7 +19923,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 55c8c425ea00d6147aa8ff887ba6429b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.101960786}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -20861,7 +20496,6 @@ GameObject:
   - component: {fileID: 1199315261}
   - component: {fileID: 1199315264}
   - component: {fileID: 1199315263}
-  - component: {fileID: 1199315262}
   m_Layer: 0
   m_Name: 2
   m_TagString: Untagged
@@ -20884,68 +20518,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1134438506}
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
---- !u!114 &1199315262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1199315260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5403e2abbdf5ab749b95d4178d97f838, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_InteractionLayers:
-    m_Bits: 4294967295
-  m_AttachTransform: {fileID: 1199315261}
-  m_KeepSelectedTargetValid: 1
-  m_DisableVisualsWhenBlockedInGroup: 1
-  m_StartingSelectedInteractable: {fileID: 0}
-  m_StartingTargetFilter: {fileID: 0}
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
-  m_OnHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: af929ce582c833c4aa6945da7e6df38a,
-    type: 2}
-  m_InteractableCantHoverMeshMaterial: {fileID: 0}
-  m_SocketActive: 1
-  m_InteractableHoverScale: 1
-  m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 1
-  m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 1
-  m_FixedScale: {x: 1, y: 1, z: 1}
-  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
-  targetPicture: {fileID: 538159109}
 --- !u!65 &1199315263
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21009,7 +20581,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 40166dc2ba5710845be85ca0151fcd60, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.101960786}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -26102,7 +25674,9 @@ MonoBehaviour:
   m_AddDefaultGrabTransformers: 1
   grabType: 2
   grabDistance: 3
-  isEnable: 0
+  boxCollider: {fileID: 1559706763}
+  socketTransfrom: {fileID: 812041112}
+  minDistance: 0.3
 --- !u!54 &1559706762
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -27415,7 +26989,6 @@ GameObject:
   - component: {fileID: 1620341141}
   - component: {fileID: 1620341144}
   - component: {fileID: 1620341143}
-  - component: {fileID: 1620341142}
   m_Layer: 0
   m_Name: 3
   m_TagString: Untagged
@@ -27438,68 +27011,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1134438506}
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
---- !u!114 &1620341142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1620341140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5403e2abbdf5ab749b95d4178d97f838, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_InteractionLayers:
-    m_Bits: 4294967295
-  m_AttachTransform: {fileID: 1620341141}
-  m_KeepSelectedTargetValid: 1
-  m_DisableVisualsWhenBlockedInGroup: 1
-  m_StartingSelectedInteractable: {fileID: 0}
-  m_StartingTargetFilter: {fileID: 0}
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
-  m_OnHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: af929ce582c833c4aa6945da7e6df38a,
-    type: 2}
-  m_InteractableCantHoverMeshMaterial: {fileID: 0}
-  m_SocketActive: 1
-  m_InteractableHoverScale: 1
-  m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 1
-  m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 1
-  m_FixedScale: {x: 1, y: 1, z: 1}
-  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
-  targetPicture: {fileID: 1853190430}
 --- !u!65 &1620341143
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27563,7 +27074,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 25e411d12edfcc9419cd1fa6c3d02bd8, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.101960786}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.3137255}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -29928,7 +29439,9 @@ MonoBehaviour:
   m_AddDefaultGrabTransformers: 1
   grabType: 0
   grabDistance: 3
-  isEnable: 0
+  boxCollider: {fileID: 1620341143}
+  socketTransfrom: {fileID: 1620341141}
+  minDistance: 0.3
 --- !u!54 &1853190431
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -31798,7 +31311,9 @@ MonoBehaviour:
   m_AddDefaultGrabTransformers: 1
   grabType: 0
   grabDistance: 3
-  isEnable: 0
+  boxCollider: {fileID: 1979412254}
+  socketTransfrom: {fileID: 1054028674}
+  minDistance: 0.3
 --- !u!54 &1979412253
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -32162,7 +31677,9 @@ MonoBehaviour:
   m_AddDefaultGrabTransformers: 1
   grabType: 0
   grabDistance: 3
-  isEnable: 0
+  boxCollider: {fileID: 1981458246}
+  socketTransfrom: {fileID: 1087825788}
+  minDistance: 0.3
 --- !u!54 &1981458245
 Rigidbody:
   m_ObjectHideFlags: 0

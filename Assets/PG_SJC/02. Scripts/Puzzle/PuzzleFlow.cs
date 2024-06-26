@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Jc
 {
-    public class PuzzleFlow : MonoBehaviour
+    public class PuzzleManager : MonoBehaviour
     {
         [Header("에디터 세팅")]
         private int rewardItemID;
