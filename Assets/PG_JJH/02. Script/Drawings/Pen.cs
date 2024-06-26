@@ -236,6 +236,10 @@ namespace JJH
             isDrawing = true; // 그리기 상태로 전환
             isNotMove = true;
             PlayerNotMove(isNotMove);
+
+            
+
+
             // not move 와 함께 --> 플레이어의 움직임 막아버리는 함수 발동 
 
         }

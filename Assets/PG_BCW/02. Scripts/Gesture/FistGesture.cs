@@ -1,9 +1,14 @@
+using JJH;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class FistGesture : Gesture
 {
     PaintBucket paintBucket;
+    
+    // 인스펙터 확인용 
+    [SerializeField]Pen pen;
+    
 
     public override void Awake()
     {
@@ -30,9 +35,15 @@ public class FistGesture : Gesture
                 paintBucket.PaintPlay();
                 Debug.Log("물감호출");
             }
-        }
 
-        //
+            pen = LeftHandInteractor.interactablesSelected[0] as Pen;
+            if(pen != null)
+            {
+                // Pen의 그리기 가능 함수 호출 
+                pen.StartDrawing();
+                Debug.Log("Pen is Not NULL");
+            }
+        }
         else if (!LeftHandInteractor.hasSelection) 
         {
             //호버된거도 없으면 끝
@@ -77,6 +88,14 @@ public class FistGesture : Gesture
                 //물감나오는거 함수 호출
                 paintBucket.PaintPlay();
                 Debug.Log("물감호출");
+            }
+
+            pen = LeftHandInteractor.interactablesSelected[0] as Pen;
+            if (pen != null)
+            {
+                // Pen의 그리기 가능 함수 호출 
+                pen.StartDrawing();
+                Debug.Log("Pen is Not NULL");
             }
 
         }
