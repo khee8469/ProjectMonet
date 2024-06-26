@@ -11,6 +11,9 @@ public class MainCameraController : MonoBehaviour
     public Camera mainCamera;
     public Camera subCamera;
 
+    // 메인카메라의 블룸 마스크 -> everything 
+    // 서브카메라의 블룸 마스크 --> 로컬블룸 
+
     private void Start()
     {
         subCamera.transform.SetParent(mainCamera.transform);
