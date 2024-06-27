@@ -17,5 +17,11 @@ namespace Jc
 
         [Header("Inventory Slot")]
         public LayerMask slotLM;
+
+        [Header("Player")]
+        public LayerMask playerLM;
+
+        [Header("PuzzleTrigger")]
+        public LayerMask puzzleLM;
     }
 }

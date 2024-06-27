@@ -35,7 +35,7 @@ namespace Jc
                     OnInNPCEnter?.Invoke(target);
 
                 //대사 출력 : 상호작용 완료 여부에 따라 대사 달라야함
-                target.OnTalkInteractor();
+                //target.OnTalkInteractor();
             }
         }
 

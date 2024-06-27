@@ -138,7 +138,7 @@ namespace Jc
             //상호작용 npc면
             else if(nearInNPC != null)
             {
-                nearInNPC.OnTalkInteractor();
+                //nearInNPC.OnTalkInteractor();
                 OnEndInteract += nearInNPC.OnExitInteract; 
                 //nearInNPC.transform.rotation = nearInNPC.transform.LookAt(transform.position);
             }
