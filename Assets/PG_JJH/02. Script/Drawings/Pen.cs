@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using static ConvertValueToHue;
 
 namespace JJH
 {
@@ -111,9 +112,6 @@ namespace JJH
                 SwitchColor();
             }
 
-            Debug.Log(isDrawing);
-
-
             if (isDrawing && currentPaintType != PaintTypeEnum.None)
             {
                 
@@ -129,19 +127,16 @@ namespace JJH
 
             // 레이 캐스트 박스의 센터 
             Vector3 boxCenter = tip.position;
-            if (Physics.BoxCast(boxCenter, boxSize, tip.forward, out hit, boxOrientation, distance, drawingLayer))
+            if (Physics.Raycast(tip.position , tip.forward , out hit, distance  ,drawingLayer))
             {
                 Debug.DrawRay(tip.position, tip.forward * distance, Color.red, 0.5f);
 
                 Vector3 drawPosition = hit.point + hit.normal * NormalDis;
                 drawManager = hit.collider?.GetComponent<DrawObjectManager>();
 
-                Debug.Log("레이캐스트 내부 진입");
-
                 if (!CheckColorType(drawManager)) // 컬러 타입이 같을 때만 그릴 수 있게 컬러타입을 체크 해줘야한다.
                 {
                     DrawingStop();
-                    Debug.Log("체크컬러타입");
                     return;
                 }
 
@@ -150,8 +145,6 @@ namespace JJH
                     index = 0;
 
                     GameObject lineObj = new GameObject("Line");
-
-                    Debug.Log("라인 렌더러 생성");
 
                     lineObj.transform.position = tip.position;
                     currentDrawing = lineObj.AddComponent<LineRenderer>();
@@ -178,8 +171,6 @@ namespace JJH
                 }
                 else // 즉 이미 생성된 경우. 
                 {
-
-                    Debug.Log("eLSE문 진입함");
                     var currentPos = currentDrawing.GetPosition(index);
                     currentDrawing.material.color = paintTypeManager.GetColorByType(currentPaintType);
 
@@ -194,7 +185,6 @@ namespace JJH
                         Vector2Int pixelPosition = drawManager.WorldToPixel(drawPosition);
                     }
                 }
-
                 // 이 부분이 완성된 상태니까. 여기서 추가 함수를 불러서 실제 이미지를 On 해주고 
                 // 더이상 그려지지 않는 작업을 추가해주고
                 // 
@@ -206,7 +196,6 @@ namespace JJH
                     }
 
                     CompleteDrawing();
-
                 }
             }
             else 
@@ -254,7 +243,6 @@ namespace JJH
 
         public void StartDrawing()
         {
-            Debug.Log("스타트");
             isDrawing = true; // 그리기 상태로 전환
             isNotMove = true;
             PlayerNotMove(isNotMove);
@@ -278,8 +266,6 @@ namespace JJH
         public void DrawingStop()
         {
             isDrawing = false; //그리기 상태 중지로 설정
-
-            Debug.Log("스탑");
 
             if (currentDrawing != null)
             {
@@ -306,6 +292,8 @@ namespace JJH
             // 새로운 색상 타입에 해당하는 색상을 가져와 펜촉의 마테리얼에 적용합니다.
             tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType);
 
+            DrawObjectManager.colorChangeEvent.Invoke(currentPaintType);
+
         }
 
         // 실제로 색깔 변경을 위해 사용 할 함수
@@ -315,6 +303,7 @@ namespace JJH
             Debug.Log($"색깔 변경 +{_paintTypeEnum} ");
             tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType);
 
+            DrawObjectManager.colorChangeEvent.Invoke(currentPaintType);
 
         }
 
