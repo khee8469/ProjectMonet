@@ -76,6 +76,10 @@ namespace JJH
         }
 
 
+
+
+
+
         // Static object의 끌려 들어온 coliider를 원 상태로 복구 시켜준다. 
         public void ResetColliderPosition()
         {

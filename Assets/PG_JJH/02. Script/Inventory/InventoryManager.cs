@@ -1,6 +1,7 @@
 using Jc;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -80,7 +81,7 @@ namespace JJH
             }
         }
 
-        private void LoadSlot()
+        public void LoadSlot()
         {
             Manager.PlableData.InitSlot();
 
@@ -104,22 +105,6 @@ namespace JJH
             }
 
             Manager.UI.CloseInfoGroup();
-        }
-
-        private void Update()
-        {
-            if(Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                SaveInventoryData();
-            }
-            if(Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                LoadInventoryData();
-            }
-            if(Input.GetKeyDown(KeyCode.Alpha5))
-            {
-                RestoreItemInScene();
-            }
         }
 
         // 슬롯 등록 해제하는 메서드
@@ -263,6 +248,24 @@ namespace JJH
         {
             UpdateInventoryData(); // 현재 인벤토리의 상태를 저장한다. 게임종료 또는 저장 후 종료 등에 실시한다.
         }
+
+
+        public bool is_AddRemoveItem;
+        // 다른 곳에서 접근하기 편하게 인벤토리 매니저에서 ADD REMOVE 이벤트용으로 불러준다.
+        // 
+
+        public void AddItem(int itemID) // 매개변수로 ID를 받아 슬롯에 저장을 해주고 
+            // BOOL 변수를 이용하여 다음에 UIMANAGER에서 OPEN 할 때 LOAD 상태를 해준다. 
+            // 해당 SLOT에 ADDITEM을 호출해 줘야 한다. 또는 매개변수 때문에 어려우면 그 로직을 이용하자. 
+        {
+
+        }
+
+        public void RemoveItem(int itemID)
+        {
+
+        }
+
 
 
     }

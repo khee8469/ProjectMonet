@@ -49,6 +49,10 @@ namespace JJH
 
         public SlotData slotData;
 
+        [Tooltip("npc에게 받은 아이템이 있는지 확인해줄 bool 변수")]
+        public bool isAddNPCItem;
+
+
         protected override void Awake() // 이거 처음부터 active false로 있는 상태면 Awake도 발동안함. 켜야 발동됨. 
         {
             base.Awake();
@@ -59,7 +63,6 @@ namespace JJH
             itemTransform = GetComponent<Transform>();
 
             // 이게 list에 slot을 할당 시키려면 처음에 켜둬서 slot 할당을 다 시키고 그게 마무리 되면 active false로 꺼줘야 한다. 
-
 
         }
 
@@ -243,25 +246,6 @@ namespace JJH
 
             //Manager.Inventory.UpdateInventoryData();
         }
-
-        // npc와의 퀘스트 연계로 들어오는 아이템 
-        public void AddItem(int _itemID)
-        {
-            
-            
-           
-        }
-
-        // npc 와의 퀘스트 연계로 들어오는 아이템 
-        public void RemoveItem(int _itemID)
-        {
-
-           
-
-        }
-
-
-
 
         // 아이템 삭제 ( 꺼내기)
         public void RemoveItem(InventoryItem item)

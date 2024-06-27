@@ -79,13 +79,21 @@ namespace Jc
             infoGruop.transform.localPosition = Vector3.zero;
             infoGruop.transform.localRotation = Quaternion.identity;
 
+            if(Manager.Inventory)
+
+
             infoGruop.SetActive(true);
             Manager.Inventory.isEnable = true;
+
+
+
+
         }
         // 인벤토리/퀘스트 창 닫기
         public void CloseInfoGroup()
         {
             Manager.PlableData.SaveSlotData();
+
 
             infoGruop.transform.parent = this.transform;
             Manager.Inventory.isEnable = false;

@@ -7,7 +7,7 @@ using static ConvertValueToHue;
 
 namespace JJH
 {
-    public class Pen :MonoBehaviour
+    public class Pen :InteractObject
     {
         // 어차피 한 번에 하나의 색 밖에 안되니까 크게 문제 없을것 같기는함. 
         // 새로운 line을 생성해주는거니까. 나중에 문제 생기면 마테리얼이 같이 바뀌는거는 그때 해결해주자. 
@@ -68,7 +68,7 @@ namespace JJH
         private DrawObjectManager drawManager;
 
         [Tooltip("Noraml 벡터 크기")]
-        private float NormalDis = 0.1f;
+        private float NormalDis = 0.01f;
 
         [Tooltip("원하는 완료 퍼센트")]
         [SerializeField] private float percent = 5;
@@ -113,8 +113,7 @@ namespace JJH
             }
 
             if (isDrawing && currentPaintType != PaintTypeEnum.None)
-            {
-                
+            {           
                 Draw();        
             }
         }
@@ -139,7 +138,6 @@ namespace JJH
                     DrawingStop();
                     return;
                 }
-
                 if (currentDrawing == null) //이 부분에서 현재 물감에 알맞는 색상으로 만들어줘야 할 것 같아. 
                 {
                     index = 0;
@@ -198,10 +196,10 @@ namespace JJH
                     CompleteDrawing();
                 }
             }
-            else 
+            /*else 
             {
                 DrawingStop();
-            }
+            }*/
         }
 
         private void CompleteDrawing()
@@ -322,8 +320,6 @@ namespace JJH
             }
 
         }
-
-
     }
 }
 
