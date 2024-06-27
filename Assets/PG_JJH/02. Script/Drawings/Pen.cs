@@ -75,7 +75,7 @@ namespace JJH
 
         [Header("레이캐스트 박스 설정")]
         [Tooltip("박스의 크기")]
-        public Vector3 boxSize = new Vector3(0.1f, 0.1f, 0.1f);
+        public Vector3 boxSize = new Vector3(0.4f, 0.4f, 0.4f);
         [Tooltip("박스의 방향")]
         public Quaternion boxOrientation = Quaternion.identity;
 
@@ -127,7 +127,7 @@ namespace JJH
                 Vector3 drawPosition = hit.point + hit.normal * NormalDis;
                 drawManager = hit.collider?.GetComponent<DrawObjectManager>();
 
-                if (!CheckColorType(drawManager))
+                if (!CheckColorType(drawManager)) // 컬러 타입이 같을 때만 그릴 수 있게 컬러타입을 체크 해줘야한다.
                 {
                     DrawingStop();
                     return;
@@ -196,7 +196,7 @@ namespace JJH
                     RemoveALLLine();
                     isNotMove = false;
                     PlayerNotMove(isNotMove);
-                    drawManager.DrawFinished();
+                    drawManager.DrawFinished(); // 이거는 지금 완전히 완성된 상태를 체크하게 되고 있는 것 같은대.. 
 
                     StartCoroutine(blockRoutine());
                     
@@ -236,6 +236,10 @@ namespace JJH
             isDrawing = true; // 그리기 상태로 전환
             isNotMove = true;
             PlayerNotMove(isNotMove);
+
+            
+
+
             // not move 와 함께 --> 플레이어의 움직임 막아버리는 함수 발동 
 
         }

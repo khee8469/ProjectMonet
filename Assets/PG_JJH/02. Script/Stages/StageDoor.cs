@@ -53,7 +53,7 @@ namespace JJH
         protected override void OnSelectEntering(SelectEnterEventArgs args)
         {
             return;
-            base.OnSelectEntering(args);
+            
         }
         // 할당된 ID 순서대로 정렬 . 
         public int CompareTo(StageDoor other)
@@ -62,19 +62,18 @@ namespace JJH
             return doorID.CompareTo(other.doorID);
         }
 
-        public bool Activate() // 맵이 열려 있으면 TRUE 리턴 / 안 열려 있으면 FLASE 리턴. 
+        public void Activate() // 맵이 열려 있으면 TRUE 리턴 / 안 열려 있으면 FLASE 리턴. 
         {
+            Debug.Log("Activate 발동");
             // 맵이 열려 있으면 해당 씬 로딩 가능. 
             if (Manager.Chapter.runtimeStageData.stageUnlockStatus.Count > doorID &&
                 Manager.Chapter.runtimeStageData.stageUnlockStatus[doorID])
             {
                 Manager.Scene.LoadScene(SceneName);
-                return true;
             }
             else
             {
                 Debug.Log("해당 스테이지는 잠겨 있습니다.");
-                return false;
             }
         }
 

@@ -216,7 +216,6 @@ namespace JJH
             // 아이템의 원래 트랜스폼을 저장
             InventoryItem inventoryItem = item as InventoryItem;
             
-
             Debug.Log("자식으로 만든 직후의 로컬 스케일" + item.transform.localScale);
 
             item.transform.localPosition = Vector3.zero; // 슬롯 위치에 딱 맞도록 로컬 포지션을 0 으로 설정
@@ -244,6 +243,25 @@ namespace JJH
 
             //Manager.Inventory.UpdateInventoryData();
         }
+
+        // npc와의 퀘스트 연계로 들어오는 아이템 
+        public void AddItem(int _itemID)
+        {
+            
+            
+           
+        }
+
+        // npc 와의 퀘스트 연계로 들어오는 아이템 
+        public void RemoveItem(int _itemID)
+        {
+
+           
+
+        }
+
+
+
 
         // 아이템 삭제 ( 꺼내기)
         public void RemoveItem(InventoryItem item)

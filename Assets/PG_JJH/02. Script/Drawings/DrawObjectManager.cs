@@ -27,9 +27,8 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         [Tooltip("스테이지 별 캔버스 구분")]
         [SerializeField] public DrawBoardNumber drawBoardNumber;
 
-        [Tooltip("결국은 이거 구분해주려면 고유한 ID가 있어야 하네...")]
-        [SerializeField] public int instanceID;
-
+        [Tooltip("결국은 이거 구분해주려면 고유한 ID가 있어야 하네... --> 0번 부터 시작해야함.")]
+        [SerializeField] public int DrawID;
 
 
         [Header("각 드로우판의 컬러타입 지정")]
@@ -75,10 +74,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         [SerializeField] private DrawingCompleteManager drawingCompleteManager;
 
 
-        private void Awake()
-        {
-            instanceID = GetInstanceID();
-        }
+      
 
         private void Start()
         {
@@ -218,14 +214,14 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         {
             float length = Vector3.Distance(start, end);
 
-            return length * width;
+            return length * width *100; 
         }
 
         // 스프라이트의 채워진 비율을 반환하는 함수
         public float GetFillPercentage() // 완성 되었는지 확인하는 함수 --> Pen 에서 부르고 있다. 
         {
            
-            return ( filledArea / totalArea )* 100f;
+            return ( filledArea / totalArea )* 10f;
 
         }
 
@@ -233,7 +229,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         public void DrawFinished() // 열거형 drawingNumber를 int로 형변환 해서 넘겨줌 . 
         {
             Debug.Log("드로우 피니시드");
-            drawingCompleteManager.DrawComplete((int)drawBoardNumber, true, instanceID);
+            drawingCompleteManager.DrawComplete((int)drawBoardNumber, true, DrawID);
         }
 
         public void ImageAlphaUp()
@@ -391,8 +387,8 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
         public int CompareTo(DrawObjectManager other)
         {
-            if (other == null) return 0;
-            return instanceID.CompareTo(other.instanceID);
+            if (other == null) return 1;
+            return DrawID.CompareTo(other.DrawID);
         }
     }
 

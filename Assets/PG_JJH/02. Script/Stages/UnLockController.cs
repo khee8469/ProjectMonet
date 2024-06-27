@@ -34,7 +34,7 @@ namespace JJH
 
                 }
 
-                if(i==0)
+                if(i==0) // 아 이게 정렬 할 때 0 번 인덱스만 열리도록 해놔서 door ID가 겹치는 부분이 있으면 이거 안열림. 
                 {
                     isUnlocked = true;
                     ChapterManager.Instance.runtimeStageData.stageUnlockStatus[i] = true;

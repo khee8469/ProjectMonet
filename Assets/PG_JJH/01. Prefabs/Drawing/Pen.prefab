@@ -64,7 +64,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.049999997, y: 0.175, z: 0.049999997}
+  m_LocalScale: {x: 0.02, y: 0.07, z: 0.02}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4319670385494838098}
@@ -141,7 +141,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2, y: 2.0000002, z: 2}
+  m_Size: {x: 1, y: 2, z: 2}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!54 &1289613481537042562
 Rigidbody:
@@ -185,7 +185,7 @@ MonoBehaviour:
   tip: {fileID: 4900535816607281654}
   drawingMaterial: {fileID: 2100000, guid: 3a3177e3e83ec2d4e9d75480d30353c7, type: 2}
   tipMaterial: {fileID: 2100000, guid: 785b1a453eb114946a2e16655db343b2, type: 2}
-  penWidth: 0.05
+  penWidth: 0.01
   currentDrawing: {fileID: 0}
   currentPaintType: 0
   paintTypeManager: {fileID: 11400000, guid: e3bb3a82badd59e488a56163b21dd1dc, type: 2}
@@ -195,7 +195,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8192
   lineList: []
-  percent: 30
+  percent: 0.1
   index: 0
   boxSize: {x: 0.1, y: 0.1, z: 0.1}
   boxOrientation: {x: 0, y: 0, z: 0, w: 1}
@@ -352,8 +352,8 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  grabType: 0
-  grabDistance: 3
+  grabType: 2
+  grabDistance: 1000
   pen: {fileID: 2035615035377409019}
 --- !u!114 &455533288311405762
 MonoBehaviour:

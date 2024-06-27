@@ -19,8 +19,6 @@ public class FinishedDraw : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         alphaValue = spriteRenderer.color.a;
-        
-
     }
 
     void Start()
@@ -42,7 +40,6 @@ public class FinishedDraw : MonoBehaviour
         spriteRenderer.color = color; // 변경된 알파 값을 반영합니다.
 
         FinishAlphaUp.AddListener(finishedPaint_AlphaUp);
-
 
     }
 

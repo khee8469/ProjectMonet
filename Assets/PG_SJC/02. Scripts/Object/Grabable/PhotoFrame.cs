@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using JJH;
 
 namespace Jc
 {
-    public class PhotoFrame : InteractObject
+    public class PhotoFrame : InventoryItem
     {
         [Header("에디터 세팅")]
         [SerializeField]
@@ -46,6 +47,10 @@ namespace Jc
         [SerializeField]
         public List<GameObject> activableList;
 
+        [Header("착시 적용 시 비활성화 할 오브젝트 리스트")]
+        [SerializeField]
+        public List<GameObject> disActivableList;
+
         private bool isActive = false;
         public bool IsActive
         {
@@ -67,6 +72,7 @@ namespace Jc
         }
 
         private Coroutine highligtingRoutine;
+        private Transform mainCamTr;
 
         protected override void Awake()
         {
@@ -76,6 +82,16 @@ namespace Jc
             // 원본 머터리얼을 캐싱
             originMT = meshRenderer.sharedMaterial;
             originColor = originMT.color;
+            mainCamTr = Camera.main.transform;
+        }
+
+        private void Update()
+        {
+            if(trackPosition)
+            {
+                transform.position = mainCamTr.position + mainCamTr.forward;
+                transform.forward = mainCamTr.forward;
+            }
         }
 
         protected override void OnSelectEntering(SelectEnterEventArgs args)
@@ -110,14 +126,24 @@ namespace Jc
             // 이미지 애니메이션 출력
             anim.SetTrigger("FadeOut");
 
-            // 그림과 치환된 오브젝트 활성화
-            foreach (GameObject go in activableList)
-                go.SetActive(true);
+            if (activableList != null && activableList.Count > 0)
+            {
+                // 그림과 치환된 오브젝트 활성화
+                foreach (GameObject go in activableList)
+                    go.SetActive(true);
+            }
+
+            if (disActivableList!= null && disActivableList.Count > 0)
+            {
+                // 충돌체 등 비활성화 할 오브젝트를 비활성화
+                foreach (GameObject go in disActivableList)
+                    go.SetActive(false);
+            }
 
             // 페이드아웃용 머터리얼로 변경
             meshRenderer.sharedMaterial = fadeOutMT;
             float rate = 0f;
-            while(rate < 1f)
+            while (rate < 1f)
             {
                 rate += Time.deltaTime / 0.9f;
                 fadeOutMT.color = Color.Lerp(originColor, fadeOutColor, rate);

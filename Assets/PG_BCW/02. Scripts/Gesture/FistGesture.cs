@@ -1,9 +1,14 @@
+using JJH;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class FistGesture : Gesture
 {
     PaintBucket paintBucket;
+    
+    // 인스펙터 확인용 
+    [SerializeField]Pen pen;
+    
 
     public override void Awake()
     {
@@ -19,22 +24,31 @@ public class FistGesture : Gesture
     public override void LeftGestureEnter()
     {
         paintBucket = null;
+        pen = null;
         //호버중인 오브젝트중 물감통 찾기
         if (LeftHandInteractor.hasSelection)
         {
+            Debug.Log("레프트 제스쳐 피스트 제스쳐");
             //잡고잇는 오브젝트 첫번쨰
-            paintBucket = LeftHandInteractor.interactablesSelected[0] as PaintBucket;
+           /* paintBucket = LeftHandInteractor.interactablesSelected[0] as PaintBucket;
             if (paintBucket != null)
             {
                 //물감나오는거 함수 호출
                 paintBucket.PaintPlay();
                 Debug.Log("물감호출");
+            }*/
+
+            pen = LeftHandInteractor.interactablesSelected[0] as Pen;
+            if(pen != null)
+            {
+                // Pen의 그리기 가능 함수 호출 
+                pen.StartDrawing();
+                Debug.Log("Pen is Not NULL");
             }
         }
-
-        //
         else if (!LeftHandInteractor.hasSelection) 
         {
+            Debug.Log("레프트 제스쳐 피스트 제스쳐22");
             //호버된거도 없으면 끝
             if (LeftHandInteractor.interactablesHovered.Count == 0)
                 return;
@@ -53,6 +67,15 @@ public class FistGesture : Gesture
                     break;
                 }
             }
+
+            pen = LeftHandInteractor.interactablesSelected[0] as Pen;
+            if (pen != null)
+            {
+                // Pen의 그리기 가능 함수 호출 
+                pen.StartDrawing();
+                Debug.Log("Pen is Not NULL");
+            }
+
         }
     }
 
@@ -70,19 +93,30 @@ public class FistGesture : Gesture
         //호버중인 오브젝트중 물감통 찾기
         if (RightHandInteractor.hasSelection)
         {
+            Debug.Log("라이트 제스쳐 피스트 제스쳐33");
             //잡고잇는 오브젝트 첫번쨰
-            paintBucket = RightHandInteractor.interactablesSelected[0] as PaintBucket;
+            /*paintBucket = RightHandInteractor.interactablesSelected[0] as PaintBucket;
             if (paintBucket != null)
             {
                 //물감나오는거 함수 호출
                 paintBucket.PaintPlay();
                 Debug.Log("물감호출");
+            }*/
+            Debug.Log(RightHandInteractor.interactablesSelected.Count+"숫자");
+            pen = RightHandInteractor.interactablesSelected[0] as Pen;
+            if (pen != null)
+            {
+                // Pen의 그리기 가능 함수 호출 
+                pen.StartDrawing();
+                Debug.Log("Pen is Not NULL");
             }
 
         }
 
         else if (!RightHandInteractor.hasSelection)
         {
+            Debug.Log("레프트 제스쳐 피스트 제스쳐44");
+
             //호버된거도 없으면 끝
             if (RightHandInteractor.interactablesHovered.Count == 0)
                 return;
@@ -100,6 +134,15 @@ public class FistGesture : Gesture
                     break;
                 }
             }
+
+            pen = RightHandInteractor.interactablesSelected[0] as Pen;
+            if (pen != null)
+            {
+                // Pen의 그리기 가능 함수 호출 
+                pen.StartDrawing();
+                Debug.Log("Pen is Not NULL");
+            }
+
         }
     }
 

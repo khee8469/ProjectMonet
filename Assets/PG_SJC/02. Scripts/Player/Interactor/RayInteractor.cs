@@ -92,27 +92,9 @@ namespace Jc
             if (isAimming)
                 Aimming();  // 에이밍
 
-            // update 부분 최적화 필요 
-            // 잡고 있는 상황에서 인벤토리가 켜져있다면. --> 잡고 있는 오브젝트의 스케일을 조정해준다. 
+            // 오브젝트를 잡고있는 상태에서 슬롯찾기
             if (isGrab && Manager.Inventory.isEnable)
-            {
-                InventoryItem current = currentGrabObject.GetComponent<InventoryItem>();
-
-                if (current != null)
-                {
-                    current.AdjustScale();
-                    FindSlot(); // 일단 update에서 돌리는 거로 실험해보기. 
-                }
-            }
-            else if (isGrab && Manager.Inventory.isEnable == false)
-            {
-                InventoryItem current = currentGrabObject.GetComponent<InventoryItem>();
-
-                if (current != null)
-                {
-                    current.RestoreScale();
-                }
-            }
+                FindSlot();
         }
 
         #region 컨트롤러 콜백
@@ -384,8 +366,6 @@ namespace Jc
         {
             base.OnHoverEntered(args);
 
-
-
             isAimming = true;
             aimTransform.gameObject.SetActive(isAimming);
         }
@@ -414,13 +394,6 @@ namespace Jc
         // 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
-            /*if (currentGrabObject is IActivatable)
-            {
-                IActivatable active = currentGrabObject as IActivatable;
-                Debug.Log("entered 에서 리턴함"); // 여기 안들어가지는데?? 
-                return;
-            }*/
-
             base.OnSelectEntered(args);
 
             currentGrabObject = args.interactableObject as InteractObject; // 현재 플레이어가 쥐고 있는 아이템. 
