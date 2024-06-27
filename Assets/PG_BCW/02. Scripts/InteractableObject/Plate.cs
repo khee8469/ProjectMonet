@@ -19,7 +19,7 @@ public class Plate : MonoBehaviour
         if (hasSockets > 2)
         {
             isSuccess = true;
-            Debug.Log("성공");
+            Debug.Log("접시 담기 성공");
         }
     }
 }

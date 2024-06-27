@@ -9,6 +9,9 @@ namespace Jc
         [Header("NPC")]
         public LayerMask npcLM;
 
+        [Header("InteractorNPC")]
+        public LayerMask InNpcLM;
+
         [Header("Wall")]
         public LayerMask wallLM;
 
