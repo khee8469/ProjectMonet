@@ -73,8 +73,14 @@ namespace Jc
 
         public Vector3 playerPos;       // 상호작용 한 플레이어 위치
 
+
+        [Tooltip("퀘스트 NPC용")]
         [SerializeField]
         private Quest currentQuest;
+        [Tooltip("상호작용 NPC용")]
+        [SerializeField]
+        private Quest currentTalk;
+
 
         [SerializeField]
         private int curDialogIndex = 0;     // 대화 진행 인덱스
@@ -127,6 +133,20 @@ namespace Jc
             UpdateDialog(questController);
         }
 
+        // 상호작용 NPC 대사 출력
+        public virtual void OnTalkInteractor()
+        {
+            dialogText.gameObject.SetActive(true);
+
+            // 현재 할당중인 대사가 없는 경우
+            if (currentTalk == null)
+            {
+                dialogText.text = basicDialog;
+                return;
+            }
+        }
+
+
         // 상호작용 도중 이탈 시
         public void OnExitInteract()
         {
@@ -136,7 +156,11 @@ namespace Jc
 
                 // 다이얼로그 인덱스 수정
                 curDialogIndex = 0;
-                fsm.ChangeState(NPCStateType.Patrol);
+                // 퀘스트 npc는 Patrol로 상호작용 npc는 Idle로 전환
+                if (gameObject.layer == Manager.Layer.npcLM)
+                    fsm.ChangeState(NPCStateType.Patrol);
+                else if(gameObject.layer == Manager.Layer.InNpcLM)
+                    fsm.ChangeState(NPCStateType.Idle);
                 anim.SetBool(Manager.Param.IsInteract, false);
             }
         }
@@ -151,6 +175,7 @@ namespace Jc
             }
             return null;
         }
+
 
         private void UpdateDialog(PlayerQuestController questController)
         {

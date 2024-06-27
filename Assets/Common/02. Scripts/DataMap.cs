@@ -69,5 +69,7 @@ namespace Jc
         public const string QuestData = "DataTable/QuestDT";
         // NPC DT
         public const string NPCData = "DataTable/NPCDT";
+        // Test NPC DT
+        public const string TestNpcData = "DataTable/TestNpcDT";
     }
 }

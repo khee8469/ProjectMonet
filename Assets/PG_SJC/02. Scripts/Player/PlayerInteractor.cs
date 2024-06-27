@@ -28,8 +28,13 @@ namespace Jc
 
         [Space(5)]
         [Header("밸런싱")]
+        [Tooltip("퀘스트 NPC")]
         [SerializeField]
         private NPC nearNPC;
+        [Tooltip("상호작용만하는 NPC")]
+        [SerializeField]
+        private InteractorNPC nearInNPC;
+
 
         private bool isEnabledPopup = false;   // 팝업 활성화
         private Transform camTr;               // 메인 카메라 트랜스폼
@@ -44,8 +49,12 @@ namespace Jc
 
         private void OnEnable()
         {
+            // 퀘스트 npc 지정
             trigger.OnNPCEnter += OnEnterNPC;
             trigger.OnNPCExit += OnExitNPC;
+            // 상호작용 npc 지정
+            trigger.OnInNPCEnter += OnEnterInteractorNPC;
+            trigger.OnInNPCExit += OnExitInteractorNPC;
 
             camTr = Camera.main.transform;
 
@@ -56,14 +65,18 @@ namespace Jc
         }
         private void OnDisable()
         {
+            // 퀘스트 npc 지정 해제
             trigger.OnNPCEnter -= OnEnterNPC;
             trigger.OnNPCExit -= OnExitNPC;
+            // 상호작용 npc 지정 해제
+            trigger.OnInNPCEnter -= OnEnterInteractorNPC;
+            trigger.OnInNPCExit -= OnExitInteractorNPC;
 
             controllerCallback.leftMenuBTNRef.action.performed -= OnPopUpCanvas;
             controllerCallback.leftTriggerRef.action.performed -= OnInteractNPC;
         }
 
-        // NPC Trigger Enter 콜백
+        // 퀘스트 NPC Trigger Enter 콜백
         private void OnEnterNPC(NPC target)
         {
             // 기존에 충돌한 NPC 할당해제
@@ -73,7 +86,7 @@ namespace Jc
             // 가장 가까운 NPC 재할당 
             nearNPC = target;
         }
-        // NPC Trigger Exit 콜백
+        // 퀘스트 NPC Trigger Exit 콜백
         private void OnExitNPC(NPC target)
         {
             if (target == nearNPC)
@@ -84,15 +97,52 @@ namespace Jc
             }
         }
 
+
+        // 상호작용 NPC Trigger Enter 콜백
+        private void OnEnterInteractorNPC(InteractorNPC target)
+        {
+            // 기존에 충돌한 NPC 할당해제
+            if (nearInNPC != null)
+                nearInNPC = null;
+
+            // 가장 가까운 NPC 재할당 
+            nearInNPC = target;
+        }
+        // 상호작용 NPC Trigger Exit 콜백
+        private void OnExitInteractorNPC(InteractorNPC target)
+        {
+            if (target == nearInNPC)
+            {
+                OnEndInteract?.Invoke();
+                OnEndInteract -= target.OnExitInteract;
+                nearInNPC = null;
+            }
+        }
+
+
+
+
         // NPC 상호작용 콜백
         private void OnInteractNPC(InputAction.CallbackContext context)
         {
             if (Manager.Inventory.isEnable) return;   // 팝업이 열려있는 경우 
-            if (nearNPC == null) return; // 근처 NPC가 없는 경우
-
-            nearNPC.OnInteract(questController);
-            OnEndInteract += nearNPC.OnExitInteract;  // 상호작용 해제 등록
+            if (nearNPC == null && nearInNPC == null) return; // 근처 NPC가 없는 경우
+            //퀘스트 npc면
+            if (nearNPC != null)
+            {
+                nearNPC.OnInteract(questController);
+                OnEndInteract += nearNPC.OnExitInteract;  // 상호작용 해제 등록
+            }
+            //상호작용 npc면
+            else if(nearInNPC != null)
+            {
+                nearInNPC.OnTalkInteractor();
+                OnEndInteract += nearInNPC.OnExitInteract; 
+                //nearInNPC.transform.rotation = nearInNPC.transform.LookAt(transform.position);
+            }
         }
+
+
 
         private void OnPopUpCanvas(InputAction.CallbackContext context)
         {

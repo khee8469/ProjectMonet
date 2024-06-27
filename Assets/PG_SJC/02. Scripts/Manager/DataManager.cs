@@ -19,6 +19,11 @@ namespace Jc
         private Dictionary<int, QuestData> questDataDic;    // 퀘스트 데이터
         public Dictionary<int, QuestData> QuestDataDic { get { return questDataDic; } }
 
+        //임시 테스트용
+        private Dictionary<int, TestNPCData> testNpcDataDic;        // NPC 데이터
+        public Dictionary<int, TestNPCData> TestNpcDataDic { get { return testNpcDataDic; } }
+
+
         /// <로딩순서>
         /// 1. CSV 데이터 로드
         /// 2. 로컬 데이터 로드 -> 덮어쓰기
@@ -38,6 +43,8 @@ namespace Jc
             LoadNarrationBundleData();  // 나레이션 번들 데이터 로드
             LoadQuestData();            // 퀘스트 데이터 로드
             LoadNPCData();              // NPC 데이터 로드
+
+            LoadTestNPCData();          // Test NPC 데이터 로드
         }
 
         private void LoadNarrationData()
@@ -134,6 +141,40 @@ namespace Jc
         private void LoadNPCData()
         {
             List<Dictionary<string, object>> csvData = CSVHelper.Read(ResourcesPath.NPCData);
+
+            if (csvData == null || csvData.Count < 1)
+            {
+                Debug.Log("NPC 데이터가 존재하지 않습니다.");
+                return;
+            }
+
+            npcDataDic = new Dictionary<int, NPCData>();
+
+            for (int i = 0; i < csvData.Count; i++)
+            {
+                // 선형적 필드
+                // NPC의 최대 퀘스트 갯수는 5개
+                int id = (int)csvData[i]["id"] - DataID.NPC;
+                NPCData data = new NPCData();
+                data.id = id;
+                data.npcName = (string)csvData[i]["name_npc"];
+                data.questIDList = new List<int>();
+                for (int j = 1; j <= 5; j++)
+                {
+                    if (csvData[i][$"id_quest_{j}"] is not int)
+                        break;
+                    data.questIDList.Add((int)csvData[i][$"id_quest_{j}"] - DataID.QUEST);
+                }
+
+                npcDataDic.Add(id, data);
+            }
+        }
+
+
+        //테스트용
+        private void LoadTestNPCData()
+        {
+            List<Dictionary<string, object>> csvData = CSVHelper.Read(ResourcesPath.TestNpcData);
 
             if (csvData == null || csvData.Count < 1)
             {
