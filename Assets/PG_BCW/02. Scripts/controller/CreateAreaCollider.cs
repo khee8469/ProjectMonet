@@ -10,6 +10,7 @@ public class CreateAreaCollider : MonoBehaviour
     
     [Tooltip("타올 컴포넌트")]
     [SerializeField] private Taoru taoru;
+    public Taoru Taoru { get { return taoru; } set { taoru = value; } }
     
     [Tooltip("생성할 박스 콜라이더 프리팹")]
     [SerializeField] private GameObject colliderPrefab;
