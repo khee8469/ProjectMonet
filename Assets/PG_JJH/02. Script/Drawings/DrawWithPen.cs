@@ -41,18 +41,6 @@ namespace JJH
             base.OnDeactivated(args);
             //pen.DrawingStop();
         }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                pen.SwitchColor();
-            }
-        }
-
-
-
-
     }
 
 

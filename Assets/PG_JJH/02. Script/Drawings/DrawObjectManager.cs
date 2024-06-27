@@ -77,6 +77,15 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
         // 얘는 싱글턴이 아님.
 
+        [Tooltip("Pen 참조 해두자..")]
+        [SerializeField] private GameObject pen;
+
+        [Tooltip("자신의 콜라이더 배열")]
+        [SerializeField] private Collider[] myColliderArray; 
+
+
+
+
         private void Start()
         {
             myColor = paintTypeManager.GetColorByType(currentPaintType);
@@ -98,7 +107,18 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             totalArea = worldHeight * worldWidth;
             nonTransparentArea = CalculateNonTransparentArea();
 
+
+            myColliderArray = GetComponents<Collider>(); // 자신의 모든 콜라이더 배열 가져오기. pen의 컬러에 맞춰서 자신의 콜라이더를 꺼주고 켜준다. 
+
         }
+
+        private void OnOffCollider(PaintTypeEnum _paintTypeEnum)
+        {
+            
+        }
+
+
+
 
         //라인 렌더러를 리스트에 추가하는 함수
         public void AddLineRenderer(LineRenderer lineRenderer, float penWidth)
@@ -392,11 +412,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             if (other == null) return 1;
             return DrawID.CompareTo(other.DrawID);
         }
-
-
-
-
-
 
 
     }

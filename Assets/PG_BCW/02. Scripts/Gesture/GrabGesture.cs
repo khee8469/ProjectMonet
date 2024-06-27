@@ -41,7 +41,9 @@ public class GrabGesture : Gesture
                 // 아이템이 select enter 되어서 손에 붙어 있는 경우고 이 상황에서만 pen은 line Renderer 를 생성해줘야한다.
                 if(hoveredInteractable is Pen)
                 {
-                    Debug.Log("Pen 형 오부젝트를 selectEnter 하였다.");
+                    Pen pen = hoveredInteractable as Pen;
+                    Debug.Log("Pen의 start 그랩");
+                    pen.StartDrawing();
                 }
                 break;
             }
@@ -77,6 +79,14 @@ public class GrabGesture : Gesture
             {
                 // 인터랙션 매니저에 인터랙터가 인터랙터블을 선택하도록 요청
                 RightHandInteractor.interactionManager.SelectEnter(RightHandInteractor, hoveredInteractable);
+
+                if(hoveredInteractable is Pen)
+                {
+                    Pen pen =  hoveredInteractable as Pen;
+                    pen.StartDrawing();
+                    Debug.Log("Pen hovered");
+
+                }
 
                 break;
             }
