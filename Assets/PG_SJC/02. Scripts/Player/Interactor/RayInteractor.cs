@@ -366,15 +366,15 @@ namespace Jc
         {
             base.OnHoverEntered(args);
 
-            isAimming = true;
-            aimTransform.gameObject.SetActive(isAimming);
+            //isAimming = true;
+            //aimTransform.gameObject.SetActive(isAimming);
         }
         protected override void OnHoverExited(HoverExitEventArgs args)
         {
             base.OnHoverExited(args);
 
-            isAimming = false;
-            aimTransform.gameObject.SetActive(isAimming);
+            //isAimming = false;
+           // aimTransform.gameObject.SetActive(isAimming);
         }
 
         protected override void OnSelectEntering(SelectEnterEventArgs args)
