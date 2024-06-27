@@ -17,7 +17,7 @@ public class Miniature : InteractObject
     {
         base.Awake();
 
-        XRBaseControllerInteractor a;
+        //XRBaseControllerInteractor a;
     }
 
     private void Start()
