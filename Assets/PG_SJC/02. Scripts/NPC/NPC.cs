@@ -54,6 +54,7 @@ namespace Jc
 
         [SerializeField]
         private TextMeshProUGUI dialogText;     // 다이얼로그 텍스트
+        public TextMeshProUGUI DialogText { get { return dialogText; } }
 
         protected StateMachine<NPC, NPCStateType> fsm;
         public StateMachine<NPC, NPCStateType> FSM { get { return fsm; } }
@@ -137,13 +138,8 @@ namespace Jc
         public virtual void OnTalkInteractor()
         {
             dialogText.gameObject.SetActive(true);
-
-            // 현재 할당중인 대사가 없는 경우
-            if (currentTalk == null)
-            {
-                dialogText.text = basicDialog;
-                return;
-            }
+            dialogText.text = "상호작용 대사";
+            Debug.Log(DialogText.text);
         }
 
 

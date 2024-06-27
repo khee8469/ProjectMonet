@@ -3,14 +3,13 @@ using Jc.NPCStates;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.ProBuilder.MeshOperations;
 
 public class InteractorNPC : NPC
 {
-    PlayerTrigger trigger;
-
     private void Awake()
     {
         // 상태머신 셋업
@@ -32,7 +31,7 @@ public class InteractorNPC : NPC
         //완료 전 대사, 완료 후 대사
         /*if( 미완료)
         else if(완료)*/
-
+        
     }
 
     public override Vector3 CalculateDestination()
