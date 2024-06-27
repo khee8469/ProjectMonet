@@ -92,30 +92,9 @@ namespace Jc
             if (isAimming)
                 Aimming();  // 에이밍
 
+            // 오브젝트를 잡고있는 상태에서 슬롯찾기
             if (isGrab && Manager.Inventory.isEnable)
                 FindSlot();
-
-            // update 부분 최적화 필요 
-            // 잡고 있는 상황에서 인벤토리가 켜져있다면. --> 잡고 있는 오브젝트의 스케일을 조정해준다. 
-            //if (isGrab && Manager.Inventory.isEnable)
-            //{
-            //    InventoryItem current = currentGrabObject.GetComponent<InventoryItem>();
-
-            //    if (current != null)
-            //    {
-            //        current.AdjustScale();
-            //        FindSlot(); // 일단 update에서 돌리는 거로 실험해보기. 
-            //    }
-            //}
-            //else if (isGrab && Manager.Inventory.isEnable == false)
-            //{
-            //    InventoryItem current = currentGrabObject.GetComponent<InventoryItem>();
-
-            //    if (current != null)
-            //    {
-            //        current.RestoreScale();
-            //    }
-            //}
         }
 
         #region 컨트롤러 콜백
@@ -481,14 +460,6 @@ namespace Jc
                         currentSlot.slotImage.color = currentSlot.OriginalColor;
                     }
 
-                    // 그랩 중일 경우 레이캐스트가 닿았다면
-                    // 오브젝트 크기를 변경시켜줌.
-                    if(isGrab)
-                    {
-                        InventoryItem grabedItem = currentGrabObject as InventoryItem;
-                        grabedItem.AdjustScale();
-                    }
-
                     hitBox = hitSlot.gameObject;
                     hitSlot.slotImage.color = Color.red;
                     currentSlot = hitSlot;
@@ -516,13 +487,6 @@ namespace Jc
                     }
 
                     currentSlot = null; // 현재 레이캐스트가 닿은 슬롯 초기화
-                }
-
-                // 아이템 스케일 조정
-                if (isGrab)
-                {
-                    InventoryItem grabedItem = currentGrabObject as InventoryItem;
-                    grabedItem.RestoreScale();
                 }
 
                 return null;
