@@ -122,7 +122,7 @@ namespace Jc
         }
 
         // 오브젝트의 위치값 고정 (메인 카메라 기준)
-        private void SetPosition()
+        protected void SetPosition()
         {
             Vector3 rayDir = mainCamera.transform.forward;
             Ray ray = new Ray(mainCamera.transform.position, rayDir);
@@ -212,7 +212,7 @@ namespace Jc
         }
 
 
-        IEnumerator ResizeRoutine()
+        protected virtual IEnumerator ResizeRoutine()
         {
             while(isGrabbed)
             {

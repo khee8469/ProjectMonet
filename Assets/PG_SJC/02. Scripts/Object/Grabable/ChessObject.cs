@@ -10,7 +10,7 @@ namespace Jc
         [Header("오브젝트 활성화 여부")]
         [SerializeField]
         private bool isEnable;
-        public bool IsEnable { get { return isEnable; } }
+        public bool IsEnable { get { return isEnable; } set { isEnable = value; } }
 
         public void ResetObject()
         {

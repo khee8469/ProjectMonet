@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -33,7 +34,7 @@ namespace Jc
             Debug.Log("체스 셀렉");
             base.OnSelectEntered(args);
 
-            ResizingObject temp = args.interactableObject as ResizingObject;
+            ChessObject temp = args.interactableObject as ChessObject;
             // 오브젝트 체크
             if (temp == null)
                 return;
@@ -44,11 +45,30 @@ namespace Jc
             // 타겟 스케일 체크
             if (temp.transform.localScale.x > targetScale + scaleThreshHold || temp.transform.localScale.x < targetScale - scaleThreshHold)
                 return;
-            
+
             // 조건 값 충족
             temp.transform.localScale = new Vector3(targetScale, targetScale, targetScale);
-            puzzle.UpdateCondition(puzzleIndex);
+            temp.transform.parent = transform;
+            temp.IsEnable = true;
+            temp.colliders[0].enabled = false;
+            StartCoroutine(PillarRoutine(temp));
             Debug.Log("조건 값이 충족되었습니다.");
+        }
+
+        IEnumerator PillarRoutine(ChessObject obj)
+        {
+            float rate = 0f;
+            Vector3 startPos = pillar.transform.localPosition;
+            Vector3 endPos = new Vector3(pillar.transform.localPosition.x, -1.3f, pillar.transform.localPosition.z);
+            while(rate < 1f)
+            {
+                rate += Time.deltaTime / 3f;
+                pillar.transform.localPosition = Vector3.Lerp(startPos, endPos, rate);
+                yield return null;
+            }
+            puzzle.UpdateCondition(puzzleIndex);
+            pillar.transform.localPosition = endPos;
+            yield return null;
         }
     }
 }
