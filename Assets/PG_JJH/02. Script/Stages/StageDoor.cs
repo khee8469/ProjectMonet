@@ -24,8 +24,6 @@ namespace JJH
 
         new Rigidbody rigidbody;
 
-        List<Collider> myColliderList = new List<Collider>();
-
         private void Start()
         {
             unLockController = FindObjectOfType<UnLockController>();

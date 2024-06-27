@@ -30,21 +30,21 @@ public class FistGesture : Gesture
         {
             Debug.Log("레프트 제스쳐 피스트 제스쳐");
             //잡고잇는 오브젝트 첫번쨰
-           /* paintBucket = LeftHandInteractor.interactablesSelected[0] as PaintBucket;
+            paintBucket = LeftHandInteractor.interactablesSelected[0] as PaintBucket;
             if (paintBucket != null)
             {
                 //물감나오는거 함수 호출
                 paintBucket.PaintPlay();
                 Debug.Log("물감호출");
-            }*/
+            }
 
-            pen = LeftHandInteractor.interactablesSelected[0] as Pen;
+            /*pen = LeftHandInteractor.interactablesSelected[0] as Pen;
             if(pen != null)
             {
                 // Pen의 그리기 가능 함수 호출 
                 pen.StartDrawing();
                 Debug.Log("Pen is Not NULL");
-            }
+            }*/
         }
         else if (!LeftHandInteractor.hasSelection) 
         {
@@ -68,13 +68,13 @@ public class FistGesture : Gesture
                 }
             }
 
-            pen = LeftHandInteractor.interactablesSelected[0] as Pen;
+           /* pen = LeftHandInteractor.interactablesSelected[0] as Pen;
             if (pen != null)
             {
                 // Pen의 그리기 가능 함수 호출 
                 pen.StartDrawing();
                 Debug.Log("Pen is Not NULL");
-            }
+            }*/
 
         }
     }
@@ -83,8 +83,6 @@ public class FistGesture : Gesture
     {
 
     }
-
-
 
     //기능 물건 잡기, 물감짜기
     public override void RightGestureEnter()
@@ -95,21 +93,22 @@ public class FistGesture : Gesture
         {
             Debug.Log("라이트 제스쳐 피스트 제스쳐33");
             //잡고잇는 오브젝트 첫번쨰
-            /*paintBucket = RightHandInteractor.interactablesSelected[0] as PaintBucket;
+            paintBucket = RightHandInteractor.interactablesSelected[0] as PaintBucket;
             if (paintBucket != null)
             {
                 //물감나오는거 함수 호출
                 paintBucket.PaintPlay();
                 Debug.Log("물감호출");
-            }*/
-            Debug.Log(RightHandInteractor.interactablesSelected.Count+"숫자");
+            }
+
+           /* Debug.Log(RightHandInteractor.interactablesSelected.Count+"숫자");
             pen = RightHandInteractor.interactablesSelected[0] as Pen;
             if (pen != null)
             {
                 // Pen의 그리기 가능 함수 호출 
                 pen.StartDrawing();
                 Debug.Log("Pen is Not NULL");
-            }
+            }*/
 
         }
 
@@ -135,13 +134,13 @@ public class FistGesture : Gesture
                 }
             }
 
-            pen = RightHandInteractor.interactablesSelected[0] as Pen;
+           /* pen = RightHandInteractor.interactablesSelected[0] as Pen;
             if (pen != null)
             {
                 // Pen의 그리기 가능 함수 호출 
                 pen.StartDrawing();
                 Debug.Log("Pen is Not NULL");
-            }
+            }*/
 
         }
     }

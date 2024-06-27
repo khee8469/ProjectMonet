@@ -79,6 +79,7 @@ namespace JJH
             isDrawing_Complete = new bool [drawObjectManager.Length]; // 그림들의 배열의 길이만큼 bool 변수의 크기를 정해준다.
 
             // 어쨋든 이것도 같은 숫자를 가지고 있으니까 배열 크기 맞춰주고 --> DrawID를 체크해서 하나하나 돌려줄 변수 
+            // 얘 싱글턴이라 start 한 번만 돈다. 
             drawPartCheck = new bool[drawObjectManager.Length];
 
 

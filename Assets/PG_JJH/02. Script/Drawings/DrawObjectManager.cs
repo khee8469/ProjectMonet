@@ -13,9 +13,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         Compartment1, Compartment2, Compartment3, Compartment4, Finished , END
     }
 
-    
-    
-
 
     [RequireComponent(typeof(SpriteRenderer))]
     public class DrawObjectManager : MonoBehaviour , IComparable<DrawObjectManager>
@@ -38,7 +35,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
         [Tooltip("자신의 컬러타입")]
         [SerializeField]
-        private Color myColor;
+        public Color myColor;
 
         public Color ObjectMyColor { get { return myColor; } private set { myColor = value; } }
 
@@ -65,16 +62,20 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         [SerializeField] private float tolerance = 0.02f;
 
         [Tooltip("스크립터블 오브젝트 공유")]
-        [SerializeField] private PaintTypeManager paintTypeManager;
+        [SerializeField] public PaintTypeManager paintTypeManager;
 
         [Tooltip("색깔상태 스크립터블 오브젝트와 연계되어있음. ")]
-        [SerializeField] private PaintTypeEnum currentPaintType;
+        [SerializeField] public PaintTypeEnum currentPaintType;
 
         [Tooltip("그림 완성 매니저 참조")]
         [SerializeField] private DrawingCompleteManager drawingCompleteManager;
 
+        /*
+        [Tooltip("로비 제외한 씬에서 연결된 조명")]
+        [SerializeField] private GameObject lights;*/
 
-      
+
+        // 얘는 싱글턴이 아님.
 
         private void Start()
         {
@@ -96,6 +97,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             InitializeSpriteSize(); // 시작 시의 각자의 로컬 스케일 적용된 크기를 가져온다. 
             totalArea = worldHeight * worldWidth;
             nonTransparentArea = CalculateNonTransparentArea();
+
         }
 
         //라인 렌더러를 리스트에 추가하는 함수
@@ -390,6 +392,13 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             if (other == null) return 1;
             return DrawID.CompareTo(other.DrawID);
         }
+
+
+
+
+
+
+
     }
 
 }

@@ -54,7 +54,7 @@ namespace JJH
 
         [SerializeField] private LayerMask drawingLayer;
         [Tooltip("레이어 체크 거리")]
-        private float distance = 1f;
+        private float distance = 3f;
 
         [Header("삭제 및 이미지 연계")]
         [Tooltip("생성된 라인렌더러를 저장 해 줄 리스트")]
