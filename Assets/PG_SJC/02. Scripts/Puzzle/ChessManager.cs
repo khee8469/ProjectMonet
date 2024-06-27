@@ -10,6 +10,7 @@ namespace Jc
         [SerializeField]
         private List<ChessObject> chessObjects;
 
+        [SerializeField]
         private GameObject statueOb;
 
         public void ResetBoard()
