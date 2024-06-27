@@ -259,4 +259,4 @@ public abstract class TestNPC : MonoBehaviour
         fsm.FixedUpdate();
     }
 }
-}
+
