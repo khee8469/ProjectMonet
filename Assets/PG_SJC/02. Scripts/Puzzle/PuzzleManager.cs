@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Jc
 {
@@ -8,11 +9,11 @@ namespace Jc
     {
         [Header("에디터 세팅")]
         private int rewardItemID;
-
-        [Header("밸런싱")]
         [Header("퍼즐 클리어 조건 체크")]
         [SerializeField]
         private bool[] conditions;
+        [Header("퍼즐 클리어 액션")]
+        public UnityEvent OnClear;
 
         // 조건 성공
         public void UpdateCondition(int index = -1)
@@ -29,11 +30,24 @@ namespace Jc
 
             // 조건 인덱스 상태변경
             conditions[index] = true;
+
+            if (CheckCondition())
+                OnClearPuzzle();
+        }
+        private bool CheckCondition()
+        {
+            for(int i =0; i<conditions.Length; i++)
+            {
+                if (!conditions[i])
+                    return false;
+            }
+            return true;
         }
 
         public void OnClearPuzzle()
         {
             // 아이템 추가
+            OnClear?.Invoke();
         }
     }
 }

@@ -89,8 +89,8 @@ namespace Jc
         private void Update()
         {
             // 에임이 잡힌 상태 (Hover 상태)
-            if (isAimming)
-                Aimming();  // 에이밍
+            //if (isAimming)
+                //Aimming();  // 에이밍
 
             // 오브젝트를 잡고있는 상태에서 슬롯찾기
             if (isGrab && Manager.Inventory.isEnable)
