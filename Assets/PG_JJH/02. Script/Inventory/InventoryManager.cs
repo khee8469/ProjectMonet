@@ -21,6 +21,7 @@ namespace JJH
         // item_id, 프리팹 매칭
         public Dictionary<int , InventoryItem> itemPrefabDic = new Dictionary<int , InventoryItem>();
 
+        
 
         // 슬롯 아이디를 자동으로 할당해 주기 위한 변수
         //private int currentSlotID = 0;
@@ -254,19 +255,57 @@ namespace JJH
         // 다른 곳에서 접근하기 편하게 인벤토리 매니저에서 ADD REMOVE 이벤트용으로 불러준다.
         // 
 
-        public void AddItem(int itemID) // 매개변수로 ID를 받아 슬롯에 저장을 해주고 
-            // BOOL 변수를 이용하여 다음에 UIMANAGER에서 OPEN 할 때 LOAD 상태를 해준다. 
-            // 해당 SLOT에 ADDITEM을 호출해 줘야 한다. 또는 매개변수 때문에 어려우면 그 로직을 이용하자. 
+        public void AddItem(int itemID)
         {
+            // 빈 slot을 찾아서 데이터를 넣어준다.  어차피 하나 짜리 라고 생각하자. 답없다 이거.
 
+            // item id 가 -1 이던가 (아이템 없는 상태 ) 또는 count가 0 이던가 
+            foreach(SlotData slotData in Manager.PlableData.InventorySlotDatas)
+            {
+                if (slotData.id_item == -1)
+                {
+                    // 해당 슬롯에 데이터를 넣어줘야한다. 
+                    
+                }
+
+            }
+
+            Manager.PlableData.SaveSlotData(); // 빈 슬롯에 들어간 데이터를 저장한다,
+            is_AddRemoveItem = true;
         }
 
         public void RemoveItem(int itemID)
         {
-
+            is_AddRemoveItem = false;
         }
 
 
+        /*public void LoadSlot()
+        {
+            Manager.PlableData.InitSlot();
+
+            foreach (SlotData slotData in Manager.PlableData.InventorySlotDatas)
+            {
+                if (slotData.id_item == -1) continue;
+
+                InventorySlot slot = Manager.Inventory.inventorySlots[slotData.id_slot];
+                InventoryItem item = Instantiate(Manager.Inventory.itemPrefabDic[slotData.id_item]);
+
+                Debug.Log("item prefab 생성" + item.name);
+
+                // 이 해당 슬롯에 이제 해당하는 item id 값을 가진 프리팹을 붙여준다.
+                slot.SetRayHovering(true);
+                slot.interactionManager.SelectEnter(slot as IXRSelectInteractor, item as IXRSelectInteractable);
+                slot.AddItem(item);
+                for (int i = 0; i < slotData.count; i++)
+                {
+                    slot.AddItemNumber();
+                }
+            }
+
+            Manager.UI.CloseInfoGroup();
+        }
+*/
 
     }
 }

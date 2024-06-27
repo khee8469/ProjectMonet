@@ -63,9 +63,7 @@ namespace JJH
             itemTransform = GetComponent<Transform>();
 
             // 이게 list에 slot을 할당 시키려면 처음에 켜둬서 slot 할당을 다 시키고 그게 마무리 되면 active false로 꺼줘야 한다. 
-
         }
-
         protected override void Start() // 슬롯을 인벤토리 매니저에 등록한다. 
         {
             base.Start();
