@@ -75,7 +75,7 @@ namespace JJH
 
         [Header("레이캐스트 박스 설정")]
         [Tooltip("박스의 크기")]
-        public Vector3 boxSize = new Vector3(0.1f, 0.1f, 0.1f);
+        public Vector3 boxSize = new Vector3(0.4f, 0.4f, 0.4f);
         [Tooltip("박스의 방향")]
         public Quaternion boxOrientation = Quaternion.identity;
 
