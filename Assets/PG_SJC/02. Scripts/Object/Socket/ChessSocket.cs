@@ -44,10 +44,10 @@ namespace Jc
             // 타겟 스케일 체크
             if (temp.transform.localScale.x > targetScale + scaleThreshHold || temp.transform.localScale.x < targetScale - scaleThreshHold)
                 return;
-
-            temp.transform.localScale = new Vector3(targetScale, targetScale, targetScale);
-
+            
             // 조건 값 충족
+            temp.transform.localScale = new Vector3(targetScale, targetScale, targetScale);
+            puzzle.UpdateCondition(puzzleIndex);
             Debug.Log("조건 값이 충족되었습니다.");
         }
     }

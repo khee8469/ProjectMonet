@@ -10,6 +10,8 @@ namespace Jc
         [SerializeField]
         private List<ChessObject> chessObjects;
 
+        private GameObject statueOb;
+
         public void ResetBoard()
         {
             foreach(ChessObject ob in chessObjects)
@@ -21,6 +23,12 @@ namespace Jc
         private void OnTriggerEnter(Collider other)
         {
             ResetBoard();
+        }
+
+        public override void OnClearPuzzle()
+        {
+            base.OnClearPuzzle();
+            statueOb.SetActive(true);
         }
     }
 }

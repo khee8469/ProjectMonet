@@ -44,7 +44,7 @@ namespace Jc
             return true;
         }
 
-        public void OnClearPuzzle()
+        public virtual void OnClearPuzzle()
         {
             // 아이템 추가
             OnClear?.Invoke();
