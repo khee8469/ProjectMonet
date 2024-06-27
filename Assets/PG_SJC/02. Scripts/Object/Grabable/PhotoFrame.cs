@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using JJH;
 
 namespace Jc
 {
-    public class PhotoFrame : InteractObject
+    public class PhotoFrame : InventoryItem
     {
         [Header("에디터 세팅")]
         [SerializeField]
@@ -71,6 +72,7 @@ namespace Jc
         }
 
         private Coroutine highligtingRoutine;
+        private Transform mainCamTr;
 
         protected override void Awake()
         {
@@ -80,6 +82,16 @@ namespace Jc
             // 원본 머터리얼을 캐싱
             originMT = meshRenderer.sharedMaterial;
             originColor = originMT.color;
+            mainCamTr = Camera.main.transform;
+        }
+
+        private void Update()
+        {
+            if(trackPosition)
+            {
+                transform.position = mainCamTr.position + mainCamTr.forward;
+                transform.forward = mainCamTr.forward;
+            }
         }
 
         protected override void OnSelectEntering(SelectEnterEventArgs args)

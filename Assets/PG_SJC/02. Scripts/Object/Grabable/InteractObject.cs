@@ -52,7 +52,6 @@ namespace Jc
         {
             base.OnSelectEntering(args);
         }
-
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
@@ -86,7 +85,5 @@ namespace Jc
                 }
             }
         }
-
-
     }
 }
