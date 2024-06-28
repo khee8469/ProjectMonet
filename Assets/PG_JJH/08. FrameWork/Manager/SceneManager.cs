@@ -12,6 +12,10 @@ namespace JJH
         [SerializeField] Slider loadingBar;
         [SerializeField] float fadeTime;
 
+        [SerializeField]
+        private GameObject playerObject;
+        public GameObject PlayerObject { get { return playerObject; } set { playerObject = value; } }
+
         private BaseScene curScene;
 
         public BaseScene GetCurScene()

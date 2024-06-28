@@ -7,6 +7,7 @@ public class PlayerLoadManager : MonoBehaviour
     private static PlayerLoadManager instance;
     public static PlayerLoadManager Instance {  get { return instance; } }
 
+
     void Awake()
     {
         if (instance == null)
