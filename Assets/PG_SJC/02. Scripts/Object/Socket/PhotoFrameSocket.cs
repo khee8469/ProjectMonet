@@ -16,6 +16,9 @@ namespace Jc
         [SerializeField]
         public CinemachineVirtualCamera actionVC;
 
+        [SerializeField]
+        public PuzzleManager puzzleManager;
+
         // PhotoFrame 만 상호작용
         public override bool CanHover(IXRHoverInteractable interactable)
         {
@@ -43,6 +46,8 @@ namespace Jc
             base.OnSelectEntered(args);
             targetFrame.IsActive = true;
             StartCoroutine(CameraActionRoutine(targetFrame));
+            // 퍼즐 클리어
+            puzzleManager.OnClearPuzzle();
         }
 
         IEnumerator CameraActionRoutine(PhotoFrame photoFrame)
