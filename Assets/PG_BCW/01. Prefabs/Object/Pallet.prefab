@@ -58,7 +58,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 782129331882329105}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.04599998, y: -0.19230002, z: -0.31799984}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -89,7 +89,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4294967295
   m_DistanceCalculationMode: 1
   m_SelectMode: 1
   m_FocusMode: 1
@@ -247,12 +247,12 @@ MonoBehaviour:
   m_AddDefaultGrabTransformers: 1
   grabType: 0
   isTwoHanded: 0
-  grabDistance: 0
+  grabDistance: 3
   interactors: []
   paint: {fileID: 1247982829801017909, guid: 003c9df1cc5cf7644a6d54a715edff10, type: 3}
   layer:
     serializedVersion: 2
-    m_Bits: 2048
+    m_Bits: 65536
   attach: {fileID: 2642490155894987395}
 --- !u!65 &603101034651565331
 BoxCollider:

@@ -89,7 +89,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
         private void Awake()
         {
-            colorChangeEvent.AddListener(OnOffCollider);
+            
         }
 
 
@@ -118,6 +118,11 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             myColliderArray = GetComponents<Collider>(); // 자신의 모든 콜라이더 배열 가져오기. pen의 컬러에 맞춰서 자신의 콜라이더를 꺼주고 켜준다. 
 
             pen = GameObject.FindObjectOfType<Pen>();
+
+            if (pen != null)
+            {
+                colorChangeEvent.AddListener(OnOffCollider);
+            }
 
         }
 
