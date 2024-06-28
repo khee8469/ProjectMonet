@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7313912154915344357
+--- !u!1 &1257088506152626168
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,53 +8,42 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4704947715298246020}
-  - component: {fileID: 983383505401992032}
+  - component: {fileID: 3992168885005233645}
+  - component: {fileID: 1437743788609849914}
   m_Layer: 0
-  m_Name: InventoryManager
+  m_Name: DrawManager_Lobby
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4704947715298246020
+--- !u!4 &3992168885005233645
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7313912154915344357}
+  m_GameObject: {fileID: 1257088506152626168}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.6823027, y: -16.06851, z: -52.583916}
+  m_LocalPosition: {x: -0.57429373, y: 11.67726, z: 11.861254}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &983383505401992032
+--- !u!114 &1437743788609849914
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7313912154915344357}
+  m_GameObject: {fileID: 1257088506152626168}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ae3ad7a32d0465479644133ad207162, type: 3}
+  m_Script: {fileID: 11500000, guid: 72df0d757391b58459755940cc667d88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inventoryData:
-    items:
-    - itemID: 0
-      itemName: 
-      stackType: 0
-      eventItemType: 0
-      slotID: 0
-      originalScale: {x: 0, y: 0, z: 0}
-      itemCount: 0
-    slotDatas: []
-  plableDataManager: {fileID: 2888071350143726106, guid: 32906a81e9fe1384c93ed79b5294bad5,
-    type: 3}
-  maxSlotCount: 8
-  is_AddRemoveItem: 0
+  sortedDrawObjectManagers: []
+  finishedPainting: []
+  paintTypeManager: {fileID: 11400000, guid: e3bb3a82badd59e488a56163b21dd1dc, type: 2}

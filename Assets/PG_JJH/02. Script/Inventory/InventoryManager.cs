@@ -1,6 +1,7 @@
 using Jc;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -20,6 +21,7 @@ namespace JJH
         // item_id, 프리팹 매칭
         public Dictionary<int , InventoryItem> itemPrefabDic = new Dictionary<int , InventoryItem>();
 
+        
 
         // 슬롯 아이디를 자동으로 할당해 주기 위한 변수
         //private int currentSlotID = 0;
@@ -80,7 +82,7 @@ namespace JJH
             }
         }
 
-        private void LoadSlot()
+        public void LoadSlot()
         {
             Manager.PlableData.InitSlot();
 
@@ -104,22 +106,6 @@ namespace JJH
             }
 
             Manager.UI.CloseInfoGroup();
-        }
-
-        private void Update()
-        {
-            if(Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                SaveInventoryData();
-            }
-            if(Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                LoadInventoryData();
-            }
-            if(Input.GetKeyDown(KeyCode.Alpha5))
-            {
-                RestoreItemInScene();
-            }
         }
 
         // 슬롯 등록 해제하는 메서드
@@ -264,6 +250,72 @@ namespace JJH
             UpdateInventoryData(); // 현재 인벤토리의 상태를 저장한다. 게임종료 또는 저장 후 종료 등에 실시한다.
         }
 
+
+        public bool is_AddRemoveItem;
+        // 다른 곳에서 접근하기 편하게 인벤토리 매니저에서 ADD REMOVE 이벤트용으로 불러준다.
+        // 
+
+        // 이 부분 아직 문제 있음. ㅠㅠㅠㅠ
+        public void AddItem(int _itemID)
+        {
+            /*// 빈 slot을 찾아서 데이터를 넣어준다.  어차피 하나 짜리 라고 생각하자. 답없다 이거.
+            int check = 0;
+
+            // item id 가 -1 이던가 (아이템 없는 상태 ) 또는 count가 0 이던가 
+            foreach(SlotData slotData in Manager.PlableData.InventorySlotDatas)
+            {
+                if (check > 0) return;
+
+                if (slotData.id_item == -1)
+                {
+                    // 현재 빈 슬롯이라는 의미임. 
+                    Debug.Log("슬롯");
+                    inventorySlots[slotData.id_slot].ItemID = _itemID;
+                    Debug.Log(inventorySlots[slotData.id_slot].ItemID);
+                    check++;
+                    break; // 한 슬롯에서만 생성해 줘야함. 넣어 줄 때. 
+                }
+                // 슬롯 한 개 에만 add 해줘야하고 추가로 소켓에 제대로 들어가야한다. 
+            }
+
+            Manager.PlableData.SaveSlotData(); // 빈 슬롯에 들어간 데이터를 저장한다,
+            is_AddRemoveItem = true;
+            check = 0; // */
+            
+        }
+
+        public void RemoveItem(int itemID)
+        {
+            is_AddRemoveItem = true;
+        }
+
+
+        /*public void LoadSlot()
+        {
+            Manager.PlableData.InitSlot();
+
+            foreach (SlotData slotData in Manager.PlableData.InventorySlotDatas)
+            {
+                if (slotData.id_item == -1) continue;
+
+                InventorySlot slot = Manager.Inventory.inventorySlots[slotData.id_slot];
+                InventoryItem item = Instantiate(Manager.Inventory.itemPrefabDic[slotData.id_item]);
+
+                Debug.Log("item prefab 생성" + item.name);
+
+                // 이 해당 슬롯에 이제 해당하는 item id 값을 가진 프리팹을 붙여준다.
+                slot.SetRayHovering(true);
+                slot.interactionManager.SelectEnter(slot as IXRSelectInteractor, item as IXRSelectInteractable);
+                slot.AddItem(item);
+                for (int i = 0; i < slotData.count; i++)
+                {
+                    slot.AddItemNumber();
+                }
+            }
+
+            Manager.UI.CloseInfoGroup();
+        }
+*/
 
     }
 }

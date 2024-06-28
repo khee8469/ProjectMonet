@@ -18,12 +18,11 @@ namespace JJH
             pen = GetComponent<Pen>();
         }
 
-       /* private void FixedUpdate()
+        private void FixedUpdate()
         {
-            pen.StartDrawing();
+            pen.StartDrawing();  // 그리기 시작
+
         }
-
-
         protected override void OnActivated(ActivateEventArgs args)
         {
             base.OnActivated(args);
@@ -40,20 +39,8 @@ namespace JJH
         protected override void OnDeactivated(DeactivateEventArgs args)
         {
             base.OnDeactivated(args);
-            pen.DrawingStop();
-        }*/
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                pen.SwitchColor();
-            }
+            //pen.DrawingStop();
         }
-
-
-
-
     }
 
 

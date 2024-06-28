@@ -116,6 +116,8 @@ MonoBehaviour:
   paintTypeManager: {fileID: 11400000, guid: e3bb3a82badd59e488a56163b21dd1dc, type: 2}
   currentPaintType: 4
   drawingCompleteManager: {fileID: 0}
+  pen: {fileID: 0}
+  myColliderArray: []
 --- !u!65 &8059384152284996098
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -131,12 +133,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 12.5, y: 3.6640193, z: 0.2000001}
-  m_Center: {x: 0.0000018032719, y: 2.8398726, z: -0.0000019455367}
+  m_Size: {x: 12.5, y: 3.6640193, z: 0.05}
+  m_Center: {x: 0.0000018032719, y: 2.8398726, z: 0}
 --- !u!65 &4354041940226470681
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -152,12 +154,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.0979452, y: 9.343751, z: 0.2000001}
-  m_Center: {x: 1.8248576, y: -0.000003857638, z: 0.0000041963035}
+  m_Size: {x: 3.0979452, y: 9.343751, z: 0.05}
+  m_Center: {x: 1.8248576, y: -0.000003857638, z: 0}
 --- !u!65 &4635638241042764062
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -173,12 +175,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.8620467, y: 5.3517413, z: 0.2000001}
-  m_Center: {x: 4.819052, y: 1.9960088, z: 0.0000085525135}
+  m_Size: {x: 2.8620467, y: 5.3517413, z: 0.05}
+  m_Center: {x: 4.819052, y: 1.9960088, z: 0}
 --- !u!1 &1533135822798477437
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,7 +212,7 @@ Transform:
   m_GameObject: {fileID: 1533135822798477437}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.09, y: -0.34, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -296,6 +298,8 @@ MonoBehaviour:
   paintTypeManager: {fileID: 11400000, guid: e3bb3a82badd59e488a56163b21dd1dc, type: 2}
   currentPaintType: 7
   drawingCompleteManager: {fileID: 0}
+  pen: {fileID: 0}
+  myColliderArray: []
 --- !u!65 &82009370255941455
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -311,12 +315,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.4763176, y: 1.6886276, z: 0.2000001}
-  m_Center: {x: -4.371243, y: -3.4994617, z: 0.0000021745884}
+  m_Size: {x: 3.4763176, y: 1.6886276, z: 0.05}
+  m_Center: {x: -4.371243, y: -3.4994617, z: 0}
 --- !u!65 &7453348250923402212
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -332,12 +336,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.8654908, y: 4.063797, z: 0.2000001}
-  m_Center: {x: 5.176687, y: -1.5731077, z: 0.00001546785}
+  m_Size: {x: 1.8654908, y: 4.063797, z: 0.05}
+  m_Center: {x: 5.176687, y: -1.5731077, z: 0}
 --- !u!65 &6148662825442390904
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -353,12 +357,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6, y: 2.9293969, z: 0.2000001}
-  m_Center: {x: -1.13, y: 1.160648, z: 0.00000051970045}
+  m_Size: {x: 6, y: 2.9293969, z: 0.05}
+  m_Center: {x: -1.13, y: 1.160648, z: 0}
 --- !u!65 &2211604273534804532
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -374,12 +378,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.5348213, y: 2.6274073, z: 0.2000001}
-  m_Center: {x: 4.342026, y: 3.0300581, z: 0.000008443508}
+  m_Size: {x: 3.5348213, y: 2.6274073, z: 0.05}
+  m_Center: {x: 4.342026, y: 3.0300581, z: 0}
 --- !u!1 &2557022790448891104
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,6 +499,8 @@ MonoBehaviour:
   paintTypeManager: {fileID: 11400000, guid: e3bb3a82badd59e488a56163b21dd1dc, type: 2}
   currentPaintType: 2
   drawingCompleteManager: {fileID: 0}
+  pen: {fileID: 0}
+  myColliderArray: []
 --- !u!65 &4127518773482382096
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -510,12 +516,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 12.5424, y: 6.1316853, z: 0.2000001}
-  m_Center: {x: -0.021138793, y: -1.5112158, z: 0.00001571044}
+  m_Size: {x: 12.5424, y: 6.1316853, z: 0.05}
+  m_Center: {x: -0.021138793, y: -1.5112158, z: 0}
 --- !u!65 &6469861581448532207
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -531,11 +537,11 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 12.499999, y: 9.343751, z: 0.20000008}
+  m_Size: {x: 12.499999, y: 9.343751, z: 0.05}
   m_Center: {x: 0.0000019073486, y: 0, z: 0}
 --- !u!1 &2943315977263788450
 GameObject:
@@ -647,7 +653,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.07058317, y: 0.34240997, z: -0.025806027, w: 0.9365402}
   m_LocalPosition: {x: 2.094, y: 2.759, z: 1.545}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 0.05}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3969304292462418372}
@@ -922,7 +928,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 12.499999, y: 9.343751, z: 0.5}
+  m_Size: {x: 12.499999, y: 9.343751, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &4889945193067435433
 Rigidbody:
@@ -1080,6 +1086,8 @@ MonoBehaviour:
   paintTypeManager: {fileID: 11400000, guid: e3bb3a82badd59e488a56163b21dd1dc, type: 2}
   currentPaintType: 3
   drawingCompleteManager: {fileID: 0}
+  pen: {fileID: 0}
+  myColliderArray: []
 --- !u!65 &5858679179679893046
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1095,12 +1103,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 7.8372545, y: 4.8304687, z: 0.2000001}
-  m_Center: {x: -2.3313963, y: 2.25665, z: -0.0000059686236}
+  m_Size: {x: 7.8372545, y: 4.8304687, z: 0.05}
+  m_Center: {x: -2.3313963, y: 2.25665, z: 0}
 --- !u!65 &7269131826428694189
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1116,12 +1124,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 7.8486867, y: 2.3468468, z: 0.2000001}
-  m_Center: {x: -2.3256898, y: -3.498467, z: -0.000003260939}
+  m_Size: {x: 7.8486867, y: 2.3468468, z: 0.05}
+  m_Center: {x: -2.3256898, y: -3.498467, z: 0}
 --- !u!65 &6810208807902148353
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1137,9 +1145,9 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.3610358, y: 7.111744, z: 0.2000001}
-  m_Center: {x: 4.569538, y: 1.1160089, z: 0.000007986046}
+  m_Size: {x: 3.3610358, y: 7.111744, z: 0.05}
+  m_Center: {x: 4.569538, y: 1.1160089, z: 0}

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 690152396845437660}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Attach
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,9 +45,8 @@ GameObject:
   - component: {fileID: 4960663730857309862}
   - component: {fileID: 1289613481537042562}
   - component: {fileID: 2035615035377409019}
-  - component: {fileID: 4346324526861788593}
   - component: {fileID: 455533288311405762}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Pen
   m_TagString: PaintPen
   m_Icon: {fileID: 0}
@@ -166,7 +165,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
@@ -180,36 +179,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 63ba64a4dbc6a384fb362a9627ae0c58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tip: {fileID: 4900535816607281654}
-  drawingMaterial: {fileID: 2100000, guid: 3a3177e3e83ec2d4e9d75480d30353c7, type: 2}
-  tipMaterial: {fileID: 2100000, guid: 785b1a453eb114946a2e16655db343b2, type: 2}
-  penWidth: 0.01
-  currentDrawing: {fileID: 0}
-  currentPaintType: 0
-  paintTypeManager: {fileID: 11400000, guid: e3bb3a82badd59e488a56163b21dd1dc, type: 2}
-  isDrawing: 0
-  isNotMove: 0
-  drawingLayer:
-    serializedVersion: 2
-    m_Bits: 8192
-  lineList: []
-  percent: 0.1
-  index: 0
-  boxSize: {x: 0.1, y: 0.1, z: 0.1}
-  boxOrientation: {x: 0, y: 0, z: 0, w: 1}
-  isNotEntered: 0
---- !u!114 &4346324526861788593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5427997708200635151}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f223821148406464584bb2af1ff57009, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -302,7 +271,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 690152396845437660}
+  m_AttachTransform: {fileID: 0}
   m_SecondaryAttachTransform: {fileID: 0}
   m_UseDynamicAttach: 0
   m_MatchAttachPosition: 1
@@ -323,11 +292,11 @@ MonoBehaviour:
   m_SmoothRotation: 0
   m_SmoothRotationAmount: 8
   m_TightenRotation: 0.1
-  m_TrackScale: 0
+  m_TrackScale: 1
   m_SmoothScale: 0
   m_SmoothScaleAmount: 8
   m_TightenScale: 0.1
-  m_ThrowOnDetach: 1
+  m_ThrowOnDetach: 0
   m_ThrowSmoothingDuration: 0.25
   m_ThrowSmoothingCurve:
     serializedVersion: 2
@@ -353,8 +322,28 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
-  grabDistance: 1000
-  pen: {fileID: 2035615035377409019}
+  isTwoHanded: 0
+  grabDistance: 5
+  interactors: []
+  tip: {fileID: 4900535816607281654}
+  drawingMaterial: {fileID: 2100000, guid: 3a3177e3e83ec2d4e9d75480d30353c7, type: 2}
+  tipMaterial: {fileID: 2100000, guid: 785b1a453eb114946a2e16655db343b2, type: 2}
+  penWidth: 0.02
+  currentDrawing: {fileID: 0}
+  currentPaintType: 0
+  paintTypeManager: {fileID: 11400000, guid: e3bb3a82badd59e488a56163b21dd1dc, type: 2}
+  isDrawing: 0
+  isNotMove: 0
+  drawingLayer:
+    serializedVersion: 2
+    m_Bits: 8192
+  distance: 5
+  lineList: []
+  percent: 0.5
+  index: 0
+  boxSize: {x: 0.1, y: 0.1, z: 0.1}
+  boxOrientation: {x: 0, y: 0, z: 0, w: 1}
+  isNotEntered: 0
 --- !u!114 &455533288311405762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -377,9 +366,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4900535816607281654}
   - component: {fileID: 3895170020354043674}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Tip
-  m_TagString: Untagged
+  m_TagString: PaintPen
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -414,7 +403,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -431,7 +420,7 @@ GameObject:
   - component: {fileID: 4319670385494838098}
   - component: {fileID: 6743274714947923321}
   - component: {fileID: 1760800712229436911}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ColorInddicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}

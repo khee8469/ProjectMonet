@@ -17,7 +17,7 @@ namespace JJH
         [Tooltip("아이템의 id")]
         [SerializeField] 
         private int itemID = -1; //슬롯에 아무것도 없으면 -1 할당.
-        public int ItemID { get { return itemID; } }
+        public int ItemID { get { return itemID; } set { itemID = value; } }
         [Tooltip("슬롯 자신의 Transform")]
         public Transform itemTransform; // 아이템의 크기 조절을 위한 트랜스폼
         // 아이템 슬롯의 ID --> -1 로 설정 하여 MANAGER에서 자동할당 시킨다. 
@@ -49,6 +49,10 @@ namespace JJH
 
         public SlotData slotData;
 
+        [Tooltip("npc에게 받은 아이템이 있는지 확인해줄 bool 변수")]
+        public bool isAddNPCItem;
+
+
         protected override void Awake() // 이거 처음부터 active false로 있는 상태면 Awake도 발동안함. 켜야 발동됨. 
         {
             base.Awake();
@@ -59,10 +63,7 @@ namespace JJH
             itemTransform = GetComponent<Transform>();
 
             // 이게 list에 slot을 할당 시키려면 처음에 켜둬서 slot 할당을 다 시키고 그게 마무리 되면 active false로 꺼줘야 한다. 
-
-
         }
-
         protected override void Start() // 슬롯을 인벤토리 매니저에 등록한다. 
         {
             base.Start();
@@ -243,25 +244,6 @@ namespace JJH
 
             //Manager.Inventory.UpdateInventoryData();
         }
-
-        // npc와의 퀘스트 연계로 들어오는 아이템 
-        public void AddItem(int _itemID)
-        {
-            
-            
-           
-        }
-
-        // npc 와의 퀘스트 연계로 들어오는 아이템 
-        public void RemoveItem(int _itemID)
-        {
-
-           
-
-        }
-
-
-
 
         // 아이템 삭제 ( 꺼내기)
         public void RemoveItem(InventoryItem item)
