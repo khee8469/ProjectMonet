@@ -40,6 +40,8 @@ namespace Jc
 
         public void InitSetting()
         {
+            paintDataList = new Dictionary<int, bool>();
+
             // 퀘스트 데이터 로드
             List<QuestListData> loadedQuestData = LoadQuestData();
 
