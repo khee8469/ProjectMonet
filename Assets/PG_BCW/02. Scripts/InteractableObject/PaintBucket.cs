@@ -20,6 +20,10 @@ public class PaintBucket : InteractObject
 
     [Tooltip("자신의 아이템 ID")]
     [SerializeField] int paintItemID;
+    public int PaintItemID
+    {
+        get { return paintItemID; }
+    }
 
     [Tooltip("각자 자신이 가지고 있는 컬러의 상태")]
     [SerializeField] private Color myColor;
