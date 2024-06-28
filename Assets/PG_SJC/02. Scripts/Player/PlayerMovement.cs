@@ -7,17 +7,9 @@ public class PlayerMovement : MonoBehaviour
 { 
     private CharacterController controller;
 
-    bool isRegistered = false;
-
     private void Awake()
     {
         controller = GetComponent<CharacterController>();   
-    }
-
-    private void OnEnable()
-    {
-        if (!isRegistered)
-            Manager.Scene.PlayerObject = gameObject;    
     }
 
     private void FixedUpdate()

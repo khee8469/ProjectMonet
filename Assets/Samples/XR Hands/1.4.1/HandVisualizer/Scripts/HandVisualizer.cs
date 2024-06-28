@@ -6,7 +6,6 @@ namespace UnityEngine.XR.Hands.Samples.VisualizerSample
     /// <summary>
     /// This component visualizes the hand joints and mesh for the left and right hands.
     /// </summary>
-    /// 
     public class HandVisualizer : MonoBehaviour
     {
         /// <summary>
