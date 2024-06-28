@@ -8,8 +8,16 @@ namespace JJH
     {
         public List<PaintBucket> buckets;
 
+
+
+
+
         private void OnEnable()
         {
+            /*Manager.PlableData.paintDataList = new Dictionary<int, bool>();
+
+            Manager.PlableData.paintDataList.Add(3, true);*/
+            
             if (Manager.PlableData.paintDataList == null) return;
 
             if (Manager.PlableData.paintDataList.Count < 1)
