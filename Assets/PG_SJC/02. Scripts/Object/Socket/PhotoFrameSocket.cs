@@ -41,6 +41,7 @@ namespace Jc
             targetFrame.gameObject.transform.rotation = attachTransform.rotation;
 
             base.OnSelectEntered(args);
+            targetFrame.IsActive = true;
             StartCoroutine(CameraActionRoutine(targetFrame));
         }
 

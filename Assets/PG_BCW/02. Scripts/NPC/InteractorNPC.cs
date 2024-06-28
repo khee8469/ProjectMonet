@@ -24,15 +24,15 @@ public class InteractorNPC : NPC
 
 
 
-    public override void OnTalkInteractor()
-    {
-        base.OnTalkInteractor();
+    //public override void OnTalkInteractor()
+    //{
+    //    base.OnTalkInteractor();
 
-        //완료 전 대사, 완료 후 대사
-        /*if( 미완료)
-        else if(완료)*/
+    //    //완료 전 대사, 완료 후 대사
+    //    /*if( 미완료)
+    //    else if(완료)*/
         
-    }
+    //}
 
     public override Vector3 CalculateDestination()
     {
