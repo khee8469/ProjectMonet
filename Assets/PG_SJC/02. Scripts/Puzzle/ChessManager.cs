@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Jc
 {
-    public class ChessManager : PuzzleManager
+    public class ChessManager : PaintRewardPuzzle
     {
         [Header("체스 오브젝트 모음")]
         [SerializeField]
