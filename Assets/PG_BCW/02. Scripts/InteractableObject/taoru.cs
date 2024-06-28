@@ -79,10 +79,8 @@ public class Taoru : InteractObject
         {
             if (lineRenderer == null) //이 부분에서 현재 물감에 알맞는 색상으로 만들어줘야 할 것 같아. 
             {
-                
-
                 //오브젝트 생성
-                lineObject = new GameObject("Line");
+                lineObject = new GameObject();
                 //오브젝트 위치 지정
                 lineObject.transform.position = hit.point + hit.normal * 0.01f;
                 lineObject.transform.rotation = Quaternion.identity;
@@ -99,16 +97,16 @@ public class Taoru : InteractObject
 
                 //일정한 굵기
                 lineRenderer.startWidth = lineRenderer.endWidth = width; 
-                //굴곡
+                /*//굴곡
                 lineRenderer.numCornerVertices = 0;
-                lineRenderer.numCapVertices = 0;
+                lineRenderer.numCapVertices = 0;*/
 
                 //렌더러 넘버당 위치 지정
                 lineRenderer.positionCount = 1; // 시작 포지션 카운트 1
                 lineRenderer.SetPosition(0, hit.point + hit.normal * 0.001f);
 
             }
-            else // 즉 이미 생성된 경우. 
+            else //처음 위치가 생성된 경우. 
             {
 
                 var currentPos = lineRenderer.GetPosition(index);

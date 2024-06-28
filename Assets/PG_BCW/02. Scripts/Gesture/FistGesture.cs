@@ -4,7 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class FistGesture : Gesture
 {
-    PaintBucket paintBucket;
+
     
     // 인스펙터 확인용 
     [SerializeField]Pen pen;
@@ -23,7 +23,7 @@ public class FistGesture : Gesture
     //기능 물감짜기
     public override void LeftGestureEnter()
     {
-        paintBucket = null;
+        PaintBucket paintBucket = null;
         pen = null;
 
         //호버중인 오브젝트중 물감통 찾기
@@ -87,9 +87,7 @@ public class FistGesture : Gesture
     //기능 물건 잡기, 물감짜기
     public override void RightGestureEnter()
     {
-        paintBucket = null;
-        pen = null;
-
+        PaintBucket paintBucket = null;
         //호버중인 오브젝트중 물감통 찾기
         if (RightHandInteractor.hasSelection)
         {
@@ -102,6 +100,7 @@ public class FistGesture : Gesture
                 paintBucket.PaintPlay();
                 Debug.Log("물감호출");
             }
+            Debug.Log(RightHandInteractor.interactablesSelected.Count+"숫자");
             pen = RightHandInteractor.interactablesSelected[0] as Pen;
             if (pen != null)
             {

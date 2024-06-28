@@ -10,6 +10,8 @@ namespace Jc
         [Header("태양 오브젝트")]
         [SerializeField]
         private SunObject targetSun;
+        [SerializeField]
+        private PuzzleManager puzzleManger;
 
         [SerializeField]
         private float targetScale;      // 타깃 스케일
@@ -22,8 +24,8 @@ namespace Jc
             if (interactable is not SunObject)
                 return false;
 
-            if (interactable.transform.localScale.x + scaleThreshold < targetScale 
-                || interactable.transform.localScale.x - scaleThreshold > targetScale)
+            if (targetScale + scaleThreshold < interactable.transform.localScale.x
+                || targetScale - scaleThreshold > interactable.transform.localScale.x)
                 return false;
 
             return base.CanHover(interactable);
@@ -33,7 +35,13 @@ namespace Jc
         {
             base.OnSelectEntered(args);
 
-           // if()
+            SunObject obj = args.interactableObject as SunObject;
+            if (obj == null) return;
+
+            obj.transform.localScale = new Vector3(targetScale, targetScale, targetScale);
+            obj.transform.position = attachTransform.position;
+            obj.ActiveObject();
+            // 퍼즐 클리어
         }
     }
 }

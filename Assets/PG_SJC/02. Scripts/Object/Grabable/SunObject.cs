@@ -12,8 +12,10 @@ namespace Jc
         private Light directionalLight;
         [SerializeField]
         private Light pointLight;
-
+        
         private float initScale;
+
+        private bool isActive = false;
 
         protected override void OnEnable()
         {
@@ -37,6 +39,22 @@ namespace Jc
             pointLight.range = Mathf.Lerp(0, 5f, rate);
         }
 
+        public void ActiveObject()
+        {
+            isActive = true;
+            colliders[0].enabled = false;
+            StartCoroutine(IntensityRoutine());
+        }
+        IEnumerator IntensityRoutine()
+        {
+            float rate = 0f;
+            while(rate < 1f)
+            {
+                rate += Time.deltaTime / 2f;
+                pointLight.intensity = Mathf.Lerp(1f, 0.1f, rate);
+                yield return null;
+            }
+        }
         // 태양이 오두막 밖으로 나간 경우
         private void OnTriggerEnter(Collider other)
         {
@@ -51,7 +69,8 @@ namespace Jc
         {
             if (!Manager.Layer.puzzleLM.Contain(other.gameObject.layer))
                 return;
-
+            if (isActive)
+                return;
             directionalLight.intensity = 1.5f;
         }
     }
