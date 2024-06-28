@@ -11,6 +11,7 @@ public class TempItemAdd : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space))
         {
             Manager.Inventory.AddItem(ItemID); // 1번 아이템 ADD 
+            Debug.Log("1번 아이템 추가 한다. ");
         }
     }
 }

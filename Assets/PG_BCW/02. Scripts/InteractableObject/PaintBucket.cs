@@ -57,6 +57,7 @@ public class PaintBucket : InteractObject
     {
         Paint paintPrefab = Instantiate(paint, attach.position, Quaternion.identity);
         paintPrefab.paintType = color;
+        //Destroy(gameObject); 생성 성공하면 파괴되어야함. 
     }
 
     public void PaintStop()

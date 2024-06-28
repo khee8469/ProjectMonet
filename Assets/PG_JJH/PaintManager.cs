@@ -10,8 +10,11 @@ namespace JJH
 
         private void OnEnable()
         {
+            if (Manager.PlableData.paintDataList == null) return;
+
             if (Manager.PlableData.paintDataList.Count < 1)
                 return;
+
             foreach (int key in Manager.PlableData.paintDataList.Keys)
             {
                 // 나중에 set으로 변경

@@ -255,30 +255,38 @@ namespace JJH
         // 다른 곳에서 접근하기 편하게 인벤토리 매니저에서 ADD REMOVE 이벤트용으로 불러준다.
         // 
 
-        public void AddItem(int itemID)
+        // 이 부분 아직 문제 있음. ㅠㅠㅠㅠ
+        public void AddItem(int _itemID)
         {
-            // 빈 slot을 찾아서 데이터를 넣어준다.  어차피 하나 짜리 라고 생각하자. 답없다 이거.
+            /*// 빈 slot을 찾아서 데이터를 넣어준다.  어차피 하나 짜리 라고 생각하자. 답없다 이거.
+            int check = 0;
 
             // item id 가 -1 이던가 (아이템 없는 상태 ) 또는 count가 0 이던가 
             foreach(SlotData slotData in Manager.PlableData.InventorySlotDatas)
             {
+                if (check > 0) return;
+
                 if (slotData.id_item == -1)
                 {
-                    
-                    
+                    // 현재 빈 슬롯이라는 의미임. 
+                    Debug.Log("슬롯");
+                    inventorySlots[slotData.id_slot].ItemID = _itemID;
+                    Debug.Log(inventorySlots[slotData.id_slot].ItemID);
+                    check++;
+                    break; // 한 슬롯에서만 생성해 줘야함. 넣어 줄 때. 
                 }
-
-                // 슬롯의 id , 아이템의 id , 
-
+                // 슬롯 한 개 에만 add 해줘야하고 추가로 소켓에 제대로 들어가야한다. 
             }
 
             Manager.PlableData.SaveSlotData(); // 빈 슬롯에 들어간 데이터를 저장한다,
             is_AddRemoveItem = true;
+            check = 0; // */
+            
         }
 
         public void RemoveItem(int itemID)
         {
-            is_AddRemoveItem = false;
+            is_AddRemoveItem = true;
         }
 
 

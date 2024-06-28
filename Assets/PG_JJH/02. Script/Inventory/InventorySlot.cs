@@ -17,7 +17,7 @@ namespace JJH
         [Tooltip("아이템의 id")]
         [SerializeField] 
         private int itemID = -1; //슬롯에 아무것도 없으면 -1 할당.
-        public int ItemID { get { return itemID; } }
+        public int ItemID { get { return itemID; } set { itemID = value; } }
         [Tooltip("슬롯 자신의 Transform")]
         public Transform itemTransform; // 아이템의 크기 조절을 위한 트랜스폼
         // 아이템 슬롯의 ID --> -1 로 설정 하여 MANAGER에서 자동할당 시킨다. 
