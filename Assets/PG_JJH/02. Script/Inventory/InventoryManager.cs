@@ -21,7 +21,11 @@ namespace JJH
         // item_id, 프리팹 매칭
         public Dictionary<int , InventoryItem> itemPrefabDic = new Dictionary<int , InventoryItem>();
 
-        
+        [Tooltip("인벤토리 없이 아이템 추가 시 반복을 방지하기 위한 check 변수")]
+        public static int check;
+
+        [Tooltip("pop up을 open 할 때 체크 해 줄 변수 ")]
+        public bool is_AddRemoveItem { get; set; } 
 
         // 슬롯 아이디를 자동으로 할당해 주기 위한 변수
         //private int currentSlotID = 0;
@@ -93,11 +97,10 @@ namespace JJH
                 InventorySlot slot = Manager.Inventory.inventorySlots[slotData.id_slot];
                 InventoryItem item = Instantiate(Manager.Inventory.itemPrefabDic[slotData.id_item]);
 
-                Debug.Log("item prefab 생성"+item.name);
-
                 // 이 해당 슬롯에 이제 해당하는 item id 값을 가진 프리팹을 붙여준다.
                 slot.SetRayHovering(true);
                 slot.interactionManager.SelectEnter(slot as IXRSelectInteractor, item as IXRSelectInteractable);
+                Debug.Log("LoadSlot 진입");
                 slot.AddItem(item);
                 for (int i = 0; i < slotData.count; i++)
                 {
@@ -251,13 +254,13 @@ namespace JJH
         }
 
 
-        public bool is_AddRemoveItem;
+        
         // 다른 곳에서 접근하기 편하게 인벤토리 매니저에서 ADD REMOVE 이벤트용으로 불러준다.
         // 
 
         // 이 부분 아직 문제 있음. ㅠㅠㅠㅠ
 
-        static int check;
+        
         public void AddItem(int _itemID) // npc가 넣어주는 아이템 관리 
         {
             // 지금 모든 슬롯에 들어 가고 있음 -> 하나만 하고 나가야함.             
@@ -276,33 +279,43 @@ namespace JJH
                 // 슬롯 한 개 에만 add 해줘야하고 추가로 소켓에 제대로 들어가야한다. 
             }
 
-            Manager.PlableData.SaveSlotData(); // 빈 슬롯에 들어간 데이터를 저장한다,
+            Manager.PlableData.SaveSlotData(); // 빈 슬롯에 들어간 데이터를 저장한다.
             is_AddRemoveItem = true;
-
             check = 0; // static 함수 다시 0 으로 변경한다. 
 
         }
 
-        public void RemoveItem(int _itemID) // npc가 가져가는 아이템 관리 
+        public bool RemoveItem(int _itemID) // npc가 가져가는 아이템 관리 
         {
-            if (check > 0) return;
-
-            // 자신의 슬롯을 순회하고 그 슬롯의 itemID가 _itemID 와 맞는 슬롯을 찾아서. 그 슬롯에서 아이템을 destroy? 하던가 하고 save 하고 
-
             foreach (var slots in inventorySlots.Values)
             {
                 if (slots.ItemID == _itemID) // 그 슬롯에 itemID가 있으면 
-                {                  
-                    check++;
-                    break;
+                {
+                    slots.ItemID = -1; // -1 로 바꿔서 아이템이 없는 상태로 만든다.
+
+                    Debug.Log($"아이템을 삭제 할 슬롯 ->{slots.slotID}");
+
+                    int childNumber = slots.itemTransform.childCount;
+
+                    for (int i=0;i <childNumber; i++)
+                    {
+                        // 내부의 slot의 자식이 inventory item 이라면. 
+                        if(slots.transform.GetChild(i).gameObject.GetComponent<InventoryItem>() !=null)
+                        {
+                            Destroy(slots.transform.GetChild(i).gameObject);
+
+                            Manager.PlableData.SaveSlotData();
+                            is_AddRemoveItem = true;
+
+                            Debug.Log($"현재 아이템이 들어있는 슬롯 체크 ->{slots.gameObject.name}");
+
+                            return true;
+                        }                       
+                    }
                 }
-            }
-
-            Manager.PlableData.SaveSlotData();
-            is_AddRemoveItem = true;
-            check = 0;
+            } 
+            return false;
         }
-
 
         /*public void LoadSlot()
         {

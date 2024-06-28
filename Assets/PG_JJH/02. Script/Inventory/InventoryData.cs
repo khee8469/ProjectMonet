@@ -50,7 +50,6 @@ namespace JJH
         public void SaveOriginalTransform (Transform transform)
         {
             originalScale = transform.localScale;
-            Debug.Log($"Data 스크립트에서 originalScale 상태 ->{originalScale}");
 
         }
         // 물체의 트랜스폼을 원상복구 한다. --> 스케일을 제외한 부분은 저장하면 안될듯 하다. 

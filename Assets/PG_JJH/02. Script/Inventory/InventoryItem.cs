@@ -66,7 +66,6 @@ namespace JJH
         public void RestoreScale()
         {
             itemData.RestoreOriginalTransform(transform);
-            Debug.Log("RestoreScale 함수 발동됨");
         }
 
         private void InitializeItemData()
@@ -111,8 +110,6 @@ namespace JJH
             else
             {
                 RestoreScale();
-                Debug.Log("소켓이 아닌 오브젝트 와의 상호작용 Exit 으로 스케일이 복구됨");
-
                 rigid.isKinematic = false;
                 rigid.useGravity = true;
 

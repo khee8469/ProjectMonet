@@ -82,15 +82,16 @@ namespace Jc
             // 새롭게 add or remove 되면 켜줄 때 한 번 데이터를 로드한다. 
             if(Manager.Inventory.is_AddRemoveItem == true)
             {
-                Debug.Log("오픈 시 데이터 로드");
-
-                Manager.Inventory.LoadSlot();
-                Manager.Inventory.is_AddRemoveItem = false; 
+                
+                
             }
-
+            Debug.Log("오픈 시 데이터 로드");
+            Manager.Inventory.LoadSlot();
 
             infoGruop.SetActive(true);
             Manager.Inventory.isEnable = true;
+            Manager.Inventory.is_AddRemoveItem = false;
+            Debug.Log("이게 False로 바뀌고 실행되는 상황인데 순서를 좀 보자.");
         }
         // 인벤토리/퀘스트 창 닫기
         public void CloseInfoGroup()
