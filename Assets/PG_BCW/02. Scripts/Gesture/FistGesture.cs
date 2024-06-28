@@ -25,6 +25,7 @@ public class FistGesture : Gesture
     {
         PaintBucket paintBucket = null;
         pen = null;
+
         //호버중인 오브젝트중 물감통 찾기
         if (LeftHandInteractor.hasSelection)
         {
@@ -39,7 +40,7 @@ public class FistGesture : Gesture
             }
 
             pen = LeftHandInteractor.interactablesSelected[0] as Pen;
-            if(pen != null)
+            if (pen != null)
             {
                 // Pen의 그리기 가능 함수 호출 
                 pen.StartDrawing();
@@ -64,18 +65,17 @@ public class FistGesture : Gesture
                 {
                     // 인터랙션 매니저에 인터랙터가 인터랙터블을 선택하도록 요청
                     LeftHandInteractor.interactionManager.SelectEnter(LeftHandInteractor, hoveredInteractable);
+
+                    pen = LeftHandInteractor.interactablesSelected[0] as Pen;
+                    if (pen != null)
+                    {
+                        // Pen의 그리기 가능 함수 호출 
+                        pen.StartDrawing();
+                        Debug.Log("Pen is Not NULL");
+                    }
                     break;
                 }
             }
-
-            pen = LeftHandInteractor.interactablesSelected[0] as Pen;
-            if (pen != null)
-            {
-                // Pen의 그리기 가능 함수 호출 
-                pen.StartDrawing();
-                Debug.Log("Pen is Not NULL");
-            }
-
         }
     }
 
@@ -83,8 +83,6 @@ public class FistGesture : Gesture
     {
 
     }
-
-
 
     //기능 물건 잡기, 물감짜기
     public override void RightGestureEnter()
@@ -131,23 +129,22 @@ public class FistGesture : Gesture
                 {
                     // 인터랙션 매니저에 인터랙터가 인터랙터블을 선택하도록 요청
                     RightHandInteractor.interactionManager.SelectEnter(RightHandInteractor, hoveredInteractable);
+
+                    pen = RightHandInteractor.interactablesSelected[0] as Pen;
+                    if (pen != null)
+                    {
+                        // Pen의 그리기 가능 함수 호출 
+                        pen.StartDrawing();
+                    }
                     break;
                 }
             }
-
-            pen = RightHandInteractor.interactablesSelected[0] as Pen;
-            if (pen != null)
-            {
-                // Pen의 그리기 가능 함수 호출 
-                pen.StartDrawing();
-                Debug.Log("Pen is Not NULL");
-            }
-
         }
     }
 
+    // 내 손에서 붓이 빠져 나갔을 때 stopdrawing 함수 호출 해줘야함. 
     public override void RightGestureExit()
     {
-
+        
     }
 }

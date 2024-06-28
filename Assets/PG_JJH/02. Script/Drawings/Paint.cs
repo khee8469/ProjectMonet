@@ -68,9 +68,6 @@ namespace JJH
                 pen.ChangeColor(GetPaintType());
 
             }
-
-            
-            
         }
     }
 

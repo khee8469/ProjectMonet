@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 6183549310169503199}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.01, y: 1.251, z: -4.25}
+  m_LocalPosition: {x: -2.9, y: 0.13, z: -3.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -63,7 +63,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.32156336, z: 0, w: 0.9468881}
   m_LocalPosition: {x: 2.008, y: 2.289, z: 1.479}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 459861656348001990}
@@ -300,6 +300,7 @@ MonoBehaviour:
     m_Bits: 32768
   drawOn: 0
   player: {fileID: 0}
+  move: {fileID: 0}
 --- !u!54 &6744948139581297467
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -323,7 +324,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
