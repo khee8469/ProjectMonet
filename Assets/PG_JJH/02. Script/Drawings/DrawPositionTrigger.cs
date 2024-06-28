@@ -37,7 +37,7 @@ namespace JJH
 
                 Debug.Log($"player 이름 ->{player.gameObject.name}");
 
-                characterController = player.GetComponent<CharacterController>();
+                characterController = player.GetComponentInParent<CharacterController>();
                 characterController.enabled = false;
                 move = player.GetComponentInChildren<DynamicMoveProvider>();
                 if(move !=null)
@@ -68,15 +68,14 @@ namespace JJH
         // 플레이어가 들어오면 --> pos 로 이동시키고 강제 고정 
         private void OnTriggerEnter(Collider other)
         {
-            /*if(Extension.Contain(playerLayer , other.gameObject.layer))
+            if (Extension.Contain(playerLayer, other.gameObject.layer))
             {
                 player = other.gameObject; // player 참조 시작. 
-            }*/
-
-            if(other.gameObject.CompareTag("Player"))
+            }          
+            /*else if (other.gameObject.CompareTag("Player"))
             {
                 player =other.gameObject;
-            }
+            }*/
 
         }
 

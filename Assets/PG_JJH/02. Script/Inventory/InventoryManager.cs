@@ -256,21 +256,19 @@ namespace JJH
         // 
 
         // 이 부분 아직 문제 있음. ㅠㅠㅠㅠ
-        public void AddItem(int _itemID)
-        {
-            /*// 빈 slot을 찾아서 데이터를 넣어준다.  어차피 하나 짜리 라고 생각하자. 답없다 이거.
-            int check = 0;
 
-            // item id 가 -1 이던가 (아이템 없는 상태 ) 또는 count가 0 이던가 
-            foreach(SlotData slotData in Manager.PlableData.InventorySlotDatas)
+        static int check;
+        public void AddItem(int _itemID) // npc가 넣어주는 아이템 관리 
+        {
+            // 지금 모든 슬롯에 들어 가고 있음 -> 하나만 하고 나가야함.             
+            foreach (SlotData slotData in Manager.PlableData.InventorySlotDatas)
             {
                 if (check > 0) return;
 
                 if (slotData.id_item == -1)
                 {
                     // 현재 빈 슬롯이라는 의미임. 
-                    Debug.Log("슬롯");
-                    inventorySlots[slotData.id_slot].ItemID = _itemID;
+                    inventorySlots[slotData.id_slot].ItemID = _itemID; // 여기서 슬롯에 itemID 저장한다. 
                     Debug.Log(inventorySlots[slotData.id_slot].ItemID);
                     check++;
                     break; // 한 슬롯에서만 생성해 줘야함. 넣어 줄 때. 
@@ -280,13 +278,29 @@ namespace JJH
 
             Manager.PlableData.SaveSlotData(); // 빈 슬롯에 들어간 데이터를 저장한다,
             is_AddRemoveItem = true;
-            check = 0; // */
-            
+
+            check = 0; // static 함수 다시 0 으로 변경한다. 
+
         }
 
-        public void RemoveItem(int itemID)
+        public void RemoveItem(int _itemID) // npc가 가져가는 아이템 관리 
         {
+            if (check > 0) return;
+
+            // 자신의 슬롯을 순회하고 그 슬롯의 itemID가 _itemID 와 맞는 슬롯을 찾아서. 그 슬롯에서 아이템을 destroy? 하던가 하고 save 하고 
+
+            foreach (var slots in inventorySlots.Values)
+            {
+                if (slots.ItemID == _itemID) // 그 슬롯에 itemID가 있으면 
+                {                  
+                    check++;
+                    break;
+                }
+            }
+
+            Manager.PlableData.SaveSlotData();
             is_AddRemoveItem = true;
+            check = 0;
         }
 
 
