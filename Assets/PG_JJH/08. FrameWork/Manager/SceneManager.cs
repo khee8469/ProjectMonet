@@ -56,7 +56,7 @@ namespace JJH
             BaseScene curScene = GetCurScene();
 
             yield return null; // 이 부분 시간 차 어떻게 둘지 생각해보기. 
-            yield return curScene.LoadingRoutine();
+            yield return curScene?.LoadingRoutine();
 
 
             loadingBar.gameObject.SetActive(false);

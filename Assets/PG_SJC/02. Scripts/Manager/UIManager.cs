@@ -79,6 +79,14 @@ namespace Jc
             infoGruop.transform.localPosition = Vector3.zero;
             infoGruop.transform.localRotation = Quaternion.identity;
 
+            // 새롭게 add or remove 되면 켜줄 때 한 번 데이터를 로드한다. 
+            if(Manager.Inventory.is_AddRemoveItem == true)
+            {
+                Manager.Inventory.LoadSlot();
+                Manager.Inventory.is_AddRemoveItem = false; 
+            }
+
+
             infoGruop.SetActive(true);
             Manager.Inventory.isEnable = true;
         }
@@ -86,7 +94,6 @@ namespace Jc
         public void CloseInfoGroup()
         {
             Manager.PlableData.SaveSlotData();
-
             infoGruop.transform.parent = this.transform;
             Manager.Inventory.isEnable = false;
             infoGruop.SetActive(false);

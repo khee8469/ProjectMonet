@@ -1,11 +1,15 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace JJH
 {
     public class DrawingCompleteManager : MonoBehaviour
     {
+        // 그냥 모든 씬에 두고 할당해주자. 
+
+
         [Tooltip("그림의 bool 변수 체크해줄 딕셔너리")]
         [SerializeField]
         public Dictionary<DrawObjectManager, bool> drawCompleteCheckDic
@@ -26,6 +30,15 @@ namespace JJH
 
         [Tooltip("딕셔너리의 무결성 유지를 위한 임시 key 저장용 리스트")]
         List<DrawObjectManager> keysToModifty = new List<DrawObjectManager>();
+
+        [Tooltip("다른 씬에서 적용 받을 volume 의 layer")]
+        public LayerMask volumeMask;
+
+        [Tooltip("각 씬에 둘 그림 연계 라이트들")]
+        [SerializeField]
+        public LightColor [] lights; // 각 씬 마다 직접 할당해서 배열을 주면 어차피 start 에서 배열의 크기가 달라짐. 
+
+
         private void Start()
         {
             // Find로 배열을 찾아서 저장한다. --> 배열은 항상 정렬 순서가 보장된다. 
@@ -35,9 +48,12 @@ namespace JJH
 
             // DrawObjectManager 에 붙어있는 IComparable 을 이용하여 정렬한다.
             Array.Sort(drawObjectManagers); //어차피 둘이 같은 타입을 찾는 find를 하기 때문에 길이는 무조건 같
-            
+
             // DrawobjectMnager 들은 지금 drawID 값에 따라서 0 1 2 3... 순으로 정렬되고 있다.
 
+            volumeMask = LayerMask.GetMask("LocalVolume");
+
+            // 아 이게 씬에 16개 그냥 싹 다 두고 (각 챕터마다 나머지는 그냥 숨겨두자 이거 어쩔 수 없다)
 
             for (int i = 0; i < drawObjectManagers.Length; i++) //어차피 이 둘은 길이가 똑같음. 
             {
@@ -78,7 +94,10 @@ namespace JJH
                             Color color = sprite.color;
                             color.a = 1f;
                             sprite.color = color;
-                            dr.gameObject.layer = 0; // 레이어 변경 시켜줘서 다시 라인 렌더러가 생성 되지 않도록 해줘야한다. 
+
+                            // start 에서 로컬 블룸 레이어로 변경하여 그림도 못그리고 + 로컬 블룸의 효과를 받아 흑백이 아니도록 한다.
+                            dr.gameObject.layer = 17; // 레이어 변경 시켜줘서 다시 라인 렌더러가 생성 되지 않도록 해줘야한다. 
+                            ChangeLight(dr.currentPaintType);
                         }
                     }
                 }
@@ -151,6 +170,18 @@ namespace JJH
             }
 
 
+        }
+
+
+        public void ChangeLight(PaintTypeEnum _currentPaintType)
+        {
+            if(lights.Length>=1) //1개 이상 할당이 되어 있으면. 
+            {
+                for(int i=0;i<lights.Length; i++)
+                {
+                    lights[i].drawLightLink(_currentPaintType);
+                }
+            }
         }
 
     }

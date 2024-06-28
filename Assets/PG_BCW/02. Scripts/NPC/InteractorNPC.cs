@@ -19,17 +19,18 @@ public class InteractorNPC : NPC
         fsm.AddState(NPCStateType.Interact, new Interact(this));    // 상호작용 상태
         fsm.Init(NPCStateType.Idle);
 
-        
+
     }
 
 
 
-    public void OnTalkInteractor()
-    {
-        //완료 전 대사, 완료 후 대사
-        /*if( 미완료)
-        else if(완료)*/
-        
+    //public void OnTalkInteractor()
+    //{
+    //    //완료 전 대사, 완료 후 대사
+    //    *//*if( 미완료)
+    //    else if (완료) */
+
+
     //}
 
     public override Vector3 CalculateDestination()

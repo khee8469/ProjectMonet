@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. --> 차라리 진짜 이미지에 붙이는 방법으로 가보자. 
@@ -12,9 +13,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         // 0 1 2 3 
         Compartment1, Compartment2, Compartment3, Compartment4, Finished , END
     }
-
-    
-    
 
 
     [RequireComponent(typeof(SpriteRenderer))]
@@ -38,7 +36,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
         [Tooltip("자신의 컬러타입")]
         [SerializeField]
-        private Color myColor;
+        public Color myColor;
 
         public Color ObjectMyColor { get { return myColor; } private set { myColor = value; } }
 
@@ -65,16 +63,35 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         [SerializeField] private float tolerance = 0.02f;
 
         [Tooltip("스크립터블 오브젝트 공유")]
-        [SerializeField] private PaintTypeManager paintTypeManager;
+        [SerializeField] public PaintTypeManager paintTypeManager;
 
         [Tooltip("색깔상태 스크립터블 오브젝트와 연계되어있음. ")]
-        [SerializeField] private PaintTypeEnum currentPaintType;
+        [SerializeField] public PaintTypeEnum currentPaintType;
 
         [Tooltip("그림 완성 매니저 참조")]
         [SerializeField] private DrawingCompleteManager drawingCompleteManager;
 
+        /*
+        [Tooltip("로비 제외한 씬에서 연결된 조명")]
+        [SerializeField] private GameObject lights;*/
 
-      
+
+        // 얘는 싱글턴이 아님.
+
+        [Tooltip("Pen 참조 해두자..")]
+        [SerializeField] private Pen pen;
+
+        [Tooltip("자신의 콜라이더 배열")]
+        [SerializeField] private Collider[] myColliderArray;
+
+        [Tooltip("이벤트에 자신의 컬러를 체크하고 콜라이더를 on off 하는 함수를 할당한다.")]
+        public static UnityEvent<PaintTypeEnum> colorChangeEvent = new UnityEvent<PaintTypeEnum>();
+
+        private void Awake()
+        {
+            colorChangeEvent.AddListener(OnOffCollider);
+        }
+
 
         private void Start()
         {
@@ -96,6 +113,34 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             InitializeSpriteSize(); // 시작 시의 각자의 로컬 스케일 적용된 크기를 가져온다. 
             totalArea = worldHeight * worldWidth;
             nonTransparentArea = CalculateNonTransparentArea();
+
+
+            myColliderArray = GetComponents<Collider>(); // 자신의 모든 콜라이더 배열 가져오기. pen의 컬러에 맞춰서 자신의 콜라이더를 꺼주고 켜준다. 
+
+            pen = GameObject.FindObjectOfType<Pen>();
+
+        }
+
+        private void OnOffCollider(PaintTypeEnum _paintTypeEnum)
+        {
+            if(currentPaintType == _paintTypeEnum) // 현재 pen의 색깔과 자신의 현재 색깔이 일치한다면
+            {
+                for(int i=0; i< myColliderArray.Length;i++)
+                {
+                    myColliderArray[i].enabled = true;
+                    Debug.Log("콜라이더 온");
+                }
+            }
+            else // 일치하지 않으면 모든 paint object 들은 자신의 콜라이더 배열을 꺼준다. 
+            {
+                for(int i=0; i < myColliderArray.Length;i++)
+                {
+                    myColliderArray[i].enabled = false;
+                    Debug.Log("콜라이더 오프");
+
+                }
+            }
+
         }
 
         //라인 렌더러를 리스트에 추가하는 함수
@@ -384,12 +429,13 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             texture = readableTexture;
         }
 
-
         public int CompareTo(DrawObjectManager other)
         {
             if (other == null) return 1;
             return DrawID.CompareTo(other.DrawID);
         }
+
+
     }
 
 }

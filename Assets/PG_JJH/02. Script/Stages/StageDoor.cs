@@ -24,8 +24,6 @@ namespace JJH
 
         new Rigidbody rigidbody;
 
-        List<Collider> myColliderList = new List<Collider>();
-
         private void Start()
         {
             unLockController = FindObjectOfType<UnLockController>();
@@ -76,6 +74,10 @@ namespace JJH
                 Debug.Log("해당 스테이지는 잠겨 있습니다.");
             }
         }
+
+
+
+
 
 
         // Static object의 끌려 들어온 coliider를 원 상태로 복구 시켜준다. 
