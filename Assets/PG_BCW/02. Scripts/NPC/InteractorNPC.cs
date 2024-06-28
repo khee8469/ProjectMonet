@@ -24,10 +24,8 @@ public class InteractorNPC : NPC
 
 
 
-    public override void OnTalkInteractor()
+    public void OnTalkInteractor()
     {
-        base.OnTalkInteractor();
-
         //완료 전 대사, 완료 후 대사
         /*if( 미완료)
         else if(완료)*/

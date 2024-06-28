@@ -4,7 +4,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class FistGesture : Gesture
 {
-    PaintBucket paintBucket;
+
     
     // 인스펙터 확인용 
     [SerializeField]Pen pen;
@@ -23,20 +23,20 @@ public class FistGesture : Gesture
     //기능 물감짜기
     public override void LeftGestureEnter()
     {
-        paintBucket = null;
+        PaintBucket paintBucket = null;
         pen = null;
         //호버중인 오브젝트중 물감통 찾기
         if (LeftHandInteractor.hasSelection)
         {
             Debug.Log("레프트 제스쳐 피스트 제스쳐");
             //잡고잇는 오브젝트 첫번쨰
-           /* paintBucket = LeftHandInteractor.interactablesSelected[0] as PaintBucket;
+            paintBucket = LeftHandInteractor.interactablesSelected[0] as PaintBucket;
             if (paintBucket != null)
             {
                 //물감나오는거 함수 호출
                 paintBucket.PaintPlay();
                 Debug.Log("물감호출");
-            }*/
+            }
 
             pen = LeftHandInteractor.interactablesSelected[0] as Pen;
             if(pen != null)
@@ -89,19 +89,19 @@ public class FistGesture : Gesture
     //기능 물건 잡기, 물감짜기
     public override void RightGestureEnter()
     {
-        paintBucket = null;
+        PaintBucket paintBucket = null;
         //호버중인 오브젝트중 물감통 찾기
         if (RightHandInteractor.hasSelection)
         {
             Debug.Log("라이트 제스쳐 피스트 제스쳐33");
             //잡고잇는 오브젝트 첫번쨰
-            /*paintBucket = RightHandInteractor.interactablesSelected[0] as PaintBucket;
+            paintBucket = RightHandInteractor.interactablesSelected[0] as PaintBucket;
             if (paintBucket != null)
             {
                 //물감나오는거 함수 호출
                 paintBucket.PaintPlay();
                 Debug.Log("물감호출");
-            }*/
+            }
             Debug.Log(RightHandInteractor.interactablesSelected.Count+"숫자");
             pen = RightHandInteractor.interactablesSelected[0] as Pen;
             if (pen != null)
