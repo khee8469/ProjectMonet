@@ -25,7 +25,7 @@ public class CreateAreaCollider : MonoBehaviour
     [SerializeField] private float colliderZ;
 
     [Tooltip("박스 콜라이더의 세로 크기")]
-    [SerializeField] private Vector3 rotation;
+    [SerializeField] private float rotation;
 
     [Tooltip("Cleaning Collider Check")]
     //수건이 부딪힌 부분은 true로 변경 전체중 80퍼 true로 바뀌면 클리어
@@ -82,7 +82,7 @@ public class CreateAreaCollider : MonoBehaviour
             }
         }
 
-        transform.rotation = Quaternion.Euler(rotation);
+        transform.rotation = Quaternion.Euler(0, rotation, 0);
     }
 
 
