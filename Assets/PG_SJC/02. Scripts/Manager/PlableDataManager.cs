@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using UnityEngine.XR.Interaction.Toolkit;
 using Unity.Burst.CompilerServices;
 using Cinemachine.PostFX;
+using System;
 
 namespace Jc
 {
@@ -21,6 +22,8 @@ namespace Jc
         [SerializeField]
         private List<SlotData> inventorySlotDatas;
         public List<SlotData> InventorySlotDatas { get { return inventorySlotDatas; } }
+
+        public Dictionary<int, bool> paintDataList; 
 
         [Header("테스트모드 (false : 새로 시작) (true : 불러오기)")]
         public bool isLoadMode = false;
@@ -48,7 +51,6 @@ namespace Jc
             }
 
         }
-
         public void InitSlot()
         {
             // 인벤토리 슬롯 데이터 로드
@@ -56,7 +58,6 @@ namespace Jc
 
             inventorySlotDatas = loadedInventoryData;
         }
-
         // 퀘스트 데이터 저장
         public void SaveQuestData()
         {
@@ -80,7 +81,6 @@ namespace Jc
 
             CSVHelper.Write(Path.Combine("Assets/PG_SJC/Resources/", DataPath.LocalQuestData), questStateDatas);
         }
-
         // 퀘스트 데이터 불러오기
         public List<QuestListData> LoadQuestData()
         {
@@ -109,7 +109,6 @@ namespace Jc
 
             return loadedData;
         }
-
         // 인벤토리 슬롯 데이터 저장
         public void SaveSlotData()
         {
@@ -127,7 +126,6 @@ namespace Jc
 
             CSVHelper.Write(Path.Combine("Assets/PG_SJC/Resources/", DataPath.LocalInventoryData), inventorySlotDatas);
         }
-
         public List<SlotData> LoadSlotData()
         {
             List<SlotData> loadedData = new List<SlotData>();
