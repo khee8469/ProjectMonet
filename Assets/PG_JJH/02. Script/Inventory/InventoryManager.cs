@@ -264,9 +264,11 @@ namespace JJH
             {
                 if (slotData.id_item == -1)
                 {
-                    // 해당 슬롯에 데이터를 넣어줘야한다. 
+                    
                     
                 }
+
+                // 슬롯의 id , 아이템의 id , 
 
             }
 

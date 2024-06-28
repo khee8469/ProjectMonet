@@ -7,7 +7,11 @@ namespace JJH
     {
         public override IEnumerator LoadingRoutine()
         {
-            
+            Manager.paint.MyPaintCheck();
+
+
+
+
             yield return null;
 
         }

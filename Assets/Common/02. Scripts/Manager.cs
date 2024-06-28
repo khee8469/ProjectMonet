@@ -18,6 +18,9 @@ public static class Manager
     public static QuestManager Quest { get { return QuestManager.Instance; } }
     public static PlableDataManager PlableData { get { return PlableDataManager.Instance;}}
 
+    
+
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void Initialize()
     {
@@ -32,6 +35,7 @@ public static class Manager
         Jc.DataManager.ReleaseInstance();
         PlableDataManager.ReleaseInstance();
         CameraManager.ReleaseInstance();
+        
 
         // 싱글턴 객체생성
         Jc.UIManager.CreateInstance();
