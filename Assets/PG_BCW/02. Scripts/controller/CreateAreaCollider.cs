@@ -10,6 +10,7 @@ public class CreateAreaCollider : MonoBehaviour
     
     [Tooltip("타올 컴포넌트")]
     [SerializeField] private Taoru taoru;
+    public Taoru Taoru { get { return taoru; } set { taoru = value; } }
     
     [Tooltip("생성할 박스 콜라이더 프리팹")]
     [SerializeField] private GameObject colliderPrefab;
@@ -24,7 +25,7 @@ public class CreateAreaCollider : MonoBehaviour
     [SerializeField] private float colliderZ;
 
     [Tooltip("박스 콜라이더의 세로 크기")]
-    [SerializeField] private float rotation;
+    [SerializeField] private Vector3 rotation;
 
     [Tooltip("Cleaning Collider Check")]
     //수건이 부딪힌 부분은 true로 변경 전체중 80퍼 true로 바뀌면 클리어
@@ -81,7 +82,7 @@ public class CreateAreaCollider : MonoBehaviour
             }
         }
 
-        transform.rotation = Quaternion.Euler(0, rotation, 0);
+        transform.rotation = Quaternion.Euler(rotation);
     }
 
 
@@ -102,7 +103,7 @@ public class CreateAreaCollider : MonoBehaviour
         float cleanedPercentage = (float)cleanedCount / cleaningCheck.Count;
         if (cleanedPercentage >= 0.80f)
         {
-            Debug.Log("청소 완료!");
+            Debug.Log("식탁 청소 완료");
             //콜라이더들 삭제
             cleaningCheck.Clear();
             //라인렌더러 삭제

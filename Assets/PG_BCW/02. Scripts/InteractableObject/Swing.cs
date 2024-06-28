@@ -56,6 +56,7 @@ public class Swing : InteractObject
                 swingCount++;
                 if(swingCount > 2) 
                 {
+                    Debug.Log("그네 3회 성공");
                     isSucess = true;
                 }
                 

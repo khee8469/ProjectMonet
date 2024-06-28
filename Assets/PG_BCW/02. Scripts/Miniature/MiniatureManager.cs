@@ -12,7 +12,6 @@ public class MiniatureManager : MonoBehaviour
     [SerializeField] private PositionSyncManager.MiniatureNum miniatureNum;
     public PositionSyncManager.MiniatureNum MiniatureNum { get { return miniatureNum; } }
 
-    int sceneNumber;
 
     private void Awake()
     {
@@ -21,9 +20,6 @@ public class MiniatureManager : MonoBehaviour
 
     private void Start()
     {
-        //몇번 씬정보인지
-        sceneNumber = (int)miniatureNum;
-
         SetMiniPosition();
     }
 
@@ -32,7 +28,7 @@ public class MiniatureManager : MonoBehaviour
     {
         foreach (Miniature miniature in miniatures)
         {
-            var positionData = PositionSyncManager.Instance.PositionData.SavePosition[sceneNumber];
+            var positionData = PositionSyncManager.Instance.PositionData.SavePosition[(int)miniatureNum];
             //데이터가 잇으면
             if (positionData.ContainsKey(miniature.name))
             {

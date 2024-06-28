@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class HumanSocket : XRSocketInteractor
+public class SocketInteractor : XRSocketInteractor
 {
     //모자가 씌어져있는가
     private bool onHat;
@@ -17,6 +17,7 @@ public class HumanSocket : XRSocketInteractor
         base.OnSelectEntered(args);
 
         onHat = true;
+        Debug.Log($"Hat : {onHat}, Steel : {steel}");
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
@@ -24,5 +25,6 @@ public class HumanSocket : XRSocketInteractor
         base.OnSelectExited(args);
         steel = true;
         onHat = false;
+        Debug.Log($"Hat : {onHat}, Steel : {steel}");
     }
 }

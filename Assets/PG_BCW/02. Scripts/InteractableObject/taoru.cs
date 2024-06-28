@@ -79,6 +79,8 @@ public class Taoru : InteractObject
         {
             if (lineRenderer == null) //이 부분에서 현재 물감에 알맞는 색상으로 만들어줘야 할 것 같아. 
             {
+                
+
                 //오브젝트 생성
                 lineObject = new GameObject("Line");
                 //오브젝트 위치 지정

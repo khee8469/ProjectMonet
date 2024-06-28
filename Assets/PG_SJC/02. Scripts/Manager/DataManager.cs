@@ -19,6 +19,7 @@ namespace Jc
         private Dictionary<int, QuestData> questDataDic;    // 퀘스트 데이터
         public Dictionary<int, QuestData> QuestDataDic { get { return questDataDic; } }
 
+
         /// <로딩순서>
         /// 1. CSV 데이터 로드
         /// 2. 로컬 데이터 로드 -> 덮어쓰기
@@ -162,6 +163,7 @@ namespace Jc
                 npcDataDic.Add(id, data);
             }
         }
+
 
         #endregion
     }

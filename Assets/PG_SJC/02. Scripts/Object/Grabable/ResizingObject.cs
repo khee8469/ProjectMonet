@@ -46,13 +46,16 @@ namespace Jc
         [SerializeField]
         private Vector3 minScale;
 
+        [SerializeField]
+        private CustomSocket targetSocket;
+
         [Space(5)]
         [Header("밸런싱")]
         [SerializeField]
         private Camera mainCamera;
 
         [SerializeField]
-        private V_Transform resetTransform;
+        protected V_Transform resetTransform;
 
         [SerializeField]
         private float originScaleX;     // 최초 크기
@@ -69,6 +72,8 @@ namespace Jc
         public float scaleRatio;
         Vector3 targetScale;
 
+        private Coroutine resizeRoutine;
+
         IXRSelectInteractor currentInteractor;  // 오브젝트를 Select중 인 인터렉터
 
         protected override void OnEnable()
@@ -82,7 +87,7 @@ namespace Jc
         {
             if (!IsGrabbed) return;
 
-            SetPosition();
+            //SetPosition();
             //Resize();
         }
 
@@ -117,35 +122,30 @@ namespace Jc
         }
 
         // 오브젝트의 위치값 고정 (메인 카메라 기준)
-        private void SetPosition()
+        protected void SetPosition()
         {
             Vector3 rayDir = mainCamera.transform.forward;
             Ray ray = new Ray(mainCamera.transform.position, rayDir);
-
             if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, Manager.Layer.wallLM))
             {
                 // 닿은 벽을 기준으로 오브젝트의 위치설정
-                transform.position = hitInfo.point - rayDir * targetScale.x;
-
+                transform.position = hitInfo.point - rayDir * (targetScale.x * 0.5f);
                 if (originDist == -1f)
                 {
-                    originDist = (mainCamera.transform.position - transform.position).sqrMagnitude;
+                    originDist = Vector3.Distance(mainCamera.transform.position,transform.position);
                 }
 
                 Debug.DrawRay(mainCamera.transform.position, hitInfo.point, Color.yellow);
 
-                float curDist = (mainCamera.transform.position - transform.position).sqrMagnitude;
+                float curDist = Vector3.Distance(mainCamera.transform.position, transform.position);
                 float ratio = curDist / originDist;
                 targetScale.x = targetScale.y = targetScale.z = ratio;
 
-                // 최소 스케일 지정
-                if (ratio * originScaleX < 0.1f)
-                    transform.localScale = minScale;
-                else
-                    transform.localScale = targetScale * originScaleX;
+                transform.localScale = targetScale * originScaleX; 
             }
             else
             {
+                
                 if (!isSelected) return;
                 // 레이가 닿지 않은 경우 강제로 Detach
                 ForceDettach();
@@ -175,12 +175,20 @@ namespace Jc
         protected override void OnSelectEntering(SelectEnterEventArgs args)
         {
             base.OnSelectEntering(args);
+            transform.rotation = Quaternion.identity;
             transform.GetComponent<Rigidbody>().isKinematic = true;
             currentInteractor = args.interactorObject;  // 인터렉터 할당
+            
+            // 인터렉터가 소켓일 경우
+            if(currentInteractor is CustomSocket)
+            {
+                return;
+            }
 
             SetTransform();
 
             IsGrabbed = true;
+            resizeRoutine = StartCoroutine(ResizeRoutine());
         }
         protected override void OnSelectExiting(SelectExitEventArgs args)
         {
@@ -189,17 +197,32 @@ namespace Jc
             currentInteractor = null;   // 인터렉터 할당해제
 
             IsGrabbed = false;
-
+            if(resizeRoutine != null)
+            {
+                StopCoroutine(resizeRoutine);
+                resizeRoutine = null;
+            }
             DettachSetting();
 
             // 오브젝트의 크기가 최대치 이상이 되면 원상복구
             if (transform.localScale.x >= limitScale)
             {
-                StartCoroutine(ResizeRoutine());
+                StartCoroutine(ResetRoutine());
             }
         }
 
-        IEnumerator ResizeRoutine()
+
+        protected virtual IEnumerator ResizeRoutine()
+        {
+            while(isGrabbed)
+            {
+                yield return new WaitForSeconds(0.01f);
+                SetPosition();
+            }
+        }
+
+        // 트랜스폼 리셋 루틴
+        protected virtual IEnumerator ResetRoutine()
         {
             float rate = 0f;
             Vector3 startScale = transform.localScale;
@@ -207,16 +230,11 @@ namespace Jc
             while (rate < 1f)
             {
                 rate += Time.deltaTime * 2f;
-                //transform.position = Vector3.Lerp(startPos, resetTransform.position, rate);
-                ///transform.rotation = Quaternion.Lerp(startRot, resetTransform.rotation, rate);
                 transform.localScale = Vector3.Lerp(startScale, resetTransform.scale, rate);
                 yield return null;
             }
 
-            //transform.position = resetTransform.position;
-            //transform.rotation = resetTransform.rotation;
             transform.localScale = resetTransform.scale;
-
         }
     }
 }
