@@ -106,7 +106,7 @@ public class GrabGesture : Gesture
     // 왼손 물건놓기
     public override void LeftGestureExit()
     {
-
+        
     }
 
 
