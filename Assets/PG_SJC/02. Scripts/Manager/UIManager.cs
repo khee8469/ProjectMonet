@@ -82,6 +82,8 @@ namespace Jc
             // 새롭게 add or remove 되면 켜줄 때 한 번 데이터를 로드한다. 
             if(Manager.Inventory.is_AddRemoveItem == true)
             {
+                Debug.Log("오픈 시 데이터 로드");
+
                 Manager.Inventory.LoadSlot();
                 Manager.Inventory.is_AddRemoveItem = false; 
             }
