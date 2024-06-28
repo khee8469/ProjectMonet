@@ -11,6 +11,9 @@ public class Taoru : InteractObject
 {
     //닦은 구역 표시하기
 
+    [SerializeField]
+    private Rigidbody rigid;
+
     [Tooltip("그리기를 허용할 레이어 마스크")]
     [SerializeField] private LayerMask targetLayer;
 
@@ -60,14 +63,14 @@ public class Taoru : InteractObject
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         base.OnSelectEntered(args);
-
+        rigid.isKinematic = true;
         isSelecting = true;
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
     {
         base.OnSelectExited(args);
-
+        rigid.isKinematic = false;
         isSelecting = false;
     }
 

@@ -30,7 +30,7 @@ public class InteractorNPC : NPC
         /*if( 미완료)
         else if(완료)*/
         
-    //}
+    }
 
     public override Vector3 CalculateDestination()
     {
