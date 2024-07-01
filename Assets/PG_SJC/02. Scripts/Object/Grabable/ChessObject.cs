@@ -17,7 +17,12 @@ namespace Jc
 
         [Header("밸런싱")]
         [SerializeField]
-        private IXRSelectInteractor interactor; 
+        private IXRSelectInteractor interactor;
+        [SerializeField]
+        private bool isEnterRoom = true;
+
+        private Coroutine exitRoutine;
+
 
         public void ResetObject()
         {
@@ -26,6 +31,12 @@ namespace Jc
 
             if (isSelected && interactor != null)
                 interactionManager.SelectExit(interactor, this);
+
+            if (exitRoutine != null)
+            {    
+                StopCoroutine(exitRoutine);
+                exitRoutine = null;
+            }
 
             StartCoroutine(ResetRoutine());
         }
@@ -63,6 +74,38 @@ namespace Jc
 
             // 기존에 잡고있던 인터렉터 해제
             interactor = null;
+        }
+        private void OnTriggerEnter(Collider other)
+        {
+            if (Manager.Layer.puzzleLM.Contain(other.gameObject.layer))
+            {
+                Debug.Log("Enter");
+                isEnterRoom = true;
+                if (exitRoutine != null)
+                    StopCoroutine(exitRoutine);
+            }
+        }
+        private void OnTriggerExit(Collider other)
+        {
+            if (Manager.Layer.puzzleLM.Contain(other.gameObject.layer))
+            {
+                Debug.Log("Exit");
+                isEnterRoom = false;
+                if (exitRoutine != null)
+                    StopCoroutine(exitRoutine);
+
+                // 범위 세팅
+                exitRoutine = StartCoroutine(ExitRoutine());
+            }
+        }
+
+        private IEnumerator ExitRoutine()
+        {
+            yield return new WaitForSeconds(2f);
+            
+            exitRoutine = null;
+            if (!isEnterRoom)
+                ResetObject();
         }
     }
 }

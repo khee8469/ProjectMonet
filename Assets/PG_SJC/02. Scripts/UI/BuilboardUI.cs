@@ -40,6 +40,7 @@ namespace Jc
                 yield return new WaitForSeconds(0.1f);
                 Vector3 lookDir = (transform.position - mainCameraTr.position).normalized;
                 transform.forward = lookDir;
+                transform.localPosition = Vector3.zero + transform.forward * 0.5f;
             }
         }
     }
