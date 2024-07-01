@@ -34,8 +34,6 @@ namespace Jc
 
         private void OnEnable()
         {
-            Debug.Log("UIManager Enable");
-
             Camera renderCamera = Camera.main;
             if (renderCamera == null) return;
 

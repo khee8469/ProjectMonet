@@ -22,9 +22,6 @@ namespace Jc
         public NPCData NPCData { get { return npcData; } }
 
         [SerializeField]
-        private TextMeshProUGUI debugNameText;
-
-        [SerializeField]
         protected NavMeshAgent agent;
         public NavMeshAgent Agent { get { return agent; } }
 
@@ -54,6 +51,8 @@ namespace Jc
 
         [SerializeField]
         private TextMeshProUGUI dialogText;     // 다이얼로그 텍스트
+        [SerializeField]
+        private Animator floatingAnim;      // 다이얼로그 텍스트 플로팅 애니메이터
 
         protected StateMachine<NPC, NPCStateType> fsm;
         public StateMachine<NPC, NPCStateType> FSM { get { return fsm; } }
@@ -99,7 +98,6 @@ namespace Jc
 
             // 데이터에 따른 퀘스트 할당
             questIDList = npcData.questIDList;
-            debugNameText.text = npcData.npcName;
         }
 
         // 목적지 계산
@@ -108,7 +106,7 @@ namespace Jc
         public virtual void OnInteract(PlayerQuestController questController)
         {
             // 최초 상호작용 처리
-            if (fsm.CurState != NPCStateType.Interact)
+            if (fsm == null || fsm.CurState != NPCStateType.Interact)
             {
                 // 현재 진행할 퀘스트 할당
                 if (GetQuest() != null)
@@ -117,10 +115,13 @@ namespace Jc
                 else
                 {
                     StartCoroutine(Extension.ActionDelay(5.0f, () => dialogText.enabled = false));
+                    if(fsm != null)
                     StartCoroutine(Extension.ActionDelay(5.5f, () => fsm.ChangeState(NPCStateType.Patrol)));
                 }
                 // 상호작용 상태로 전이
+                if(fsm != null)
                 fsm.ChangeState(NPCStateType.Interact);
+                if(anim != null)
                 anim.SetBool(Manager.Param.IsInteract, true);
             }
 
@@ -157,7 +158,7 @@ namespace Jc
 
         protected virtual void UpdateDialog(PlayerQuestController questController)
         {
-            dialogText.gameObject.SetActive(true);
+            dialogText.enabled = true;
 
             // 현재 할당중인 퀘스트가 없는 경우
             if (currentQuest == null)
@@ -188,11 +189,15 @@ namespace Jc
                             anim.SetBool(Manager.Param.IsInteract, false);
                         return;
                     }
+                    // 플로팅 애니메이션
+                    floatingAnim.SetTrigger(Manager.Param.OnFloating);
                     // 대화 진행
                     dialogText.text = currentQuest.receiveNarrations[curDialogIndex++].text;
                     break;
                 // 퀘스트 진행중
                 case QuestState.Proceed:
+                    // 플로팅 애니메이션
+                    floatingAnim.SetTrigger(Manager.Param.OnFloating);
                     dialogText.text = currentQuest.receiveNarrations[currentQuest.receiveNarrations.Count - 1].text;
                     break;
                 // 퀘스트 완료
@@ -212,9 +217,13 @@ namespace Jc
                         return;
                     }
                     // 대화 진행
+                    // 플로팅 애니메이션
+                    floatingAnim.SetTrigger(Manager.Param.OnFloating);
                     dialogText.text = currentQuest.clearNarrations[curDialogIndex++].text;
                     break;
                 default:
+                    // 플로팅 애니메이션
+                    floatingAnim.SetTrigger(Manager.Param.OnFloating);
                     dialogText.text = basicDialog;
                     break;
             }
