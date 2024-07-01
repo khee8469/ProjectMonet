@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Rendering.UI;
+using UnityEngine.XR.Interaction.Toolkit;
 
 namespace Jc
 {
@@ -12,19 +15,24 @@ namespace Jc
         private bool isEnable;
         public bool IsEnable { get { return isEnable; } set { isEnable = value; } }
 
+        [Header("밸런싱")]
+        [SerializeField]
+        private IXRSelectInteractor interactor; 
+
         public void ResetObject()
         {
             if (isEnable)
                 return;
 
+            if (isSelected && interactor != null)
+                interactionManager.SelectExit(interactor, this);
+
             StartCoroutine(ResetRoutine());
         }
-
         protected override IEnumerator ResetRoutine()
         {
             float rate = 0f;
             Vector3 startScale = transform.localScale;
-
             Vector3 startPos = transform.position;
             Quaternion startRot = transform.rotation;
 
@@ -40,6 +48,21 @@ namespace Jc
             transform.position = resetTransform.position;
             transform.rotation = resetTransform.rotation;
             transform.localScale = resetTransform.scale;
+        }
+
+        protected override void OnSelectEntered(SelectEnterEventArgs args)
+        {
+            base.OnSelectEntered(args);
+
+            // 잡고있는 인터렉터 할당
+            interactor = args.interactorObject;
+        }
+        protected override void OnSelectExited(SelectExitEventArgs args)
+        {
+            base.OnSelectExited(args);
+
+            // 기존에 잡고있던 인터렉터 해제
+            interactor = null;
         }
     }
 }

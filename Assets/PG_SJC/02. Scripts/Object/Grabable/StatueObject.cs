@@ -23,10 +23,13 @@ namespace Jc
         [SerializeField]
         private Transform startTransform;
 
+        private Coroutine enableRoutine;
+
         protected override void OnEnable()
         {
             base.OnEnable();
-            StartCoroutine(EnableRoutine());
+
+            enableRoutine = StartCoroutine(EnableRoutine());
         }
 
         IEnumerator EnableRoutine()
