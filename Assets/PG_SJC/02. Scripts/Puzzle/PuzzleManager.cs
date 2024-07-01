@@ -9,11 +9,27 @@ namespace Jc
     {
         [Header("에디터 세팅")]
         private int rewardItemID;
+
+        [Header("퍼즐 인덱스")]
+        private int puzzleIndex;
+
         [Header("퍼즐 클리어 조건 체크")]
         [SerializeField]
         private bool[] conditions;
+
         [Header("퍼즐 클리어 액션")]
         public UnityEvent OnClear;
+
+        [Space(5)]
+        [Header("밸런싱")]
+        [SerializeField]
+        private bool isClear = false;
+
+        protected virtual void OnEnable()
+        {
+            // 퍼즐 로드 세팅
+            LoadSetting();
+        }
 
         // 조건 성공
         public void UpdateCondition(int index = -1)
@@ -48,6 +64,12 @@ namespace Jc
         {
             // 아이템 추가
             OnClear?.Invoke();
+            isClear = true;
+        }
+
+        public virtual void LoadSetting()
+        {
+
         }
     }
 }

@@ -18,6 +18,9 @@ namespace Jc
         private PlayerControllerCallback controllerCallback;
 
         [SerializeField]
+        private RayInteractor oppositeInteractor;
+
+        [SerializeField]
         private bool isLeftController = false;
 
         [SerializeField]
@@ -31,8 +34,10 @@ namespace Jc
         private Transform aimTransform;
 
         [Header("밸런싱")]
+        [SerializeField]
         private bool isGrab = false;
 
+        [SerializeField]
         private InteractObject currentGrabObject { get; set; }   // 현재 잡고있는 오브젝트
 
         private Camera cam;                         // 메인 카메라
@@ -88,10 +93,6 @@ namespace Jc
         }
         private void Update()
         {
-            // 에임이 잡힌 상태 (Hover 상태)
-            //if (isAimming)
-                //Aimming();  // 에이밍
-
             // 오브젝트를 잡고있는 상태에서 슬롯찾기
             if (isGrab && Manager.Inventory.isEnable)
                 FindSlot();
@@ -380,6 +381,7 @@ namespace Jc
 
         protected override void OnSelectEntering(SelectEnterEventArgs args)
         {
+            // 오브젝트 활성화
             if (args.interactableObject is IActivatable)
             {
                 IActivatable active = args.interactableObject as IActivatable;
@@ -400,8 +402,18 @@ namespace Jc
             currentGrabObject = args.interactableObject as InteractObject; // 현재 플레이어가 쥐고 있는 아이템. 
             grabbedTr = args.interactableObject.transform;
             isGrab = true;
-        }
 
+            // 착시 오브젝트의 경우 무조건 한 손으로만 상호작용 해야함.
+            // 반대 인터렉터의 오브젝트 강제로 놓기
+            if(oppositeInteractor.isGrab 
+                && oppositeInteractor.currentGrabObject != null
+                && (currentGrabObject is ResizingObject 
+                || currentGrabObject is PhotoFrame))
+            {
+                Debug.Log("Opposite interactor select exit");
+                oppositeInteractor.interactionManager.SelectExit(oppositeInteractor as IXRSelectInteractor, oppositeInteractor.currentGrabObject as IXRSelectInteractable);
+            }
+        }
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
@@ -429,12 +441,6 @@ namespace Jc
             }
 
             return true;
-        }
-
-        // 에임 포지셔닝
-        private void Aimming()
-        {
-            aimTransform.position = rayEndPoint - transform.forward;
         }
 
 
