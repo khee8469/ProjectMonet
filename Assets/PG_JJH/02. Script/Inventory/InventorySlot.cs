@@ -43,7 +43,7 @@ namespace JJH
 
 
         [Tooltip("레이 닿는지 확인용")]
-        private bool isRayHovering = false;
+        private bool isRayHovering { get; set; } = false;
 
         public SlotData slotData;
 

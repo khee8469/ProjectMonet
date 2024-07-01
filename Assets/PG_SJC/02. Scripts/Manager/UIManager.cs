@@ -32,12 +32,14 @@ namespace Jc
         [SerializeField]
         private RectTransform questEntryTr;
 
-        private void OnEnable()
+        public void CameraInit()
         {
             Debug.Log("UIManager Enable");
 
             Camera renderCamera = Camera.main;
+            Debug.Log(renderCamera);
             if (renderCamera == null) return;
+            Debug.Log($"main camera ->{renderCamera}");
 
             mainCanavas.worldCamera = renderCamera;
         }
@@ -75,6 +77,7 @@ namespace Jc
         // 인벤토리/퀘스트 창 열기
         public void OpenInfoGroup()
         {
+            
             infoGruop.transform.parent = Camera.main.transform;
             infoGruop.transform.localPosition = Vector3.zero;
             infoGruop.transform.localRotation = Quaternion.identity;

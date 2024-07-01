@@ -109,6 +109,7 @@ namespace JJH
                 {
                     slot.AddItemNumber();
                 }
+
                 slot.SetRayHovering(false); // 일단 다시 꺼줘보자. 
 
             }
