@@ -49,6 +49,9 @@ public class Miniature : InteractObject
         //key 값은 씬번호_오브젝트이름  같은 이름의 오브젝트에 위치 데이터 전달 예정
         positionData[id] = transform.localPosition;
         //positionData[$"{sceneNumber}_{transform.name}"] = transform.localPosition;
+
+        //데이터 저장
+        Manager.PlableData.SaveMiniatureData();
     }
 
     //미니어처가 장판 밖에 두었을때 원래 위치로 복구

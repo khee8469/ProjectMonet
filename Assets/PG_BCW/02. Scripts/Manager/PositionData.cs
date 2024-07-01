@@ -8,6 +8,8 @@ public class PositionData : MonoBehaviour
     private Dictionary<int, Vector3> savePosition_3 = new Dictionary<int, Vector3>();
     public Dictionary<int, Vector3> SavePosition_3 { get { return savePosition_3; } }
 
+
+
     /*//각 씬의 딕셔너리를 리스트로 저장
     private List<Dictionary<int, Vector3>> savePosition = new List<Dictionary<int, Vector3>>();
     public List<Dictionary<int, Vector3>> SavePosition { get { return savePosition; } }

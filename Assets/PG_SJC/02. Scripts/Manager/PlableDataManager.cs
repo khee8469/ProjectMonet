@@ -1,6 +1,7 @@
 using JJH;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace Jc
@@ -40,6 +41,7 @@ namespace Jc
         public PositionData PositionData { get { return positionData; } }
 
 
+
         private void OnEnable()
         {
             InitSetting();
@@ -58,15 +60,6 @@ namespace Jc
             {
                 Manager.Quest.QuestDic[data.id_quest].State = (QuestState)data.progress;
             }
-
-
-            /*// 미니어처 위치 로드
-            List<MiniatureData> loadMiniatureData = LoadMiniatureData();
-            miniatureDatas = loadMiniatureData;
-            foreach(MiniatureData data in miniatureDatas)
-            {
-
-            }*/
         }
 
 
@@ -140,7 +133,7 @@ namespace Jc
             foreach (var key in Manager.Inventory.inventorySlots.Keys)
             {
                 InventorySlot slot = Manager.Inventory.inventorySlots[key];
-                inventorySlotDatas[key-1] = new SlotData(slot.slotID, slot.ItemID, slot.ItemCount);
+                inventorySlotDatas[key - 1] = new SlotData(slot.slotID, slot.ItemID, slot.ItemCount);
 
                 //Debug.Log($"{slot.slotID} , {slot.ItemID} , {slot.ItemCount} --> 슬롯 데이터의 상태");
 
@@ -195,41 +188,28 @@ namespace Jc
                 Debug.Log("미니어처 데이터 리스트가 초기화되지 않았습니다.");
                 return;
             }
-
-            /*for (int i = 0; i < positionData.SavePosition.Count; i++) // List<MiniatureData> 씬 내부 미니어처 겟수
+            //딕셔너리데이터를 구조체에 저장
+            foreach (int key in positionData.SavePosition_3.Keys)
             {
-                for(int j = 0; j < positionData.SavePosition[i].Count; j++)
-                {
-                    int sceneId = positionData.SavePosition[i].Keys;
-                    int miniatureId = miniatureDatas[i][j].id;
-                    float x = miniatureDatas[i].xPosition;
-                    float y = miniatureDatas[i].yPosition;
-                    float z = miniatureDatas[i].zPosition;
+                Debug.Log(key);
+                int miniatureId = key;
+                float x = positionData.SavePosition_3[key].x;
+                float y = positionData.SavePosition_3[key].y;
+                float z = positionData.SavePosition_3[key].z;
 
-                    miniatureDatas[i] = new MiniatureData(sceneId, miniatureId, new Vector3(x, y, z));
-                }
-            }*/
-
+                miniatureDatas[key-1] = new MiniatureData(miniatureId, new Vector3(x, y, z));
+            }
 
             //miniatureDatas 데이터 csv파일로 세이브
             CSVHelper.Write(Path.Combine("Assets/PG_SJC/Resources/", DataPath.LocalMiniatureData), miniatureDatas);
         }
+
         // 미니어처 위치 데이터 불러오기
-        /*public List<MiniatureData> LoadMiniatureData()
+        public void LoadMiniatureData()
         {
             List<MiniatureData> loadedData = new List<MiniatureData>();
 
-            //private List<Dictionary<int, Vector3>> savePosition 초기화
-            for (int i = 0; i < PositionData.SavePosition.Count; i++)
-            {
-                // 초기화 
-                foreach (int key in miniatureDatas_3)
-                {
-                    loadedData.Add(new MiniatureData(key, new Vector3(-1, -1, -1)));
-                }
-            }
-
-
+            //데이터를 로드
             if (Directory.Exists(Path.Combine("Assets/PG_SJC/Resources/", DataPath.LocalMiniatureData)))
             {
                 List<Dictionary<string, object>> csvData = CSVHelper.Read(DataPath.LocalMiniatureData);
@@ -242,9 +222,23 @@ namespace Jc
                         loadedData[i] = new MiniatureData((int)csvData[i]["id"], new Vector3((int)csvData[i]["xPosition"], (int)csvData[i]["yPosition"], (int)csvData[i]["zPosition"]));
                     }
                 }
+                // 로드된 데이터를 딕셔너리에 저장
+                LoadMiniaturePosition();
             }
 
-            return loadedData;
-        }*/
+            //초기화는 미니어처매니저에서
+
+            //csv화용 구조체에 저장
+            miniatureDatas = loadedData;
+        }
+
+        //로드된 데이터를 딕셔너리에 저장
+        public void LoadMiniaturePosition()
+        {
+            foreach (MiniatureData data in miniatureDatas)
+            {
+                positionData.SavePosition_3[data.miniatureId] = new Vector3(data.xPosition, data.yPosition, data.zPosition);
+            }
+        }
     }
 }

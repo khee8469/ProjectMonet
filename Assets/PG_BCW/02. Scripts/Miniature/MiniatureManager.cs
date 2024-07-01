@@ -22,6 +22,7 @@ public class MiniatureManager : PuzzleManager
 
     private void Start()
     {
+        Manager.PlableData.LoadMiniatureData();
         SetMiniPosition();
     }
 
@@ -36,7 +37,7 @@ public class MiniatureManager : PuzzleManager
             {
                 miniature.transform.localPosition = new Vector3(positionData[miniature.Id].x, positionData[miniature.Id].y, positionData[miniature.Id].z);
             }
-            //데이터가 없으면
+            //데이터가 없으면 초기화
             else
             {
                 positionData[miniature.Id] = miniature.transform.localPosition;
