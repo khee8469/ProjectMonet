@@ -81,7 +81,7 @@ namespace JJH
                     }
                 }*/
                 drawCompleteCheckDic.Add(drawObjectManagers[i], ChapterManager.drawPartCheck[i]);
-                Debug.Log($"DrawComplete 상황에서 제대로 매칭이 되고 있는지 확인하기.{drawObjectManagers[i]}  , {ChapterManager.drawPartCheck[i]}");
+                
 
                 if (drawCompleteCheckDic.TryGetValue(drawObjectManagers[i], out bool isTrue))
                 {

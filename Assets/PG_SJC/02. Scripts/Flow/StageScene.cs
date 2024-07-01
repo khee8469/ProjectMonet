@@ -11,20 +11,14 @@ namespace Jc
     {
         private ColorAdjustments colorAdjustments;
 
+        // SceneID 맞춰서 포스트 프로세싱 적용 
         [SerializeField] private int SceneID = 0;
         [SerializeField] Volume globalVolume;
 
         // 로딩 루틴 별로 카메라 찾아서 포스트 프로세싱 조절 해줄 것 
 
         // 임시 체크
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha0))
-            {
-                Manager.Scene.LoadScene("RealLobby_JJH");
-            }
-        }
-
+    
         public override IEnumerator LoadingRoutine()
         {
             Debug.Log("챕터1 씬 로딩루틴 진행");

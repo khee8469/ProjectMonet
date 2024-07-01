@@ -62,7 +62,6 @@ namespace JJH
 
         private void Start()
         {
-            Debug.Log("챕터 매니저의 싱글턴 스타트");
 
             // 같은 이름의 오브젝트여도 서로 다른 오브젝트라면 다른 key로 판단 가능. 
             drawObjectManager = GameObject.FindObjectsOfType<DrawObjectManager>();

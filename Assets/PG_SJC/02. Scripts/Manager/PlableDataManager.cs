@@ -107,8 +107,6 @@ namespace Jc
                     }
                 }
             }
-
-
             return loadedData;
         }
         // 인벤토리 슬롯 데이터 저장
@@ -124,6 +122,10 @@ namespace Jc
             {
                 InventorySlot slot = Manager.Inventory.inventorySlots[key];
                 inventorySlotDatas[key-1] = new SlotData(slot.slotID, slot.ItemID, slot.ItemCount);
+
+                //Debug.Log($"{slot.slotID} , {slot.ItemID} , {slot.ItemCount} --> 슬롯 데이터의 상태");
+
+                //Debug.Log("Save slot 진입");
             }
 
             CSVHelper.Write(Path.Combine("Assets/PG_SJC/Resources/", DataPath.LocalInventoryData), inventorySlotDatas);
@@ -141,7 +143,6 @@ namespace Jc
 
             if (Directory.Exists("Assets/PG_SJC/Resources/UserData"))
             {
-
                 List<Dictionary<string, object>> csvData = CSVHelper.Read(DataPath.LocalInventoryData);
 
                 // 불러온 데이터가 있다면 덮어쓰기 진행
