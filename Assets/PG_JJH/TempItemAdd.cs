@@ -18,10 +18,12 @@ public class TempItemAdd : MonoBehaviour
             if(Manager.Inventory.RemoveItem(ItemID))
             {
                 Debug.Log("트루로 들어갔고 제대로 삭제됨");
+
             }
             else
             {
                 Debug.Log("실패로 들어갔고 삭제 불가능 ->이미 없기때문에");
+
             }
         }
     }
