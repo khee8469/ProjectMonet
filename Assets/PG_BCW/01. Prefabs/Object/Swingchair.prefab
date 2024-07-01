@@ -484,7 +484,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 364125916182728267}
+  - {fileID: 4058557702825073786}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -583,16 +585,16 @@ MonoBehaviour:
   m_AttachEaseInTime: 0.15
   m_MovementType: 0
   m_VelocityDamping: 1
-  m_VelocityScale: 1
+  m_VelocityScale: 0.1
   m_AngularVelocityDamping: 1
-  m_AngularVelocityScale: 1
+  m_AngularVelocityScale: 0.1
   m_TrackPosition: 1
   m_SmoothPosition: 1
-  m_SmoothPositionAmount: 8
+  m_SmoothPositionAmount: 20
   m_TightenPosition: 1
   m_TrackRotation: 1
   m_SmoothRotation: 1
-  m_SmoothRotationAmount: 8
+  m_SmoothRotationAmount: 20
   m_TightenRotation: 1
   m_TrackScale: 1
   m_SmoothScale: 0
@@ -624,11 +626,13 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
-  grabDistance: 5
+  isTwoHanded: 0
+  grabDistance: 0
+  interactors: []
   trigger:
     serializedVersion: 2
     m_Bits: 2097152
-  swingCount: 0
+  swingCount: 5
 --- !u!1 &6402747852713797439
 GameObject:
   m_ObjectHideFlags: 0

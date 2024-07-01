@@ -1,14 +1,7 @@
-using JetBrains.Annotations;
 using JJH;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using Newtonsoft.Json;
-using UnityEngine.XR.Interaction.Toolkit;
-using Unity.Burst.CompilerServices;
-using Cinemachine.PostFX;
-using System;
 
 namespace Jc
 {
@@ -23,7 +16,7 @@ namespace Jc
         private List<SlotData> inventorySlotDatas;
         public List<SlotData> InventorySlotDatas { get { return inventorySlotDatas; } }
 
-        public Dictionary<int, bool> paintDataList; 
+        public Dictionary<int, bool> paintDataList;
 
         [Header("테스트모드 (false : 새로 시작) (true : 불러오기)")]
         public bool isLoadMode = false;
@@ -32,6 +25,20 @@ namespace Jc
         private string questJson;
         [SerializeField]
         private string inventoryJson;
+
+
+
+        [Tooltip("미니어처 위치 데이터 저장용")]
+        [SerializeField]
+
+        private List<MiniatureData> miniatureDatas;
+        public List<MiniatureData> MiniatureDatas { get { return miniatureDatas; } }
+
+        //Resources에서 가져오기, 미니어처 위치 데이터 저장용
+        [SerializeField]
+        private PositionData positionData;
+        public PositionData PositionData { get { return positionData; } }
+
 
         private void OnEnable()
         {
@@ -52,7 +59,19 @@ namespace Jc
                 Manager.Quest.QuestDic[data.id_quest].State = (QuestState)data.progress;
             }
 
+
+            /*// 미니어처 위치 로드
+            List<MiniatureData> loadMiniatureData = LoadMiniatureData();
+            miniatureDatas = loadMiniatureData;
+            foreach(MiniatureData data in miniatureDatas)
+            {
+
+            }*/
         }
+
+
+
+
         public void InitSlot()
         {
             // 인벤토리 슬롯 데이터 로드
@@ -118,7 +137,7 @@ namespace Jc
                 return;
             }
 
-            foreach(var key in Manager.Inventory.inventorySlots.Keys)
+            foreach (var key in Manager.Inventory.inventorySlots.Keys)
             {
                 InventorySlot slot = Manager.Inventory.inventorySlots[key];
                 inventorySlotDatas[key-1] = new SlotData(slot.slotID, slot.ItemID, slot.ItemCount);
@@ -164,6 +183,68 @@ namespace Jc
 
             return loadedData;
         }
-    }
 
+
+
+
+        // 포지션 데이터 구조체로 변환해서 저장
+        public void SaveMiniatureData()
+        {
+            if (miniatureDatas.Count < 1)
+            {
+                Debug.Log("미니어처 데이터 리스트가 초기화되지 않았습니다.");
+                return;
+            }
+
+            /*for (int i = 0; i < positionData.SavePosition.Count; i++) // List<MiniatureData> 씬 내부 미니어처 겟수
+            {
+                for(int j = 0; j < positionData.SavePosition[i].Count; j++)
+                {
+                    int sceneId = positionData.SavePosition[i].Keys;
+                    int miniatureId = miniatureDatas[i][j].id;
+                    float x = miniatureDatas[i].xPosition;
+                    float y = miniatureDatas[i].yPosition;
+                    float z = miniatureDatas[i].zPosition;
+
+                    miniatureDatas[i] = new MiniatureData(sceneId, miniatureId, new Vector3(x, y, z));
+                }
+            }*/
+
+
+            //miniatureDatas 데이터 csv파일로 세이브
+            CSVHelper.Write(Path.Combine("Assets/PG_SJC/Resources/", DataPath.LocalMiniatureData), miniatureDatas);
+        }
+        // 미니어처 위치 데이터 불러오기
+        /*public List<MiniatureData> LoadMiniatureData()
+        {
+            List<MiniatureData> loadedData = new List<MiniatureData>();
+
+            //private List<Dictionary<int, Vector3>> savePosition 초기화
+            for (int i = 0; i < PositionData.SavePosition.Count; i++)
+            {
+                // 초기화 
+                foreach (int key in miniatureDatas_3)
+                {
+                    loadedData.Add(new MiniatureData(key, new Vector3(-1, -1, -1)));
+                }
+            }
+
+
+            if (Directory.Exists(Path.Combine("Assets/PG_SJC/Resources/", DataPath.LocalMiniatureData)))
+            {
+                List<Dictionary<string, object>> csvData = CSVHelper.Read(DataPath.LocalMiniatureData);
+
+                // 불러온 데이터가 있다면 덮어쓰기 진행
+                if (csvData != null && csvData.Count >= 1)
+                {
+                    for (int i = 0; i < csvData.Count; i++)
+                    {
+                        loadedData[i] = new MiniatureData((int)csvData[i]["id"], new Vector3((int)csvData[i]["xPosition"], (int)csvData[i]["yPosition"], (int)csvData[i]["zPosition"]));
+                    }
+                }
+            }
+
+            return loadedData;
+        }*/
+    }
 }

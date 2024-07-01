@@ -7,17 +7,19 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Miniature : InteractObject
 {
-    int sceneNumber;  // 씬 위치데이터 접근용
-    Vector3 startPos;  // 시작위치 저장용
+    [Tooltip("저장용 Id")]
+    [SerializeField] int id;
+    public int Id {  get { return id; } }  
     
-    [SerializeField] float yHeight;
+    [Tooltip("씬 위치데이터 접근용")]
+    [SerializeField] int sceneNumber;
+    // 시작위치 저장용
+    Vector3 startPos;  
 
 
     protected override void Awake()
     {
         base.Awake();
-
-        //XRBaseControllerInteractor a;
     }
 
     private void Start()
@@ -42,8 +44,11 @@ public class Miniature : InteractObject
     //미니어처의 현재 위치를 저장
     public void SavePosition()
     {
-        var positionData = PositionSyncManager.Instance.PositionData.SavePosition[sceneNumber];
-        positionData[transform.name] = transform.localPosition;
+        //현재 씬 딕셔너리 값 가져오기
+        var positionData = Manager.PlableData.PositionData.SavePosition_3;
+        //key 값은 씬번호_오브젝트이름  같은 이름의 오브젝트에 위치 데이터 전달 예정
+        positionData[id] = transform.localPosition;
+        //positionData[$"{sceneNumber}_{transform.name}"] = transform.localPosition;
     }
 
     //미니어처가 장판 밖에 두었을때 원래 위치로 복구

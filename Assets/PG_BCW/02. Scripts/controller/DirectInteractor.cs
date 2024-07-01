@@ -1,8 +1,7 @@
 using Jc;
+using System.Collections;
 using UnityEngine;
-
 using UnityEngine.XR.Interaction.Toolkit;
-using UnityEngine.XR.Interaction.Toolkit.Utilities.Pooling;
 
 public class DirectInteractor : XRDirectInteractor
 {
@@ -14,10 +13,16 @@ public class DirectInteractor : XRDirectInteractor
     [Tooltip("왼손 오른손 확인")]
     [SerializeField]
     private bool isLeftController = false;
+
+    [Tooltip("왼손 오른손 확인")]
     public enum Hand {  Left, Right };
     [SerializeField]
     private Hand interactorHand;
     public Hand InteractorHand { get { return interactorHand; } }
+
+    [Tooltip("그랩 사거리")]
+    private float maxDir = 1;
+    public float MaxDir { get { return maxDir; } }
 
     //구현하고싶은 기능
     //1.양손다 잡혓는지 확인필요 양손다 잡혓을떄 그네 이동가능?
@@ -95,14 +100,36 @@ public class DirectInteractor : XRDirectInteractor
     {
         base.OnSelectEntered(args);
 
-
+        //잡은손이 하나일때 시작
+        if(interactablesSelected.Count == 1)
+        {
+            coroutine = StartCoroutine(HandGrabMaxDir(args));
+        }
+        
     }
     protected override void OnSelectExited(SelectExitEventArgs args)
     {
         base.OnSelectExited(args);
 
-
+        if(coroutine != null)
+        {
+            StopCoroutine(coroutine);
+        }
+        
     }
 
-    
+
+    Coroutine coroutine;
+    //손과 오브젝트 거리가 멀어지면 떨어지게
+    IEnumerator HandGrabMaxDir(SelectEnterEventArgs args)
+    {
+        while (true)
+        {
+            if ((transform.position - args.interactable.transform.position).magnitude > maxDir)
+            {
+                this.interactionManager.SelectExit(this, this.interactablesSelected[0]);
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
 }

@@ -14,9 +14,11 @@ public class Swing : InteractObject
     //움직임 제한용
     private Rigidbody rb;
 
+    private float rate;
+
     //미션 클리어
     private bool isSucess;
-    public bool IsSucess {  get { return isSucess; } }
+    public bool IsSucess { get { return isSucess; } }
 
 
     protected override void Awake()
@@ -38,6 +40,7 @@ public class Swing : InteractObject
         else
         {
             rb.constraints = RigidbodyConstraints.None;
+
         }
     }
 
@@ -54,19 +57,19 @@ public class Swing : InteractObject
             if (OnTrigger)
             {
                 swingCount++;
-                if(swingCount > 2) 
+                if (swingCount > 2)
                 {
                     Debug.Log("그네 3회 성공");
                     isSucess = true;
                 }
-                
+
             }
-                
+
 
         }
         rb.constraints = RigidbodyConstraints.None;
 
-        
+
     }
 
     //일정영역까지 당겨지는 확인용
