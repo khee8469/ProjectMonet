@@ -48,7 +48,9 @@ namespace Jc
             if (ob != statue) return;
 
             ob.transform.position = attachTransform.position;
-            ob.transform.rotation = attachTransform.rotation;   
+            ob.transform.rotation = attachTransform.rotation;
+            ob.GetComponent<Rigidbody>().isKinematic = true;
+            ob.GetComponent<Collider>().enabled = false;
             // 조각상이 끼워진 경우 이벤트 발생
             ActiveEvent();
         }
