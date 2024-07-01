@@ -130,8 +130,6 @@ namespace Jc
                 return;
             }*/
 
-            Debug.Log("아이템 빼기 진입2");
-
             // 슬롯에서 hover 시 아이템 입 출입 무한 반복 방지 
             curSlot.SetRayHovering(true);
 

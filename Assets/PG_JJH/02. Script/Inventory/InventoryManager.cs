@@ -100,6 +100,9 @@ namespace JJH
                 // 이 해당 슬롯에 이제 해당하는 item id 값을 가진 프리팹을 붙여준다.
                 slot.SetRayHovering(true);
                 slot.interactionManager.SelectEnter(slot as IXRSelectInteractor, item as IXRSelectInteractable);
+                // 셀렉트 엔터가 안되고 있는지 확인해보기.
+                Debug.Log($"셀렉트 엔터드 상태 {slot} , {item}");
+
                 slot.AddItem(item); // ADD 에서 이미 자식으로 만들어 주고 kinematic 켜주고 있는데? 
 
                 for (int i = 0; i < slotData.count; i++)

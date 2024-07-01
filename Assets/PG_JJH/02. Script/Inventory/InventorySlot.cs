@@ -223,6 +223,7 @@ namespace JJH
         public void AddItem(InventoryItem item)
         {
             // item.itemData.SaveOriginalTransform(item.transform);
+            Debug.Log("ADD ITEM 진입함.");
             InventoryItem inventoryItem = item as InventoryItem;
             inventoryItem.transform.SetParent(itemTransform); // 아 이 자식으로 만드는 위치를 어디서 해줘야 될지 너무 고민되는데... 
 

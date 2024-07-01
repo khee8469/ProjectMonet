@@ -61,6 +61,8 @@ namespace JJH
 
             trackScale = false; //스케일 조정을 위한 트랙 스케일 제거.
             SaveScale();
+
+            throwOnDetach = false; // Kinematic item 이라면 
         }
 
         public void SaveScale()
