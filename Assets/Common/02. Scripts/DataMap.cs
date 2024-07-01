@@ -57,6 +57,9 @@ namespace Jc
 
         // Json 플레이어블 데이터
         public const string LocalInventoryData = "UserData/InventoryDT.csv";
+
+        // Json Miniature 위치 데이터
+        public const string LocalMiniatureData = "UserData/MiniatureDT.csv";
     }
 
     public static class ResourcesPath

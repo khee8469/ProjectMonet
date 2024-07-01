@@ -18,6 +18,8 @@ public static class Manager
     public static QuestManager Quest { get { return QuestManager.Instance; } }
     public static PlableDataManager PlableData { get { return PlableDataManager.Instance;}}
 
+
+
     
 
 
