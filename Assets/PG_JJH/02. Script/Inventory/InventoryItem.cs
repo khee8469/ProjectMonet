@@ -1,5 +1,6 @@
 using Jc;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
@@ -32,6 +33,10 @@ namespace JJH
         [Tooltip(" 소켓에 들어갔을 때 조정 해 줄 아이템의 스케일...")]
         [SerializeField] private Vector3 socketScale;
 
+
+        [Tooltip("원래 item의 isKinematic 체크 --> 원래부터 kinematic 인지 아닌지 판단하기.")]
+        [SerializeField] private bool isKinematic; // 각 아이템 마다 체크 해주기. 
+
         public Vector3 SocketScale { get { return socketScale; } private set { socketScale = value; } }
 
 
@@ -40,6 +45,9 @@ namespace JJH
             base.Awake();
             originalScale = transform.localScale;
             rigid = GetComponent<Rigidbody>();
+            retainTransformParent = false; // socket 에서 해제 시에도 부모의 자식으로 붙어 있으려함 -> False
+
+
         }
 
         private void Start()
@@ -117,6 +125,22 @@ namespace JJH
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
+
+            if(args.interactorObject.transform.GetComponent<InventorySlot>())
+            {
+                rigid.isKinematic = true;
+            }
+            else
+            {
+                if(isKinematic ==true) // 원래 키네마틱이 true인 아이템이라면
+                {
+                    rigid.isKinematic = true;
+                }
+                else // 원래는 kinematic이 flase인 아이템 이라면
+                {
+                    rigid.isKinematic=false;
+                }
+            }
         }
 
         //IsGrab 쓰게 되면 사용할 코루틴 

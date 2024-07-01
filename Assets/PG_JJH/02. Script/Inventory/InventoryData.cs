@@ -56,9 +56,6 @@ namespace JJH
         public void RestoreOriginalTransform(Transform transform)
         {
             transform.localScale = originalScale;
-            Debug.Log($"Data 스크립트에서 originalSacle을 복구하는 상황의 scale" +
-                $"-> {transform.localScale} = {originalScale}");
-
         }
     }
 

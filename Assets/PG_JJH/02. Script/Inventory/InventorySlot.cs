@@ -99,15 +99,34 @@ namespace JJH
                 }
             }
         }
+
+        // 이게 지금 인벤토리를 닫으면 isEnable 이 false가 되는데 그 때 인벤토리를 닫고 아이템을 제거해도 RemoveItem 이라는 함수를
+        // 발동 시킬 수가 없다. 문제가 이제 isEnable 상태가 아닐 때도 exit을 해버리면 자동적으로 무조건 Exit 이 발동을 하게 된다.
+        // 예외처리를 해줘야 하는데 이 때 자신이 슬롯을 할까?
+
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
+            Debug.Log("Slot -> OnSelectedExiting");
 
-            if (!Manager.Inventory.isEnable || !Application.isPlaying) return;
+            //if (!Manager.Inventory.isEnable) return;
+
+            /*if(args.interactorObject.transform.GetComponent<InventorySlot>()!=null)
+            {
+                Debug.Log("닫는 순간에 slot이 닫히면서 exit이 발동되었다.");
+                return;
+            }*/
+
+            if(args.interactorObject.transform.GetComponent<CustomCheck>()!=null)
+            {
+                Debug.Log("사람과 상호작용함.");
+            }
 
             Debug.Log($"IS HOVERING 상태 ->{isRayHovering}");
 
             if (!isRayHovering) return;
+            Debug.Log("IS HOVERING 다음 부분 진입함");
+
 
             IInventory item = args.interactableObject.transform.GetComponent<IInventory>();
             if (item != null)

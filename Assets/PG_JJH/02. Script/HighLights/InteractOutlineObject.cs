@@ -17,6 +17,7 @@ namespace JJH
 
         Outlinable myOutline;
 
+        // MainCamera에 OutLiner objectd에 OutLinable
 
         private void Start()
         {

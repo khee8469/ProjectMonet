@@ -94,7 +94,7 @@ namespace Jc
         private void Update()
         {
             // 오브젝트를 잡고있는 상태에서 슬롯찾기
-            if (isGrab && Manager.Inventory.isEnable)
+            if (/*isGrab &&*/ Manager.Inventory.isEnable)
                 FindSlot();
         }
 
@@ -109,28 +109,28 @@ namespace Jc
             {
                 return;
             }
-
             if (Manager.Inventory.isEnable == false)
             {
                 return;
             }
-            if (isGrab == true)
+
+            /*if (isGrab == true) // 잡고 있을 때도 빼는 상황 진입해야 하지 않나? 생각해보기. 
             {
                 return;
-            }
-
+            }*/
             InventorySlot slotItem = curSlot.GetComponent<InventorySlot>();
-            if (slotItem == null) return;
-            //if (currentGrabObject == null) return;
-            if (curSlot.interactablesSelected.Count <= 0) return; // 슬롯에 아이템이 하나도 없는 경우. 
+            //Debug.Log(curSlot.interactablesSelected[0]); --> 현재 여기가 오류가 뜨고 있다. 0이 없는상황임.
 
+            if (slotItem == null || curSlot.interactablesSelected.Count <= 0) return;
             IXRSelectInteractable xrGrab = curSlot.interactablesSelected[0];
 
-            if (!(xrGrab is InteractObject objects))
+           /* if (!(xrGrab is InteractObject objects))
             {
                 Debug.Log("상호작용이 불가능한 이벤트용 아이템 --> 빼기 불가능");
                 return;
-            }
+            }*/
+
+            Debug.Log("아이템 빼기 진입2");
 
             // 슬롯에서 hover 시 아이템 입 출입 무한 반복 방지 
             curSlot.SetRayHovering(true);
@@ -192,7 +192,7 @@ namespace Jc
                     }
                     else if (item.itemData.stackType == StackTypeItem.Non_Stack) // 꺼내려는 아이템이 일반 아이템 이라면. 
                     {
-                        
+                        Debug.Log("인벤토리 아이템 난 스택 꺼내기");
                         curSlot.interactionManager.SelectEnter(this as IXRSelectInteractor, slotItem.interactablesSelected[0] as IXRSelectInteractable);
                         curSlot.SetRayHovering(false);
                     }

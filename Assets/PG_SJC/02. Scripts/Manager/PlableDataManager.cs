@@ -122,6 +122,10 @@ namespace Jc
             {
                 InventorySlot slot = Manager.Inventory.inventorySlots[key];
                 inventorySlotDatas[key-1] = new SlotData(slot.slotID, slot.ItemID, slot.ItemCount);
+
+                //Debug.Log($"{slot.slotID} , {slot.ItemID} , {slot.ItemCount} --> 슬롯 데이터의 상태");
+
+                //Debug.Log("Save slot 진입");
             }
 
             CSVHelper.Write(Path.Combine("Assets/PG_SJC/Resources/", DataPath.LocalInventoryData), inventorySlotDatas);

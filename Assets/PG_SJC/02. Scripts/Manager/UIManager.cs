@@ -98,6 +98,7 @@ namespace Jc
             infoGruop.transform.parent = this.transform;
             Manager.Inventory.isEnable = false;
             infoGruop.SetActive(false);
+            
         }
 
         public void CreateEntry(Quest quest)
