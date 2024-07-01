@@ -83,14 +83,13 @@ namespace Jc
             if(Manager.Inventory.is_AddRemoveItem == true)
             {
                 Debug.Log("오픈 시 데이터 로드");
-
                 Manager.Inventory.LoadSlot();
-                Manager.Inventory.is_AddRemoveItem = false; 
+
             }
-
-
             infoGruop.SetActive(true);
             Manager.Inventory.isEnable = true;
+            Manager.Inventory.is_AddRemoveItem = false;
+
         }
         // 인벤토리/퀘스트 창 닫기
         public void CloseInfoGroup()
@@ -99,6 +98,7 @@ namespace Jc
             infoGruop.transform.parent = this.transform;
             Manager.Inventory.isEnable = false;
             infoGruop.SetActive(false);
+            
         }
 
         public void CreateEntry(Quest quest)

@@ -1,10 +1,8 @@
-using JetBrains.Annotations;
 using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
-using Jc;
 namespace JJH
 {
     public class InventorySlot : XRSocketInteractor
@@ -15,7 +13,7 @@ namespace JJH
         // 그 부분을 염두에 두고 데이터를 연계하자. 
 
         [Tooltip("아이템의 id")]
-        [SerializeField] 
+        [SerializeField]
         private int itemID = -1; //슬롯에 아무것도 없으면 -1 할당.
         public int ItemID { get { return itemID; } set { itemID = value; } }
         [Tooltip("슬롯 자신의 Transform")]
@@ -41,7 +39,7 @@ namespace JJH
 
         [Tooltip("슬롯의 기본 이미지 색깔")]
         private Color originalColor;
-        public Color OriginalColor { get { return originalColor; } private set { originalColor = value; } } 
+        public Color OriginalColor { get { return originalColor; } private set { originalColor = value; } }
 
 
         [Tooltip("레이 닿는지 확인용")]
@@ -70,27 +68,24 @@ namespace JJH
             Manager.Inventory.RegisterSlot(this); //THIS 시에 슬롯 아이디를 설정해줘야한다. 
             notAddText.enabled = false;
             originalColor = slotImage.color;
-             
+
         }
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args); // 잡을 수 있는 아이템 체크 
-            
-            Debug.Log($"OnSelectEntered - Scale: {args.interactableObject.transform.localScale}");
-            if (Manager.Inventory.isEnable == false) 
+
+            if (Manager.Inventory.isEnable == false)
                 return;
-            if (!isRayHovering) 
+            if (!isRayHovering)
                 return;
 
             IInventory item = args.interactableObject.transform.GetComponent<IInventory>();
-
-            
             if (item != null)
             {
                 if (item is InventoryItem)
                 {
-                    Debug.Log($"[CustomXRSocketInteractor] OnSelectEntered - Before Scaling: {args.interactableObject.transform.localScale}");
+
                     InventoryItem inventoryItem = item as InventoryItem;
                     inventoryItem.transform.SetParent(itemTransform); // 아 이 자식으로 만드는 위치를 어디서 해줘야 될지 너무 고민되는데... 
                     AddItem(inventoryItem);
@@ -104,22 +99,39 @@ namespace JJH
                 }
             }
         }
+
+        // 이게 지금 인벤토리를 닫으면 isEnable 이 false가 되는데 그 때 인벤토리를 닫고 아이템을 제거해도 RemoveItem 이라는 함수를
+        // 발동 시킬 수가 없다. 문제가 이제 isEnable 상태가 아닐 때도 exit을 해버리면 자동적으로 무조건 Exit 이 발동을 하게 된다.
+        // 예외처리를 해줘야 하는데 이 때 자신이 슬롯을 할까?
+
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
+            Debug.Log("Slot -> OnSelectedExiting");
 
-            Debug.Log($"OnSelectExited - Scale: {args.interactableObject.transform.localScale}");
+            //if (!Manager.Inventory.isEnable) return;
 
-            if (!Manager.Inventory.isEnable || !Application.isPlaying) return;
+            /*if(args.interactorObject.transform.GetComponent<InventorySlot>()!=null)
+            {
+                Debug.Log("닫는 순간에 slot이 닫히면서 exit이 발동되었다.");
+                return;
+            }*/
+
+            if(args.interactorObject.transform.GetComponent<CustomCheck>()!=null)
+            {
+                Debug.Log("사람과 상호작용함.");
+            }
+
+            Debug.Log($"IS HOVERING 상태 ->{isRayHovering}");
+
             if (!isRayHovering) return;
+            Debug.Log("IS HOVERING 다음 부분 진입함");
+
 
             IInventory item = args.interactableObject.transform.GetComponent<IInventory>();
             if (item != null)
             {
                 InventoryItem inventoryItem = item as InventoryItem;
-
-                // 아이템의 스택 가능 여부를 판단해서 Remove를 두가지로 나누기
-
                 RemoveItem(inventoryItem);
             }
         }
@@ -135,10 +147,7 @@ namespace JJH
             if (item != null)
             {
                 InventoryItem inventoryItem = item as InventoryItem;
-                
-                Debug.Log($"[CustomXRSocketInteractor] OnSelectEntering - Initial Scale: {args.interactableObject.transform.localScale}");
                 // 리스토어가 먼지인지 이게 먼저이지 확인할것. 
-                Debug.Log("Entering 이벤트에서 item 체크");
             }
 
         }
@@ -180,7 +189,7 @@ namespace JJH
         public void SetRayHovering(bool isHovering)
         {
             isRayHovering = isHovering;
-            
+
         }
 
 
@@ -198,7 +207,7 @@ namespace JJH
 
         public override bool CanSelect(IXRSelectInteractable interactable)
         {
-            if (!isRayHovering) 
+            if (!isRayHovering)
                 return false;
 
             return base.CanSelect(interactable);
@@ -206,7 +215,7 @@ namespace JJH
 
         public override bool CanHover(IXRHoverInteractable interactable)
         {
-           
+
             return base.CanHover(interactable);
 
         }
@@ -214,10 +223,8 @@ namespace JJH
         public void AddItem(InventoryItem item)
         {
             // item.itemData.SaveOriginalTransform(item.transform);
-            // 아이템의 원래 트랜스폼을 저장
             InventoryItem inventoryItem = item as InventoryItem;
-            
-            Debug.Log("자식으로 만든 직후의 로컬 스케일" + item.transform.localScale);
+            inventoryItem.transform.SetParent(itemTransform); // 아 이 자식으로 만드는 위치를 어디서 해줘야 될지 너무 고민되는데... 
 
             item.transform.localPosition = Vector3.zero; // 슬롯 위치에 딱 맞도록 로컬 포지션을 0 으로 설정
             item.transform.localRotation = Quaternion.identity;
@@ -225,15 +232,8 @@ namespace JJH
             // 생각해보면 add 될 때 , remove 될 때만 한 번 스케일을 조정해 볼까? 여러군대에서 하지 말고. 
             // 이거 그냥 여기서 강제로 스케일 조정해 줘야 될 것 같음.
             // 이거 그냥 여기서 강제로 소켓 크기에 맞춰서 조정해 줘야 될 것 같음. 크기 조정이 안됨....
-            item.transform.localScale = item.SocketScale; 
-            Debug.Log($"item의 크기 조정됨.--> 타입에 따라 다른가? {item.transform.localScale}");
-
-            Debug.Log("Add 함수 내부 진입.");
-            Rigidbody rigidbody = item.GetComponent<Rigidbody>();
-            if (rigidbody != null)
-            {
-                rigidbody.isKinematic = true;
-            }
+            item.transform.localScale = item.SocketScale;
+            item.rigid.isKinematic = true;
             //ResizeItemToFitSlot(item.transform); // 이거 load save 할 때 써야되지 원래 크기 가지고 있어야지. 아닌가?
             // 아이템을 슬롯의 자식으로 설정
 
@@ -245,31 +245,24 @@ namespace JJH
             //Manager.Inventory.UpdateInventoryData();
         }
 
-        // 아이템 삭제 ( 꺼내기)
+        // 아이템 삭제 ( 꺼내기) --> Selected Exit 에서만 발동된다. 
         public void RemoveItem(InventoryItem item)
         {
-            // 제거 시에 이벤트 타입이라면
-            if(item.itemData.eventItemType==EventItemType.Event)
+           
+            if (item.transform.parent != null)
             {
-                // 상속한 인터페이스를 통해 각 이벤트 아이템 마다 해야 하는 작업을 지정해주자.
-                // ex ) interface 에서 public void Use 등을 상속한다. 아마도? 
-            }
-
-            if (item.transform.parent != null && gameObject.activeSelf)
-            {
+                Debug.Log("자식 해제");
                 item.transform.SetParent(null); //자식 해제 --> 소켓에서 때면 자동으로 자식이 해제가 되는데요?? 
             }
-
             //item.itemData.RestoreOriginalTransform(item.transform); //오브젝트의 실제 scale을 리턴해줌. 
             // 이게 인벤토리를 그냥 닫으면 실행되는거라 그냥 자동적으로 원래 스케일이 리턴되는듯하다. 
             Rigidbody rigidbody = item.GetComponent<Rigidbody>();
 
             if (rigidbody != null)
             {
-                Debug.Log("Remove로 키네마틱 켜줘도 이게 플레이어가 grab 중이면 자동으로 키네마틱이 true로 바뀜 --> 플레이어가 잡고 잇을 때 물리적용 받을까봐");
+                Debug.Log("RemoveItem 발동");
                 rigidbody.isKinematic = false; // 다시 키네마틱 꺼주기. 
             }
-
             slotImage.color = originalColor;
 
             itemID = -1;
@@ -360,7 +353,7 @@ namespace JJH
         Coroutine notAddCoroutine;
         public void NotAddText()
         {
-            if(notAddCoroutine == null)
+            if (notAddCoroutine == null)
             {
                 notAddCoroutine = StartCoroutine(NotAddRoutine());
             }
@@ -396,7 +389,7 @@ namespace JJH
                 ItemCount = 0;
                 countText.text = $" "; // 0 이면 그냥 안보이게 하자. 
             }
-            
+
             // 0 이라는 거는 어쨋든 아이템이 전부 빠진 상태니까 안 나오도록 고정한다. 
         }
 

@@ -20,7 +20,7 @@ namespace JJH
 
         // 여기도 결국 트리거 키로 진입을 해야 하기 때문에... 트리거 되서 진입해야함.
 
-        [SerializeField] GameObject player;
+        [SerializeField] private GameObject player;
         private CharacterController characterController; // 플레이어의 캐릭터 컨트롤러. 
 
         private bool isTrigger = false;
@@ -30,6 +30,7 @@ namespace JJH
 
         public void Activate()
         {
+
             if(player != null)
             {
                 Debug.Log("Activate 발동");
@@ -68,20 +69,18 @@ namespace JJH
         // 플레이어가 들어오면 --> pos 로 이동시키고 강제 고정 
         private void OnTriggerEnter(Collider other)
         {
-            if (Extension.Contain(playerLayer, other.gameObject.layer))
+            /*if (Extension.Contain(playerLayer, other.gameObject.layer))
             {
                 player = other.gameObject; // player 참조 시작. 
-            }          
-            /*else if (other.gameObject.CompareTag("Player"))
-            {
-                player =other.gameObject;
             }*/
+            if (other.gameObject.CompareTag("Player"))
+            {
+                player = other.gameObject;
+                Debug.Log("플레이어");
+            }
+            // 이거 그냥 태그로 하자. 
 
         }
-
-        
-
-
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);

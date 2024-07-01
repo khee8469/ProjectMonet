@@ -47,6 +47,8 @@ namespace Jc
             if (ob == null) return;
             if (ob != statue) return;
 
+            ob.transform.position = attachTransform.position;
+            ob.transform.rotation = attachTransform.rotation;   
             // 조각상이 끼워진 경우 이벤트 발생
             ActiveEvent();
         }
