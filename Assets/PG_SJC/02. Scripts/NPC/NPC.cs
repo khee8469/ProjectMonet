@@ -10,7 +10,7 @@ using UnityEngine.Events;
 
 namespace Jc
 {
-    public abstract class NPC : MonoBehaviour
+    public class NPC : MonoBehaviour
     {
         [Header("에디터 세팅")]
         [SerializeField]    
@@ -103,7 +103,7 @@ namespace Jc
         }
 
         // 목적지 계산
-        public abstract Vector3 CalculateDestination();
+        public virtual Vector3 CalculateDestination(){ return Vector3.zero; }
         // 상호작용 시 
         public virtual void OnInteract(PlayerQuestController questController)
         {
@@ -136,8 +136,11 @@ namespace Jc
 
                 // 다이얼로그 인덱스 수정
                 curDialogIndex = 0;
-                fsm.ChangeState(NPCStateType.Patrol);
-                anim.SetBool(Manager.Param.IsInteract, false);
+
+                if(fsm != null)
+                    fsm.ChangeState(NPCStateType.Patrol);
+                if(anim != null)
+                    anim.SetBool(Manager.Param.IsInteract, false);
             }
         }
 
@@ -179,8 +182,10 @@ namespace Jc
                         // 퀘스트 진행중 상태로 변경
                         currentQuest.ChangeState(QuestState.Proceed);
                         // NPC 상태 변경
-                        fsm.ChangeState(NPCStateType.Patrol);
-                        anim.SetBool(Manager.Param.IsInteract, false);
+                        if(fsm != null)
+                            fsm.ChangeState(NPCStateType.Patrol);
+                        if(anim != null)
+                            anim.SetBool(Manager.Param.IsInteract, false);
                         return;
                     }
                     // 대화 진행
@@ -200,8 +205,10 @@ namespace Jc
                         currentQuest.ChangeState(QuestState.DisActive);
                         // 리워드 지급은 퀘스트 자체에서 진행
                         // NPC 상태 변경
-                        fsm.ChangeState(NPCStateType.Patrol);
-                        anim.SetBool(Manager.Param.IsInteract, false);
+                        if(fsm != null)
+                            fsm.ChangeState(NPCStateType.Patrol);
+                        if(anim != null)
+                            anim.SetBool(Manager.Param.IsInteract, false);
                         return;
                     }
                     // 대화 진행
@@ -212,19 +219,23 @@ namespace Jc
                     break;
             }
 
+            dialogText.enabled = true;
+
+            if (anim == null) return;
             anim.SetTrigger(Manager.Param.OnInteract);
             // 플레이어 방향으로 전환
             Vector3 dir = (questController.transform.position - transform.position).normalized;
             transform.forward = dir;
-            dialogText.enabled = true;
         }
 
 
 
-        protected abstract void OnDrawGizmosSelected();
+        protected virtual void OnDrawGizmosSelected(){ }
 
         protected virtual void Update()
         {
+            if (fsm == null) return;
+
             if (fsm.CurState != curState)
                 curState = fsm.CurState;
 
@@ -232,10 +243,12 @@ namespace Jc
         }
         protected virtual void LateUpdate()
         {
+            if (fsm == null) return;
             fsm.LateUpdate();
         }
         protected virtual void FixedUpdate()
         {
+            if (fsm == null) return;
             fsm.FixedUpdate();
         }
     }

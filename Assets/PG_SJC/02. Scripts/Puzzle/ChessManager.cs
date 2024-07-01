@@ -14,7 +14,13 @@ namespace Jc
         private GameObject sunObject;
 
         [SerializeField]
-        private GameObject statueOb;
+        private StatueObject statueOb;
+
+        public override void LoadSetting()
+        {
+            base.LoadSetting();
+
+        }
 
         public void ResetBoard()
         {
@@ -32,13 +38,22 @@ namespace Jc
             if(!sunObject.activeSelf)
                 sunObject.SetActive(true);
 
+        }
+        private void OnTriggerExit(Collider other)
+        {
+            if (!Manager.Layer.playerLM.Contain(other.gameObject.layer))
+                return;
+
+            if (sunObject.activeSelf)
+                sunObject.SetActive(false);
+            
             ResetBoard();
         }
 
         public override void OnClearPuzzle()
         {
             base.OnClearPuzzle();
-            statueOb.SetActive(true);
+            statueOb.gameObject.SetActive(true);
         }
     }
 }
