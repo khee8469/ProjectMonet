@@ -10,7 +10,8 @@ public class TempItemAdd : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            Manager.Inventory.AddItem(ItemID); // 1번 아이템 ADD 
+            Manager.Inventory.AddItem(ItemID); // 아이템 Add 
+            Debug.Log($"아이템 추가 {ItemID}");
         }
 
         if (Input.GetKeyDown(KeyCode.P))

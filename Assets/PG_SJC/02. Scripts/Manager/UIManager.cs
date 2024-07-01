@@ -89,7 +89,7 @@ namespace Jc
             infoGruop.SetActive(true);
             Manager.Inventory.isEnable = true;
             Manager.Inventory.is_AddRemoveItem = false;
-            Debug.Log("이게 False로 바뀌고 실행되는 상황인데 순서를 좀 보자.");
+
         }
         // 인벤토리/퀘스트 창 닫기
         public void CloseInfoGroup()

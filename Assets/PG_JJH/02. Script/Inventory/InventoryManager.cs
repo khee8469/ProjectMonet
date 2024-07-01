@@ -100,14 +100,15 @@ namespace JJH
                 // 이 해당 슬롯에 이제 해당하는 item id 값을 가진 프리팹을 붙여준다.
                 slot.SetRayHovering(true);
                 slot.interactionManager.SelectEnter(slot as IXRSelectInteractor, item as IXRSelectInteractable);
-                Debug.Log("LoadSlot 진입");
-                slot.AddItem(item);
+                slot.AddItem(item); // ADD 에서 이미 자식으로 만들어 주고 kinematic 켜주고 있는데? 
+
                 for (int i = 0; i < slotData.count; i++)
                 {
                     slot.AddItemNumber();
                 }
-            }
+                slot.SetRayHovering(false); // 일단 다시 꺼줘보자. 
 
+            }
             Manager.UI.CloseInfoGroup();
         }
 
@@ -206,8 +207,6 @@ namespace JJH
                 }
             }
         }
-
-
         private IEnumerator RestoreItemRoutine()
         {
             yield return new WaitForEndOfFrame();
@@ -218,7 +217,6 @@ namespace JJH
         {
             StartCoroutine(RestoreItemRoutine());
         }
-
 
         private GameObject InstantiateItem(InvenItem itemData)
         {
@@ -247,23 +245,16 @@ namespace JJH
                 grabInteractable = itemObject.AddComponent<XRGrabInteractable>();
             }
         }
-
         public void ExitGameSave()
         {
             UpdateInventoryData(); // 현재 인벤토리의 상태를 저장한다. 게임종료 또는 저장 후 종료 등에 실시한다.
         }
-     
-        // 다른 곳에서 접근하기 편하게 인벤토리 매니저에서 ADD REMOVE 이벤트용으로 불러준다.
-        // 
-
-        // 이 부분 아직 문제 있음. ㅠㅠㅠㅠ
-
         public void AddItem(int _itemID) // npc가 넣어주는 아이템 관리 
         {
             // 지금 모든 슬롯에 들어 가고 있음 -> 하나만 하고 나가야함.             
             foreach (SlotData slotData in Manager.PlableData.InventorySlotDatas)
             {
-                if (check > 0) return;
+                //if (check > 0) break;  --> 이미 아래에서 break 하는데 해 줄 필요없지.. 
 
                 if (slotData.id_item == -1)
                 {
@@ -280,9 +271,7 @@ namespace JJH
             Manager.PlableData.SaveSlotData(); // 빈 슬롯에 들어간 데이터를 저장한다.
             is_AddRemoveItem = true;
             check = 0; // static 함수 다시 0 으로 변경한다. 
-
         }
-
         public bool RemoveItem(int _itemID) // npc가 가져가는 아이템 관리 
         {
             foreach (var slots in inventorySlots.Values)

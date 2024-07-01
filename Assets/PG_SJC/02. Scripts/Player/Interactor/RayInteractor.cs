@@ -191,6 +191,7 @@ namespace Jc
                     }
                     else if (item.itemData.stackType == StackTypeItem.Non_Stack) // 꺼내려는 아이템이 일반 아이템 이라면. 
                     {
+                        
                         curSlot.interactionManager.SelectEnter(this as IXRSelectInteractor, slotItem.interactablesSelected[0] as IXRSelectInteractable);
                         curSlot.SetRayHovering(false);
                     }

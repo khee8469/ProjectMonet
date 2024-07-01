@@ -24,9 +24,10 @@ namespace JJH
 
         public static UnityEvent RestoreSclaeObject = new UnityEvent();
 
+        [Tooltip("크기 구할 일 있으면 사용")]
         public new Renderer renderer;
 
-        public Rigidbody rigid;
+        public Rigidbody rigid { get; set; }
 
         [Tooltip(" 소켓에 들어갔을 때 조정 해 줄 아이템의 스케일...")]
         [SerializeField] private Vector3 socketScale;
@@ -38,15 +39,13 @@ namespace JJH
         {
             base.Awake();
             originalScale = transform.localScale;
-
+            rigid = GetComponent<Rigidbody>();
         }
 
         private void Start()
         {
             InitializeItemData();
             isGraped = false;
-            rigid = GetComponent<Rigidbody>();
-
             // 아 그냥 이거 각 오브젝트마다 시작할 때 자신의 transform을 저장하고 시작하자. 
 
             renderer = GetComponent<Renderer>();
@@ -110,7 +109,6 @@ namespace JJH
             else
             {
                 RestoreScale();
-                rigid.isKinematic = false;
                 rigid.useGravity = true;
 
             }

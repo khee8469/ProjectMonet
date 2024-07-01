@@ -75,7 +75,6 @@ namespace JJH
         {
             base.OnSelectEntered(args); // 잡을 수 있는 아이템 체크 
 
-            
             if (Manager.Inventory.isEnable == false)
                 return;
             if (!isRayHovering)
@@ -86,7 +85,7 @@ namespace JJH
             {
                 if (item is InventoryItem)
                 {
-                    
+
                     InventoryItem inventoryItem = item as InventoryItem;
                     inventoryItem.transform.SetParent(itemTransform); // 아 이 자식으로 만드는 위치를 어디서 해줘야 될지 너무 고민되는데... 
                     AddItem(inventoryItem);
@@ -105,15 +104,15 @@ namespace JJH
             base.OnSelectExited(args);
 
             if (!Manager.Inventory.isEnable || !Application.isPlaying) return;
+
+            Debug.Log($"IS HOVERING 상태 ->{isRayHovering}");
+
             if (!isRayHovering) return;
 
             IInventory item = args.interactableObject.transform.GetComponent<IInventory>();
             if (item != null)
             {
                 InventoryItem inventoryItem = item as InventoryItem;
-
-                // 아이템의 스택 가능 여부를 판단해서 Remove를 두가지로 나누기
-
                 RemoveItem(inventoryItem);
             }
         }
@@ -205,17 +204,9 @@ namespace JJH
         public void AddItem(InventoryItem item)
         {
             // item.itemData.SaveOriginalTransform(item.transform);
-            // 아이템의 원래 트랜스폼을 저장
             InventoryItem inventoryItem = item as InventoryItem;
+            inventoryItem.transform.SetParent(itemTransform); // 아 이 자식으로 만드는 위치를 어디서 해줘야 될지 너무 고민되는데... 
 
-            Debug.Log($"add bool 변수의 상태 ->{Manager.Inventory.is_AddRemoveItem}, {slotID}");
-
-            // 여기서 자식으로 만들어줘야 자식으로 붙어 있는다. 
-            if (Manager.Inventory.is_AddRemoveItem==true) // npc가 Add item 하면 자식으로 만들기 
-            {
-                Debug.Log("npc의 add를 통한 자식 만들기 진입");
-                inventoryItem.transform.SetParent(itemTransform); // 아 이 자식으로 만드는 위치를 어디서 해줘야 될지 너무 고민되는데... 
-            }
             item.transform.localPosition = Vector3.zero; // 슬롯 위치에 딱 맞도록 로컬 포지션을 0 으로 설정
             item.transform.localRotation = Quaternion.identity;
 
@@ -223,13 +214,7 @@ namespace JJH
             // 이거 그냥 여기서 강제로 스케일 조정해 줘야 될 것 같음.
             // 이거 그냥 여기서 강제로 소켓 크기에 맞춰서 조정해 줘야 될 것 같음. 크기 조정이 안됨....
             item.transform.localScale = item.SocketScale;
-            
-
-            Rigidbody rigidbody = item.GetComponent<Rigidbody>();
-            if (rigidbody != null)
-            {
-                rigidbody.isKinematic = true;
-            }
+            item.rigid.isKinematic = true;
             //ResizeItemToFitSlot(item.transform); // 이거 load save 할 때 써야되지 원래 크기 가지고 있어야지. 아닌가?
             // 아이템을 슬롯의 자식으로 설정
 
@@ -241,31 +226,24 @@ namespace JJH
             //Manager.Inventory.UpdateInventoryData();
         }
 
-        // 아이템 삭제 ( 꺼내기)
+        // 아이템 삭제 ( 꺼내기) --> Selected Exit 에서만 발동된다. 
         public void RemoveItem(InventoryItem item)
         {
-            // 제거 시에 이벤트 타입이라면
-            if (item.itemData.eventItemType == EventItemType.Event)
+           
+            if (item.transform.parent != null)
             {
-                // 상속한 인터페이스를 통해 각 이벤트 아이템 마다 해야 하는 작업을 지정해주자.
-                // ex ) interface 에서 public void Use 등을 상속한다. 아마도? 
-            }
-
-            if (item.transform.parent != null && gameObject.activeSelf)
-            {
+                Debug.Log("자식 해제");
                 item.transform.SetParent(null); //자식 해제 --> 소켓에서 때면 자동으로 자식이 해제가 되는데요?? 
             }
-
             //item.itemData.RestoreOriginalTransform(item.transform); //오브젝트의 실제 scale을 리턴해줌. 
             // 이게 인벤토리를 그냥 닫으면 실행되는거라 그냥 자동적으로 원래 스케일이 리턴되는듯하다. 
             Rigidbody rigidbody = item.GetComponent<Rigidbody>();
 
             if (rigidbody != null)
             {
-                
+                Debug.Log("RemoveItem 발동");
                 rigidbody.isKinematic = false; // 다시 키네마틱 꺼주기. 
             }
-
             slotImage.color = originalColor;
 
             itemID = -1;
