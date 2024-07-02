@@ -237,6 +237,8 @@ namespace JJH
             inventoryItem.transform.localPosition = Vector3.zero; // 슬롯 위치에 딱 맞도록 로컬 포지션을 0 으로 설정
             inventoryItem.transform.localRotation = Quaternion.identity;
 
+
+
             Debug.Log("아이템의 소켓 스케일 작동");
             inventoryItem.transform.localScale = inventoryItem.SocketScale; // 아이템의 스케일 변경
             Debug.Log($"아이템의 로컬 스케일 상태 ->{inventoryItem.transform.localScale}");

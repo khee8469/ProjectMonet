@@ -119,9 +119,11 @@ namespace Jc
                 return;
             }*/
             InventorySlot slotItem = curSlot.GetComponent<InventorySlot>();
-            //Debug.Log(curSlot.interactablesSelected[0]); --> 현재 여기가 오류가 뜨고 있다. 0이 없는상황임.
 
+
+            //Debug.Log(curSlot.interactablesSelected[0]); --> 현재 여기가 오류가 뜨고 있다. 0이 없는상황임.
             if (slotItem == null || curSlot.interactablesSelected.Count <= 0) return;
+
             IXRSelectInteractable xrGrab = curSlot.interactablesSelected[0];
 
            /* if (!(xrGrab is InteractObject objects))

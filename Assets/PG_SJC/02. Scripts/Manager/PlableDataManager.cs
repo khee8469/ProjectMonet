@@ -73,9 +73,6 @@ namespace Jc
         {
             // 인벤토리 슬롯 데이터 로드
             List<SlotData> loadedInventoryData = LoadSlotData();
-
-            Debug.Log("slot init 중... 0번 인덱스" + loadedInventoryData[0].id_item);
-
             inventorySlotDatas = loadedInventoryData;
         }
         // 퀘스트 데이터 저장
@@ -163,9 +160,6 @@ namespace Jc
 
             if (Directory.Exists("Assets/PG_SJC/Resources/UserData"))
             {
-                Debug.Log("딕셔너리 내부 if문"); // 여기서 덮어 쓸 때 item id 값을 제대로 못 받아오고 초기화 상태가 될 때가 많음.
-                // 특히 에디터를 끄고 다시 키지 않았을 때 
-
                 List<Dictionary<string, object>> csvData = CSVHelper.Read(DataPath.LocalInventoryData);
 
                 // 불러온 데이터가 있다면 덮어쓰기 진행

@@ -96,8 +96,7 @@ namespace JJH
             // 슬롯 데이터형 리스트 인데. 
             foreach (SlotData slotData in Manager.PlableData.InventorySlotDatas)
             {
-                
-                Debug.Log(slotData.id_item+ "LoadSlot 내부"); // 여기서 slotData가 제대로 업데이트가 안되서 
+                 
                 // slot의 itemId가 -1 이 아닌대도 -1로 체크되고 있다. 
                 if (slotData.id_item == -1) continue;
 
