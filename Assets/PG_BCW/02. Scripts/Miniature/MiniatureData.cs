@@ -7,8 +7,6 @@ using UnityEngine;
 [Serializable]
 public struct MiniatureData
 {
-    [Header("씬 번호")]
-    public int sceneId;
     [Header("미니어처 ID")]
     public int miniatureId;
 
@@ -18,12 +16,12 @@ public struct MiniatureData
     public float zPosition;
 
 
-    public MiniatureData(int sceneId, int miniatureId, Vector3 position)
+    public MiniatureData(int miniatureId, Vector3 position)
     {
-        this.sceneId = sceneId;
+
         this.miniatureId = miniatureId;
         xPosition = position.x;
-        yPosition = position.x;
-        zPosition = position.x;
+        yPosition = position.y;
+        zPosition = position.z;
     }
 }

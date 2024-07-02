@@ -11,8 +11,8 @@ public class Miniature : InteractObject
     [SerializeField] int id;
     public int Id {  get { return id; } }  
     
-    [Tooltip("씬 위치데이터 접근용")]
-    [SerializeField] int sceneNumber;
+    //[Tooltip("씬 위치데이터 접근용")]
+    //[SerializeField] int sceneNumber;
     // 시작위치 저장용
     Vector3 startPos;  
 
@@ -25,7 +25,7 @@ public class Miniature : InteractObject
     private void Start()
     {
         //몇번 씬정보인지
-        sceneNumber = (int)transform.parent.GetComponent<MiniatureManager>().MiniatureNum;
+        //sceneNumber = (int)transform.parent.GetComponent<MiniatureManager>().MiniatureNum;
     }
 
     protected override void OnSelectEntering(SelectEnterEventArgs args)
@@ -49,6 +49,9 @@ public class Miniature : InteractObject
         //key 값은 씬번호_오브젝트이름  같은 이름의 오브젝트에 위치 데이터 전달 예정
         positionData[id] = transform.localPosition;
         //positionData[$"{sceneNumber}_{transform.name}"] = transform.localPosition;
+
+        //데이터 저장
+        Manager.PlableData.SaveMiniatureData();
     }
 
     //미니어처가 장판 밖에 두었을때 원래 위치로 복구
