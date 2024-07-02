@@ -190,53 +190,54 @@ namespace Jc
                 return;
             }
 
-            Debug.Log("데이터 있음");
             //딕셔너리데이터를 구조체에 저장
             foreach (int key in positionData.SavePosition_3.Keys)
             {
-                Debug.Log(key);
                 int miniatureId = key;
                 float x = positionData.SavePosition_3[key].x;
                 float y = positionData.SavePosition_3[key].y;
                 float z = positionData.SavePosition_3[key].z;
 
-                miniatureDatas[key - 1] = new MiniatureData(miniatureId, new Vector3(x, y, z));
+                miniatureDatas[key] = new MiniatureData(miniatureId, new Vector3(x, y, z));
             }
-            Debug.Log(111111111);
+
             //miniatureDatas 데이터 csv파일로 세이브
-            CSVHelper.Write(Path.Combine("Assets/PG_SJC/Resources/UserData", DataPath.LocalMiniatureData), miniatureDatas);
+            CSVHelper.Write(Path.Combine("Assets/PG_SJC/Resources", DataPath.LocalMiniatureData), miniatureDatas);
         }
 
         // 미니어처 위치 데이터 불러오기
         public void LoadMiniatureData()
         {
             List<MiniatureData> loadedData = new List<MiniatureData>();
-
+            
             //데이터를 로드
             if (Directory.Exists(Path.Combine("Assets/PG_SJC/Resources", DataPath.LocalMiniatureData)))
             {
                 Debug.Log("로드");
                 List<Dictionary<string, object>> csvData = CSVHelper.Read(DataPath.LocalMiniatureData);
 
+
                 // 불러온 데이터가 있다면 덮어쓰기 진행
                 if (csvData != null && csvData.Count >= 1)
                 {
                     for (int i = 0; i < csvData.Count; i++)
                     {
-                        Debug.Log(csvData.Count);
-                        loadedData[i] = new MiniatureData((int)csvData[i]["id"], new Vector3((int)csvData[i]["xPosition"], (int)csvData[i]["yPosition"], (int)csvData[i]["zPosition"]));
+                        Debug.Log((int)csvData[i]["miniatureId"]);
+                        Debug.Log((int)csvData[i]["xPosition"]);
+                        Debug.Log((int)csvData[i]["yPosition"]);
+                        Debug.Log((int)csvData[i]["zPosition"]);
+                        loadedData.Add(new MiniatureData((int)csvData[i]["miniatureId"], new Vector3((int)csvData[i]["xPosition"], (int)csvData[i]["yPosition"], (int)csvData[i]["zPosition"])));
                     }
                 }
                 // 로드된 데이터를 딕셔너리에 저장
                 LoadMiniaturePosition();
-                // 미니어처매니저에서 확인용
-                miniatureLoadData = true;
-
+            }
+            else
+            {
+                Debug.Log("로드 실패");
             }
             //csv화용 구조체에 저장
             miniatureDatas = loadedData;
-
-            Debug.Log(miniatureLoadData);
         }
 
         //로드된 데이터를 딕셔너리에 저장
@@ -244,16 +245,17 @@ namespace Jc
         {
             foreach (MiniatureData data in miniatureDatas)
             {
+                Debug.Log("LoadMiniaturePosition");
                 positionData.SavePosition_3[data.miniatureId] = new Vector3(data.xPosition, data.yPosition, data.zPosition);
             }
         }
-        //
+        //초기위치 구조체 데이터 세팅 
         public void SetPositionData()
         {
+            miniatureDatas.Clear(); // 구조체 리스트 제거후 다시 설정
             // 초기화 
             foreach (int key in positionData.SavePosition_3.Keys)
             {
-                Debug.Log("구조체 초기데이터 입력");
                 miniatureDatas.Add(new MiniatureData(key, new Vector3(positionData.SavePosition_3[key].x, positionData.SavePosition_3[key].y, positionData.SavePosition_3[key].z)));
             }
         }
