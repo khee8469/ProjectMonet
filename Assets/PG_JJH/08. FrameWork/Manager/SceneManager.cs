@@ -18,6 +18,9 @@ namespace JJH
 
         private BaseScene curScene;
 
+        [Tooltip("플레이어의 카메라")]
+        private Camera playerCamera;
+
         public BaseScene GetCurScene()
         {
             if (curScene == null)
@@ -43,6 +46,10 @@ namespace JJH
 
         IEnumerator LoadingRoutine(string sceneName)
         {
+            playerCamera = Camera.main;
+            SetUpFadeUI();
+
+
             fade.gameObject.SetActive(true);
             yield return FadeOut();
 
@@ -95,6 +102,22 @@ namespace JJH
                 rate += Time.deltaTime / fadeTime;
                 fade.color = Color.Lerp(fadeOutColor, fadeInColor, rate);
                 yield return null;
+            }
+        }
+
+
+
+        private void SetUpFadeUI()
+        {
+            if (playerCamera != null && fade != null)
+            {
+                // 캔버스가 VR 카메라 앞에 위치하도록 설정
+                Canvas canvas = fade.GetComponentInParent<Canvas>();
+                canvas.renderMode = RenderMode.WorldSpace;
+                canvas.worldCamera = playerCamera;
+                canvas.transform.position = playerCamera.transform.position + playerCamera.transform.forward * 0.5f; // 카메라 앞 0.5m 위치
+                canvas.transform.rotation = playerCamera.transform.rotation;
+                canvas.transform.localScale = new Vector3(0.002f, 0.002f, 0.002f); // 필요에 따라 스케일 조정
             }
         }
     }
