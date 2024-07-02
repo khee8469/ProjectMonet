@@ -11,8 +11,8 @@ public class Miniature : InteractObject
     [SerializeField] int id;
     public int Id {  get { return id; } }  
     
-    [Tooltip("씬 위치데이터 접근용")]
-    [SerializeField] int sceneNumber;
+    //[Tooltip("씬 위치데이터 접근용")]
+    //[SerializeField] int sceneNumber;
     // 시작위치 저장용
     Vector3 startPos;  
 
@@ -25,7 +25,7 @@ public class Miniature : InteractObject
     private void Start()
     {
         //몇번 씬정보인지
-        sceneNumber = (int)transform.parent.GetComponent<MiniatureManager>().MiniatureNum;
+        //sceneNumber = (int)transform.parent.GetComponent<MiniatureManager>().MiniatureNum;
     }
 
     protected override void OnSelectEntering(SelectEnterEventArgs args)

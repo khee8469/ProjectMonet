@@ -12,7 +12,6 @@ public class MiniatureManager : PuzzleManager
     //몇번째 씬과 미니어쳐인지 확인용
     [SerializeField] private MiniatureNum miniatureNum;
     public MiniatureNum MiniatureNum { get {  return miniatureNum; } }
-    
 
 
     private void Awake()
@@ -22,7 +21,9 @@ public class MiniatureManager : PuzzleManager
 
     private void Start()
     {
+        //데이터가 잇으면 로드
         Manager.PlableData.LoadMiniatureData();
+
         SetMiniPosition();
     }
 
@@ -33,14 +34,18 @@ public class MiniatureManager : PuzzleManager
         foreach (Miniature miniature in miniatures)
         {
             //데이터가 잇으면
-            if (positionData.ContainsKey(miniature.Id))
+            if (positionData.ContainsKey(miniature.Id)/* && Manager.PlableData.MiniatureLoadData*/)
             {
+                Debug.Log("데이터있음");
                 miniature.transform.localPosition = new Vector3(positionData[miniature.Id].x, positionData[miniature.Id].y, positionData[miniature.Id].z);
             }
-            //데이터가 없으면 초기화
+            //데이터가 없으면 초기화 한번만
             else
             {
-                positionData[miniature.Id] = miniature.transform.localPosition;
+                Debug.Log("데이터없음");
+                Manager.PlableData.PositionData.SavePosition_3.Clear();
+                positionData[miniature.Id] = miniature.transform.localPosition; //미니어처 시작위치 저장
+                Manager.PlableData.SetPositionData(); //저장용 구조체 세팅
             }
         }
     }
