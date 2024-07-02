@@ -22,6 +22,7 @@ namespace JJH
 
         private void Start()
         {
+
             // 클리어 이벤트 등록. 
             OnClear.AddListener(LightHouseClear);
             
