@@ -90,7 +90,7 @@ namespace Jc
                 questStateDatas[i] = new QuestListData(id, id_quest, progress);
             }
 
-            CSVHelper.Write(Path.Combine("Assets/PG_SJC/Resources/", DataPath.LocalQuestData), questStateDatas);
+            CSVHelper.Write(SystemPath.GetPath() + $"/Resources/{DataPath.LocalQuestData}", questStateDatas);
         }
         // 퀘스트 데이터 불러오기
         public List<QuestListData> LoadQuestData()
@@ -103,8 +103,12 @@ namespace Jc
                 loadedData.Add(new QuestListData(key, key, (int)Manager.Quest.QuestDic[key].State));
             }
 
-            if (Directory.Exists(Path.Combine("Assets/PG_SJC/Resources/", DataPath.LocalQuestData)))
+            Debug.Log(Path.Combine(SystemPath.GetPath(),$"Resources/{DataPath.LocalQuestData}"));
+            if (Directory.Exists(Path.Combine(SystemPath.GetPath(), $"Resources/{DataPath.LocalQuestData}")))
             {
+                
+                Debug.Log("퀘스트 데이터 존재");
+
                 List<Dictionary<string, object>> csvData = CSVHelper.Read(DataPath.LocalQuestData);
 
                 // 불러온 데이터가 있다면 덮어쓰기 진행
@@ -116,6 +120,8 @@ namespace Jc
                     }
                 }
             }
+            else
+                Directory.CreateDirectory(Path.Combine(SystemPath.GetPath(), $"Resources/{DataPath.LocalQuestData}"));
             return loadedData;
         }
         // 인벤토리 슬롯 데이터 저장
@@ -133,7 +139,8 @@ namespace Jc
                 inventorySlotDatas[key - 1] = new SlotData(slot.slotID, slot.ItemID, slot.ItemCount);
             }
 
-            CSVHelper.Write(Path.Combine("Assets/PG_SJC/Resources/", DataPath.LocalInventoryData), inventorySlotDatas);
+            //CSVHelper.Write(Path.Combine("Assets/PG_SJC/Resources/", DataPath.LocalInventoryData), inventorySlotDatas);
+            CSVHelper.Write(SystemPath.GetPath() + $"/Resources/{DataPath.LocalInventoryData}", inventorySlotDatas);
 
 #if UNITY_EDITOR
             AssetDatabase.Refresh();
@@ -152,7 +159,7 @@ namespace Jc
                 
             }
 
-            if (Directory.Exists("Assets/PG_SJC/Resources/UserData"))
+            if (Directory.Exists(SystemPath.GetPath() + $"/Resources/{DataPath.LocalInventoryData}"))
             {
                 List<Dictionary<string, object>> csvData = CSVHelper.Read(DataPath.LocalInventoryData);
 
@@ -202,7 +209,8 @@ namespace Jc
             }
 
             //miniatureDatas 데이터 csv파일로 세이브
-            CSVHelper.Write(Path.Combine("Assets/PG_SJC/Resources", DataPath.LocalMiniatureData), miniatureDatas);
+            //CSVHelper.Write(Path.Combine("Assets/PG_SJC/Resources", DataPath.LocalMiniatureData), miniatureDatas);
+            CSVHelper.Write(Path.Combine(SystemPath.GetPath(), $"Resources/{DataPath.LocalQuestData}"), miniatureDatas);
         }
 
         // 미니어처 위치 데이터 불러오기
@@ -211,7 +219,7 @@ namespace Jc
             List<MiniatureData> loadedData = new List<MiniatureData>();
             
             //데이터를 로드
-            if (Directory.Exists(Path.Combine("Assets/PG_SJC/Resources", DataPath.LocalMiniatureData)))
+            if (Directory.Exists(Path.Combine(SystemPath.GetPath(), $"Resources/{DataPath.LocalQuestData}")))
             {
                 Debug.Log("로드");
                 List<Dictionary<string, object>> csvData = CSVHelper.Read(DataPath.LocalMiniatureData);
