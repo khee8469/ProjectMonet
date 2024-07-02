@@ -399,6 +399,8 @@ namespace Jc
         {
             base.OnSelectEntered(args);
 
+            Debug.Log(args.interactableObject.transform.gameObject.name+"Entered name");
+            
             currentGrabObject = args.interactableObject as InteractObject; // 현재 플레이어가 쥐고 있는 아이템. 
             grabbedTr = args.interactableObject.transform;
             isGrab = true;

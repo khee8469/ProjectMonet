@@ -46,12 +46,10 @@ namespace JJH
             // 데이터 로드
 
         }
-
         private void Start()
         {
 
         }
-
         private void RegistItemResource()
         {
             itemPrefabDic = new Dictionary<int, InventoryItem>();

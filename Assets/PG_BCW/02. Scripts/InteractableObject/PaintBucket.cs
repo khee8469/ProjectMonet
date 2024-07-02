@@ -2,6 +2,7 @@ using Jc;
 using JJH;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class PaintBucket : InteractObject
 {
@@ -34,8 +35,8 @@ public class PaintBucket : InteractObject
 
     protected override void OnEnable() // 자신이 켜 졌을 때 
     {
-
-        if(paintTypeManager !=null)
+        base.OnEnable();
+        if (paintTypeManager != null)
         {
             myColor = paintTypeManager.GetColorByType(color);
             GetComponent<Renderer>().material.color = myColor;
@@ -44,7 +45,7 @@ public class PaintBucket : InteractObject
 
     private void Start()
     {
-
+        
         if (paintTypeManager != null)
         {
             myColor = paintTypeManager.GetColorByType(color);
@@ -66,6 +67,14 @@ public class PaintBucket : InteractObject
         //paintParticle.Stop();
     }
 
+
+    
+
+    protected override void OnSelectEntering(SelectEnterEventArgs args)
+    {
+        base.OnSelectEntering(args);
+        Debug.Log("엔터드");
+    }
 
 
     //레이를 쏴서 아래가 팔렛트면 물감을 생성한다
