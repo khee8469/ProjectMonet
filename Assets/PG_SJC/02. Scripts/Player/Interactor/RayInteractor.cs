@@ -340,7 +340,15 @@ namespace Jc
         public override bool CanHover(IXRHoverInteractable interactable)
         {
             InteractObject itrObject = interactable as InteractObject;
-     
+
+            // 버튼 과의 상호작용을 위한 if문 추가 
+            CustomButton button = interactable as CustomButton;
+            if(button != null)
+            {
+                return base.CanHover(interactable);
+
+            }
+
             if (itrObject == null)
                 return false;
 
@@ -353,6 +361,13 @@ namespace Jc
         {
             InteractObject itrObject = interactable as InteractObject;
 
+            // XrPushButton과의 상호작용을 위한 if문 추가 
+            CustomButton button = interactable as CustomButton;
+            if (button != null)
+            {
+                return base.CanSelect(interactable);
+
+            }
             if (itrObject == null)
                 return false;
 
@@ -399,8 +414,6 @@ namespace Jc
         {
             base.OnSelectEntered(args);
 
-            Debug.Log(args.interactableObject.transform.gameObject.name+"Entered name");
-            
             currentGrabObject = args.interactableObject as InteractObject; // 현재 플레이어가 쥐고 있는 아이템. 
             grabbedTr = args.interactableObject.transform;
             isGrab = true;

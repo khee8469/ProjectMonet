@@ -37,10 +37,10 @@ namespace Jc
         {
             if(enableRoutine != null)
             {
-                col.enabled = true;
+                col.enabled = false;
                 spotLight.enabled = false;
                 transform.position = startTransform.position;
-                rigid.useGravity = true;
+                rigid.useGravity = false;
                 enableRoutine = null;
             }
         }
