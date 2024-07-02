@@ -119,26 +119,26 @@ namespace Jc
                 return;
             }*/
             InventorySlot slotItem = curSlot.GetComponent<InventorySlot>();
+            Debug.Log("현재 슬롯 아이템의 이름 "+slotItem.name);
 
+            //--> 현재 여기가 오류가 뜨고 있다. 0이 없는상황임. --> 이 부분만 해결하면 바로바로 다시 꺼내기 가능해짐.
+            //Debug.Log(slotItem.interactablesSelected[0]); 
+            if (slotItem == null || slotItem.interactablesSelected.Count <= 0) return;
 
-            //Debug.Log(curSlot.interactablesSelected[0]); --> 현재 여기가 오류가 뜨고 있다. 0이 없는상황임.
-            if (slotItem == null || curSlot.interactablesSelected.Count <= 0) return;
-
-            IXRSelectInteractable xrGrab = curSlot.interactablesSelected[0];
-
-           /* if (!(xrGrab is InteractObject objects))
+            IXRSelectInteractable xrGrab = slotItem.interactablesSelected[0];
+            if (!(xrGrab is InteractObject objects))
             {
                 Debug.Log("상호작용이 불가능한 이벤트용 아이템 --> 빼기 불가능");
                 return;
-            }*/
-
+            }
             // 슬롯에서 hover 시 아이템 입 출입 무한 반복 방지 
-            curSlot.SetRayHovering(true);
+            slotItem.SetRayHovering(true);
 
             InventoryItem item = null;
-            if (curSlot.interactablesSelected.Count > 0) // 일단 있어야 꺼낼 수 있다는 것. 
+
+            if (slotItem.interactablesSelected.Count > 0) // 일단 있어야 꺼낼 수 있다는 것. 
             {
-                IXRSelectInteractable xRSelectInteractable = curSlot.interactablesSelected[0];
+                IXRSelectInteractable xRSelectInteractable = slotItem.interactablesSelected[0];
 
                 if (xRSelectInteractable is InventoryItem inventoryItem)
                 {

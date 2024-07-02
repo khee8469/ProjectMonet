@@ -95,8 +95,7 @@ namespace JJH
 
             // 슬롯 데이터형 리스트 인데. 
             foreach (SlotData slotData in Manager.PlableData.InventorySlotDatas)
-            {
-                 
+            {        
                 // slot의 itemId가 -1 이 아닌대도 -1로 체크되고 있다. 
                 if (slotData.id_item == -1) continue;
 
@@ -118,10 +117,8 @@ namespace JJH
 
                 slot.SetRayHovering(false); // 일단 다시 꺼줘보자. 
 
-            }
-            
+            }            
         }
-
         // Load slot 대신에 slot dictionary 를 읽어서 내 인벤토리 상태를 update 해 줄 함수를 만들자.
         // csv 를 지속적으로 update 한다고 생각하지 말고 게임 중에는 저장된 딕셔너리에서 저장된 값을 불러와서 아이템을 ADD 해주는 방식으로 수정해야 한다.
         public void PlayingItemLoad()
