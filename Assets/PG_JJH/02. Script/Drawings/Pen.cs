@@ -290,7 +290,7 @@ namespace JJH
             // 새로운 색상 타입에 해당하는 색상을 가져와 펜촉의 마테리얼에 적용합니다.
             tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType);
 
-            DrawObjectManager.colorChangeEvent.Invoke(currentPaintType);
+            DrawObjectManager.colorChangeEvent?.Invoke(currentPaintType);
 
         }
 
