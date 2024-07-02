@@ -54,7 +54,47 @@ public class CSVHelper
         }
         return list;
     }
+    public static List<Dictionary<string, object>> Read(string filePath, bool isResources)
+    {
+        var list = new List<Dictionary<string, object>>();
+        if (!File.Exists(filePath))
+        {
+            Debug.LogError($"File not found: {filePath}");
+            return list;
+        }
+        var data = File.ReadAllText(filePath);
+        var lines = Regex.Split(data, LINE_SPLIT_RE);
 
+        if (lines.Length <= 1)
+            return list;
+
+        var header = Regex.Split(lines[0], SPLIT_RE);
+        for (var i = 1; i < lines.Length; i++)
+        {
+            var values = Regex.Split(lines[i], SPLIT_RE);
+            if (values.Length == 0 || values[0] == "") continue;
+            var entry = new Dictionary<string, object>();
+            for (var j = 0; j < header.Length && j < values.Length; j++)
+            {
+                string value = values[j];
+                value = value.TrimStart(TRIM_CHARS).TrimEnd(TRIM_CHARS).Replace("\\", "");
+                object finalvalue = value;
+                int n;
+                float f;
+                if (int.TryParse(value, out n))
+                {
+                    finalvalue = n;
+                }
+                else if (float.TryParse(value, out f))
+                {
+                    finalvalue = f;
+                }
+                entry[header[j]] = finalvalue;
+            }
+            list.Add(entry);
+        }
+        return list;
+    }
     public static void Write<T>(string file, List<T> datas)
     {
         if (datas == null || datas.Count == 0)
@@ -75,7 +115,7 @@ public class CSVHelper
             if (i < fields.Length - 1)
             {
                 // 마지막 열을 제외한 열들은 쉼표로 구분
-                sb.Append(",");     
+                sb.Append(",");
             }
         }
         sb.AppendLine();
