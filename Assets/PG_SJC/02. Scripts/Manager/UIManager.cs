@@ -32,11 +32,10 @@ namespace Jc
         [SerializeField]
         private RectTransform questEntryTr;
 
-        private void OnEnable()
+        public void CameraInit()
         {
-            Debug.Log("UIManager Enable");
-
             Camera renderCamera = Camera.main;
+            Debug.Log(renderCamera);
             if (renderCamera == null) return;
 
             mainCanavas.worldCamera = renderCamera;
@@ -75,6 +74,7 @@ namespace Jc
         // 인벤토리/퀘스트 창 열기
         public void OpenInfoGroup()
         {
+            
             infoGruop.transform.parent = Camera.main.transform;
             infoGruop.transform.localPosition = Vector3.zero;
             infoGruop.transform.localRotation = Quaternion.identity;
@@ -84,7 +84,6 @@ namespace Jc
             {
                 Debug.Log("오픈 시 데이터 로드");
                 Manager.Inventory.LoadSlot();
-
             }
             infoGruop.SetActive(true);
             Manager.Inventory.isEnable = true;

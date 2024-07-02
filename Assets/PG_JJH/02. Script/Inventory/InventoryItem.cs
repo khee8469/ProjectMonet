@@ -21,7 +21,7 @@ namespace JJH
         public bool ISGraped { get { return isGraped; } }
 
         [Tooltip("Start 에서 저장 해 줄 아이템의 원래 스케일")]
-        public Vector3 originalScale;
+        public Vector3 originalScale { get; set; }
 
         public static UnityEvent RestoreSclaeObject = new UnityEvent();
 
@@ -61,6 +61,8 @@ namespace JJH
 
             trackScale = false; //스케일 조정을 위한 트랙 스케일 제거.
             SaveScale();
+
+            throwOnDetach = false; // Kinematic item 이라면 
         }
 
         public void SaveScale()
@@ -121,7 +123,6 @@ namespace JJH
 
             }
         }
-
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);

@@ -25,6 +25,7 @@ public class MainCameraController : MonoBehaviour
 
         SetUpSubCamera();
         SetUpMainCamera();
+        Manager.UI.CameraInit();
     }
 
     private void SetUpMainCamera()
