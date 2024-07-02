@@ -16,8 +16,6 @@ namespace JJH
         [SerializeField] private LayerMask playerLayer;
 
         [SerializeField] private bool drawOn = false;
-
-
         // 여기도 결국 트리거 키로 진입을 해야 하기 때문에... 트리거 되서 진입해야함.
 
         [SerializeField] private GameObject player;
@@ -52,6 +50,8 @@ namespace JJH
                         isTrigger = true;
                         originalSpeed = move.moveSpeed;
                         move.moveSpeed = 0;
+                        player.transform.rotation = playerMovePos.rotation;
+                        Debug.Log(player.transform.rotation + "플레이어의 로테이션");
                         player.transform.position = playerMovePos.position; // 정해진 위치로 플레이어 이동
                     }
                     else
@@ -66,7 +66,6 @@ namespace JJH
             }
             // 추가로 bool 변수에 따라 그림 그리기 진입 한 상태 / 진입 안 한 상태 구분해서 조작 중지를 나눠준다. 
         }
-
         public void ResetColliderPosition()
         {
 

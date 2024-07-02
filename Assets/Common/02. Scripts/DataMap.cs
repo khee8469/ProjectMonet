@@ -24,12 +24,12 @@ namespace Jc
     
     public static class SystemPath
     {
-        public static string GetPath()
+        public static string GetPath(string fileName)
         {
 #if UNITY_EDITOR
-            return Application.dataPath;
+            return Path.Combine(Application.dataPath, fileName);
 #else
-            return Application.persistentDataPath; 
+            return Path.Combine(Application.persistentDataPath, fileName);
 #endif
         }
     }

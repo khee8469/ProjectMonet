@@ -229,15 +229,14 @@ namespace JJH
 
         public void AddItem(InventoryItem item)
         {
-            
-            InventoryItem inventoryItem = item as InventoryItem; 
+            InventoryItem inventoryItem = item as InventoryItem;
+            // 임시
+            this.interactionManager.SelectEnter(this as IXRSelectInteractor, item as IXRSelectInteractable);
 
             inventoryItem.transform.SetParent(itemTransform); // 아 이 자식으로 만드는 위치를 어디서 해줘야 될지 너무 고민되는데... 
 
             inventoryItem.transform.localPosition = Vector3.zero; // 슬롯 위치에 딱 맞도록 로컬 포지션을 0 으로 설정
             inventoryItem.transform.localRotation = Quaternion.identity;
-
-
 
             Debug.Log("아이템의 소켓 스케일 작동");
             inventoryItem.transform.localScale = inventoryItem.SocketScale; // 아이템의 스케일 변경

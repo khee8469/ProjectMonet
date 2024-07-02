@@ -32,9 +32,24 @@ namespace Jc
             enableRoutine = StartCoroutine(EnableRoutine());
         }
 
+        // 시작 루틴 종료
+        public void StopRoutine()
+        {
+            if(enableRoutine != null)
+            {
+                col.enabled = true;
+                spotLight.enabled = false;
+                transform.position = startTransform.position;
+                rigid.useGravity = true;
+                enableRoutine = null;
+            }
+        }
+
         IEnumerator EnableRoutine()
         {
             rigid.useGravity = false;
+            col.enabled = false;
+
             // 초기세팅
             float rate = 0f;
             Vector3 startPos = transform.position;
@@ -56,6 +71,7 @@ namespace Jc
             spotLight.enabled = false;
             transform.position = endPos;
             rigid.useGravity = true;
+            enableRoutine = null;
             yield return null;
         }
     }

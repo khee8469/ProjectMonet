@@ -29,7 +29,6 @@ namespace Jc
 
             return base.CanHover(interactable);
         }
-
         public override bool CanSelect(IXRSelectInteractable interactable)
         {
             // 조각상 오브젝트가 아닐 경우
@@ -38,7 +37,6 @@ namespace Jc
 
             return base.CanSelect(interactable);
         }
-
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
@@ -54,5 +52,6 @@ namespace Jc
             // 조각상이 끼워진 경우 이벤트 발생
             ActiveEvent();
         }
+
     }
 }
