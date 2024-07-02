@@ -40,27 +40,6 @@ namespace JJH
             
         }
 
-        // 각 버튼 들에 할당해줄 이벤트 -> 1회에 5도 
-        public void UpButton()
-        {
-            
-        }
-
-        public void DownButton() 
-        {
-
-        }
-
-        public void LeftButton()
-        {
-
-        }
-
-        public void RightButton()
-        {
-
-        }
-
 
         // 클리어 되었을 시 호출
         public override void OnClearPuzzle()
