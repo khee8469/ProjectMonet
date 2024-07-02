@@ -47,9 +47,7 @@ namespace JJH
         IEnumerator LoadingRoutine(string sceneName)
         {
             playerCamera = Camera.main;
-            SetUpFadeUI();
-
-
+            SetUpFadeUI(); // 캔버스를 world space로 변경 
             fade.gameObject.SetActive(true);
             yield return FadeOut();
 
@@ -75,6 +73,8 @@ namespace JJH
 
             yield return FadeIn();
             fade.gameObject.SetActive(false);
+
+            RestoreFadeUI(); // 다시 원래 상태로 복원 
         }
 
         IEnumerator FadeOut()
@@ -120,6 +120,16 @@ namespace JJH
                 canvas.transform.localScale = new Vector3(0.002f, 0.002f, 0.002f); // 필요에 따라 스케일 조정
             }
         }
+
+        private void RestoreFadeUI()
+        {
+            if (fade != null)
+            {
+                Canvas canvas = fade.GetComponentInParent<Canvas>();
+                canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            }
+        }
+
     }
 }
 
