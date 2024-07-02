@@ -32,9 +32,10 @@ namespace Jc
         [SerializeField]
         private RectTransform questEntryTr;
 
-        private void OnEnable()
+        public void CameraInit()
         {
             Camera renderCamera = Camera.main;
+            Debug.Log(renderCamera);
             if (renderCamera == null) return;
 
             mainCanavas.worldCamera = renderCamera;
@@ -73,6 +74,7 @@ namespace Jc
         // 인벤토리/퀘스트 창 열기
         public void OpenInfoGroup()
         {
+            
             infoGruop.transform.parent = Camera.main.transform;
             infoGruop.transform.localPosition = Vector3.zero;
             infoGruop.transform.localRotation = Quaternion.identity;
@@ -80,13 +82,13 @@ namespace Jc
             // 새롭게 add or remove 되면 켜줄 때 한 번 데이터를 로드한다. 
             if(Manager.Inventory.is_AddRemoveItem == true)
             {
+                Debug.Log("오픈 시 데이터 로드");
                 Manager.Inventory.LoadSlot();
-                Manager.Inventory.is_AddRemoveItem = false; 
             }
-
-
             infoGruop.SetActive(true);
             Manager.Inventory.isEnable = true;
+            Manager.Inventory.is_AddRemoveItem = false;
+
         }
         // 인벤토리/퀘스트 창 닫기
         public void CloseInfoGroup()
@@ -95,6 +97,7 @@ namespace Jc
             infoGruop.transform.parent = this.transform;
             Manager.Inventory.isEnable = false;
             infoGruop.SetActive(false);
+            
         }
 
         public void CreateEntry(Quest quest)

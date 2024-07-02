@@ -20,7 +20,7 @@ namespace JJH
 
         // 여기도 결국 트리거 키로 진입을 해야 하기 때문에... 트리거 되서 진입해야함.
 
-        [SerializeField] GameObject player;
+        [SerializeField] private GameObject player;
         private CharacterController characterController; // 플레이어의 캐릭터 컨트롤러. 
 
         private bool isTrigger = false;
@@ -28,8 +28,12 @@ namespace JJH
         [Tooltip("플레이어의 이동을 방지해줄 move provider")]
         [SerializeField] private DynamicMoveProvider move;
 
+        [Tooltip("player의 moveSpeed를 저장해줄 변수")]
+        private float originalSpeed;
+
         public void Activate()
         {
+
             if(player != null)
             {
                 Debug.Log("Activate 발동");
@@ -37,21 +41,24 @@ namespace JJH
 
                 Debug.Log($"player 이름 ->{player.gameObject.name}");
 
-                characterController = player.GetComponent<CharacterController>();
+                characterController = player.GetComponentInParent<CharacterController>();
                 characterController.enabled = false;
                 move = player.GetComponentInChildren<DynamicMoveProvider>();
+
                 if(move !=null)
                 {
                     if (isTrigger == false)
                     {
                         isTrigger = true;
-                        move.enabled = false;
+                        originalSpeed = move.moveSpeed;
+                        move.moveSpeed = 0;
                         player.transform.position = playerMovePos.position; // 정해진 위치로 플레이어 이동
                     }
                     else
                     {
                         isTrigger = false;
                         move.enabled = true;
+                        move.moveSpeed = originalSpeed;
                         player.transform.position = playerMovePos.position; // 정해진 위치로 플레이어 이동
                     }
                 }
@@ -68,21 +75,18 @@ namespace JJH
         // 플레이어가 들어오면 --> pos 로 이동시키고 강제 고정 
         private void OnTriggerEnter(Collider other)
         {
-            /*if(Extension.Contain(playerLayer , other.gameObject.layer))
+            /*if (Extension.Contain(playerLayer, other.gameObject.layer))
             {
                 player = other.gameObject; // player 참조 시작. 
             }*/
-
-            if(other.gameObject.CompareTag("Player"))
+            if (other.gameObject.CompareTag("Player"))
             {
-                player =other.gameObject;
+                player = other.gameObject;
+                Debug.Log("플레이어");
             }
+            // 이거 그냥 태그로 하자. 
 
         }
-
-        
-
-
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);

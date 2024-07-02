@@ -7,6 +7,7 @@ using System.IO;
 using System.Text;
 using Jc;
 using System.Reflection;
+using UnityEditor;
 
 public class CSVHelper
 {
@@ -17,6 +18,7 @@ public class CSVHelper
     public static List<Dictionary<string, object>> Read(string file)
     {
         var list = new List<Dictionary<string, object>>();
+
         TextAsset data = Resources.Load(file.Replace(".csv", "")) as TextAsset;
 
         var lines = Regex.Split(data.text, LINE_SPLIT_RE);

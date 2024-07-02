@@ -143,12 +143,9 @@ namespace Jc
                 //nearInNPC.transform.rotation = nearInNPC.transform.LookAt(transform.position);
             }
         }
-
-
-
         private void OnPopUpCanvas(InputAction.CallbackContext context)
         {
-            Debug.Log("메뉴 버튼 클릭");
+            //Debug.Log("메뉴 버튼 클릭");
             isEnabledPopup = !isEnabledPopup;
             OnPopUp(isEnabledPopup);
         }

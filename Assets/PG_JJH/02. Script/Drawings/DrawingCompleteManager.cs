@@ -7,7 +7,7 @@ namespace JJH
 {
     public class DrawingCompleteManager : MonoBehaviour
     {
-        // 그냥 모든 씬에 두고 할당해주자. 
+        // 그냥 모든 씬에 두고 할당해주자. --> 이거 나중에 i 말고 id 값으로 해서 모든 씬에 다 그림 놓을 필요 없게 해야함. 
 
 
         [Tooltip("그림의 bool 변수 체크해줄 딕셔너리")]
@@ -81,7 +81,7 @@ namespace JJH
                     }
                 }*/
                 drawCompleteCheckDic.Add(drawObjectManagers[i], ChapterManager.drawPartCheck[i]);
-                Debug.Log($"DrawComplete 상황에서 제대로 매칭이 되고 있는지 확인하기.{drawObjectManagers[i]}  , {ChapterManager.drawPartCheck[i]}");
+                
 
                 if (drawCompleteCheckDic.TryGetValue(drawObjectManagers[i], out bool isTrue))
                 {
