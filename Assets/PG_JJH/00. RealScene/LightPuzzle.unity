@@ -985,10 +985,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff21e571fdc50ba44b50d948b0009fe4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rewardItemID: 0
+  puzzleIndex: 0
   conditions: 
   OnClear:
     m_PersistentCalls:
       m_Calls: []
+  linkedQuestID: -1
   isClear: 0
   lightHouse: {fileID: 0}
 --- !u!1 &1751533484
@@ -1518,6 +1521,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1704983288}
     m_Modifications:
+    - target: {fileID: 1600088197290421138, guid: 6947bef0b0f58da4aacfd4ba9f7797ab,
+        type: 3}
+      propertyPath: m_IgnoreSelectEvents
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1730176779092362501, guid: 6947bef0b0f58da4aacfd4ba9f7797ab,
+        type: 3}
+      propertyPath: lightHouse
+      value: 
+      objectReference: {fileID: 11364111}
+    - target: {fileID: 1730176779092362501, guid: 6947bef0b0f58da4aacfd4ba9f7797ab,
+        type: 3}
+      propertyPath: myDirection
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3358377605289798180, guid: 6947bef0b0f58da4aacfd4ba9f7797ab,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1568,11 +1586,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
+    - target: {fileID: 3714511123615616787, guid: 6947bef0b0f58da4aacfd4ba9f7797ab,
+        type: 3}
+      propertyPath: lightHouse
+      value: 
+      objectReference: {fileID: 11364111}
+    - target: {fileID: 3714511123615616787, guid: 6947bef0b0f58da4aacfd4ba9f7797ab,
+        type: 3}
+      propertyPath: myDirection
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4899985697295091643, guid: 6947bef0b0f58da4aacfd4ba9f7797ab,
         type: 3}
       propertyPath: m_Name
       value: ButtonPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 4921643571803013985, guid: 6947bef0b0f58da4aacfd4ba9f7797ab,
+        type: 3}
+      propertyPath: lightHouse
+      value: 
+      objectReference: {fileID: 11364111}
+    - target: {fileID: 4921643571803013985, guid: 6947bef0b0f58da4aacfd4ba9f7797ab,
+        type: 3}
+      propertyPath: myDirection
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5473187771996013885, guid: 6947bef0b0f58da4aacfd4ba9f7797ab,
+        type: 3}
+      propertyPath: lightHouse
+      value: 
+      objectReference: {fileID: 11364111}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
