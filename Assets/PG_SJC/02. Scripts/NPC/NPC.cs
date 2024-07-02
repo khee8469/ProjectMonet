@@ -131,7 +131,7 @@ namespace Jc
         // 상호작용 도중 이탈 시
         public void OnExitInteract()
         {
-            if (fsm.CurState == NPCStateType.Interact)
+            if (fsm == null || fsm.CurState == NPCStateType.Interact)
             {
                 dialogText.enabled = false;
 
