@@ -32,6 +32,7 @@ namespace Jc
                 SetIntensity();
             }
         }
+
         private void SetIntensity()
         {
             float rate = transform.localScale.x / initScale;
@@ -45,6 +46,7 @@ namespace Jc
             colliders[0].enabled = false;
             StartCoroutine(IntensityRoutine());
         }
+
         IEnumerator IntensityRoutine()
         {
             float rate = 0f;
@@ -54,7 +56,12 @@ namespace Jc
                 pointLight.intensity = Mathf.Lerp(1f, 0.01f, rate);
                 yield return null;
             }
+
+
+            Destroy(gameObject);
+            yield return null;
         }
+
         // 태양이 오두막 밖으로 나간 경우
         private void OnTriggerEnter(Collider other)
         {
@@ -63,7 +70,6 @@ namespace Jc
 
             directionalLight.intensity = 0f;
         }
-
         // 태양이 오두막 내부에 들어온 경우
         private void OnTriggerExit(Collider other)
         {
@@ -71,7 +77,8 @@ namespace Jc
                 return;
             if (isActive)
                 return;
-            directionalLight.intensity = 1.5f;
+
+            directionalLight.intensity = 1.0f;
         }
     }
 }
