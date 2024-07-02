@@ -103,7 +103,7 @@ namespace Jc
                 loadedData.Add(new QuestListData(key, key, (int)Manager.Quest.QuestDic[key].State));
             }
 
-            if (Directory.Exists(Path.Combine("Assets/PG_SJC/Resources/", DataPath.LocalQuestData)))
+            if (File.Exists(Path.Combine("Assets/PG_SJC/Resources", DataPath.LocalQuestData)))
             {
                 List<Dictionary<string, object>> csvData = CSVHelper.Read(DataPath.LocalQuestData);
 
@@ -115,6 +115,10 @@ namespace Jc
                         loadedData[i] = new QuestListData((int)csvData[i]["id"], (int)csvData[i]["id_quest"], (int)csvData[i]["progress"]);
                     }
                 }
+            }
+            else
+            {
+                Directory.CreateDirectory(Path.Combine("Assets/PG_SJC/Resources", DataPath.LocalQuestData.Replace(".csv", "")));
             }
             return loadedData;
         }

@@ -37,6 +37,9 @@ namespace Jc
 
             SunObject obj = args.interactableObject as SunObject;
             if (obj == null) return;
+            if (obj.transform.localScale.x < targetScale - scaleThreshold
+                || obj.transform.localScale.x > targetScale + scaleThreshold)
+                return;
 
             obj.transform.localScale = new Vector3(targetScale, targetScale, targetScale);
             obj.transform.position = attachTransform.position;

@@ -16,12 +16,6 @@ namespace Jc
         [SerializeField]
         private StatueObject statueOb;
 
-        public override void LoadSetting()
-        {
-            base.LoadSetting();
-
-        }
-
         public void ResetBoard()
         {
             foreach(ChessObject ob in chessObjects)
