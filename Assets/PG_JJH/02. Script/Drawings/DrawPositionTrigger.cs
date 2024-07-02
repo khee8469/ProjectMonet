@@ -50,6 +50,8 @@ namespace JJH
                         isTrigger = true;
                         originalSpeed = move.moveSpeed;
                         move.moveSpeed = 0;
+                        player.transform.rotation = playerMovePos.rotation;
+                        Debug.Log(player.transform.rotation + "플레이어의 로테이션");
                         player.transform.position = playerMovePos.position; // 정해진 위치로 플레이어 이동
                     }
                     else
