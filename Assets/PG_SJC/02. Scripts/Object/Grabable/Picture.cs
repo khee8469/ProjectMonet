@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace Jc
 {
-    public class Picture : InteractObject
+    public class Picture : InteractObject, IPuzzleable
     {
         [Header("에디터 세팅")]
         [SerializeField]
@@ -35,13 +35,11 @@ namespace Jc
             originPos = transform.position;
             originRot = transform.rotation;
         }
-
         private void ResetPosition()
         {
             transform.position = originPos; 
             transform.rotation = originRot; 
         }
-
         private bool CheckSocket()
         {
             float distance = (socketTransfrom.position - transform.position).sqrMagnitude;
@@ -52,7 +50,6 @@ namespace Jc
         {
             base.OnSelectEntered(args);
         }
-
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
@@ -79,6 +76,7 @@ namespace Jc
             Quaternion startRot = transform.rotation;
             Vector3 endPos = socketTransfrom.position;
             Quaternion endRot = socketTransfrom.rotation;
+
             while (rate < 1f)
             {
                 rate += Time.deltaTime / trackingTime;
@@ -90,7 +88,7 @@ namespace Jc
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
             // 퍼즐매니저 업데이트
-            puzzle.UpdateCondition(puzzleIndex);
+            UpdatePuzzleManager(puzzle, puzzleIndex);
         }
         IEnumerator ResetRoutine()
         {
@@ -112,6 +110,32 @@ namespace Jc
             transform.position = originPos;
             transform.rotation = originRot;
             boxCollider.enabled = true;
+        }
+
+        // 인터페이스 재정의 
+        public void RegistObject(PuzzleManager puzzle)
+        {
+            puzzle.puzzleObjects.Add(this);
+        }
+        public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
+        {
+            puzzle.UpdateCondition(index);
+        }
+        public void ActiveSetting()
+        {
+            GetComponent<Collider>().enabled = true;
+        }
+        public void DisActiveSetting()
+        {
+            GetComponent<Collider>().enabled = false;
+        }
+        public void CompleteSetting()
+        {
+            // 성공 세팅
+            boxCollider.enabled = false;
+            transform.parent = socketTransfrom;
+            transform.position = Vector3.zero;
+            transform.rotation = Quaternion.identity;       
         }
     }
 }

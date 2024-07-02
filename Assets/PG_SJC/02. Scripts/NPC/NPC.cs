@@ -62,6 +62,7 @@ namespace Jc
                 Debug.Log($"{id}에 해당하는 NPC 데이터가 존재하지 않습니다.");
                 return;
             }
+
             npcData = Manager.Data.NPCDataDic[id];
 
             // 데이터에 따른 퀘스트 할당
@@ -75,11 +76,7 @@ namespace Jc
             // 현재 진행할 퀘스트 할당
             if (GetQuest() != null)
                 currentQuest = GetQuest();
-            // 진행할 퀘스트가 없다면 일정시간 딜레이 후 다시 순찰루틴 진행
-            else
-            {
-                StartCoroutine(Extension.ActionDelay(2.0f, () => dialogText.enabled = false));
-            }
+            // 진행할 퀘스트가 없다면 기본 대사, 특수 대사 출력
 
             UpdateDialog(questController);
         }
@@ -97,8 +94,11 @@ namespace Jc
         {
             foreach (int id in questIDList)
             {
+                QuestState state = Manager.Quest.GetQuest(id).State;
+
                 // 비활성화 상태가 아닌 퀘스트를 반환
-                if (Manager.Quest.GetQuest(id).State != QuestState.DisActive)
+                if (state != QuestState.DisActive
+                    && state != QuestState.Complete)
                     return Manager.Quest.GetQuest(id);
             }
             return null;
@@ -149,8 +149,8 @@ namespace Jc
                     if (curDialogIndex >= currentQuest.clearNarrations.Count)
                     {
                         dialogText.enabled = false;
-                        // 퀘스트 비활성화 상태로 변경
-                        currentQuest.ChangeState(QuestState.DisActive);
+                        // 퀘스트 완료 상태로 변경
+                        currentQuest.ChangeState(QuestState.Complete);
                         // 리워드 지급은 퀘스트 자체에서 진행
                         // NPC 상태 변경
                         return;

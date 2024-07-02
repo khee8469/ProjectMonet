@@ -45,6 +45,9 @@ namespace Jc
             OnChangeState?.Invoke(state);
             switch (state)
             {
+                case QuestState.DisActive:
+                    DisActiveQuest();
+                    break;
                 case QuestState.Active:
                     ActiveQuest();
                     break;
@@ -54,15 +57,19 @@ namespace Jc
                 case QuestState.Clear:
                     ClearQuest();
                     break;
-                case QuestState.DisActive:
-                    DisActiveQuest();
+                case QuestState.Complete:
+                    CompleteQuest();
                     break;
             }
 
             // 퀘스트의 상태가 변경될 때마다 데이터 저장
             Manager.PlableData.SaveQuestData();
         }
+        // 퀘스트 비활성화
+        protected virtual void DisActiveQuest()
+        {
 
+        }
         // 다음 퀘스트 활성화
         protected virtual void ActiveNextQuest(int id)
         {
@@ -106,8 +113,8 @@ namespace Jc
             }
         }
 
-        // 퀘스트 수락 이후 비활성화
-        protected virtual void DisActiveQuest()
+        // 퀘스트 완료
+        protected virtual void CompleteQuest()
         {
             OnClearQuest?.Invoke(this);
 

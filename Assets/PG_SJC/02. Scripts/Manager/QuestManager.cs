@@ -9,8 +9,8 @@ using static UnityEngine.EventSystems.EventTrigger;
 namespace Jc
 {    
     // 퀘스트 상태타입
-    //                      {비활성화,      활성화,  진행중, 수락대기}
-    public enum QuestState { DisActive = -1, Active = 1, Proceed, Clear}
+    //                      {비활성화,      활성화,  진행중, 수락대기, 완료됨}
+    public enum QuestState { DisActive = -1, Active = 1, Proceed, Clear, Complete}
 
     // 퀘스트 타입
     //                    { 기본형, 자동 클리어형, 연계형 } 

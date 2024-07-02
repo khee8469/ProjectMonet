@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace Jc
 {
-    public class ChessSocket : CustomSocket
+    public class ChessSocket : CustomSocket, IPuzzleable
     {
         [Header("에디터 세팅")]
         [SerializeField]
@@ -17,7 +17,7 @@ namespace Jc
         private GameObject pillar;          // 체스말 받침대
 
         [SerializeField]
-        private ResizingObject targetChess; // 타깃 체스말
+        private ChessObject targetChess; // 타깃 체스말
         [SerializeField]
         private float targetScale;          // 타깃 스케일
         [SerializeField]
@@ -28,7 +28,6 @@ namespace Jc
             Debug.Log("체스 셀렉팅");
             base.OnSelectEntering(args);
         }
-
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             Debug.Log("체스 셀렉");
@@ -69,6 +68,28 @@ namespace Jc
             puzzle.UpdateCondition(puzzleIndex);
             pillar.transform.localPosition = endPos;
             yield return null;
+        }
+
+        public void RegistObject(PuzzleManager puzzle)
+        {
+            puzzle.puzzleObjects.Add(this);
+        }
+        public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
+        {
+            puzzle.UpdateCondition(index);
+        }
+        public void ActiveSetting(){}
+        public void DisActiveSetting(){}
+        public void CompleteSetting()
+        {
+            // 완성 세팅
+            targetChess.transform.position = attachTransform.position;
+            targetChess.transform.localScale = new Vector3(targetScale, targetScale, targetScale);
+            targetChess.transform.parent = transform;
+            targetChess.IsEnable = true;
+            targetChess.colliders[0].enabled = false;
+            pillar.transform.localPosition = new Vector3(pillar.transform.localPosition.x, -1.3f, pillar.transform.localPosition.z); ;
+            puzzle.UpdateCondition(puzzleIndex);
         }
     }
 }
