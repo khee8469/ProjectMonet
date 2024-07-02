@@ -99,7 +99,7 @@ namespace Jc
         }
 
         #region 컨트롤러 콜백
-        //인벤토리에서 아이템 < 꺼낼 > 때 체크해줘야하는 Enter 함수 
+        //인벤토리에서 아이템 ----< 꺼낼 > 때 체크해줘야하는 Enter 함수 
         // 스택형 아이템은 destroy했기 때문에 생성한 다음에 손에 붙여줘야 한다는 것 잊지 말기. 
         public void OnSlotTriggerEnter(InputAction.CallbackContext context)
         {
@@ -119,9 +119,11 @@ namespace Jc
                 return;
             }*/
             InventorySlot slotItem = curSlot.GetComponent<InventorySlot>();
-            //Debug.Log(curSlot.interactablesSelected[0]); --> 현재 여기가 오류가 뜨고 있다. 0이 없는상황임.
 
+
+            //Debug.Log(curSlot.interactablesSelected[0]); --> 현재 여기가 오류가 뜨고 있다. 0이 없는상황임.
             if (slotItem == null || curSlot.interactablesSelected.Count <= 0) return;
+
             IXRSelectInteractable xrGrab = curSlot.interactablesSelected[0];
 
            /* if (!(xrGrab is InteractObject objects))
@@ -129,8 +131,6 @@ namespace Jc
                 Debug.Log("상호작용이 불가능한 이벤트용 아이템 --> 빼기 불가능");
                 return;
             }*/
-
-            Debug.Log("아이템 빼기 진입2");
 
             // 슬롯에서 hover 시 아이템 입 출입 무한 반복 방지 
             curSlot.SetRayHovering(true);
@@ -206,7 +206,7 @@ namespace Jc
             yield return new WaitForSeconds(0.7f);
         }
 
-        // 인벤토리에 아이템을 < 추가 > 할 때 체크할 Exit 함수 
+        // 인벤토리에 아이템을 ----< 추가 > 할 때 체크할 Exit 함수 
         public void OnSlotTriggerExit(InputAction.CallbackContext context)
         {
             InventorySlot curSlot = FindSlot();

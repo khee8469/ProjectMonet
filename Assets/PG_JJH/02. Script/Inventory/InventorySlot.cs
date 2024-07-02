@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Net.Http.Headers;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,7 +16,13 @@ namespace JJH
         [Tooltip("아이템의 id")]
         [SerializeField]
         private int itemID = -1; //슬롯에 아무것도 없으면 -1 할당.
-        public int ItemID { get { return itemID; } set { itemID = value; } }
+        public int ItemID { get { return itemID; } 
+            set 
+            {
+                itemID = value; 
+
+            }
+        }
         [Tooltip("슬롯 자신의 Transform")]
         public Transform itemTransform; // 아이템의 크기 조절을 위한 트랜스폼
         // 아이템 슬롯의 ID --> -1 로 설정 하여 MANAGER에서 자동할당 시킨다. 
@@ -43,7 +50,7 @@ namespace JJH
 
 
         [Tooltip("레이 닿는지 확인용")]
-        private bool isRayHovering = false;
+        private bool isRayHovering { get; set; } = false;
 
         public SlotData slotData;
 
@@ -109,7 +116,7 @@ namespace JJH
             base.OnSelectExited(args);
             Debug.Log("Slot -> OnSelectedExiting");
 
-            //if (!Manager.Inventory.isEnable) return;
+            if (!Manager.Inventory.isEnable) return;
 
             /*if(args.interactorObject.transform.GetComponent<InventorySlot>()!=null)
             {
@@ -222,25 +229,25 @@ namespace JJH
 
         public void AddItem(InventoryItem item)
         {
-            // item.itemData.SaveOriginalTransform(item.transform);
-            InventoryItem inventoryItem = item as InventoryItem;
+            
+            InventoryItem inventoryItem = item as InventoryItem; 
+
             inventoryItem.transform.SetParent(itemTransform); // 아 이 자식으로 만드는 위치를 어디서 해줘야 될지 너무 고민되는데... 
 
-            item.transform.localPosition = Vector3.zero; // 슬롯 위치에 딱 맞도록 로컬 포지션을 0 으로 설정
-            item.transform.localRotation = Quaternion.identity;
+            inventoryItem.transform.localPosition = Vector3.zero; // 슬롯 위치에 딱 맞도록 로컬 포지션을 0 으로 설정
+            inventoryItem.transform.localRotation = Quaternion.identity;
 
-            // 생각해보면 add 될 때 , remove 될 때만 한 번 스케일을 조정해 볼까? 여러군대에서 하지 말고. 
-            // 이거 그냥 여기서 강제로 스케일 조정해 줘야 될 것 같음.
-            // 이거 그냥 여기서 강제로 소켓 크기에 맞춰서 조정해 줘야 될 것 같음. 크기 조정이 안됨....
-            item.transform.localScale = item.SocketScale;
-            item.rigid.isKinematic = true;
+
+
+            Debug.Log("아이템의 소켓 스케일 작동");
+            inventoryItem.transform.localScale = inventoryItem.SocketScale; // 아이템의 스케일 변경
+            Debug.Log($"아이템의 로컬 스케일 상태 ->{inventoryItem.transform.localScale}");
+            inventoryItem.rigid.isKinematic = true; // 키네마틱 On 
             //ResizeItemToFitSlot(item.transform); // 이거 load save 할 때 써야되지 원래 크기 가지고 있어야지. 아닌가?
-            // 아이템을 슬롯의 자식으로 설정
 
-            //Add 했으면 색 깔 변경? 
             slotImage.color = Color.yellow;
 
-            itemID = item.itemData.itemID;
+            itemID = inventoryItem.itemData.itemID;  
 
             //Manager.Inventory.UpdateInventoryData();
         }

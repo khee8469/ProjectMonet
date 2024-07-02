@@ -51,7 +51,7 @@ namespace Jc
             while(rate < 1f)
             {
                 rate += Time.deltaTime / 2f;
-                pointLight.intensity = Mathf.Lerp(1f, 0.1f, rate);
+                pointLight.intensity = Mathf.Lerp(1f, 0.01f, rate);
                 yield return null;
             }
         }

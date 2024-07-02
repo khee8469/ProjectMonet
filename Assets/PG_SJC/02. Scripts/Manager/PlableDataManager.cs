@@ -1,6 +1,7 @@
 using JJH;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 namespace Jc
@@ -13,7 +14,7 @@ namespace Jc
         [SerializeField]
         private List<QuestListData> questStateDatas;
         [SerializeField]
-        private List<SlotData> inventorySlotDatas;
+        private List<SlotData> inventorySlotDatas { get; set; }
         public List<SlotData> InventorySlotDatas { get { return inventorySlotDatas; } }
 
         public Dictionary<int, bool> paintDataList;
@@ -62,15 +63,10 @@ namespace Jc
                 Manager.Quest.QuestDic[data.id_quest].State = (QuestState)data.progress;
             }
         }
-
-
-
-
         public void InitSlot()
         {
             // 인벤토리 슬롯 데이터 로드
             List<SlotData> loadedInventoryData = LoadSlotData();
-
             inventorySlotDatas = loadedInventoryData;
         }
         // 퀘스트 데이터 저장
@@ -135,13 +131,14 @@ namespace Jc
             {
                 InventorySlot slot = Manager.Inventory.inventorySlots[key];
                 inventorySlotDatas[key - 1] = new SlotData(slot.slotID, slot.ItemID, slot.ItemCount);
-
-                //Debug.Log($"{slot.slotID} , {slot.ItemID} , {slot.ItemCount} --> 슬롯 데이터의 상태");
-
-                //Debug.Log("Save slot 진입");
             }
 
             CSVHelper.Write(Path.Combine("Assets/PG_SJC/Resources/", DataPath.LocalInventoryData), inventorySlotDatas);
+
+#if UNITY_EDITOR
+            AssetDatabase.Refresh();
+#endif
+
         }
         public List<SlotData> LoadSlotData()
         {
@@ -152,6 +149,7 @@ namespace Jc
             {
                 SlotData data = new SlotData(0, -1, 0);
                 loadedData.Add(data);
+                
             }
 
             if (Directory.Exists("Assets/PG_SJC/Resources/UserData"))
@@ -163,6 +161,7 @@ namespace Jc
                 {
                     for (int i = 0; i < csvData.Count; i++)
                     {
+                        
                         SlotData loadSlot = new SlotData();
                         loadSlot.id_slot = (int)csvData[i]["id_slot"];
                         if (csvData[i]["id_item"] is int)
@@ -170,7 +169,8 @@ namespace Jc
                         if (csvData[i]["count"] is int)
                             loadSlot.count = (int)csvData[i]["count"];
 
-                        loadedData[loadSlot.id_slot - 1] = loadSlot;
+                        loadedData[loadSlot.id_slot - 1] = loadSlot;                         
+
                     }
                 }
             }
