@@ -29,10 +29,10 @@ namespace JJH
         }
 
         // 이벤트 등록
-        protected override void OnEnable()
-        {
+        //protected override void OnEnable()
+        //{
             
-        }
+        //}
 
         // 이벤트 해제 
         private void OnDisable()

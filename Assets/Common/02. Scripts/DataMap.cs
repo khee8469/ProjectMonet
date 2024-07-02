@@ -26,27 +26,11 @@ namespace Jc
     {
         public static string GetPath(string fileName)
         {
-            string path = GetPath();
-            return Path.Combine(GetPath(), fileName);
-        }
-        public static string GetPath()
-        {
-            string path = null;
-            switch (Application.platform)
-            {
-                case RuntimePlatform.Android:
-                    path = Application.persistentDataPath;
-                    path = path.Substring(0, path.LastIndexOf('/'));
-                    return Path.Combine(Application.persistentDataPath, "Resources/");
-                case RuntimePlatform.WindowsEditor:
-                    path = Application.dataPath;
-                    path = path.Substring(0, path.LastIndexOf('/'));
-                    return Path.Combine(path, "Assets", "Resources/");
-                default:
-                    path = Application.dataPath;
-                    path = path.Substring(0, path.LastIndexOf('/'));
-                    return Path.Combine(path, "Resources/");
-            }
+#if UNITY_EDITOR
+            return Path.Combine(Application.dataPath, fileName);
+#else
+            return Path.Combine(Application.persistentDataPath, fileName);
+#endif
         }
     }
 
