@@ -90,7 +90,7 @@ namespace Jc
                 questStateDatas[i] = new QuestListData(id, id_quest, progress);
             }
 
-            CSVHelper.Write(SystemPath.GetPath(Path.Combine("Resources", DataPath.LocalQuestData)), questStateDatas);
+            CSVHelper.Write(SystemPath.GetPath(DataPath.LocalQuestData), questStateDatas);
         }
         // 퀘스트 데이터 불러오기
         public List<QuestListData> LoadQuestData()
@@ -103,9 +103,9 @@ namespace Jc
                 loadedData.Add(new QuestListData(key, key, (int)Manager.Quest.QuestDic[key].State));
             }
 
-            if (File.Exists(SystemPath.GetPath(Path.Combine("Resources",DataPath.LocalQuestData))))
+            if (File.Exists(SystemPath.GetPath(DataPath.LocalQuestData)))
             {
-                List<Dictionary<string, object>> csvData = CSVHelper.Read(DataPath.LocalQuestData);
+                List<Dictionary<string, object>> csvData = CSVHelper.Read(SystemPath.GetPath(DataPath.LocalQuestData), true);
 
                 // 불러온 데이터가 있다면 덮어쓰기 진행
                 if (csvData != null && csvData.Count >= 1)
@@ -134,7 +134,7 @@ namespace Jc
                 inventorySlotDatas[key - 1] = new SlotData(slot.slotID, slot.ItemID, slot.ItemCount);
             }
 
-            CSVHelper.Write(SystemPath.GetPath(Path.Combine("Resources", DataPath.LocalInventoryData)), inventorySlotDatas);
+            CSVHelper.Write(SystemPath.GetPath(DataPath.LocalInventoryData), inventorySlotDatas);
 
 #if UNITY_EDITOR
             AssetDatabase.Refresh();
@@ -150,12 +150,11 @@ namespace Jc
             {
                 SlotData data = new SlotData(0, -1, 0);
                 loadedData.Add(data);
-                
             }
 
-            if (File.Exists(SystemPath.GetPath(Path.Combine("Resources", DataPath.LocalInventoryData))))
+            if (File.Exists(SystemPath.GetPath(DataPath.LocalInventoryData)))
             {
-                List<Dictionary<string, object>> csvData = CSVHelper.Read(DataPath.LocalInventoryData);
+                List<Dictionary<string, object>> csvData = CSVHelper.Read(SystemPath.GetPath(DataPath.LocalInventoryData), true);
 
                 // 불러온 데이터가 있다면 덮어쓰기 진행
                 if (csvData != null && csvData.Count >= 1)
@@ -205,7 +204,7 @@ namespace Jc
             }
             Debug.Log(111111111);
             //miniatureDatas 데이터 csv파일로 세이브
-            CSVHelper.Write(SystemPath.GetPath(Path.Combine("Resources", DataPath.LocalMiniatureData)), miniatureDatas);
+            CSVHelper.Write(SystemPath.GetPath(DataPath.LocalMiniatureData), miniatureDatas);
         }
 
         // 미니어처 위치 데이터 불러오기
@@ -214,10 +213,10 @@ namespace Jc
             List<MiniatureData> loadedData = new List<MiniatureData>();
 
             //데이터를 로드
-            if (File.Exists(SystemPath.GetPath(Path.Combine("Resources", DataPath.LocalMiniatureData))))
+            if (File.Exists(SystemPath.GetPath(DataPath.LocalMiniatureData)))
             {
                 Debug.Log("로드");
-                List<Dictionary<string, object>> csvData = CSVHelper.Read(DataPath.LocalMiniatureData);
+                List<Dictionary<string, object>> csvData = CSVHelper.Read(SystemPath.GetPath(DataPath.LocalMiniatureData), true);
 
                 // 불러온 데이터가 있다면 덮어쓰기 진행
                 if (csvData != null && csvData.Count >= 1)

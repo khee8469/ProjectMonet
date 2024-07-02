@@ -6,8 +6,11 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace Jc
 {
     // 스테이지 1-3 퍼즐 조각상 소켓
-    public class StatueSocket : CustomSocket
+    public class StatueSocket : CustomSocket, IPuzzleable
     {
+        [SerializeField]
+        private PuzzleManager puzzle;
+
         [Header("전용 조각상")]
         [SerializeField]
         private StatueObject statue;
@@ -53,5 +56,40 @@ namespace Jc
             ActiveEvent();
         }
 
+        public void RegistObject(PuzzleManager puzzle)
+        {
+            puzzle.puzzleObjects.Add(this);
+        }
+
+        public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
+        {
+            return;
+        }
+
+        public void ActiveSetting()
+        {
+            return;
+        }
+
+        public void DisActiveSetting()
+        {
+            return;
+        }
+
+        public void CompleteSetting()
+        {
+            if(!statue.gameObject.activeSelf)
+            {
+                statue.gameObject.SetActive(true);
+                statue.StopRoutine();
+            }
+
+            statue.transform.position = attachTransform.position;
+            statue.transform.rotation = attachTransform.rotation;
+            statue.GetComponent<Rigidbody>().isKinematic = true;
+            statue.GetComponent<Collider>().enabled = false;
+            // 조각상이 끼워진 경우 이벤트 발생
+            ActiveEvent();
+        }
     }
 }
