@@ -28,6 +28,9 @@ namespace JJH
         [Tooltip("플레이어의 이동을 방지해줄 move provider")]
         [SerializeField] private DynamicMoveProvider move;
 
+        [Tooltip("player의 moveSpeed를 저장해줄 변수")]
+        private float originalSpeed;
+
         public void Activate()
         {
 
@@ -41,18 +44,21 @@ namespace JJH
                 characterController = player.GetComponentInParent<CharacterController>();
                 characterController.enabled = false;
                 move = player.GetComponentInChildren<DynamicMoveProvider>();
+
                 if(move !=null)
                 {
                     if (isTrigger == false)
                     {
                         isTrigger = true;
-                        move.enabled = false;
+                        originalSpeed = move.moveSpeed;
+                        move.moveSpeed = 0;
                         player.transform.position = playerMovePos.position; // 정해진 위치로 플레이어 이동
                     }
                     else
                     {
                         isTrigger = false;
                         move.enabled = true;
+                        move.moveSpeed = originalSpeed;
                         player.transform.position = playerMovePos.position; // 정해진 위치로 플레이어 이동
                     }
                 }
