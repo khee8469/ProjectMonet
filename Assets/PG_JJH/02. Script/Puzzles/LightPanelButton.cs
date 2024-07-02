@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Content.Interaction;
 
-public class LightPanelButton : MonoBehaviour
+public class LightPanelButton : CustomButton
 {
-    // Start is called before the first frame update
-    void Start()
+   
+    public void Test()
     {
-        
+        Debug.Log("정재훈");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+
+
 }
