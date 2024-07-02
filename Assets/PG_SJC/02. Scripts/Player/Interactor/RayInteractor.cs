@@ -99,7 +99,7 @@ namespace Jc
         }
 
         #region 컨트롤러 콜백
-        //인벤토리에서 아이템 < 꺼낼 > 때 체크해줘야하는 Enter 함수 
+        //인벤토리에서 아이템 ----< 꺼낼 > 때 체크해줘야하는 Enter 함수 
         // 스택형 아이템은 destroy했기 때문에 생성한 다음에 손에 붙여줘야 한다는 것 잊지 말기. 
         public void OnSlotTriggerEnter(InputAction.CallbackContext context)
         {
@@ -204,7 +204,7 @@ namespace Jc
             yield return new WaitForSeconds(0.7f);
         }
 
-        // 인벤토리에 아이템을 < 추가 > 할 때 체크할 Exit 함수 
+        // 인벤토리에 아이템을 ----< 추가 > 할 때 체크할 Exit 함수 
         public void OnSlotTriggerExit(InputAction.CallbackContext context)
         {
             InventorySlot curSlot = FindSlot();

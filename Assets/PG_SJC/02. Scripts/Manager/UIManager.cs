@@ -34,12 +34,9 @@ namespace Jc
 
         public void CameraInit()
         {
-            Debug.Log("UIManager Enable");
-
             Camera renderCamera = Camera.main;
             Debug.Log(renderCamera);
             if (renderCamera == null) return;
-            Debug.Log($"main camera ->{renderCamera}");
 
             mainCanavas.worldCamera = renderCamera;
         }
@@ -87,7 +84,6 @@ namespace Jc
             {
                 Debug.Log("오픈 시 데이터 로드");
                 Manager.Inventory.LoadSlot();
-
             }
             infoGruop.SetActive(true);
             Manager.Inventory.isEnable = true;
