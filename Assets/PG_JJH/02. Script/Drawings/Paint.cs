@@ -64,9 +64,11 @@ namespace JJH
             {
                 Debug.Log("트리거 진입함");
                 Pen pen =other.gameObject?.GetComponent<Pen>();
+                if(pen!=null)
+                {
+                    pen.ChangeColor(GetPaintType());
 
-                pen.ChangeColor(GetPaintType());
-
+                }
             }
         }
     }
