@@ -87,35 +87,35 @@ namespace JJH
 
         public void LoadSlot()
         {
-            Manager.PlableData.InitSlot();
+            //Manager.PlableData.InitSlot();
 
             // 가끔가다 생기는 문제가 이 foreach 문 내부를 못돌고 있음. 
 
             // 슬롯 데이터형 리스트 인데. 
-            foreach (SlotData slotData in Manager.PlableData.InventorySlotDatas)
-            {        
-                // slot의 itemId가 -1 이 아닌대도 -1로 체크되고 있다. 
-                if (slotData.id_item == -1) continue;
+            //foreach (SlotData slotData in Manager.PlableData.InventorySlotDatas)
+            //{        
+            //    // slot의 itemId가 -1 이 아닌대도 -1로 체크되고 있다. 
+            //    if (slotData.id_item == -1) continue;
 
-                InventorySlot slot = Manager.Inventory.inventorySlots[slotData.id_slot];
-                InventoryItem item = Instantiate(Manager.Inventory.itemPrefabDic[slotData.id_item]);
+            //    InventorySlot slot = Manager.Inventory.inventorySlots[slotData.id_slot];
+            //    InventoryItem item = Instantiate(Manager.Inventory.itemPrefabDic[slotData.id_item]);
 
-                // 이 해당 슬롯에 이제 해당하는 item id 값을 가진 프리팹을 붙여준다.
-                slot.SetRayHovering(true);
-                slot.interactionManager.SelectEnter(slot as IXRSelectInteractor, item as IXRSelectInteractable);
-                // 셀렉트 엔터가 안되고 있는지 확인해보기.
-                Debug.Log($"셀렉트 엔터드 상태 {slot} , {item}");
-                Debug.Log(slot.interactablesSelected[0]+"인터렉터블 0 번 인덱스 잘 들어감");
-                slot.AddItem(item); // ADD 에서 이미 자식으로 만들어 주고 kinematic 켜주고 있는데? 
+            //    // 이 해당 슬롯에 이제 해당하는 item id 값을 가진 프리팹을 붙여준다.
+            //    slot.SetRayHovering(true);
+            //    slot.interactionManager.SelectEnter(slot as IXRSelectInteractor, item as IXRSelectInteractable);
+            //    // 셀렉트 엔터가 안되고 있는지 확인해보기.
+            //    Debug.Log($"셀렉트 엔터드 상태 {slot} , {item}");
+            //    Debug.Log(slot.interactablesSelected[0]+"인터렉터블 0 번 인덱스 잘 들어감");
+            //    slot.AddItem(item); // ADD 에서 이미 자식으로 만들어 주고 kinematic 켜주고 있는데? 
 
-                for (int i = 0; i < slotData.count; i++)
-                {
-                    slot.AddItemNumber();
-                }
+            //    for (int i = 0; i < slotData.count; i++)
+            //    {
+            //        slot.AddItemNumber();
+            //    }
 
-                slot.SetRayHovering(false); // 일단 다시 꺼줘보자. 
+            //    slot.SetRayHovering(false); // 일단 다시 꺼줘보자. 
 
-            }            
+            //}            
         }
         // Load slot 대신에 slot dictionary 를 읽어서 내 인벤토리 상태를 update 해 줄 함수를 만들자.
         // csv 를 지속적으로 update 한다고 생각하지 말고 게임 중에는 저장된 딕셔너리에서 저장된 값을 불러와서 아이템을 ADD 해주는 방식으로 수정해야 한다.
@@ -282,7 +282,7 @@ namespace JJH
                 // 슬롯 한 개 에만 add 해줘야하고 추가로 소켓에 제대로 들어가야한다. 
                 // 야 이거 싱글턴에서 부르는건대 왜 여러개 들어가냐? 말이 안되는데 ?? 
             }
-            Manager.PlableData.SaveSlotData(); // 빈 슬롯에 들어간 데이터를 저장한다.
+            //Manager.PlableData.SaveSlotData(); // 빈 슬롯에 들어간 데이터를 저장한다.
             is_AddRemoveItem = true;
             Debug.Log($"ADD ITEM 시에 변수 상태{is_AddRemoveItem} ");
         }
@@ -305,7 +305,7 @@ namespace JJH
                         {
                             Destroy(slots.transform.GetChild(i).gameObject);
 
-                            Manager.PlableData.SaveSlotData();
+                            //Manager.PlableData.SaveSlotData();
                             is_AddRemoveItem = true;
 
                             Debug.Log($"현재 아이템이 들어있는 슬롯 체크 ->{slots.gameObject.name}");
