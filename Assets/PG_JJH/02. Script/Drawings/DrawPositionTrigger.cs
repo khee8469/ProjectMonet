@@ -29,16 +29,18 @@ namespace JJH
         [Tooltip("player의 moveSpeed를 저장해줄 변수")]
         private float originalSpeed;
 
+        /*[Tooltip("플레이어의 진입 시 위치를 저장해 둘 변수")]
+        private Vector3 playerOiriginPos;*/
+
+        [Tooltip("플레이어를 돌려 줄 위치 ")]
+        [SerializeField]private Transform returnPos;
+
         public void Activate()
         {
 
             if(player != null)
             {
-                Debug.Log("Activate 발동");
                 // 캐릭터 컨트롤러를 잠시 끄고 위치를 이동시킨다.
-
-                Debug.Log($"player 이름 ->{player.gameObject.name}");
-
                 characterController = player.GetComponentInParent<CharacterController>();
                 characterController.enabled = false;
                 move = player.GetComponentInChildren<DynamicMoveProvider>();
@@ -51,7 +53,6 @@ namespace JJH
                         originalSpeed = move.moveSpeed;
                         move.moveSpeed = 0;
                         player.transform.rotation = playerMovePos.rotation;
-                        Debug.Log(player.transform.rotation + "플레이어의 로테이션");
                         player.transform.position = playerMovePos.position; // 정해진 위치로 플레이어 이동
                     }
                     else
@@ -59,7 +60,9 @@ namespace JJH
                         isTrigger = false;
                         move.enabled = true;
                         move.moveSpeed = originalSpeed;
-                        player.transform.position = playerMovePos.position; // 정해진 위치로 플레이어 이동
+                        player.transform.rotation = playerMovePos.rotation;
+
+                        player.transform.position = returnPos.position; // 정해진 위치로 플레이어 이동
                     }
                 }
                 characterController.enabled = true;
@@ -81,11 +84,16 @@ namespace JJH
             if (other.gameObject.CompareTag("Player"))
             {
                 player = other.gameObject;
-                Debug.Log("플레이어");
             }
             // 이거 그냥 태그로 하자. 
 
         }
+
+        private void OnTriggerExit(Collider other)
+        {
+            player = null; 
+        }
+
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);

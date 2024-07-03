@@ -51,6 +51,16 @@ namespace JJH
         [Tooltip("등대가 움직이는 소리 재생할 sound")]
         [SerializeField] AudioClip lightHouseSound;
 
+        [Tooltip("밤 용 스카이박스")] // 어차피 기본 상태에서는 이 스카이 박스를 쓰고 있을 거니까
+        [SerializeField] Material nightSkybox;
+
+        // 맵의 
+        [Tooltip("낮 용 스카이박스 --> Maybe 태양없는 skybox ")]
+        [SerializeField] Material afternoonSkybox;
+
+
+
+
         // button property를 이용하여 그 오브젝트의 위치를 조정해준다.
 
         private void Start()
@@ -261,7 +271,6 @@ namespace JJH
             lightHouseHead.transform.rotation = end;
             CheckMyAngel(); 
         }
-
 
         // 스크립트 별로 코루틴을 저장 해줘서 놓는 순간 다시 돌아오도록 하기. 
         private Coroutine activeCoroutine;
