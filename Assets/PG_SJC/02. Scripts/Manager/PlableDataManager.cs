@@ -223,11 +223,11 @@ namespace Jc
                 {
                     for (int i = 0; i < csvData.Count; i++)
                     {
-                        Debug.Log(csvData[i]["miniatureId"]);
-                        Debug.Log(/*(float)*/csvData[i]["xPosition"]);
-                        Debug.Log(csvData[i]["yPosition"]);
-                        Debug.Log(csvData[i]["zPosition"]);
-                        //loadedData.Add(new MiniatureData((int)csvData[i]["miniatureId"], new Vector3((float)csvData[i]["xPosition"], (float)csvData[i]["yPosition"], (float)csvData[i]["zPosition"])));
+                        int id = (int)csvData[i]["miniatureId"];
+                        float x = (float)csvData[i]["xPosition"];
+                        float y = (float)csvData[i]["yPosition"];
+                        float z = (float)csvData[i]["zPosition"];
+                        loadedData.Add(new MiniatureData(id, new Vector3(x, y, z)));
                     }
                 }
                 // 로드된 데이터를 딕셔너리에 저장
