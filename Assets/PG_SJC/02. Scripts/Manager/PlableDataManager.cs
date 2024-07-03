@@ -1,4 +1,5 @@
 using JJH;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
@@ -137,7 +138,7 @@ namespace Jc
             CSVHelper.Write(SystemPath.GetPath(DataPath.LocalInventoryData), inventorySlotDatas);
 
 #if UNITY_EDITOR
-            AssetDatabase.Refresh();
+            //AssetDatabase.Refresh();
 #endif
 
         }
@@ -223,10 +224,10 @@ namespace Jc
                 {
                     for (int i = 0; i < csvData.Count; i++)
                     {
-                        int id = (int)csvData[i]["miniatureId"];
-                        float x = (float)csvData[i]["xPosition"];
-                        float y = (float)csvData[i]["yPosition"];
-                        float z = (float)csvData[i]["zPosition"];
+                        int id = Convert.ToInt32(csvData[i]["miniatureId"]);
+                        float x = Convert.ToSingle(csvData[i]["xPosition"]);
+                        float y = Convert.ToSingle(csvData[i]["yPosition"]);
+                        float z = Convert.ToSingle(csvData[i]["zPosition"]);
                         loadedData.Add(new MiniatureData(id, new Vector3(x, y, z)));
                     }
                 }
