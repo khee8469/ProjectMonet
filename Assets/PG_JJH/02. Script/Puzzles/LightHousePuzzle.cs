@@ -6,7 +6,7 @@ using Jc;
 
 namespace JJH
 {
-    public class LightHousePuzzle : PuzzleManager
+    public class LightHousePuzzle : PuzzleManager , IPuzzleable
     {
         // button 들에는 XrPushButton 이용 
 
@@ -22,7 +22,6 @@ namespace JJH
 
         private void Start()
         {
-
             // 클리어 이벤트 등록. 
             OnClear.AddListener(LightHouseClear);
             
@@ -53,6 +52,30 @@ namespace JJH
 
         }
 
+        public void RegistObject(PuzzleManager puzzle)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ActiveSetting()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DisActiveSetting()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void CompleteSetting()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
 }
