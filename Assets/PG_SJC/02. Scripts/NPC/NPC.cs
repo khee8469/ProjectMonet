@@ -26,6 +26,10 @@ namespace Jc
         public List<int> QuestIDList { get { return questIDList; } }
 
         [SerializeField]
+        protected List<int> normalNarrationIDs = new List<int>();
+        public List<int> NormalNarrationIDs = new List<int>();
+
+        [SerializeField]
         private TextMeshProUGUI dialogText;     // 다이얼로그 텍스트
         [SerializeField]
         private Animator floatingAnim;      // 다이얼로그 텍스트 플로팅 애니메이터
@@ -67,6 +71,7 @@ namespace Jc
 
             // 데이터에 따른 퀘스트 할당
             questIDList = npcData.questIDList;
+            normalNarrationIDs = Manager.Data.NarrationBundleDic[npcData.narrationBundleID];
         }
 
         // 상호작용 시 
