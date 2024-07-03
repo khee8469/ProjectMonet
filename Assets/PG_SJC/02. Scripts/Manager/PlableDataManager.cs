@@ -65,6 +65,8 @@ namespace Jc
             {
                 Manager.Quest.QuestDic[data.id_quest].State = (QuestState)data.progress;
             }
+
+            SaveQuestData();
         }
         //public void InitSlot()
         //{
@@ -92,6 +94,10 @@ namespace Jc
 
                 questStateDatas[i] = new QuestListData(id, id_quest, progress);
             }
+
+            // 저장소가 없다면 생성
+            if (!Directory.Exists(SystemPath.GetPath("UserData")))
+                Directory.CreateDirectory(SystemPath.GetPath("UserData"));
 
             CSVHelper.Write(SystemPath.GetPath(DataPath.LocalQuestData), questStateDatas);
         }
@@ -143,42 +149,42 @@ namespace Jc
         //            AssetDatabase.Refresh();
         //#endif
         //        }
-        public List<SlotData> LoadSlotData()
-        {
-            List<SlotData> loadedData = new List<SlotData>();
+        //public List<SlotData> LoadSlotData()
+        //{
+        //    List<SlotData> loadedData = new List<SlotData>();
 
-            // 초기화 
-            foreach (int key in Manager.Inventory.inventorySlots.Keys)
-            {
-                SlotData data = new SlotData(0, -1, 0);
-                loadedData.Add(data);
-            }
+        //    // 초기화 
+        //    foreach (int key in Manager.Inventory.inventorySlots.Keys)
+        //    {
+        //        SlotData data = new SlotData(0, -1, 0);
+        //        loadedData.Add(data);
+        //    }
 
-            if (File.Exists(SystemPath.GetPath(DataPath.LocalInventoryData)))
-            {
-                List<Dictionary<string, object>> csvData = CSVHelper.Read(SystemPath.GetPath(DataPath.LocalInventoryData), true);
+        //    if (File.Exists(SystemPath.GetPath(DataPath.LocalInventoryData)))
+        //    {
+        //        List<Dictionary<string, object>> csvData = CSVHelper.Read(SystemPath.GetPath(DataPath.LocalInventoryData), true);
 
-                // 불러온 데이터가 있다면 덮어쓰기 진행
-                if (csvData != null && csvData.Count >= 1)
-                {
-                    for (int i = 0; i < csvData.Count; i++)
-                    {
+        //        // 불러온 데이터가 있다면 덮어쓰기 진행
+        //        if (csvData != null && csvData.Count >= 1)
+        //        {
+        //            for (int i = 0; i < csvData.Count; i++)
+        //            {
 
-                        SlotData loadSlot = new SlotData();
-                        loadSlot.id_slot = (int)csvData[i]["id_slot"];
-                        if (csvData[i]["id_item"] is int)
-                            loadSlot.id_item = (int)csvData[i]["id_item"];
-                        if (csvData[i]["count"] is int)
-                            loadSlot.count = (int)csvData[i]["count"];
+        //                SlotData loadSlot = new SlotData();
+        //                loadSlot.id_slot = (int)csvData[i]["id_slot"];
+        //                if (csvData[i]["id_item"] is int)
+        //                    loadSlot.id_item = (int)csvData[i]["id_item"];
+        //                if (csvData[i]["count"] is int)
+        //                    loadSlot.count = (int)csvData[i]["count"];
 
-                        loadedData[loadSlot.id_slot - 1] = loadSlot;
+        //                loadedData[loadSlot.id_slot - 1] = loadSlot;
 
-                    }
-                }
-            }
+        //            }
+        //        }
+        //    }
 
-            return loadedData;
-        }
+        //    return loadedData;
+        //}
 
 
 
@@ -204,7 +210,10 @@ namespace Jc
 
                 miniatureDatas[key - 1] = new MiniatureData(miniatureId, new Vector3(x, y, z));
             }
-            Debug.Log(111111111);
+
+            // 저장소가 없다면 생성
+            if (!Directory.Exists(SystemPath.GetPath("UserData")))
+                Directory.CreateDirectory(SystemPath.GetPath("UserData"));
             //miniatureDatas 데이터 csv파일로 세이브
             CSVHelper.Write(SystemPath.GetPath(DataPath.LocalMiniatureData), miniatureDatas);
         }

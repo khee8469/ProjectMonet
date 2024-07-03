@@ -94,6 +94,7 @@ namespace Jc
             targetChess.transform.parent = transform;
             targetChess.IsEnable = true;
             targetChess.colliders[0].enabled = false;
+            targetChess.GetComponent<Rigidbody>().isKinematic = true;
             pillar.transform.localPosition = new Vector3(pillar.transform.localPosition.x, -1.3f, pillar.transform.localPosition.z); ;
             puzzle.UpdateCondition(puzzleIndex);
         }

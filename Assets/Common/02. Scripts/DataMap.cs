@@ -20,7 +20,7 @@ namespace Jc
         public const int NARRATION_BUNDLE = 1600000;
         // 노말 나레이션 번들 ID
         public const int NARRATION_BUNDLE_NORMAL = 1000;
-        // 나레이션 ID
+        // 나레이션 IDㅇ
         public const int NARRATION = 1610000;
         // 노말 나레이션 ID
         public const int NARRATION_NORMAL = 10000;

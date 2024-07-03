@@ -18,6 +18,12 @@ namespace Jc
         [SerializeField]
         private GameObject[] roofObs;
 
+        protected override void Awake()
+        {
+            base.Awake();
+            RegistObject(puzzle);
+        }
+
         private void ActiveEvent()
         {
             foreach (GameObject go in roofObs)

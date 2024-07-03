@@ -52,6 +52,7 @@ namespace Jc
             obj.transform.position = attachTransform.position;
             obj.ActiveObject();
             // 퍼즐 클리어
+            puzzle.OnClearPuzzle();
         }
 
         public void ActiveSetting()

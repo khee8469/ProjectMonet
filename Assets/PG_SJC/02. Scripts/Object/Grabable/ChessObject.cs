@@ -15,6 +15,9 @@ namespace Jc
         private bool isEnable;
         public bool IsEnable { get { return isEnable; } set { isEnable = value; } }
 
+        private Rigidbody rigid;
+        private Collider col;
+
         [Header("밸런싱")]
         [SerializeField]
         private IXRSelectInteractor interactor;
@@ -23,7 +26,12 @@ namespace Jc
 
         private Coroutine exitRoutine;
 
-
+        protected override void Awake()
+        {
+            base.Awake();
+            rigid = GetComponent<Rigidbody>();
+            col = GetComponent<Collider>(); 
+        }
         public void ResetObject()
         {
             if (isEnable)
@@ -42,6 +50,8 @@ namespace Jc
         }
         protected override IEnumerator ResetRoutine()
         {
+            rigid.velocity = Vector3.zero;
+            col.enabled = false;
             float rate = 0f;
             Vector3 startScale = transform.localScale;
             Vector3 startPos = transform.position;
@@ -59,6 +69,7 @@ namespace Jc
             transform.position = resetTransform.position;
             transform.rotation = resetTransform.rotation;
             transform.localScale = resetTransform.scale;
+            col.enabled = true;
         }
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
