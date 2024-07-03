@@ -1,11 +1,10 @@
+using Jc;
 using System.Collections;
 using UnityEngine;
 
 namespace JJH
 {
-
-
-    public class LightPanelButton : CustomButton
+    public class LightPanelButton : CustomButton , IPuzzleable
     {
 
         public enum Direction
@@ -28,7 +27,7 @@ namespace JJH
         [SerializeField] private bool isComplete = false;
 
         [Tooltip("등대 회전의 보간이 지속 되는 시간")]
-        [SerializeField] private float duration = 1f;
+        [SerializeField] private float duration = 0.5f;
 
         [Tooltip("버튼 눌리는 보간이 지속 되는 시간")]
         [SerializeField] private float buttonDuration = 0.2f;
@@ -51,17 +50,9 @@ namespace JJH
         [Tooltip("등대가 움직이는 소리 재생할 sound")]
         [SerializeField] AudioClip lightHouseSound;
 
-        [Tooltip("밤 용 스카이박스")] // 어차피 기본 상태에서는 이 스카이 박스를 쓰고 있을 거니까
-        [SerializeField] Material nightSkybox;
+        [Tooltip("계기판의 on off 상태 체크 --> 퍼즐 시작 전 /진행중 /후 ")]
+        private bool isStart;
 
-        // 맵의 
-        [Tooltip("낮 용 스카이박스 --> Maybe 태양없는 skybox ")]
-        [SerializeField] Material afternoonSkybox;
-
-
-
-
-        // button property를 이용하여 그 오브젝트의 위치를 조정해준다.
 
         private void Start()
         {
@@ -69,10 +60,14 @@ namespace JJH
             Debug.Log("자신의 localPositinon " + startPosition);
             lastPositiion = new Vector3(startPosition.x, startPosition.y + checkPosition, startPosition.z);
 
-        }
+            /*if(isStart==false) // 이런 식으로 manager에 접근해서 패널 이벤트 꺼주기.
+            {
+            // 오브젝트 끄는게 아니라 이벤트를 꺼줘야함. --> 또는 그냥 나 자신의 스크립트를 비활성화하기.
+                this.gameObject.SetActive(false);
+            }*/
 
-        // 눌렀을 때 보간으로 들어가고 떼는 순간 보간으로 올라오고 
-        // 그 눌렀다 떼는 거를 파악해서 오브젝트의 각도 움직여주기. 
+
+        }
 
         [Tooltip("버튼 자신의 방향")]
         public Direction myDirection;
@@ -99,8 +94,6 @@ namespace JJH
             if (isPushing == true) return;
             StartAndStopCoroutine(PushLerpRoutine(startPosition, lastPositiion, buttonDuration));
 
-
-
         }
 
         public void RightButtonPush()
@@ -108,8 +101,6 @@ namespace JJH
             Debug.Log("오른쪽 버튼 누름");
             if (isPushing == true) return;
             StartAndStopCoroutine(PushLerpRoutine(startPosition, lastPositiion, buttonDuration));
-
-
         }
 
         public void UpButtonRelease()
@@ -118,8 +109,6 @@ namespace JJH
             isPushing = false; // 어떤 버튼이든 일단 떼면 다른 버튼을 누를 수 있어야 하기 때문에 False 로 변경 
             LightHouseRotation(Direction.UP);
             StartAndStopCoroutine(ReleaseLerpRoutine(startPosition, button.localPosition, duration));
-
-
         }
 
         public void DownButtonRelease()
@@ -202,10 +191,13 @@ namespace JJH
 
                     end = Quaternion.Euler(lightHouseHead.transform.localEulerAngles + new Vector3(0, 0, -5));
                     start = lightHouseHead.transform.localRotation;
-                    
-                    if(lightHouseHead.transform.localRotation.z >=-45)
+
+                    Debug.Log(lightHouseHead.transform.localEulerAngles+"로컬 오일러 앵글");
+
+                    // 이게 마이너스 값으로 가면 local euler값이 355 이렇게 됨 --> 355 : -5 와 같음. 
+
+                    if (lightHouseHead.transform.localEulerAngles.z >= 315 || lightHouseHead.transform.localEulerAngles.z <= 45  )
                     {
-                        Debug.Log("End z 의 값 -> "+ lightHouseHead.transform.localRotation.z);
                         StartCoroutine(RotationRoutine(start, end, duration));
 
                     }
@@ -216,7 +208,11 @@ namespace JJH
                     end = Quaternion.Euler(lightHouseHead.transform.localEulerAngles + new Vector3(0, 0, +5));
                     start = lightHouseHead.transform.localRotation;
 
-                    if(lightHouseHead.transform.localRotation.z <= 45)
+                    Debug.Log(lightHouseHead.transform.localEulerAngles + "로컬 오일러 앵글");
+
+
+
+                    if (lightHouseHead.transform.localEulerAngles.z >= 315 || lightHouseHead.transform.localEulerAngles.z <= 45)
                     {
                         StartCoroutine(RotationRoutine(start, end, duration));
                     }
@@ -226,7 +222,8 @@ namespace JJH
 
                     end = Quaternion.Euler(lightHouseHead.transform.localEulerAngles + new Vector3(0, -5, 0));
                     start = lightHouseHead.transform.localRotation;
-                    if(lightHouseHead.transform.localRotation.y >= -45)
+
+                    if (lightHouseHead.transform.localEulerAngles.y >= 315 || lightHouseHead.transform.localEulerAngles.y <= 45)
                     {
                         StartCoroutine(RotationRoutine(start, end, duration));
                     }
@@ -238,15 +235,14 @@ namespace JJH
 
                     end = Quaternion.Euler(lightHouseHead.transform.localEulerAngles + new Vector3(0, +5, 0));
                     start = lightHouseHead.transform.localRotation;
-                    
-                    if(lightHouseHead.transform.localRotation.y <=45)
+
+                    if (lightHouseHead.transform.localEulerAngles.y >= 315 || lightHouseHead.transform.localEulerAngles.y <= 45)
                     {
                         StartCoroutine(RotationRoutine(start, end, duration));
                     }
                     break;
             }
         }
-
 
         // 얘는 단독으로 돌려줘야하는 코루틴이니까 코루틴 매니저 이용 없이 코루틴 따로 돌려주자. 
         private IEnumerator RotationRoutine(Quaternion start, Quaternion end, float duration)
@@ -262,13 +258,15 @@ namespace JJH
                 // Lerp 의 T값 증가
                 float t = elapsed / duration;
                 // 두 회전 사이 보간
-                lightHouseHead.transform.rotation = Quaternion.Lerp(start, end, t);
-                elapsed += Time.fixedDeltaTime;
+                lightHouseHead.transform.localRotation = Quaternion.Lerp(start, end, t);
+                elapsed += Time.deltaTime;
                 yield return null;
                 
             }
 
-            lightHouseHead.transform.rotation = end;
+            lightHouseHead.transform.localRotation = end;
+
+
             CheckMyAngel(); 
         }
 
@@ -293,5 +291,29 @@ namespace JJH
             // puzzle manager 에 퍼즐 완료 이벤트를 발동시켜준다.
         }
 
+        public void RegistObject(PuzzleManager puzzle)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ActiveSetting()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void DisActiveSetting()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void CompleteSetting()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
