@@ -11,10 +11,10 @@ public class Miniature : InteractObject
     [SerializeField] int id;
     public int Id {  get { return id; } }  
     
-    //[Tooltip("씬 위치데이터 접근용")]
-    //[SerializeField] int sceneNumber;
     // 시작위치 저장용
-    Vector3 startPos;  
+    Vector3 startPos;
+
+    [SerializeField] LayerMask miniatureMapLayer;
 
 
     protected override void Awake()
@@ -44,10 +44,8 @@ public class Miniature : InteractObject
     //미니어처의 현재 위치를 저장
     public void SavePosition()
     {
-        //현재 씬 딕셔너리 값 가져오기
-        var positionData = Manager.PlableData.PositionData.SavePosition_3;
         //key 값은 씬번호_오브젝트이름  같은 이름의 오브젝트에 위치 데이터 전달 예정
-        positionData[id] = transform.localPosition;
+        Manager.PlableData.PositionData.SavePosition_3[id] = transform.localPosition;
         //positionData[$"{sceneNumber}_{transform.name}"] = transform.localPosition;
 
         //데이터 저장
@@ -61,14 +59,17 @@ public class Miniature : InteractObject
         Physics.Raycast(transform.position, Vector3.down, out hit, 1000f);
 
         //타일밖에두면
-        if(hit.transform != transform.parent)
+        //if(hit.transform != transform.parent)
+        if(!Extension.Contain(miniatureMapLayer, hit.transform.gameObject.layer))
         {
+            Debug.Log("타일 밖에 두었습니다.");
             //원위치
             transform.position = startPos;
             transform.rotation = Quaternion.identity;
         }
         else
         {
+            Debug.Log("타일 안에 두었습니다.");
             //미니어처 놓았을 때 높이와 회전 고정
             transform.position = new Vector3(transform.position.x, hit.transform.position.y, transform.position.z);
             transform.rotation = Quaternion.identity;

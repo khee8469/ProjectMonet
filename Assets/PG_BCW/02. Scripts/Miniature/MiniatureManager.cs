@@ -33,10 +33,11 @@ public class MiniatureManager : PuzzleManager
         var positionData = Manager.PlableData.PositionData.SavePosition_3;
         foreach (Miniature miniature in miniatures)
         {
+            Debug.Log(miniature.name);
             //데이터가 잇으면
             if (positionData.ContainsKey(miniature.Id))
             {
-                //Debug.Log("데이터있음");
+                Debug.Log("데이터있음");
                 miniature.transform.localPosition = new Vector3(positionData[miniature.Id].x, positionData[miniature.Id].y, positionData[miniature.Id].z);
                 
             }
@@ -48,6 +49,6 @@ public class MiniatureManager : PuzzleManager
 
             }
         }
-        Manager.PlableData.SetPositionData(); //저장용 구조체 세팅
+        Manager.PlableData.SavePositionData(); //저장용 구조체 세팅
     }
 }
