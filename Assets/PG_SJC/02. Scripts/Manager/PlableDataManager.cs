@@ -30,14 +30,10 @@ namespace Jc
 
 
 
-        [Tooltip("미니어처 위치 데이터 저장용")]
-        [SerializeField]
-
+        //미니어처 위치 구조체화 데이터 저장용
         private List<MiniatureData> miniatureDatas;
         public List<MiniatureData> MiniatureDatas { get { return miniatureDatas; } }
-
-        //Resources에서 가져오기, 미니어처 위치 데이터 저장용
-        [SerializeField]
+        //미니어처 위치 데이터 저장 딕셔너리, Resources에서 가져오거나 참조 지정
         private PositionData positionData;
         public PositionData PositionData { get { return positionData; } }
         // 미니어처매니저에서 초기로드데이터 확인용
@@ -66,12 +62,12 @@ namespace Jc
                 Manager.Quest.QuestDic[data.id_quest].State = (QuestState)data.progress;
             }
         }
-        //public void InitSlot()
-        //{
-        //    // 인벤토리 슬롯 데이터 로드
-        //    List<SlotData> loadedInventoryData = LoadSlotData();
-        //    inventorySlotDatas = loadedInventoryData;
-        //}
+        public void InitSlot()
+        {
+            // 인벤토리 슬롯 데이터 로드
+            List<SlotData> loadedInventoryData = LoadSlotData();
+            inventorySlotDatas = loadedInventoryData;
+        }
         // 퀘스트 데이터 저장
         public void SaveQuestData()
         {
@@ -123,26 +119,26 @@ namespace Jc
             return loadedData;
         }
         // 인벤토리 슬롯 데이터 저장
-        //        public void SaveSlotData()
-        //        {
-        //            if (inventorySlotDatas.Count < 1)
-        //            {
-        //                Debug.Log("슬롯 데이터 리스트가 초기화되지 않았습니다.");
-        //                return;
-        //            }
+        public void SaveSlotData()
+        {
+            if (inventorySlotDatas.Count < 1)
+            {
+                Debug.Log("슬롯 데이터 리스트가 초기화되지 않았습니다.");
+                return;
+            }
 
-        //            foreach (var key in Manager.Inventory.inventorySlots.Keys)
-        //            {
-        //                InventorySlot slot = Manager.Inventory.inventorySlots[key];
-        //                inventorySlotDatas[key - 1] = new SlotData(slot.slotID, slot.ItemID, slot.ItemCount);
-        //            }
+            foreach (var key in Manager.Inventory.inventorySlots.Keys)
+            {
+                InventorySlot slot = Manager.Inventory.inventorySlots[key];
+                inventorySlotDatas[key - 1] = new SlotData(slot.slotID, slot.ItemID, slot.ItemCount);
+            }
 
-        //            CSVHelper.Write(SystemPath.GetPath(DataPath.LocalInventoryData), inventorySlotDatas);
+            CSVHelper.Write(SystemPath.GetPath(DataPath.LocalInventoryData), inventorySlotDatas);
 
-        //#if UNITY_EDITOR
-        //            AssetDatabase.Refresh();
-        //#endif
-        //        }
+#if UNITY_EDITOR
+            AssetDatabase.Refresh();
+#endif
+        }
         public List<SlotData> LoadSlotData()
         {
             List<SlotData> loadedData = new List<SlotData>();
@@ -182,6 +178,10 @@ namespace Jc
 
 
 
+
+        /// <summary>
+        /// 미니어처 데이터 관리
+        /// </summary>
 
         // 포지션 데이터 구조체로 변환해서 저장
         public void SaveMiniatureData()
@@ -244,16 +244,21 @@ namespace Jc
         //로드된 데이터를 딕셔너리에 저장
         public void LoadPositionData()
         {
+            if(miniatureDatas.Count == 0)
+            {
+                Debug.Log("세팅 할 데이터가 없음");
+                return;
+            }
+
             foreach (MiniatureData data in miniatureDatas)
             {
-                if(!positionData.SavePosition_3.ContainsKey(data.miniatureId))
+                if (!positionData.SavePosition_3.ContainsKey(data.miniatureId))
                 {
-                    Debug.Log("저장횟수");
                     positionData.SavePosition_3[data.miniatureId] = new Vector3(data.xPosition, data.yPosition, data.zPosition);
                 }
             }
         }
-        //
+        //딕셔너리를 구조체 데이터로 변환
         public void SavePositionData()
         {
             miniatureDatas.Clear();
