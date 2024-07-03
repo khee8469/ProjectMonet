@@ -80,10 +80,11 @@ namespace Jc
             }
 
             narrationBundleDic = new Dictionary<int, List<int>>();
-
+            bool isNormal = false;
             for (int i = 0; i < csvData.Count; i++)
             {
                 int bundleID = (int)csvData[i]["id"] - DataID.NARRATION_BUNDLE;       // 번들 ID 할당
+
                 List<int> narrationIDs = new List<int>();
 
                 narrationBundleDic.Add(bundleID, narrationIDs);
@@ -151,8 +152,12 @@ namespace Jc
                 int id = (int)csvData[i]["id"] - DataID.NPC;
                 NPCData data = new NPCData();
                 data.id = id;
-                data.npcName = (string)csvData[i]["name_npc"];
+                data.npcName = (string)csvData[i]["name"];
                 data.questIDList = new List<int>();
+
+                if (csvData[i][$"id_talk_1"] is int)
+                    data.narrationBundleID = (int)csvData[i][$"id_talk_1"] - DataID.NARRATION_BUNDLE;
+
                 for (int j = 1; j <= 5; j++)
                 {
                     if (csvData[i][$"id_quest_{j}"] is not int)

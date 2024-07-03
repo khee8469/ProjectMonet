@@ -122,63 +122,63 @@ namespace Jc
 
             return loadedData;
         }
-//        // 인벤토리 슬롯 데이터 저장
-//        public void SaveSlotData()
-//        {
-//            if (inventorySlotDatas.Count < 1)
-//            {
-//                Debug.Log("슬롯 데이터 리스트가 초기화되지 않았습니다.");
-//                return;
-//            }
+        // 인벤토리 슬롯 데이터 저장
+        //        public void SaveSlotData()
+        //        {
+        //            if (inventorySlotDatas.Count < 1)
+        //            {
+        //                Debug.Log("슬롯 데이터 리스트가 초기화되지 않았습니다.");
+        //                return;
+        //            }
 
-//            foreach (var key in Manager.Inventory.inventorySlots.Keys)
-//            {
-//                InventorySlot slot = Manager.Inventory.inventorySlots[key];
-//                inventorySlotDatas[key - 1] = new SlotData(slot.slotID, slot.ItemID, slot.ItemCount);
-//            }
+        //            foreach (var key in Manager.Inventory.inventorySlots.Keys)
+        //            {
+        //                InventorySlot slot = Manager.Inventory.inventorySlots[key];
+        //                inventorySlotDatas[key - 1] = new SlotData(slot.slotID, slot.ItemID, slot.ItemCount);
+        //            }
 
-//            CSVHelper.Write(SystemPath.GetPath(DataPath.LocalInventoryData), inventorySlotDatas);
+        //            CSVHelper.Write(SystemPath.GetPath(DataPath.LocalInventoryData), inventorySlotDatas);
 
-//#if UNITY_EDITOR
-//            AssetDatabase.Refresh();
-//#endif
-//        }
-//        public List<SlotData> LoadSlotData()
-//        {
-//            List<SlotData> loadedData = new List<SlotData>();
+        //#if UNITY_EDITOR
+        //            AssetDatabase.Refresh();
+        //#endif
+        //        }
+        public List<SlotData> LoadSlotData()
+        {
+            List<SlotData> loadedData = new List<SlotData>();
 
-//            // 초기화 
-//            foreach (int key in Manager.Inventory.inventorySlots.Keys)
-//            {
-//                SlotData data = new SlotData(0, -1, 0);
-//                loadedData.Add(data);
-//            }
+            // 초기화 
+            foreach (int key in Manager.Inventory.inventorySlots.Keys)
+            {
+                SlotData data = new SlotData(0, -1, 0);
+                loadedData.Add(data);
+            }
 
-//            if (File.Exists(SystemPath.GetPath(DataPath.LocalInventoryData)))
-//            {
-//                List<Dictionary<string, object>> csvData = CSVHelper.Read(SystemPath.GetPath(DataPath.LocalInventoryData), true);
+            if (File.Exists(SystemPath.GetPath(DataPath.LocalInventoryData)))
+            {
+                List<Dictionary<string, object>> csvData = CSVHelper.Read(SystemPath.GetPath(DataPath.LocalInventoryData), true);
 
-//                // 불러온 데이터가 있다면 덮어쓰기 진행
-//                if (csvData != null && csvData.Count >= 1)
-//                {
-//                    for (int i = 0; i < csvData.Count; i++)
-//                    {
-                        
-//                        SlotData loadSlot = new SlotData();
-//                        loadSlot.id_slot = (int)csvData[i]["id_slot"];
-//                        if (csvData[i]["id_item"] is int)
-//                            loadSlot.id_item = (int)csvData[i]["id_item"];
-//                        if (csvData[i]["count"] is int)
-//                            loadSlot.count = (int)csvData[i]["count"];
+                // 불러온 데이터가 있다면 덮어쓰기 진행
+                if (csvData != null && csvData.Count >= 1)
+                {
+                    for (int i = 0; i < csvData.Count; i++)
+                    {
 
-//                        loadedData[loadSlot.id_slot - 1] = loadSlot;                         
+                        SlotData loadSlot = new SlotData();
+                        loadSlot.id_slot = (int)csvData[i]["id_slot"];
+                        if (csvData[i]["id_item"] is int)
+                            loadSlot.id_item = (int)csvData[i]["id_item"];
+                        if (csvData[i]["count"] is int)
+                            loadSlot.count = (int)csvData[i]["count"];
 
-//                    }
-//                }
-//            }
+                        loadedData[loadSlot.id_slot - 1] = loadSlot;
 
-//            return loadedData;
-//        }
+                    }
+                }
+            }
+
+            return loadedData;
+        }
 
 
 
