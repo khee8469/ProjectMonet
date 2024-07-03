@@ -53,11 +53,12 @@ namespace JJH
         [Tooltip("계기판의 on off 상태 체크 --> 퍼즐 시작 전 /진행중 /후 ")]
         private bool isStart;
 
+        //등대의 각도가 미리 정해둔 각도 내에 들어왔을 때. --> 완료 체크 할 것. 
+
 
         private void Start()
         {
             startPosition = button.localPosition;
-            Debug.Log("자신의 localPositinon " + startPosition);
             lastPositiion = new Vector3(startPosition.x, startPosition.y + checkPosition, startPosition.z);
 
             /*if(isStart==false) // 이런 식으로 manager에 접근해서 패널 이벤트 꺼주기.
@@ -65,8 +66,6 @@ namespace JJH
             // 오브젝트 끄는게 아니라 이벤트를 꺼줘야함. --> 또는 그냥 나 자신의 스크립트를 비활성화하기.
                 this.gameObject.SetActive(false);
             }*/
-
-
         }
 
         [Tooltip("버튼 자신의 방향")]
@@ -244,6 +243,8 @@ namespace JJH
             }
         }
 
+        
+
         // 얘는 단독으로 돌려줘야하는 코루틴이니까 코루틴 매니저 이용 없이 코루틴 따로 돌려주자. 
         private IEnumerator RotationRoutine(Quaternion start, Quaternion end, float duration)
         {
@@ -264,9 +265,10 @@ namespace JJH
                 
             }
 
+            Mathf.Clamp(elapsed, 0f, 1f);
+
+
             lightHouseHead.transform.localRotation = end;
-
-
             CheckMyAngel(); 
         }
 
@@ -286,9 +288,10 @@ namespace JJH
         // 자신의 앵글을 체크해서 앵글이 일정값이라면 정답으로 체크 해준다. 
         private void CheckMyAngel()
         {
-            // 자신의 앵글 체크 한다. -> 앵글이 일정 값에 들어서면 정답으로 처리한다.
-            
-            // puzzle manager 에 퍼즐 완료 이벤트를 발동시켜준다.
+            // 내 앵글이 x y z 를 검사해서 x y z 가 그 해당 내부에 있으면 완료 체크를 해주면 되겠죠? 
+
+
+
         }
 
         public void RegistObject(PuzzleManager puzzle)

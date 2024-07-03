@@ -33,6 +33,9 @@ namespace JJH
         [Tooltip("레이캐스트 발사 거리")]
         [SerializeField] private float distance = 4000f;
 
+        // 빛 기둥 같은 경우는 이제 그냥 켜주기만 하면 되는 느낌이겠지. 
+        // ray 보다는 패널 에서 자기 위치 체크를 하는게 낫지 않나? 
+
         private void Start()
         {
             //pillar_Of_Light.gameObject.SetActive(false);
@@ -48,7 +51,7 @@ namespace JJH
                 RayOn();
             }
         }
-        private void RayOn()
+        private void RayOn() //Ray 든 뭐 빛 기둥이던 어쨋든 이전 퍼즐을 깨야 발동이 가능하다. 
         {
             RaycastHit hit;
             Debug.DrawRay(rayStartPos.position, rayStartPos.forward * distance, Color.red);
@@ -63,12 +66,17 @@ namespace JJH
             }
         }
 
+        
+
+
+
         public void PuzzleOn()
         {
             puzzleOn = true;
             Debug.Log("등대 퍼즐 켜짐");
         }
 
+        
 
 
 

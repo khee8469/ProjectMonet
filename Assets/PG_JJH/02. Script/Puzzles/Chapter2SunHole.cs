@@ -17,10 +17,15 @@ public class Chapter2SunHole : PuzzleManager , IPuzzleable
     // 완료 이벤트 발동 시키면서 마테리얼 변경해주기.
 
     [Tooltip("자식으로 두고 있는 directional light")]
-    [SerializeField] GameObject directionalLight;
+    [SerializeField] Light nightDirectionalLight;
 
     [Tooltip("자식으로 두고 있는 자신의 발광 라이트")]
-    [SerializeField] GameObject sunRiseLight;
+    [SerializeField] Light sunRiseLight;
+
+    private void Start()
+    {
+        
+    }
 
 
     private void Update()
@@ -28,14 +33,18 @@ public class Chapter2SunHole : PuzzleManager , IPuzzleable
         if(Input.GetKeyDown(KeyCode.P))
         {
             ChangeSkyBox(afternoonSkybox);
+            nightDirectionalLight.gameObject.SetActive(false);
         }
 
         if(Input.GetKeyDown(KeyCode.O))
         {
             ChangeSkyBox(nightSkybox);
+            nightDirectionalLight.gameObject.SetActive(true); // 다시 돌아올 일은 없긴함. 
 
         }
     }
+
+    
     
 
     public void ChangeSkyBox(Material _Skybox)
@@ -49,7 +58,7 @@ public class Chapter2SunHole : PuzzleManager , IPuzzleable
         base.OnClearPuzzle();
         // 퍼즐이 클리어 될 시 스카이박스 변경 
 
-
+        
 
 
 
