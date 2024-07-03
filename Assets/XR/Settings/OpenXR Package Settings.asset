@@ -79,6 +79,7 @@ MonoBehaviour:
   - {fileID: -8838708280146585830}
   - {fileID: 4835351351442423636}
   - {fileID: -4405707486722810579}
+  - {fileID: 635302358613883186}
   - {fileID: 3070209281694939275}
   - {fileID: 4813871800927691544}
   - {fileID: -7189503206096438492}
@@ -91,7 +92,6 @@ MonoBehaviour:
   - {fileID: 7925120165286532342}
   - {fileID: 389873390317595051}
   - {fileID: -1331952002118437263}
-  - {fileID: 635302358613883186}
   m_renderMode: 1
   m_depthSubmissionMode: 0
   m_optimizeBufferDiscards: 0
@@ -411,7 +411,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f647cc0545697264a9878224faada6d5, type: 3}
   m_Name: MetaQuestFeature Android
   m_EditorClassIdentifier: 
-  m_enabled: 0
+  m_enabled: 1
   nameUi: Meta Quest Support
   version: 1.0.0
   featureIdInternal: com.unity.openxr.feature.metaquest
@@ -422,13 +422,13 @@ MonoBehaviour:
   targetDevices:
   - visibleName: Quest
     manifestName: quest
-    enabled: 1
+    enabled: 0
   - visibleName: Quest 2
     manifestName: quest2
     enabled: 1
   - visibleName: Quest Pro
     manifestName: cambria
-    enabled: 1
+    enabled: 0
   forceRemoveInternetPermission: 0
   symmetricProjection: 0
   systemSplashScreen: {fileID: 0}
