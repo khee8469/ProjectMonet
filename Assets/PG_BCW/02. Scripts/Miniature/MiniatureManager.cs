@@ -34,9 +34,9 @@ public class MiniatureManager : PuzzleManager
         foreach (Miniature miniature in miniatures)
         {
             //데이터가 잇으면
-            if (positionData.ContainsKey(miniature.Id)/* && Manager.PlableData.MiniatureLoadData*/)
+            if (positionData.ContainsKey(miniature.Id))
             {
-                Debug.Log("데이터있음");
+                //Debug.Log("데이터있음");
                 miniature.transform.localPosition = new Vector3(positionData[miniature.Id].x, positionData[miniature.Id].y, positionData[miniature.Id].z);
                 
             }
