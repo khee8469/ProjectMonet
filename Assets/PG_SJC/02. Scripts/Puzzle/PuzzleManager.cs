@@ -132,6 +132,7 @@ namespace Jc
         }
         public virtual void OnClearPuzzle()
         {
+            Debug.Log($"{puzzleIndex}번 퍼즐 성공");
             // 아이템 추가
             OnClear?.Invoke();
             isClear = true;

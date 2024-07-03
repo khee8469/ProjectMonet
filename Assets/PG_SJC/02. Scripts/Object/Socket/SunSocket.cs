@@ -5,11 +5,13 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace Jc
 {
-    public class SunSocket : CustomSocket
+    public class SunSocket : CustomSocket, IPuzzleable
     {
         [Header("태양 오브젝트")]
         [SerializeField]
         private SunObject targetSun;
+        [SerializeField]
+        private SphereCollider col;
         [SerializeField]
         private PuzzleManager puzzleManger;
 
@@ -45,6 +47,32 @@ namespace Jc
             obj.transform.position = attachTransform.position;
             obj.ActiveObject();
             // 퍼즐 클리어
+        }
+
+        public void ActiveSetting()
+        {
+            col.enabled = true;
+        }
+
+        public void CompleteSetting()
+        {
+            Destroy(targetSun.gameObject);
+            // 0 글자 활성화
+        }
+
+        public void DisActiveSetting()
+        {
+            col.enabled = false;
+        }
+
+        public void RegistObject(PuzzleManager puzzle)
+        {
+            puzzleManger.puzzleObjects.Add(this);
+        }
+
+        public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
+        {
+            puzzle.UpdateCondition(index);
         }
     }
 }
