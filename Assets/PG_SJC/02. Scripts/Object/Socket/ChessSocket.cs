@@ -23,6 +23,12 @@ namespace Jc
         [SerializeField]
         private float scaleThreshHold;      // 스케일 임계치
 
+        protected override void Awake()
+        {
+            base.Awake();
+            RegistObject(puzzle);
+        }
+
         protected override void OnSelectEntering(SelectEnterEventArgs args)
         {
             Debug.Log("체스 셀렉팅");

@@ -13,6 +13,7 @@ namespace Jc
         public override void OnClearPuzzle()
         {
             base.OnClearPuzzle();
+            
             if(Manager.PlableData.paintDataList.ContainsKey(paintItemID))
             {
                 Debug.Log($"ID({paintItemID}) : 이미 활성화된 페인트 아이템이 존재합니다.");

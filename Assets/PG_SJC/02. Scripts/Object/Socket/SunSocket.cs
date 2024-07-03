@@ -13,7 +13,7 @@ namespace Jc
         [SerializeField]
         private SphereCollider col;
         [SerializeField]
-        private PuzzleManager puzzleManger;
+        private PuzzleManager puzzle;
 
         [SerializeField]
         private float targetScale;      // 타깃 스케일
@@ -21,6 +21,11 @@ namespace Jc
         [SerializeField]
         private float scaleThreshold;   // 스케일 임계치
 
+        protected override void Awake()
+        {
+            base.Awake();
+            RegistObject(puzzle);
+        }
         public override bool CanHover(IXRHoverInteractable interactable)
         {
             if (interactable is not SunObject)
@@ -67,7 +72,7 @@ namespace Jc
 
         public void RegistObject(PuzzleManager puzzle)
         {
-            puzzleManger.puzzleObjects.Add(this);
+            puzzle.puzzleObjects.Add(this);
         }
 
         public void UpdatePuzzleManager(PuzzleManager puzzle, int index)

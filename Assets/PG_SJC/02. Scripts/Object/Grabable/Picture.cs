@@ -32,6 +32,7 @@ namespace Jc
         protected override void Awake()
         {
             base.Awake();
+            RegistObject(puzzle);
             originPos = transform.position;
             originRot = transform.rotation;
         }
