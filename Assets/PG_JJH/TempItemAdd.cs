@@ -8,7 +8,7 @@ public class TempItemAdd : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
+    /*    if(Input.GetKeyDown(KeyCode.Space))
         {
             Manager.Inventory.AddItem(ItemID); // 아이템 Add 
             Debug.Log($"아이템 추가 {ItemID}");
@@ -26,6 +26,6 @@ public class TempItemAdd : MonoBehaviour
                 Debug.Log("실패로 들어갔고 삭제 불가능 ->이미 없기때문에");
 
             }
-        }
+        }*/
     }
 }
