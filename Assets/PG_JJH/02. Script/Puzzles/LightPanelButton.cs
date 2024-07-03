@@ -228,7 +228,7 @@ namespace JJH
                     }
                     
 
-                    break;
+                    break; 
 
                 case Direction.RIGHT: // 우 
 
