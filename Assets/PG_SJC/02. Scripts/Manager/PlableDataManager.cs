@@ -215,7 +215,7 @@ namespace Jc
             //데이터를 로드
             if (File.Exists(SystemPath.GetPath(DataPath.LocalMiniatureData)))
             {
-                Debug.Log("로드");
+                Debug.Log(SystemPath.GetPath(DataPath.LocalMiniatureData));
                 List<Dictionary<string, object>> csvData = CSVHelper.Read(SystemPath.GetPath(DataPath.LocalMiniatureData), true);
 
                 // 불러온 데이터가 있다면 덮어쓰기 진행
@@ -223,8 +223,11 @@ namespace Jc
                 {
                     for (int i = 0; i < csvData.Count; i++)
                     {
-                        Debug.Log(csvData.Count);
-                        loadedData[i] = new MiniatureData((int)csvData[i]["id"], new Vector3((int)csvData[i]["xPosition"], (int)csvData[i]["yPosition"], (int)csvData[i]["zPosition"]));
+                        Debug.Log(csvData[i]["miniatureId"]);
+                        Debug.Log(/*(float)*/csvData[i]["xPosition"]);
+                        Debug.Log(csvData[i]["yPosition"]);
+                        Debug.Log(csvData[i]["zPosition"]);
+                        //loadedData.Add(new MiniatureData((int)csvData[i]["miniatureId"], new Vector3((float)csvData[i]["xPosition"], (float)csvData[i]["yPosition"], (float)csvData[i]["zPosition"])));
                     }
                 }
                 // 로드된 데이터를 딕셔너리에 저장

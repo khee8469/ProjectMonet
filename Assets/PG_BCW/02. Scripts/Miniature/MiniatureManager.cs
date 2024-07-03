@@ -38,15 +38,16 @@ public class MiniatureManager : PuzzleManager
             {
                 Debug.Log("데이터있음");
                 miniature.transform.localPosition = new Vector3(positionData[miniature.Id].x, positionData[miniature.Id].y, positionData[miniature.Id].z);
+                
             }
             //데이터가 없으면 초기화 한번만
             else
             {
                 Debug.Log("데이터없음");
-                Manager.PlableData.PositionData.SavePosition_3.Clear();
                 positionData[miniature.Id] = miniature.transform.localPosition; //미니어처 시작위치 저장
-                Manager.PlableData.SetPositionData(); //저장용 구조체 세팅
+
             }
         }
+        Manager.PlableData.SetPositionData(); //저장용 구조체 세팅
     }
 }
