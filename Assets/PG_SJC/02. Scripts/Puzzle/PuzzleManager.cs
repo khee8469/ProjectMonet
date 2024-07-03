@@ -17,7 +17,7 @@ namespace Jc
         private int puzzleIndex;
 
         [Header("연계된 퍼즐 오브젝트 (퍼즐 상태를 업데이트하는 오브젝트)")]
-        public List<IPuzzleable> puzzleObjects;
+        public List<IPuzzleable> puzzleObjects = new List<IPuzzleable>();
 
         [Header("퍼즐 클리어 조건 체크")]
         [SerializeField]
@@ -34,6 +34,8 @@ namespace Jc
         [SerializeField]
         private bool isClear = false;
 
+        private Quest linkedQuest; 
+
         private void OnEnable()
         {
             if (linkedQuestID != -1)
@@ -45,19 +47,22 @@ namespace Jc
                 return;
             }
 
-            Quest myQuest = Manager.Quest.QuestDic[linkedQuestID];
+            linkedQuest = Manager.Quest.QuestDic[linkedQuestID];
 
             // 이미 완료된 퀘스트가 아닐경우 콜백 등록
-            if(myQuest.State != QuestState.Complete)
-                myQuest.OnChangeState += PuzzleSetting;
+            if(linkedQuest.State != QuestState.Complete)
+                linkedQuest.OnChangeState += PuzzleSetting;
 
             // 최초 퀘스트 상태에 따른 퍼즐 상태를 설정
-            InitPuzzleSetting(myQuest.State);
+            InitPuzzleSetting(linkedQuest.State);
         }
         // 퀘스트의 초기 상태에 따른 처리
         // 현재 객체에서 진행
         private void InitPuzzleSetting(QuestState state)
         {
+            if (puzzleObjects == null || puzzleObjects.Count < 1)
+                return;
+
             switch (state)
             {
                 case QuestState.DisActive:
@@ -132,9 +137,11 @@ namespace Jc
         }
         public virtual void OnClearPuzzle()
         {
+            Debug.Log($"{puzzleIndex}번 퍼즐 성공");
             // 아이템 추가
             OnClear?.Invoke();
             isClear = true;
+            linkedQuest.ChangeState(QuestState.Clear);
         }
     }
 }

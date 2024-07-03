@@ -23,6 +23,12 @@ namespace Jc
         [SerializeField]
         private float scaleThreshHold;      // 스케일 임계치
 
+        protected override void Awake()
+        {
+            base.Awake();
+            RegistObject(puzzle);
+        }
+
         protected override void OnSelectEntering(SelectEnterEventArgs args)
         {
             Debug.Log("체스 셀렉팅");
@@ -88,6 +94,7 @@ namespace Jc
             targetChess.transform.parent = transform;
             targetChess.IsEnable = true;
             targetChess.colliders[0].enabled = false;
+            targetChess.GetComponent<Rigidbody>().isKinematic = true;
             pillar.transform.localPosition = new Vector3(pillar.transform.localPosition.x, -1.3f, pillar.transform.localPosition.z); ;
             puzzle.UpdateCondition(puzzleIndex);
         }

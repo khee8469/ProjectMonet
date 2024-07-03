@@ -105,7 +105,7 @@ public class CSVHelper
 
         StringBuilder sb = new StringBuilder();
         Type type = typeof(T);                              // 제네릭의 타입을 Get
-        FieldInfo[] fields = type.GetFields();   // 프로퍼티를 Get
+        FieldInfo[] fields = type.GetFields();              // 프로퍼티를 Get
 
         // CSV 헤더
         for (int i = 0; i < fields.Length; i++)
@@ -142,6 +142,18 @@ public class CSVHelper
             }
         }
 
+        //if (!File.Exists(file))
+        //    File.Create(file);
+
         File.WriteAllText(file, sb.ToString());
+    }
+
+    public static void Remove(string file)
+    {
+        if (File.Exists(file))
+        {
+            Debug.Log($"{file} 파일이 삭제됩니다.");
+            File.Delete(file);
+        }
     }
 }

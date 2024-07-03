@@ -106,10 +106,10 @@ namespace Jc
         protected virtual void ClearQuest()
         {
             Debug.Log($"퀘스트 {questID} : 가 완료되었습니다.");
-            // 자동 클리어 퀘스트의 경우 바로 DisActive 상태로 전환 (보상 수령)
+            // 자동 클리어 퀘스트의 경우 바로 Complete 상태로 전환 (보상 수령)
             if (questData.type == QuestType.AutoClear)
             {
-                ChangeState(QuestState.DisActive);
+                ChangeState(QuestState.Complete);
             }
         }
 

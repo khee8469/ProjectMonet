@@ -29,7 +29,9 @@ namespace Jc
             if (!Manager.Layer.playerLM.Contain(other.gameObject.layer))
                 return;
 
-            if(!sunObject.activeSelf)
+            Debug.Log("오두막 진입");
+
+            if (!sunObject.activeSelf)
                 sunObject.SetActive(true);
 
         }
@@ -37,6 +39,8 @@ namespace Jc
         {
             if (!Manager.Layer.playerLM.Contain(other.gameObject.layer))
                 return;
+
+            Debug.Log("오두막 탈출");
 
             if (sunObject.activeSelf)
                 sunObject.SetActive(false);

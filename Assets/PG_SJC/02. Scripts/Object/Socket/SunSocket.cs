@@ -5,13 +5,15 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace Jc
 {
-    public class SunSocket : CustomSocket
+    public class SunSocket : CustomSocket, IPuzzleable
     {
         [Header("태양 오브젝트")]
         [SerializeField]
         private SunObject targetSun;
         [SerializeField]
-        private PuzzleManager puzzleManger;
+        private SphereCollider col;
+        [SerializeField]
+        private PuzzleManager puzzle;
 
         [SerializeField]
         private float targetScale;      // 타깃 스케일
@@ -19,6 +21,11 @@ namespace Jc
         [SerializeField]
         private float scaleThreshold;   // 스케일 임계치
 
+        protected override void Awake()
+        {
+            base.Awake();
+            RegistObject(puzzle);
+        }
         public override bool CanHover(IXRHoverInteractable interactable)
         {
             if (interactable is not SunObject)
@@ -45,6 +52,33 @@ namespace Jc
             obj.transform.position = attachTransform.position;
             obj.ActiveObject();
             // 퍼즐 클리어
+            puzzle.OnClearPuzzle();
+        }
+
+        public void ActiveSetting()
+        {
+            col.enabled = true;
+        }
+
+        public void CompleteSetting()
+        {
+            Destroy(targetSun.gameObject);
+            // 0 글자 활성화
+        }
+
+        public void DisActiveSetting()
+        {
+            col.enabled = false;
+        }
+
+        public void RegistObject(PuzzleManager puzzle)
+        {
+            puzzle.puzzleObjects.Add(this);
+        }
+
+        public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
+        {
+            puzzle.UpdateCondition(index);
         }
     }
 }
