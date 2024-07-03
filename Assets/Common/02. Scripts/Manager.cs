@@ -17,10 +17,7 @@ public static class Manager
     public static InventoryManager Inventory { get { return InventoryManager.Instance; } }
     public static QuestManager Quest { get { return QuestManager.Instance; } }
     public static PlableDataManager PlableData { get { return PlableDataManager.Instance;}}
-
-
-
-    
+    public static SoundManager Sound { get { return SoundManager.Instance; }}
 
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -37,7 +34,8 @@ public static class Manager
         Jc.DataManager.ReleaseInstance();
         PlableDataManager.ReleaseInstance();
         CameraManager.ReleaseInstance();
-        
+        SoundManager.ReleaseInstance();
+
 
         // 싱글턴 객체생성
         Jc.UIManager.CreateInstance();
@@ -50,5 +48,6 @@ public static class Manager
         QuestManager.CreateInstance();
         PlableDataManager.CreateInstance();
         CameraManager.CreateInstance();
+        SoundManager.CreateInstance();
     }
 }
