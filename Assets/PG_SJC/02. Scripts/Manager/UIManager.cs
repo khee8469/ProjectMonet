@@ -93,7 +93,7 @@ namespace Jc
         // 인벤토리/퀘스트 창 닫기
         public void CloseInfoGroup()
         {
-            Manager.PlableData.SaveSlotData();
+            //Manager.PlableData.SaveSlotData();
             infoGruop.transform.parent = this.transform;
             Manager.Inventory.isEnable = false;
             infoGruop.SetActive(false);
