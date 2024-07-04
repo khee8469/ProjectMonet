@@ -8,11 +8,11 @@ public class Chapter2SunHole : PuzzleManager , IPuzzleable
     // 챕터 2 의 검은 구멍에 붙여 줄 스크립트
 
     [Tooltip("밤 용 스카이박스")] // 어차피 기본 상태에서는 이 스카이 박스를 쓰고 있을 거니까
-    [SerializeField] Material nightSkybox;
+    [SerializeField] public Material nightSkybox;
 
     // 맵의 
     [Tooltip("낮 용 스카이박스 --> Maybe 태양없는 skybox ")]
-    [SerializeField] Material afternoonSkybox;
+    [SerializeField] public Material afternoonSkybox;
 
     // 완료 이벤트 발동 시키면서 마테리얼 변경해주기.
 
@@ -26,7 +26,7 @@ public class Chapter2SunHole : PuzzleManager , IPuzzleable
     [SerializeField] private Material whiteMaterial;
 
     [Tooltip("보상으로 인벤토리에 넣어줄 아이템 ID")]
-    [SerializeField] private int ID;
+    [SerializeField] public int ID;
 
     private MeshRenderer meshRenderer;
 
@@ -53,7 +53,7 @@ public class Chapter2SunHole : PuzzleManager , IPuzzleable
 
 
 
-    private void ItemAdd(int ID)
+    public void ItemAdd(int ID)
     {
         if(ID != 0)
         {
@@ -66,10 +66,7 @@ public class Chapter2SunHole : PuzzleManager , IPuzzleable
     {
         base.OnClearPuzzle();
         ChangeSkyBox(afternoonSkybox);
-        ItemAdd(ID);
-
-
-
+        
         // itemID가 일치하는 아이템을 인벤토리로 Add 하는 함수가 필요함. -> 추후 작성 
 
     }

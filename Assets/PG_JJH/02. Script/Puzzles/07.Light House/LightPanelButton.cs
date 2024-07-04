@@ -287,6 +287,7 @@ namespace JJH
             // 내 앵글이 x y z 를 검사해서 x y z 가 그 해당 내부에 있으면 완료 체크를 해주면 되겠죠? 
             house.MyCheckRotation(rotation); 
 
+
         }
 
         public void RegistObject(PuzzleManager puzzle)
