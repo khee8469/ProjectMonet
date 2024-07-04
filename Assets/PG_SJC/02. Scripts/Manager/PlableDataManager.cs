@@ -64,12 +64,12 @@ namespace Jc
 
             SaveQuestData();
         }
-        public void InitSlot()
-        {
-            // 인벤토리 슬롯 데이터 로드
-            List<SlotData> loadedInventoryData = LoadSlotData();
-            inventorySlotDatas = loadedInventoryData;
-        }
+        //public void InitSlot()
+        //{
+        //    // 인벤토리 슬롯 데이터 로드
+        //    List<SlotData> loadedInventoryData = LoadSlotData();
+        //    inventorySlotDatas = loadedInventoryData;
+        //}
         // 퀘스트 데이터 저장
         public void SaveQuestData()
         {
