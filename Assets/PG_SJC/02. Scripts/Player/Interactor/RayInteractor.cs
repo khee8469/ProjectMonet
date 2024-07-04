@@ -1,6 +1,5 @@
 using JJH;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -119,7 +118,7 @@ namespace Jc
                 return;
             }*/
             InventorySlot slotItem = curSlot.GetComponent<InventorySlot>();
-            Debug.Log("현재 슬롯 아이템의 이름 "+slotItem.name);
+            Debug.Log("현재 슬롯 아이템의 이름 " + slotItem.name);
 
             //--> 현재 여기가 오류가 뜨고 있다. 0이 없는상황임. --> 이 부분만 해결하면 바로바로 다시 꺼내기 가능해짐.
             //Debug.Log(slotItem.interactablesSelected[0]); 
@@ -341,13 +340,6 @@ namespace Jc
         {
             InteractObject itrObject = interactable as InteractObject;
 
-            // 버튼 과의 상호작용을 위한 if문 추가 
-            /*CustomButton button = interactable as CustomButton;
-            if(button != null)
-            {
-                return base.CanHover(interactable);
-            }*/
-
             if (itrObject == null)
                 return false;
 
@@ -361,18 +353,10 @@ namespace Jc
         {
             InteractObject itrObject = interactable as InteractObject;
 
-            // XrPushButton과의 상호작용을 위한 if문 추가 
-            /*CustomButton button = interactable as CustomButton;
-            if (button != null)
-            {
-                return base.CanSelect(interactable);
-
-            }*/
-
             if (itrObject == null)
                 return false;
 
-           
+
             if (!GrabableDistance(itrObject))
                 return false;
 
@@ -392,20 +376,13 @@ namespace Jc
             base.OnHoverExited(args);
 
             //isAimming = false;
-           // aimTransform.gameObject.SetActive(isAimming);
+            // aimTransform.gameObject.SetActive(isAimming);
         }
 
         protected override void OnSelectEntering(SelectEnterEventArgs args)
         {
-            // 오브젝트 활성화
-            if (args.interactableObject is IActivatable)
-            {
-                IActivatable active = args.interactableObject as IActivatable;
-                active.Activate();
-                return;
-            }
-
             base.OnSelectEntering(args);
+
         }
 
 
@@ -421,14 +398,37 @@ namespace Jc
 
             // 착시 오브젝트의 경우 무조건 한 손으로만 상호작용 해야함.
             // 반대 인터렉터의 오브젝트 강제로 놓기
-            if(oppositeInteractor.isGrab 
+            if (oppositeInteractor.isGrab
                 && oppositeInteractor.currentGrabObject != null
-                && (currentGrabObject is ResizingObject 
+                && (currentGrabObject is ResizingObject
                 || currentGrabObject is PhotoFrame))
             {
                 Debug.Log("Opposite interactor select exit");
                 oppositeInteractor.interactionManager.SelectExit(oppositeInteractor as IXRSelectInteractor, oppositeInteractor.currentGrabObject as IXRSelectInteractable);
             }
+
+            // 오브젝트 활성화
+            if (args.interactableObject is IActivatable)
+            {
+                IActivatable active = args.interactableObject as IActivatable;
+                active.Activate();
+
+                if (active is InteractObject)
+                {
+                    InteractObject obj = active as InteractObject;
+                    if (obj != null)
+                    {
+                        this.interactionManager.SelectExit(this as IXRSelectInteractor, obj as IXRSelectInteractable);
+                        Debug.Log("active 오브젝트 놓기");
+                    }
+
+                }
+            }
+
+
+
+
+
         }
         protected override void OnSelectExited(SelectExitEventArgs args)
         {

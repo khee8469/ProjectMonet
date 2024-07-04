@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using JJH;
 using Jc;
+using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
@@ -10,7 +7,7 @@ namespace JJH
 {
     // 플레이어의 이동을 방지 + 고개는 돌릴 수 있음. 
     // 이 상태에서만 그림을 그릴 수 있음. 
-    public class DrawPositionTrigger : InteractObject , IActivatable
+    public class DrawPositionTrigger : InteractObject, IActivatable
     {
         [SerializeField] private Transform playerMovePos;
         [SerializeField] private LayerMask playerLayer;
@@ -33,40 +30,52 @@ namespace JJH
         private Vector3 playerOiriginPos;*/
 
         [Tooltip("플레이어를 돌려 줄 위치 ")]
-        [SerializeField]private Transform returnPos;
+        [SerializeField] private Transform returnPos;
 
 
         public void Activate()
         {
 
-            if(player != null)
+            if (player != null)
             {
                 // 캐릭터 컨트롤러를 잠시 끄고 위치를 이동시킨다.
-                characterController = player.GetComponentInParent<CharacterController>();
-                characterController.enabled = false;
+                characterController = player.GetComponent<CharacterController>();
+                if (characterController != null)
+                {
+                    Debug.Log("캐컨 널 아님");
+                    characterController.enabled = false;
+
+                }
                 move = player.GetComponentInChildren<DynamicMoveProvider>();
 
-                if(move !=null)
+                if (move != null)
                 {
                     if (isTrigger == false)
                     {
+                        Debug.Log("진입");
                         isTrigger = true;
                         originalSpeed = move.moveSpeed;
-                        move.moveSpeed = 0;
                         player.transform.rotation = playerMovePos.rotation;
                         player.transform.position = playerMovePos.position; // 정해진 위치로 플레이어 이동
+                        move.moveSpeed = 0;
                     }
                     else
                     {
+                        Debug.Log("탈출");
                         isTrigger = false;
-                        move.enabled = true;
                         move.moveSpeed = originalSpeed;
-                        //player.transform.rotation = playerMovePos.rotation;
-
                         player.transform.position = returnPos.position; // 정해진 위치로 플레이어 이동
                     }
                 }
-                characterController.enabled = true;
+                if (characterController != null)
+                {
+                    Debug.Log("캐컨 널 아님2");
+                    characterController.enabled = true;
+                }
+
+                move.enabled = false;
+                move.enabled = true; // 이동 제공자 초기화
+
             }
             // 추가로 bool 변수에 따라 그림 그리기 진입 한 상태 / 진입 안 한 상태 구분해서 조작 중지를 나눠준다. 
             Debug.Log("액티베이트 완료");
@@ -89,17 +98,6 @@ namespace JJH
             }
             // 이거 그냥 태그로 하자. 
 
-        }
-
-        protected override void OnSelectEntered(SelectEnterEventArgs args)
-        {
-            base.OnSelectEntered(args);
-        }
-
-        protected override void OnSelectEntering(SelectEnterEventArgs args)
-        {
-            return;
-            
         }
 
 
