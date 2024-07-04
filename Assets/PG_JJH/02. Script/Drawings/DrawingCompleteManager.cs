@@ -15,6 +15,9 @@ namespace JJH
         public Dictionary<DrawObjectManager, bool> drawCompleteCheckDic
            = new Dictionary<DrawObjectManager, bool>();
 
+       // public Dictionary<int, DrawObjectManager> 
+
+
         [Tooltip("bool 변수와 맞춰줄 draw list ")]
         [SerializeField]
         public List<DrawObjectManager> sortedDrawObjectManagers =
@@ -44,7 +47,6 @@ namespace JJH
             // Find로 배열을 찾아서 저장한다. --> 배열은 항상 정렬 순서가 보장된다. 
             DrawObjectManager[] drawObjectManagers =
                 GameObject.FindObjectsOfType<DrawObjectManager>();
-
 
             // DrawObjectManager 에 붙어있는 IComparable 을 이용하여 정렬한다.
             Array.Sort(drawObjectManagers); //어차피 둘이 같은 타입을 찾는 find를 하기 때문에 길이는 무조건 같
@@ -81,7 +83,8 @@ namespace JJH
                     }
                 }*/
                 drawCompleteCheckDic.Add(drawObjectManagers[i], ChapterManager.drawPartCheck[i]);
-                
+                // 어차피 씬 넘어갈 때마다 이 딕셔너리는 초기화 되기 때문에 그냥 Add 해주면된다. 
+                // json을 이용한다면 ... 챕터 매니저에 저장된 drawPartCheck 를 이용해서 
 
                 if (drawCompleteCheckDic.TryGetValue(drawObjectManagers[i], out bool isTrue))
                 {
@@ -106,13 +109,25 @@ namespace JJH
             // 씬 컬러 상태는 유지라기 보다는 한 번만 발동해주면 (static bool만 바꿔주면 계속 유지됨. )
 
         }
+
+        // 그림 조각이 하나 그려질 때 마다 이 DrawComplete가 불러진다. -> 여기서 이제 AllComplete를 체크해서 한 스테이지의 그림이 모두 완성되었는지를 체크한다.
+
+
         public void DrawComplete(int drawingNumber, bool finishied, int instanceID) // 그림이 완성되었을 때 (완전히) 진행할 함수 
                                                                                     // 챕터도 해금 시켜줘야 하고. 포스트프로세싱도 종료 시켜줘야하기 때문에 
                                                                                     // 싱글턴 매니저와 연계가 필요하다. 
         {
 
+            // json도 같이 저장 
             ChapterManager.isDrawing_Complete[drawingNumber] = finishied; // 드로우 컴플리트를 부를 때 값을 지정? --> 이거는 지금 완전히 완성되었을 때의 변수인대 
+            //Manager.DataManager.GameData.myDrawCompleteCheckArr[drawingNumber] = finishied; // json 같이 저장해주자.
+
+            // Json도 같이 저장 
             ChapterManager.drawPartCheck[instanceID] = finishied;
+            //Manager.DataManager.GameData.myDrawPartCheckArr[instanceID] = finishied; // true로 변경 
+
+            //Manager.Chapter.SaveData();
+
 
             // 임시 키 저장용 리스트 초기화
             keysToModifty.Clear(); // 초기화 안하면 이거 계속 들어있음. 
@@ -160,6 +175,10 @@ namespace JJH
                 ChapterManager.Instance.CheckDrawComplete(drawingNumber, true); // 씬의 필터 해제
 
                 // 내부코드는 그대로 받아들이도록 수정함 --> 결국 0 이면 1챕터 개방이므로 + 1 필요 ??
+
+
+                // 씬 해금은 나중에 다른 곳에서 할 수 도 있음. 
+
                 if(drawingNumber<=2)
                 {
                     ChapterManager.Instance.UnlockStage(drawingNumber + 1, true); // 3 부터는 인덱스 터짐. 
@@ -168,10 +187,7 @@ namespace JJH
 
                 FinishedDraw.FinishAlphaUp.Invoke(drawingNumber);
             }
-
-
         }
-
 
         public void ChangeLight(PaintTypeEnum _currentPaintType)
         {

@@ -26,9 +26,9 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
         public List<LineRenderer> lineRenderers = new List<LineRenderer>();
 
-        [Header("캔버스 구분 열겨형 변수")]
+        //[Header("캔버스 구분 열겨형 변수")]
         [Tooltip("스테이지 별 캔버스 구분")]
-        [SerializeField] public DrawBoardNumber drawBoardNumber;
+        [SerializeField] public DrawBoardNumber drawBoardNumber { get; set; }
 
         [Tooltip("결국은 이거 구분해주려면 고유한 ID가 있어야 하네... --> 0번 부터 시작해야함.")]
         [SerializeField] public int DrawID;
@@ -282,6 +282,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         }
 
 
+        // 그림이 그려졌을 때 부를 드로우 피니시드 함수 
         public void DrawFinished() // 열거형 drawingNumber를 int로 형변환 해서 넘겨줌 . 
         {
             Debug.Log("드로우 피니시드");

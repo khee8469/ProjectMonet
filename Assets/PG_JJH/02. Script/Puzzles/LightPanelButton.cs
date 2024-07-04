@@ -17,6 +17,11 @@ namespace JJH
         [SerializeField]
         private GameObject lightHouseHead;
 
+        [Tooltip("등대의 컴포넌트")]
+        [SerializeField]
+        private LightHouseHead house;
+
+
         [Tooltip("각 버튼들의 스타트 포지션")]
         [SerializeField] private Vector3 startPosition;
 
@@ -53,6 +58,9 @@ namespace JJH
         [Tooltip("계기판의 on off 상태 체크 --> 퍼즐 시작 전 /진행중 /후 ")]
         private bool isStart;
 
+        [Tooltip("등대 회전 중 버튼 클릭 방지 위한 bool 변수")]
+        [SerializeField] private static bool isRotating;
+        
         //등대의 각도가 미리 정해둔 각도 내에 들어왔을 때. --> 완료 체크 할 것. 
 
 
@@ -60,6 +68,7 @@ namespace JJH
         {
             startPosition = button.localPosition;
             lastPositiion = new Vector3(startPosition.x, startPosition.y + checkPosition, startPosition.z);
+
 
             /*if(isStart==false) // 이런 식으로 manager에 접근해서 패널 이벤트 꺼주기.
             {
@@ -73,38 +82,34 @@ namespace JJH
 
         public void UpButtonPush()
         {
-            Debug.Log("업 버튼 누름");
-            if (isPushing == true) return;
+            if (isPushing == true || isRotating ==true) return;
+
+            Debug.Log("업 버튼 눌림 체크");
             StartAndStopCoroutine(PushLerpRoutine(startPosition, lastPositiion, buttonDuration));
         }
 
         public void DownButtonPush()
         {
-            Debug.Log("다운 버튼 누름");
-            if (isPushing == true) return;
+            if (isPushing == true || isRotating == true) return;
             StartAndStopCoroutine(PushLerpRoutine(startPosition, lastPositiion, buttonDuration));
-
 
         }
 
         public void LeftButtonPush()
         {
-            Debug.Log("왼쪽 버튼 누름");
-            if (isPushing == true) return;
+            if (isPushing == true || isRotating == true) return;
             StartAndStopCoroutine(PushLerpRoutine(startPosition, lastPositiion, buttonDuration));
 
         }
 
         public void RightButtonPush()
         {
-            Debug.Log("오른쪽 버튼 누름");
-            if (isPushing == true) return;
+            if (isPushing == true || isRotating == true) return;
             StartAndStopCoroutine(PushLerpRoutine(startPosition, lastPositiion, buttonDuration));
         }
 
         public void UpButtonRelease()
         {
-            Debug.Log("업 버튼 뗌");
             isPushing = false; // 어떤 버튼이든 일단 떼면 다른 버튼을 누를 수 있어야 하기 때문에 False 로 변경 
             LightHouseRotation(Direction.UP);
             StartAndStopCoroutine(ReleaseLerpRoutine(startPosition, button.localPosition, duration));
@@ -112,17 +117,15 @@ namespace JJH
 
         public void DownButtonRelease()
         {
-            Debug.Log("다운 버튼 똄");
             isPushing = false;
-            LightHouseRotation(Direction.DOWN);
             StartAndStopCoroutine(ReleaseLerpRoutine(startPosition, button.localPosition, duration));
+            LightHouseRotation(Direction.DOWN);
 
 
         }
 
         public void RightButtonRelease()
         {
-            Debug.Log("라이트 버튼 뗌");
             isPushing = false;
             LightHouseRotation(Direction.RIGHT);
             StartAndStopCoroutine(ReleaseLerpRoutine(startPosition, button.localPosition, duration));
@@ -131,12 +134,9 @@ namespace JJH
         }
         public void LeftButtonRelease()
         {
-            Debug.Log("왼쪽 버튼 뗌");
             isPushing = false;
             LightHouseRotation(Direction.LEFT);
             StartAndStopCoroutine(ReleaseLerpRoutine(startPosition, button.localPosition, duration));
-
-
         }
 
         // 버튼이 들어가는 모습을 구현 할 코루틴 
@@ -145,8 +145,6 @@ namespace JJH
             Debug.Log("Push 루틴 시작");
             float elapsed = 0f;
             isPushing = true; // 누르고 있으면 다른 키 누르지 못하게 함.
-            Debug.Log("ispushing ->" + isPushing);
-
             while (elapsed < duration)
             {
                 float t = elapsed / duration;
@@ -176,14 +174,15 @@ namespace JJH
 
         }
 
-
         // 등대 머리의 로테이션 상태 체크 
         private Quaternion end;
         private Quaternion start;
 
         private void LightHouseRotation(Direction myDirection)
         {
+            if (isRotating == true) return;
 
+            Debug.Log("로테이션 함수 진입");
             switch (myDirection)
             {
                 case Direction.UP: // 위 
@@ -241,8 +240,6 @@ namespace JJH
             }
         }
 
-        
-
         // 얘는 단독으로 돌려줘야하는 코루틴이니까 코루틴 매니저 이용 없이 코루틴 따로 돌려주자. 
         private IEnumerator RotationRoutine(Quaternion start, Quaternion end, float duration)
         {
@@ -251,6 +248,7 @@ namespace JJH
                 Manager.Sound.PlaySFX(lightHouseSound);
             }
 
+            isRotating = true; // 로테이팅 중이면 버튼 안 눌리도록 
             float elapsed = 0f;
             while(elapsed < duration)
             {
@@ -265,9 +263,9 @@ namespace JJH
 
             Mathf.Clamp(elapsed, 0f, 1f);
 
-
             lightHouseHead.transform.localRotation = end;
-            CheckMyAngel(); 
+            CheckMyAngel(end);
+            isRotating = false; // 코루틴 끝나면 버튼 눌리도록 
         }
 
         // 스크립트 별로 코루틴을 저장 해줘서 놓는 순간 다시 돌아오도록 하기. 
@@ -284,11 +282,10 @@ namespace JJH
 
 
         // 자신의 앵글을 체크해서 앵글이 일정값이라면 정답으로 체크 해준다. 
-        private void CheckMyAngel()
+        private void CheckMyAngel(Quaternion rotation)
         {
             // 내 앵글이 x y z 를 검사해서 x y z 가 그 해당 내부에 있으면 완료 체크를 해주면 되겠죠? 
-
-
+            house.MyCheckRotation(rotation); 
 
         }
 

@@ -19,12 +19,16 @@ public static class Manager
     public static PlableDataManager PlableData { get { return PlableDataManager.Instance;}}
     public static SoundManager Sound { get { return SoundManager.Instance; }}
 
+    //public static JJH.DataManager DataManager { get  { return JJH.DataManager.Instance; }}
+    
+
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void Initialize()
     {
         // 싱글턴 객체해제
         Jc.UIManager.ReleaseInstance();
+        //JJH.DataManager.ReleaseInstance();
         JJH.SceneManager.ReleaseInstance();
         JJH.ChapterManager.ReleaseInstance();
         AnimParamManager.ReleaseInstance();
@@ -39,6 +43,7 @@ public static class Manager
 
         // 싱글턴 객체생성
         Jc.UIManager.CreateInstance();
+        //JJH.DataManager.CreateInstance();
         JJH.SceneManager.CreateInstance();
         JJH.ChapterManager.CreateInstance();
         AnimParamManager.CreateInstance();

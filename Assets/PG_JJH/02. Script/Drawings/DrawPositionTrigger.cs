@@ -35,6 +35,12 @@ namespace JJH
         [Tooltip("플레이어를 돌려 줄 위치 ")]
         [SerializeField]private Transform returnPos;
 
+
+        private void Start()
+        {         
+            
+        }
+
         public void Activate()
         {
 
@@ -60,7 +66,7 @@ namespace JJH
                         isTrigger = false;
                         move.enabled = true;
                         move.moveSpeed = originalSpeed;
-                        player.transform.rotation = playerMovePos.rotation;
+                        //player.transform.rotation = playerMovePos.rotation;
 
                         player.transform.position = returnPos.position; // 정해진 위치로 플레이어 이동
                     }
@@ -91,7 +97,7 @@ namespace JJH
 
         private void OnTriggerExit(Collider other)
         {
-            player = null; 
+            // 이부분만 끄고 
         }
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
