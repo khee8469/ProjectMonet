@@ -119,7 +119,10 @@ namespace Jc
             OnClearQuest?.Invoke(this);
 
             if (questData.next_id < 1)
+            {
+                // 연계된 퀘스트가 있다면 연계된 퀘스트 클리어
                 return;
+            }
 
             // 연결된 다음 퀘스트 활성화
             ActiveNextQuest(questData.next_id);

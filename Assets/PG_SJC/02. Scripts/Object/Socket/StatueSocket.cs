@@ -84,16 +84,12 @@ namespace Jc
 
         public void CompleteSetting()
         {
-            if(!statue.gameObject.activeSelf)
-            {
-                statue.gameObject.SetActive(true);
-                statue.StopRoutine();
-            }
-
-            statue.transform.position = attachTransform.position;
-            statue.transform.rotation = attachTransform.rotation;
+            statue.gameObject.SetActive(true);
+            statue.StopRoutine();
             statue.GetComponent<Rigidbody>().isKinematic = true;
             statue.GetComponent<Collider>().enabled = false;
+            statue.transform.position = attachTransform.position;
+            statue.transform.rotation = attachTransform.rotation;
             // 조각상이 끼워진 경우 이벤트 발생
             ActiveEvent();
         }

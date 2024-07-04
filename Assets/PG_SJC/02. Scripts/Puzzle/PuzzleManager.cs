@@ -65,6 +65,7 @@ namespace Jc
 
             switch (state)
             {
+                case QuestState.Active:
                 case QuestState.DisActive:
                     // 퍼즐 비활성화
                     foreach (IPuzzleable ob in puzzleObjects)
@@ -141,7 +142,11 @@ namespace Jc
             // 아이템 추가
             OnClear?.Invoke();
             isClear = true;
-            linkedQuest.ChangeState(QuestState.Clear);
+
+            // 퀘스트 예외처리 (이미 수락대기인 퀘스트 or 완료한 퀘스트)
+            if(linkedQuest.State != QuestState.Clear &&
+                linkedQuest.State != QuestState.Complete)
+                linkedQuest.ChangeState(QuestState.Clear);
         }
     }
 }
