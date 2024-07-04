@@ -24,9 +24,6 @@ public class MiniatureManager : PuzzleManager
 
     private void Start()
     {
-        //데이터가 잇으면 로드
-        Manager.PlableData.LoadMiniatureData();
-
         SetMiniPosition();
     }
 
@@ -61,6 +58,5 @@ public class MiniatureManager : PuzzleManager
                 positionData[miniature.Id] = miniature.transform.localPosition; //미니어처 시작위치 저장
             }
         }
-        Manager.PlableData.SavePositionData(miniatures); //저장용 구조체 세팅
     }
 }

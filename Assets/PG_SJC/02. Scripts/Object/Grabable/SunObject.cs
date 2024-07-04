@@ -16,6 +16,20 @@ namespace Jc
         private float initScale;
 
         private bool isActive = false;
+        private bool isLoaded = false;   // 로딩된 상태인지
+        public bool IsLoaded
+        {
+            get 
+            { 
+                return isLoaded; 
+            }
+            set
+            {
+                isLoaded = value;
+                if (isLoaded)
+                    directionalLight.intensity = 0f;
+            }
+        }
 
         protected override void OnEnable()
         {
@@ -65,6 +79,8 @@ namespace Jc
         // 태양이 오두막 밖으로 나간 경우
         private void OnTriggerEnter(Collider other)
         {
+            if (isLoaded)
+                return;
             if (!Manager.Layer.puzzleLM.Contain(other.gameObject.layer))
                 return;
 
@@ -73,6 +89,8 @@ namespace Jc
         // 태양이 오두막 내부에 들어온 경우
         private void OnTriggerExit(Collider other)
         {
+            if (isLoaded)
+                return;
             if (!Manager.Layer.puzzleLM.Contain(other.gameObject.layer))
                 return;
             if (isActive)

@@ -62,6 +62,7 @@ namespace Jc
 
         public void CompleteSetting()
         {
+            targetSun.IsLoaded = true;
             Destroy(targetSun.gameObject);
             // 0 글자 활성화
         }
