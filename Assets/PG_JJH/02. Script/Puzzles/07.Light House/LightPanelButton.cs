@@ -1,6 +1,7 @@
 using Jc;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 namespace JJH
 {
@@ -60,7 +61,10 @@ namespace JJH
 
         [Tooltip("등대 회전 중 버튼 클릭 방지 위한 bool 변수")]
         [SerializeField] private static bool isRotating;
-        
+
+        [Tooltip("Ray로 눌리기 방지 ")]
+        [SerializeField] private bool isSelecting;
+
         //등대의 각도가 미리 정해둔 각도 내에 들어왔을 때. --> 완료 체크 할 것. 
 
 
@@ -77,12 +81,22 @@ namespace JJH
             }*/
         }
 
+        protected override void OnSelectEntering(SelectEnterEventArgs args)
+        {
+            if(args.interactorObject is RayInteractor)
+            {
+                isSelecting = true; // 이 상태면 return 때려버려야함. 
+            }
+
+            base.OnSelectEntering(args);
+        }
+
         [Tooltip("버튼 자신의 방향")]
         public Direction myDirection;
 
         public void UpButtonPush()
         {
-            if (isPushing == true || isRotating ==true) return;
+            if (isPushing == true || isRotating ==true || isSelecting) return;
 
             Debug.Log("업 버튼 눌림 체크");
             StartAndStopCoroutine(PushLerpRoutine(startPosition, lastPositiion, buttonDuration));
@@ -90,21 +104,21 @@ namespace JJH
 
         public void DownButtonPush()
         {
-            if (isPushing == true || isRotating == true) return;
+            if (isPushing == true || isRotating == true || isSelecting) return;
             StartAndStopCoroutine(PushLerpRoutine(startPosition, lastPositiion, buttonDuration));
 
         }
 
         public void LeftButtonPush()
         {
-            if (isPushing == true || isRotating == true) return;
+            if (isPushing == true || isRotating == true || isSelecting) return;
             StartAndStopCoroutine(PushLerpRoutine(startPosition, lastPositiion, buttonDuration));
 
         }
 
         public void RightButtonPush()
         {
-            if (isPushing == true || isRotating == true) return;
+            if (isPushing == true || isRotating == true || isSelecting) return;
             StartAndStopCoroutine(PushLerpRoutine(startPosition, lastPositiion, buttonDuration));
         }
 

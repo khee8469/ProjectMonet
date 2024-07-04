@@ -17,6 +17,8 @@ namespace JJH
         [SerializeField]
         private PuzzleManager puzzle;
 
+       
+
         
 
 

@@ -36,11 +36,6 @@ namespace JJH
         [SerializeField]private Transform returnPos;
 
 
-        private void Start()
-        {         
-            
-        }
-
         public void Activate()
         {
 
@@ -74,6 +69,7 @@ namespace JJH
                 characterController.enabled = true;
             }
             // 추가로 bool 변수에 따라 그림 그리기 진입 한 상태 / 진입 안 한 상태 구분해서 조작 중지를 나눠준다. 
+            Debug.Log("액티베이트 완료");
         }
         public void ResetColliderPosition()
         {
@@ -93,11 +89,6 @@ namespace JJH
             }
             // 이거 그냥 태그로 하자. 
 
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            // 이부분만 끄고 
         }
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)

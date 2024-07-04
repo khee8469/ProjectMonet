@@ -26,7 +26,7 @@ namespace JJH
         [SerializeField] LayerMask layerMask;
 
         [Tooltip("보여 줄 빛 기둥")]
-        [SerializeField] private GameObject pillar_Of_Light;
+        [SerializeField] public GameObject pillar_Of_Light;
 
         [Tooltip("레이캐스트 발사 거리")]
         [SerializeField] private float distance = 4000f;
@@ -179,7 +179,7 @@ namespace JJH
 
         public void DisActiveSetting()  // 진행 불가능 한 상태의 세팅 --> 퍼즐 진입 전 상태 
         {
-            DeAactiveLight_Button();
+            DeAactiveLight_Button(); // 버튼 꺼두기 
             PillarChange(false); // 불이 아직 들어오지 않음 
 
         }
