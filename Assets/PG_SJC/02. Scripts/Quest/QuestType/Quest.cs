@@ -80,13 +80,11 @@ namespace Jc
             // 다음 퀘스트 활성화
             nextQuest.ChangeState(QuestState.Active);
         }
-
         // 퀘스트 활성화 시
         protected virtual void ActiveQuest()
         {
             Debug.Log($"퀘스트 {questID} : 가 활성화 되었습니다.");
         }
-
         // 퀘스트 수주 시
         protected virtual void ProceedQuest()
         {
@@ -98,7 +96,6 @@ namespace Jc
                 ActiveNextQuest(questID + 1);
             }
         }
-
         // 퀘스트 클리어 시 (수락 대기)
         protected virtual void ClearQuest()
         {
@@ -109,7 +106,6 @@ namespace Jc
                 ChangeState(QuestState.Complete);
             }
         }
-
         // 퀘스트 완료
         protected virtual void CompleteQuest()
         {
