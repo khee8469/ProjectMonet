@@ -69,6 +69,6 @@ public class Miniature : InteractObject
         //key 값은 씬번호_오브젝트이름  같은 이름의 오브젝트에 위치 데이터 전달 예정
         Manager.PlableData.PositionData.SavePosition_3[id] = transform.localPosition;
         //데이터 저장
-        Manager.PlableData.SaveMiniatureData();
+        //Manager.PlableData.SaveMiniatureData();
     }
 }

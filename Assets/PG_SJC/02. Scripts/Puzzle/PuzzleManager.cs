@@ -144,7 +144,8 @@ namespace Jc
             isClear = true;
 
             // 퀘스트 예외처리 (이미 수락대기인 퀘스트 or 완료한 퀘스트)
-            if(linkedQuest.State != QuestState.Clear &&
+            if(linkedQuest != null &&
+                linkedQuest.State != QuestState.Clear &&
                 linkedQuest.State != QuestState.Complete)
                 linkedQuest.ChangeState(QuestState.Clear);
         }
