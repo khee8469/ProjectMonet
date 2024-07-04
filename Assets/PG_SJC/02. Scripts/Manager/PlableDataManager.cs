@@ -32,6 +32,7 @@ namespace Jc
         private List<MiniatureData> miniatureDatas;
         public List<MiniatureData> MiniatureDatas { get { return miniatureDatas; } }
         //미니어처 위치 데이터 저장 딕셔너리, Resources에서 가져오거나 참조 지정
+        [SerializeField]
         private PositionData positionData;
         public PositionData PositionData { get { return positionData; } }
         // 미니어처매니저에서 초기로드데이터 확인용
