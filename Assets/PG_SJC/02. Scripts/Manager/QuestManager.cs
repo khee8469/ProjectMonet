@@ -44,6 +44,8 @@ namespace Jc
             questDic = new Dictionary<int, Quest>();
             Quest[] quests = Resources.LoadAll<Quest>($"Quests");
 
+            List<Quest> linkTypeQuests = new List<Quest>();
+
             foreach (Quest quest in quests)
             {
                 // id 예외처리
@@ -69,6 +71,10 @@ namespace Jc
                 QuestData data = Manager.Data.QuestDataDic[quest.QuestID];
                 // 퀘스트 데이터 할당
                 inst.QuestData = data;
+
+                // 연계형 퀘스트 할당
+                if(data.type == QuestType.Link)
+                    linkTypeQuests.Add(quest);  
 
                 // 최초 퀘스트는 활성화 상태로 변경
                 if (inst.QuestID == 1)
@@ -101,6 +107,13 @@ namespace Jc
                 }
 
                 questDic.Add(quest.QuestID, inst);
+            }
+
+            // 링크된 퀘스트 처리
+            foreach (Quest quest in linkTypeQuests)
+            {
+                // 연계 퀘스트 성공 처리
+                questDic[quest.LinkedEndQuestID].OnClearQuest += quest.OnClearLinkedQuest;
             }
         }
 
