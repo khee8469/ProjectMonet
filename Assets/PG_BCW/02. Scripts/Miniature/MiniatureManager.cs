@@ -13,6 +13,9 @@ public class MiniatureManager : PuzzleManager
     [SerializeField] private MiniatureNum miniatureNum;
     public MiniatureNum MiniatureNum { get {  return miniatureNum; } }
 
+    // 바닥으로 설정한 레이어
+    [SerializeField] LayerMask miniatureMapLayer;
+
 
     private void Awake()
     {
@@ -31,24 +34,33 @@ public class MiniatureManager : PuzzleManager
     private void SetMiniPosition()
     {
         var positionData = Manager.PlableData.PositionData.SavePosition_3;
+
         foreach (Miniature miniature in miniatures)
         {
-            Debug.Log(miniature.name);
-            //데이터가 잇으면
+            //데이터가 잇으면 미니어처 위치 세팅
             if (positionData.ContainsKey(miniature.Id))
             {
-                Debug.Log("데이터있음");
-                miniature.transform.localPosition = new Vector3(positionData[miniature.Id].x, positionData[miniature.Id].y, positionData[miniature.Id].z);
-                
+                //부모크기에 따라 위치 보정 로드
+                float x = miniature.transform.parent.localScale.x * positionData[miniature.Id].x;
+                float y = miniature.transform.parent.localScale.y * positionData[miniature.Id].y;
+                float z = miniature.transform.parent.localScale.z * positionData[miniature.Id].z;
+
+                miniature.transform.localPosition = new Vector3(x, 10, z);
+
+                RaycastHit hit;
+                Physics.Raycast(miniature.transform.position, Vector3.down, out hit, 1000, miniatureMapLayer);
+
+                // 히트 포인트를 로컬 좌표로 변환
+                Vector3 localHitPoint = miniature.transform.parent.InverseTransformPoint(hit.point);
+                // 로컬 좌표로 변환된 값으로 설정
+                miniature.transform.localPosition = new Vector3(x, localHitPoint.y, z);
             }
-            //데이터가 없으면 초기화 한번만
+            //데이터가 없으면 미니어처 위치 딕셔너리 저장
             else
             {
-                Debug.Log("데이터없음");
                 positionData[miniature.Id] = miniature.transform.localPosition; //미니어처 시작위치 저장
-
             }
         }
-        Manager.PlableData.SavePositionData(); //저장용 구조체 세팅
+        Manager.PlableData.SavePositionData(miniatures); //저장용 구조체 세팅
     }
 }
