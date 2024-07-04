@@ -18,6 +18,10 @@ namespace Jc
         protected int questID;
         public int QuestID { get { return questID; }}
 
+        [SerializeField]
+        protected int linkedEndQuestID;
+        public int LinkedEndQuestID { get {return linkedEndQuestID; }}  // 마지막으로 링크된 퀘스트 ID
+
         [Tooltip("퀘스트 상태")]
         [SerializeField]
         protected QuestState state;
@@ -27,6 +31,10 @@ namespace Jc
         [SerializeField]
         protected QuestData questData;
         public QuestData QuestData { get { return questData; } set { questData = value; } }
+
+        [SerializeField]
+        protected bool isSaveQuest;
+        public bool IsSaveQuest {get { return isSaveQuest; } set { isSaveQuest = value; } }
 
         [Tooltip("퀘스트 수주 나레이션 리스트")]
         public List<NarrtionData> receiveNarrations;
@@ -100,6 +108,11 @@ namespace Jc
         protected virtual void ClearQuest()
         {
             Debug.Log($"퀘스트 {questID} : 가 완료되었습니다.");
+
+            // 스테이지 데이터 저장
+            if (isSaveQuest)
+                Manager.PlableData.SaveStageData();
+
             // 자동 클리어 퀘스트의 경우 바로 Complete 상태로 전환 (보상 수령)
             if (questData.type == QuestType.AutoClear)
             {
@@ -119,6 +132,12 @@ namespace Jc
 
             // 연결된 다음 퀘스트 활성화
             ActiveNextQuest(questData.next_id);
+        }
+
+        public void OnClearLinkedQuest(Quest quest)
+        {
+            // 링크된 퀘스트가 모두 클리어된 경우
+            ChangeState(QuestState.Clear);
         }
     }
 }
