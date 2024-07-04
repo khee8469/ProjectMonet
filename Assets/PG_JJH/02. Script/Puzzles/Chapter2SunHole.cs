@@ -45,32 +45,13 @@ public class Chapter2SunHole : PuzzleManager , IPuzzleable
         meshRenderer.materials = mat;
     }
 
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            ChangeSkyBox(afternoonSkybox);
-            nightDirectionalLight.gameObject.SetActive(false);
-            Material[] mats = meshRenderer.materials;
-            mats[0] = whiteMaterial; // 첫 번째 메터리얼을 darkMaterial로 설정
-            meshRenderer.materials = mats; // 변경된 배열 다시 설정
-        }
-
-        if(Input.GetKeyDown(KeyCode.O))
-        {
-            ChangeSkyBox(nightSkybox);
-            nightDirectionalLight.gameObject.SetActive(true); // 다시 돌아올 일은 없긴함. 
-            Material[] mats = meshRenderer.materials;
-            mats[0] = darkMaterial; // 첫 번째 메터리얼을 whiteMaterial로 설정
-            meshRenderer.materials = mats; // 변경된 배열 다시 설정
-        }
-    }
-
-
     public void ChangeSkyBox(Material _Skybox)
     {
         RenderSettings.skybox = _Skybox;
+        nightDirectionalLight.gameObject.SetActive(false);
+        Material[] mats = meshRenderer.materials;
+        mats[0] = whiteMaterial; // 첫 번째 메터리얼을 darkMaterial로 설정
+        meshRenderer.materials = mats; // 변경된 배열 다시 설정
     }
 
 
@@ -79,10 +60,7 @@ public class Chapter2SunHole : PuzzleManager , IPuzzleable
         base.OnClearPuzzle();
         ChangeSkyBox(afternoonSkybox);
 
-
-
     }
-
 
     public void ActiveSetting()
     {

@@ -10,11 +10,6 @@ namespace JJH
     public class LightHouseHead : MonoBehaviour, IPuzzleable
     {
         
-
-        [Tooltip("퍼즐 매니저")]
-        [SerializeField]
-        private PuzzleManager puzzleManager;
-
         [Tooltip("체크 해야 할 검은 구멍")]
         [SerializeField]
         private Chapter2SunHole sunHole;
@@ -43,6 +38,12 @@ namespace JJH
         [SerializeField] private float YmaxValue;
         [SerializeField] private float ZmaxValue;
         [SerializeField] private float ZminValue;
+
+
+        [Tooltip("버튼 배열 가지고 있기")]
+        [SerializeField]
+        private LightPanelButton[] buttons; 
+
         
         // 빛 기둥 같은 경우는 이제 그냥 켜주기만 하면 되는 느낌이겠지. 
         // ray 보다는 패널 에서 자기 위치 체크를 하는게 낫지 않나? 
@@ -86,7 +87,9 @@ namespace JJH
 
         // 등대의 각도와 태양의 각도 
 
-
+        [Tooltip("오차 범위 설정")]
+        [SerializeField] private float tolerance = 0.2f;
+        
         public void MyCheckRotation(Quaternion endRotation)
         {
             float angleX = endRotation.eulerAngles.x;
@@ -97,15 +100,11 @@ namespace JJH
 
             // 각각의 angle 값이 0~360도 중에 어느 정도 값 사이에 들어가 있어야 체크 할지 파악하면된다.
             // 지금 임의적으로 숫자 넣어준거임
-            if ((angleY >= 350 && angleY <= 360)&&(angleZ >= 320 && angleZ <= 330))
+            if ((angleY >= 340 - tolerance && angleY <= 345 + tolerance)&&(angleZ >= 330 - tolerance && angleZ <= 340 + tolerance))
             {
-                Debug.Log("정답체크 완료");
+                sunHole.OnClearPuzzle();
             }
-
-
         }
-
-
 
         public void PuzzleOn()
         {
@@ -113,16 +112,23 @@ namespace JJH
             Debug.Log("등대 퍼즐 켜짐");
         }
 
-        
+        public void DeAactiveLight_Button()
+        {
+            pillar_Of_Light.SetActive(false);
+            for(int i=0;i<buttons.Length;i++)
+            {
+                buttons[i].enabled = false; // 스크립트 꺼주기
+            }
+        }
 
 
 
-        public void ActiveSetting()
+        public void ActiveSetting()  // 진행 가능한 상태의 세팅 
         {
 
         }
 
-        public void CompleteSetting()
+        public void CompleteSetting() // 완성되 있는 상태 세팅
         {
 
         }
