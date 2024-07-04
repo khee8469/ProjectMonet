@@ -11,12 +11,13 @@ public class MiniatureManager : PuzzleManager
     [SerializeField] List<Miniature> miniatures;
     public List<Miniature> Miniatures { get { return miniatures; } }
 
-    //몇번째 씬과 미니어쳐인지 확인용
-    [SerializeField] private MiniatureNum miniatureNum;
-    public MiniatureNum MiniatureNum { get {  return miniatureNum; } }
+    [SerializeField] List<bool> miniatureQuest;
+    public  List<bool> MiniatureQuest { get {  return miniatureQuest; } }
 
     // 바닥으로 설정한 레이어
     [SerializeField] LayerMask miniatureMapLayer;
+
+
 
 
     private void Awake()
@@ -30,6 +31,8 @@ public class MiniatureManager : PuzzleManager
             foreach (var miniature in miniatures)
             {
                 Manager.PlableData.PositionData.SavePosition_3[miniature.Id] = miniature.transform.localPosition;
+                
+                miniatureQuest[miniature.Id] = false;
             }
         }     
     }
@@ -68,13 +71,14 @@ public class MiniatureManager : PuzzleManager
                     miniature.transform.localPosition = localHitPoint;
 
                     //부모크기에 따라 위치 보정 저장
-                    float xSave = miniature.transform.localPosition.x / miniature.transform.parent.localScale.x;
+                    Manager.PlableData.MiniaturePositionSave(miniature, positionData);
+                    /*float xSave = miniature.transform.localPosition.x / miniature.transform.parent.localScale.x;
                     float ySave = miniature.transform.localPosition.y / miniature.transform.parent.localScale.y; 
                     float zSave = miniature.transform.localPosition.z / miniature.transform.parent.localScale.z;
 
                     positionData[miniature.Id] = new Vector3(xSave, ySave, zSave);
 
-                    Debug.Log($"{xSave}, {ySave},{zSave}");
+                    Debug.Log($"{xSave}, {ySave},{zSave}");*/
                 }
                 else
                 {
@@ -82,20 +86,19 @@ public class MiniatureManager : PuzzleManager
                     miniature.transform.localPosition = positionData[miniature.Id];
 
                     //부모크기에 따라 위치 보정 저장
-                    float xSave = miniature.transform.localPosition.x / miniature.transform.parent.localScale.x;
+                    Manager.PlableData.MiniaturePositionSave(miniature, positionData);
+                    /*float xSave = miniature.transform.localPosition.x / miniature.transform.parent.localScale.x;
                     float ySave = miniature.transform.localPosition.y / miniature.transform.parent.localScale.y;
                     float zSave = miniature.transform.localPosition.z / miniature.transform.parent.localScale.z;
 
                     positionData[miniature.Id] = new Vector3(xSave, ySave, zSave);
 
-                    Debug.Log($"{xSave}, {ySave},{zSave}");
+                    Debug.Log($"{xSave}, {ySave},{zSave}");*/
                 }
             }
             //데이터가 없으면 미니어처 위치 딕셔너리 저장
             else
             {
-                Debug.Log(5555);
-
                 RaycastHit hit;
                 if (Physics.Raycast(miniature.transform.position, Vector3.down, out hit, 1000, miniatureMapLayer))
                 {
@@ -107,15 +110,31 @@ public class MiniatureManager : PuzzleManager
                     miniature.transform.localPosition = localHitPoint;
 
                     //부모크기에 따라 위치 보정 저장
-                    float xSave = miniature.transform.localPosition.x / miniature.transform.parent.localScale.x;
+                    Manager.PlableData.MiniaturePositionSave(miniature, positionData);
+                    /*float xSave = miniature.transform.localPosition.x / miniature.transform.parent.localScale.x;
                     float ySave = miniature.transform.localPosition.y / miniature.transform.parent.localScale.y;
                     float zSave = miniature.transform.localPosition.z / miniature.transform.parent.localScale.z;
 
-                    positionData[miniature.Id] = new Vector3(xSave, ySave, zSave);
+                    positionData[miniature.Id] = new Vector3(xSave, ySave, zSave);*/
                 }
             }
-
-            
         }
+    }
+
+    /*public void PositionSave(Miniature miniature, Dictionary<int, Vector3> savePosition)
+    {
+        //부모크기에 따라 위치 보정 저장
+        float xSave = miniature.transform.localPosition.x / miniature.transform.parent.localScale.x;
+        float ySave = miniature.transform.localPosition.y / miniature.transform.parent.localScale.y;
+        float zSave = miniature.transform.localPosition.z / miniature.transform.parent.localScale.z;
+
+        savePosition[miniature.Id] = new Vector3(xSave, ySave, zSave);
+
+        Debug.Log($"{xSave}, {ySave},{zSave}");
+    }*/
+
+    public void MiniatureQuestSet()
+    {
+
     }
 }
