@@ -136,6 +136,7 @@ namespace Jc
             }
             return true;
         }
+
         public virtual void OnClearPuzzle()
         {
             Debug.Log($"{puzzleIndex}번 퍼즐 성공");

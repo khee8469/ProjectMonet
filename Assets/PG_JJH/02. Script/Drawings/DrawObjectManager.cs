@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
-
+using Jc;
 namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. --> 차라리 진짜 이미지에 붙이는 방법으로 가보자. 
 {
     // 자신의 알파값이 1F로 증가할 때 같은 ENUM인 친구들을 찾아서 걔네도 같이 알파값을 업데이트 해줘야한다. 
@@ -16,8 +16,13 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
 
     [RequireComponent(typeof(SpriteRenderer))]
-    public class DrawObjectManager : MonoBehaviour , IComparable<DrawObjectManager>
+    public class DrawObjectManager : MonoBehaviour , IComparable<DrawObjectManager>, IPuzzleable
     {
+        [Header("퍼즐 매니저 에디터 세팅")]
+        [SerializeField]
+        private PuzzleManager puzzle;
+        [SerializeField]
+        private int puzzleIndex;
 
         public List<LineRenderer> lineRenderers = new List<LineRenderer>();
 
@@ -89,7 +94,8 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
         private void Awake()
         {
-            
+            // 퍼즐 매니저에 등록
+            RegistObject(puzzle);
         }
 
 
@@ -281,6 +287,8 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         {
             Debug.Log("드로우 피니시드");
             drawingCompleteManager.DrawComplete((int)drawBoardNumber, true, DrawID);
+            // 퍼즐매니저 업데이트
+            UpdatePuzzleManager(puzzle, puzzleIndex);
         }
 
         public void ImageAlphaUp()
@@ -440,12 +448,38 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             if (other == null) return 1;
             return DrawID.CompareTo(other.DrawID);
         }
+        #region IPuzzleable 인터페이스 오버라이드
+        public void RegistObject(PuzzleManager puzzle)
+        {
+            // 퍼즐 매니저에 자신을 등록
+            puzzle.puzzleObjects.Add(this);
+        }
 
+        // 그림이 다 그려진다면 호출 해야함.
+        public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
+        {
+            puzzle.UpdateCondition(index);
+        }
 
+        // 그랩 오브젝트일 경우 : 충돌체만 켜줌
+        public void ActiveSetting()
+        {
+            return;
+        }
+        // 그랩 오브젝트일 경우 : 충돌체만 꺼줌
+        // 잡을 수 있는애는 셰이더 표시할건데 셰이더 표시도 꺼줘야할 가능성이 있음.
+        public void DisActiveSetting()
+        {
+            return;
+        }
+
+        // 완성되었을 때 퍼즐 상태
+        public void CompleteSetting()
+        {
+            ImageAlphaUp();
+            DrawFinished();
+        }
+        #endregion
     }
 
 }
-
-
-
-
