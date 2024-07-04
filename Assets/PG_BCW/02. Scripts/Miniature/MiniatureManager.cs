@@ -49,7 +49,6 @@ public class MiniatureManager : PuzzleManager
 
                 RaycastHit hit;
                 Physics.Raycast(miniature.transform.position, Vector3.down, out hit, 1000, miniatureMapLayer);
-                Debug.Log(Physics.Raycast(miniature.transform.position, Vector3.down, out hit, 1000, miniatureMapLayer));
 
                 // 히트 포인트를 로컬 좌표로 변환
                 Vector3 localHitPoint = miniature.transform.parent.InverseTransformPoint(hit.point);
