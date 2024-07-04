@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1537888461}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.03394395, g: 0.048480853, b: 0.09087539, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -513,7 +513,7 @@ GameObject:
   - component: {fileID: 1537888461}
   - component: {fileID: 1537888463}
   m_Layer: 0
-  m_Name: Directional Light
+  m_Name: night Directional Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1206,21 +1206,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5943567843462697810, guid: 0f1f94284fa6c834a8e69e6a18a03262,
-        type: 3}
-      propertyPath: puzzleManager
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8707227373306053616, guid: 0f1f94284fa6c834a8e69e6a18a03262,
-        type: 3}
-      propertyPath: isClear
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8707227373306053616, guid: 0f1f94284fa6c834a8e69e6a18a03262,
         type: 3}
       propertyPath: nightDirectionalLight
       value: 
       objectReference: {fileID: 1537888461}
+    - target: {fileID: 8707227373306053616, guid: 0f1f94284fa6c834a8e69e6a18a03262,
+        type: 3}
+      propertyPath: OnClear.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 1537888460}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -109,6 +109,10 @@ namespace JJH
             // 씬 컬러 상태는 유지라기 보다는 한 번만 발동해주면 (static bool만 바꿔주면 계속 유지됨. )
 
         }
+
+        // 그림 조각이 하나 그려질 때 마다 이 DrawComplete가 불러진다. -> 여기서 이제 AllComplete를 체크해서 한 스테이지의 그림이 모두 완성되었는지를 체크한다.
+
+
         public void DrawComplete(int drawingNumber, bool finishied, int instanceID) // 그림이 완성되었을 때 (완전히) 진행할 함수 
                                                                                     // 챕터도 해금 시켜줘야 하고. 포스트프로세싱도 종료 시켜줘야하기 때문에 
                                                                                     // 싱글턴 매니저와 연계가 필요하다. 
@@ -171,6 +175,10 @@ namespace JJH
                 ChapterManager.Instance.CheckDrawComplete(drawingNumber, true); // 씬의 필터 해제
 
                 // 내부코드는 그대로 받아들이도록 수정함 --> 결국 0 이면 1챕터 개방이므로 + 1 필요 ??
+
+
+                // 씬 해금은 나중에 다른 곳에서 할 수 도 있음. 
+
                 if(drawingNumber<=2)
                 {
                     ChapterManager.Instance.UnlockStage(drawingNumber + 1, true); // 3 부터는 인덱스 터짐. 
@@ -179,10 +187,7 @@ namespace JJH
 
                 FinishedDraw.FinishAlphaUp.Invoke(drawingNumber);
             }
-
-
         }
-
 
         public void ChangeLight(PaintTypeEnum _currentPaintType)
         {

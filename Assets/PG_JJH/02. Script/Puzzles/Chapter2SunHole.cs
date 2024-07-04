@@ -19,17 +19,14 @@ public class Chapter2SunHole : PuzzleManager , IPuzzleable
     [Tooltip("Dark 상태에서의 Directional Light")]
     [SerializeField] Light nightDirectionalLight;
 
-    [Tooltip("white 상태에서의 Directional Light")]
-    [SerializeField] Light afternoonDirectionalLight;
-
-    [Tooltip("자식으로 두고 있는 자신의 발광 라이트")]
-    [SerializeField] Light sunRiseLight;
-
     [Tooltip("dark 버전 마테리얼")]
     [SerializeField] private Material darkMaterial;
 
     [Tooltip("화이트 버전 마테리얼")]
     [SerializeField] private Material whiteMaterial;
+
+    [Tooltip("보상으로 인벤토리에 넣어줄 아이템 ID")]
+    [SerializeField] private int ID;
 
     private MeshRenderer meshRenderer;
 
@@ -55,10 +52,22 @@ public class Chapter2SunHole : PuzzleManager , IPuzzleable
     }
 
 
+
+    private void ItemAdd(int ID)
+    {
+        if(ID != 0)
+        {
+            Manager.Inventory.AddItem(ID); // item 추가. 
+        }
+        
+    }
+
     public override void OnClearPuzzle()
     {
         base.OnClearPuzzle();
         ChangeSkyBox(afternoonSkybox);
+        ItemAdd(ID);
+        // itemID가 일치하는 아이템을 인벤토리로 Add 하는 함수가 필요함. -> 추후 작성 
 
     }
 

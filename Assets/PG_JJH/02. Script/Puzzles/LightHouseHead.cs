@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using JJH;
 using Jc;
+using UnityEditor.ShaderGraph.Internal;
 
 namespace JJH
 {
@@ -42,9 +43,12 @@ namespace JJH
 
         [Tooltip("버튼 배열 가지고 있기")]
         [SerializeField]
-        private LightPanelButton[] buttons; 
+        private LightPanelButton[] buttons;
 
-        
+        [Tooltip("클리어 시 창문으로 비칠 햇빛")]
+        [SerializeField]
+        private Light clearLight;
+
         // 빛 기둥 같은 경우는 이제 그냥 켜주기만 하면 되는 느낌이겠지. 
         // ray 보다는 패널 에서 자기 위치 체크를 하는게 낫지 않나? 
 
@@ -100,9 +104,12 @@ namespace JJH
 
             // 각각의 angle 값이 0~360도 중에 어느 정도 값 사이에 들어가 있어야 체크 할지 파악하면된다.
             // 지금 임의적으로 숫자 넣어준거임
-            if ((angleY >= 340 - tolerance && angleY <= 345 + tolerance)&&(angleZ >= 330 - tolerance && angleZ <= 340 + tolerance))
+            if ((angleY >= 340 - tolerance && angleY <= 345 + tolerance)&&(angleZ >= 320 - tolerance && angleZ <= 325 + tolerance))
             {
                 sunHole.OnClearPuzzle();
+                DeAactiveLight_Button();
+                ChangeRoutine();
+
             }
         }
 
@@ -112,9 +119,10 @@ namespace JJH
             Debug.Log("등대 퍼즐 켜짐");
         }
 
-        public void DeAactiveLight_Button()
+        public void DeAactiveLight_Button() // 아 이거 인스펙터창에서 달았었나보다.. 
         {
-            pillar_Of_Light.SetActive(false);
+            
+
             for(int i=0;i<buttons.Length;i++)
             {
                 buttons[i].enabled = false; // 스크립트 꺼주기
@@ -122,6 +130,31 @@ namespace JJH
         }
 
 
+        private void ChangeRoutine()
+        {
+            StartCoroutine(ChangeCoRoutine());
+        }
+
+        private IEnumerator ChangeCoRoutine() 
+        {
+
+            // 등대 빛 점점 약하게.
+            // 햇빛 emission 값 점점 밝게 하다가.
+            // 루틴 끝나면 스카이박스도 바꿔줘야 할듯? 어차피 흑백이니까 그렇게 크게 티 나지는 않을듯함. 
+            LineRenderer line = pillar_Of_Light.GetComponent<LineRenderer>();
+            float during = 2f;
+            float elapse = 0f;
+
+            while (elapse < during)
+            {
+                elapse += Time.deltaTime;
+                line.startWidth =  Mathf.Lerp(line.startWidth, 0, elapse / during);
+                line.endWidth = Mathf.Lerp(line.endWidth, 0, elapse / during);
+                yield return null;
+            }
+
+            line.enabled = false; //완료되면 꺼주기. 
+        }
 
         public void ActiveSetting()  // 진행 가능한 상태의 세팅 
         {
