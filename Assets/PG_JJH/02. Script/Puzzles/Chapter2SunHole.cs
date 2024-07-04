@@ -67,23 +67,26 @@ public class Chapter2SunHole : PuzzleManager , IPuzzleable
         base.OnClearPuzzle();
         ChangeSkyBox(afternoonSkybox);
         ItemAdd(ID);
+
+
+
         // itemID가 일치하는 아이템을 인벤토리로 Add 하는 함수가 필요함. -> 추후 작성 
 
     }
 
     public void ActiveSetting()
     {
-        throw new System.NotImplementedException();
+        
     }
 
-    public void CompleteSetting()
+    public void CompleteSetting()  // 퀘스트가 완성되어 있는 상태 --> 등대 못 만지고 
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void DisActiveSetting()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void ImHitByRay()
@@ -93,11 +96,11 @@ public class Chapter2SunHole : PuzzleManager , IPuzzleable
 
     public void RegistObject(PuzzleManager puzzle)
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
     {
-        throw new System.NotImplementedException();
+        
     }
 }
