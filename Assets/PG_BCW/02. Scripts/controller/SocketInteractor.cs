@@ -17,7 +17,6 @@ public class SocketInteractor : XRSocketInteractor
         base.OnSelectEntered(args);
 
         onHat = true;
-        Debug.Log($"Hat : {onHat}, Steel : {steel}");
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
@@ -25,6 +24,5 @@ public class SocketInteractor : XRSocketInteractor
         base.OnSelectExited(args);
         steel = true;
         onHat = false;
-        Debug.Log($"Hat : {onHat}, Steel : {steel}");
     }
 }

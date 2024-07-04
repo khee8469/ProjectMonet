@@ -6670,8 +6670,8 @@ GameObject:
   - component: {fileID: 1505664653}
   - component: {fileID: 1505664652}
   - component: {fileID: 1505664651}
-  m_Layer: 0
-  m_Name: box
+  m_Layer: 23
+  m_Name: Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6686,11 +6686,11 @@ Transform:
   m_GameObject: {fileID: 1505664649}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 48.877758, y: 0.81, z: -0.534}
-  m_LocalScale: {x: 0.8448767, y: 1.1603289, z: 0.3043757}
+  m_LocalPosition: {x: 2.01, y: 0.31495914, z: 1.2}
+  m_LocalScale: {x: 0.1, y: 0.30792996, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1835245162}
+  m_Father: {fileID: 1808443561}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1505664651
 BoxCollider:
@@ -8022,10 +8022,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 106.4, y: -1, z: 202.9}
-  m_LocalScale: {x: 9.93, y: 9.93, z: 9.93}
+  m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6575087633880078158}
+  - {fileID: 1505664650}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1808443562
@@ -8366,7 +8367,6 @@ Transform:
   - {fileID: 1819763456}
   - {fileID: 1266426353}
   - {fileID: 1895327510}
-  - {fileID: 1505664650}
   - {fileID: 330911188}
   - {fileID: 338835079}
   - {fileID: 1060259263}
@@ -10081,9 +10081,9 @@ Transform:
   m_GameObject: {fileID: 7283142766899200665}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.095, y: 0.486, z: 0.87}
-  m_LocalScale: {x: 0.10070494, y: 0.10070494, z: 0.10070494}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 2.01, y: 0.1807, z: 1.085}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 211407506}
   m_Father: {fileID: 1808443561}
@@ -10336,6 +10336,7 @@ MonoBehaviour:
   miniatureMapLayer:
     serializedVersion: 2
     m_Bits: 8388608
+  miniatureManager: {fileID: 0}
 --- !u!4 &7505920944912577612
 Transform:
   m_ObjectHideFlags: 0

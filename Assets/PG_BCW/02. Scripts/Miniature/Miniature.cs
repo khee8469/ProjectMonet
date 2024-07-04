@@ -12,14 +12,22 @@ public class Miniature : InteractObject
     Vector3 startPosition;
     Quaternion startRotation;
     // 바닥으로 설정한 레이어
-    [SerializeField] LayerMask miniatureMapLayer;
-
+    [SerializeField]
+    LayerMask miniatureMapLayer;
+    // 소켓에 넣을때 좌표 조정용
+    [SerializeField]
+    MiniatureManager miniatureManager;
 
     protected override void Awake()
     {
         base.Awake();
+        miniatureManager = GetComponentInParent<MiniatureManager>();
     }
 
+    private void Start()
+    {
+        GroundCheck();
+    }
 
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
@@ -38,6 +46,7 @@ public class Miniature : InteractObject
     //미니어처 위치 지정
     public void GroundCheck()
     {
+        Debug.Log(111);
         //부모보다 높은 위치에 배치해 레이케스트 쏴서 확인
         transform.position = new Vector3(transform.position.x, transform.parent.position.y + 10, transform.position.z);
 
@@ -64,10 +73,26 @@ public class Miniature : InteractObject
     //미니어처의 현재 위치를 저장
     public void SavePosition()
     {
+        Debug.Log(transform.parent);
         //key 값은 씬번호_오브젝트이름  같은 이름의 오브젝트에 위치 데이터 전달 예정
-        Manager.PlableData.PositionData.SavePosition_3[id] = transform.localPosition;
+        if(transform.parent != null)
+        {
+            Manager.PlableData.PositionData.SavePosition_3[id] = transform.localPosition;
+            Debug.Log(transform.localPosition);
+        }
+        //소켓에 올려놓으면
+        else
+        {
+            //부모를 다시 지정해줘야 로컬좌표를 얻을수있음
+            transform.parent = miniatureManager.transform;
+            // 로컬 좌표로 변환된 값으로 설정
+            Manager.PlableData.PositionData.SavePosition_3[id] = transform.localPosition;
+            Debug.Log(transform.localPosition);
+        }
+
         //데이터 저장
         Manager.PlableData.SaveMiniatureData();
+
     }
 
     private void OnDrawGizmos()

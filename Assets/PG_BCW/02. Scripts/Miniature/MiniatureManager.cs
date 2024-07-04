@@ -46,7 +46,8 @@ public class MiniatureManager : PuzzleManager
                 float z = miniature.transform.parent.localScale.z * positionData[miniature.Id].z;
 
                 miniature.transform.localPosition = new Vector3(x, 10, z);
-
+                Debug.Log(miniature.name);
+                Debug.Log(miniature.transform.localPosition);
                 RaycastHit hit;
                 Physics.Raycast(miniature.transform.position, Vector3.down, out hit, 1000, miniatureMapLayer);
 

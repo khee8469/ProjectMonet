@@ -10,6 +10,10 @@ public class TerrainToMesh : MonoBehaviour
     TerrainData terrainData;
     [SerializeField]
     Texture2D terrainTexture;
+    [SerializeField]
+    MeshRenderer meshRenderer;
+    [SerializeField]
+    MeshFilter meshFilter;
 
     void Start()
     {
@@ -70,9 +74,8 @@ public class TerrainToMesh : MonoBehaviour
     void ApplyTextureToMesh(Texture2D texture)
     {
         // 새로운 게임 오브젝트를 생성하고 메쉬 렌더러와 필터를 추가합니다.
-        GameObject meshObject = new GameObject("TerrainMesh");
-        MeshRenderer meshRenderer = meshObject.AddComponent<MeshRenderer>();
-        MeshFilter meshFilter = meshObject.AddComponent<MeshFilter>();
+        meshRenderer = gameObject.GetComponent<MeshRenderer>();
+        meshFilter = gameObject.GetComponent<MeshFilter>();
 
         // 메터리얼을 생성하고 텍스처를 할당합니다.
         Material material = new Material(Shader.Find("Standard"));
