@@ -36,7 +36,7 @@ namespace JJH
         {
             if (File.Exists($"{path}/{index}.txt") == false)
             {
-                NewData();
+                NewData(); // 파일이 존재하지 않으면 뉴 데이터 생성 
                 return;
             }
 

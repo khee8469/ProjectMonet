@@ -9,6 +9,8 @@ namespace JJH
 
     public class LightHouseHead : MonoBehaviour, IPuzzleable
     {
+        
+
         [Tooltip("퍼즐 매니저")]
         [SerializeField]
         private PuzzleManager puzzleManager;
@@ -33,6 +35,15 @@ namespace JJH
         [Tooltip("레이캐스트 발사 거리")]
         [SerializeField] private float distance = 4000f;
 
+        [Header("클리어를 위한 등대의 각도")]
+        // raycast를 대신하여 등대의 각도를 파악 한 후 그 각도가 올바르면 퍼즐 클리어 하도록 체크 
+        [SerializeField] private float XminValue;
+        [SerializeField] private float XmaxValue;
+        [SerializeField] private float YminValue;
+        [SerializeField] private float YmaxValue;
+        [SerializeField] private float ZmaxValue;
+        [SerializeField] private float ZminValue;
+        
         // 빛 기둥 같은 경우는 이제 그냥 켜주기만 하면 되는 느낌이겠지. 
         // ray 보다는 패널 에서 자기 위치 체크를 하는게 낫지 않나? 
 
@@ -48,7 +59,8 @@ namespace JJH
             {
                 // 다른 함수로 Pillar 를 Active 하는 부분을 CallBack 으로 불러서 (이전 퍼즐에서)
                 // 켜줘야 한다. Ray도 마찬가지고 
-                RayOn();
+                //RayOn();
+                PillarChange();
             }
         }
         private void RayOn() //Ray 든 뭐 빛 기둥이던 어쨋든 이전 퍼즐을 깨야 발동이 가능하다. 
@@ -66,7 +78,32 @@ namespace JJH
             }
         }
 
-        
+        private void PillarChange()
+        {
+            pillar_Of_Light.SetActive(true);
+        }
+
+
+        // 등대의 각도와 태양의 각도 
+
+
+        public void MyCheckRotation(Quaternion endRotation)
+        {
+            float angleX = endRotation.eulerAngles.x;
+            float angleY = endRotation.eulerAngles.y;
+            float angleZ = endRotation.eulerAngles.z;
+
+            Debug.Log($"앵글 들의 값 x y z {angleX} {angleY} {angleZ} ");
+
+            // 각각의 angle 값이 0~360도 중에 어느 정도 값 사이에 들어가 있어야 체크 할지 파악하면된다.
+            // 지금 임의적으로 숫자 넣어준거임
+            if ((angleY >= 350 && angleY <= 360)&&(angleZ >= 320 && angleZ <= 330))
+            {
+                Debug.Log("정답체크 완료");
+            }
+
+
+        }
 
 
 

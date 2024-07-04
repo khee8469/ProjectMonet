@@ -11,6 +11,11 @@ public class ResetButton : MonoBehaviour
     {
         // 세이브 폴더 내 파일 삭제
         CSVHelper.Remove(SystemPath.GetPath(DataPath.LocalQuestData));
+        //CSVHelper.Remove(SystemPath.GetPath(DataPath.LocalCanvasData));
         Manager.Scene.LoadScene("Lobby");
     }
+
+
+
+
 }

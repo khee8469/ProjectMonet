@@ -15,6 +15,9 @@ namespace JJH
         public Dictionary<DrawObjectManager, bool> drawCompleteCheckDic
            = new Dictionary<DrawObjectManager, bool>();
 
+       // public Dictionary<int, DrawObjectManager> 
+
+
         [Tooltip("bool 변수와 맞춰줄 draw list ")]
         [SerializeField]
         public List<DrawObjectManager> sortedDrawObjectManagers =
@@ -44,7 +47,6 @@ namespace JJH
             // Find로 배열을 찾아서 저장한다. --> 배열은 항상 정렬 순서가 보장된다. 
             DrawObjectManager[] drawObjectManagers =
                 GameObject.FindObjectsOfType<DrawObjectManager>();
-
 
             // DrawObjectManager 에 붙어있는 IComparable 을 이용하여 정렬한다.
             Array.Sort(drawObjectManagers); //어차피 둘이 같은 타입을 찾는 find를 하기 때문에 길이는 무조건 같
@@ -81,7 +83,8 @@ namespace JJH
                     }
                 }*/
                 drawCompleteCheckDic.Add(drawObjectManagers[i], ChapterManager.drawPartCheck[i]);
-                
+                // 어차피 씬 넘어갈 때마다 이 딕셔너리는 초기화 되기 때문에 그냥 Add 해주면된다. 
+                // json을 이용한다면 ... 챕터 매니저에 저장된 drawPartCheck 를 이용해서 
 
                 if (drawCompleteCheckDic.TryGetValue(drawObjectManagers[i], out bool isTrue))
                 {
@@ -111,8 +114,16 @@ namespace JJH
                                                                                     // 싱글턴 매니저와 연계가 필요하다. 
         {
 
+            // json도 같이 저장 
             ChapterManager.isDrawing_Complete[drawingNumber] = finishied; // 드로우 컴플리트를 부를 때 값을 지정? --> 이거는 지금 완전히 완성되었을 때의 변수인대 
+            //Manager.DataManager.GameData.myDrawCompleteCheckArr[drawingNumber] = finishied; // json 같이 저장해주자.
+
+            // Json도 같이 저장 
             ChapterManager.drawPartCheck[instanceID] = finishied;
+            //Manager.DataManager.GameData.myDrawPartCheckArr[instanceID] = finishied; // true로 변경 
+
+            //Manager.Chapter.SaveData();
+
 
             // 임시 키 저장용 리스트 초기화
             keysToModifty.Clear(); // 초기화 안하면 이거 계속 들어있음. 

@@ -48,6 +48,9 @@ namespace Jc
 
         // Json Miniature 위치 데이터
         public const string LocalMiniatureData = "UserData/MiniatureDT.csv";
+
+        // 채색 캔버스 데이터
+        public const string LocalCanvasData = "UserData/CanvasData.txt";
     }
 
     public static class ResourcesPath
