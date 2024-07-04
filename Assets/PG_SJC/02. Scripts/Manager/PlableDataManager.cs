@@ -185,7 +185,7 @@ namespace Jc
 
 
 
-        /// <summary>
+    /*    /// <summary>
         /// 미니어처 데이터 관리
         /// </summary>
 
@@ -216,6 +216,7 @@ namespace Jc
         // 미니어처 위치 데이터 불러오기
         public void LoadMiniatureData()
         {
+            Debug.Log(1);
             List<MiniatureData> loadedData = new List<MiniatureData>();
 
             //데이터를 로드
@@ -228,10 +229,15 @@ namespace Jc
                 {
                     for (int i = 0; i < csvData.Count; i++)
                     {
+                        
                         int id = Convert.ToInt32(csvData[i]["miniatureId"]);
                         float x = Convert.ToSingle(csvData[i]["xPosition"]);
                         float y = Convert.ToSingle(csvData[i]["yPosition"]);
                         float z = Convert.ToSingle(csvData[i]["zPosition"]);
+                        Debug.Log(id);
+                        Debug.Log(x);
+                        Debug.Log(y);
+                        Debug.Log(z);
                         loadedData.Add(new MiniatureData(id, new Vector3(x, y, z)));
                     }
                 }  
@@ -279,6 +285,6 @@ namespace Jc
     
                 miniatureDatas.Add(new MiniatureData(key, new Vector3(x, y, z)));
             }
-        }
+        }*/
     }
 }

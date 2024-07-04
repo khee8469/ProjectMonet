@@ -1,4 +1,5 @@
 using Jc;
+using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -6,8 +7,8 @@ public class Miniature : InteractObject
 {
     [Tooltip("저장용 Id")]
     [SerializeField] int id;
-    public int Id {  get { return id; } }  
-    
+    public int Id { get { return id; } }
+
     // 시작위치 저장용
     Vector3 startPosition;
     Quaternion startRotation;
@@ -26,14 +27,15 @@ public class Miniature : InteractObject
 
     private void Start()
     {
-        GroundCheck();
+        startPosition = transform.localPosition;
+        startRotation = transform.localRotation;
     }
 
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
         base.OnSelectEntering(args);
-        startPosition = transform.position;
-        startRotation = transform.rotation;
+        startPosition = transform.localPosition;
+        startRotation = transform.localRotation;
     }
 
     protected override void OnSelectExiting(SelectExitEventArgs args)
@@ -46,26 +48,25 @@ public class Miniature : InteractObject
     //미니어처 위치 지정
     public void GroundCheck()
     {
-        Debug.Log(111);
+        var positionData = Manager.PlableData.PositionData.SavePosition_3;
         //부모보다 높은 위치에 배치해 레이케스트 쏴서 확인
-        transform.position = new Vector3(transform.position.x, transform.parent.position.y + 10, transform.position.z);
+        transform.localPosition = new Vector3(transform.localPosition.x, transform.parent.position.y + 10, transform.localPosition.z);
 
         RaycastHit hit;
-        if(Physics.Raycast(transform.position, Vector3.down, out hit, 1000, miniatureMapLayer))
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 1000, miniatureMapLayer))
         {
-            //미니어처맵 안
-            if (miniatureMapLayer.Contain(hit.transform.gameObject.layer))
-            {
-                Debug.Log("타일 안에 두었습니다.");
-                transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
-                transform.rotation = startRotation;
-            }
+            Debug.Log(1);
+            // 히트 포인트를 로컬 좌표로 변환
+            Vector3 localHitPoint = transform.parent.InverseTransformPoint(hit.point);
+            transform.localPosition = localHitPoint;
+            transform.rotation = startRotation;
+            Debug.Log(transform.localPosition);
         }
         else
         {
-            Debug.Log("레이케스트 실패");
+            Debug.Log(2);
             //원위치
-            transform.position = startPosition;
+            transform.localPosition = startPosition;
             transform.rotation = startRotation;
         }
     }
@@ -73,31 +74,38 @@ public class Miniature : InteractObject
     //미니어처의 현재 위치를 저장
     public void SavePosition()
     {
-        Debug.Log(transform.parent);
         //key 값은 씬번호_오브젝트이름  같은 이름의 오브젝트에 위치 데이터 전달 예정
-        if(transform.parent != null)
+        if (transform.parent != null)
         {
-            Manager.PlableData.PositionData.SavePosition_3[id] = transform.localPosition;
-            Debug.Log(transform.localPosition);
+            //부모크기에 따라 위치 보정 저장
+            float xSave = transform.localPosition.x / transform.parent.localScale.x;
+            float ySave = transform.localPosition.y / transform.parent.localScale.y;
+            float zSave = transform.localPosition.z / transform.parent.localScale.z;
+
+            Manager.PlableData.PositionData.SavePosition_3[id] = new Vector3(xSave, ySave, zSave);
+
+            Debug.Log($"{xSave}, {ySave},{zSave}");
         }
         //소켓에 올려놓으면
         else
         {
             //부모를 다시 지정해줘야 로컬좌표를 얻을수있음
             transform.parent = miniatureManager.transform;
+
+            //부모크기에 따라 위치 보정 저장
+            float xSave = transform.localPosition.x / transform.parent.localScale.x;
+            float ySave = transform.localPosition.y / transform.parent.localScale.y;
+            float zSave = transform.localPosition.z / transform.parent.localScale.z;
             // 로컬 좌표로 변환된 값으로 설정
-            Manager.PlableData.PositionData.SavePosition_3[id] = transform.localPosition;
-            Debug.Log(transform.localPosition);
+            Manager.PlableData.PositionData.SavePosition_3[id] = new Vector3(xSave, ySave, zSave);
+
+            Debug.Log($"{xSave}, {ySave},{zSave}");
         }
-
-        //데이터 저장
-        Manager.PlableData.SaveMiniatureData();
-
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.down*10);
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * 10);
     }
 }

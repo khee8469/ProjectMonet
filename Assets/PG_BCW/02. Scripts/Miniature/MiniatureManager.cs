@@ -5,6 +5,8 @@ using UnityEngine;
 public enum MiniatureNum { First, Second, Third, Fourth, }
 public class MiniatureManager : PuzzleManager
 {
+    [Header("MiniatureManager")]
+
     [Tooltip("미니어처 리스트")]
     [SerializeField] List<Miniature> miniatures;
     public List<Miniature> Miniatures { get { return miniatures; } }
@@ -19,14 +21,21 @@ public class MiniatureManager : PuzzleManager
 
     private void Awake()
     {
+        //미니어처 리스트
         miniatures = GetComponentsInChildren<Miniature>().ToList();
+
+        if(miniatures.Count == 0)
+        {
+            //미니어처 위치 저장
+            foreach (var miniature in miniatures)
+            {
+                Manager.PlableData.PositionData.SavePosition_3[miniature.Id] = miniature.transform.localPosition;
+            }
+        }     
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        //데이터가 잇으면 로드
-        Manager.PlableData.LoadMiniatureData();
-
         SetMiniPosition();
     }
 
@@ -41,27 +50,72 @@ public class MiniatureManager : PuzzleManager
             if (positionData.ContainsKey(miniature.Id))
             {
                 //부모크기에 따라 위치 보정 로드
-                float x = miniature.transform.parent.localScale.x * positionData[miniature.Id].x;
-                float y = miniature.transform.parent.localScale.y * positionData[miniature.Id].y;
-                float z = miniature.transform.parent.localScale.z * positionData[miniature.Id].z;
+                float xLoad = miniature.transform.parent.localScale.x * positionData[miniature.Id].x;
+                float yLoad = miniature.transform.parent.localScale.y * positionData[miniature.Id].y;
+                float zLoad = miniature.transform.parent.localScale.z * positionData[miniature.Id].z;
 
-                miniature.transform.localPosition = new Vector3(x, 10, z);
-                Debug.Log(miniature.name);
-                Debug.Log(miniature.transform.localPosition);
+                Debug.Log($"{miniature.name} : {xLoad},{yLoad},{zLoad}");
+
+                miniature.transform.localPosition = new Vector3(xLoad, 10, zLoad);
+
                 RaycastHit hit;
-                Physics.Raycast(miniature.transform.position, Vector3.down, out hit, 1000, miniatureMapLayer);
+                if(Physics.Raycast(miniature.transform.position, Vector3.down, out hit, 1000, miniatureMapLayer))
+                {
+                    Debug.Log($"레이성공");
+                    // 히트 포인트를 로컬 좌표로 변환
+                    Vector3 localHitPoint = miniature.transform.parent.InverseTransformPoint(hit.point);
+                    // 로컬 좌표로 변환된 값으로 설정
+                    miniature.transform.localPosition = localHitPoint;
 
-                // 히트 포인트를 로컬 좌표로 변환
-                Vector3 localHitPoint = miniature.transform.parent.InverseTransformPoint(hit.point);
-                // 로컬 좌표로 변환된 값으로 설정
-                miniature.transform.localPosition = new Vector3(x, localHitPoint.y, z);
+                    //부모크기에 따라 위치 보정 저장
+                    float xSave = miniature.transform.localPosition.x / miniature.transform.parent.localScale.x;
+                    float ySave = miniature.transform.localPosition.y / miniature.transform.parent.localScale.y; 
+                    float zSave = miniature.transform.localPosition.z / miniature.transform.parent.localScale.z;
+
+                    positionData[miniature.Id] = new Vector3(xSave, ySave, zSave);
+
+                    Debug.Log($"{xSave}, {ySave},{zSave}");
+                }
+                else
+                {
+                    Debug.Log($"레이실패");
+                    miniature.transform.localPosition = positionData[miniature.Id];
+
+                    //부모크기에 따라 위치 보정 저장
+                    float xSave = miniature.transform.localPosition.x / miniature.transform.parent.localScale.x;
+                    float ySave = miniature.transform.localPosition.y / miniature.transform.parent.localScale.y;
+                    float zSave = miniature.transform.localPosition.z / miniature.transform.parent.localScale.z;
+
+                    positionData[miniature.Id] = new Vector3(xSave, ySave, zSave);
+
+                    Debug.Log($"{xSave}, {ySave},{zSave}");
+                }
             }
             //데이터가 없으면 미니어처 위치 딕셔너리 저장
             else
             {
-                positionData[miniature.Id] = miniature.transform.localPosition; //미니어처 시작위치 저장
+                Debug.Log(5555);
+
+                RaycastHit hit;
+                if (Physics.Raycast(miniature.transform.position, Vector3.down, out hit, 1000, miniatureMapLayer))
+                {
+                    Debug.Log($"레이성공");
+                    Debug.Log(hit.transform.name);
+                    // 히트 포인트를 로컬 좌표로 변환
+                    Vector3 localHitPoint = miniature.transform.parent.InverseTransformPoint(hit.point);
+                    // 로컬 좌표로 변환된 값으로 설정
+                    miniature.transform.localPosition = localHitPoint;
+
+                    //부모크기에 따라 위치 보정 저장
+                    float xSave = miniature.transform.localPosition.x / miniature.transform.parent.localScale.x;
+                    float ySave = miniature.transform.localPosition.y / miniature.transform.parent.localScale.y;
+                    float zSave = miniature.transform.localPosition.z / miniature.transform.parent.localScale.z;
+
+                    positionData[miniature.Id] = new Vector3(xSave, ySave, zSave);
+                }
             }
+
+            
         }
-        Manager.PlableData.SavePositionData(miniatures); //저장용 구조체 세팅
     }
 }
