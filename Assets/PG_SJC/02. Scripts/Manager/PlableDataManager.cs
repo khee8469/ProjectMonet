@@ -298,7 +298,11 @@ namespace Jc
 
             savePosition[miniature.Id] = new Vector3(xSave, ySave, zSave);
             Debug.Log($"{xSave}, {ySave},{zSave}");
-            Debug.Log($"savePosition[miniature.Id] : {savePosition[miniature.Id]}");
+        }
+
+        public void MiniatureQuestSet()
+        {
+
         }
     }
 }

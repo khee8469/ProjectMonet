@@ -64,7 +64,6 @@ public class MiniatureManager : PuzzleManager
                 RaycastHit hit;
                 if(Physics.Raycast(miniature.transform.position, Vector3.down, out hit, 1000, miniatureMapLayer))
                 {
-                    Debug.Log($"레이성공");
                     // 히트 포인트를 로컬 좌표로 변환
                     Vector3 localHitPoint = miniature.transform.parent.InverseTransformPoint(hit.point);
                     // 로컬 좌표로 변환된 값으로 설정
@@ -72,28 +71,13 @@ public class MiniatureManager : PuzzleManager
 
                     //부모크기에 따라 위치 보정 저장
                     Manager.PlableData.MiniaturePositionSave(miniature, positionData);
-                    /*float xSave = miniature.transform.localPosition.x / miniature.transform.parent.localScale.x;
-                    float ySave = miniature.transform.localPosition.y / miniature.transform.parent.localScale.y; 
-                    float zSave = miniature.transform.localPosition.z / miniature.transform.parent.localScale.z;
-
-                    positionData[miniature.Id] = new Vector3(xSave, ySave, zSave);
-
-                    Debug.Log($"{xSave}, {ySave},{zSave}");*/
                 }
                 else
                 {
-                    Debug.Log($"레이실패");
                     miniature.transform.localPosition = positionData[miniature.Id];
 
                     //부모크기에 따라 위치 보정 저장
                     Manager.PlableData.MiniaturePositionSave(miniature, positionData);
-                    /*float xSave = miniature.transform.localPosition.x / miniature.transform.parent.localScale.x;
-                    float ySave = miniature.transform.localPosition.y / miniature.transform.parent.localScale.y;
-                    float zSave = miniature.transform.localPosition.z / miniature.transform.parent.localScale.z;
-
-                    positionData[miniature.Id] = new Vector3(xSave, ySave, zSave);
-
-                    Debug.Log($"{xSave}, {ySave},{zSave}");*/
                 }
             }
             //데이터가 없으면 미니어처 위치 딕셔너리 저장
@@ -102,8 +86,6 @@ public class MiniatureManager : PuzzleManager
                 RaycastHit hit;
                 if (Physics.Raycast(miniature.transform.position, Vector3.down, out hit, 1000, miniatureMapLayer))
                 {
-                    Debug.Log($"레이성공");
-                    Debug.Log(hit.transform.name);
                     // 히트 포인트를 로컬 좌표로 변환
                     Vector3 localHitPoint = miniature.transform.parent.InverseTransformPoint(hit.point);
                     // 로컬 좌표로 변환된 값으로 설정
@@ -111,30 +93,8 @@ public class MiniatureManager : PuzzleManager
 
                     //부모크기에 따라 위치 보정 저장
                     Manager.PlableData.MiniaturePositionSave(miniature, positionData);
-                    /*float xSave = miniature.transform.localPosition.x / miniature.transform.parent.localScale.x;
-                    float ySave = miniature.transform.localPosition.y / miniature.transform.parent.localScale.y;
-                    float zSave = miniature.transform.localPosition.z / miniature.transform.parent.localScale.z;
-
-                    positionData[miniature.Id] = new Vector3(xSave, ySave, zSave);*/
                 }
             }
         }
-    }
-
-    /*public void PositionSave(Miniature miniature, Dictionary<int, Vector3> savePosition)
-    {
-        //부모크기에 따라 위치 보정 저장
-        float xSave = miniature.transform.localPosition.x / miniature.transform.parent.localScale.x;
-        float ySave = miniature.transform.localPosition.y / miniature.transform.parent.localScale.y;
-        float zSave = miniature.transform.localPosition.z / miniature.transform.parent.localScale.z;
-
-        savePosition[miniature.Id] = new Vector3(xSave, ySave, zSave);
-
-        Debug.Log($"{xSave}, {ySave},{zSave}");
-    }*/
-
-    public void MiniatureQuestSet()
-    {
-
     }
 }

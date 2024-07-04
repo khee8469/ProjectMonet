@@ -44,6 +44,8 @@ public class Miniature : InteractObject
         base.OnSelectExiting(args);
         GroundCheck();
         SavePosition();
+
+        
     }
 
     //미니어처 위치 지정
@@ -52,12 +54,10 @@ public class Miniature : InteractObject
         var positionData = Manager.PlableData.PositionData.SavePosition_3;
         //부모보다 높은 위치에 배치해 레이케스트 쏴서 확인
         transform.localPosition = new Vector3(transform.localPosition.x, transform.parent.position.y + 10, transform.localPosition.z);
-        Debug.Log($"transform.localPosition : {transform.localPosition.x}, {transform.parent.position.y + 10}, {transform.localPosition.z}");
-
+ 
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Vector3.down, out hit, 1000, miniatureMapLayer))
         {
-            Debug.Log(1);
             // 히트 포인트를 로컬 좌표로 변환
             Vector3 localHitPoint = transform.parent.InverseTransformPoint(hit.point);
             transform.localPosition = localHitPoint;
@@ -66,9 +66,9 @@ public class Miniature : InteractObject
         }
         else
         {
-            Debug.Log(2);
             //원위치
-            transform.localPosition = startPosition;
+            Vector3 localHitPoint = transform.parent.InverseTransformPoint(startPosition);
+            transform.localPosition = localHitPoint;
             transform.rotation = startRotation;
         }
     }
@@ -80,15 +80,9 @@ public class Miniature : InteractObject
         if (transform.parent != null)
         {
             Debug.Log(3);
+            transform.parent = miniatureManager.transform;
             //부모크기에 따라 위치 보정 저장
-            //Manager.PlableData.MiniaturePositionSave(this, Manager.PlableData.PositionData.SavePosition_3);
-            float xSave = transform.localPosition.x / transform.parent.localScale.x;
-            float ySave = transform.localPosition.y / transform.parent.localScale.y;
-            float zSave = transform.localPosition.z / transform.parent.localScale.z;
-
-            Manager.PlableData.PositionData.SavePosition_3[id] = new Vector3(xSave, ySave, zSave);
-
-            Debug.Log($"{xSave}, {ySave},{zSave}");
+            Manager.PlableData.MiniaturePositionSave(this, Manager.PlableData.PositionData.SavePosition_3);
         }
         //소켓에 올려놓으면
         else
@@ -98,14 +92,7 @@ public class Miniature : InteractObject
             transform.parent = miniatureManager.transform;
 
             //부모크기에 따라 위치 보정 저장
-            //Manager.PlableData.MiniaturePositionSave(this, Manager.PlableData.PositionData.SavePosition_3);
-            float xSave = transform.localPosition.x / transform.parent.localScale.x;
-            float ySave = transform.localPosition.y / transform.parent.localScale.y;
-            float zSave = transform.localPosition.z / transform.parent.localScale.z;
-            // 로컬 좌표로 변환된 값으로 설정
-            Manager.PlableData.PositionData.SavePosition_3[id] = new Vector3(0.201f, ySave, 0.12f);
-
-            Debug.Log($"{xSave}, {ySave},{zSave}");
+            Manager.PlableData.MiniaturePositionSave(this, Manager.PlableData.PositionData.SavePosition_3);
         }
     }
 
