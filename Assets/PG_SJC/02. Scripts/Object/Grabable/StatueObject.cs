@@ -20,6 +20,8 @@ namespace Jc
         [SerializeField]
         private float enableRoutineTime;
 
+        public bool isLoaded = false;
+
         [SerializeField]
         private Transform startTransform;
 
@@ -37,6 +39,7 @@ namespace Jc
         {
             if(enableRoutine != null)
             {
+                StopCoroutine(enableRoutine);
                 col.enabled = false;
                 spotLight.enabled = false;
                 transform.position = startTransform.position;
