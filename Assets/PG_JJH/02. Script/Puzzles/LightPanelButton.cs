@@ -225,9 +225,7 @@ namespace JJH
                     if (lightHouseHead.transform.localEulerAngles.y >= 315 || lightHouseHead.transform.localEulerAngles.y <= 45)
                     {
                         StartCoroutine(RotationRoutine(start, end, duration));
-                    }
-                    
-
+                    }                  
                     break; 
 
                 case Direction.RIGHT: // 우 

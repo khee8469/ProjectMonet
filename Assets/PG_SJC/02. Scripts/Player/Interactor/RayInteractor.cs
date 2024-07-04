@@ -346,7 +346,6 @@ namespace Jc
             if(button != null)
             {
                 return base.CanHover(interactable);
-
             }
 
             if (itrObject == null)
