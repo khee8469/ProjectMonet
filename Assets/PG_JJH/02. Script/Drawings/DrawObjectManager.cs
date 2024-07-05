@@ -94,8 +94,9 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
         private void Awake()
         {
+            if(puzzle != null)
             // 퍼즐 매니저에 등록
-            RegistObject(puzzle);
+                RegistObject(puzzle);
         }
 
 
