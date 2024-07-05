@@ -90,7 +90,6 @@ namespace Jc
         {
             if (Manager.Layer.puzzleLM.Contain(other.gameObject.layer))
             {
-                Debug.Log("Enter");
                 isEnterRoom = true;
                 if (exitRoutine != null)
                     StopCoroutine(exitRoutine);
@@ -100,7 +99,6 @@ namespace Jc
         {
             if (Manager.Layer.puzzleLM.Contain(other.gameObject.layer))
             {
-                Debug.Log("Exit");
                 isEnterRoom = false;
                 if (exitRoutine != null)
                     StopCoroutine(exitRoutine);

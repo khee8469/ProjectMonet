@@ -3817,7 +3817,7 @@ GameObject:
   - component: {fileID: 92067063}
   - component: {fileID: 92067064}
   m_Layer: 0
-  m_Name: ChessManager
+  m_Name: PuzzleManager_Chess
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3852,7 +3852,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rewardItemID: 0
-  puzzleIndex: 3
+  puzzleID: 3
+  state: 0
   conditions: 00000000
   OnClear:
     m_PersistentCalls:
@@ -8722,7 +8723,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rewardItemID: 0
-  puzzleIndex: 2
+  puzzleID: 2
+  state: 0
   conditions: 
   OnClear:
     m_PersistentCalls:
@@ -10104,7 +10106,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rewardItemID: 0
-  puzzleIndex: 1
+  puzzleID: 1
+  state: 0
   conditions: 0000000000000000
   OnClear:
     m_PersistentCalls:
@@ -12946,7 +12949,7 @@ MonoBehaviour:
   m_SocketScaleMode: 0
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
-  puzzle: {fileID: 92067063}
+  puzzle: {fileID: 1632848543}
   statue: {fileID: 1953720343}
   roofObs:
   - {fileID: 617805768}
@@ -15925,7 +15928,7 @@ GameObject:
   m_Component:
   - component: {fileID: 803716762}
   m_Layer: 0
-  m_Name: Puzzle3
+  m_Name: Puzzle3~4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15944,13 +15947,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 92067062}
+  - {fileID: 1632848544}
   - {fileID: 1916224821}
   - {fileID: 226815089}
   - {fileID: 1953720342}
   - {fileID: 612313905}
   - {fileID: 1968527282}
   - {fileID: 1553513657}
-  - {fileID: 92067062}
   m_Father: {fileID: 27971266}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &804338306
@@ -21818,7 +21822,7 @@ GameObject:
   - component: {fileID: 1153373790}
   - component: {fileID: 1153373791}
   m_Layer: 0
-  m_Name: Puzzle4
+  m_Name: Puzzle5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21858,7 +21862,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rewardItemID: 0
-  puzzleIndex: 4
+  puzzleID: 5
+  state: 0
   conditions: 
   OnClear:
     m_PersistentCalls:
@@ -30271,6 +30276,59 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3, y: 0.5000006, z: 2.0156598}
   m_Center: {x: 0, y: 0.0000076293945, z: -0.3803641}
+--- !u!1 &1632848542
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1632848544}
+  - component: {fileID: 1632848543}
+  m_Layer: 0
+  m_Name: PuzzleManager_Statue
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1632848543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632848542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04198248aca2db14ba85aca64eb64a6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rewardItemID: 0
+  puzzleID: 4
+  state: 0
+  conditions: 
+  OnClear:
+    m_PersistentCalls:
+      m_Calls: []
+  linkedQuestID: 1510003
+  isClear: 0
+--- !u!4 &1632848544
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1632848542}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 803716762}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1638725486
 GameObject:
   m_ObjectHideFlags: 0

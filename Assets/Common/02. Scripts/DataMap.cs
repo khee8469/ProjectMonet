@@ -44,18 +44,16 @@ namespace Jc
         public const string LocalDirectory = "UserData";
         // Json 스테이지 데이터
         public const string StageData = "UserData/StageData.txt";
-
+        // Json 퍼즐 데이터
+        public const string LocalPuzzleData = "UserData/PuzzleData.txt";
+        // Json 채색 캔버스 데이터
+        public const string LocalCanvasData = "UserData/CanvasData.txt";
         // Json 플레이어블 데이터
         public const string LocalQuestData = "UserData/Quest_ListDT.csv";
-
         // Json 플레이어블 데이터
         public const string LocalInventoryData = "UserData/InventoryDT.csv";
-
         // Json Miniature 위치 데이터
         public const string LocalMiniatureData = "UserData/MiniatureDT.csv";
-
-        // 채색 캔버스 데이터
-        public const string LocalCanvasData = "UserData/CanvasData.txt";
     }
 
     public static class ResourcesPath

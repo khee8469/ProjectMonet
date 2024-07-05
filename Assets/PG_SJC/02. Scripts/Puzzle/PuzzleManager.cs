@@ -15,10 +15,20 @@ namespace Jc
 
         [Header("퍼즐 id")]
         [SerializeField]
-        private int puzzleIndex;
+        private int puzzleID = -1;
 
         [Header("퍼즐 진행상태")]
-        public PuzzleState state = PuzzleState.DisActive;
+        [SerializeField]
+        private PuzzleState state = PuzzleState.DisActive;
+        public PuzzleState State
+        {
+            get { return state; }
+            set
+            {
+                state = value;
+                SavePuzzleData();
+            }
+        }
 
         [Header("연계된 퍼즐 오브젝트 (퍼즐 상태를 업데이트하는 오브젝트)")]
         public List<IPuzzleable> puzzleObjects = new List<IPuzzleable>();
@@ -77,18 +87,28 @@ namespace Jc
                         // 퍼즐 비활성화
                         foreach (IPuzzleable ob in puzzleObjects)
                             ob.DisActiveSetting();    // 모든 퍼즐 오브젝트 비활성화
+
+                        this.state = PuzzleState.DisActive;
                     }
                     break;
                 case QuestState.Proceed:
-                    // 퍼즐 활성화
-                    foreach (IPuzzleable ob in puzzleObjects)
-                        ob.ActiveSetting();    // 모든 퍼즐 오브젝트 활성화
+                    // 로딩된 퍼즐 데이터가 없을 경우
+                    if (!LoadPuzzleData())
+                    {
+                        // 퍼즐 활성화
+                        foreach (IPuzzleable ob in puzzleObjects)
+                            ob.ActiveSetting();    // 모든 퍼즐 오브젝트 활성화
+
+                        this.state = PuzzleState.DisActive;
+                    }
                     break;
                 case QuestState.Clear:      // 수락 대기 상태
                 case QuestState.Complete:   // 이미 완료된 상태
                     // 퍼즐 완료
                     foreach (IPuzzleable ob in puzzleObjects)
                         ob.CompleteSetting();    // 모든 퍼즐 오브젝트 활성화
+
+                    this.state = PuzzleState.Clear;
                     break;
                 default:
                     break;
@@ -105,15 +125,69 @@ namespace Jc
                     // 퍼즐 비활성화
                     foreach (IPuzzleable ob in puzzleObjects)
                         ob.DisActiveSetting();    // 모든 퍼즐 오브젝트 비활성화
+
+                    State = PuzzleState.DisActive;
                     break;
                 case QuestState.Proceed:
                     // 퍼즐 활성화
                     foreach (IPuzzleable ob in puzzleObjects)
                         ob.ActiveSetting();    // 모든 퍼즐 오브젝트 활성화
+
+                    State = PuzzleState.Proceed;
                     break;
                 default:
                     break;
             }
+        }
+
+        // 퍼즐 데이터 로드
+        private bool LoadPuzzleData()
+        {
+            if (puzzleID <= 0)
+            {
+                Debug.Log($"퍼즐에 ID 값이 할당되지 않았습니다 : {this}");
+                return false;
+            }
+
+            if (!Manager.PlableData.puzzleDataDic.ContainsKey(puzzleID))
+                return false;
+
+            switch (Manager.PlableData.puzzleDataDic[puzzleID])
+            {
+                case PuzzleState.DisActive:
+                    foreach (IPuzzleable ob in puzzleObjects)
+                        ob.DisActiveSetting();    // 모든 퍼즐 오브젝트 비활성화
+
+                    this.state = PuzzleState.DisActive;
+                    break;
+                case PuzzleState.Proceed:
+                    // 퍼즐 활성화
+                    foreach (IPuzzleable ob in puzzleObjects)
+                        ob.ActiveSetting();    // 모든 퍼즐 오브젝트 활성화
+
+                    this.state = PuzzleState.DisActive;
+                    break;
+                case PuzzleState.Clear:
+                    // 퍼즐 완료
+                    foreach (IPuzzleable ob in puzzleObjects)
+                        ob.CompleteSetting();    // 모든 퍼즐 오브젝트 완료
+
+                    this.state = PuzzleState.Clear;
+                    break;
+                default:
+                    break;
+            }
+            return true;
+        }
+        // 퍼즐 데이터 세이브
+        private void SavePuzzleData()
+        {
+            if (!Manager.PlableData.puzzleDataDic.ContainsKey(puzzleID))
+                Manager.PlableData.puzzleDataDic.Add(puzzleID, State);
+            else
+                Manager.PlableData.puzzleDataDic[puzzleID] = State;
+
+            Manager.PlableData.SavePuzzleData();
         }
 
         // 조건 성공
@@ -147,11 +221,13 @@ namespace Jc
 
         public virtual void OnClearPuzzle()
         {
-            Debug.Log($"{puzzleIndex}번 퍼즐 성공");
+            Debug.Log($"ID : {puzzleID} 퍼즐 성공");
 
             // 아이템 추가
             OnClear?.Invoke();
             isClear = true;
+
+            State = PuzzleState.Clear;
 
             // 퀘스트 예외처리 (이미 수락대기인 퀘스트 or 완료한 퀘스트)
             if (linkedQuest != null &&
