@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 public enum MiniatureNum { First, Second, Third, Fourth, }
-public class MiniatureManager : PuzzleManager
+public class MiniatureManager : MonoBehaviour
 {
     [Header("MiniatureManager")]
 
@@ -18,8 +18,6 @@ public class MiniatureManager : PuzzleManager
     [SerializeField] LayerMask miniatureMapLayer;
 
 
-
-
     private void Awake()
     {
         //미니어처 리스트
@@ -27,10 +25,11 @@ public class MiniatureManager : PuzzleManager
 
         if(miniatures.Count == 0)
         {
+            Debug.Log($"시작");
             //미니어처 위치 저장
             foreach (var miniature in miniatures)
             {
-                Manager.PlableData.PositionData.SavePosition_3[miniature.Id] = miniature.transform.localPosition;
+                Manager.PlableData.PositionData.SavePosition[miniature.Id] = miniature.transform.localPosition;
                 
                 miniatureQuest[miniature.Id] = false;
             }
@@ -45,7 +44,7 @@ public class MiniatureManager : PuzzleManager
     //씬 로드시 미니어처들 위치 지정
     private void SetMiniPosition()
     {
-        var positionData = Manager.PlableData.PositionData.SavePosition_3;
+        var positionData = Manager.PlableData.PositionData.SavePosition;
 
         foreach (Miniature miniature in miniatures)
         {
@@ -56,8 +55,6 @@ public class MiniatureManager : PuzzleManager
                 float xLoad = miniature.transform.parent.localScale.x * positionData[miniature.Id].x;
                 float yLoad = miniature.transform.parent.localScale.y * positionData[miniature.Id].y;
                 float zLoad = miniature.transform.parent.localScale.z * positionData[miniature.Id].z;
-
-                Debug.Log($"{miniature.name} : {xLoad},{yLoad},{zLoad}");
 
                 miniature.transform.localPosition = new Vector3(xLoad, 10, zLoad);
 

@@ -297,7 +297,6 @@ namespace Jc
             float zSave = miniature.transform.localPosition.z / miniature.transform.parent.localScale.z;
 
             savePosition[miniature.Id] = new Vector3(xSave, ySave, zSave);
-            Debug.Log($"{xSave}, {ySave},{zSave}");
         }
 
         public void MiniatureQuestSet()

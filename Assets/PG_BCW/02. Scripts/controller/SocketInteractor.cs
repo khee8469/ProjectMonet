@@ -16,7 +16,7 @@ public class SocketInteractor : XRSocketInteractor
     {
         base.OnSelectEntered(args);
 
-        //onHat = true;
+        //onHat = true;ssssss
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
