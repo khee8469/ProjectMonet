@@ -18,7 +18,7 @@ namespace JJH
 
         public void Close()
         {
-            Manager.UI.CloseInGameUI();
+            //Manager.UI.CloseInGameUI();
         }
     }
 }

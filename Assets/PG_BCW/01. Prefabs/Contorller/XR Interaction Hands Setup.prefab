@@ -56,6 +56,112 @@ CapsuleCollider:
   m_Height: 0.08
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &321708662666020499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3584787650465021487}
+  - component: {fileID: 3921274873388796344}
+  - component: {fileID: 7386958044189271408}
+  m_Layer: 0
+  m_Name: OpenGesture
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3584787650465021487
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321708662666020499}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5929272682827156908}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3921274873388796344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321708662666020499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db326439c5b50ae4ab6ccaf4dccad68c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftHandInteractor: {fileID: 3492403587346794060}
+  rightHandInteractor: {fileID: 3059861063552611097}
+  staticHandGesture: {fileID: 7386958044189271408}
+  lefthandColliderController: {fileID: 6575556882857503496}
+  righthandColliderController: {fileID: 6650049192175299006}
+--- !u!114 &7386958044189271408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321708662666020499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27a8f9478f78f76488b3d3ff1dd91788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LeftHandTrackingEvents: {fileID: 971373899418630825}
+  m_RightHandTrackingEvents: {fileID: 8617754208447119573}
+  m_HandShapeOrPose: {fileID: 11400000, guid: ff8b71efb68f89b4a807210bfde0a1d5, type: 2}
+  m_TargetTransform: {fileID: 0}
+  m_LeftGesturePerformed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6575556882857503496}
+        m_TargetAssemblyTypeName: HandColliderController, Assembly-CSharp
+        m_MethodName: OnColliders
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_RightGesturePerformed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6650049192175299006}
+        m_TargetAssemblyTypeName: HandColliderController, Assembly-CSharp
+        m_MethodName: OnColliders
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_LeftGestureEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  m_RightGestureEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  m_MinimumHoldTime: 0
+  m_GestureDetectionInterval: 0.1
+  leftPerformedTriggered: 0
+  rightPerformedTriggered: 0
 --- !u!1 &651445249979909942
 GameObject:
   m_ObjectHideFlags: 0
@@ -1899,6 +2005,112 @@ CapsuleCollider:
   m_Height: 0.08
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1205581477558835057
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8409178134131300164}
+  - component: {fileID: 6430150854627015851}
+  - component: {fileID: 8578857054957215135}
+  m_Layer: 0
+  m_Name: FistGesture
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8409178134131300164
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205581477558835057}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5929272682827156908}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6430150854627015851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205581477558835057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71437a819711eb3448327cea60279cfc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftHandInteractor: {fileID: 3492403587346794060}
+  rightHandInteractor: {fileID: 3059861063552611097}
+  staticHandGesture: {fileID: 8578857054957215135}
+  lefthandColliderController: {fileID: 6575556882857503496}
+  righthandColliderController: {fileID: 6650049192175299006}
+--- !u!114 &8578857054957215135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205581477558835057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27a8f9478f78f76488b3d3ff1dd91788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LeftHandTrackingEvents: {fileID: 971373899418630825}
+  m_RightHandTrackingEvents: {fileID: 8617754208447119573}
+  m_HandShapeOrPose: {fileID: 11400000, guid: 3f9a608634728014fa857c5605641d0d, type: 2}
+  m_TargetTransform: {fileID: 0}
+  m_LeftGesturePerformed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6575556882857503496}
+        m_TargetAssemblyTypeName: HandColliderController, Assembly-CSharp
+        m_MethodName: OffColliders
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_RightGesturePerformed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6650049192175299006}
+        m_TargetAssemblyTypeName: HandColliderController, Assembly-CSharp
+        m_MethodName: OffColliders
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_LeftGestureEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  m_RightGestureEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  m_MinimumHoldTime: 0.2
+  m_GestureDetectionInterval: 0.1
+  leftPerformedTriggered: 0
+  rightPerformedTriggered: 0
 --- !u!1 &1266830343419222545
 GameObject:
   m_ObjectHideFlags: 0
@@ -2209,7 +2421,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4746705158893827594}
-  - component: {fileID: 4073327084821189851}
+  - component: {fileID: 3059861063552611097}
   - component: {fileID: 4910061428089546098}
   - component: {fileID: 3238635322202239139}
   m_Layer: 0
@@ -2231,10 +2443,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4504195026077393328}
   m_Father: {fileID: 3156449484435655822}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4073327084821189851
+--- !u!114 &3059861063552611097
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2243,16 +2456,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1403250447661524890}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4253f32900bcc4d499d675566142ded0, type: 3}
+  m_Script: {fileID: 11500000, guid: 5987e9032497d6a4eabbac281385a107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_InteractionLayerMask:
     serializedVersion: 2
-    m_Bits: 23
+    m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
-  m_AttachTransform: {fileID: 6398151120541022314}
+    m_Bits: 4294967295
+  m_AttachTransform: {fileID: 0}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
   m_StartingSelectedInteractable: {fileID: 0}
@@ -2299,31 +2512,34 @@ MonoBehaviour:
   m_AudioClipForOnHoverExited: {fileID: 0}
   m_PlayAudioClipOnHoverCanceled: 0
   m_AudioClipForOnHoverCanceled: {fileID: 0}
-  m_AllowHoverAudioWhileSelecting: 0
-  m_PlayHapticsOnSelectEntered: 1
-  m_HapticSelectEnterIntensity: 0.5
-  m_HapticSelectEnterDuration: 0.1
-  m_PlayHapticsOnSelectExited: 1
-  m_HapticSelectExitIntensity: 0.5
-  m_HapticSelectExitDuration: 0.1
+  m_AllowHoverAudioWhileSelecting: 1
+  m_PlayHapticsOnSelectEntered: 0
+  m_HapticSelectEnterIntensity: 0
+  m_HapticSelectEnterDuration: 0
+  m_PlayHapticsOnSelectExited: 0
+  m_HapticSelectExitIntensity: 0
+  m_HapticSelectExitDuration: 0
   m_PlayHapticsOnSelectCanceled: 0
   m_HapticSelectCancelIntensity: 0
   m_HapticSelectCancelDuration: 0
-  m_PlayHapticsOnHoverEntered: 1
-  m_HapticHoverEnterIntensity: 0.25
-  m_HapticHoverEnterDuration: 0.1
-  m_PlayHapticsOnHoverExited: 1
-  m_HapticHoverExitIntensity: 0.25
-  m_HapticHoverExitDuration: 0.1
+  m_PlayHapticsOnHoverEntered: 0
+  m_HapticHoverEnterIntensity: 0
+  m_HapticHoverEnterDuration: 0
+  m_PlayHapticsOnHoverExited: 0
+  m_HapticHoverExitIntensity: 0
+  m_HapticHoverExitDuration: 0
   m_PlayHapticsOnHoverCanceled: 0
   m_HapticHoverCancelIntensity: 0
   m_HapticHoverCancelDuration: 0
-  m_AllowHoverHapticsWhileSelecting: 0
-  m_ImproveAccuracyWithSphereCollider: 1
+  m_AllowHoverHapticsWhileSelecting: 1
+  m_ImproveAccuracyWithSphereCollider: 0
   m_PhysicsLayerMask:
     serializedVersion: 2
     m_Bits: 1
   m_PhysicsTriggerInteraction: 1
+  controllerCallback: {fileID: 0}
+  isLeftController: 0
+  interactorHand: 1
 --- !u!135 &4910061428089546098
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2341,10 +2557,10 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.06
-  m_Center: {x: 0.03, y: 0.02, z: 0}
+  m_Radius: 0.07
+  m_Center: {x: 0, y: -0.03, z: -0.02}
 --- !u!114 &3238635322202239139
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2939,7 +3155,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 55
   m_InteractionLayers:
-    m_Bits: 2
+    m_Bits: 4294967295
   m_AttachTransform: {fileID: 49499264738182183}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
@@ -4542,7 +4758,7 @@ Transform:
   m_GameObject: {fileID: 2984057137232862602}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.53, y: 0, z: -0.486}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4750,6 +4966,143 @@ Transform:
   - {fileID: 4907743043277045986}
   m_Father: {fileID: 329506549091739753}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3485224069985426292
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5979062506649468614}
+  - component: {fileID: 2209690009146640641}
+  - component: {fileID: 518271834182462584}
+  m_Layer: 0
+  m_Name: PinchGesture
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5979062506649468614
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3485224069985426292}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5929272682827156908}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2209690009146640641
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3485224069985426292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d3de5cfbcca5214890092a709d78643, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftHandInteractor: {fileID: 3492403587346794060}
+  rightHandInteractor: {fileID: 3059861063552611097}
+  staticHandGesture: {fileID: 518271834182462584}
+  lefthandColliderController: {fileID: 6575556882857503496}
+  righthandColliderController: {fileID: 6650049192175299006}
+--- !u!114 &518271834182462584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3485224069985426292}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27a8f9478f78f76488b3d3ff1dd91788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LeftHandTrackingEvents: {fileID: 971373899418630825}
+  m_RightHandTrackingEvents: {fileID: 8617754208447119573}
+  m_HandShapeOrPose: {fileID: 11400000, guid: 5d1d7010a62e8fe4d929c9f557faf6e4, type: 2}
+  m_TargetTransform: {fileID: 0}
+  m_LeftGesturePerformed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6575556882857503496}
+        m_TargetAssemblyTypeName: HandColliderController, Assembly-CSharp
+        m_MethodName: OffColliders
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_RightGesturePerformed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6650049192175299006}
+        m_TargetAssemblyTypeName: HandColliderController, Assembly-CSharp
+        m_MethodName: OffColliders
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_LeftGestureEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  m_RightGestureEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  m_MinimumHoldTime: 0.2
+  m_GestureDetectionInterval: 0.1
+  leftPerformedTriggered: 0
+  rightPerformedTriggered: 0
+--- !u!1 &3530684455993866796
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4504195026077393328}
+  m_Layer: 0
+  m_Name: Attach
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4504195026077393328
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3530684455993866796}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.014, y: 0.004, z: -0.01}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4746705158893827594}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3720660644746067881
 GameObject:
   m_ObjectHideFlags: 0
@@ -4879,6 +5232,7 @@ GameObject:
   - component: {fileID: 2367844678961086978}
   - component: {fileID: 1775738083186721609}
   - component: {fileID: 2077693728018785466}
+  - component: {fileID: 6650049192175299006}
   m_Layer: 0
   m_Name: Right Hand Interaction Visual
   m_TagString: Untagged
@@ -5034,6 +5388,19 @@ MonoBehaviour:
   m_PokeStrengthSnapThreshold: 0.01
   m_SmoothingAmount: 24
   m_FixedOffset: 0.005
+--- !u!114 &6650049192175299006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3805152693951240719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3309d17c496d15d4bb936f07ce438870, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handColliders: []
 --- !u!1 &3827488869840265382
 GameObject:
   m_ObjectHideFlags: 0
@@ -5449,7 +5816,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ManipulationInteractionGroup: {fileID: 6062462987588206730}
-  m_DirectInteractor: {fileID: 2591343327040096289}
+  m_DirectInteractor: {fileID: 1176501689777007727}
   m_RayInteractor: {fileID: 3021279427226080042}
   m_TeleportInteractor: {fileID: 1790922666212561975}
   m_TeleportModeActivate: {fileID: -8061240218431744966, guid: c348712bda248c246b8c49b3db54643f,
@@ -5741,12 +6108,12 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 0}
   m_StartingGroupMembers:
   - {fileID: 4019793524447983974}
-  - {fileID: 2591343327040096289}
+  - {fileID: 0}
   - {fileID: 3021279427226080042}
   m_StartingInteractionOverridesMap:
   - groupMember: {fileID: 4019793524447983974}
     overrideGroupMembers:
-    - {fileID: 2591343327040096289}
+    - {fileID: 0}
 --- !u!1 &4325304423819763072
 GameObject:
   m_ObjectHideFlags: 0
@@ -6074,7 +6441,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 55
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4294967295
   m_AttachTransform: {fileID: 2992947716515796350}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
@@ -7077,6 +7444,7 @@ GameObject:
   - component: {fileID: 5768861005772771841}
   - component: {fileID: 5333777972865528469}
   - component: {fileID: 3400285659453014647}
+  - component: {fileID: 6575556882857503496}
   m_Layer: 0
   m_Name: Left Hand Interaction Visual
   m_TagString: Untagged
@@ -7232,6 +7600,19 @@ MonoBehaviour:
   m_PokeStrengthSnapThreshold: 0.01
   m_SmoothingAmount: 24
   m_FixedOffset: 0.005
+--- !u!114 &6575556882857503496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5328987817877170742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3309d17c496d15d4bb936f07ce438870, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  handColliders: []
 --- !u!1 &5454912978990094646
 GameObject:
   m_ObjectHideFlags: 0
@@ -7329,7 +7710,8 @@ MonoBehaviour:
   m_UseOptimizedControls: 0
   m_LeftHandMesh: {fileID: 5328987817877170742}
   m_RightHandMesh: {fileID: 3805152693951240719}
-  m_HandMeshMaterial: {fileID: 2100000, guid: 613690cd962241049a0ec289a6ff835e, type: 2}
+  m_HandMeshMaterial: {fileID: -876546973899608171, guid: bd11349dc99f3fd4083ef2f86cee9c1f,
+    type: 3}
   m_DrawMeshes: 1
   m_DebugDrawPrefab: {fileID: 6507399986997092475, guid: 254b742d65a15d14b9df756ae77de868,
     type: 3}
@@ -7569,12 +7951,11 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 0}
   m_StartingGroupMembers:
   - {fileID: 7109521501160369472}
-  - {fileID: 4073327084821189851}
+  - {fileID: 3059861063552611097}
   - {fileID: 7488960007177955276}
   m_StartingInteractionOverridesMap:
   - groupMember: {fileID: 7109521501160369472}
-    overrideGroupMembers:
-    - {fileID: 4073327084821189851}
+    overrideGroupMembers: []
 --- !u!114 &6134374444407095256
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7936,6 +8317,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3257432356374641439}
+  - {fileID: 5979062506649468614}
+  - {fileID: 8409178134131300164}
+  - {fileID: 3584787650465021487}
   m_Father: {fileID: 4167019498160293808}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5933005018350172685
@@ -8870,7 +9254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransitionDuration: 0.125
-  m_InteractorSource: {fileID: 1488149337711822609}
+  m_InteractorSource: {fileID: 0}
   m_IgnoreHoverEvents: 0
   m_IgnoreSelectEvents: 0
   m_IgnoreActivateEvents: 1
@@ -9429,7 +9813,7 @@ Transform:
   m_GameObject: {fileID: 6590257496287096168}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0.1421, y: 0.9622, z: -0.3383}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9796,7 +10180,7 @@ MonoBehaviour:
   m_TimeToAutoDeselect: 1
   m_EnableUIInteraction: 1
   m_BlockUIOnInteractableSelection: 1
-  m_AllowAnchorControl: 1
+  m_AllowAnchorControl: 0
   m_UseForceGrab: 0
   m_RotateSpeed: 180
   m_TranslateSpeed: 1
@@ -10156,7 +10540,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7912288496843079780}
-  - component: {fileID: 2591343327040096289}
+  - component: {fileID: 1176501689777007727}
   - component: {fileID: 6835757934743595200}
   m_Layer: 0
   m_Name: Direct Interactor
@@ -10180,7 +10564,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8891804138434481816}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2591343327040096289
+--- !u!114 &1176501689777007727
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10189,15 +10573,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 7059282609130422915}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4253f32900bcc4d499d675566142ded0, type: 3}
+  m_Script: {fileID: 11500000, guid: 5987e9032497d6a4eabbac281385a107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_InteractionLayerMask:
     serializedVersion: 2
-    m_Bits: 23
+    m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4294967295
   m_AttachTransform: {fileID: 0}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
@@ -10245,31 +10629,34 @@ MonoBehaviour:
   m_AudioClipForOnHoverExited: {fileID: 0}
   m_PlayAudioClipOnHoverCanceled: 0
   m_AudioClipForOnHoverCanceled: {fileID: 0}
-  m_AllowHoverAudioWhileSelecting: 0
-  m_PlayHapticsOnSelectEntered: 1
-  m_HapticSelectEnterIntensity: 0.5
-  m_HapticSelectEnterDuration: 0.1
-  m_PlayHapticsOnSelectExited: 1
-  m_HapticSelectExitIntensity: 0.5
-  m_HapticSelectExitDuration: 0.1
+  m_AllowHoverAudioWhileSelecting: 1
+  m_PlayHapticsOnSelectEntered: 0
+  m_HapticSelectEnterIntensity: 0
+  m_HapticSelectEnterDuration: 0
+  m_PlayHapticsOnSelectExited: 0
+  m_HapticSelectExitIntensity: 0
+  m_HapticSelectExitDuration: 0
   m_PlayHapticsOnSelectCanceled: 0
   m_HapticSelectCancelIntensity: 0
   m_HapticSelectCancelDuration: 0
-  m_PlayHapticsOnHoverEntered: 1
-  m_HapticHoverEnterIntensity: 0.25
-  m_HapticHoverEnterDuration: 0.1
-  m_PlayHapticsOnHoverExited: 1
-  m_HapticHoverExitIntensity: 0.25
-  m_HapticHoverExitDuration: 0.1
+  m_PlayHapticsOnHoverEntered: 0
+  m_HapticHoverEnterIntensity: 0
+  m_HapticHoverEnterDuration: 0
+  m_PlayHapticsOnHoverExited: 0
+  m_HapticHoverExitIntensity: 0
+  m_HapticHoverExitDuration: 0
   m_PlayHapticsOnHoverCanceled: 0
   m_HapticHoverCancelIntensity: 0
   m_HapticHoverCancelDuration: 0
-  m_AllowHoverHapticsWhileSelecting: 0
-  m_ImproveAccuracyWithSphereCollider: 1
+  m_AllowHoverHapticsWhileSelecting: 1
+  m_ImproveAccuracyWithSphereCollider: 0
   m_PhysicsLayerMask:
     serializedVersion: 2
     m_Bits: 1
   m_PhysicsTriggerInteraction: 1
+  controllerCallback: {fileID: 0}
+  isLeftController: 0
+  interactorHand: 0
 --- !u!135 &6835757934743595200
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -11229,7 +11616,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 2
+    m_Bits: 1
   m_AttachTransform: {fileID: 3225784288342612759}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
@@ -12068,7 +12455,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7586915072292895856}
-  - component: {fileID: 1488149337711822609}
+  - component: {fileID: 3492403587346794060}
   - component: {fileID: 2261311294305568132}
   - component: {fileID: 329871039680582458}
   m_Layer: 0
@@ -12090,10 +12477,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3476057895497260448}
   m_Father: {fileID: 31464554154730379}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1488149337711822609
+--- !u!114 &3492403587346794060
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -12102,16 +12490,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 7834916990790165721}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4253f32900bcc4d499d675566142ded0, type: 3}
+  m_Script: {fileID: 11500000, guid: 5987e9032497d6a4eabbac281385a107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_InteractionLayerMask:
     serializedVersion: 2
-    m_Bits: 23
+    m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
-  m_AttachTransform: {fileID: 7194178489141535255}
+    m_Bits: 4294967295
+  m_AttachTransform: {fileID: 0}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
   m_StartingSelectedInteractable: {fileID: 0}
@@ -12158,31 +12546,34 @@ MonoBehaviour:
   m_AudioClipForOnHoverExited: {fileID: 0}
   m_PlayAudioClipOnHoverCanceled: 0
   m_AudioClipForOnHoverCanceled: {fileID: 0}
-  m_AllowHoverAudioWhileSelecting: 0
-  m_PlayHapticsOnSelectEntered: 1
-  m_HapticSelectEnterIntensity: 0.5
-  m_HapticSelectEnterDuration: 0.1
-  m_PlayHapticsOnSelectExited: 1
-  m_HapticSelectExitIntensity: 0.5
-  m_HapticSelectExitDuration: 0.1
+  m_AllowHoverAudioWhileSelecting: 1
+  m_PlayHapticsOnSelectEntered: 0
+  m_HapticSelectEnterIntensity: 0
+  m_HapticSelectEnterDuration: 0
+  m_PlayHapticsOnSelectExited: 0
+  m_HapticSelectExitIntensity: 0
+  m_HapticSelectExitDuration: 0
   m_PlayHapticsOnSelectCanceled: 0
   m_HapticSelectCancelIntensity: 0
   m_HapticSelectCancelDuration: 0
-  m_PlayHapticsOnHoverEntered: 1
-  m_HapticHoverEnterIntensity: 0.25
-  m_HapticHoverEnterDuration: 0.1
-  m_PlayHapticsOnHoverExited: 1
-  m_HapticHoverExitIntensity: 0.25
-  m_HapticHoverExitDuration: 0.1
+  m_PlayHapticsOnHoverEntered: 0
+  m_HapticHoverEnterIntensity: 0
+  m_HapticHoverEnterDuration: 0
+  m_PlayHapticsOnHoverExited: 0
+  m_HapticHoverExitIntensity: 0
+  m_HapticHoverExitDuration: 0
   m_PlayHapticsOnHoverCanceled: 0
   m_HapticHoverCancelIntensity: 0
   m_HapticHoverCancelDuration: 0
-  m_AllowHoverHapticsWhileSelecting: 0
-  m_ImproveAccuracyWithSphereCollider: 1
+  m_AllowHoverHapticsWhileSelecting: 1
+  m_ImproveAccuracyWithSphereCollider: 0
   m_PhysicsLayerMask:
     serializedVersion: 2
     m_Bits: 1
   m_PhysicsTriggerInteraction: 1
+  controllerCallback: {fileID: 0}
+  isLeftController: 0
+  interactorHand: 0
 --- !u!135 &2261311294305568132
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -12202,8 +12593,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.06
-  m_Center: {x: -0.03, y: 0.02, z: 0}
+  m_Radius: 0.07
+  m_Center: {x: 0, y: -0.03, z: -0.02}
 --- !u!114 &329871039680582458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12544,7 +12935,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_TransitionDuration: 0.125
-  m_InteractorSource: {fileID: 4073327084821189851}
+  m_InteractorSource: {fileID: 0}
   m_IgnoreHoverEvents: 0
   m_IgnoreSelectEvents: 0
   m_IgnoreActivateEvents: 1
@@ -12876,15 +13267,11 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 0}
   m_StartingGroupMembers:
   - {fileID: 6642865740717249010}
-  - {fileID: 1488149337711822609}
+  - {fileID: 3492403587346794060}
   - {fileID: 376910073684974443}
   m_StartingInteractionOverridesMap:
   - groupMember: {fileID: 6642865740717249010}
-    overrideGroupMembers:
-    - {fileID: 1488149337711822609}
-  - groupMember: {fileID: 1488149337711822609}
-    overrideGroupMembers:
-    - {fileID: 376910073684974443}
+    overrideGroupMembers: []
 --- !u!114 &8033172403585486114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14138,7 +14525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ManipulationInteractionGroup: {fileID: 1787839618697714987}
-  m_DirectInteractor: {fileID: 4401363616147087640}
+  m_DirectInteractor: {fileID: 3942551798974075559}
   m_RayInteractor: {fileID: 1436186244587957232}
   m_TeleportInteractor: {fileID: 1286183055008595359}
   m_TeleportModeActivate: {fileID: 1263111715868034790, guid: c348712bda248c246b8c49b3db54643f,
@@ -14430,12 +14817,12 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 0}
   m_StartingGroupMembers:
   - {fileID: 5315626306054042101}
-  - {fileID: 4401363616147087640}
   - {fileID: 0}
+  - {fileID: 1436186244587957232}
   m_StartingInteractionOverridesMap:
   - groupMember: {fileID: 5315626306054042101}
     overrideGroupMembers:
-    - {fileID: 4401363616147087640}
+    - {fileID: 0}
 --- !u!1 &8224450555163909634
 GameObject:
   m_ObjectHideFlags: 0
@@ -14491,7 +14878,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 691701486473215705}
-  - component: {fileID: 4401363616147087640}
+  - component: {fileID: 3942551798974075559}
   - component: {fileID: 8199826135549817914}
   m_Layer: 0
   m_Name: Direct Interactor
@@ -14515,7 +14902,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 9192413102786278671}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4401363616147087640
+--- !u!114 &3942551798974075559
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -14524,15 +14911,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 8264107244481636971}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4253f32900bcc4d499d675566142ded0, type: 3}
+  m_Script: {fileID: 11500000, guid: 5987e9032497d6a4eabbac281385a107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
   m_InteractionLayerMask:
     serializedVersion: 2
-    m_Bits: 23
+    m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 1
+    m_Bits: 4294967295
   m_AttachTransform: {fileID: 0}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
@@ -14580,31 +14967,34 @@ MonoBehaviour:
   m_AudioClipForOnHoverExited: {fileID: 0}
   m_PlayAudioClipOnHoverCanceled: 0
   m_AudioClipForOnHoverCanceled: {fileID: 0}
-  m_AllowHoverAudioWhileSelecting: 0
-  m_PlayHapticsOnSelectEntered: 1
-  m_HapticSelectEnterIntensity: 0.5
-  m_HapticSelectEnterDuration: 0.1
-  m_PlayHapticsOnSelectExited: 1
-  m_HapticSelectExitIntensity: 0.5
-  m_HapticSelectExitDuration: 0.1
+  m_AllowHoverAudioWhileSelecting: 1
+  m_PlayHapticsOnSelectEntered: 0
+  m_HapticSelectEnterIntensity: 0
+  m_HapticSelectEnterDuration: 0
+  m_PlayHapticsOnSelectExited: 0
+  m_HapticSelectExitIntensity: 0
+  m_HapticSelectExitDuration: 0
   m_PlayHapticsOnSelectCanceled: 0
   m_HapticSelectCancelIntensity: 0
   m_HapticSelectCancelDuration: 0
-  m_PlayHapticsOnHoverEntered: 1
-  m_HapticHoverEnterIntensity: 0.25
-  m_HapticHoverEnterDuration: 0.1
-  m_PlayHapticsOnHoverExited: 1
-  m_HapticHoverExitIntensity: 0.25
-  m_HapticHoverExitDuration: 0.1
+  m_PlayHapticsOnHoverEntered: 0
+  m_HapticHoverEnterIntensity: 0
+  m_HapticHoverEnterDuration: 0
+  m_PlayHapticsOnHoverExited: 0
+  m_HapticHoverExitIntensity: 0
+  m_HapticHoverExitDuration: 0
   m_PlayHapticsOnHoverCanceled: 0
   m_HapticHoverCancelIntensity: 0
   m_HapticHoverCancelDuration: 0
-  m_AllowHoverHapticsWhileSelecting: 0
-  m_ImproveAccuracyWithSphereCollider: 1
+  m_AllowHoverHapticsWhileSelecting: 1
+  m_ImproveAccuracyWithSphereCollider: 0
   m_PhysicsLayerMask:
     serializedVersion: 2
     m_Bits: 1
   m_PhysicsTriggerInteraction: 1
+  controllerCallback: {fileID: 0}
+  isLeftController: 0
+  interactorHand: 0
 --- !u!135 &8199826135549817914
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -15328,9 +15718,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3257432356374641439}
   - component: {fileID: 6090199400290661417}
-  - component: {fileID: 5866142044418013738}
+  - component: {fileID: 7455066033697645771}
   m_Layer: 0
-  m_Name: LeftGrabGesture
+  m_Name: GrabGesture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15363,10 +15753,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0faad2abcb3a02f4aace925e2abafe87, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  leftHandInteractor: {fileID: 1488149337711822609}
-  rightHandInteractor: {fileID: 4073327084821189851}
-  GrabHandGesture: {fileID: 5866142044418013738}
---- !u!114 &5866142044418013738
+  leftHandInteractor: {fileID: 3492403587346794060}
+  rightHandInteractor: {fileID: 3059861063552611097}
+  staticHandGesture: {fileID: 7455066033697645771}
+  lefthandColliderController: {fileID: 6575556882857503496}
+  righthandColliderController: {fileID: 6650049192175299006}
+--- !u!114 &7455066033697645771
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -15375,23 +15767,84 @@ MonoBehaviour:
   m_GameObject: {fileID: 9125271452134100027}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf93899325d5df74eb9176e097ee3d4f, type: 3}
+  m_Script: {fileID: 11500000, guid: 27a8f9478f78f76488b3d3ff1dd91788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_LeftHandTrackingEvents: {fileID: 971373899418630825}
   m_RightHandTrackingEvents: {fileID: 8617754208447119573}
   m_HandShapeOrPose: {fileID: 11400000, guid: 6528ce38a9594d34ab63c1c14153e88d, type: 2}
   m_TargetTransform: {fileID: 0}
-  m_GesturePerformed:
+  m_LeftGesturePerformed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6575556882857503496}
+        m_TargetAssemblyTypeName: HandColliderController, Assembly-CSharp
+        m_MethodName: OffColliders
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_RightGesturePerformed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6650049192175299006}
+        m_TargetAssemblyTypeName: HandColliderController, Assembly-CSharp
+        m_MethodName: OffColliders
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  m_LeftGestureEnded:
     m_PersistentCalls:
       m_Calls: []
-  m_GestureEnded:
+  m_RightGestureEnded:
     m_PersistentCalls:
       m_Calls: []
   m_MinimumHoldTime: 0.2
   m_GestureDetectionInterval: 0.1
   leftPerformedTriggered: 0
   rightPerformedTriggered: 0
+--- !u!1 &9129176107863587598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3476057895497260448}
+  m_Layer: 0
+  m_Name: Attach
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3476057895497260448
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9129176107863587598}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.014, y: 0.004, z: -0.01}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7586915072292895856}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9131670939296545944
 GameObject:
   m_ObjectHideFlags: 0

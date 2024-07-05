@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.Events;
+using UnityEngine.XR.Interaction.Toolkit;
+using Jc;
 namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. --> 차라리 진짜 이미지에 붙이는 방법으로 가보자. 
 {
     // 자신의 알파값이 1F로 증가할 때 같은 ENUM인 친구들을 찾아서 걔네도 같이 알파값을 업데이트 해줘야한다. 
@@ -12,23 +14,24 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         Compartment1, Compartment2, Compartment3, Compartment4, Finished , END
     }
 
-    
-    
-
 
     [RequireComponent(typeof(SpriteRenderer))]
-    public class DrawObjectManager : MonoBehaviour , IComparable<DrawObjectManager>
+    public class DrawObjectManager : MonoBehaviour , IComparable<DrawObjectManager>, IPuzzleable
     {
+        [Header("퍼즐 매니저 에디터 세팅")]
+        [SerializeField]
+        private PuzzleManager puzzle;
+        [SerializeField]
+        private int puzzleIndex;
 
         public List<LineRenderer> lineRenderers = new List<LineRenderer>();
 
-        [Header("캔버스 구분 열겨형 변수")]
+        //[Header("캔버스 구분 열겨형 변수")]
         [Tooltip("스테이지 별 캔버스 구분")]
-        [SerializeField] public DrawBoardNumber drawBoardNumber;
+        [SerializeField] public DrawBoardNumber drawBoardNumber { get; set; }
 
-        [Tooltip("결국은 이거 구분해주려면 고유한 ID가 있어야 하네...")]
-        [SerializeField] public int instanceID;
-
+        [Tooltip("결국은 이거 구분해주려면 고유한 ID가 있어야 하네... --> 0번 부터 시작해야함.")]
+        [SerializeField] public int DrawID;
 
 
         [Header("각 드로우판의 컬러타입 지정")]
@@ -38,7 +41,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
         [Tooltip("자신의 컬러타입")]
         [SerializeField]
-        private Color myColor;
+        public Color myColor;
 
         public Color ObjectMyColor { get { return myColor; } private set { myColor = value; } }
 
@@ -65,19 +68,37 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         [SerializeField] private float tolerance = 0.02f;
 
         [Tooltip("스크립터블 오브젝트 공유")]
-        [SerializeField] private PaintTypeManager paintTypeManager;
+        [SerializeField] public PaintTypeManager paintTypeManager;
 
         [Tooltip("색깔상태 스크립터블 오브젝트와 연계되어있음. ")]
-        [SerializeField] private PaintTypeEnum currentPaintType;
+        [SerializeField] public PaintTypeEnum currentPaintType;
 
         [Tooltip("그림 완성 매니저 참조")]
         [SerializeField] private DrawingCompleteManager drawingCompleteManager;
 
+        /*
+        [Tooltip("로비 제외한 씬에서 연결된 조명")]
+        [SerializeField] private GameObject lights;*/
+
+
+        // 얘는 싱글턴이 아님.
+
+        [Tooltip("Pen 참조 해두자..")]
+        [SerializeField] private Pen pen;
+
+        [Tooltip("자신의 콜라이더 배열")]
+        [SerializeField] private Collider[] myColliderArray;
+
+        [Tooltip("이벤트에 자신의 컬러를 체크하고 콜라이더를 on off 하는 함수를 할당한다.")]
+        public static UnityEvent<PaintTypeEnum> colorChangeEvent = new UnityEvent<PaintTypeEnum>();
 
         private void Awake()
         {
-            instanceID = GetInstanceID();
+            if(puzzle != null)
+            // 퍼즐 매니저에 등록
+                RegistObject(puzzle);
         }
+
 
         private void Start()
         {
@@ -99,6 +120,39 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             InitializeSpriteSize(); // 시작 시의 각자의 로컬 스케일 적용된 크기를 가져온다. 
             totalArea = worldHeight * worldWidth;
             nonTransparentArea = CalculateNonTransparentArea();
+
+
+            myColliderArray = GetComponents<Collider>(); // 자신의 모든 콜라이더 배열 가져오기. pen의 컬러에 맞춰서 자신의 콜라이더를 꺼주고 켜준다. 
+
+            pen = GameObject.FindObjectOfType<Pen>();
+
+            if (pen != null)
+            {
+                colorChangeEvent.AddListener(OnOffCollider);
+            }
+
+        }
+
+        private void OnOffCollider(PaintTypeEnum _paintTypeEnum)
+        {
+            if(currentPaintType == _paintTypeEnum) // 현재 pen의 색깔과 자신의 현재 색깔이 일치한다면
+            {
+                for(int i=0; i< myColliderArray.Length;i++)
+                {
+                    myColliderArray[i].enabled = true;
+                    Debug.Log("콜라이더 온");
+                }
+            }
+            else // 일치하지 않으면 모든 paint object 들은 자신의 콜라이더 배열을 꺼준다. 
+            {
+                for(int i=0; i < myColliderArray.Length;i++)
+                {
+                    myColliderArray[i].enabled = false;
+                    Debug.Log("콜라이더 오프");
+
+                }
+            }
+
         }
 
         //라인 렌더러를 리스트에 추가하는 함수
@@ -197,7 +251,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
                 filledArea += segmentArea;
             }
 
-            //Debug.Log($"Filled Area: {filledArea}, Total Area: {totalArea}, Fill Percentage: {filledArea / totalArea * 100}%");
+            Debug.Log($"Filled Area: {filledArea}, Total Area: {totalArea}, Fill Percentage: {filledArea / totalArea * 100}%");
         }
 
         private Vector2Int NormalizePoint(Vector3 point, float tolerance)
@@ -217,21 +271,25 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         {
             float length = Vector3.Distance(start, end);
 
-            return length * width;
+            return length * width *100; 
         }
 
         // 스프라이트의 채워진 비율을 반환하는 함수
         public float GetFillPercentage() // 완성 되었는지 확인하는 함수 --> Pen 에서 부르고 있다. 
         {
            
-            return ( filledArea / totalArea )* 100f;
+            return ( filledArea / totalArea )* 10f;
 
         }
 
 
+        // 그림이 그려졌을 때 부를 드로우 피니시드 함수 
         public void DrawFinished() // 열거형 drawingNumber를 int로 형변환 해서 넘겨줌 . 
         {
-            drawingCompleteManager.DrawComplete((int)drawBoardNumber, true, instanceID);
+            Debug.Log("드로우 피니시드");
+            drawingCompleteManager.DrawComplete((int)drawBoardNumber, true, DrawID);
+            // 퍼즐매니저 업데이트
+            UpdatePuzzleManager(puzzle, puzzleIndex);
         }
 
         public void ImageAlphaUp()
@@ -239,17 +297,13 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             // 여기서 루틴 돌리면서... bool 변수 바꿔주자.
             // 자신의 타입에 맞춰 --> static bool 바꿔주고... 거기서 이제 다 켜지는거 까지 확인해주고
             // 다 켜지면 (어차피 그려진 layer 바꿔주니까... 상관은 없을듯 하다. -->더이상 못그리는건 마찬가지임.)
-
-
             StartCoroutine((SpriteAlphaUpRoutine()));
-
         }
 
         public void LineRemove(LineRenderer lineRenderer)
         {
             StartCoroutine(RendererAlphaRoutine(lineRenderer));
         }
-
 
         // 이 부분 수정 필요.. 자기 자신의 그림만 나와야 하니까. 그냥 찾지말고. 
         /*private IEnumerator StartAlphaRoutine()
@@ -390,19 +444,43 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             texture = readableTexture;
         }
 
-
-        
-        
-
         public int CompareTo(DrawObjectManager other)
         {
-            if (other == null) return 0;
-            return instanceID.CompareTo(other.instanceID);
+            if (other == null) return 1;
+            return DrawID.CompareTo(other.DrawID);
         }
+        #region IPuzzleable 인터페이스 오버라이드
+        public void RegistObject(PuzzleManager puzzle)
+        {
+            // 퍼즐 매니저에 자신을 등록
+            puzzle.puzzleObjects.Add(this);
+        }
+
+        // 그림이 다 그려진다면 호출 해야함.
+        public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
+        {
+            puzzle.UpdateCondition(index);
+        }
+
+        // 그랩 오브젝트일 경우 : 충돌체만 켜줌
+        public void ActiveSetting()
+        {
+            return;
+        }
+        // 그랩 오브젝트일 경우 : 충돌체만 꺼줌
+        // 잡을 수 있는애는 셰이더 표시할건데 셰이더 표시도 꺼줘야할 가능성이 있음.
+        public void DisActiveSetting()
+        {
+            return;
+        }
+
+        // 완성되었을 때 퍼즐 상태
+        public void CompleteSetting()
+        {
+            ImageAlphaUp();
+            DrawFinished();
+        }
+        #endregion
     }
 
 }
-
-
-
-

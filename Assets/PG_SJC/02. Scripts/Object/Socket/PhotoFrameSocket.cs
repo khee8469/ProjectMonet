@@ -7,7 +7,7 @@ using static UnityEngine.SpatialTracking.TrackedPoseDriver;
 
 namespace Jc
 {
-    public class PhotoFrameSocket : CustomSocket
+    public class PhotoFrameSocket : CustomSocket, IPuzzleable
     {
         [Space(5)]
         [Header("---- 컴포넌트 커스텀 ----")]
@@ -16,11 +16,24 @@ namespace Jc
         [SerializeField]
         public CinemachineVirtualCamera actionVC;
 
+        [SerializeField]
+        private PhotoFrame photoFrame;
+        [SerializeField]
+        private Collider col;
+
+        [SerializeField]
+        public PuzzleManager puzzle;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            RegistObject(puzzle);
+        }
+
         // PhotoFrame 만 상호작용
         public override bool CanHover(IXRHoverInteractable interactable)
         {
             if (interactable is not PhotoFrame) return false;
-
             return base.CanHover(interactable);
         }
         public override bool CanSelect(IXRSelectInteractable interactable)
@@ -37,10 +50,14 @@ namespace Jc
             PhotoFrame targetFrame = args.interactableObject as PhotoFrame;
             if (targetFrame == null) return;
 
+            targetFrame.gameObject.transform.position = attachTransform.position;
             targetFrame.gameObject.transform.rotation = attachTransform.rotation;
 
             base.OnSelectEntered(args);
+            targetFrame.IsActive = true;
             StartCoroutine(CameraActionRoutine(targetFrame));
+            // 퍼즐 클리어
+            puzzle.OnClearPuzzle();
         }
 
         IEnumerator CameraActionRoutine(PhotoFrame photoFrame)
@@ -56,6 +73,31 @@ namespace Jc
 
             Destroy(photoFrame.gameObject);
             Manager.Camera.SetPriority(null, -1, 1f);
+        }
+
+        public void ActiveSetting()
+        {
+            col.enabled = true;
+        }
+        public void DisActiveSetting()
+        {
+            col.enabled = false;
+        }
+        public void CompleteSetting()
+        {
+            Destroy(photoFrame.gameObject);
+            puzzle.OnClearPuzzle();
+            col.enabled = false;
+        }
+
+        public void RegistObject(PuzzleManager puzzle)
+        {
+            puzzle.puzzleObjects.Add(this);
+        }
+
+        public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
+        {
+            return;
         }
     }
 }

@@ -1,17 +1,28 @@
-using System;
 using System.Collections;
+using System.Net.Http.Headers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.XR.Interaction.Toolkit;
 namespace JJH
 {
-    public class InventorySlot : XRSocketInteractor, IComparable
+    public class InventorySlot : XRSocketInteractor
     {
         // 실제 인벤토리 슬롯에 (world Space UI) 붙을 스크립트 --> 실제 인벤토리 창
 
         // 인벤토리에 넣는 함수 --> 이 슬롯은 player에게 붙어있기 때문에 매 씬 마다 같이 start를 돈다.
         // 그 부분을 염두에 두고 데이터를 연계하자. 
 
+        [Tooltip("아이템의 id")]
+        [SerializeField]
+        private int itemID = -1; //슬롯에 아무것도 없으면 -1 할당.
+        public int ItemID { get { return itemID; } 
+            set 
+            {
+                itemID = value; 
+
+            }
+        }
         [Tooltip("슬롯 자신의 Transform")]
         public Transform itemTransform; // 아이템의 크기 조절을 위한 트랜스폼
         // 아이템 슬롯의 ID --> -1 로 설정 하여 MANAGER에서 자동할당 시킨다. 
@@ -20,212 +31,281 @@ namespace JJH
         [SerializeField] AudioClip InventoryAddFailure; //인벤토리 add 실패 시 재생.
 
         [Tooltip("아이템의 숫자를 보여줄 text")]
-        [SerializeField] TextMeshProUGUI countText;
+        [SerializeField] TextMeshProUGUI countText; // 그냥 이거 start에서 getcomponent 하고 쓰면 될듯?
+
         [Tooltip("아이템의 숫자")]
-        [SerializeField] int itemCount;
+        private int itemCount;
+
+        public int ItemCount { get { return itemCount; } set { itemCount = value; } }
+
+        [Tooltip("넣기 불가능 text 출력")]
+        [SerializeField] TextMeshProUGUI notAddText;
+
+        [Tooltip("슬롯의 이미지 컬러")]
+        [SerializeField] public Image slotImage;
+
+        [Tooltip("슬롯의 기본 이미지 색깔")]
+        private Color originalColor;
+        public Color OriginalColor { get { return originalColor; } private set { originalColor = value; } }
+
+
+        [Tooltip("레이 닿는지 확인용")]
+        private bool isRayHovering { get; set; } = false;
 
         public SlotData slotData;
 
+        [Tooltip("npc에게 받은 아이템이 있는지 확인해줄 bool 변수")]
+        public bool isAddNPCItem;
 
 
-        protected override void Awake()
+        protected override void Awake() // 이거 처음부터 active false로 있는 상태면 Awake도 발동안함. 켜야 발동됨. 
         {
             base.Awake();
-
+            itemID = -1;
             slotData = new SlotData();
-        }
+            countText = GetComponentInChildren<TextMeshProUGUI>();
+            countText.text = $" ";
+            itemTransform = GetComponent<Transform>();
 
+            // 이게 list에 slot을 할당 시키려면 처음에 켜둬서 slot 할당을 다 시키고 그게 마무리 되면 active false로 꺼줘야 한다. 
+        }
         protected override void Start() // 슬롯을 인벤토리 매니저에 등록한다. 
         {
             base.Start();
-            itemTransform = GetComponent<Transform>();
             Manager.Inventory.RegisterSlot(this); //THIS 시에 슬롯 아이디를 설정해줘야한다. 
+            notAddText.enabled = false;
+            originalColor = slotImage.color;
+
         }
 
-        protected override void OnDestroy() // 만약 슬롯이 파괴된다면
-        {
-            base.OnDestroy();
-            Manager.Inventory.UnregisterSlot(this);
-        }
-
-        public void AddSlots() // 혹시 만약 슬롯을 추가 할 일이 생긴다면...
-        {
-            Manager.Inventory.RegisterSlot(this);
-        }
-
-       /* public override bool CanSelect(IXRSelectInteractable interactable)
-        {
-            // InventoryItem 컴포넌트를 가져옵니다. 
-            // 이게 지금 아이템이랑 닿으면 이게 계속 돌아가고 있음
-            // 정확히 무슨 효과지? 
-            Debug.Log("캔 셀렉트 ");
-            IInventory item = interactable.transform.GetComponent<IInventory>();
-            if (item != null)
-            {
-                Debug.Log("캔 셀렉트 if문 내부");
-
-                InventoryItem inventoryItem = item as InventoryItem;
-                if (inventoryItem.ISGraped == true)
-                {
-                    Debug.Log(inventoryItem.ISGraped);
-                    return inventoryItem.ISGraped;
-                }
-            }
-            return base.CanSelect(interactable);
-        }*/
-
-        // 이거 Add 하는 순간에 조건 추가 해줘야함. bool 변수 같은거 써서 
-        // item 에서 Grab 되었을 때 bool 변수 하나 넣고 하는 식으로 하자. 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
-
             base.OnSelectEntered(args); // 잡을 수 있는 아이템 체크 
+
+            if (Manager.Inventory.isEnable == false)
+                return;
+            if (!isRayHovering)
+                return;
+
             IInventory item = args.interactableObject.transform.GetComponent<IInventory>();
             if (item != null)
             {
-                InventoryItem inventoryItem = item as InventoryItem;
+                if (item is InventoryItem)
+                {
 
-                AddItem(inventoryItem); //Add 가능한 Item은 오로지 Inventory 아이템이다.
-
+                    InventoryItem inventoryItem = item as InventoryItem;
+                    inventoryItem.transform.SetParent(itemTransform); // 아 이 자식으로 만드는 위치를 어디서 해줘야 될지 너무 고민되는데... 
+                    AddItem(inventoryItem);
+                }
             }
-            else // 넣을 수 없는 아이템이라면.. 실패 사운드 재생해줘야함.. 사운드매니저 이용하자. 
+            else
             {
                 if (InventoryAddFailure != null)
                 {
-                    Manager.Sound.PlaySFX(InventoryAddFailure); // 노란 오류 발생 방지
+                    //Manager.Sound.PlaySFX(InventoryAddFailure); // 노란 오류 발생 방지
                 }
             }
         }
+
+        // 이게 지금 인벤토리를 닫으면 isEnable 이 false가 되는데 그 때 인벤토리를 닫고 아이템을 제거해도 RemoveItem 이라는 함수를
+        // 발동 시킬 수가 없다. 문제가 이제 isEnable 상태가 아닐 때도 exit을 해버리면 자동적으로 무조건 Exit 이 발동을 하게 된다.
+        // 예외처리를 해줘야 하는데 이 때 자신이 슬롯을 할까?
+
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
-
             base.OnSelectExited(args);
+            Debug.Log("Slot -> OnSelectedExiting");
+
+            if (!Manager.Inventory.isEnable) return;
+
+            /*if(args.interactorObject.transform.GetComponent<InventorySlot>()!=null)
+            {
+                Debug.Log("닫는 순간에 slot이 닫히면서 exit이 발동되었다.");
+                return;
+            }*/
+
+            if(args.interactorObject.transform.GetComponent<CustomCheck>()!=null)
+            {
+                Debug.Log("사람과 상호작용함.");
+            }
+
+            Debug.Log($"IS HOVERING 상태 ->{isRayHovering}");
+
+            if (!isRayHovering) return;
+            Debug.Log("IS HOVERING 다음 부분 진입함");
+
+
             IInventory item = args.interactableObject.transform.GetComponent<IInventory>();
             if (item != null)
             {
-                Debug.Log("아이템 꺼냄");
                 InventoryItem inventoryItem = item as InventoryItem;
-
                 RemoveItem(inventoryItem);
             }
         }
         //ADD 하는 부분에서 추가적으로 함수를 더 부른던 해서 열거형 체크하고 데이터테이블과 연동시켜줘야한다. 
 
+        // 소켓안에 있는 아이템과 교체 시도. 
+        protected override void OnSelectEntering(SelectEnterEventArgs args)
+        {
+            base.OnSelectEntering(args);
+            // 이미 소켓 안에 아이템이 존재하는 경우에 제거 시도.
+
+            IInventory item = args.interactableObject.transform.GetComponent<IInventory>();
+            if (item != null)
+            {
+                InventoryItem inventoryItem = item as InventoryItem;
+                // 리스토어가 먼지인지 이게 먼저이지 확인할것. 
+            }
+
+        }
+
+        /*public void ChangeItem(InventoryItem _item)
+        {
+            InventoryItem item = null;
+            foreach (Transform child in itemTransform)
+            {
+                item = child.GetComponent<InventoryItem>();
+                if (item != null)
+                {
+                    Debug.Log("체인지 아이템의 remove 진입했음.");
+                    RemoveItem(item);
+                    break;
+                }
+            }
+            AddItem(_item);
+        }*/
+
+
+        /*public override bool CanSelect(IXRSelectInteractable interactable)
+        {
+            IInventory item = interactable.transform.GetComponent<IInventory>();
+
+            if (item != null)
+            {
+                InventoryItem inventoryItem = item as InventoryItem;
+
+                if (inventoryItem != null && inventoryItem.ISGraped) // 현재 그랩되어 있으면 true를 리턴한다. 
+                {
+                    Debug.Log("is graped 상태임");
+                    return true;
+                }
+            }
+            return false;
+        }*/
+
+        public void SetRayHovering(bool isHovering)
+        {
+            isRayHovering = isHovering;
+
+        }
+
+
+        protected override void OnHoverEntered(HoverEnterEventArgs args)
+        {
+            base.OnHoverEntered(args);
+        }
+
+        protected override void OnHoverExited(HoverExitEventArgs args)
+        {
+            base.OnHoverExited(args);
+
+        }
+
+
+        public override bool CanSelect(IXRSelectInteractable interactable)
+        {
+            if (!isRayHovering)
+                return false;
+
+            return base.CanSelect(interactable);
+        }
+
+        public override bool CanHover(IXRHoverInteractable interactable)
+        {
+
+            return base.CanHover(interactable);
+
+        }
+
         public void AddItem(InventoryItem item)
         {
+            InventoryItem inventoryItem = item as InventoryItem;
+            // 임시
+            this.interactionManager.SelectEnter(this as IXRSelectInteractor, item as IXRSelectInteractable);
 
-            item.itemData.SaveOriginalTransform(item.transform);
-            item.transform.SetParent(itemTransform);
-            // 아이템의 원래 트랜스폼을 저장
-            item.transform.localPosition = Vector3.zero; // 슬롯 위치에 딱 맞도록 로컬 포지션을 0 으로 설정
-            item.transform.localRotation = Quaternion.identity;
+            inventoryItem.transform.SetParent(itemTransform); // 아 이 자식으로 만드는 위치를 어디서 해줘야 될지 너무 고민되는데... 
 
-            Rigidbody rigidbody = item.GetComponent<Rigidbody>();
-            if (rigidbody != null)
-            {
-                rigidbody.isKinematic = true;
-            }
+            inventoryItem.transform.localPosition = Vector3.zero; // 슬롯 위치에 딱 맞도록 로컬 포지션을 0 으로 설정
+            inventoryItem.transform.localRotation = Quaternion.identity;
 
-            Debug.Log("Add 성공함");
-
+            Debug.Log("아이템의 소켓 스케일 작동");
+            inventoryItem.transform.localScale = inventoryItem.SocketScale; // 아이템의 스케일 변경
+            Debug.Log($"아이템의 로컬 스케일 상태 ->{inventoryItem.transform.localScale}");
+            inventoryItem.rigid.isKinematic = true; // 키네마틱 On 
             //ResizeItemToFitSlot(item.transform); // 이거 load save 할 때 써야되지 원래 크기 가지고 있어야지. 아닌가?
-            // 아이템을 슬롯의 자식으로 설정
 
-            Manager.Inventory.UpdateInventoryData();
+            slotImage.color = Color.yellow;
+
+            itemID = inventoryItem.itemData.itemID;  
+
+            //Manager.Inventory.UpdateInventoryData();
         }
 
-        // 아이템 삭제 ( 꺼내기)
+        // 아이템 삭제 ( 꺼내기) --> Selected Exit 에서만 발동된다. 
         public void RemoveItem(InventoryItem item)
         {
-            // 여기서 오류 뜨는거 해결해야함. 
-            if (!transform.gameObject.activeSelf) return;  // 일단 이거로 오류 한 줄은 줄었다.
-
+           
             if (item.transform.parent != null)
             {
+                Debug.Log("자식 해제");
                 item.transform.SetParent(null); //자식 해제 --> 소켓에서 때면 자동으로 자식이 해제가 되는데요?? 
-                Debug.Log("자식 해제 진입");
             }
-            item.itemData.RestoreOriginalTransform(item.transform); //오브젝트의 실제 scale을 리턴해줌. 
-
+            //item.itemData.RestoreOriginalTransform(item.transform); //오브젝트의 실제 scale을 리턴해줌. 
+            // 이게 인벤토리를 그냥 닫으면 실행되는거라 그냥 자동적으로 원래 스케일이 리턴되는듯하다. 
             Rigidbody rigidbody = item.GetComponent<Rigidbody>();
 
             if (rigidbody != null)
             {
+                Debug.Log("RemoveItem 발동");
                 rigidbody.isKinematic = false; // 다시 키네마틱 꺼주기. 
             }
+            slotImage.color = originalColor;
 
-            Manager.Inventory.UpdateInventoryData(); // 인벤토리 데이터를 업데이트
+            itemID = -1;
 
+            //Manager.Inventory.UpdateInventoryData(); // 인벤토리 데이터를 업데이트
         }
 
-        private IEnumerator DetachAndRestore(InventoryItem item)
+        private IEnumerator DetachAndRestore()
         {
             yield return new WaitForEndOfFrame(); // 부모 오브젝트의 상태 변경 후 한 프레임 대기
         }
 
-
-        private void ItemState() // 아이템의 상태 -> 중력 , 콜라이더 등등의 컴포넌트를 변경해줄 함수.
-        {
-
-        }
-
-        private void ResizeItemToFitSlot(Transform itemTransform)
-        {
-            // 슬롯의 크기를 구하기 위해 슬롯의 bounds를 사용
-            Renderer slotRenderer = GetComponent<Renderer>();
-            Vector3 slotSize = slotRenderer.bounds.size;
-            Debug.Log($"슬롯의 크기: {slotSize}");
-
-            Renderer itemRenderer = itemTransform.GetComponent<Renderer>();
-            if (itemRenderer != null)
-            {
-                Vector3 itemSize = itemRenderer.bounds.size;
-                Debug.Log($"아이템의 크기: {itemSize}");
-
-                // Z축 크기는 무시하고 X, Y 축만을 고려하여 스케일을 조정
-                float scaleFactorX = slotSize.x / itemSize.x;
-                float scaleFactorY = slotSize.y / itemSize.y;
-                float scaleFactor = Mathf.Min(scaleFactorX, scaleFactorY);
-
-                Debug.Log($"스케일 팩터 크기 {scaleFactor}");
-
-                // 여기서 아이템의 트랜스폼도 x y 만 하고 싶은데 그게 반영이 된건지 모르겠네... 
-                Vector3 newLocalScale = itemTransform.localScale * scaleFactor;
-                newLocalScale.z = itemTransform.localScale.z; // Z축 크기 유지
-                itemTransform.localScale = newLocalScale;
-                Debug.Log($"조정된 아이템 로컬 스케일: {itemTransform.localScale}");
-            }
-            else
-            {
-                //Debug.LogWarning("아이템에 Renderer 컴포넌트가 없습니다.");
-            }
-        }
-
-
         // 스택용 아이템을 위한 추가 함수 --> IF문 분기 등으로 체크해주기. 
-        private void StackItemAdd(InventoryItem item)
+        private void StackItemAdd(InventoryItem item) // 스택 아이템이 불러질 때 이거 막 원래 있던 템이 나오니까
+                                                      // 그 템을 누적해주고... 뺄 때 instantiate 하고. 추가로 막 아이템이 튀어나오면 이거 삭제해주고
+                                                      // 추가로 ITEM의 id가 일치해야 스택이 가능함. 
         {
-            if(item.itemData.stackType == StackTypeItem.Stackable) //아이템의 타입이 스택형이라면 함수발동하도록
+            if (ItemCount == 0) // 아직 하나도 없는 경우라면 
             {
-                // 안에 아이템이 이미 있는 상황일 때 와 빈 곳일 때를 구분해주고
-                // 동일한 아이템인지도 확인해줘야 한다. 
-
-                itemCount++; // 아이템 text와 연계 
+                AddItem(item);
+                ItemCount++;
+                countText.text = $"{ItemCount}";
             }
-            else
+            else if (ItemCount >= 1) // 1개 이상 이미 스택 아이템이 들어가 있는 경우라면 
             {
-
+                ItemCount++; // 아이템 text와 연계 
+                countText.text = $"{ItemCount}";
             }
         }
-
         private void StackItemRemove(InventoryItem item)
         {
             if (item.itemData.stackType == StackTypeItem.Stackable)
             {
-                if (itemCount >= 2) // 2개 이상 겹쳐있는 상태 
+                if (ItemCount >= 2) // 2개 이상 겹쳐있는 상태 
                 {
                     // 그대로 오브젝트를 꺼내고
-                    itemCount--;
+                    ItemCount--;
 
                     int id = item.itemData.itemID; // Item id 등을 받아서
                     string name = item.itemData.itemName;
@@ -252,18 +332,73 @@ namespace JJH
 
         public void EventItemAdd(IInventory item) // 인벤토리의 빈 공간에 바로 들어가져야함.
         {
-           
+
         }
 
-        public void EventItemRemove (IInventory item) // 인벤토리를 순회하고 id가 같으면 그 때 상태체크 필요. 
+        public void EventItemRemove(IInventory item) // 인벤토리를 순회하고 id가 같으면 그 때 상태체크 필요. 
         {
-           
+
         }
 
-        public int CompareTo(object obj) // obj는 비교할 대상 객체  
+
+        public int GetItemIDInSlot(int slotID) // 이 부분 SLOT ID FOR문 안돌릴 수 있도록 수정하기. 
         {
-            return slotID.CompareTo(obj.GetType()); //??? --> 걍 1~8번 할당하는게 편하긴해
+            Manager.Inventory.UpdateInventoryData(); //인벤토리 최신화
+
+            foreach (var item in Manager.Inventory.inventoryData.items)
+            {
+                if (item.slotID == slotID)
+                {
+                    return item.itemID;
+                }
+            }
+
+            return -1; // slot에서 id가 겹치지 않으면 -1을 리턴한다. 
         }
+
+        Coroutine notAddCoroutine;
+        public void NotAddText()
+        {
+            if (notAddCoroutine == null)
+            {
+                notAddCoroutine = StartCoroutine(NotAddRoutine());
+            }
+        }
+
+        private IEnumerator NotAddRoutine()
+        {
+            notAddText.enabled = true;
+            yield return new WaitForSecondsRealtime(1f);
+            notAddText.enabled = false;
+            notAddCoroutine = null;
+
+        }
+
+        public void AddItemNumber()
+        {
+            ItemCount++;
+            countText.text = $"{ItemCount}";
+
+            //item.itemData.itemCount = ItemCount; // itemdata의 카운트는 현재 슬롯의 카운트와 같다.
+
+            //Debug.Log($"Plus 저장된 아이템의 카운트 data ->{item.itemData.itemCount}");
+
+        }
+
+        public void MinusItemNumber()
+        {
+            ItemCount--;
+            countText.text = $"{ItemCount}";
+
+            if (ItemCount <= 0)
+            {
+                ItemCount = 0;
+                countText.text = $" "; // 0 이면 그냥 안보이게 하자. 
+            }
+
+            // 0 이라는 거는 어쨋든 아이템이 전부 빠진 상태니까 안 나오도록 고정한다. 
+        }
+
     }
 }
 

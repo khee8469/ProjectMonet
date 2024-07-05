@@ -33,9 +33,6 @@ namespace JJH
 
     }
 
-
-
-
     [System.Serializable]
     public class PaintTypeColor
     {
@@ -53,7 +50,8 @@ namespace JJH
         Green,
         Yellow,
         Black,
-        White
+        White,
+        Brown
     }
 }
 

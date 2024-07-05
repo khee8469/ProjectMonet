@@ -1,35 +1,31 @@
 using Jc;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class Miniature : InteractObject
 {
-    int sceneNumber;  // 씬 위치데이터 접근용
-    Vector3 startPos;  // 시작위치 저장용
+    [Tooltip("저장용 Id")]
+    [SerializeField] int id;
+    public int Id {  get { return id; } }  
     
-    [SerializeField] float yHeight;
+    // 시작위치 저장용
+    Vector3 startPosition;
+    Quaternion startRotation;
+    // 바닥으로 설정한 레이어
+    [SerializeField] LayerMask miniatureMapLayer;
 
 
     protected override void Awake()
     {
         base.Awake();
-
-        XRBaseControllerInteractor a;
     }
 
-    private void Start()
-    {
-        //몇번 씬정보인지
-        sceneNumber = (int)transform.parent.GetComponent<MiniatureManager>().MiniatureNum;
-    }
 
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
         base.OnSelectEntering(args);
-        startPos = transform.position;
+        startPosition = transform.position;
+        startRotation = transform.rotation;
     }
 
     protected override void OnSelectExiting(SelectExitEventArgs args)
@@ -39,31 +35,44 @@ public class Miniature : InteractObject
         SavePosition();
     }
 
-    //미니어처의 현재 위치를 저장
-    public void SavePosition()
-    {
-        var positionData = PositionSyncManager.Instance.PositionData.SavePosition[sceneNumber];
-        positionData[transform.name] = transform.localPosition;
-    }
-
-    //미니어처가 장판 밖에 두었을때 원래 위치로 복구
+    //미니어처 위치 지정
     public void GroundCheck()
     {
-        RaycastHit hit;
-        Physics.Raycast(transform.position, Vector3.down, out hit, 1000f);
+        //부모보다 높은 위치에 배치해 레이케스트 쏴서 확인
+        transform.position = new Vector3(transform.position.x, transform.parent.position.y + 10, transform.position.z);
 
-        //타일밖에두면
-        if(hit.transform != transform.parent)
+        RaycastHit hit;
+        if(Physics.Raycast(transform.position, Vector3.down, out hit, 1000, miniatureMapLayer))
         {
-            //원위치
-            transform.position = startPos;
-            transform.rotation = Quaternion.identity;
+            //미니어처맵 안
+            if (miniatureMapLayer.Contain(hit.transform.gameObject.layer))
+            {
+                Debug.Log("타일 안에 두었습니다.");
+                transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
+                transform.rotation = startRotation;
+            }
         }
         else
         {
-            //미니어처 놓았을 때 높이와 회전 고정
-            transform.position = new Vector3(transform.position.x, hit.transform.position.y, transform.position.z);
-            transform.rotation = Quaternion.identity;
+            Debug.Log("레이케스트 실패");
+            //원위치
+            transform.position = startPosition;
+            transform.rotation = startRotation;
         }
+    }
+
+    //미니어처의 현재 위치를 저장
+    public void SavePosition()
+    {
+        //key 값은 씬번호_오브젝트이름  같은 이름의 오브젝트에 위치 데이터 전달 예정
+        Manager.PlableData.PositionData.SavePosition_3[id] = transform.localPosition;
+        //데이터 저장
+        //Manager.PlableData.SaveMiniatureData();
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.down*10);
     }
 }

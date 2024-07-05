@@ -6,7 +6,7 @@ namespace JJH
     {
         public void Close()
         {
-            Manager.UI.ClosePopUpUI();
+            //Manager.UI.ClosePopUpUI();
         }
     }
 

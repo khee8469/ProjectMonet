@@ -1,6 +1,5 @@
 using UnityEngine;
 using JJH;
-using UnityEditor.Timeline.Actions;
 
 /// <summary>
 /// This script creates a trail at the location of a gameobject with a particular width and color.
@@ -104,7 +103,7 @@ namespace JJH
 
         [SerializeField] Transform rayCastStartPos;
 
-        [SerializeField] private float distance = 1f;
+        //[SerializeField] private float distance = 1f;
 
         private float width = 0.01f;
         private Color color = Color.black;

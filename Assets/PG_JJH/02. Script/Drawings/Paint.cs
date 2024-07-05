@@ -19,6 +19,9 @@ namespace JJH
         [Tooltip("각자 자신이 가지고 있는 컬러의 상태")]
         [SerializeField] private Color color;
 
+        [Tooltip("물감이 충돌가능한 레이어")]
+        [SerializeField] private LayerMask colliderLayer;
+
         private void Start() // 자신의 색깔을 시작할 때 가지고 오도록 (물감의 색깔임) 
         {
             if (paintTypeManager != null)
@@ -61,15 +64,13 @@ namespace JJH
             {
                 Debug.Log("트리거 진입함");
                 Pen pen =other.gameObject?.GetComponent<Pen>();
+                if(pen!=null)
+                {
+                    pen.ChangeColor(GetPaintType());
 
-                pen.ChangeColor(GetPaintType());
-
+                }
             }
-
         }
-
-        
-
     }
 
 }

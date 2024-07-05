@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Interaction.Toolkit;
+using JJH;
 
 namespace Jc
 {
@@ -24,40 +25,49 @@ namespace Jc
         [SerializeField]
         private GameObject popUpCanvas; // 인벤토리 / 퀘스트
 
+        private Transform mainCam; // 메인 카메라
+
         [Space(5)]
         [Header("밸런싱")]
+        [Tooltip("퀘스트 NPC")]
         [SerializeField]
         private NPC nearNPC;
+
 
         private bool isEnabledPopup = false;   // 팝업 활성화
         private Transform camTr;               // 메인 카메라 트랜스폼
 
         public UnityAction OnEndInteract;   // NPC와 상호작용 해제
 
-        private bool isEnablePopUp = false;
+
+        private void Awake()
+        {
+            mainCam = Camera.main.transform;
+        }
 
         private void OnEnable()
         {
+            // 퀘스트 npc 지정
             trigger.OnNPCEnter += OnEnterNPC;
             trigger.OnNPCExit += OnExitNPC;
-
             camTr = Camera.main.transform;
 
             controllerCallback.leftMenuBTNRef.action.performed += OnPopUpCanvas;    // 인벤토리/퀘스트 버튼 등록
             //controllerCallback.debugMenuBTNRef.action.performed += OnPopUpCanvas;   // 디버그 인벤토리/퀘스트 버튼 등록
 
-            controllerCallback.leftTriggerRef.action.performed += OnInteractNPC;    // NPC 상호작용 등록
+            controllerCallback.leftTriggerRef.action.performed += OnInteract;    // NPC 상호작용 등록
         }
         private void OnDisable()
         {
+            // 퀘스트 npc 지정 해제
             trigger.OnNPCEnter -= OnEnterNPC;
             trigger.OnNPCExit -= OnExitNPC;
 
             controllerCallback.leftMenuBTNRef.action.performed -= OnPopUpCanvas;
-            controllerCallback.leftTriggerRef.action.performed -= OnInteractNPC;
+            controllerCallback.leftTriggerRef.action.performed -= OnInteract;
         }
 
-        // NPC Trigger Enter 콜백
+        // 퀘스트 NPC Trigger Enter 콜백
         private void OnEnterNPC(NPC target)
         {
             // 기존에 충돌한 NPC 할당해제
@@ -67,7 +77,7 @@ namespace Jc
             // 가장 가까운 NPC 재할당 
             nearNPC = target;
         }
-        // NPC Trigger Exit 콜백
+        // 퀘스트 NPC Trigger Exit 콜백
         private void OnExitNPC(NPC target)
         {
             if (target == nearNPC)
@@ -78,28 +88,35 @@ namespace Jc
             }
         }
 
+
         // NPC 상호작용 콜백
-        private void OnInteractNPC(InputAction.CallbackContext context)
+        private void OnInteract(InputAction.CallbackContext context)
         {
-            if (isEnablePopUp) return;   // 팝업이 열려있는 경우 
-            if (nearNPC == null) return; // 근처 NPC가 없는 경우
+            // NPC 상호작용
+            if (Manager.Inventory.isEnable) return;   // 팝업이 열려있는 경우 
+            //퀘스트 npc면
+            if (nearNPC != null)
+            {
+                nearNPC.OnInteract(questController);
+                OnEndInteract += nearNPC.OnExitInteract;  // 상호작용 해제 등록
+            }
 
-            nearNPC.OnInteract(questController);
-            OnEndInteract += nearNPC.OnExitInteract;  // 상호작용 해제 등록
         }
-
         private void OnPopUpCanvas(InputAction.CallbackContext context)
         {
-            Debug.Log("메뉴 버튼 클릭");
+            //Debug.Log("메뉴 버튼 클릭");
             isEnabledPopup = !isEnabledPopup;
             OnPopUp(isEnabledPopup);
         }
 
         private void OnPopUp(bool isEnable)
         {
-            JJH.Manager.Inventory.isEnable = isEnable;
-            isEnablePopUp = isEnable;
-            popUpCanvas.SetActive(isEnable);
+
+            // 활성화 시 메인 카메라 트랜스폼을 추적
+            if (isEnable)
+                Manager.UI.OpenInfoGroup();
+            else
+                Manager.UI.CloseInfoGroup();
         }
     }
 }

@@ -26,6 +26,10 @@ namespace Jc
         private int id_IsInteract;
         public int IsInteract {get { return id_IsInteract; } }
 
+        [SerializeField]
+        private int id_OnFloating;
+        public int OnFloating {get { return id_OnFloating; } }
+
         protected override void Awake()
         {
             base.Awake();
@@ -35,8 +39,10 @@ namespace Jc
         private void InitParameters()
         {
             id_MoveSpeed = Animator.StringToHash("MoveSpeed");
+            id_IsMoving = Animator.StringToHash("IsMoving");
             id_OnInetract = Animator.StringToHash("OnInteract");
             id_IsInteract = Animator.StringToHash("IsInteract");
+            id_OnFloating = Animator.StringToHash("OnFloating");
         }
 
     }

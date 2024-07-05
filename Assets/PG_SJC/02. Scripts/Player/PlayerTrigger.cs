@@ -33,6 +33,7 @@ namespace Jc
                 if (target != null)
                     OnNPCExit?.Invoke(target);
             }
+
         }
     }
 }

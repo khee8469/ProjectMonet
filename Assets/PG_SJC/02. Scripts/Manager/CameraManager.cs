@@ -22,13 +22,8 @@ namespace Jc
 
         private CinemachineVirtualCamera currentVC;
 
-        private void OnEnable()
-        {
-            MainCameraSetting();
-        }
-
         // 메인 카메라 및 시네머신 브레인 초기세팅
-        private void MainCameraSetting()
+        public void MainCameraSetting()
         {
             mainCamera = Camera.main;
             cinemachineBrain = mainCamera.GetComponent<CinemachineBrain>();

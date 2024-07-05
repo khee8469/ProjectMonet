@@ -12,12 +12,25 @@ namespace JJH
         private ColorAdjustments colorAdjustments;
 
         [SerializeField] private int SceneID = 0;
+        [SerializeField] Volume globalVolume;
 
         // 로딩 루틴 별로 카메라 찾아서 포스트 프로세싱 조절 해줄 것 
+
+        // 임시 체크
+        private void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                Manager.Scene.LoadScene("RealLobby_JJH");
+            }
+        }
+
         public override IEnumerator LoadingRoutine()
         {
+            Debug.Log("챕터1 씬 로딩루틴 진행");
+
             // Volume 하나에 뭉쳐놓는게 낫지 어차피 여러 기능 쓸 거니까 그냥 volume을 찾자.
-            Volume globalVolume = GameObject.FindObjectOfType<Volume>()?.GetComponent<Volume>();
+            
 
             if (ChapterManager.is_Colored[SceneID] == true) // true 라면 흑백효과 풀기. --> 챕터1 이 0 번 ? 
             {
@@ -39,11 +52,10 @@ namespace JJH
                     }
                 }
             }
-
-            Manager.Game.ChangeScene();
-
+ 
             yield return null;
         }
+
     }
 
 }

@@ -6,16 +6,20 @@ using JJH;
 
 namespace JJH
 {
-    
-
-
     public class SceneManager : Singleton<SceneManager>
     {
         [SerializeField] Image fade;
         [SerializeField] Slider loadingBar;
         [SerializeField] float fadeTime;
 
+        [SerializeField]
+        private GameObject playerObject;
+        public GameObject PlayerObject { get { return playerObject; } set { playerObject = value; } }
+
         private BaseScene curScene;
+
+        [Tooltip("플레이어의 카메라")]
+        private Camera playerCamera;
 
         public BaseScene GetCurScene()
         {
@@ -42,14 +46,10 @@ namespace JJH
 
         IEnumerator LoadingRoutine(string sceneName)
         {
+            playerCamera = Camera.main;
+            SetUpFadeUI(); // 캔버스를 world space로 변경 
             fade.gameObject.SetActive(true);
             yield return FadeOut();
-
-            Manager.Pool.ClearPool();
-            Manager.Sound.StopSFX();
-            Manager.UI.ClearPopUpUI();
-            Manager.UI.ClearWindowUI();
-            Manager.UI.CloseInGameUI();
 
             Time.timeScale = 0f;
             loadingBar.gameObject.SetActive(true);
@@ -61,16 +61,20 @@ namespace JJH
                 yield return null;
             }
 
-            Manager.UI.EnsureEventSystem();
 
             BaseScene curScene = GetCurScene();
-            yield return curScene.LoadingRoutine();
+
+            yield return null; // 이 부분 시간 차 어떻게 둘지 생각해보기. 
+            yield return curScene?.LoadingRoutine();
+
 
             loadingBar.gameObject.SetActive(false);
             Time.timeScale = 1f;
 
             yield return FadeIn();
             fade.gameObject.SetActive(false);
+
+            RestoreFadeUI(); // 다시 원래 상태로 복원 
         }
 
         IEnumerator FadeOut()
@@ -100,6 +104,32 @@ namespace JJH
                 yield return null;
             }
         }
+
+
+
+        private void SetUpFadeUI()
+        {
+            if (playerCamera != null && fade != null)
+            {
+                // 캔버스가 VR 카메라 앞에 위치하도록 설정
+                Canvas canvas = fade.GetComponentInParent<Canvas>();
+                canvas.renderMode = RenderMode.WorldSpace;
+                canvas.worldCamera = playerCamera;
+                canvas.transform.position = playerCamera.transform.position + playerCamera.transform.forward * 0.1f; // 카메라 앞 0.5m 위치
+                canvas.transform.rotation = playerCamera.transform.rotation;
+                canvas.transform.localScale = new Vector3(10f, 10f, 10f); // 필요에 따라 스케일 조정
+            }
+        }
+
+        private void RestoreFadeUI()
+        {
+            if (fade != null)
+            {
+                Canvas canvas = fade.GetComponentInParent<Canvas>();
+                canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            }
+        }
+
     }
 }
 
