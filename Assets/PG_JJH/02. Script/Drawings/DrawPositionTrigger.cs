@@ -100,7 +100,11 @@ namespace JJH
 
         }
 
-
+        protected override void OnSelectEntered(SelectEnterEventArgs args)
+        {
+            return;
+            base.OnSelectEntered(args);
+        }
 
     }
 
