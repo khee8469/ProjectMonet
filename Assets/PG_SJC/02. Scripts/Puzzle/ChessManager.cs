@@ -42,7 +42,7 @@ namespace Jc
 
             Debug.Log("오두막 탈출");
 
-            if (sunObject.activeSelf)
+            if (sunObject != null && sunObject.activeSelf)
                 sunObject.SetActive(false);
             
             ResetBoard();

@@ -12,23 +12,22 @@ namespace Jc
     /// </summary>
     public class PlableDataManager : Singleton<PlableDataManager>
     {
+        // -1 : 진행중
+        // 3 : Clear - 완료 대기 (채색만 완료)
+        // 4 : Complete - 완료
         [SerializeField]
-        private List<QuestListData> questStateDatas;
+        private int[] stageInfo;
+        public int[] StageInfo{ get { return stageInfo; } }
+
+        [Header("에디터 세팅 (스테이지 정보 캐싱용)")]
+        [SerializeField]
+        private List<StageData> stageDatas;
+
         [SerializeField]
         private List<SlotData> inventorySlotDatas { get; set; }
         public List<SlotData> InventorySlotDatas { get { return inventorySlotDatas; } }
 
         public Dictionary<int, bool> paintDataList;
-
-        [Header("테스트모드 (false : 새로 시작) (true : 불러오기)")]
-        public bool isLoadMode = false;
-
-        [SerializeField]
-        private string questJson;
-        [SerializeField]
-        private string inventoryJson;
-
-
 
         //미니어처 위치 구조체화 데이터 저장용
         private List<MiniatureData> miniatureDatas;
@@ -48,246 +47,90 @@ namespace Jc
 
             InitSetting();
         }
-
         public void InitSetting()
         {
             paintDataList = new Dictionary<int, bool>();
-
-            // 퀘스트 데이터 로드
-            List<QuestListData> loadedQuestData = LoadQuestData();
-
-            questStateDatas = loadedQuestData;
-            // 로드된 데이터를 기반으로 퀘스트 상태 업데이트
-            foreach (QuestListData data in questStateDatas)
-            {
-                Manager.Quest.QuestDic[data.id_quest].State = (QuestState)data.progress;
-            }
-
-            SaveQuestData();
+            LoadStageData();
         }
-        /*public void InitSlot()
+
+        public void LoadStageData()
         {
-            // 인벤토리 슬롯 데이터 로드
-            List<SlotData> loadedInventoryData = LoadSlotData();
-            inventorySlotDatas = loadedInventoryData;
-        }*/
-        // 퀘스트 데이터 저장
-        public void SaveQuestData()
-        {
-            if (questStateDatas.Count < 1)
+            // 스테이지 정보 로딩 후 연계된 퀘스트 데이터 변경
+            // 퀘스트 데이터 변경 -> 퍼즐 데이터 변경
+            
+            // 로컬 폴더가 존재하지 않을 경우
+            if(!Directory.Exists(SystemPath.GetPath(DataPath.LocalDirectory)))
             {
-                Debug.Log("퀘스트 데이터 리스트가 초기화되지 않았습니다.");
+                // 로컬 폴더 생성
+                Directory.CreateDirectory(SystemPath.GetPath(DataPath.LocalDirectory));
                 return;
             }
 
-            for (int i = 0; i < questStateDatas.Count; i++)
+            // 스테이지 데이터 정보가 존재하지 않을 경우
+            if (!File.Exists(SystemPath.GetPath(DataPath.StageData)))
             {
-                int id = questStateDatas[i].id;
-                int id_quest = questStateDatas[i].id_quest;
-                int progress = (int)Manager.Quest.QuestDic[id].State;
-
-                if (progress == questStateDatas[i].progress)    // 데이터가 변경되지 않았다면 continue
-                    continue;
-
-                questStateDatas[i] = new QuestListData(id, id_quest, progress);
+                stageInfo = new int[4] { -1, -1, -1, -1 };
+                return;
             }
 
-            // 저장소가 없다면 생성
-            if (!Directory.Exists(SystemPath.GetPath("UserData")))
-                Directory.CreateDirectory(SystemPath.GetPath("UserData"));
+            // 스테이지 정보가 존재할 경우
+            string jsonData = File.ReadAllText(SystemPath.GetPath(DataPath.StageData));
+            // 데이터 불러오기
+            stageInfo = JsonUtility.FromJson<int[]>(jsonData);
 
-            CSVHelper.Write(SystemPath.GetPath(DataPath.LocalQuestData), questStateDatas);
+            // 불러온 데이터를 기반으로 상태 업데이트
+            for(int i = 0; i<stageInfo.Length; i++)
+            {
+                // 갱신할 정보가 없다면 (false일 경우)
+                // break;
+                if (stageInfo[i] == -1 || stageDatas == null 
+                    || stageDatas[i].linkedQuestID == null || stageDatas[i].linkedQuestID.Count < 1)
+                {
+                    Debug.Log($"{i + 1} 스테이지 정보는 갱신되지 않습니다.");
+                    break;
+                }
+
+                #region 퀘스트 관련 불러오기
+                // 스테이지에 해당하는 퀘스트 상태 업데이트 
+                foreach (int id in stageDatas[i].linkedQuestID)
+                {
+                    int questID = id - DataID.QUEST;
+                    if(!Manager.Quest.QuestDic.ContainsKey(questID))
+                    {
+                        Debug.Log($"{questID}에 해당하는 퀘스트가 존재하지 않습니다.");
+                        break;
+                    }
+                    // 연관된 퀘스트는 모두 Complete 상태로 할당
+                    Manager.Quest.QuestDic[questID].State = QuestState.Complete;
+                }
+                // 색칠하기 퀘스트는 저장된 퀘스트의 상태에 따라 업데이트 방식을 변경
+                Manager.Quest.QuestDic[stageDatas[i].baseQuestID - DataID.QUEST].State = (QuestState)stageInfo[i];
+                #endregion
+            }
+
+            // 불러온 데이터를 기반으로 연결된 캔버스 / 채색 상태 업데이트
         }
-        // 퀘스트 데이터 불러오기
-        public List<QuestListData> LoadQuestData()
+        public void SaveStageData()
         {
-            List<QuestListData> loadedData = new List<QuestListData>();
-
-            // 초기화 
-            foreach (int key in Manager.Quest.QuestDic.Keys)
+            // 로컬 폴더가 존재하지 않을 경우
+            if (!Directory.Exists(SystemPath.GetPath(DataPath.LocalDirectory)))
             {
-                loadedData.Add(new QuestListData(key, key, (int)Manager.Quest.QuestDic[key].State));
+                // 로컬 폴더 생성
+                Directory.CreateDirectory(SystemPath.GetPath(DataPath.LocalDirectory));
+                return;
             }
 
-            if (File.Exists(SystemPath.GetPath(DataPath.LocalQuestData)))
+            // 스테이지 데이터 정보가 존재하지 않을 경우
+            if (!File.Exists(SystemPath.GetPath(DataPath.StageData)))
             {
-                List<Dictionary<string, object>> csvData = CSVHelper.Read(SystemPath.GetPath(DataPath.LocalQuestData), true);
-
-                // 불러온 데이터가 있다면 덮어쓰기 진행
-                if (csvData != null && csvData.Count >= 1)
-                {
-                    for (int i = 0; i < csvData.Count; i++)
-                    {
-                        loadedData[i] = new QuestListData((int)csvData[i]["id"], (int)csvData[i]["id_quest"], (int)csvData[i]["progress"]);
-                    }
-                }
+                stageInfo = new int[4] { -1, -1, -1, -1 };
+                return;
             }
 
-            return loadedData;
+            // 직렬화한 데이터 쓰기
+            string jsonData = JsonUtility.ToJson(stageInfo);
+            File.WriteAllText(SystemPath.GetPath(DataPath.StageData), jsonData);
         }
-        // 인벤토리 슬롯 데이터 저장
-        //        public void SaveSlotData()
-        //        {
-        //            if (inventorySlotDatas.Count < 1)
-        //            {
-        //                Debug.Log("슬롯 데이터 리스트가 초기화되지 않았습니다.");
-        //                return;
-        //            }
-
-        //            foreach (var key in Manager.Inventory.inventorySlots.Keys)
-        //            {
-        //                InventorySlot slot = Manager.Inventory.inventorySlots[key];
-        //                inventorySlotDatas[key - 1] = new SlotData(slot.slotID, slot.ItemID, slot.ItemCount);
-        //            }
-
-        //            CSVHelper.Write(SystemPath.GetPath(DataPath.LocalInventoryData), inventorySlotDatas);
-
-        //#if UNITY_EDITOR
-        //            AssetDatabase.Refresh();
-        //#endif
-        //        }
-        //public List<SlotData> LoadSlotData()
-        //{
-        //    List<SlotData> loadedData = new List<SlotData>();
-        //    // 초기화 
-        //    foreach (int key in Manager.Inventory.inventorySlots.Keys)
-        //    {
-        //        SlotData data = new SlotData(0, -1, 0);
-        //        loadedData.Add(data);
-        //    }
-
-        //    if (File.Exists(SystemPath.GetPath(DataPath.LocalInventoryData)))
-        //    {
-        //        List<Dictionary<string, object>> csvData = CSVHelper.Read(SystemPath.GetPath(DataPath.LocalInventoryData), true);
-
-        //        // 불러온 데이터가 있다면 덮어쓰기 진행
-        //        if (csvData != null && csvData.Count >= 1)
-        //        {
-        //            for (int i = 0; i < csvData.Count; i++)
-        //            {
-
-        //                SlotData loadSlot = new SlotData();
-        //                loadSlot.id_slot = (int)csvData[i]["id_slot"];
-        //                if (csvData[i]["id_item"] is int)
-        //                    loadSlot.id_item = (int)csvData[i]["id_item"];
-        //                if (csvData[i]["count"] is int)
-        //                    loadSlot.count = (int)csvData[i]["count"];
-
-        //                loadedData[loadSlot.id_slot - 1] = loadSlot;
-
-        //            }
-        //        }
-        //    }
-
-        //    return loadedData;
-        //}
-
-
-
-
-        /*    /// <summary>
-            /// 미니어처 데이터 관리
-            /// </summary>
-
-            // 포지션 데이터 구조체로 변환해서 저장
-            public void SaveMiniatureData()
-            {
-                if (miniatureDatas.Count < 1)
-                {
-                    Debug.Log("미니어처 데이터 리스트가 초기화되지 않았습니다.");
-                    return;
-                }
-                //딕셔너리데이터를 구조체에 저장
-                foreach (int key in positionData.SavePosition_3.Keys)
-                {
-                    float x = positionData.SavePosition_3[key].x;
-                    float y = positionData.SavePosition_3[key].y;
-                    float z = positionData.SavePosition_3[key].z;
-
-                    miniatureDatas[key] = new MiniatureData(key, new Vector3(x, y, z));
-                }
-                // 저장소가 없다면 생성
-                if (!Directory.Exists(SystemPath.GetPath("UserData")))
-                    Directory.CreateDirectory(SystemPath.GetPath("UserData"));
-                //miniatureDatas 데이터 csv파일로 세이브
-                CSVHelper.Write(SystemPath.GetPath(DataPath.LocalMiniatureData), miniatureDatas);
-            }
-
-            // 미니어처 위치 데이터 불러오기
-            public void LoadMiniatureData()
-            {
-                Debug.Log(1);
-                List<MiniatureData> loadedData = new List<MiniatureData>();
-
-                //데이터를 로드
-                if (File.Exists(SystemPath.GetPath(DataPath.LocalMiniatureData)))
-                {
-                    List<Dictionary<string, object>> csvData = CSVHelper.Read(SystemPath.GetPath(DataPath.LocalMiniatureData), true);
-
-                    // 불러온 데이터가 있다면 덮어쓰기 진행
-                    if (csvData != null && csvData.Count >= 1)
-                    {
-                        for (int i = 0; i < csvData.Count; i++)
-                        {
-
-                            int id = Convert.ToInt32(csvData[i]["miniatureId"]);
-                            float x = Convert.ToSingle(csvData[i]["xPosition"]);
-                            float y = Convert.ToSingle(csvData[i]["yPosition"]);
-                            float z = Convert.ToSingle(csvData[i]["zPosition"]);
-                            Debug.Log(id);
-                            Debug.Log(x);
-                            Debug.Log(y);
-                            Debug.Log(z);
-                            loadedData.Add(new MiniatureData(id, new Vector3(x, y, z)));
-                        }
-                    }  
-                }
-                else
-                {
-                    Debug.Log("미니어처 초기 데이터 없음");
-                }
-                //csv화용 구조체에 저장
-                miniatureDatas = loadedData;
-                // miniatureDatas 데이터를 딕셔너리에 저장
-                LoadPositionData();
-            }
-
-            //로드된 데이터를 딕셔너리에 저장
-            public void LoadPositionData()
-            {
-                if (miniatureDatas == null)
-                {
-                    Debug.Log("세팅 할 데이터가 없음");
-                    return;
-                }
-                //로드된 데이터를 위치데이터에 저장
-                foreach (MiniatureData data in miniatureDatas)
-                {                
-                    if (!positionData.SavePosition_3.ContainsKey(data.miniatureId))
-                    {
-                        positionData.SavePosition_3[data.miniatureId] = new Vector3(data.xPosition, data.yPosition, data.zPosition);
-                    }
-                }
-            }
-
-            //딕셔너리를 구조체 데이터로 변환
-            public void SavePositionData(List<Miniature> miniatures)
-            {
-                miniatureDatas.Clear();
-                // 초기화 
-                foreach (int key in positionData.SavePosition_3.Keys)
-                {
-                    Debug.Log("구조체 초기데이터 입력");
-                    //부모크기에 따라 위치 보정 저장
-                    float x = miniatures[key].transform.parent.localScale.x / positionData.SavePosition_3[key].x;
-                    float y = miniatures[key].transform.parent.localScale.y / positionData.SavePosition_3[key].y;
-                    float z = miniatures[key].transform.parent.localScale.z / positionData.SavePosition_3[key].z;
-
-                    miniatureDatas.Add(new MiniatureData(key, new Vector3(x, y, z)));
-                }
-            }*/
-
-
 
         public void MiniaturePositionSave(Miniature miniature, Dictionary<int, Vector3> savePosition)
         {
@@ -303,5 +146,6 @@ namespace Jc
         {
 
         }
+
     }
 }

@@ -40,6 +40,11 @@ namespace Jc
 
     public static class DataPath
     {
+        // 로컬 데이터 저장폴더
+        public const string LocalDirectory = "UserData";
+        // Json 스테이지 데이터
+        public const string StageData = "UserData/StageData.txt";
+
         // Json 플레이어블 데이터
         public const string LocalQuestData = "UserData/Quest_ListDT.csv";
 
@@ -48,6 +53,9 @@ namespace Jc
 
         // Json Miniature 위치 데이터
         public const string LocalMiniatureData = "UserData/MiniatureDT.csv";
+
+        // 채색 캔버스 데이터
+        public const string LocalCanvasData = "UserData/CanvasData.txt";
     }
 
     public static class ResourcesPath

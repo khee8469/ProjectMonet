@@ -65,6 +65,7 @@ namespace Jc
 
             switch (state)
             {
+                case QuestState.Active:
                 case QuestState.DisActive:
                     // 퍼즐 비활성화
                     foreach (IPuzzleable ob in puzzleObjects)
@@ -108,7 +109,7 @@ namespace Jc
         }
 
         // 조건 성공
-        public void UpdateCondition(int index = -1)
+        public void UpdateCondition(int index = -1, bool condition = true)
         {
             if(index == -1) // 조건 인덱스가 설정되지 않았다면 바로 클리어
             {
@@ -121,7 +122,7 @@ namespace Jc
                 return;
 
             // 조건 인덱스 상태변경
-            conditions[index] = true;
+            conditions[index] = condition;
 
             if (CheckCondition())
                 OnClearPuzzle();
@@ -135,13 +136,20 @@ namespace Jc
             }
             return true;
         }
+
         public virtual void OnClearPuzzle()
         {
             Debug.Log($"{puzzleIndex}번 퍼즐 성공");
+
             // 아이템 추가
             OnClear?.Invoke();
             isClear = true;
-            linkedQuest.ChangeState(QuestState.Clear);
+
+            // 퀘스트 예외처리 (이미 수락대기인 퀘스트 or 완료한 퀘스트)
+            if(linkedQuest != null &&
+                linkedQuest.State != QuestState.Clear &&
+                linkedQuest.State != QuestState.Complete)
+                linkedQuest.ChangeState(QuestState.Clear);
         }
     }
 }

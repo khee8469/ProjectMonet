@@ -37,7 +37,6 @@ namespace Jc
 
             return base.CanHover(interactable);
         }
-
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
@@ -54,7 +53,6 @@ namespace Jc
             // 퍼즐 클리어
             puzzle.OnClearPuzzle();
         }
-
         public void ActiveSetting()
         {
             col.enabled = true;
@@ -62,7 +60,9 @@ namespace Jc
 
         public void CompleteSetting()
         {
+            targetSun.IsLoaded = true;
             Destroy(targetSun.gameObject);
+            puzzle.OnClearPuzzle();
             // 0 글자 활성화
         }
 

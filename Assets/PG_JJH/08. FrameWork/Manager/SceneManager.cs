@@ -115,9 +115,9 @@ namespace JJH
                 Canvas canvas = fade.GetComponentInParent<Canvas>();
                 canvas.renderMode = RenderMode.WorldSpace;
                 canvas.worldCamera = playerCamera;
-                canvas.transform.position = playerCamera.transform.position + playerCamera.transform.forward * 0.5f; // 카메라 앞 0.5m 위치
+                canvas.transform.position = playerCamera.transform.position + playerCamera.transform.forward * 0.1f; // 카메라 앞 0.5m 위치
                 canvas.transform.rotation = playerCamera.transform.rotation;
-                canvas.transform.localScale = new Vector3(0.002f, 0.002f, 0.002f); // 필요에 따라 스케일 조정
+                canvas.transform.localScale = new Vector3(10f, 10f, 10f); // 필요에 따라 스케일 조정
             }
         }
 

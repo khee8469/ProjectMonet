@@ -40,20 +40,7 @@ namespace JJH
             yield return null;
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                Manager.Scene.LoadScene("LobbyScene");
-
-            }
-
-            if (Input.GetKeyDown(KeyCode.Tab))
-            {
-                ChapterManager.Instance.UnlockStage(2, true);
-
-            }
-        }
+        
     }
 
 }
