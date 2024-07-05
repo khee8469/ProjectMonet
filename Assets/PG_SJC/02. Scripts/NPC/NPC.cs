@@ -74,21 +74,28 @@ namespace Jc
             // 데이터에 따른 퀘스트 할당
             questIDList = npcData.questIDList;
 
-            //if(npcData.narrationBundleID != null && )
             // 기본 나레이션 리스트 할당
-            basicNarrations = npcData.narrationBundleID;
+            if (npcData.narrationBundleID == null || npcData.narrationBundleID.Count < 1
+                || !Manager.Data.NarrationBundleDic.ContainsKey(npcData.narrationBundleID[basicNarrationIndex])
+                || Manager.Data.NarrationBundleDic[npcData.narrationBundleID[basicNarrationIndex]].Count < 1)
+            {
+                Debug.Log($"{id}NPC의 {basicNarrationIndex}번째 기본 대사가 존재하지 않습니다.");
+                return;
+            }
+            basicNarrations = Manager.Data.NarrationBundleDic[npcData.narrationBundleID[basicNarrationIndex]];
         }
 
         // 퍼즐/퀘스트를 통한 기본 나레이션 변경
         public void NextBasicNarration()
         {
             basicNarrationIndex++;
-            //if(normalNarrationBundleIDs.Count < basicNarrationIndex)
-            //{
-            //    Debug.Log($"NPC({id})의 {basicNarrationIndex}번째 나레이션은 할당되지 않았습니다.");
-            //    basicNarrationIndex--;
-            //    return;
-            //}
+            if(!Manager.Data.NarrationBundleDic.ContainsKey(basicNarrationIndex) 
+                || Manager.Data.NarrationBundleDic[basicNarrationIndex].Count < 1)
+            {
+                Debug.Log($"{id}NPC의 {basicNarrationIndex}번째 기본 대사가 존재하지 않습니다.");
+                return;
+            }
+            basicNarrations = Manager.Data.NarrationBundleDic[npcData.narrationBundleID[basicNarrationIndex]];
         }
 
         // 상호작용 시 
@@ -134,12 +141,13 @@ namespace Jc
             // 현재 할당된 퀘스트가 없는 경우
             if(currentQuest == null)
             {
-                // 기본대사 번들 할당
-                //if (basicNarrationIndex >= Manager.Data.Narr)
+                // 플로팅 애니메이션
+                floatingAnim.SetTrigger(Manager.Param.OnFloating);
 
-                    // 플로팅 애니메이션
-                    floatingAnim.SetTrigger(Manager.Param.OnFloating);
-                //dialogText.text = basicDialog;
+                if (curBasicDialogIndex >= basicNarrations.Count)
+                    dialogText.text = currentQuest.receiveNarrations[basicNarrations.Count-1].text;
+                else
+                    dialogText.text = currentQuest.receiveNarrations[curBasicDialogIndex++].text;
                 return;
             }
 

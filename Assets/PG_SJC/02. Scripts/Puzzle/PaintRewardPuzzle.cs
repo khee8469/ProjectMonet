@@ -19,6 +19,7 @@ namespace Jc
                 Debug.Log($"ID({paintItemID}) : 이미 활성화된 페인트 아이템이 존재합니다.");
                 return;
             }
+
             // 페인트 아이템 활성화
             Manager.PlableData.paintDataList.Add(paintItemID, true);
         }

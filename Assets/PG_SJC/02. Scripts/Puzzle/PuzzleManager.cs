@@ -6,15 +6,19 @@ using UnityEngine.Events;
 
 namespace Jc
 {
+    public enum PuzzleState { DisActive = 0, Proceed = 1, Clear = 2 }
     public class PuzzleManager : MonoBehaviour
     {
         [Header("에디터 세팅")]
         [SerializeField]
         private int rewardItemID;
 
-        [Header("퍼즐 인덱스")]
+        [Header("퍼즐 id")]
         [SerializeField]
         private int puzzleIndex;
+
+        [Header("퍼즐 진행상태")]
+        public PuzzleState state = PuzzleState.DisActive;
 
         [Header("연계된 퍼즐 오브젝트 (퍼즐 상태를 업데이트하는 오브젝트)")]
         public List<IPuzzleable> puzzleObjects = new List<IPuzzleable>();
@@ -34,13 +38,13 @@ namespace Jc
         [SerializeField]
         private bool isClear = false;
 
-        private Quest linkedQuest; 
+        private Quest linkedQuest;
 
         private void OnEnable()
         {
             if (linkedQuestID != -1)
                 linkedQuestID -= DataID.QUEST;  // 퀘스트 ID 매핑
- 
+
             if (!Manager.Quest.QuestDic.ContainsKey(linkedQuestID))
             {
                 Debug.Log($"(Puzzle : {this} / QuestID : {linkedQuestID}) : 할당된 퀘스트가 없습니다.");
@@ -50,7 +54,7 @@ namespace Jc
             linkedQuest = Manager.Quest.QuestDic[linkedQuestID];
 
             // 이미 완료된 퀘스트가 아닐경우 콜백 등록
-            if(linkedQuest.State != QuestState.Complete)
+            if (linkedQuest.State != QuestState.Complete)
                 linkedQuest.OnChangeState += PuzzleSetting;
 
             // 최초 퀘스트 상태에 따른 퍼즐 상태를 설정
@@ -67,9 +71,13 @@ namespace Jc
             {
                 case QuestState.Active:
                 case QuestState.DisActive:
-                    // 퍼즐 비활성화
-                    foreach (IPuzzleable ob in puzzleObjects)
-                        ob.DisActiveSetting();    // 모든 퍼즐 오브젝트 비활성화
+                    // 로딩된 퍼즐 데이터가 없을 경우
+                    if (!LoadPuzzleData())
+                    {
+                        // 퍼즐 비활성화
+                        foreach (IPuzzleable ob in puzzleObjects)
+                            ob.DisActiveSetting();    // 모든 퍼즐 오브젝트 비활성화
+                    }
                     break;
                 case QuestState.Proceed:
                     // 퍼즐 활성화
@@ -111,7 +119,7 @@ namespace Jc
         // 조건 성공
         public void UpdateCondition(int index = -1, bool condition = true)
         {
-            if(index == -1) // 조건 인덱스가 설정되지 않았다면 바로 클리어
+            if (index == -1) // 조건 인덱스가 설정되지 않았다면 바로 클리어
             {
                 OnClearPuzzle();
                 return;
@@ -129,7 +137,7 @@ namespace Jc
         }
         private bool CheckCondition()
         {
-            for(int i =0; i<conditions.Length; i++)
+            for (int i = 0; i < conditions.Length; i++)
             {
                 if (!conditions[i])
                     return false;
@@ -146,7 +154,7 @@ namespace Jc
             isClear = true;
 
             // 퀘스트 예외처리 (이미 수락대기인 퀘스트 or 완료한 퀘스트)
-            if(linkedQuest != null &&
+            if (linkedQuest != null &&
                 linkedQuest.State != QuestState.Clear &&
                 linkedQuest.State != QuestState.Complete)
                 linkedQuest.ChangeState(QuestState.Clear);
