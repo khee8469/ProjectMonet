@@ -15,9 +15,14 @@ namespace JJH
         [SerializeField]
         private List<HiddenPatternObject> objects;
 
+        [Tooltip("랜턴 참조 필요하다.")]
+        [SerializeField] private HiddenPatternflashlight flashLight;
 
+        [Tooltip("자신의 콜라이더 --> 나가면 랜턴 원 위치 복귀 한다.")]
+        [SerializeField] private new Collider collider;
 
-        // 첫 번째 원반 (가장 내부의 원반은 움직이지 않음)
+        
+        
         
 
 
