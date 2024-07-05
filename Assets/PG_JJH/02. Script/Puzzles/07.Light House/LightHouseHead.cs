@@ -128,10 +128,15 @@ namespace JJH
             }
         }
 
+        private void onWindowLight(bool boolean)
+        {
+            clearLight.gameObject.SetActive(boolean);
+        }
+
 
         private void ChangeRoutine()
         {
-            //StartCoroutine(ChangeCoRoutine());  --> 등대 빛 없애기 기능 
+            StartCoroutine(ChangeCoRoutine());  //--> 등대 빛 없애기 기능 
         }
 
         private IEnumerator ChangeCoRoutine() 
@@ -165,6 +170,7 @@ namespace JJH
 
             // 등대의 불은 나오고 있어야 함. 
             PillarChange(true);
+            onWindowLight(false);
 
         }
 
@@ -173,6 +179,7 @@ namespace JJH
             DeAactiveLight_Button();
             sunHole.OnClearPuzzle();
             PillarChange(true);
+            onWindowLight(true);
             //sunHole.ChangeSkyBox(sunHole.afternoonSkybox); // 낮 상태로 스카이박스 및 마테리얼을 빛 상태로 --> 온 클리어에 같이 있음. 
 
         }
@@ -181,6 +188,7 @@ namespace JJH
         {
             DeAactiveLight_Button(); // 버튼 꺼두기 
             PillarChange(false); // 불이 아직 들어오지 않음 
+            onWindowLight(false);
 
         }
 
