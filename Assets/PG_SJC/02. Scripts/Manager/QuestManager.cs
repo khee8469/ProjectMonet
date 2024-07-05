@@ -113,7 +113,7 @@ namespace Jc
             foreach (Quest quest in linkTypeQuests)
             {
                 // 연계 퀘스트 성공 처리
-                questDic[quest.LinkedEndQuestID].OnClearQuest += quest.OnClearLinkedQuest;
+                questDic[quest.LinkedClearQuestID].OnClearQuest += quest.OnClearLinkedQuest;
             }
         }
 
