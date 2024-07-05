@@ -109,7 +109,7 @@ namespace Jc
         }
 
         // 조건 성공
-        public void UpdateCondition(int index = -1)
+        public void UpdateCondition(int index = -1, bool condition = true)
         {
             if(index == -1) // 조건 인덱스가 설정되지 않았다면 바로 클리어
             {
@@ -122,7 +122,7 @@ namespace Jc
                 return;
 
             // 조건 인덱스 상태변경
-            conditions[index] = true;
+            conditions[index] = condition;
 
             if (CheckCondition())
                 OnClearPuzzle();

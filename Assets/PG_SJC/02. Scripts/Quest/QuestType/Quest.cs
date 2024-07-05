@@ -19,8 +19,8 @@ namespace Jc
         public int QuestID { get { return questID; }}
 
         [SerializeField]
-        protected int linkedEndQuestID;
-        public int LinkedEndQuestID { get {return linkedEndQuestID; }}  // 마지막으로 링크된 퀘스트 ID
+        protected int linkedClearQuestID;
+        public int LinkedClearQuestID { get {return linkedClearQuestID; }}  // 마지막으로 링크된 퀘스트 ID
 
         [Tooltip("퀘스트 상태")]
         [SerializeField]
