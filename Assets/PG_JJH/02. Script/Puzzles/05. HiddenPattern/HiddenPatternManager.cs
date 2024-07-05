@@ -21,11 +21,26 @@ namespace JJH
         [Tooltip("자신의 콜라이더 --> 나가면 랜턴 원 위치 복귀 한다.")]
         [SerializeField] private new Collider collider;
 
-        
-        
-        
+        private void Start()
+        {
+            
+        }
 
 
+
+
+        // 등대 밖으로 랜턴이 나갔을 시 원위치 복귀
+        private void OnTriggerExit(Collider other)
+        {
+            if(other.gameObject.CompareTag("FlashLight"))
+            {
+                flashLight.FlashLightReturn(); // 랜턴 원 위치 
+            }
+        }
+
+        
+
+        
 
     }
 
