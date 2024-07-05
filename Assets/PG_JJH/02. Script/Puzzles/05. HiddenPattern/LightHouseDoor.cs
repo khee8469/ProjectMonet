@@ -37,6 +37,7 @@ namespace JJH
 
         public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
         {
+            
         }
     }
 
