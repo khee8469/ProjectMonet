@@ -26,16 +26,13 @@ namespace Jc
         public List<int> QuestIDList { get { return questIDList; } }
 
         [SerializeField]
-        protected List<int> normalNarrationIDs = new List<int>();
-        public List<int> NormalNarrationIDs = new List<int>();
+        protected List<int> basicNarrations = new List<int>();       // 기본 나레이션 ID
+        public List<int> BasicNarrations {get { return basicNarrations; } }
 
         [SerializeField]
         private TextMeshProUGUI dialogText;     // 다이얼로그 텍스트
         [SerializeField]
         private Animator floatingAnim;      // 다이얼로그 텍스트 플로팅 애니메이터
-
-        [SerializeField]
-        private string basicDialog = "NULL";
 
         [Space(5)]
         [Header("밸런싱")]
@@ -48,7 +45,12 @@ namespace Jc
         private Quest currentQuest;
 
         [SerializeField]
-        private int curDialogIndex = 0;     // 대화 진행 인덱스
+        private int basicNarrationIndex = 0;     // 기본 나레이션 인덱스
+
+        [SerializeField]
+        private int curQuestDialogIndex = 0;     // 퀘스트 대화 진행 인덱스
+        [SerializeField]
+        private int curBasicDialogIndex = 0;     // 기본 대화 진행 인덱스 
 
         private void Start()
         {
@@ -71,7 +73,22 @@ namespace Jc
 
             // 데이터에 따른 퀘스트 할당
             questIDList = npcData.questIDList;
-            normalNarrationIDs = Manager.Data.NarrationBundleDic[npcData.narrationBundleID];
+
+            //if(npcData.narrationBundleID != null && )
+            // 기본 나레이션 리스트 할당
+            basicNarrations = npcData.narrationBundleID;
+        }
+
+        // 퍼즐/퀘스트를 통한 기본 나레이션 변경
+        public void NextBasicNarration()
+        {
+            basicNarrationIndex++;
+            //if(normalNarrationBundleIDs.Count < basicNarrationIndex)
+            //{
+            //    Debug.Log($"NPC({id})의 {basicNarrationIndex}번째 나레이션은 할당되지 않았습니다.");
+            //    basicNarrationIndex--;
+            //    return;
+            //}
         }
 
         // 상호작용 시 
@@ -91,7 +108,8 @@ namespace Jc
             dialogText.enabled = false;
 
             // 다이얼로그 인덱스 수정
-            curDialogIndex = 0;
+            curQuestDialogIndex = 0;
+            curBasicDialogIndex = 0;
         }
 
         // 활성화되어있는 퀘스트 반환
@@ -113,10 +131,15 @@ namespace Jc
         {
             dialogText.enabled = true;
 
-            // 현재 할당중인 퀘스트가 없는 경우
-            if (currentQuest == null)
+            // 현재 할당된 퀘스트가 없는 경우
+            if(currentQuest == null)
             {
-                dialogText.text = basicDialog;
+                // 기본대사 번들 할당
+                //if (basicNarrationIndex >= Manager.Data.Narr)
+
+                    // 플로팅 애니메이션
+                    floatingAnim.SetTrigger(Manager.Param.OnFloating);
+                //dialogText.text = basicDialog;
                 return;
             }
 
@@ -127,7 +150,7 @@ namespace Jc
                 // 퀘스트 수주
                 case QuestState.Active:
                     // 대화 종료 체크
-                    if (curDialogIndex >= currentQuest.receiveNarrations.Count)
+                    if (curQuestDialogIndex >= currentQuest.receiveNarrations.Count)
                     {
                         dialogText.enabled = false;
                         // 최초 등록 (수주 시에만 최초로 등록)
@@ -140,7 +163,7 @@ namespace Jc
                     // 플로팅 애니메이션
                     floatingAnim.SetTrigger(Manager.Param.OnFloating);
                     // 대화 진행
-                    dialogText.text = currentQuest.receiveNarrations[curDialogIndex++].text;
+                    dialogText.text = currentQuest.receiveNarrations[curQuestDialogIndex++].text;
                     break;
                 // 퀘스트 진행중
                 case QuestState.Proceed:
@@ -151,7 +174,7 @@ namespace Jc
                 // 퀘스트 완료
                 case QuestState.Clear:
                     // 대화 종료 체크
-                    if (curDialogIndex >= currentQuest.clearNarrations.Count)
+                    if (curQuestDialogIndex >= currentQuest.clearNarrations.Count)
                     {
                         dialogText.enabled = false;
                         // 퀘스트 완료 상태로 변경
@@ -163,20 +186,11 @@ namespace Jc
                     // 대화 진행
                     // 플로팅 애니메이션
                     floatingAnim.SetTrigger(Manager.Param.OnFloating);
-                    dialogText.text = currentQuest.clearNarrations[curDialogIndex++].text;
+                    dialogText.text = currentQuest.clearNarrations[curQuestDialogIndex++].text;
                     break;
                 default:
-                    // 플로팅 애니메이션
-                    floatingAnim.SetTrigger(Manager.Param.OnFloating);
-                    dialogText.text = basicDialog;
                     break;
             }
-
-            dialogText.enabled = true;
-
-            // 플레이어 방향으로 전환
-            Vector3 dir = (questController.transform.position - transform.position).normalized;
-            transform.forward = dir;
         }
     }
 }

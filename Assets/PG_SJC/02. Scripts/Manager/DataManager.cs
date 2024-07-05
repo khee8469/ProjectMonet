@@ -153,10 +153,15 @@ namespace Jc
                 NPCData data = new NPCData();
                 data.id = id;
                 data.npcName = (string)csvData[i]["name"];
+                data.narrationBundleID = new List<int>();
                 data.questIDList = new List<int>();
 
-                if (csvData[i][$"id_talk_1"] is int)
-                    data.narrationBundleID = (int)csvData[i][$"id_talk_1"] - DataID.NARRATION_BUNDLE;
+                for(int j =1; j<=3; j++)
+                {
+                    if (csvData[i][$"id_talk_{j}"] is not int)
+                        break;
+                    data.narrationBundleID.Add((int)csvData[i][$"id_talk_{j}"] - DataID.NARRATION_BUNDLE);
+                }
 
                 for (int j = 1; j <= 5; j++)
                 {

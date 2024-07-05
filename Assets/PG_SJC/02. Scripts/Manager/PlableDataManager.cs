@@ -132,5 +132,13 @@ namespace Jc
             File.WriteAllText(SystemPath.GetPath(DataPath.StageData), jsonData);
         }
 
+        public void LoadPuzzleData()
+        {
+
+        }
+        public void SavePuzzleData()
+        {
+
+        }
     }
 }
