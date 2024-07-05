@@ -5,6 +5,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class Miniature : InteractObject, IPuzzleable
 {
+    [Tooltip("퍼즐 확인용")]
     [SerializeField]
     PuzzleManager puzzleManager;
     public int puzzleIndex;
@@ -12,6 +13,7 @@ public class Miniature : InteractObject, IPuzzleable
     [Tooltip("저장용 Id")]
     [SerializeField] int id;
     public int Id { get { return id; } }
+
 
     // 시작위치 저장용
     Vector3 startPosition;
@@ -58,7 +60,7 @@ public class Miniature : InteractObject, IPuzzleable
     //미니어처 위치 지정
     public void GroundCheck()
     {
-        var positionData = Manager.PlableData.PositionData.SavePosition;
+        var positionData = Manager.PlableData.SavePosition;
         //부모보다 높은 위치에 배치해 레이케스트 쏴서 확인
         transform.localPosition = new Vector3(transform.localPosition.x, transform.parent.position.y + 10, transform.localPosition.z);
  
@@ -87,7 +89,7 @@ public class Miniature : InteractObject, IPuzzleable
         {
             transform.parent = miniatureManager.transform;
             //부모크기에 따라 위치 보정 저장
-            Manager.PlableData.MiniaturePositionSave(this, Manager.PlableData.PositionData.SavePosition);
+            Manager.PlableData.MiniaturePositionSave(this, Manager.PlableData.SavePosition);
         }
         //소켓에 올려놓으면
         else
@@ -96,7 +98,7 @@ public class Miniature : InteractObject, IPuzzleable
             transform.parent = miniatureManager.transform;
 
             //부모크기에 따라 위치 보정 저장
-            Manager.PlableData.MiniaturePositionSave(this, Manager.PlableData.PositionData.SavePosition);
+            Manager.PlableData.MiniaturePositionSave(this, Manager.PlableData.SavePosition);
         }
     }
 

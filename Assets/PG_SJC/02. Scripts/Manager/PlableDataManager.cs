@@ -29,16 +29,15 @@ namespace Jc
 
         public Dictionary<int, bool> paintDataList;
 
-        //미니어처 위치 구조체화 데이터 저장용
-        private List<MiniatureData> miniatureDatas;
-        public List<MiniatureData> MiniatureDatas { get { return miniatureDatas; } }
-        //미니어처 위치 데이터 저장 딕셔너리, Resources에서 가져오거나 참조 지정
-        [SerializeField]
-        private PositionData positionData;
-        public PositionData PositionData { get { return positionData; } }
-        // 미니어처매니저에서 초기로드데이터 확인용
-        private bool miniatureLoadData;
-        public bool MiniatureLoadData { get { return miniatureLoadData; } }
+
+        //각 씬의 딕셔너리를 리스트로 저장
+        private Dictionary<int, Vector3> savePosition = new Dictionary<int, Vector3>();
+        public Dictionary<int, Vector3> SavePosition { get { return savePosition; } }
+
+        //키는 스테이지, 값은 퍼즐 인덱스
+        private Dictionary<int, bool[]> puzzleSuccessCheck = new Dictionary<int, bool[]>();
+        public Dictionary<int, bool[]> PuzzleSuccessCheck { get { return puzzleSuccessCheck; } }
+
 
 
         private void OnEnable()
@@ -139,10 +138,12 @@ namespace Jc
             float ySave = miniature.transform.localPosition.y / miniature.transform.parent.localScale.y;
             float zSave = miniature.transform.localPosition.z / miniature.transform.parent.localScale.z;
 
+
             savePosition[miniature.Id] = new Vector3(xSave, ySave, zSave);
+
         }
 
-        public void MiniatureQuestSet()
+        public void MiniatureQuestSave(int sceneNumber, int a)
         {
 
         }

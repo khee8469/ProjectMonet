@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PositionData : MonoBehaviour
 {
-    //각 씬의 딕셔너리를 리스트로 저장
+   /* //각 씬의 딕셔너리를 리스트로 저장
     private Dictionary<int, Vector3> savePosition = new Dictionary<int, Vector3>();
     public Dictionary<int, Vector3> SavePosition { get { return savePosition; } }
 
@@ -16,7 +16,7 @@ public class PositionData : MonoBehaviour
     private Dictionary<int, bool[]> puzzleSuccessCheck = new Dictionary<int, bool[]>();
     public Dictionary<int, bool[]> PuzzleSuccessCheck {  get { return puzzleSuccessCheck; } }
 
-
+*/
 
 
     /*//각 씬의 딕셔너리를 리스트로 저장

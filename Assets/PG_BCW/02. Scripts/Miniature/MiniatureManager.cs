@@ -6,6 +6,8 @@ public enum MiniatureNum { First, Second, Third, Fourth, }
 public class MiniatureManager : MonoBehaviour
 {
     [Header("MiniatureManager")]
+    [SerializeField] int sceneNumber;
+    public int SceneNumber { get { return sceneNumber; } }
 
     [Tooltip("미니어처 리스트")]
     [SerializeField] List<Miniature> miniatures;
@@ -29,7 +31,7 @@ public class MiniatureManager : MonoBehaviour
             //미니어처 위치 저장
             foreach (var miniature in miniatures)
             {
-                Manager.PlableData.PositionData.SavePosition[miniature.Id] = miniature.transform.localPosition;
+                Manager.PlableData.SavePosition[miniature.Id] = miniature.transform.localPosition;
                 
                 miniatureQuest[miniature.Id] = false;
             }
@@ -44,7 +46,7 @@ public class MiniatureManager : MonoBehaviour
     //씬 로드시 미니어처들 위치 지정
     private void SetMiniPosition()
     {
-        var positionData = Manager.PlableData.PositionData.SavePosition;
+        var positionData = Manager.PlableData.SavePosition;
 
         foreach (Miniature miniature in miniatures)
         {
