@@ -16,10 +16,6 @@ namespace JJH
 
         [Tooltip("실제 기어의 ID")]
         [SerializeField] private int gearID;
-        
-        [Header("퍼즐 매니저 에디터 세팅")]
-        [SerializeField]
-        private PuzzleManager puzzle;
 
         [Tooltip("기어가 회전 할 방향을 정해 줄 int 값")]
         [SerializeField]
@@ -27,16 +23,34 @@ namespace JJH
 
         private void Start()
         {
-            if(gearID == -1) // 장식용 기어들한테 넣어줄 예정 
+            if (gearID == -1) // 장식용 기어들한테 넣어줄 예정 
             {
                 interactionLayers = 0; // 움직여서는 안되는 오브젝트라면 nothing으로 설정 < 0 > 
             }
-
-            Physics.SyncTransforms();
-
         }
 
-        // 완료 시 톱니바퀴의 회전 시작.
+        protected override void OnSelectEntering(SelectEnterEventArgs args)
+        {
+            base.OnSelectEntering(args);
+        }
+
+        protected override void OnSelectExiting(SelectExitEventArgs args)
+        {
+            base.OnSelectExiting(args);
+        }
+        protected override void OnSelectEntered(SelectEnterEventArgs args) // 재상속을 이미 했는데 도대체 왜 스케일이 변하냐?
+        {
+            Debug.Log($"Object Position: {transform.position}");
+            Debug.Log($"Object Scale: {transform.localScale}");
+            base.OnSelectEntered(args);
+        }
+        protected override void OnSelectExited(SelectExitEventArgs args)
+        {
+            base.OnSelectExited(args);
+        }
+
+
+        // 완료 시 톱니바퀴의 회전 시작. --> 얘네는 어차피 지금 참조 없어. 뭐지 뭐가 문제냐??? 실행을 안하는데
         public void StartRotate()
         {
             Debug.Log("코루틴 호출 됨");
@@ -45,11 +59,11 @@ namespace JJH
 
         private IEnumerator RotationRoutine(float Direction)
         {
-            while(true)
+            while (true)
             {
                 transform.Rotate(0, Direction * Time.deltaTime, 0);
 
-                yield return null;  
+                yield return null;
             }
 
         }
