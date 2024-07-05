@@ -21,39 +21,38 @@ namespace JJH
         [SerializeField]
         private PuzzleManager puzzle;
 
+        [Tooltip("기어가 회전 할 방향을 정해 줄 int 값")]
+        [SerializeField]
+        private float rotationDirection = 60f;
 
-
-
-
-        protected override void OnSelectEntered(SelectEnterEventArgs args)
+        private void Start()
         {
-            base.OnSelectEntered(args);
+            if(gearID == -1) // 장식용 기어들한테 넣어줄 예정 
+            {
+                interactionLayers = 0; // 움직여서는 안되는 오브젝트라면 nothing으로 설정 < 0 > 
+            }
+
+            Physics.SyncTransforms();
+
         }
 
-        protected override void OnSelectExited(SelectExitEventArgs args)
-        {
-            base.OnSelectExited(args);
-        }
-
-
+        // 완료 시 톱니바퀴의 회전 시작.
         public void StartRotate()
         {
-            StartCoroutine(RotationRoutine());
+            Debug.Log("코루틴 호출 됨");
+            StartCoroutine(RotationRoutine(rotationDirection));
         }
 
-        private IEnumerator RotationRoutine()
+        private IEnumerator RotationRoutine(float Direction)
         {
             while(true)
             {
+                transform.Rotate(0, Direction * Time.deltaTime, 0);
 
                 yield return null;  
             }
 
         }
-
-
-
-
 
 
     }

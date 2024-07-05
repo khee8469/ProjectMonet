@@ -232,7 +232,7 @@ namespace JJH
             StartCoroutine(RestoreItemRoutine());
         }
 
-        private GameObject InstantiateItem(InvenItem itemData)
+        public GameObject InstantiateItem(InvenItem itemData)
         {
             GameObject itemPrefab = Resources.Load<GameObject>($"{itemData.itemID}"); // 이름 맞추기
             if (itemPrefab != null)

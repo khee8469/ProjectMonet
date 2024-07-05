@@ -12,17 +12,19 @@ namespace JJH
 
         [Header("퍼즐 매니저 에디터 세팅")]
         [SerializeField]
-        private PuzzleManager puzzle;
+        private GearManager gearPuzzle;
 
         [Tooltip("퍼즐과 매칭 시킬 인덱스")]
-        private int puzzleIndex;
+        [SerializeField] private int puzzleIndex;
 
         [Tooltip("해당 소켓에 들어가야 할 기어 오브젝트")]
         // 이거 오브젝트가 이전 퍼즐에서 생성되는 오브젝트 이기 때문에 
         // 이런 식으로 미리 넣어 둘 수가 없기 때문에
         // 프리팹의 ID와 맞춰둬야 할 것 같다.
         // TARGET 으로 프리팹으로 빼둔 Gear를 넣어두고 그 ID와 매칭 시키자.
-        private GearObject targetGear;
+        [SerializeField] private GearObject targetGear; // 이거도 프리팹으로 둬야함!!
+
+        public GearObject TargetGear { get { return targetGear; } }
 
         [Tooltip("자신의 소켓 충돌 판정콜라이더")]
         [SerializeField] private Collider socketCollider;
@@ -30,13 +32,7 @@ namespace JJH
         protected override void Awake()
         {
             base.Awake();
-            RegistObject(puzzle);
-            Debug.Log(puzzle.puzzleObjects.Count);
-        }
-        protected override void OnSelectEntering(SelectEnterEventArgs args)
-        {
-            Debug.Log("기어 셀렉팅");
-            base.OnSelectEntering(args);
+            RegistObject(gearPuzzle);
         }
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -48,32 +44,30 @@ namespace JJH
             // 기어 라면 일단 들어는 가야한다.
             if (obj == null) return; // 기어가 아니면 리턴 시킨다. 
 
-            // 해당 톱니바퀴가 타겟과 일치한다면 퍼즐 상태를 Update 
+            Debug.Log("셀렉트엔터드");
 
+            // 해당 톱니바퀴가 타겟과 일치한다면 퍼즐 상태를 Update 
             // 프리팹으로 설정해둔 itemID 와 실제 기어의 ItemID 가 일치해야 UPDATE 가능. 
             // 또는 진짜 GearID 설정해 둘거니까 그거로 체크해도 상관 x 
-            if(obj.itemData.itemID == targetGear.itemData.itemID)
+            gearPuzzle.realGears.Add(obj);
+            if (obj.itemData.itemID == targetGear.itemData.itemID)
             {
-                puzzle.UpdateCondition(puzzleIndex);
+                gearPuzzle.UpdateCondition(puzzleIndex);
             }
         }
-
 
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
 
             GearObject obj = args.interactableObject as GearObject;
-            
-            if(obj.itemData.itemID == targetGear.itemData.itemID) // 만약 소켓에서 제외할 때 정답 기어 였다면
+            gearPuzzle.realGears.Remove(obj);
+            if (obj.itemData.itemID == targetGear.itemData.itemID) // 만약 소켓에서 제외할 때 정답 기어 였다면
             {
                 // False로 바꿔줘야함.
-                puzzle.UpdateCondition(puzzleIndex);
+                gearPuzzle.UpdateCondition(puzzleIndex, false);
             }
-
         }
-
-
 
         // 활성화 상태면 콜라이더 켜주기.
         public void ActiveSetting()
@@ -84,19 +78,22 @@ namespace JJH
         // 각각의 소켓에 대해서 gearIDiTEM을 생성해놓는다. 
         public void CompleteSetting()
         {
-            puzzle.UpdateCondition(puzzleIndex);
-
-            // 기어를 자신의 소켓 위치에 instantiate 해주고 
-            // attach 해주고 회전까지 시켜주기. 
-
-
+            gearPuzzle.UpdateCondition(puzzleIndex);            
+            gearPuzzle.OnClearPuzzle();
+            //SetParent();
         }
+
+        public void SetParent() // manager와 socket이 어차피 off된 같은 오브젝트를 참조중임. -->자식으로 만들고 위치 조정 
+        {
+            this.interactionManager.SelectEnter(this as IXRSelectInteractor, targetGear as IXRSelectInteractable);
+            targetGear.gameObject.transform.SetParent(this.gameObject.transform, true);
+        }
+
 
         // 퍼즐 비활성화 상태 적용 --> 콜라이더 꺼주기. 
         public void DisActiveSetting()
         {
             socketCollider.enabled = false;
-
         }
 
         // 퍼즐 등록 
@@ -111,6 +108,15 @@ namespace JJH
         {
             puzzle.UpdateCondition(index); // 이거는 그냥 만들어만 두고 부르는 곳이 없는듯?
         }
+
+        private void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                CompleteSetting();
+            }
+        }
+
     }
 }
 
