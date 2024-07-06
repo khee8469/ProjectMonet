@@ -1,3 +1,4 @@
+using JJH;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -40,39 +41,40 @@ namespace Jc
         [Header("퍼즐 클리어 액션")]
         public UnityEvent OnClear;
 
-        [Header("연계 퀘스트 ID")]
-        public int linkedQuestID = -1;
+        [Header("활성화 퀘스트 ID")]
+        public int activeQuestID = -1;
+
+        [Header("클리어 퀘스트 ID")]
+        public int clearQuestID = -1;
 
         [Space(5)]
         [Header("밸런싱")]
         [SerializeField]
         private bool isClear = false;
 
-        private Quest linkedQuest;
-
         private void OnEnable()
         {
-            if (linkedQuestID != -1)
-                linkedQuestID -= DataID.QUEST;  // 퀘스트 ID 매핑
+            // 로드된 퍼즐 상태를 기반으로 퍼즐 최초세팅 진행
+            InitPuzzleSetting();
 
-            if (!Manager.Quest.QuestDic.ContainsKey(linkedQuestID))
+            if (activeQuestID != -1)
+                activeQuestID -= DataID.QUEST;  // 퀘스트 ID 매핑
+
+            if (!Manager.Quest.QuestDic.ContainsKey(activeQuestID))
             {
-                Debug.Log($"(Puzzle : {this} / QuestID : {linkedQuestID}) : 할당된 퀘스트가 없습니다.");
+                Debug.Log($"(Puzzle : {this} / QuestID : {activeQuestID}) : 할당된 퀘스트가 없습니다.");
                 return;
             }
 
-            linkedQuest = Manager.Quest.QuestDic[linkedQuestID];
+            Quest activeQuest = Manager.Quest.QuestDic[activeQuestID];
 
             // 이미 완료된 퀘스트가 아닐경우 콜백 등록
-            if (linkedQuest.State != QuestState.Complete)
-                linkedQuest.OnChangeState += PuzzleSetting;
-
-            // 로드된 퍼즐 상태를 기반으로 퍼즐 최초세팅 진행
-            InitPuzzleSetting(linkedQuest.State);
+            if (activeQuest.State != QuestState.Complete)
+                activeQuest.OnChangeState += PuzzleSetting;
         }
 
         // 로드된 데이터를 기반으로 퍼즐 최초세팅
-        private void InitPuzzleSetting(QuestState state)
+        private void InitPuzzleSetting()
         {
             // 속한 퍼즐 오브젝트가 존재하지 않는다면 리턴
             if (puzzleObjects == null || puzzleObjects.Count < 1)
@@ -194,11 +196,16 @@ namespace Jc
 
             State = PuzzleState.Clear;
 
+            if (clearQuestID == -1) return;
+            Quest clearQuest = Manager.Quest.QuestDic[clearQuestID];
+
             // 퀘스트 예외처리 (이미 수락대기인 퀘스트 or 완료한 퀘스트)
-            if (linkedQuest != null &&
-                linkedQuest.State != QuestState.Clear &&
-                linkedQuest.State != QuestState.Complete)
-                linkedQuest.ChangeState(QuestState.Clear);
+            if (clearQuest == null) 
+                return;
+            if (clearQuest.State == QuestState.Clear || clearQuest.State == QuestState.Complete)
+                return;
+
+            clearQuest.ChangeState(QuestState.Clear);
         }
     }
 }
