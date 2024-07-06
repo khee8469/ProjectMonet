@@ -23,18 +23,25 @@ public class MiniatureManager : MonoBehaviour
     private void Awake()
     {
         //미니어처 리스트
-        miniatures = GetComponentsInChildren<Miniature>().ToList();
+        if(miniatures ==null)
+            miniatures = GetComponentsInChildren<Miniature>().ToList();
 
         if(miniatures.Count == 0)
         {
             Debug.Log($"시작");
             //미니어처 위치 저장
-            foreach (var miniature in miniatures)
+            for(int i = 0; i < miniatures.Count; i++)
+            {
+                Manager.PlableData.SavePosition[miniatures[i].Id] = miniatures[i].transform.localPosition;
+
+                miniatureQuest[miniatures[i].Id] = false;
+            }
+            /*foreach (var miniature in miniatures)
             {
                 Manager.PlableData.SavePosition[miniature.Id] = miniature.transform.localPosition;
                 
                 miniatureQuest[miniature.Id] = false;
-            }
+            }*/
         }     
     }
 
@@ -48,7 +55,55 @@ public class MiniatureManager : MonoBehaviour
     {
         var positionData = Manager.PlableData.SavePosition;
 
-        foreach (Miniature miniature in miniatures)
+        for(int i= 0; i< miniatures.Count;i++)
+        {
+            //데이터가 잇으면 미니어처 위치 세팅
+            if (positionData.ContainsKey(miniatures[i].Id))
+            {
+                //부모크기에 따라 위치 보정 로드
+                float xLoad = miniatures[i].transform.parent.localScale.x * positionData[miniatures[i].Id].x;
+                float yLoad = miniatures[i].transform.parent.localScale.y * positionData[miniatures[i].Id].y;
+                float zLoad = miniatures[i].transform.parent.localScale.z * positionData[miniatures[i].Id].z;
+
+                miniatures[i].transform.localPosition = new Vector3(xLoad, 10, zLoad);
+
+                RaycastHit hit;
+                if (Physics.Raycast(miniatures[i].transform.position, Vector3.down, out hit, 1000, miniatureMapLayer))
+                {
+                    // 히트 포인트를 로컬 좌표로 변환
+                    Vector3 localHitPoint = miniatures[i].transform.parent.InverseTransformPoint(hit.point);
+                    // 로컬 좌표로 변환된 값으로 설정
+                    miniatures[i].transform.localPosition = localHitPoint;
+
+                    //부모크기에 따라 위치 보정 저장
+                    Manager.PlableData.MiniaturePositionSave(miniatures[i], positionData);
+                }
+                else
+                {
+                    miniatures[i].transform.localPosition = positionData[miniatures[i].Id];
+
+                    //부모크기에 따라 위치 보정 저장
+                    Manager.PlableData.MiniaturePositionSave(miniatures[i], positionData);
+                }
+            }
+            //데이터가 없으면 미니어처 위치 딕셔너리 저장
+            else
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(miniatures[i].transform.position, Vector3.down, out hit, 1000, miniatureMapLayer))
+                {
+                    // 히트 포인트를 로컬 좌표로 변환
+                    Vector3 localHitPoint = miniatures[i].transform.parent.InverseTransformPoint(hit.point);
+                    // 로컬 좌표로 변환된 값으로 설정
+                    miniatures[i].transform.localPosition = localHitPoint;
+
+                    //부모크기에 따라 위치 보정 저장
+                    Manager.PlableData.MiniaturePositionSave(miniatures[i], positionData);
+                }
+            }
+        }
+
+        /*foreach (Miniature miniature in miniatures)
         {
             //데이터가 잇으면 미니어처 위치 세팅
             if (positionData.ContainsKey(miniature.Id))
@@ -94,6 +149,6 @@ public class MiniatureManager : MonoBehaviour
                     Manager.PlableData.MiniaturePositionSave(miniature, positionData);
                 }
             }
-        }
+        }*/
     }
 }

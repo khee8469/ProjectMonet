@@ -12,15 +12,17 @@ public class WindMill : InteractObject, IPuzzleable
     float rotationSpeed;
     [Tooltip("퍼즐 번호")]
     [SerializeField]
-    int puzzlleIndex;
-
+    int puzzleIndex;
+    [Tooltip("회전속도 체크용")]
+    [SerializeField]
     Rigidbody rb;
+    //어느 방향으로 돌아갓는지
+    private bool leftRotation;
 
     //미션 클리어 체크
     private bool isSucess;
     public bool IsSucess { get { return isSucess; } }
-    //어느 방향으로 돌아갓는지
-    private bool leftRotation;
+    
 
 
     protected override void Awake()
@@ -28,17 +30,17 @@ public class WindMill : InteractObject, IPuzzleable
         base.Awake();
 
         //퍼즐매니저에 등록
-        puzzleManager = GetComponentInParent<PuzzleManager>();
         RegistObject(puzzleManager);
     }
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        if(puzzleManager == null)
+            Debug.LogError("puzzleManager 컴포넌트가 이 오브젝트에 없습니다!");
+        if(rotationSpeed ==0)
+            Debug.LogError("rotationSpeed 가 0 입니다.!");
         if (rb == null)
-        {
             Debug.LogError("Rigidbody 컴포넌트가 이 오브젝트에 없습니다!");
-        }
     }
 
     private void Update()
@@ -46,13 +48,15 @@ public class WindMill : InteractObject, IPuzzleable
         //회전속도가 일정속도가 되면
         if(Mathf.Abs(rb.angularVelocity.z) > rotationSpeed && !IsSucess)
         {
+            Debug.Log($"{puzzleIndex}조건 클리어");
             //더이상 조작 못하게
             DisActiveSetting();
-            //조건 완료여부 확인 및 클리어
-            puzzleManager.UpdateCondition();
+
+            //조건 및 클리어 확인
+            UpdatePuzzleManager(puzzleManager, puzzleIndex);
 
             //어느방향으로 회전중인지
-            if(rb.angularVelocity.z >= 0)
+            if (rb.angularVelocity.z >= 0)
             {
                 leftRotation = true; 
             }
@@ -69,11 +73,11 @@ public class WindMill : InteractObject, IPuzzleable
         {
             if (leftRotation)
             {
-                transform.Rotate(Vector3.forward, -20 * Time.deltaTime);
+                transform.Rotate(Vector3.forward, -rotationSpeed * Time.deltaTime);
             }
             else
             {
-                transform.Rotate(Vector3.forward, 20 * Time.deltaTime);
+                transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
             }
         }
     }
@@ -81,9 +85,9 @@ public class WindMill : InteractObject, IPuzzleable
     //활성화 상태에서
     public void ActiveSetting()
     {
-        foreach (Collider collider in colliders)
+        for (int i = 0; i < colliders.Count; i++)
         {
-            collider.enabled = true;
+            colliders[i].enabled = true;
         }
 
         isSucess = false;
@@ -95,32 +99,30 @@ public class WindMill : InteractObject, IPuzzleable
         //완료후 잡지못하게 레이어 설정
         interactionLayers = 0;
         //더이상 손과 충돌하지않게 충돌체 끄기
-        foreach(Collider collider in colliders)
+        for(int i = 0; i < colliders.Count; i++) 
         {
-            collider.enabled = false;
+            colliders[i].enabled = false;
         }
     }
 
-    //퍼즐 성공
-    public void CompleteSetting()
-    {
-        //풍차 미션 클리어 저장
-    }
 
-    //UpdatePuzzleManager에서 불러오는
+    //퍼즐클리어 조건중 하나 성공으로 변경
     public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
     {
-        
+        puzzle.UpdateCondition(index); //아니면 정재훈잘못
     }
-
-
-
-
 
 
     //퍼즐 매니저에 등록시
     public void RegistObject(PuzzleManager puzzle)
     {
         puzzle.puzzleObjects.Add(this);
+    }
+
+    //퍼즐 성공
+    public void CompleteSetting()
+    {
+        Debug.Log(111);
+        //풍차 미션 클리어 저장
     }
 }
