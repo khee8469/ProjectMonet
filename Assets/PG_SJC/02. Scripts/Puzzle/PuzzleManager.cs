@@ -67,50 +67,53 @@ namespace Jc
             if (linkedQuest.State != QuestState.Complete)
                 linkedQuest.OnChangeState += PuzzleSetting;
 
-            // 최초 퀘스트 상태에 따른 퍼즐 상태를 설정
+            // 로드된 퍼즐 상태를 기반으로 퍼즐 최초세팅 진행
             InitPuzzleSetting(linkedQuest.State);
         }
-        // 퀘스트의 초기 상태에 따른 처리
-        // 현재 객체에서 진행
+
+        // 로드된 데이터를 기반으로 퍼즐 최초세팅
         private void InitPuzzleSetting(QuestState state)
         {
+            // 속한 퍼즐 오브젝트가 존재하지 않는다면 리턴
             if (puzzleObjects == null || puzzleObjects.Count < 1)
-                return;
-
-            switch (state)
             {
-                case QuestState.Active:
-                case QuestState.DisActive:
-                    // 로딩된 퍼즐 데이터가 없을 경우
-                    if (!LoadPuzzleData())
-                    {
-                        // 퍼즐 비활성화
-                        foreach (IPuzzleable ob in puzzleObjects)
-                            ob.DisActiveSetting();    // 모든 퍼즐 오브젝트 비활성화
+                Debug.Log($"{puzzleID} 퍼즐 매니저에 속한 퍼즐 오브젝트가 존재하지 않습니다.");
+                return;
+            }
 
-                        this.state = PuzzleState.DisActive;
-                    }
-                    break;
-                case QuestState.Proceed:
-                    // 로딩된 퍼즐 데이터가 없을 경우
-                    if (!LoadPuzzleData())
-                    {
-                        // 퍼즐 활성화
-                        foreach (IPuzzleable ob in puzzleObjects)
-                            ob.ActiveSetting();    // 모든 퍼즐 오브젝트 활성화
+            if(!Manager.PlableData.puzzleDataDic.ContainsKey(puzzleID))
+            {
+                Debug.Log($"{puzzleID} 퍼즐의 로드된 데이터가 존재하지 않습니다.");
 
-                        this.state = PuzzleState.DisActive;
-                    }
-                    break;
-                case QuestState.Clear:      // 수락 대기 상태
-                case QuestState.Complete:   // 이미 완료된 상태
-                    // 퍼즐 완료
+                // 로드된 정보가 없을 경우 기본 세팅으로 할당
+                foreach (IPuzzleable ob in puzzleObjects)
+                    ob.DisActiveSetting();
+
+                this.state = PuzzleState.DisActive;
+                return;
+            }
+
+            // 로드된 데이터는 프로퍼티를 사용하여 다시 저장하지 않음.
+            // State -> this.state
+            switch(Manager.PlableData.puzzleDataDic[puzzleID])
+            {
+                case PuzzleState.DisActive:
                     foreach (IPuzzleable ob in puzzleObjects)
-                        ob.CompleteSetting();    // 모든 퍼즐 오브젝트 활성화
+                        ob.DisActiveSetting();
+                    
+                    this.state = PuzzleState.DisActive;
+                    break;
+                case PuzzleState.Proceed:
+                    foreach (IPuzzleable ob in puzzleObjects)
+                        ob.ActiveSetting();
+
+                    this.state = PuzzleState.Proceed;
+                    break;
+                case PuzzleState.Clear:
+                    foreach (IPuzzleable ob in puzzleObjects)
+                        ob.CompleteSetting();
 
                     this.state = PuzzleState.Clear;
-                    break;
-                default:
                     break;
             }
         }
@@ -141,44 +144,6 @@ namespace Jc
         }
 
         // 퍼즐 데이터 로드
-        private bool LoadPuzzleData()
-        {
-            if (puzzleID <= 0)
-            {
-                Debug.Log($"퍼즐에 ID 값이 할당되지 않았습니다 : {this}");
-                return false;
-            }
-
-            if (!Manager.PlableData.puzzleDataDic.ContainsKey(puzzleID))
-                return false;
-
-            switch (Manager.PlableData.puzzleDataDic[puzzleID])
-            {
-                case PuzzleState.DisActive:
-                    foreach (IPuzzleable ob in puzzleObjects)
-                        ob.DisActiveSetting();    // 모든 퍼즐 오브젝트 비활성화
-
-                    this.state = PuzzleState.DisActive;
-                    break;
-                case PuzzleState.Proceed:
-                    // 퍼즐 활성화
-                    foreach (IPuzzleable ob in puzzleObjects)
-                        ob.ActiveSetting();    // 모든 퍼즐 오브젝트 활성화
-
-                    this.state = PuzzleState.DisActive;
-                    break;
-                case PuzzleState.Clear:
-                    // 퍼즐 완료
-                    foreach (IPuzzleable ob in puzzleObjects)
-                        ob.CompleteSetting();    // 모든 퍼즐 오브젝트 완료
-
-                    this.state = PuzzleState.Clear;
-                    break;
-                default:
-                    break;
-            }
-            return true;
-        }
         // 퍼즐 데이터 세이브
         private void SavePuzzleData()
         {
