@@ -30,9 +30,9 @@ namespace Jc
         public List<int> BasicNarrations {get { return basicNarrations; } }
 
         [SerializeField]
-        private TextMeshProUGUI dialogText;     // 다이얼로그 텍스트
+        protected TextMeshProUGUI dialogText;     // 다이얼로그 텍스트
         [SerializeField]
-        private Animator floatingAnim;      // 다이얼로그 텍스트 플로팅 애니메이터
+        protected Animator floatingAnim;      // 다이얼로그 텍스트 플로팅 애니메이터
 
         [Space(5)]
         [Header("밸런싱")]
@@ -42,7 +42,7 @@ namespace Jc
         public bool IsInteracted { get { return isInteracted; } }
 
         [SerializeField]
-        private Quest currentQuest;
+        protected Quest currentQuest;
 
         [SerializeField]
         private int basicNarrationIndex = 0;     // 기본 나레이션 인덱스
@@ -52,7 +52,7 @@ namespace Jc
         [SerializeField]
         private int curBasicDialogIndex = 0;     // 기본 대화 진행 인덱스 
 
-        private void Start()
+        protected virtual void Start()
         {
             LoadData();
         }
@@ -99,18 +99,18 @@ namespace Jc
         }
 
         // 상호작용 시 
-        public virtual void OnInteract(PlayerQuestController questController)
+        public virtual bool OnInteract(PlayerQuestController questController)
         {
             // 최초 상호작용 처리
             // 현재 진행할 퀘스트 할당
-            if (GetQuest() != null)
-                currentQuest = GetQuest();
+            currentQuest = GetQuest();
+      
             // 진행할 퀘스트가 없다면 기본 대사, 특수 대사 출력
-
             UpdateDialog(questController);
+            return true;
         }
         // 상호작용 도중 이탈 시
-        public void OnExitInteract()
+        public virtual void OnExitInteract()
         {
             dialogText.enabled = false;
 
@@ -120,7 +120,7 @@ namespace Jc
         }
 
         // 활성화되어있는 퀘스트 반환
-        private Quest GetQuest()
+        protected Quest GetQuest()
         {
             foreach (int id in questIDList)
             {

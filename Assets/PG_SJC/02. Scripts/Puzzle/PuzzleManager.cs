@@ -122,7 +122,7 @@ namespace Jc
 
         // 퍼즐 세팅 (퀘스트 객체에서 호출)
         // 퀘스트의 상태 변화에 따른 퍼즐의 비활성화/활성화
-        public void PuzzleSetting(QuestState state)
+        public virtual void PuzzleSetting(QuestState state)
         {
             switch (state)
             {
@@ -143,6 +143,29 @@ namespace Jc
                 default:
                     break;
             }
+        }
+
+        public virtual void ChangeState(PuzzleState state)
+        {
+            if (this.state == state) 
+                return;
+
+            switch(state)
+            {
+                case PuzzleState.DisActive:
+                    foreach (IPuzzleable ob in puzzleObjects)
+                        ob.DisActiveSetting();
+                    break;
+                case PuzzleState.Proceed:
+                    foreach (IPuzzleable ob in puzzleObjects)
+                        ob.ActiveSetting();
+                    break;
+                case PuzzleState.Clear:
+                    foreach (IPuzzleable ob in puzzleObjects)
+                        ob.CompleteSetting();
+                    break;
+            }
+            State = state;
         }
 
         // 퍼즐 데이터 로드

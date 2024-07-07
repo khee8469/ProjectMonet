@@ -124,9 +124,10 @@ namespace Jc
 
                 questData.id = questID;
                 questData.questName = csvData[i]["quest_name"] as string;
-                questData.type = (QuestType)(int)csvData[i]["condition"];
+                questData.type = (QuestType)(int)csvData[i]["quest_class"];
                 questData.npcID = (int)csvData[i]["quest_acc"] - DataID.NPC;
                 questData.next_id = (int)csvData[i]["quest_next"] - DataID.QUEST;
+                questData.rewardItemID = (int)csvData[i]["reward"] - DataID.ITEM;
                 questData.receiveNarrationBundleID = (int)csvData[i]["narr_start"] - DataID.NARRATION_BUNDLE;
                 questData.clearNarrationBundleID = (int)csvData[i]["narr_fin"] - DataID.NARRATION_BUNDLE;
 

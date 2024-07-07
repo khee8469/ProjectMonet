@@ -97,8 +97,8 @@ namespace Jc
             //퀘스트 npc면
             if (nearNPC != null)
             {
-                nearNPC.OnInteract(questController);
-                OnEndInteract += nearNPC.OnExitInteract;  // 상호작용 해제 등록
+                if(nearNPC.OnInteract(questController))
+                    OnEndInteract += nearNPC.OnExitInteract;  // 상호작용 해제 등록
             }
 
         }

@@ -27,6 +27,9 @@ namespace Jc
         protected QuestState state;
         public QuestState State { get { return state; } set { state = value; } }
 
+        [Space(10)]
+        [Header("로딩 데이터")]
+        [Space(5)]
         [Tooltip("퀘스트 데이터")]
         [SerializeField]
         protected QuestData questData;
