@@ -354,6 +354,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67f4350dbc650da4fb3edbd0f01f81e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &755637126
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 755637128}
+  - component: {fileID: 755637127}
+  m_Layer: 0
+  m_Name: Gear_Puzzle_Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &755637127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755637126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7224126b845cd6c47bbd57be06e8ffa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rewardItemID: 0
+  puzzleIndex: 6
+  conditions: 00000000
+  OnClear:
+    m_PersistentCalls:
+      m_Calls: []
+  linkedQuestID: 1510006
+  isClear: 0
+  lightHouse: {fileID: 0}
+  buttonPanels:
+  - {fileID: 7800398413975710184}
+  - {fileID: 7800398413975710183}
+  - {fileID: 7800398413975710182}
+  - {fileID: 7800398413975710181}
+  GearObjects: []
+--- !u!4 &755637128
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755637126}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.056126993, y: 20.219234, z: -16.316753}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &963501076 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2406743677997046601, guid: 82c3eb4e1962c9a43a1b8ffb386c4a4d,
@@ -1151,6 +1210,41 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 99070294141488061, guid: 0f1f94284fa6c834a8e69e6a18a03262,
+        type: 3}
+      propertyPath: m_OnPress.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 99070294141488061, guid: 0f1f94284fa6c834a8e69e6a18a03262,
+        type: 3}
+      propertyPath: m_OnPress.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 99070294141488061, guid: 0f1f94284fa6c834a8e69e6a18a03262,
+        type: 3}
+      propertyPath: m_OnPress.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 99070294141488061, guid: 0f1f94284fa6c834a8e69e6a18a03262,
+        type: 3}
+      propertyPath: m_OnPress.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 99070294141488061, guid: 0f1f94284fa6c834a8e69e6a18a03262,
+        type: 3}
+      propertyPath: m_OnPress.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 99070294141488061, guid: 0f1f94284fa6c834a8e69e6a18a03262,
+        type: 3}
+      propertyPath: m_OnPress.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: JJH.LightPanelButton, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 99070294141488061, guid: 0f1f94284fa6c834a8e69e6a18a03262,
+        type: 3}
+      propertyPath: m_OnPress.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 2103649420750352438, guid: 0f1f94284fa6c834a8e69e6a18a03262,
         type: 3}
       propertyPath: m_Name
@@ -1208,6 +1302,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8707227373306053616, guid: 0f1f94284fa6c834a8e69e6a18a03262,
         type: 3}
+      propertyPath: linkedQuestID
+      value: 1510006
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707227373306053616, guid: 0f1f94284fa6c834a8e69e6a18a03262,
+        type: 3}
       propertyPath: nightDirectionalLight
       value: 
       objectReference: {fileID: 1537888461}
@@ -1237,6 +1336,54 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 0f1f94284fa6c834a8e69e6a18a03262, type: 3}
+--- !u!114 &7800398413975710181 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 99070294141488061, guid: 0f1f94284fa6c834a8e69e6a18a03262,
+    type: 3}
+  m_PrefabInstance: {fileID: 7800398413975710180}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce32e62894c9fc5489b420239c629dee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7800398413975710182 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1073664786122280417, guid: 0f1f94284fa6c834a8e69e6a18a03262,
+    type: 3}
+  m_PrefabInstance: {fileID: 7800398413975710180}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce32e62894c9fc5489b420239c629dee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7800398413975710183 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6705883716282060249, guid: 0f1f94284fa6c834a8e69e6a18a03262,
+    type: 3}
+  m_PrefabInstance: {fileID: 7800398413975710180}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce32e62894c9fc5489b420239c629dee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7800398413975710184 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8547373627390494671, guid: 0f1f94284fa6c834a8e69e6a18a03262,
+    type: 3}
+  m_PrefabInstance: {fileID: 7800398413975710180}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce32e62894c9fc5489b420239c629dee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8373489399656196581
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1335,3 +1482,4 @@ SceneRoots:
   - {fileID: 1016841486}
   - {fileID: 137550548}
   - {fileID: 7800398413975710180}
+  - {fileID: 755637128}

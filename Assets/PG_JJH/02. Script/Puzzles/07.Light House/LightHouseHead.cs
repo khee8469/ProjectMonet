@@ -26,7 +26,7 @@ namespace JJH
         [SerializeField] LayerMask layerMask;
 
         [Tooltip("보여 줄 빛 기둥")]
-        [SerializeField] private GameObject pillar_Of_Light;
+        [SerializeField] public GameObject pillar_Of_Light;
 
         [Tooltip("레이캐스트 발사 거리")]
         [SerializeField] private float distance = 4000f;
@@ -65,7 +65,7 @@ namespace JJH
                 // 다른 함수로 Pillar 를 Active 하는 부분을 CallBack 으로 불러서 (이전 퍼즐에서)
                 // 켜줘야 한다. Ray도 마찬가지고 
                 //RayOn();
-                PillarChange();
+                PillarChange(true);
             }
         }
         private void RayOn() //Ray 든 뭐 빛 기둥이던 어쨋든 이전 퍼즐을 깨야 발동이 가능하다. 
@@ -83,9 +83,9 @@ namespace JJH
             }
         }
 
-        private void PillarChange()
+        private void PillarChange(bool boolean)
         {
-            pillar_Of_Light.SetActive(true);
+            pillar_Of_Light.SetActive(boolean);
         }
 
 
@@ -109,6 +109,7 @@ namespace JJH
                 sunHole.OnClearPuzzle();
                 DeAactiveLight_Button();
                 ChangeRoutine();
+                sunHole.ItemAdd(sunHole.ID);
 
             }
         }
@@ -121,8 +122,6 @@ namespace JJH
 
         public void DeAactiveLight_Button() // 아 이거 인스펙터창에서 달았었나보다.. 
         {
-            
-
             for(int i=0;i<buttons.Length;i++)
             {
                 buttons[i].enabled = false; // 스크립트 꺼주기
@@ -132,7 +131,7 @@ namespace JJH
 
         private void ChangeRoutine()
         {
-            StartCoroutine(ChangeCoRoutine());
+            //StartCoroutine(ChangeCoRoutine());  --> 등대 빛 없애기 기능 
         }
 
         private IEnumerator ChangeCoRoutine() 
@@ -156,30 +155,46 @@ namespace JJH
             line.enabled = false; //완료되면 꺼주기. 
         }
 
+        #region 퍼즐 인터페이스 오버라이드 
         public void ActiveSetting()  // 진행 가능한 상태의 세팅 
         {
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                buttons[i].enabled = true; // 스크립트 켜주기
+            }
+
+            // 등대의 불은 나오고 있어야 함. 
+            PillarChange(true);
 
         }
 
-        public void CompleteSetting() // 완성되 있는 상태 세팅
+        public void CompleteSetting() // 완성되 있는 상태 세팅 ++ 스카이박스 변경 필요.
         {
+            DeAactiveLight_Button();
+            sunHole.OnClearPuzzle();
+            PillarChange(true);
+            //sunHole.ChangeSkyBox(sunHole.afternoonSkybox); // 낮 상태로 스카이박스 및 마테리얼을 빛 상태로 --> 온 클리어에 같이 있음. 
 
         }
 
-        public void DisActiveSetting()
+        public void DisActiveSetting()  // 진행 불가능 한 상태의 세팅 --> 퍼즐 진입 전 상태 
         {
+            DeAactiveLight_Button(); // 버튼 꺼두기 
+            PillarChange(false); // 불이 아직 들어오지 않음 
 
         }
 
-        public void RegistObject(PuzzleManager puzzle)
+        public void RegistObject(PuzzleManager puzzle)  // Awake 에서 발동. 
         {
-
+            // 퍼즐 매니저에 자신을 등록 
+            puzzle.puzzleObjects.Add(this); 
         }
 
         public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
         {
-
+            // 얘는 어차피 완료 조건이 하나 니까 그냥 OnClear 부르는 방식으로 진행 할 것. 
         }
+        #endregion
     }
 }
 

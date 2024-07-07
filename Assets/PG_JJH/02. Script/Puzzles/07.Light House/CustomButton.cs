@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Content.Interaction;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public enum  ButtonType
 {
@@ -30,7 +31,8 @@ public class CustomButton : XRPushButton
     public ButtonType ButtonType { get { return buttonType; } }
 
 
-
-
+    
 
 }
+
+
