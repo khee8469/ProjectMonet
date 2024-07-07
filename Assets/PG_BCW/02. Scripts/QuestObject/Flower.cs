@@ -17,14 +17,8 @@ public class Flower : MonoBehaviour, IPuzzleable
     [SerializeField]
     BoxCollider flowerCollider;
 
-
     //Lerp 보간용
     float leapPer = 0;
-
-    //미션 클리어 체크
-    private bool isSucess;
-    public bool IsSucess { get { return isSucess; } }
-
 
 
     private void Awake()
@@ -38,11 +32,26 @@ public class Flower : MonoBehaviour, IPuzzleable
             RegistObject(puzzleManager);
     }
 
+    private void OnEnable()
+    {
+        //스테이지3의 상태에 따라
+        if (!(Manager.PlableData.StageInfo[2] == -1))
+        {
+            CompleteSetting();
+        }
+        //퍼즐을 완료했으면
+        if (Manager.PlableData.PuzzleSuccessCheck[puzzleManager.PuzzleIndex])
+        {
+            flowerCollider.enabled = false;
+            StartCoroutine(FlowerLerp());
+        }
+    }
+
     //파티클과 충돌시 실행
     private void OnParticleCollision(GameObject gameObject)
     {
-        //한번충돌하면 충돌체를 삭제해 두번 실행되는걸 방지
-        Destroy(flowerCollider);
+        //콜라이더 비활성화해서 여러번 감지하는거 방지
+        flowerCollider.enabled = false;
         //꽃이 크는 코르틴
         StartCoroutine(FlowerLerp());
         //퍼즐 클리어 정보 전달
@@ -72,15 +81,13 @@ public class Flower : MonoBehaviour, IPuzzleable
 
     public void ActiveSetting()
     {
-
+        //순서인 퀘스트 오브젝트 활성화
     }
-
 
     public void DisActiveSetting()
     {
-
+        //순서아닌 퀘스트 오브젝트 비활성화
     }
-
 
     public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
     {
@@ -88,9 +95,12 @@ public class Flower : MonoBehaviour, IPuzzleable
     }
 
     
-
     public void CompleteSetting()
     {
-        //throw new System.NotImplementedException();
+        UpdatePuzzleManager(puzzleManager, puzzleIndex);
+        //콜라이더 비활성화해서 여러번 감지하는거 방지
+        flowerCollider.enabled = false;
+        //꽃이 크는 코르틴
+        StartCoroutine(FlowerLerp());
     }
 }

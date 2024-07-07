@@ -1,5 +1,7 @@
 using Jc;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.XR.Interaction.Toolkit;
 
 public class WindMill : MonoBehaviour, IPuzzleable
@@ -13,12 +15,16 @@ public class WindMill : MonoBehaviour, IPuzzleable
     [Tooltip("성공보상 : 풍차회전 속도")]
     [SerializeField]
     float rotationSpeed;
-    [Tooltip("퍼즐 번호")]
+    [Tooltip("퍼즐 클리어 조건 번호")]
     [SerializeField]
     int puzzleIndex;
     [Tooltip("회전속도 체크용")]
     [SerializeField]
     Rigidbody rb;
+    [Tooltip("성공 후 콜라이더 끄기용")]
+    [SerializeField]
+    Collider fanCollider;
+
     //어느 방향으로 돌아갓는지
     private bool leftRotation;
 
@@ -36,39 +42,67 @@ public class WindMill : MonoBehaviour, IPuzzleable
             Debug.LogError("rotationSpeed 가 0 입니다.!");
         if (rb == null)
             Debug.LogError("Rigidbody 컴포넌트가 이 오브젝트에 없습니다!");
+        if(fanCollider == null)
+            Debug.LogError("Collider컴포넌트가 이  오브젝트에 없습니다!");
 
         //퍼즐매니저에 등록
         if (puzzleManager != null)
             RegistObject(puzzleManager);
     }
 
-
-    private void Update()
+    private void OnEnable()
     {
-        //회전속도가 일정속도가 되면
-        if (Mathf.Abs(rb.angularVelocity.z) > successSpeed && !IsSucess)
+        //회전속도 체크 코르틴
+        StartCoroutine(AngularVelocity());
+        //스테이지3의 상태에 따라
+        if (!(Manager.PlableData.StageInfo[2] == -1))
         {
-            //더이상 조작 못하게
-            DisActiveSetting();
-
-            //조건 및 클리어 확인
-            UpdatePuzzleManager(puzzleManager, puzzleIndex);
-
-            //어느방향으로 회전중인지
-            if (rb.angularVelocity.z >= 0)
-            {
-                leftRotation = true; 
-            }
-            else if(rb.angularVelocity.z < 0)
-            {
-                leftRotation = false;
-            }
-
+            CompleteSetting();
+        }
+        //퍼즐을 완료했으면
+        if (Manager.PlableData.PuzzleSuccessCheck[puzzleManager.PuzzleIndex])
+        {
+            fanCollider.enabled = false;
             isSucess = true;
         }
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
+    }
+
+    IEnumerator AngularVelocity()
+    {
+        //Manager.PlableData.PuzzleSuccessCheck[puzzleManager.PuzzleIndex - 1]
+        while (!isSucess)
+        {
+            //회전속도가 일정속도가 되면
+            if (Mathf.Abs(rb.angularVelocity.z) > successSpeed)
+            {
+                //조건 및 클리어 확인
+                UpdatePuzzleManager(puzzleManager, puzzleIndex);
+
+                //어느방향으로 회전중인지
+                if (rb.angularVelocity.z >= 0)
+                {
+                    leftRotation = true;
+                }
+                else if (rb.angularVelocity.z < 0)
+                {
+                    leftRotation = false;
+                }
+                
+                fanCollider.enabled = false;
+                isSucess = true;
+            }
+
+            yield return null;
+        }
+        
 
         //완료했으면 계속 회전
-        if (isSucess)
+        while (isSucess)
         {
             if (leftRotation)
             {
@@ -78,30 +112,20 @@ public class WindMill : MonoBehaviour, IPuzzleable
             {
                 transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
             }
-        }
+
+            yield return null;
+        }  
     }
 
-    //활성화 상태에서
+
     public void ActiveSetting()
     {
-        /*for (int i = 0; i < colliders.Count; i++)
-        {
-            colliders[i].enabled = true;
-        }*/
-
-        isSucess = false;
+        //순서인 퀘스트 오브젝트 활성화
     }
 
-    //비활성화 상태에서
     public void DisActiveSetting()
     {
-        /*//완료후 잡지못하게 레이어 설정
-        interactionLayers = 0;
-        //더이상 손과 충돌하지않게 충돌체 끄기
-        for(int i = 0; i < colliders.Count; i++) 
-        {
-            colliders[i].enabled = false;
-        }*/
+        //순서아닌 퀘스트 오브젝트 비활성화
     }
 
 
@@ -123,7 +147,8 @@ public class WindMill : MonoBehaviour, IPuzzleable
     //퍼즐 성공
     public void CompleteSetting()
     {
-        //Debug.Log(111);
-        //풍차 미션 클리어 저장
+        UpdatePuzzleManager(puzzleManager, puzzleIndex);
+        fanCollider.enabled = false;
+        isSucess = true;
     }
 }

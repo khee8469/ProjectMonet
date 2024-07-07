@@ -33,12 +33,9 @@ namespace Jc
         //각 씬의 딕셔너리를 리스트로 저장
         private Dictionary<int, Vector3> savePosition = new Dictionary<int, Vector3>();
         public Dictionary<int, Vector3> SavePosition { get { return savePosition; } }
-
-        //키는 스테이지, 값은 퍼즐 인덱스
-        private Dictionary<int, bool[]> puzzleSuccessCheck = new Dictionary<int, bool[]>();
-        public Dictionary<int, bool[]> PuzzleSuccessCheck 
-        { get { return puzzleSuccessCheck; } set { puzzleSuccessCheck = value; } }
-
+        //스테이지 3 퍼즐 체크용 
+        private List<bool> puzzleSuccessCheck = new List<bool> { true, true, true, true, true, true, true, true, true, false, false, false };
+        public List<bool> PuzzleSuccessCheck { get { return puzzleSuccessCheck; } }
 
         private void OnEnable()
         {

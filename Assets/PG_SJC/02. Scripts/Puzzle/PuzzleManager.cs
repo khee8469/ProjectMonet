@@ -15,6 +15,7 @@ namespace Jc
         [Header("퍼즐 인덱스")]
         [SerializeField]
         private int puzzleIndex;
+        public int PuzzleIndex {  get { return puzzleIndex; }  }
 
         [Header("연계된 퍼즐 오브젝트 (퍼즐 상태를 업데이트하는 오브젝트)")]
         public List<IPuzzleable> puzzleObjects = new List<IPuzzleable>();

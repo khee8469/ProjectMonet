@@ -20,6 +20,14 @@ public class Umbllera : InteractObject, IPuzzleable
     [SerializeField]
     LayerMask raycastPoint;
 
+    [Tooltip("비활성화할 우산")]
+    [SerializeField]
+    GameObject umbllera;
+    [Tooltip("활성화할 여성")]
+    [SerializeField]
+    GameObject umblleraWoman;
+
+
     // 시작위치 저장용
     Vector3 startPosition;
     Quaternion startRotation;
@@ -32,11 +40,27 @@ public class Umbllera : InteractObject, IPuzzleable
             Debug.LogError("puzzleManager를 할당하시오");
         if (raycastPoint == 0)
             Debug.LogError("LayerMask를 할당하시오");
-        if(puzzleManager!=null)
+
+        if (puzzleManager!=null)
             RegistObject(puzzleManager);
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
 
+        //스테이지3의 상태에 따라
+        if (!(Manager.PlableData.StageInfo[2] == -1))
+        {
+            CompleteSetting();
+        }
+        //퍼즐을 완료했으면
+        if (Manager.PlableData.PuzzleSuccessCheck[puzzleManager.PuzzleIndex])
+        {
+            umbllera.SetActive(false);
+            umblleraWoman.SetActive(true);
+        }
+    }
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
         base.OnSelectEntering(args);
@@ -107,11 +131,12 @@ public class Umbllera : InteractObject, IPuzzleable
     public void DisActiveSetting()
     {
         //순서아닌 퀘스트 오브젝트 비활성화
-        GetComponent<Collider>().enabled = false;
     }
 
     public void CompleteSetting()
     {
-        //스테이지 별로 클리어한 퍼즐이면 한번 실행
+        UpdatePuzzleManager(puzzleManager, puzzleIndex);
+        umbllera.SetActive(false);
+        umblleraWoman.SetActive(true);
     }
 }
