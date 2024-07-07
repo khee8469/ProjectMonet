@@ -25,8 +25,8 @@ namespace Jc
         private QuestEntry questEntryPrefab;
         public QuestEntry QuestEntryPrefab { get { return questEntryPrefab; } }
 
-        // 퀘스트 엔트리 리스트
-        private List<QuestEntry> questEntryList = new List<QuestEntry>();
+        // 퀘스트 엔트리 딕셔너리
+        private Dictionary<int, QuestEntry> questEntryDic = new Dictionary<int, QuestEntry>();
 
         [Header("퀘스트 엔트리 그룹 트랜스폼")]
         [SerializeField]
@@ -55,7 +55,6 @@ namespace Jc
                 yield return null;
             }
         }
-        
         // 페이드 아웃
         public IEnumerator FadeOutRoutine(float fadeTime = 0f)
         {
@@ -102,27 +101,24 @@ namespace Jc
 
         public void CreateEntry(Quest quest)
         {
+            if (questEntryDic.ContainsKey(quest.QuestID))
+                return;
+
             // 퀘스트 엔트리 생성
             QuestEntry entry = Instantiate(questEntryPrefab, questEntryTr);
             entry.OwnerQuest = quest;
+            entry.entryID = quest.QuestID;
             entry.InitSetting();
 
-            questEntryList.Add(entry);
+            questEntryDic.Add(quest.QuestID, entry);
         }
         public void RemoveEntry(Quest quest)
         {
-            int removeIndex = -1;
-            for (int i = 0; i < questEntryList.Count; i++)
-            {
-                if (questEntryList[i].OwnerQuest != quest) continue;
+            if (!questEntryDic.ContainsKey(quest.QuestID))
+                return;
 
-                Destroy(questEntryList[i].gameObject);
-                removeIndex = i;
-                break;
-            }
-
-            if (removeIndex >= 0)
-                questEntryList.RemoveAt(removeIndex);
+            Destroy(questEntryDic[quest.QuestID]);
+            questEntryDic.Remove(quest.QuestID);
         }
     }
 }

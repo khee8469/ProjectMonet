@@ -14,7 +14,7 @@ namespace Jc
         public void RegistObject(PuzzleManager puzzle);
 
         // 퍼즐 매니저의 컨디션 업데이트
-        public void UpdatePuzzleManager(PuzzleManager puzzle, int index);
+        public void UpdatePuzzleManager(PuzzleManager puzzle, int index = -1);
 
         // 퍼즐 활성화 상태 적용
         public void ActiveSetting();

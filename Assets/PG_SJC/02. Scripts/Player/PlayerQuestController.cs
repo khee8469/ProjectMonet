@@ -6,8 +6,6 @@ namespace Jc
 {
     public class PlayerQuestController : MonoBehaviour
     {
-
-
         private void Start()
         {
             InitSetting();
