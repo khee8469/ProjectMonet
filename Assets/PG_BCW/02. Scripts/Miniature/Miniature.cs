@@ -53,8 +53,6 @@ public class Miniature : InteractObject, IPuzzleable
         base.OnSelectExiting(args);
         GroundCheck();
         SavePosition();
-
-        
     }
 
     //미니어처 위치 지정

@@ -36,8 +36,8 @@ namespace Jc
 
         //키는 스테이지, 값은 퍼즐 인덱스
         private Dictionary<int, bool[]> puzzleSuccessCheck = new Dictionary<int, bool[]>();
-        public Dictionary<int, bool[]> PuzzleSuccessCheck { get { return puzzleSuccessCheck; } }
-
+        public Dictionary<int, bool[]> PuzzleSuccessCheck 
+        { get { return puzzleSuccessCheck; } set { puzzleSuccessCheck = value; } }
 
 
         private void OnEnable()

@@ -2,12 +2,15 @@ using Jc;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class WindMill : InteractObject, IPuzzleable
+public class WindMill : MonoBehaviour, IPuzzleable
 {
     [Header("현재 오브젝트 정보")]
     [SerializeField]
     PuzzleManager puzzleManager;
     [Tooltip("성공조건 : 회전 속도")]
+    [SerializeField]
+    float successSpeed;
+    [Tooltip("성공보상 : 풍차회전 속도")]
     [SerializeField]
     float rotationSpeed;
     [Tooltip("퍼즐 번호")]
@@ -25,30 +28,26 @@ public class WindMill : InteractObject, IPuzzleable
     
 
 
-    protected override void Awake()
-    {
-        base.Awake();
-
-        //퍼즐매니저에 등록
-        RegistObject(puzzleManager);
-    }
-
-    private void Start()
+    private void Awake()
     {
         if(puzzleManager == null)
             Debug.LogError("puzzleManager 컴포넌트가 이 오브젝트에 없습니다!");
-        if(rotationSpeed ==0)
+        if (rotationSpeed == 0)
             Debug.LogError("rotationSpeed 가 0 입니다.!");
         if (rb == null)
             Debug.LogError("Rigidbody 컴포넌트가 이 오브젝트에 없습니다!");
+
+        //퍼즐매니저에 등록
+        if (puzzleManager != null)
+            RegistObject(puzzleManager);
     }
+
 
     private void Update()
     {
         //회전속도가 일정속도가 되면
-        if(Mathf.Abs(rb.angularVelocity.z) > rotationSpeed && !IsSucess)
+        if (Mathf.Abs(rb.angularVelocity.z) > successSpeed && !IsSucess)
         {
-            Debug.Log($"{puzzleIndex}조건 클리어");
             //더이상 조작 못하게
             DisActiveSetting();
 
@@ -85,10 +84,10 @@ public class WindMill : InteractObject, IPuzzleable
     //활성화 상태에서
     public void ActiveSetting()
     {
-        for (int i = 0; i < colliders.Count; i++)
+        /*for (int i = 0; i < colliders.Count; i++)
         {
             colliders[i].enabled = true;
-        }
+        }*/
 
         isSucess = false;
     }
@@ -96,13 +95,13 @@ public class WindMill : InteractObject, IPuzzleable
     //비활성화 상태에서
     public void DisActiveSetting()
     {
-        //완료후 잡지못하게 레이어 설정
+        /*//완료후 잡지못하게 레이어 설정
         interactionLayers = 0;
         //더이상 손과 충돌하지않게 충돌체 끄기
         for(int i = 0; i < colliders.Count; i++) 
         {
             colliders[i].enabled = false;
-        }
+        }*/
     }
 
 
@@ -116,13 +115,15 @@ public class WindMill : InteractObject, IPuzzleable
     //퍼즐 매니저에 등록시
     public void RegistObject(PuzzleManager puzzle)
     {
+        if (puzzle == null)
+            return;
         puzzle.puzzleObjects.Add(this);
     }
 
     //퍼즐 성공
     public void CompleteSetting()
     {
-        Debug.Log(111);
+        //Debug.Log(111);
         //풍차 미션 클리어 저장
     }
 }
