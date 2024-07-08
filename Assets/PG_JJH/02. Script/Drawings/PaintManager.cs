@@ -18,12 +18,12 @@ namespace JJH
 
             Manager.PlableData.paintDataList.Add(3, true);*/
             
-            if (Manager.PlableData.paintDataList == null) return;
+            if (Manager.PlayableData.paintDataList == null) return;
 
-            if (Manager.PlableData.paintDataList.Count < 1)
+            if (Manager.PlayableData.paintDataList.Count < 1)
                 return;
 
-            foreach (int key in Manager.PlableData.paintDataList.Keys)
+            foreach (int key in Manager.PlayableData.paintDataList.Keys)
             {
                 // 나중에 set으로 변경
 

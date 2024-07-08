@@ -70,7 +70,7 @@ namespace Jc
             }
 
             // 퀘스트 데이터 저장
-            Manager.PlableData.SaveQuestData();
+            Manager.PlayableData.SaveQuestData();
         }
         // 퀘스트 비활성화
         protected virtual void DisActiveQuest()

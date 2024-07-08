@@ -83,7 +83,7 @@ namespace Jc
                 return;
             }
 
-            if(!Manager.PlableData.puzzleDataDic.ContainsKey(puzzleID))
+            if(!Manager.PlayableData.puzzleDataDic.ContainsKey(puzzleID))
             {
                 Debug.Log($"{puzzleID} 퍼즐의 로드된 데이터가 존재하지 않습니다.");
 
@@ -97,7 +97,7 @@ namespace Jc
 
             // 로드된 데이터는 프로퍼티를 사용하여 다시 저장하지 않음.
             // State -> this.state
-            switch(Manager.PlableData.puzzleDataDic[puzzleID])
+            switch(Manager.PlayableData.puzzleDataDic[puzzleID])
             {
                 case PuzzleState.DisActive:
                     foreach (IPuzzleable ob in puzzleObjects)
@@ -172,12 +172,12 @@ namespace Jc
         // 퍼즐 데이터 세이브
         private void SavePuzzleData()
         {
-            if (!Manager.PlableData.puzzleDataDic.ContainsKey(puzzleID))
-                Manager.PlableData.puzzleDataDic.Add(puzzleID, State);
+            if (!Manager.PlayableData.puzzleDataDic.ContainsKey(puzzleID))
+                Manager.PlayableData.puzzleDataDic.Add(puzzleID, State);
             else
-                Manager.PlableData.puzzleDataDic[puzzleID] = State;
+                Manager.PlayableData.puzzleDataDic[puzzleID] = State;
 
-            Manager.PlableData.SavePuzzleData();
+            Manager.PlayableData.SavePuzzleData();
         }
 
         // 조건 성공
