@@ -19,10 +19,6 @@ namespace Jc
         protected int questID;
         public int QuestID { get { return questID; } set { questID = value; } }
 
-        [SerializeField]
-        protected int linkedClearQuestID;
-        public int LinkedClearQuestID { get {return linkedClearQuestID; } set { linkedClearQuestID = value; } }  // 마지막으로 링크된 퀘스트 ID
-
         [Tooltip("퀘스트 상태")]
         [SerializeField]
         protected QuestState state;
