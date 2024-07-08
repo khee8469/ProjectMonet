@@ -1,3 +1,4 @@
+using JJH;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -31,6 +32,9 @@ namespace Jc
 
         [SerializeField]
         protected TextMeshProUGUI dialogText;     // 다이얼로그 텍스트
+        [SerializeField]
+        protected BuilboardUI builboardUI;        // 빌보드 UI
+
         [SerializeField]
         protected Animator floatingAnim;      // 다이얼로그 텍스트 플로팅 애니메이터
 
@@ -136,16 +140,20 @@ namespace Jc
 
         protected virtual void UpdateDialog(PlayerQuestController questController)
         {
+            builboardUI.EnableBuilboard = true;
             dialogText.enabled = true;
 
             // 현재 할당된 퀘스트가 없는 경우
-            if(currentQuest == null)
+            if (currentQuest == null)
             {
                 // 플로팅 애니메이션
                 floatingAnim.SetTrigger(Manager.Param.OnFloating);
 
                 if (curBasicDialogIndex >= basicNarrations.Count)
-                    dialogText.text = currentQuest.receiveNarrations[basicNarrations.Count-1].text;
+                { 
+                    dialogText.enabled = false;
+                    builboardUI.EnableBuilboard = false;
+                }
                 else
                     dialogText.text = currentQuest.receiveNarrations[curBasicDialogIndex++].text;
                 return;
@@ -160,6 +168,7 @@ namespace Jc
                     // 대화 종료 체크
                     if (curQuestDialogIndex >= currentQuest.receiveNarrations.Count)
                     {
+                        builboardUI.EnableBuilboard = false;
                         dialogText.enabled = false;
                         // 최초 등록 (수주 시에만 최초로 등록)
                         // 플레이어에 퀘스트 등록
@@ -184,6 +193,7 @@ namespace Jc
                     // 대화 종료 체크
                     if (curQuestDialogIndex >= currentQuest.clearNarrations.Count)
                     {
+                        builboardUI.EnableBuilboard = false;
                         dialogText.enabled = false;
                         // 퀘스트 완료 상태로 변경
                         currentQuest.ChangeState(QuestState.Complete);
