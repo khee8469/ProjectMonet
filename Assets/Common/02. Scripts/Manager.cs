@@ -16,7 +16,7 @@ public static class Manager
     public static Jc.DataManager Data { get { return Jc.DataManager.Instance; } }
     public static InventoryManager Inventory { get { return InventoryManager.Instance; } }
     public static QuestManager Quest { get { return QuestManager.Instance; } }
-    public static PlayableDataManager PlableData { get { return PlayableDataManager.Instance;}}
+    public static PlayableDataManager PlayableData { get { return PlayableDataManager.Instance;}}
     public static SoundManager Sound { get { return SoundManager.Instance; }}
 
     //public static JJH.DataManager DataManager { get  { return JJH.DataManager.Instance; }}

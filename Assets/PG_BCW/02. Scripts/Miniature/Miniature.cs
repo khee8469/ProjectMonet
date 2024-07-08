@@ -53,14 +53,12 @@ public class Miniature : InteractObject, IPuzzleable
         base.OnSelectExiting(args);
         GroundCheck();
         SavePosition();
-
-        
     }
 
     //미니어처 위치 지정
     public void GroundCheck()
     {
-        var positionData = Manager.PlableData.SavePosition;
+        /*var positionData = Manager.PlableData.SavePosition;
         //부모보다 높은 위치에 배치해 레이케스트 쏴서 확인
         transform.localPosition = new Vector3(transform.localPosition.x, transform.parent.position.y + 10, transform.localPosition.z);
  
@@ -78,13 +76,13 @@ public class Miniature : InteractObject, IPuzzleable
             Vector3 localHitPoint = transform.parent.InverseTransformPoint(startPosition);
             transform.localPosition = localHitPoint;
             transform.rotation = startRotation;
-        }
+        }*/
     }
 
     //미니어처의 현재 위치를 저장
     public void SavePosition()
     {
-        //key 값은 씬번호_오브젝트이름  같은 이름의 오브젝트에 위치 데이터 전달 예정
+        /*//key 값은 씬번호_오브젝트이름  같은 이름의 오브젝트에 위치 데이터 전달 예정
         if (transform.parent != null)
         {
             transform.parent = miniatureManager.transform;
@@ -99,7 +97,7 @@ public class Miniature : InteractObject, IPuzzleable
 
             //부모크기에 따라 위치 보정 저장
             Manager.PlableData.MiniaturePositionSave(this, Manager.PlableData.SavePosition);
-        }
+        }*/
     }
 
     private void OnDrawGizmos()

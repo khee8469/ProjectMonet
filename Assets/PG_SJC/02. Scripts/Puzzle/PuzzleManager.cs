@@ -17,6 +17,7 @@ namespace Jc
         [Header("퍼즐 id")]
         [SerializeField]
         private int puzzleID = -1;
+        public int PuzzleID { get { return rewardItemID; } }
 
         [Header("퍼즐 진행상태")]
         [SerializeField]
@@ -172,12 +173,12 @@ namespace Jc
         // 퍼즐 데이터 세이브
         private void SavePuzzleData()
         {
-            if (!Manager.PlableData.puzzleDataDic.ContainsKey(puzzleID))
-                Manager.PlableData.puzzleDataDic.Add(puzzleID, State);
+            if (!Manager.PlayableData.puzzleDataDic.ContainsKey(puzzleID))
+                Manager.PlayableData.puzzleDataDic.Add(puzzleID, State);
             else
-                Manager.PlableData.puzzleDataDic[puzzleID] = State;
+                Manager.PlayableData.puzzleDataDic[puzzleID] = State;
 
-            Manager.PlableData.SavePuzzleData();
+            Manager.PlayableData.SavePuzzleData();
         }
 
         // 조건 성공
