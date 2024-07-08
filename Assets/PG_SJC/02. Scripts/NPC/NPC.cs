@@ -49,12 +49,12 @@ namespace Jc
         protected Quest currentQuest;
 
         [SerializeField]
-        private int basicNarrationIndex = 0;     // 기본 나레이션 인덱스
+        protected int basicNarrationIndex = 0;     // 기본 나레이션 인덱스
 
         [SerializeField]
-        private int curQuestDialogIndex = 0;     // 퀘스트 대화 진행 인덱스
+        protected int curQuestDialogIndex = 0;     // 퀘스트 대화 진행 인덱스
         [SerializeField]
-        private int curBasicDialogIndex = 0;     // 기본 대화 진행 인덱스 
+        protected int curBasicDialogIndex = 0;     // 기본 대화 진행 인덱스 
 
         protected virtual void Start()
         {
@@ -150,7 +150,7 @@ namespace Jc
                 floatingAnim.SetTrigger(Manager.Param.OnFloating);
 
                 if (curBasicDialogIndex >= basicNarrations.Count)
-                { 
+                {
                     dialogText.enabled = false;
                     builboardUI.EnableBuilboard = false;
                 }
@@ -166,7 +166,7 @@ namespace Jc
                 // 퀘스트 수주
                 case QuestState.Active:
                     // 대화 종료 체크
-                    if (curQuestDialogIndex >= currentQuest.receiveNarrations.Count)
+                    if (curQuestDialogIndex >= currentQuest.receiveNarrations.Count - 1)
                     {
                         builboardUI.EnableBuilboard = false;
                         dialogText.enabled = false;
@@ -191,7 +191,7 @@ namespace Jc
                 // 퀘스트 완료
                 case QuestState.Clear:
                     // 대화 종료 체크
-                    if (curQuestDialogIndex >= currentQuest.clearNarrations.Count)
+                    if (curQuestDialogIndex >= currentQuest.clearNarrations.Count - 1)
                     {
                         builboardUI.EnableBuilboard = false;
                         dialogText.enabled = false;
