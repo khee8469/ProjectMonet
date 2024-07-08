@@ -20,10 +20,16 @@ namespace Jc
         public const int NARRATION_BUNDLE = 1600000;
         // 노말 나레이션 번들 ID
         public const int NARRATION_BUNDLE_NORMAL = 1000;
-        // 나레이션 IDㅇ
+        // 나레이션 ID
         public const int NARRATION = 1610000;
         // 노말 나레이션 ID
         public const int NARRATION_NORMAL = 10000;
+
+        // 퍼즐 나레이션 더미 ID (추후 수정예정)
+        public const int NARRATION_PUZZLE = 1640000;
+
+        // 아이템 더미 ID (추후 수정예정)
+        public const int ITEM = 10000;
     }
     
     public static class SystemPath
@@ -44,18 +50,16 @@ namespace Jc
         public const string LocalDirectory = "UserData";
         // Json 스테이지 데이터
         public const string StageData = "UserData/StageData.txt";
-
+        // Json 퍼즐 데이터
+        public const string LocalPuzzleData = "UserData/PuzzleData.txt";
+        // Json 채색 캔버스 데이터
+        public const string LocalCanvasData = "UserData/CanvasData.txt";
         // Json 플레이어블 데이터
         public const string LocalQuestData = "UserData/Quest_ListDT.csv";
-
         // Json 플레이어블 데이터
         public const string LocalInventoryData = "UserData/InventoryDT.csv";
-
         // Json Miniature 위치 데이터
         public const string LocalMiniatureData = "UserData/MiniatureDT.csv";
-
-        // 채색 캔버스 데이터
-        public const string LocalCanvasData = "UserData/CanvasData.txt";
     }
 
     public static class ResourcesPath

@@ -124,9 +124,10 @@ namespace Jc
 
                 questData.id = questID;
                 questData.questName = csvData[i]["quest_name"] as string;
-                questData.type = (QuestType)(int)csvData[i]["condition"];
+                questData.type = (QuestType)(int)csvData[i]["quest_class"];
                 questData.npcID = (int)csvData[i]["quest_acc"] - DataID.NPC;
                 questData.next_id = (int)csvData[i]["quest_next"] - DataID.QUEST;
+                questData.rewardItemID = (int)csvData[i]["reward"] - DataID.ITEM;
                 questData.receiveNarrationBundleID = (int)csvData[i]["narr_start"] - DataID.NARRATION_BUNDLE;
                 questData.clearNarrationBundleID = (int)csvData[i]["narr_fin"] - DataID.NARRATION_BUNDLE;
 
@@ -153,10 +154,15 @@ namespace Jc
                 NPCData data = new NPCData();
                 data.id = id;
                 data.npcName = (string)csvData[i]["name"];
+                data.narrationBundleID = new List<int>();
                 data.questIDList = new List<int>();
 
-                if (csvData[i][$"id_talk_1"] is int)
-                    data.narrationBundleID = (int)csvData[i][$"id_talk_1"] - DataID.NARRATION_BUNDLE;
+                for(int j =1; j<=3; j++)
+                {
+                    if (csvData[i][$"id_talk_{j}"] is not int)
+                        break;
+                    data.narrationBundleID.Add((int)csvData[i][$"id_talk_{j}"] - DataID.NARRATION_BUNDLE);
+                }
 
                 for (int j = 1; j <= 5; j++)
                 {
