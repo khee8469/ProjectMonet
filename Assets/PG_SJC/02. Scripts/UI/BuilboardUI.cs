@@ -14,13 +14,25 @@ namespace Jc
 
         private Coroutine lookAtRoutine;
 
+        [SerializeField]
+        private bool enableBuilboard = false;
+        public bool EnableBuilboard
+        {
+            get { return enableBuilboard; }
+            set
+            {
+                enableBuilboard = value;
+            }
+        }
+
+        private Vector3 originPos;
         private void OnEnable()
         {
+            originPos = transform.position;
             mainCameraTr = Camera.main.transform;
+
             if (mainCameraTr == null)
                 Debug.Log("메인 카메라를 찾을 수 없습니다.");
-
-            lookAtRoutine = StartCoroutine(LookAtRoutine());
         }
 
         private void OnDisable()
@@ -32,14 +44,15 @@ namespace Jc
             }
         }
 
-        IEnumerator LookAtRoutine()
+        private void LateUpdate()
         {
-            while (true)
+            if (mainCameraTr != null && enableBuilboard)
             {
-                // 0.1초에 한 번씩 플레이어의 메인 카메라를 바라봄
-                yield return new WaitForSeconds(0.1f);
-                Vector3 lookDir = (transform.position - mainCameraTr.position).normalized;
-                transform.forward = lookDir;
+                Vector3 rotDir = (mainCameraTr.transform.position - originPos).normalized;
+                Vector3 dir = new Vector3(rotDir.x, 0f, rotDir.z);
+
+                transform.position = originPos + dir * 0.5f;   // UI 위치 설정
+                transform.forward = rotDir; // 기울기 설정
             }
         }
     }
