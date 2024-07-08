@@ -17,8 +17,12 @@ namespace Jc
         [Header("퀘스트 타입")]
         public QuestType type;
 
-        [Header("NPC ID")]
-        public int npcID;
+        [Header("수주 NPC ID")]
+        public int acceptNPCID;
+
+        [Header("클리어 NPC ID")]
+        public int clearNPCID;
+
 
         [Header("완료 시 활성화 퀘스트 ID")]
         public int next_id;

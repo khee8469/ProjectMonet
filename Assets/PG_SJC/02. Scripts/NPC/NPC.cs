@@ -126,14 +126,14 @@ namespace Jc
         // 활성화되어있는 퀘스트 반환
         protected Quest GetQuest()
         {
-            foreach (int id in questIDList)
+            foreach (int questID in questIDList)
             {
-                QuestState state = Manager.Quest.GetQuest(id).State;
-
-                // 비활성화 상태가 아닌 퀘스트를 반환
-                if (state != QuestState.DisActive
-                    && state != QuestState.Complete)
-                    return Manager.Quest.GetQuest(id);
+                QuestState state = Manager.Quest.GetQuest(questID).State;
+                
+                // 현재 진행해줄 수 있는 퀘스트를 할당
+                if ((state == QuestState.Active || state == QuestState.Proceed )&& Manager.Quest.GetQuest(questID).QuestData.acceptNPCID == this.id 
+                    || state == QuestState.Clear && Manager.Quest.GetQuest(questID).QuestData.clearNPCID == this.id)
+                    return Manager.Quest.GetQuest(questID);
             }
             return null;
         }

@@ -74,7 +74,7 @@ namespace Jc
                 inst.QuestData = data;
 
                 // 최초 퀘스트는 활성화 상태로 변경
-                if (inst.QuestID == 1)
+                if (i == 1)
                     inst.State = QuestState.Active;
 
                 // 수주 나레이션 할당
