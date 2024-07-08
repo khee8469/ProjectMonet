@@ -17,6 +17,10 @@ public class Flower : MonoBehaviour, IPuzzleable
     [SerializeField]
     BoxCollider flowerCollider;
 
+    [Tooltip("꽃핀 들판 지정")]
+    [SerializeField]
+    GameObject terrian;
+
     //Lerp 보간용
     float leapPer = 0;
 
@@ -25,11 +29,15 @@ public class Flower : MonoBehaviour, IPuzzleable
     {
         if (puzzleManager == null)
             Debug.LogError("puzzleManager를 할당하시오");
-        /*if (flowerCollider == null)
-            Debug.LogError("Collider 할당하시오");*/
+
         //퍼즐매니저에 등록
         if (puzzleManager != null)
             RegistObject(puzzleManager);
+
+        //puzzleDataDic에 키값이 없으면 할당
+        if (!Manager.PlayableData.puzzleDataDic.ContainsKey(puzzleManager.PuzzleID))
+            Manager.PlayableData.puzzleDataDic.Add(puzzleManager.PuzzleID, PuzzleState.DisActive);
+
     }
 
     private void OnEnable()
@@ -37,7 +45,33 @@ public class Flower : MonoBehaviour, IPuzzleable
         //스테이지3의 상태에 따라
         if (Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] == PuzzleState.Clear)
         {
+            if(terrian!=null)
+                terrian.gameObject.SetActive(true);
+
             CompleteSetting();
+        }
+    }
+
+    //상태 초기화
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Debug.Log("상태초기화");
+            Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] = PuzzleState.DisActive;
+            Manager.PlayableData.SavePuzzleData();
+        }
+        else if (Input.GetKeyDown(KeyCode.O))
+        {
+            Debug.Log("진행중");
+            Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] = PuzzleState.Proceed;
+            Manager.PlayableData.SavePuzzleData();
+        }
+        else if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("클리어");
+            Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] = PuzzleState.Clear;
+            Manager.PlayableData.SavePuzzleData();
         }
     }
 

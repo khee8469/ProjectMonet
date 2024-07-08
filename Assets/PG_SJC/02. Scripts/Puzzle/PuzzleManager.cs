@@ -17,7 +17,7 @@ namespace Jc
         [Header("퍼즐 id")]
         [SerializeField]
         private int puzzleID = -1;
-        public int PuzzleID { get { return rewardItemID; }}
+        public int PuzzleID { get { return puzzleID; }}
 
         [Header("퍼즐 진행상태")]
         [SerializeField]
