@@ -25,8 +25,8 @@ public class Flower : MonoBehaviour, IPuzzleable
     {
         if (puzzleManager == null)
             Debug.LogError("puzzleManager를 할당하시오");
-        if (flowerCollider == null)
-            Debug.LogError("Collider 할당하시오");
+        /*if (flowerCollider == null)
+            Debug.LogError("Collider 할당하시오");*/
         //퍼즐매니저에 등록
         if (puzzleManager != null)
             RegistObject(puzzleManager);
@@ -42,7 +42,8 @@ public class Flower : MonoBehaviour, IPuzzleable
         //퍼즐을 완료했으면
         if (Manager.PlableData.PuzzleSuccessCheck[puzzleManager.PuzzleIndex])
         {
-            flowerCollider.enabled = false;
+            if (flowerCollider != null)
+                flowerCollider.enabled = false;
             StartCoroutine(FlowerLerp());
         }
     }
@@ -51,7 +52,8 @@ public class Flower : MonoBehaviour, IPuzzleable
     private void OnParticleCollision(GameObject gameObject)
     {
         //콜라이더 비활성화해서 여러번 감지하는거 방지
-        flowerCollider.enabled = false;
+        if (flowerCollider != null)
+            flowerCollider.enabled = false;
         //꽃이 크는 코르틴
         StartCoroutine(FlowerLerp());
         //퍼즐 클리어 정보 전달
@@ -99,7 +101,8 @@ public class Flower : MonoBehaviour, IPuzzleable
     {
         UpdatePuzzleManager(puzzleManager, puzzleIndex);
         //콜라이더 비활성화해서 여러번 감지하는거 방지
-        flowerCollider.enabled = false;
+        if(flowerCollider!= null)
+            flowerCollider.enabled = false;
         //꽃이 크는 코르틴
         StartCoroutine(FlowerLerp());
     }

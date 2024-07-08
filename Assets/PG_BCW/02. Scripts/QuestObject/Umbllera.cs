@@ -84,10 +84,13 @@ public class Umbllera : InteractObject, IPuzzleable
             transform.position = startPosition;
             transform.rotation = startRotation;
         }
-        /*// hit.point 위치에 AttachPoint 생성
-        GameObject tempObject = new GameObject("TempObject");
-        tempObject.transform.position = hit.point;
-        hit.transform.GetComponent<SocketInteractor>().attachTransform = tempObject.transform;*/
+        // hit.point 위치에 AttachPoint 생성
+        else
+        {
+            GameObject tempObject = new GameObject("TempObject");
+            tempObject.transform.position = hit.point;
+            hit.transform.GetComponent<SocketInteractor>().attachTransform = tempObject.transform;
+        }
     }
 
     //raycastPoint 바닥에 닿으면 퍼즐 성공
