@@ -50,15 +50,9 @@ public class Umbllera : InteractObject, IPuzzleable
         base.OnEnable();
 
         //스테이지3의 상태에 따라
-        if (!(Manager.PlableData.StageInfo[2] == -1))
+        if (Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] == PuzzleState.Clear)
         {
             CompleteSetting();
-        }
-        //퍼즐을 완료했으면
-        if (Manager.PlableData.PuzzleSuccessCheck[puzzleManager.PuzzleIndex])
-        {
-            umbllera.SetActive(false);
-            umblleraWoman.SetActive(true);
         }
     }
     protected override void OnSelectEntering(SelectEnterEventArgs args)
@@ -98,8 +92,7 @@ public class Umbllera : InteractObject, IPuzzleable
     {
         if (raycastPoint.Contain(collider.gameObject.layer))
         {
-            //퍼즐 성공
-            UpdatePuzzleManager(puzzleManager, puzzleIndex);
+            CompleteSetting();
         }
     }
 

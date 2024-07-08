@@ -55,15 +55,9 @@ public class WindMill : MonoBehaviour, IPuzzleable
         //회전속도 체크 코르틴
         StartCoroutine(AngularVelocity());
         //스테이지3의 상태에 따라
-        if (!(Manager.PlableData.StageInfo[2] == -1))
+        if (Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] == PuzzleState.Clear)
         {
             CompleteSetting();
-        }
-        //퍼즐을 완료했으면
-        if (Manager.PlableData.PuzzleSuccessCheck[puzzleManager.PuzzleIndex])
-        {
-            fanCollider.enabled = false;
-            isSucess = true;
         }
     }
 
@@ -74,15 +68,11 @@ public class WindMill : MonoBehaviour, IPuzzleable
 
     IEnumerator AngularVelocity()
     {
-        //Manager.PlableData.PuzzleSuccessCheck[puzzleManager.PuzzleIndex - 1]
         while (!isSucess)
         {
             //회전속도가 일정속도가 되면
             if (Mathf.Abs(rb.angularVelocity.z) > successSpeed)
             {
-                //조건 및 클리어 확인
-                UpdatePuzzleManager(puzzleManager, puzzleIndex);
-
                 //어느방향으로 회전중인지
                 if (rb.angularVelocity.z >= 0)
                 {
@@ -92,7 +82,8 @@ public class WindMill : MonoBehaviour, IPuzzleable
                 {
                     leftRotation = false;
                 }
-                
+
+                CompleteSetting();
                 fanCollider.enabled = false;
                 isSucess = true;
             }

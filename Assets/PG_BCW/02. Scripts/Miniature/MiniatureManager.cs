@@ -22,7 +22,7 @@ public class MiniatureManager : MonoBehaviour
 
     private void Awake()
     {
-        //미니어처 리스트
+        /*//미니어처 리스트
         if(miniatures ==null)
             miniatures = GetComponentsInChildren<Miniature>().ToList();
 
@@ -32,17 +32,17 @@ public class MiniatureManager : MonoBehaviour
             //미니어처 위치 저장
             for(int i = 0; i < miniatures.Count; i++)
             {
-                Manager.PlableData.SavePosition[miniatures[i].Id] = miniatures[i].transform.localPosition;
+                Manager.PlayableData.SavePosition[miniatures[i].Id] = miniatures[i].transform.localPosition;
 
                 miniatureQuest[miniatures[i].Id] = false;
             }
-            /*foreach (var miniature in miniatures)
+            *//*foreach (var miniature in miniatures)
             {
                 Manager.PlableData.SavePosition[miniature.Id] = miniature.transform.localPosition;
                 
                 miniatureQuest[miniature.Id] = false;
-            }*/
-        }     
+            }*//*
+        }  */   
     }
 
     private void OnEnable()
@@ -53,7 +53,7 @@ public class MiniatureManager : MonoBehaviour
     //씬 로드시 미니어처들 위치 지정
     private void SetMiniPosition()
     {
-        var positionData = Manager.PlableData.SavePosition;
+        /*var positionData = Manager.PlayableData.SavePosition;
 
         for(int i= 0; i< miniatures.Count;i++)
         {
@@ -76,14 +76,14 @@ public class MiniatureManager : MonoBehaviour
                     miniatures[i].transform.localPosition = localHitPoint;
 
                     //부모크기에 따라 위치 보정 저장
-                    Manager.PlableData.MiniaturePositionSave(miniatures[i], positionData);
+                    Manager.PlayableData.MiniaturePositionSave(miniatures[i], positionData);
                 }
                 else
                 {
                     miniatures[i].transform.localPosition = positionData[miniatures[i].Id];
 
                     //부모크기에 따라 위치 보정 저장
-                    Manager.PlableData.MiniaturePositionSave(miniatures[i], positionData);
+                    Manager.PlayableData.MiniaturePositionSave(miniatures[i], positionData);
                 }
             }
             //데이터가 없으면 미니어처 위치 딕셔너리 저장
@@ -98,10 +98,10 @@ public class MiniatureManager : MonoBehaviour
                     miniatures[i].transform.localPosition = localHitPoint;
 
                     //부모크기에 따라 위치 보정 저장
-                    Manager.PlableData.MiniaturePositionSave(miniatures[i], positionData);
+                    Manager.PlayableData.MiniaturePositionSave(miniatures[i], positionData);
                 }
             }
-        }
+        }*/
 
         /*foreach (Miniature miniature in miniatures)
         {

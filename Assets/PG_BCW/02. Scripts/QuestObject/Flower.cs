@@ -35,29 +35,16 @@ public class Flower : MonoBehaviour, IPuzzleable
     private void OnEnable()
     {
         //스테이지3의 상태에 따라
-        if (!(Manager.PlableData.StageInfo[2] == -1))
+        if (Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] == PuzzleState.Clear)
         {
             CompleteSetting();
-        }
-        //퍼즐을 완료했으면
-        if (Manager.PlableData.PuzzleSuccessCheck[puzzleManager.PuzzleIndex])
-        {
-            if (flowerCollider != null)
-                flowerCollider.enabled = false;
-            StartCoroutine(FlowerLerp());
         }
     }
 
     //파티클과 충돌시 실행
     private void OnParticleCollision(GameObject gameObject)
     {
-        //콜라이더 비활성화해서 여러번 감지하는거 방지
-        if (flowerCollider != null)
-            flowerCollider.enabled = false;
-        //꽃이 크는 코르틴
-        StartCoroutine(FlowerLerp());
-        //퍼즐 클리어 정보 전달
-        UpdatePuzzleManager(puzzleManager, puzzleIndex);
+        CompleteSetting();
     }
 
     IEnumerator FlowerLerp()
