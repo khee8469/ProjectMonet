@@ -23,7 +23,6 @@ namespace Jc
         [Header("클리어 NPC ID")]
         public int clearNPCID;
 
-
         [Header("완료 시 활성화 퀘스트 ID")]
         public int next_id;
 
@@ -35,5 +34,8 @@ namespace Jc
 
         [Header("완료 나레이션 번들 ID")]
         public int clearNarrationBundleID;
+
+        [Header("연계된 퍼즐 ID 리스트")]
+        public List<int> puzzleIDList;
     }
 }
