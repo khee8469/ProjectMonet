@@ -97,10 +97,17 @@ namespace Jc
         {
             Debug.Log($"퀘스트 {questID} : 가 진행됩니다.");
 
-            // 링크 퀘스트의 경우 현재 ID 기준 다음 퀘스트를 활성화
-            if(questData.type == QuestType.Link)
+            switch(questData.type)
             {
-                ActiveNextQuest(questID + 1);
+                // 링크 퀘스트의 경우 현재 ID 기준 다음 퀘스트를 활성화
+                case QuestType.Link:
+                    ActiveNextQuest(questID + 1);
+                    break;
+                // 노말 퀘스트의 경우 연계된 퍼즐이 없을경우 바로 완료
+                case QuestType.Normal:
+                    if(questData.puzzleIDList == null || questData.puzzleIDList.Count < 1)
+                        ChangeState(QuestState.Clear);
+                    break;
             }
         }
         // 퀘스트 클리어 시 (수락 대기)

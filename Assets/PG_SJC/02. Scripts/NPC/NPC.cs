@@ -166,7 +166,7 @@ namespace Jc
                 // 퀘스트 수주
                 case QuestState.Active:
                     // 대화 종료 체크
-                    if (curQuestDialogIndex >= currentQuest.receiveNarrations.Count - 1)
+                    if (curQuestDialogIndex >= currentQuest.receiveNarrations.Count)
                     {
                         builboardUI.EnableBuilboard = false;
                         dialogText.enabled = false;
@@ -191,7 +191,7 @@ namespace Jc
                 // 퀘스트 완료
                 case QuestState.Clear:
                     // 대화 종료 체크
-                    if (curQuestDialogIndex >= currentQuest.clearNarrations.Count - 1)
+                    if (curQuestDialogIndex >= currentQuest.clearNarrations.Count)
                     {
                         builboardUI.EnableBuilboard = false;
                         dialogText.enabled = false;
