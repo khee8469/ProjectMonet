@@ -3,6 +3,7 @@ using JJH;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 namespace JJH
 
@@ -11,7 +12,6 @@ namespace JJH
     {
         // 패턴 퍼즐 용 플래시 라이트 
         // 더이상 잡지 못하도록
-
         [Tooltip("랜턴의 콜라이더")]
         [SerializeField] private new Collider collider;
 
@@ -23,6 +23,8 @@ namespace JJH
         [Tooltip("랜턴이 원상 복귀 될 회전값")]
         [SerializeField] private Quaternion flashLightRotation;
 
+        [Tooltip("랜턴 불 빛 spot Light ")]
+        [SerializeField] Light spotLight;
 
         private new void Awake()
         {
@@ -32,8 +34,10 @@ namespace JJH
 
         private void Start()
         {
+            // 씬 시작 시 원래 위치 저장.
             flashLightPosition = transform.localPosition;
             flashLightRotation = transform.localRotation;
+            collider = GetComponent<Collider>();
 
         }
 
@@ -44,7 +48,25 @@ namespace JJH
         }
 
 
-        // 어차피 다음 번에 로딩 할 때 발동되니까 퍼즐 깬 순간은 상관 할 필요 x -> 어차피 나가면 다시 돌아가기 때문에.
+        protected override void OnSelectEntered(SelectEnterEventArgs args)
+        {
+            base.OnSelectEntered(args);
+
+            // 사람에게 잡히면 랜턴 불빛이 켜져야 한다.
+            // player의 손에 Custom Check 붙여주기. --> 손 판단용임. 
+            if (args.interactorObject.transform.GetComponent<CustomCheck>() != null)
+            {
+
+            }
+
+
+        }
+
+
+
+
+        // 퍼즐 저장에 대해서 신경 쓰지 말고
+        // 그냥 시작 전 상태 완료 상태 두 가지만 생각하자. 
         public void ActiveSetting()
         {
             collider.enabled = true; // 퍼즐이 활성화 되면 만질 수 있도록.

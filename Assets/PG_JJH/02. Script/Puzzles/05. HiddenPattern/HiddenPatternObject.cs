@@ -35,9 +35,7 @@ namespace JJH
         [SerializeField] private HiddenPatternManager puzzle;
         
       
-
-        
-
+        // 이거 플레이어 Hand에 CustomCheck 붙여주기. 
 
         protected override void Awake()
         {
@@ -47,10 +45,9 @@ namespace JJH
 
         private void Start()
         {
-            
+            // 텍스쳐 
+            drawTexture = GetComponent<Texture>();
         }
-
-
 
         Coroutine coroutine;
         public void StartCheckRoutine()

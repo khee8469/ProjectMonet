@@ -7,7 +7,8 @@ using UnityEngine;
 namespace JJH
 {
     [System.Serializable]
-    public class GameData
+    public class GameData  // 캔버스 데이터 이름 수정 할 것. --> Manager 도 이름 수정 필요.
+        // 채색 기능은 json 으로 씬 전환 시 및 다시 시작 할 시 저장 되도록 해야 한다. 
     {
 
         [Header("로비 그림")]
@@ -27,8 +28,6 @@ namespace JJH
 
         [Header("2스테이지 퍼즐 -5 원반 ")]
         public List<Quaternion> myPatternCheckList = new List<Quaternion>();  
-
-
 
     }
 
