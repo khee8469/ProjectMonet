@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using JJH;
 
 namespace Jc
 {
@@ -19,6 +20,7 @@ namespace Jc
         private Dictionary<int, QuestData> questDataDic;    // 퀘스트 데이터
         public Dictionary<int, QuestData> QuestDataDic { get { return questDataDic; } }
 
+        private Dictionary<int, InventoryItem> itemDic;
 
         /// <로딩순서>
         /// 1. CSV 데이터 로드
