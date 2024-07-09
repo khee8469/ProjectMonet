@@ -68,21 +68,21 @@ namespace Jc
                     if (curQuestDialogIndex == secondDialogIndex)
                     {
                         dialogText.enabled = false;
-                        builboardUI.enabled = false;
+                        builboardUI.EnableBuilboard = false;
                         secondDialogText.enabled = true;
-                        secondBuilboard.enabled = true;
+                        secondBuilboard.EnableBuilboard = true;
 
                         // 플로팅 애니메이션
                         secondFloatingAnim.SetTrigger(Manager.Param.OnFloating);
-                        dialogText.text = currentQuest.receiveNarrations[curQuestDialogIndex++].text;
+                        secondDialogText.text = currentQuest.receiveNarrations[curQuestDialogIndex++].text;
                     }
                     // 일반 NPC
                     else
                     {
                         dialogText.enabled = true;
-                        builboardUI.enabled = true;
+                        builboardUI.EnableBuilboard = true;
                         secondDialogText.enabled = false;
-                        secondBuilboard.enabled = false;
+                        secondBuilboard.EnableBuilboard = false;
 
                         // 플로팅 애니메이션
                         floatingAnim.SetTrigger(Manager.Param.OnFloating);
