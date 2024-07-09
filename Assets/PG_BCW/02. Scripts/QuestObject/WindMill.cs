@@ -1,8 +1,6 @@
 using Jc;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.ProBuilder.Shapes;
-using UnityEngine.XR.Interaction.Toolkit;
 
 public class WindMill : MonoBehaviour, IPuzzleable
 {
@@ -31,18 +29,18 @@ public class WindMill : MonoBehaviour, IPuzzleable
     //미션 클리어 체크
     private bool isSucess;
     public bool IsSucess { get { return isSucess; } }
-    
+
 
 
     private void Awake()
     {
-        if(puzzleManager == null)
+        if (puzzleManager == null)
             Debug.LogError("puzzleManager 컴포넌트가 이 오브젝트에 없습니다!");
         if (rotationSpeed == 0)
             Debug.LogError("rotationSpeed 가 0 입니다.!");
         if (rb == null)
             Debug.LogError("Rigidbody 컴포넌트가 이 오브젝트에 없습니다!");
-        if(fanCollider == null)
+        if (fanCollider == null)
             Debug.LogError("Collider컴포넌트가 이  오브젝트에 없습니다!");
 
         //퍼즐매니저에 등록
@@ -62,7 +60,7 @@ public class WindMill : MonoBehaviour, IPuzzleable
         //스테이지3의 상태에 따라
         if (Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] == PuzzleState.Clear)
         {
-            CompleteSetting();
+            //CompleteSetting();
         }
     }
 
@@ -118,7 +116,7 @@ public class WindMill : MonoBehaviour, IPuzzleable
 
             yield return null;
         }
-        
+
 
         //완료했으면 계속 회전
         while (isSucess)
@@ -133,7 +131,9 @@ public class WindMill : MonoBehaviour, IPuzzleable
             }
 
             yield return null;
-        }  
+        }
+
+
     }
 
 

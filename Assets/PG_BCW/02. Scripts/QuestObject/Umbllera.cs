@@ -55,7 +55,7 @@ public class Umbllera : InteractObject, IPuzzleable
         //스테이지3의 상태에 따라
         if (Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] == PuzzleState.Clear)
         {
-            CompleteSetting();
+            //CompleteSetting();
         }
     }
 
@@ -113,16 +113,15 @@ public class Umbllera : InteractObject, IPuzzleable
         }
     }
 
-    /*//raycastPoint 바닥에 닿으면 퍼즐 성공
+    //raycastPoint 바닥에 닿으면 퍼즐 성공
     private void OnTriggerEnter(Collider collider)
     {
         if (raycastPoint.Contain(collider.gameObject.layer))
         {
             //처음에는 성공만 다음에 볼떄 귀부인보이게
             UpdatePuzzleManager(puzzleManager, puzzleIndex);
-
         }
-    }*/
+    }
 
     private void OnDrawGizmos()
     {
@@ -159,6 +158,7 @@ public class Umbllera : InteractObject, IPuzzleable
 
     public void CompleteSetting()
     {
+        
         UpdatePuzzleManager(puzzleManager, puzzleIndex);
         umbllera.SetActive(false);
         umblleraWoman.SetActive(true);

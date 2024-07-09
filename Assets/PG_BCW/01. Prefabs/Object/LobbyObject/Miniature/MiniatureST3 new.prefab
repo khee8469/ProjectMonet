@@ -3115,6 +3115,7 @@ MonoBehaviour:
   puzzleManager: {fileID: 2008481334661993519}
   puzzleIndex: 2
   flowerCollider: {fileID: 1619022389797735891}
+  terrian: {fileID: 0}
 --- !u!54 &6261781038813265271
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3152,6 +3153,7 @@ GameObject:
   m_Component:
   - component: {fileID: 951882925028017149}
   - component: {fileID: 2824026513332175662}
+  - component: {fileID: 7483734487311159845}
   - component: {fileID: 6706937658369657849}
   - component: {fileID: 7379176237163453043}
   m_Layer: 0
@@ -3160,7 +3162,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &951882925028017149
 Transform:
   m_ObjectHideFlags: 0
@@ -3170,7 +3172,7 @@ Transform:
   m_GameObject: {fileID: 1735067180221256995}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.9025852, z: 0, w: 0.43051124}
-  m_LocalPosition: {x: 0.305, y: 0.365, z: -0.122}
+  m_LocalPosition: {x: 0.38, y: 0.365, z: -0.183}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3196,8 +3198,29 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.2, y: 0.82, z: 1.25}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1.2, y: 0.8, z: 0.05}
+  m_Center: {x: 0, y: 0, z: 0.49}
+--- !u!65 &7483734487311159845
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735067180221256995}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.05, y: 0.82, z: 1.1}
+  m_Center: {x: -0.58, y: 0, z: -0.05}
 --- !u!54 &6706937658369657849
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3340,15 +3363,15 @@ MonoBehaviour:
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
   m_AngularVelocityScale: 1
-  m_TrackPosition: 1
+  m_TrackPosition: 0
   m_SmoothPosition: 0
   m_SmoothPositionAmount: 8
   m_TightenPosition: 0.1
-  m_TrackRotation: 1
+  m_TrackRotation: 0
   m_SmoothRotation: 0
   m_SmoothRotationAmount: 8
   m_TightenRotation: 0.1
-  m_TrackScale: 1
+  m_TrackScale: 0
   m_SmoothScale: 0
   m_SmoothScaleAmount: 8
   m_TightenScale: 0.1
@@ -3381,6 +3404,8 @@ MonoBehaviour:
   isTwoHanded: 0
   grabDistance: 10
   interactors: []
+  attachPoint: {fileID: 3271530228747330827}
+  mine: {fileID: 0}
 --- !u!1 &1752814588030932269
 GameObject:
   m_ObjectHideFlags: 0
@@ -4899,6 +4924,7 @@ MonoBehaviour:
   puzzleManager: {fileID: 2008481334661993519}
   puzzleIndex: 1
   flowerCollider: {fileID: 6113922798579582124}
+  terrian: {fileID: 0}
 --- !u!54 &9156443733057964197
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4951,7 +4977,7 @@ Transform:
   m_GameObject: {fileID: 2738385473888693897}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: -1.406, z: 0.755}
+  m_LocalPosition: {x: -0.179, y: 0.143, z: 0.471}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6668,6 +6694,7 @@ MonoBehaviour:
   puzzleManager: {fileID: 2008481334661993519}
   puzzleIndex: 0
   flowerCollider: {fileID: 412364151149113847}
+  terrian: {fileID: 0}
 --- !u!54 &9199030496754779636
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6705,7 +6732,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6461677992663386635}
   - component: {fileID: 904125730916681291}
-  - component: {fileID: 7344617907042772214}
   m_Layer: 22
   m_Name: UmblleraPoint
   m_TagString: Untagged
@@ -6749,66 +6775,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 11.03, y: 1, z: 9.28}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7344617907042772214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3842850408160925120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb5874f810539944b94e4f1d31c4497f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_InteractionLayers:
-    m_Bits: 8388608
-  m_AttachTransform: {fileID: 0}
-  m_KeepSelectedTargetValid: 1
-  m_DisableVisualsWhenBlockedInGroup: 1
-  m_StartingSelectedInteractable: {fileID: 0}
-  m_StartingTargetFilter: {fileID: 0}
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
-  m_OnHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 0}
-  m_InteractableCantHoverMeshMaterial: {fileID: 0}
-  m_SocketActive: 1
-  m_InteractableHoverScale: 1
-  m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 0
-  m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 0
-  m_FixedScale: {x: 1, y: 1, z: 1}
-  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
 --- !u!1 &3869795651054879121
 GameObject:
   m_ObjectHideFlags: 0
@@ -11937,8 +11903,6 @@ GameObject:
   - component: {fileID: 4169617010641949601}
   - component: {fileID: 4270225703726328409}
   - component: {fileID: 8606945905156322982}
-  - component: {fileID: 5849029545055260287}
-  - component: {fileID: 6791539732742620495}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -11958,8 +11922,7 @@ Transform:
   m_LocalPosition: {x: 0.018802132, y: -0.00664299, z: -0.019063337}
   m_LocalScale: {x: 0.049999993, y: 0.05, z: 0.049999993}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5633167858078717413}
+  m_Children: []
   m_Father: {fileID: 6688712317328274014}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4270225703726328409
@@ -12012,87 +11975,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5849029545055260287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6746621530293121869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb5874f810539944b94e4f1d31c4497f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_InteractionLayers:
-    m_Bits: 8388608
-  m_AttachTransform: {fileID: 5633167858078717413}
-  m_KeepSelectedTargetValid: 1
-  m_DisableVisualsWhenBlockedInGroup: 1
-  m_StartingSelectedInteractable: {fileID: 0}
-  m_StartingTargetFilter: {fileID: 0}
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
-  m_OnHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ShowInteractableHoverMeshes: 0
-  m_InteractableHoverMeshMaterial: {fileID: 0}
-  m_InteractableCantHoverMeshMaterial: {fileID: 0}
-  m_SocketActive: 1
-  m_InteractableHoverScale: 1
-  m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 0
-  m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 0
-  m_FixedScale: {x: 1, y: 1, z: 1}
-  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
---- !u!135 &6791539732742620495
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6746621530293121869}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 3.38
-  m_Center: {x: -0.39745158, y: 6.46, z: -0.12897898}
 --- !u!1 &6801758674969567525
 GameObject:
   m_ObjectHideFlags: 0
@@ -13197,6 +13079,7 @@ MonoBehaviour:
   puzzleManager: {fileID: 2008481334661993519}
   puzzleIndex: 4
   flowerCollider: {fileID: 74645618869936700}
+  terrian: {fileID: 0}
 --- !u!54 &5169307974628872511
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14057,37 +13940,6 @@ Transform:
   - {fileID: 3191341213891500791}
   - {fileID: 7847746396221665835}
   m_Father: {fileID: 6688712317328274014}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7952772867506777099
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5633167858078717413}
-  m_Layer: 0
-  m_Name: Attach
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5633167858078717413
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7952772867506777099}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.9025852, z: -0, w: 0.4305113}
-  m_LocalPosition: {x: 1.7, y: 6.4428616, z: -1.68}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4169617010641949601}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8027192919035971441
 GameObject:
@@ -14991,6 +14843,7 @@ MonoBehaviour:
   puzzleManager: {fileID: 2008481334661993519}
   puzzleIndex: 3
   flowerCollider: {fileID: 1363970727577410477}
+  terrian: {fileID: 0}
 --- !u!54 &4411390367065364755
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15506,8 +15359,8 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
+  m_UseGravity: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HandColliderController : MonoBehaviour
 {
+    //제스처를 취하고 안할때 콜라이더를 끄고 키기위해 제작
     [Tooltip("한손의 콜라이더 리스트")]
     [SerializeField] Collider[] handColliders;
 
@@ -12,27 +13,22 @@ public class HandColliderController : MonoBehaviour
         handColliders = GetComponentsInChildren<Collider>();
     }
 
+    
     //콜라이더 키기
     public void OnColliders()
     {
-        foreach(Collider handCollider in handColliders)
+        for(int i = 0; i < handColliders.Length; i++)
         {
-            if(handCollider != null)
-            {
-                handCollider.enabled = true;
-            }
+            handColliders[i].enabled = true;
         }
     }
 
     //콜라이더 끄기
     public void OffColliders()
     {
-        foreach (Collider handCollider in handColliders)
+        for (int i = 0; i < handColliders.Length; i++)
         {
-            if (handCollider != null)
-            {
-                handCollider.enabled = false;
-            }
+            handColliders[i].enabled = false;
         }
     }
 }
