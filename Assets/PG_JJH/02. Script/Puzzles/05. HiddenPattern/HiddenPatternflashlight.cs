@@ -53,25 +53,22 @@ namespace JJH
         {
             if(isGrabbed) // 잡혀 있는 상태라면 RayCast 발사  --> ray에 닿으면 문양을 나타낸다.
             {
-                /*RaycastHit hit;
+                RaycastHit hit;
 
-                if(Physics.Raycast(rayTransform.position , rayTransform.forward  , out hit , 10 ))
+                if (Physics.Raycast(rayTransform.position, rayTransform.forward, out hit, 10))
                 {
-                    
+                    if(hit.transform.gameObject.layer==14) // 14번 레이어 라면.
+                    {
+                        hit.transform.gameObject.layer = 10; // 10번으로 변경. 
+                    }
                 }
-                else
-                {
 
-                }*/
-
-                Vector3 spotlightPosition = spotLight.transform.position;
-                Vector3 spotlightDirection = spotLight.transform.forward;
-
-                targetRenderer.material.SetVector("_SpotlightPosition", new Vector4(spotlightPosition.x, spotlightPosition.y, spotlightPosition.z, 1));
-                targetRenderer.material.SetVector("_SpotlightDirection", new Vector4(spotlightDirection.x, spotlightDirection.y, spotlightDirection.z, 0));
-                targetRenderer.material.SetFloat("_SpotlightAngle", spotLight.spotAngle);
-
-
+                // 저장 안된다. 따로 또 저장해야 하는듯. or 어차피 hit가 누군지를 알고 있으니까. 
+                // 무조건 저 판때기들 이니께.. baseMap 업해주는거 보다는 그래도 느낌 내려면
+                // 이거 판 때기 몇개 동그렇게 두고 ... 박스 캐스트 같은거로 해서
+                // 가운데 맞히면 한 번에 없애버리게 하고 
+                
+                Debug.Log($"히트 저장되나?{hit.transform.gameObject.name}");
 
             }
 
