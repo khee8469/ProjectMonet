@@ -16,7 +16,7 @@ public static class Manager
     public static Jc.DataManager Data { get { return Jc.DataManager.Instance; } }
     public static InventoryManager Inventory { get { return InventoryManager.Instance; } }
     public static QuestManager Quest { get { return QuestManager.Instance; } }
-    public static PlableDataManager PlableData { get { return PlableDataManager.Instance;}}
+    public static PlayableDataManager PlayableData { get { return PlayableDataManager.Instance;}}
     public static SoundManager Sound { get { return SoundManager.Instance; }}
 
     //public static JJH.DataManager DataManager { get  { return JJH.DataManager.Instance; }}
@@ -36,7 +36,7 @@ public static class Manager
         InventoryManager.ReleaseInstance();
         QuestManager.ReleaseInstance();
         Jc.DataManager.ReleaseInstance();
-        PlableDataManager.ReleaseInstance();
+        PlayableDataManager.ReleaseInstance();
         CameraManager.ReleaseInstance();
         SoundManager.ReleaseInstance();
 
@@ -51,7 +51,7 @@ public static class Manager
         Jc.DataManager.CreateInstance();
         InventoryManager.CreateInstance();
         QuestManager.CreateInstance();
-        PlableDataManager.CreateInstance();
+        PlayableDataManager.CreateInstance();
         CameraManager.CreateInstance();
         SoundManager.CreateInstance();
     }

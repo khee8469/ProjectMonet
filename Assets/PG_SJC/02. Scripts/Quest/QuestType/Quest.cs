@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,25 +17,20 @@ namespace Jc
         [Tooltip("퀘스트 ID")]
         [SerializeField]
         protected int questID;
-        public int QuestID { get { return questID; }}
-
-        [SerializeField]
-        protected int linkedClearQuestID;
-        public int LinkedClearQuestID { get {return linkedClearQuestID; }}  // 마지막으로 링크된 퀘스트 ID
+        public int QuestID { get { return questID; } set { questID = value; } }
 
         [Tooltip("퀘스트 상태")]
         [SerializeField]
         protected QuestState state;
         public QuestState State { get { return state; } set { state = value; } }
 
+        [Space(10)]
+        [Header("로딩 데이터")]
+        [Space(5)]
         [Tooltip("퀘스트 데이터")]
         [SerializeField]
         protected QuestData questData;
         public QuestData QuestData { get { return questData; } set { questData = value; } }
-
-        [SerializeField]
-        protected bool isSaveQuest;
-        public bool IsSaveQuest {get { return isSaveQuest; } set { isSaveQuest = value; } }
 
         [Tooltip("퀘스트 수주 나레이션 리스트")]
         public List<NarrtionData> receiveNarrations;
@@ -69,6 +65,9 @@ namespace Jc
                     CompleteQuest();
                     break;
             }
+
+            // 퀘스트 데이터 저장
+            Manager.PlayableData.SaveQuestData();
         }
         // 퀘스트 비활성화
         protected virtual void DisActiveQuest()
@@ -108,10 +107,6 @@ namespace Jc
         protected virtual void ClearQuest()
         {
             Debug.Log($"퀘스트 {questID} : 가 완료되었습니다.");
-
-            // 스테이지 데이터 저장
-            if (isSaveQuest)
-                Manager.PlableData.SaveStageData();
 
             // 자동 클리어 퀘스트의 경우 바로 Complete 상태로 전환 (보상 수령)
             if (questData.type == QuestType.AutoClear)

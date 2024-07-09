@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using System;
 
 namespace Jc
 {
@@ -135,8 +136,9 @@ namespace Jc
             // 성공 세팅
             boxCollider.enabled = false;
             transform.parent = socketTransfrom;
-            transform.position = Vector3.zero;
-            transform.rotation = Quaternion.identity;       
+            transform.localPosition = Vector3.zero;
+            transform.localRotation = Quaternion.identity;
+            puzzle.UpdateCondition(puzzleIndex);
         }
     }
 }
