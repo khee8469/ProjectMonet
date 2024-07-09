@@ -21,7 +21,16 @@ public class WateringCan : InteractObject
             Debug.LogError("소켓 위치를 할당 하시오");
     }
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
 
+        /*//아이템은 먹은적이없으면
+        if (Manager.PlayableData.itemDic[itemId] == false)
+        {
+            gameObject.SetActive(false);
+        }*/
+    }
 
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)

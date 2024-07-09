@@ -116,7 +116,7 @@ public class MiniatureMode : InteractObject
         base.OnSelectEntered(args);
         if(!miniatureMode)
         {
-            Debug.Log(2);
+            Debug.Log("미니어처모드 시작");
             //못움직이게
             dynamicMoveProvider.moveSpeed = 0;
 
@@ -131,14 +131,14 @@ public class MiniatureMode : InteractObject
             mine.transform.rotation = setRotation;
 
             //모드 체크
-            miniatureMode = true;
+            StartCoroutine(ModeChangeTime());
         }
     }
 
 
     private void ExitMiniatureMode()
     {
-        Debug.Log(3);
+        Debug.Log("미니어처모드 나가기");
         // 지정 위치로 이동
         Vector3 setPosition = modeOffPosition.position;
         Quaternion setRotation = modeOffPosition.rotation;
@@ -157,9 +157,11 @@ public class MiniatureMode : InteractObject
         StartCoroutine(ModeChangeTime());
     }
 
+
+    
     IEnumerator ModeChangeTime()
     {
         yield return new WaitForSeconds(0.1f);
-        miniatureMode = false;
+        miniatureMode = !miniatureMode;
     }
 }

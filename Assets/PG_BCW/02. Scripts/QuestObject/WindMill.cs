@@ -1,8 +1,9 @@
 using Jc;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
-public class WindMill : MonoBehaviour, IPuzzleable
+public class WindMill : InteractObject, IPuzzleable
 {
     [Header("현재 오브젝트 정보")]
     [SerializeField]
@@ -23,16 +24,32 @@ public class WindMill : MonoBehaviour, IPuzzleable
     [SerializeField]
     Collider fanCollider;
 
+
+
     //어느 방향으로 돌아갓는지
     private bool leftRotation;
+
 
     //미션 클리어 체크
     private bool isSucess;
     public bool IsSucess { get { return isSucess; } }
 
 
+    Quaternion startRotation;
+    Quaternion previousRotation;
+    bool leverSelect;
 
-    private void Awake()
+    bool success;
+    public bool Success { get { return success; } }
+
+    [Tooltip("몇도 돌려야 하는지")]
+    [SerializeField]
+    public float requiredRotation = 360f; // 필요한 회전 각도 (도 단위)
+    private float totalRotation = 0f;
+
+
+
+    protected override void Awake()
     {
         if (puzzleManager == null)
             Debug.LogError("puzzleManager 컴포넌트가 이 오브젝트에 없습니다!");
@@ -53,14 +70,15 @@ public class WindMill : MonoBehaviour, IPuzzleable
 
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
-        //회전속도 체크 코르틴
-        StartCoroutine(AngularVelocity());
+        /*//회전속도 체크 코르틴
+        StartCoroutine(LeverRotation());*/
         //스테이지3의 상태에 따라
         if (Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] == PuzzleState.Clear)
         {
-            //CompleteSetting();
+            Debug.Log(1);
+            CompleteSetting();
         }
     }
 
@@ -87,19 +105,56 @@ public class WindMill : MonoBehaviour, IPuzzleable
         }
     }
 
-    private void OnDisable()
+    protected override void OnDisable()
     {
         StopAllCoroutines();
     }
 
-    IEnumerator AngularVelocity()
+    protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
-        while (!isSucess)
+        base.OnSelectEntered(args);
+
+        leverSelect = true;
+        StartCoroutine(LeverRotation());
+
+    }
+
+    protected override void OnSelectExited(SelectExitEventArgs args)
+    {
+        base.OnSelectExited(args);
+
+        leverSelect = false;
+        StopAllCoroutines();
+
+        /*if (success)
         {
-            //회전속도가 일정속도가 되면
-            if (Mathf.Abs(rb.angularVelocity.z) > successSpeed)
+            col.enabled = false;
+            rb.isKinematic = false;
+        }*/
+
+    }
+
+    
+
+    IEnumerator LeverRotation()
+    {
+        startRotation = transform.rotation;
+        previousRotation = transform.rotation;
+
+        while (leverSelect)
+        {
+            yield return null;
+
+            Quaternion currentRotation = transform.rotation;
+            float rotationThisFrame = Quaternion.Angle(previousRotation, currentRotation);
+            totalRotation += rotationThisFrame;
+            previousRotation = currentRotation;
+            Debug.Log($"totalRotation {totalRotation}");
+            if (totalRotation >= requiredRotation)
             {
-                //어느방향으로 회전중인지
+                success = true;
+                Debug.Log("Success: " + success);
+
                 if (rb.angularVelocity.z >= 0)
                 {
                     leftRotation = true;
@@ -109,31 +164,23 @@ public class WindMill : MonoBehaviour, IPuzzleable
                     leftRotation = false;
                 }
 
-                CompleteSetting();
-                fanCollider.enabled = false;
-                isSucess = true;
+                StartCoroutine(AngularVelocity());
+                break;
             }
-
-            yield return null;
         }
+    }
 
-
-        //완료했으면 계속 회전
-        while (isSucess)
+    IEnumerator AngularVelocity()
+    {
+        if (leftRotation)
         {
-            if (leftRotation)
-            {
-                transform.Rotate(Vector3.forward, -rotationSpeed * Time.deltaTime);
-            }
-            else
-            {
-                transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
-            }
-
-            yield return null;
+            transform.Rotate(Vector3.forward, -rotationSpeed * Time.deltaTime);
         }
-
-
+        else
+        {
+            transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
+        }
+        yield return null;
     }
 
 
