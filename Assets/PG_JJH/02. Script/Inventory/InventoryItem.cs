@@ -10,6 +10,9 @@ namespace JJH
     // 아이템을 체크 하기 위한 인터페이스 상속 --> 실제 아이템에 붙을 친구.
     public class InventoryItem : InteractObject, IInventory
     {
+        [Header("오브젝트 풀링 세팅")]
+        public int size;
+
         // 실제 아이템이 가지고 있을 아이템의 기본적인 id , 타입 등의 데이터 
         [Header("아이템이 가지고 있을 데이터")]
         public InvenItem itemData; // 실제 아이템의 데이터 --가지고 있어야 데이터 쓸 수 있을듯? 
