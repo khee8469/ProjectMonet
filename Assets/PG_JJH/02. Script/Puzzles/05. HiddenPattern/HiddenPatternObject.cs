@@ -65,6 +65,7 @@ namespace JJH
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
+            Debug.Log("셀렉트 엔터드");
             StartCheckRoutine();
 
         }
@@ -73,6 +74,7 @@ namespace JJH
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
+            Debug.Log("셀렉트 엑시트");
             StopCheckRoutine();
         }
 
