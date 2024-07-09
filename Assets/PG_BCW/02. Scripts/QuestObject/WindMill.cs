@@ -8,10 +8,10 @@ public class WindMill : InteractObject, IPuzzleable
     [Header("현재 오브젝트 정보")]
     [SerializeField]
     PuzzleManager puzzleManager;
-    [Tooltip("성공조건 : 회전 속도")]
+    [Tooltip("몇도 돌려야 하는지")]
     [SerializeField]
-    float successSpeed;
-    [Tooltip("성공보상 : 풍차회전 속도")]
+    public float requiredRotation = 360f; // 필요한 회전 각도 (도 단위)
+    [Tooltip("성공보상 : 자동 회전 속도")]
     [SerializeField]
     float rotationSpeed;
     [Tooltip("퍼즐 클리어 조건 번호")]
@@ -24,28 +24,17 @@ public class WindMill : InteractObject, IPuzzleable
     [SerializeField]
     Collider leverCollider;
 
-
-
+    //레버를잡앗는지
+    bool leverSelect;
     //어느 방향으로 돌아갓는지
     private bool leftRotation;
 
-
-    /*//미션 클리어 체크
-    private bool isSucess;
-    public bool IsSucess { get { return isSucess; } }*/
-
-
     Quaternion startRotation;
     Quaternion previousRotation;
-    bool leverSelect;
-
-    bool success;
-    public bool Success { get { return success; } }
-
-    [Tooltip("몇도 돌려야 하는지")]
-    [SerializeField]
-    public float requiredRotation = 360f; // 필요한 회전 각도 (도 단위)
     private float totalRotation = 0f;
+    //레버 돌리기 성공
+    bool success;
+    
 
 
 
@@ -79,7 +68,7 @@ public class WindMill : InteractObject, IPuzzleable
         //스테이지3의 상태에 따라
         if (Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] == PuzzleState.Clear)
         {
-            //CompleteSetting();
+            CompleteSetting();
         }
     }
 
@@ -114,7 +103,6 @@ public class WindMill : InteractObject, IPuzzleable
 
         leverSelect = true;
         StartCoroutine(LeverRotation());
-
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
@@ -218,9 +206,10 @@ public class WindMill : InteractObject, IPuzzleable
     //퍼즐 성공
     public void CompleteSetting()
     {
+        Debug.Log("윈드밀 성공 실행");
         UpdatePuzzleManager(puzzleManager, puzzleIndex);
-        leverCollider.enabled = false;
+        if (leverCollider != null)
+            leverCollider.enabled = false;
         StartCoroutine(AngularVelocity());
-        //isSucess = true;
     }
 }

@@ -7855,7 +7855,6 @@ GameObject:
   - component: {fileID: 2664689643957667754}
   - component: {fileID: 3631527361332947397}
   - component: {fileID: 3097502959578824401}
-  - component: {fileID: 8468417163496360138}
   - component: {fileID: 234820684521153296}
   - component: {fileID: 6942019668292619447}
   - component: {fileID: 1488664372078735561}
@@ -10250,12 +10249,11 @@ MonoBehaviour:
   grabDistance: 0
   interactors: []
   puzzleManager: {fileID: 1006718352476014656}
-  successSpeed: 1
+  requiredRotation: 360
   rotationSpeed: 30
   puzzleIndex: 0
   rb: {fileID: 234820684521153296}
   leverCollider: {fileID: 523448397}
-  requiredRotation: 360
 --- !u!23 &1498230216362575867
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -23852,7 +23850,7 @@ Transform:
   m_GameObject: {fileID: 6995099462552113778}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.35, y: -0.727, z: 0.556}
+  m_LocalPosition: {x: -0.35, y: -0.443, z: 0.676}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -25247,28 +25245,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8877073517131715493}
   m_Mesh: {fileID: -9017721874375350153, guid: 1e83475c1f24318459924e476284e1cf, type: 3}
---- !u!64 &8468417163496360138
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 156686676142084225}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 0ac11736b589242edb121a896d237f07, type: 3}
 --- !u!114 &8517512427900023540 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8115084760740044318, guid: cbb9201cd94b507409b4c7eefd3884a1,

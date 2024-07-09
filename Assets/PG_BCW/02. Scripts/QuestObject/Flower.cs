@@ -29,7 +29,7 @@ public class Flower : MonoBehaviour, IPuzzleable
     {
         if (puzzleManager == null)
             Debug.LogError("puzzleManager를 할당하시오");
-
+        
         //퍼즐매니저에 등록
         if (puzzleManager != null)
             RegistObject(puzzleManager);
