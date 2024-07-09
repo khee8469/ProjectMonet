@@ -10,6 +10,8 @@ namespace JJH
         private GameData gameData;
         public GameData GameData { get { return gameData; } }
 
+
+        // 나중에 이 Path 위치만 맞춰주기. 
 #if UNITY_EDITOR
         private string path => Path.Combine(Application.dataPath, $"Resources/Data/SaveLoad");
 #else

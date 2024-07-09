@@ -424,11 +424,6 @@ namespace Jc
 
                 }
             }
-
-
-
-
-
         }
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
