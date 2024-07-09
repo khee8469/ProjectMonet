@@ -22,7 +22,7 @@ public class WindMill : InteractObject, IPuzzleable
     Rigidbody rb;
     [Tooltip("성공 후 콜라이더 끄기용")]
     [SerializeField]
-    Collider fanCollider;
+    Collider leverCollider;
 
 
 
@@ -30,9 +30,9 @@ public class WindMill : InteractObject, IPuzzleable
     private bool leftRotation;
 
 
-    //미션 클리어 체크
+    /*//미션 클리어 체크
     private bool isSucess;
-    public bool IsSucess { get { return isSucess; } }
+    public bool IsSucess { get { return isSucess; } }*/
 
 
     Quaternion startRotation;
@@ -51,13 +51,15 @@ public class WindMill : InteractObject, IPuzzleable
 
     protected override void Awake()
     {
+        base.Awake();
+
         if (puzzleManager == null)
             Debug.LogError("puzzleManager 컴포넌트가 이 오브젝트에 없습니다!");
         if (rotationSpeed == 0)
             Debug.LogError("rotationSpeed 가 0 입니다.!");
         if (rb == null)
             Debug.LogError("Rigidbody 컴포넌트가 이 오브젝트에 없습니다!");
-        if (fanCollider == null)
+        if (leverCollider == null)
             Debug.LogError("Collider컴포넌트가 이  오브젝트에 없습니다!");
 
         //퍼즐매니저에 등록
@@ -72,15 +74,15 @@ public class WindMill : InteractObject, IPuzzleable
 
     protected override void OnEnable()
     {
-        /*//회전속도 체크 코르틴
-        StartCoroutine(LeverRotation());*/
+        base.OnEnable();
+
         //스테이지3의 상태에 따라
         if (Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] == PuzzleState.Clear)
         {
-            Debug.Log(1);
-            CompleteSetting();
+            //CompleteSetting();
         }
     }
+
 
     //상태 초기화
     private void Update()
@@ -105,11 +107,7 @@ public class WindMill : InteractObject, IPuzzleable
         }
     }
 
-    protected override void OnDisable()
-    {
-        StopAllCoroutines();
-    }
-
+    
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         base.OnSelectEntered(args);
@@ -123,18 +121,23 @@ public class WindMill : InteractObject, IPuzzleable
     {
         base.OnSelectExited(args);
 
+        //속도 0으로만든후 회전 시작
+        rb.angularVelocity = Vector3.zero;
+        
         leverSelect = false;
         StopAllCoroutines();
 
-        /*if (success)
+        if (success)
         {
-            col.enabled = false;
+            //퍼즐성공 저장
+            UpdatePuzzleManager(puzzleManager, puzzleIndex);
+            //회전 코르틴 시작
+            StartCoroutine(AngularVelocity());
+            //더이상 조작 못하게
+            leverCollider.enabled = false;
             rb.isKinematic = false;
-        }*/
-
+        }
     }
-
-    
 
     IEnumerator LeverRotation()
     {
@@ -147,9 +150,10 @@ public class WindMill : InteractObject, IPuzzleable
 
             Quaternion currentRotation = transform.rotation;
             float rotationThisFrame = Quaternion.Angle(previousRotation, currentRotation);
+            //Debug.Log($"rotationThisFrame : {rotationThisFrame}");
             totalRotation += rotationThisFrame;
             previousRotation = currentRotation;
-            Debug.Log($"totalRotation {totalRotation}");
+            //Debug.Log($"totalRotation {totalRotation}");
             if (totalRotation >= requiredRotation)
             {
                 success = true;
@@ -163,8 +167,6 @@ public class WindMill : InteractObject, IPuzzleable
                 {
                     leftRotation = false;
                 }
-
-                StartCoroutine(AngularVelocity());
                 break;
             }
         }
@@ -172,15 +174,18 @@ public class WindMill : InteractObject, IPuzzleable
 
     IEnumerator AngularVelocity()
     {
-        if (leftRotation)
+        while (true)
         {
-            transform.Rotate(Vector3.forward, -rotationSpeed * Time.deltaTime);
+            if (leftRotation)
+            {
+                transform.Rotate(Vector3.forward, -rotationSpeed * Time.deltaTime);
+            }
+            else
+            {
+                transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
+            }
+            yield return null;
         }
-        else
-        {
-            transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
-        }
-        yield return null;
     }
 
 
@@ -214,7 +219,8 @@ public class WindMill : InteractObject, IPuzzleable
     public void CompleteSetting()
     {
         UpdatePuzzleManager(puzzleManager, puzzleIndex);
-        fanCollider.enabled = false;
-        isSucess = true;
+        leverCollider.enabled = false;
+        StartCoroutine(AngularVelocity());
+        //isSucess = true;
     }
 }
