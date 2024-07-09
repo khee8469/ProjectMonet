@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -16,11 +17,7 @@ namespace Jc
         [Tooltip("퀘스트 ID")]
         [SerializeField]
         protected int questID;
-        public int QuestID { get { return questID; }}
-
-        [SerializeField]
-        protected int linkedClearQuestID;
-        public int LinkedClearQuestID { get {return linkedClearQuestID; }}  // 마지막으로 링크된 퀘스트 ID
+        public int QuestID { get { return questID; } set { questID = value; } }
 
         [Tooltip("퀘스트 상태")]
         [SerializeField]

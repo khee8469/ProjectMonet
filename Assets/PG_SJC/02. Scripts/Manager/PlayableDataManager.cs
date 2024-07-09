@@ -14,7 +14,7 @@ namespace Jc
     public class PlayableDataManager : Singleton<PlayableDataManager>
     {
         [SerializeField]
-        private List<SlotData> inventorySlotDatas { get; set; }
+        private List<SlotData> inventorySlotDatas;
         public List<SlotData> InventorySlotDatas { get { return inventorySlotDatas; } }
 
         // 물감 수령 데이터 딕셔너리
@@ -24,17 +24,6 @@ namespace Jc
         // 퍼즐 데이터 딕셔너리
         public Dictionary<int, PuzzleState> puzzleDataDic;
 
-
-        /*//미니어처 위치 구조체화 데이터 저장용
-        private List<MiniatureData> miniatureDatas;
-        public List<MiniatureData> MiniatureDatas { get { return miniatureDatas; } }
-        //미니어처 위치 데이터 저장 딕셔너리, Resources에서 가져오거나 참조 지정
-        [SerializeField]
-        private PositionData positionData;
-        public PositionData PositionData { get { return positionData; } }
-        // 미니어처매니저에서 초기로드데이터 확인용
-        private bool miniatureLoadData;
-        public bool MiniatureLoadData { get { return miniatureLoadData; } }*/
 
         private void OnEnable()
         {
@@ -130,12 +119,12 @@ namespace Jc
             // 구조체 데이터 딕셔너리로 변환
             foreach (QuestListData data in questListData)
             {
-                if (!Manager.Quest.QuestDic.ContainsKey(data.id_quest - DataID.QUEST))
+                if (!Manager.Quest.QuestDic.ContainsKey(data.id_quest))
                 {
                     Debug.LogError($"Key({data.id_quest})값의 퀘스트가 존재하지 않습니다.");
                     break;
                 }
-                Manager.Quest.QuestDic[data.id_quest - DataID.QUEST].State = (QuestState)data.progress;
+                Manager.Quest.QuestDic[data.id_quest].State = (QuestState)data.progress;
             }
 
         }
@@ -147,7 +136,7 @@ namespace Jc
             // Dictionary to List
             foreach (int key in Manager.Quest.QuestDic.Keys)
             {
-                questListData.Add(new QuestListData(key + DataID.QUEST_LIST, key + DataID.QUEST, (int)Manager.Quest.QuestDic[key].State));
+                questListData.Add(new QuestListData(key, key, (int)Manager.Quest.QuestDic[key].State));
             }
 
             // 직렬화한 데이터 쓰기
