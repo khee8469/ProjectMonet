@@ -155,7 +155,7 @@ namespace Jc
                     builboardUI.EnableBuilboard = false;
                 }
                 else
-                    dialogText.text = currentQuest.receiveNarrations[curBasicDialogIndex++].text;
+                    dialogText.text = Manager.Data.NarrationDataDic[basicNarrations[curBasicDialogIndex++]].text;
                 return;
             }
 

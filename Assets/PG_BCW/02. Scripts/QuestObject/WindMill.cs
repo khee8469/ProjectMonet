@@ -48,8 +48,6 @@ public class WindMill : InteractObject, IPuzzleable
             Debug.LogError("rotationSpeed 가 0 입니다.!");
         if (rb == null)
             Debug.LogError("Rigidbody 컴포넌트가 이 오브젝트에 없습니다!");
-        if (leverCollider == null)
-            Debug.LogError("Collider컴포넌트가 이  오브젝트에 없습니다!");
 
         //퍼즐매니저에 등록
         if (puzzleManager != null)
@@ -68,7 +66,7 @@ public class WindMill : InteractObject, IPuzzleable
         //스테이지3의 상태에 따라
         if (Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] == PuzzleState.Clear)
         {
-            CompleteSetting();
+            //CompleteSetting();
         }
     }
 
@@ -122,7 +120,7 @@ public class WindMill : InteractObject, IPuzzleable
             //회전 코르틴 시작
             StartCoroutine(AngularVelocity());
             //더이상 조작 못하게
-            leverCollider.enabled = false;
+            if(leverCollider != null) leverCollider.enabled = false;
             rb.isKinematic = false;
         }
     }
@@ -142,7 +140,7 @@ public class WindMill : InteractObject, IPuzzleable
             totalRotation += rotationThisFrame;
             previousRotation = currentRotation;
             //Debug.Log($"totalRotation {totalRotation}");
-            if (totalRotation >= requiredRotation)
+            if (Mathf.Abs(totalRotation) >= requiredRotation)
             {
                 success = true;
                 Debug.Log("Success: " + success);
@@ -206,7 +204,6 @@ public class WindMill : InteractObject, IPuzzleable
     //퍼즐 성공
     public void CompleteSetting()
     {
-        Debug.Log("윈드밀 성공 실행");
         UpdatePuzzleManager(puzzleManager, puzzleIndex);
         if (leverCollider != null)
             leverCollider.enabled = false;
