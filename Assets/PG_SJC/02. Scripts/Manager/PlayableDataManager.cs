@@ -19,6 +19,9 @@ namespace Jc
         // 퍼즐 데이터 딕셔너리
         public Dictionary<int, PuzzleState> puzzleDataDic;
 
+        // 슬롯 데이터 딕셔너리
+        public Dictionary<int, SlotData> slotDataDic;
+
         private void OnEnable()
         {
             InitSetting();
@@ -27,6 +30,7 @@ namespace Jc
         public void InitSetting()
         {
             paintDataList = new Dictionary<int, bool>();
+            slotDataDic = new Dictionary<int, SlotData>();
             // 퍼즐 -> 퀘스트 -> 스테이지 단위로 데이터 로드
             LoadPuzzleData();
             LoadQuestData();

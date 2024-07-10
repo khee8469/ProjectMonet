@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.XR.CoreUtils;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Jc
@@ -31,6 +32,19 @@ namespace Jc
         [Header("퀘스트 엔트리 그룹 트랜스폼")]
         [SerializeField]
         private RectTransform questEntryTr;
+
+        private bool onPopup = false;
+        public bool OnPopup 
+        {
+            get { return onPopup; } 
+            private set 
+            { 
+                onPopup = value;
+                OnPopUpChange?.Invoke();
+            }
+        }
+
+        public UnityAction OnPopUpChange; 
 
         private void Start()
         {
@@ -83,6 +97,8 @@ namespace Jc
             infoGruop.transform.localRotation = Quaternion.identity;
 
             infoGruop.SetActive(true);
+
+            OnPopup = true;
         }
         // 인벤토리/퀘스트 창 닫기
         public void CloseInfoGroup()
@@ -90,6 +106,7 @@ namespace Jc
             //Manager.PlableData.SaveSlotData();
             infoGruop.transform.parent = this.transform;
             infoGruop.SetActive(false);
+            OnPopup = false;
         }
 
         public void CreateEntry(Quest quest)
