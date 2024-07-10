@@ -22,7 +22,10 @@ public class Umbllera : InteractObject, IPuzzleable
 
     [Tooltip("비활성화할 우산")]
     [SerializeField]
-    GameObject umbllera;
+    MeshRenderer umblleraMesh;
+    [SerializeField]
+    Collider umblleraCollider;
+
     [Tooltip("활성화할 여성 or 우산")]
     [SerializeField]
     GameObject umblleraWoman;
@@ -158,9 +161,9 @@ public class Umbllera : InteractObject, IPuzzleable
 
     public void CompleteSetting()
     {
-        
         UpdatePuzzleManager(puzzleManager, puzzleIndex);
         if (umblleraWoman != null) umblleraWoman.SetActive(true);
-        if (umbllera != null) umbllera.SetActive(false);
+        if (umblleraMesh != null) umblleraMesh.enabled = false;
+        if( umblleraCollider != null) umblleraCollider.enabled = false;
     }
 }
