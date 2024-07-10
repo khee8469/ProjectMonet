@@ -358,13 +358,16 @@ namespace Jc
             if (isInventoryMode)
             {
                 ItemObject item = currentGrabObject as ItemObject;
+
                 if (item != null)
                     item.SetScaleWithLerp();
+
                 lineVisual.enabled = false;
             }
             else
             {
                 ItemObject item = currentGrabObject as ItemObject;
+
                 if (item != null)
                     item.ResetScaleWithLerp();
 
@@ -373,7 +376,10 @@ namespace Jc
             lr.enabled = true;
         }
         private void FindSlot()
-        { 
+        {
+            if (currentGrabObject != null && currentGrabObject is not ItemObject)
+                return;
+
             Ray ray = new Ray(transform.position, transform.forward);
             lr.positionCount = 2;
             lr.SetPosition(0, transform.position);
@@ -386,6 +392,7 @@ namespace Jc
                 {
                     if (currentSlot != null)
                         currentSlot.OnHoverExit();
+
                     currentSlot = null;
                     return;
                 }
