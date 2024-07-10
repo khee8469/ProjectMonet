@@ -116,7 +116,7 @@ public class MiniatureMode : InteractObject
         base.OnSelectEntered(args);
         if(!miniatureMode)
         {
-            Debug.Log("미니어처모드 시작");
+            //Debug.Log("미니어처모드 시작");
             //못움직이게
             dynamicMoveProvider.moveSpeed = 0;
 
@@ -138,7 +138,7 @@ public class MiniatureMode : InteractObject
 
     private void ExitMiniatureMode()
     {
-        Debug.Log("미니어처모드 나가기");
+        //Debug.Log("미니어처모드 나가기");
         // 지정 위치로 이동
         Vector3 setPosition = modeOffPosition.position;
         Quaternion setRotation = modeOffPosition.rotation;
