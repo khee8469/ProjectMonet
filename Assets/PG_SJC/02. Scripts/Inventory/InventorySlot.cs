@@ -12,6 +12,9 @@ namespace Jc
     {
         [Header("에디터 세팅")]
         [Space(5)]
+        [SerializeField]
+        private int slotID;
+        public int SlotID { get { return slotID; } }
 
         [Header("아이템 이미지")]
         [SerializeField]
@@ -47,6 +50,7 @@ namespace Jc
                 {
                     itemContentIMG.enabled = false;
                     itemContentIMG.sprite = null;
+                    itemContentIMG.color = new Color(0,0,0,0);
                 }
                 else
                 {
@@ -57,6 +61,7 @@ namespace Jc
                     }
                     itemContentIMG.enabled = true;
                     itemContentIMG.sprite = Manager.Item.ItemDataDic[getItemID].itemSprite;
+                    itemContentIMG.color = Color.white;
                 }
             }
         }
@@ -80,6 +85,8 @@ namespace Jc
                 {
                     itemCountTMP.text = $"{itemCount}";
                 }
+                // 슬롯 데이터 할당
+                Manager.PlayableData.slotDataDic[slotID] = new SlotData(slotID, getItemID, itemCount);
             }
         }
 
@@ -88,6 +95,16 @@ namespace Jc
         private void Awake()
         {
             originColor = hoverIMG.color;
+            if (Manager.PlayableData.slotDataDic == null)
+                Manager.PlayableData.slotDataDic = new Dictionary<int, SlotData>();
+
+            Manager.PlayableData.slotDataDic[slotID] = new SlotData(slotID, getItemID, itemCount);
+        }
+
+        private void OnEnable()
+        {
+            GetItemID = Manager.PlayableData.slotDataDic[slotID].slotItemID;
+            ItemCount = Manager.PlayableData.slotDataDic[slotID].itemCount;
         }
 
         private void OnDisable()
@@ -128,7 +145,7 @@ namespace Jc
                 return null;
             }
 
-            ItemObject item = Instantiate(Manager.Item.ItemDataDic[getItemID].itemPrefab);
+            ItemObject item = Instantiate(Manager.Item.ItemDataDic[getItemID].itemPrefab, transform.position, Quaternion.identity);
             ItemCount--;
             return item;
         }
@@ -179,15 +196,6 @@ namespace Jc
             yield return null;
         }
 
-        //public void OnPointerEnter(PointerEventData eventData)
-        //{
-        //    OnHoverEnter();
-        //}
-
-        //public void OnPointerExit(PointerEventData eventData)
-        //{
-        //    OnHoverExit();
-        //}
 
         #endregion
     }

@@ -36,7 +36,7 @@ namespace Jc
         public bool IsGrab {get { return isGrab; } }
 
         [SerializeField]
-        private InteractObject currentGrabObject { get; set; }   // 현재 잡고있는 오브젝트
+        private InteractObject currentGrabObject;  // 현재 잡고있는 오브젝트
 
         private Camera cam;                         // 메인 카메라
         private Transform grabbedTr;                // 그랩한 오브젝트 트랜스폼
@@ -291,6 +291,10 @@ namespace Jc
         {
             base.OnSelectExited(args);
 
+            ItemObject item = currentGrabObject as ItemObject;
+            if (item != null)
+                item.ResetScale();
+
             currentGrabObject = null;
 
             isGrab = false;
@@ -309,7 +313,8 @@ namespace Jc
             if (item == null)
                 return;
 
-            interactionManager.SelectEnter(this as IXRSelectInteractor, item as IXRSelectInteractable); 
+            item.SetScale();
+            interactionManager.SelectEnter(this as IXRSelectInteractor, item as IXRSelectInteractable);
         }
         private void OnSlotSelectExit(InputAction.CallbackContext context)
         {
@@ -351,11 +356,18 @@ namespace Jc
             isInventoryMode = Manager.UI.OnPopup;
 
             if (isInventoryMode)
-            { 
+            {
+                ItemObject item = currentGrabObject as ItemObject;
+                if (item != null)
+                    item.SetScaleWithLerp();
                 lineVisual.enabled = false;
             }
             else
-            { 
+            {
+                ItemObject item = currentGrabObject as ItemObject;
+                if (item != null)
+                    item.ResetScaleWithLerp();
+
                 lineVisual.enabled = true;
             }
             lr.enabled = true;
@@ -378,7 +390,7 @@ namespace Jc
                     return;
                 }
 
-                if (currentSlot != slot)
+                if (currentSlot != null && currentSlot != slot)
                     currentSlot.OnHoverExit();
 
                 currentSlot = slot;

@@ -20,7 +20,8 @@ namespace Jc
         private Dictionary<int, QuestData> questDataDic;    // 퀘스트 데이터
         public Dictionary<int, QuestData> QuestDataDic { get { return questDataDic; } }
 
-        private Dictionary<int, InventoryItem> itemDic;
+        private Dictionary<int, ItemData> itemDataDic;
+        public Dictionary<int, ItemData> ItemDataDic { get { return itemDataDic; } }    
 
         /// <로딩순서>
         /// 1. CSV 데이터 로드

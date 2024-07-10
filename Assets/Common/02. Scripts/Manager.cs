@@ -24,7 +24,6 @@ public static class Manager
     private static void Initialize()
     {
         // 싱글턴 객체해제
-        Jc.UIManager.ReleaseInstance();
         JJH.SceneManager.ReleaseInstance();
         JJH.ChapterManager.ReleaseInstance();
         AnimParamManager.ReleaseInstance();
@@ -33,12 +32,12 @@ public static class Manager
         Jc.DataManager.ReleaseInstance();
         PlayableDataManager.ReleaseInstance();
         ItemManager.ReleaseInstance();
+        Jc.UIManager.ReleaseInstance();
         CameraManager.ReleaseInstance();
         SoundManager.ReleaseInstance();
 
 
         // 싱글턴 객체생성
-        Jc.UIManager.CreateInstance();
         JJH.SceneManager.CreateInstance();
         JJH.ChapterManager.CreateInstance();
         AnimParamManager.CreateInstance();
@@ -47,6 +46,7 @@ public static class Manager
         QuestManager.CreateInstance();
         PlayableDataManager.CreateInstance();
         ItemManager.CreateInstance();
+        Jc.UIManager.CreateInstance();
         CameraManager.CreateInstance();
         SoundManager.CreateInstance();
     }
