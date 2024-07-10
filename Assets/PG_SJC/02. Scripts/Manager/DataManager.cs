@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using JJH;
 
 namespace Jc
 {
@@ -19,6 +20,8 @@ namespace Jc
         private Dictionary<int, QuestData> questDataDic;    // 퀘스트 데이터
         public Dictionary<int, QuestData> QuestDataDic { get { return questDataDic; } }
 
+        private Dictionary<int, ItemData> itemDataDic;
+        public Dictionary<int, ItemData> ItemDataDic { get { return itemDataDic; } }    
 
         /// <로딩순서>
         /// 1. CSV 데이터 로드
@@ -60,11 +63,11 @@ namespace Jc
                 // 테이블 1행은 각 열이 Key 값으로 할당.
                 // 매핑된 ID 값을 빼서 객체화된 딕셔너리에 할당.
 
-                int narrationID = (int)csvData[i]["id"] - DataID.NARRATION;     // 나레이션 ID 할당
+                int narrationID = (int)csvData[i]["id"];     // 나레이션 ID 할당
 
                 // NarrationData 구조체 생성 후 로드한 데이터 할당.
                 NarrtionData data = new NarrtionData();
-                data.npcID = (int)csvData[i]["id_target"] - DataID.NPC;
+                data.npcID = (int)csvData[i]["id_target"];
                 data.text = (string)csvData[i]["id_text"];
 
                 narrationDataDic.Add(narrationID, data);
@@ -83,7 +86,7 @@ namespace Jc
             bool isNormal = false;
             for (int i = 0; i < csvData.Count; i++)
             {
-                int bundleID = (int)csvData[i]["id"] - DataID.NARRATION_BUNDLE;       // 번들 ID 할당
+                int bundleID = (int)csvData[i]["id"];       // 번들 ID 할당
 
                 List<int> narrationIDs = new List<int>();
 
@@ -97,7 +100,7 @@ namespace Jc
                     if (csvData[i][$"id_nar_{j}"] is not int)
                         break;
 
-                    int narrationID = (int)csvData[i][$"id_nar_{j}"] - DataID.NARRATION;    // 나레이션 ID 할당
+                    int narrationID = (int)csvData[i][$"id_nar_{j}"];    // 나레이션 ID 할당
                     // 리스트에 할당
                     narrationIDs.Add(narrationID);
                 }
@@ -118,18 +121,19 @@ namespace Jc
 
             for (int i = 0; i < csvData.Count; i++)
             {
-                int questID = (int)csvData[i]["id"] - DataID.QUEST;
+                int questID = (int)csvData[i]["id"];
 
                 QuestData questData = new QuestData();
 
                 questData.id = questID;
                 questData.questName = csvData[i]["quest_name"] as string;
                 questData.type = (QuestType)(int)csvData[i]["quest_class"];
-                questData.npcID = (int)csvData[i]["quest_acc"] - DataID.NPC;
-                questData.next_id = (int)csvData[i]["quest_next"] - DataID.QUEST;
-                questData.rewardItemID = (int)csvData[i]["reward"] - DataID.ITEM;
-                questData.receiveNarrationBundleID = (int)csvData[i]["narr_start"] - DataID.NARRATION_BUNDLE;
-                questData.clearNarrationBundleID = (int)csvData[i]["narr_fin"] - DataID.NARRATION_BUNDLE;
+                questData.acceptNPCID = (int)csvData[i]["quest_acc"];
+                questData.clearNPCID = (int)csvData[i]["quest_clear"];
+                questData.next_id = (int)csvData[i]["quest_next"];
+                questData.rewardItemID = (int)csvData[i]["reward"];
+                questData.receiveNarrationBundleID = (int)csvData[i]["narr_start"];
+                questData.clearNarrationBundleID = (int)csvData[i]["narr_fin"];
 
                 questDataDic.Add(questID, questData);
             }
@@ -150,7 +154,7 @@ namespace Jc
             {
                 // 선형적 필드
                 // NPC의 최대 퀘스트 갯수는 5개
-                int id = (int)csvData[i]["id"] - DataID.NPC;
+                int id = (int)csvData[i]["id"];
                 NPCData data = new NPCData();
                 data.id = id;
                 data.npcName = (string)csvData[i]["name"];
@@ -161,14 +165,14 @@ namespace Jc
                 {
                     if (csvData[i][$"id_talk_{j}"] is not int)
                         break;
-                    data.narrationBundleID.Add((int)csvData[i][$"id_talk_{j}"] - DataID.NARRATION_BUNDLE);
+                    data.narrationBundleID.Add((int)csvData[i][$"id_talk_{j}"]);
                 }
 
                 for (int j = 1; j <= 5; j++)
                 {
                     if (csvData[i][$"id_quest_{j}"] is not int)
                         break;
-                    data.questIDList.Add((int)csvData[i][$"id_quest_{j}"] - DataID.QUEST);
+                    data.questIDList.Add((int)csvData[i][$"id_quest_{j}"]);
                 }
 
                 npcDataDic.Add(id, data);

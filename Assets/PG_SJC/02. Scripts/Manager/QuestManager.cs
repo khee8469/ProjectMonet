@@ -22,6 +22,14 @@ namespace Jc
         private Dictionary<int, Quest> questDic;    // 퀘스트 리소스 (ID 매핑)
         public Dictionary<int, Quest> QuestDic { get { return questDic; } }
 
+        [Header("퀘스트 프리팹")]
+        [SerializeField]
+        private Quest questPrefab;
+
+        [Header("퀘스트 개수")]
+        [SerializeField]
+        private int questSize;
+
         protected override void Awake()
         {
             base.Awake();
@@ -42,42 +50,31 @@ namespace Jc
         private void RegistQuest()
         {
             questDic = new Dictionary<int, Quest>();
-            Quest[] quests = Resources.LoadAll<Quest>($"Quests");
 
-            List<Quest> linkTypeQuests = new List<Quest>();
-
-            foreach (Quest quest in quests)
+            for (int i = 1; i<=questSize; i++)
             {
-                // id 예외처리
-                if (quest.QuestID < 1)
-                {
-                    Debug.Log($"{quest} : QuestID가 할당되지 않았습니다.");
-                    continue;
-                }
+                int questID = i + DataID.QUEST;
 
                 // 딕셔너리 예외처리
-                if (questDic.ContainsKey(quest.QuestID))
+                if (questDic.ContainsKey(questID))
                 {
-                    Debug.Log($"{quest.QuestID}는 {questDic[quest.QuestID]}에 이미 할당 된 QuestID 입니다.");
+                    Debug.Log($"{questID}는 {questDic[questID]}에 이미 할당 된 QuestID 입니다.");
                     continue;
                 }
 
                 // 데이터 id 예외처리
-                if (!Manager.Data.QuestDataDic.ContainsKey(quest.QuestID))
+                if (!Manager.Data.QuestDataDic.ContainsKey(questID))
                     continue;
 
                 // 퀘스트 생성
-                Quest inst = Instantiate(quest, transform);
-                QuestData data = Manager.Data.QuestDataDic[quest.QuestID];
+                Quest inst = Instantiate(questPrefab, transform);
+                QuestData data = Manager.Data.QuestDataDic[questID];
                 // 퀘스트 데이터 할당
+                inst.QuestID = questID;
                 inst.QuestData = data;
 
-                // 연계형 퀘스트 할당
-                if(data.type == QuestType.Link)
-                    linkTypeQuests.Add(quest);  
-
                 // 최초 퀘스트는 활성화 상태로 변경
-                if (inst.QuestID == 1)
+                if (i == 1)
                     inst.State = QuestState.Active;
 
                 // 수주 나레이션 할당
@@ -106,14 +103,7 @@ namespace Jc
                     }
                 }
 
-                questDic.Add(quest.QuestID, inst);
-            }
-
-            // 링크된 퀘스트 처리
-            foreach (Quest quest in linkTypeQuests)
-            {
-                // 연계 퀘스트 성공 처리
-                questDic[quest.LinkedClearQuestID].OnClearQuest += quest.OnClearLinkedQuest;
+                questDic.Add(questID, inst);
             }
         }
 

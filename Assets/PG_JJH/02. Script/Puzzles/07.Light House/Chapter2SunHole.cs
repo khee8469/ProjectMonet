@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chapter2SunHole : PuzzleManager , IPuzzleable
+public class Chapter2SunHole : PaintRewardPuzzle, IPuzzleable
 {
     // 챕터 2 의 검은 구멍에 붙여 줄 스크립트
 
@@ -49,17 +49,6 @@ public class Chapter2SunHole : PuzzleManager , IPuzzleable
         Material[] mats = meshRenderer.materials;
         mats[0] = whiteMaterial; // 첫 번째 메터리얼을 darkMaterial로 설정
         meshRenderer.materials = mats; // 변경된 배열 다시 설정
-    }
-
-
-
-    public void ItemAdd(int ID)
-    {
-        if(ID != 0)
-        {
-            Manager.Inventory.AddItem(ID); // item 추가. 
-        }
-        
     }
 
     public override void OnClearPuzzle()

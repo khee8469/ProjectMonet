@@ -14,44 +14,39 @@ public static class Manager
     public static AnimParamManager Param { get { return AnimParamManager.Instance; } }
     public static LayerManager Layer { get { return LayerManager.Instance; } }
     public static Jc.DataManager Data { get { return Jc.DataManager.Instance; } }
-    public static InventoryManager Inventory { get { return InventoryManager.Instance; } }
     public static QuestManager Quest { get { return QuestManager.Instance; } }
     public static PlayableDataManager PlayableData { get { return PlayableDataManager.Instance;}}
     public static SoundManager Sound { get { return SoundManager.Instance; }}
-
-    //public static JJH.DataManager DataManager { get  { return JJH.DataManager.Instance; }}
-    
+    public static ItemManager Item { get { return ItemManager.Instance;}}    
 
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void Initialize()
     {
         // 싱글턴 객체해제
-        Jc.UIManager.ReleaseInstance();
-        //JJH.DataManager.ReleaseInstance();
         JJH.SceneManager.ReleaseInstance();
         JJH.ChapterManager.ReleaseInstance();
         AnimParamManager.ReleaseInstance();
         LayerManager.ReleaseInstance();
-        InventoryManager.ReleaseInstance();
         QuestManager.ReleaseInstance();
         Jc.DataManager.ReleaseInstance();
         PlayableDataManager.ReleaseInstance();
+        ItemManager.ReleaseInstance();
+        Jc.UIManager.ReleaseInstance();
         CameraManager.ReleaseInstance();
         SoundManager.ReleaseInstance();
 
 
         // 싱글턴 객체생성
-        Jc.UIManager.CreateInstance();
-        //JJH.DataManager.CreateInstance();
         JJH.SceneManager.CreateInstance();
         JJH.ChapterManager.CreateInstance();
         AnimParamManager.CreateInstance();
         LayerManager.CreateInstance();
         Jc.DataManager.CreateInstance();
-        InventoryManager.CreateInstance();
         QuestManager.CreateInstance();
         PlayableDataManager.CreateInstance();
+        ItemManager.CreateInstance();
+        Jc.UIManager.CreateInstance();
         CameraManager.CreateInstance();
         SoundManager.CreateInstance();
     }

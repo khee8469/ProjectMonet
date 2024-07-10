@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.XR.CoreUtils;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 namespace Jc
@@ -31,6 +32,24 @@ namespace Jc
         [Header("퀘스트 엔트리 그룹 트랜스폼")]
         [SerializeField]
         private RectTransform questEntryTr;
+
+        private bool onPopup = false;
+        public bool OnPopup 
+        {
+            get { return onPopup; } 
+            private set 
+            { 
+                onPopup = value;
+                OnPopUpChange?.Invoke();
+            }
+        }
+
+        public UnityAction OnPopUpChange; 
+
+        private void Start()
+        {
+            infoGruop.SetActive(false);
+        }
 
         public void CameraInit()
         {
@@ -73,30 +92,21 @@ namespace Jc
         // 인벤토리/퀘스트 창 열기
         public void OpenInfoGroup()
         {
-            
             infoGruop.transform.parent = Camera.main.transform;
             infoGruop.transform.localPosition = Vector3.zero;
             infoGruop.transform.localRotation = Quaternion.identity;
 
-            // 새롭게 add or remove 되면 켜줄 때 한 번 데이터를 로드한다. 
-            if(Manager.Inventory.is_AddRemoveItem == true)
-            {
-                Debug.Log("오픈 시 데이터 로드");
-                Manager.Inventory.LoadSlot();
-            }
             infoGruop.SetActive(true);
-            Manager.Inventory.isEnable = true;
-            Manager.Inventory.is_AddRemoveItem = false;
 
+            OnPopup = true;
         }
         // 인벤토리/퀘스트 창 닫기
         public void CloseInfoGroup()
         {
             //Manager.PlableData.SaveSlotData();
             infoGruop.transform.parent = this.transform;
-            Manager.Inventory.isEnable = false;
             infoGruop.SetActive(false);
-            
+            OnPopup = false;
         }
 
         public void CreateEntry(Quest quest)

@@ -17,7 +17,7 @@ namespace Jc
         [Header("퍼즐 id")]
         [SerializeField]
         private int puzzleID = -1;
-        public int PuzzleID { get { return rewardItemID; }}
+        public int PuzzleID { get { return puzzleID; }}
 
         [Header("퍼즐 진행상태")]
         [SerializeField]
@@ -57,9 +57,6 @@ namespace Jc
         {
             // 로드된 퍼즐 상태를 기반으로 퍼즐 최초세팅 진행
             InitPuzzleSetting();
-
-            if (activeQuestID != -1)
-                activeQuestID -= DataID.QUEST;  // 퀘스트 ID 매핑
 
             if (!Manager.Quest.QuestDic.ContainsKey(activeQuestID))
             {
