@@ -34,10 +34,14 @@ namespace JJH
             
         }
 
-        public void DoorOpen() // 자식 소켓에서 불러 줄 함수
+        public void DoorOpen() // 자식 소켓 스크립트에서 그냥 이거를 불러주자. 
         {
             hingeJoint.enableCollision = true;  // 힌지 조인트 오픈 
         }
+
+
+
+
 
 
         public void ActiveSetting()
