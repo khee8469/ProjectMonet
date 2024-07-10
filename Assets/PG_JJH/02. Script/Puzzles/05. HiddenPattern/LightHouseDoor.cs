@@ -1,8 +1,5 @@
 using Jc;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using JJH;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace JJH
@@ -29,11 +26,18 @@ namespace JJH
         // 소켓에 넣으면 힌지 조인트 on 해서 밀고 들어 갈 수 있도록 한다.
         // 앞으로 힌지 조인트 계속 켜주면 된다. 
 
-        
+        // 이거는 퍼즐이 아니니까 인터페이스를 상속하면 안될텐데 관리를 어떻게 해 줄지 고민해야함. 
 
+        private void Start()
+        {
+            hingeJoint = GetComponent<HingeJoint>();
+            
+        }
 
-
-
+        public void DoorOpen() // 자식 소켓에서 불러 줄 함수
+        {
+            hingeJoint.enableCollision = true;  // 힌지 조인트 오픈 
+        }
 
 
         public void ActiveSetting()
@@ -58,7 +62,7 @@ namespace JJH
 
         public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
         {
-            
+
         }
     }
 
