@@ -19,6 +19,9 @@ public class Flower : MonoBehaviour, IPuzzleable
 
     [Tooltip("꽃핀 들판 지정")]
     [SerializeField]
+    GameObject flowerTerrian;
+    [Tooltip("기본 들판 지정")]
+    [SerializeField]
     GameObject terrian;
 
     //Lerp 보간용
@@ -45,9 +48,6 @@ public class Flower : MonoBehaviour, IPuzzleable
         //스테이지3의 상태에 따라
         if (Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] == PuzzleState.Clear)
         {
-            if(terrian!=null)
-                terrian.gameObject.SetActive(true);
-
             CompleteSetting();
         }
     }
@@ -122,8 +122,10 @@ public class Flower : MonoBehaviour, IPuzzleable
     {
         UpdatePuzzleManager(puzzleManager, puzzleIndex);
         //콜라이더 비활성화해서 여러번 감지하는거 방지
-        if(flowerCollider!= null)
-            flowerCollider.enabled = false;
+        if(flowerCollider!= null) flowerCollider.enabled = false;
+        //꽃핀 들판으로 교체
+        if (flowerTerrian != null) flowerTerrian.gameObject.SetActive(true);
+        if (terrian != null) terrian.gameObject.SetActive(false);
         //꽃이 크는 코르틴
         StartCoroutine(FlowerLerp());
     }

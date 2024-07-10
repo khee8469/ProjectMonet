@@ -17,9 +17,9 @@ public class MiniatureMode : InteractObject
     [SerializeField]
     Transform modeOffPosition;
 
-    [Tooltip("자신의 위치")]
+    [Tooltip("TestPlayer 위치")]
     [SerializeField]
-    Transform mine;
+    Transform testPlayer;
     [Tooltip("플레이어 CharacterController 끄기용")]
     [SerializeField]
     CharacterController charactorController;
@@ -54,23 +54,27 @@ public class MiniatureMode : InteractObject
             Debug.LogError("modeOnPosition을 할당하시오");
         if (modeOffPosition == null)
             Debug.LogError("modeOffPosition을 할당하시오");
-        if (mine == null)
+        if (testPlayer == null)
             Debug.LogError("mine을 할당하시오");
         if (charactorController == null)
             Debug.LogError("charactorController을 할당하시오");
         if (miniatureModeCollider == null)
             Debug.LogError("miniatureModeCollider을 할당하시오");
+        if (dynamicMoveProvider == null)
+            Debug.LogError("dynamicMoveProvider을 할당하시오");
+        if(leftController == null)
+            Debug.LogError("leftController을 할당하시오");
+        if (rightController == null)
+            Debug.LogError("rightController 할당하시오");
 
 
 
-        // 입력 이벤트 등록 (필요없는게 뭔지 몰라서 다 추가함)
+        // 입력 이벤트 등록
         leftController.selectAction.action.performed += OnAnyButtonPressed;
-        leftController.activateAction.action.performed += OnAnyButtonPressed;
-        leftController.uiPressAction.action.performed += OnAnyButtonPressed;
+        
 
         rightController.selectAction.action.performed += OnAnyButtonPressed;
-        rightController.activateAction.action.performed += OnAnyButtonPressed;
-        rightController.uiPressAction.action.performed += OnAnyButtonPressed;
+        
 
     }
 
@@ -81,12 +85,8 @@ public class MiniatureMode : InteractObject
 
         // 입력 액션 활성화
         leftController.selectAction.action.Enable();
-        leftController.activateAction.action.Enable();
-        leftController.uiPressAction.action.Enable();
 
         rightController.selectAction.action.Enable();
-        rightController.activateAction.action.Enable();
-        rightController.uiPressAction.action.Enable();
     }
 
     protected override void OnDisable()
@@ -95,12 +95,8 @@ public class MiniatureMode : InteractObject
 
         // 입력 액션 비활성화
         leftController.selectAction.action.Disable();
-        leftController.activateAction.action.Disable();
-        leftController.uiPressAction.action.Disable();
 
         rightController.selectAction.action.Disable();
-        rightController.activateAction.action.Disable();
-        rightController.uiPressAction.action.Disable();
     }
 
     private void OnAnyButtonPressed(InputAction.CallbackContext context)
@@ -114,6 +110,7 @@ public class MiniatureMode : InteractObject
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         base.OnSelectEntered(args);
+
         if(!miniatureMode)
         {
             //Debug.Log("미니어처모드 시작");
@@ -127,11 +124,12 @@ public class MiniatureMode : InteractObject
             //지정위치로 이동
             Vector3 setPosition = modeOnPosition.position;
             Quaternion setRotation = modeOnPosition.rotation;
-            mine.transform.position = setPosition;
-            mine.transform.rotation = setRotation;
+            charactorController.transform.position = setPosition;
+            charactorController.transform.rotation = setRotation;
 
             //모드 체크
-            StartCoroutine(ModeChangeTime());
+            miniatureMode = true;
+            //StartCoroutine(ModeChangeTime());
         }
     }
 
@@ -142,8 +140,8 @@ public class MiniatureMode : InteractObject
         // 지정 위치로 이동
         Vector3 setPosition = modeOffPosition.position;
         Quaternion setRotation = modeOffPosition.rotation;
-        mine.transform.position = setPosition;
-        mine.transform.rotation = setRotation;
+        charactorController.transform.position = setPosition;
+        charactorController.transform.rotation = setRotation;
 
         // 콜라이더 및 CharacterController 다시 활성화
         miniatureModeCollider.enabled = true;
@@ -153,8 +151,8 @@ public class MiniatureMode : InteractObject
         dynamicMoveProvider.moveSpeed = 3;
 
         // 모드 체크 해제
-        //miniatureMode = false;
-        StartCoroutine(ModeChangeTime());
+        miniatureMode = false;
+        //StartCoroutine(ModeChangeTime());
     }
 
 

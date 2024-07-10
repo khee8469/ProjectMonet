@@ -9,17 +9,10 @@ public class WateringCan : InteractObject
     [SerializeField]
     Transform specifiedSocket;
 
-    [Tooltip("")]
+    /*[Tooltip("소켓위가아니면")]
     [SerializeField]
-    LayerMask raycastPoint;
+    LayerMask raycastPoint;*/
 
-    protected override void Awake()
-    {
-        base.Awake();
-
-        if (specifiedSocket == null)
-            Debug.LogError("소켓 위치를 할당 하시오");
-    }
 
     protected override void OnEnable()
     {
@@ -44,14 +37,16 @@ public class WateringCan : InteractObject
         base.OnSelectExited(args);
 
         //책상위에 놓으면 지정된 소켓위로
-        GroundCheck();
+        OriginalPosition();
     }
 
     //미니어처 위치 지정
-    public void GroundCheck()
+    public void OriginalPosition()
     {
-        RaycastHit hit;
-        if (!Physics.Raycast(transform.position, Vector3.down, out hit, 100, raycastPoint))
+        /*RaycastHit hit;
+        if (!Physics.Raycast(transform.position, Vector3.down, out hit, 100, raycastPoint))*/
+
+        if (specifiedSocket != null)
         {
             transform.position = specifiedSocket.position;
             transform.rotation = specifiedSocket.rotation;

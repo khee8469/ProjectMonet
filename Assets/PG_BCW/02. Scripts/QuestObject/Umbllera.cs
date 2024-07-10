@@ -23,7 +23,7 @@ public class Umbllera : InteractObject, IPuzzleable
     [Tooltip("비활성화할 우산")]
     [SerializeField]
     GameObject umbllera;
-    [Tooltip("활성화할 여성")]
+    [Tooltip("활성화할 여성 or 우산")]
     [SerializeField]
     GameObject umblleraWoman;
 
@@ -160,7 +160,7 @@ public class Umbllera : InteractObject, IPuzzleable
     {
         
         UpdatePuzzleManager(puzzleManager, puzzleIndex);
-        umbllera.SetActive(false);
-        umblleraWoman.SetActive(true);
+        if (umblleraWoman != null) umblleraWoman.SetActive(true);
+        if (umbllera != null) umbllera.SetActive(false);
     }
 }
