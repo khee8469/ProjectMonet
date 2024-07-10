@@ -1,4 +1,3 @@
-using JJH;
 using System.Collections;
 using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
@@ -21,21 +20,20 @@ namespace Jc
         private RayInteractor oppositeInteractor;
 
         [SerializeField]
+        private XRInteractorLineVisual lineVisual;
+        [SerializeField]
+        private LineRenderer lr;
+
+        [SerializeField]
         private bool isLeftController = false;
 
         [SerializeField]
         private GameObject controller;
 
-        [SerializeField]
-        private RectTransform canvasRect;
-        private float canvasWidth;
-        private float canvasHeight;
-        [SerializeField]
-        private Transform aimTransform;
-
         [Header("밸런싱")]
         [SerializeField]
         private bool isGrab = false;
+        public bool IsGrab {get { return isGrab; } }
 
         [SerializeField]
         private InteractObject currentGrabObject { get; set; }   // 현재 잡고있는 오브젝트
@@ -48,24 +46,59 @@ namespace Jc
         [Tooltip("슬롯의 이미 색 변경을 위한 Image 컴포넌트")]
         private Image slotImage;
 
-        private bool isAimming = false;      // 에이밍
-
         public InventorySlot currentSlot = null; // 현재 레이캐스트가 닿은 슬롯을 추적하기 위한 변수
+
+        private bool isInventoryMode = false;
 
         protected override void Awake()
         {
             base.Awake();
-            aimTransform.gameObject.SetActive(false);
-
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
             cam = Camera.main;
-            canvasHeight = canvasRect.sizeDelta.y;
-            canvasWidth = canvasRect.sizeDelta.x;
+        }
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+
+            Manager.UI.OnPopUpChange += OnPopUp;
+            if (isLeftController)
+            {
+                controllerCallback.leftTriggerRef.action.performed += OnSlotSelectEnter;
+                controllerCallback.leftTriggerRef.action.canceled += OnSlotSelectExit;
+            }
+            else
+            {
+                controllerCallback.rightTriggerRef.action.performed += OnSlotSelectEnter;
+                controllerCallback.rightTriggerRef.action.canceled += OnSlotSelectExit;
+            }
+        }
+        protected override void OnDisable()
+        {
+            base.OnDisable();
+            Manager.UI.OnPopUpChange -= OnPopUp;
+            // 인벤토리 콜백 등록
+            if (isLeftController)
+            {    
+                controllerCallback.leftTriggerRef.action.performed -= OnSlotSelectEnter;
+                controllerCallback.leftTriggerRef.action.canceled -= OnSlotSelectExit;
+            }
+            else
+            {
+                controllerCallback.rightTriggerRef.action.performed -= OnSlotSelectEnter;
+                controllerCallback.rightTriggerRef.action.canceled -= OnSlotSelectExit;
+            }
+
         }
 
-        #region 컨트롤러 콜백
+        private void Update()
+        {
+            if(isInventoryMode)
+                FindSlot();
+        }
+
+        #region 정재훈 인벤토리 주석
         //인벤토리에서 아이템 ----< 꺼낼 > 때 체크해줘야하는 Enter 함수 
         // 스택형 아이템은 destroy했기 때문에 생성한 다음에 손에 붙여줘야 한다는 것 잊지 말기. 
         //public void OnSlotTriggerEnter(InputAction.CallbackContext context)
@@ -189,6 +222,7 @@ namespace Jc
         //    }
         //}
         #endregion
+
         public override bool CanHover(IXRHoverInteractable interactable)
         {
             InteractObject itrObject = interactable as InteractObject;
@@ -201,7 +235,6 @@ namespace Jc
 
             return base.CanHover(interactable);
         }
-
         public override bool CanSelect(IXRSelectInteractable interactable)
         {
             InteractObject itrObject = interactable as InteractObject;
@@ -217,8 +250,6 @@ namespace Jc
             return base.CanSelect(interactable);
         }
 
-        // 플레이어가 아이템 잡은 상황. --> 인벤토리가 켜져있다면 이 CurrentGrabObject의 스케일 조정 필요
-        // 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
@@ -266,6 +297,35 @@ namespace Jc
             grabbedTr = null;
         }
 
+        private void OnSlotSelectEnter(InputAction.CallbackContext context)
+        {
+            if (!Manager.UI.OnPopup || currentSlot == null)
+                return;
+
+            if (isGrab || oppositeInteractor.IsGrab)
+                return;
+
+            ItemObject item = currentSlot.TakeOutItem();
+            if (item == null)
+                return;
+
+            interactionManager.SelectEnter(this as IXRSelectInteractor, item as IXRSelectInteractable); 
+        }
+        private void OnSlotSelectExit(InputAction.CallbackContext context)
+        {
+            if (!Manager.UI.OnPopup || currentSlot == null)
+                return;
+
+            if (!isGrab || currentGrabObject == null)
+                return;
+
+            ItemObject item = currentGrabObject as ItemObject;
+            if (item == null)
+                return;
+
+            currentSlot.PutInItem(item);
+        }
+
         // 오브젝트를 잡을 수 있는 거리체크
         private bool GrabableDistance(InteractObject itrObject)
         {
@@ -283,6 +343,54 @@ namespace Jc
             }
 
             return true;
+        }
+
+        // UI 매니저 콜백
+        private void OnPopUp()
+        {
+            isInventoryMode = Manager.UI.OnPopup;
+
+            if (isInventoryMode)
+            { 
+                lineVisual.enabled = false;
+            }
+            else
+            { 
+                lineVisual.enabled = true;
+            }
+            lr.enabled = true;
+        }
+        private void FindSlot()
+        { 
+            Ray ray = new Ray(transform.position, transform.forward);
+            lr.positionCount = 2;
+            lr.SetPosition(0, transform.position);
+            lr.SetPosition(1, transform.position + transform.forward * 6f);
+            if(Physics.Raycast(ray, out RaycastHit hitInfo, 6f, Manager.Layer.slotLM))
+            {
+                InventorySlot slot = hitInfo.transform.GetComponent<InventorySlot>();
+
+                if (slot == null)
+                {
+                    if (currentSlot != null)
+                        currentSlot.OnHoverExit();
+                    currentSlot = null;
+                    return;
+                }
+
+                if (currentSlot != slot)
+                    currentSlot.OnHoverExit();
+
+                currentSlot = slot;
+                currentSlot.OnHoverEnter();
+            }
+            else
+            {
+                if (currentSlot != null)
+                    currentSlot.OnHoverExit();
+
+                currentSlot = null;
+            }
         }
     }
 }

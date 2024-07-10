@@ -17,9 +17,7 @@ public static class Manager
     public static QuestManager Quest { get { return QuestManager.Instance; } }
     public static PlayableDataManager PlayableData { get { return PlayableDataManager.Instance;}}
     public static SoundManager Sound { get { return SoundManager.Instance; }}
-    public static ItemManager Item { get { return ItemManager.Instance;}}
-    //public static JJH.DataManager DataManager { get  { return JJH.DataManager.Instance; }}
-    
+    public static ItemManager Item { get { return ItemManager.Instance;}}    
 
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
@@ -27,7 +25,6 @@ public static class Manager
     {
         // 싱글턴 객체해제
         Jc.UIManager.ReleaseInstance();
-        //JJH.DataManager.ReleaseInstance();
         JJH.SceneManager.ReleaseInstance();
         JJH.ChapterManager.ReleaseInstance();
         AnimParamManager.ReleaseInstance();
@@ -42,7 +39,6 @@ public static class Manager
 
         // 싱글턴 객체생성
         Jc.UIManager.CreateInstance();
-        //JJH.DataManager.CreateInstance();
         JJH.SceneManager.CreateInstance();
         JJH.ChapterManager.CreateInstance();
         AnimParamManager.CreateInstance();
@@ -50,7 +46,7 @@ public static class Manager
         Jc.DataManager.CreateInstance();
         QuestManager.CreateInstance();
         PlayableDataManager.CreateInstance();
-        ItemManager.ReleaseInstance();
+        ItemManager.CreateInstance();
         CameraManager.CreateInstance();
         SoundManager.CreateInstance();
     }

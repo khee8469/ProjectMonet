@@ -11,8 +11,8 @@ namespace Jc
     //  리턴하지 않는 풀링
     public class ItemManager : Singleton<ItemManager>
     {
-        private Dictionary<int, ItemObject> itemDic; // 아이템 데이터 매핑
-        public Dictionary<int, ItemObject> ItemDic { get { return itemDic; } }
+        private Dictionary<int, ItemData> itemDataDic; // 아이템 데이터 매핑
+        public Dictionary<int, ItemData> ItemDataDic { get { return itemDataDic; } }
 
         #region 슬롯 관련
         // 슬롯 리스트관리
@@ -20,6 +20,7 @@ namespace Jc
         private List<InventorySlot> slotList; // 슬롯리스트
         public List<InventorySlot> SlotList { get { return slotList; } }
         #endregion
+
         protected override void Awake()
         {
             base.Awake();
@@ -28,18 +29,18 @@ namespace Jc
 
         private void RegistItems()
         {
-            itemDic = new Dictionary<int, ItemObject>();
+            itemDataDic = new Dictionary<int, ItemData>();
 
-            ItemObject[] items = Resources.LoadAll<ItemObject>("Items");
+            ItemData[] itemDatas = Resources.LoadAll<ItemData>("ItemDatas");
 
-            for(int i =0; i< items.Length; i++)
+            for(int i =0; i< itemDatas.Length; i++)
             {
-                if(items[i].ItemID < 1)
+                if(itemDatas[i].itemID < 1)
                 {
-                    Debug.Log($"{items[i]} : ID가 할당되지 않은 아이템입니다.");
+                    Debug.Log($"{itemDatas[i]} : ID가 할당되지 않은 아이템입니다.");
                     continue;
                 }
-                itemDic.Add(items[i].ItemID, items[i]);
+                itemDataDic.Add(itemDatas[i].itemID, itemDatas[i]);
             }
         }
 
