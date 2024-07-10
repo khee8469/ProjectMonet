@@ -1,18 +1,17 @@
 using Jc;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.ProBuilder.Shapes;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class WindMill : MonoBehaviour, IPuzzleable
+public class WindMill : InteractObject, IPuzzleable
 {
     [Header("현재 오브젝트 정보")]
     [SerializeField]
     PuzzleManager puzzleManager;
-    [Tooltip("성공조건 : 회전 속도")]
+    [Tooltip("몇도 돌려야 하는지")]
     [SerializeField]
-    float successSpeed;
-    [Tooltip("성공보상 : 풍차회전 속도")]
+    public float requiredRotation = 360f; // 필요한 회전 각도 (도 단위)
+    [Tooltip("성공보상 : 자동 회전 속도")]
     [SerializeField]
     float rotationSpeed;
     [Tooltip("퍼즐 클리어 조건 번호")]
@@ -23,57 +22,129 @@ public class WindMill : MonoBehaviour, IPuzzleable
     Rigidbody rb;
     [Tooltip("성공 후 콜라이더 끄기용")]
     [SerializeField]
-    Collider fanCollider;
+    Collider leverCollider;
 
+    //레버를잡앗는지
+    bool leverSelect;
     //어느 방향으로 돌아갓는지
     private bool leftRotation;
 
-    //미션 클리어 체크
-    private bool isSucess;
-    public bool IsSucess { get { return isSucess; } }
+    Quaternion startRotation;
+    Quaternion previousRotation;
+    private float totalRotation = 0f;
+    //레버 돌리기 성공
+    bool success;
     
 
 
-    private void Awake()
+
+    protected override void Awake()
     {
-        if(puzzleManager == null)
+        base.Awake();
+
+        if (puzzleManager == null)
             Debug.LogError("puzzleManager 컴포넌트가 이 오브젝트에 없습니다!");
         if (rotationSpeed == 0)
             Debug.LogError("rotationSpeed 가 0 입니다.!");
         if (rb == null)
             Debug.LogError("Rigidbody 컴포넌트가 이 오브젝트에 없습니다!");
-        if(fanCollider == null)
-            Debug.LogError("Collider컴포넌트가 이  오브젝트에 없습니다!");
 
         //퍼즐매니저에 등록
         if (puzzleManager != null)
             RegistObject(puzzleManager);
+
+        //puzzleDataDic에 키값이 없으면 할당
+        if (!Manager.PlayableData.puzzleDataDic.ContainsKey(puzzleManager.PuzzleID))
+            Manager.PlayableData.puzzleDataDic.Add(puzzleManager.PuzzleID, PuzzleState.DisActive);
+
     }
 
-    private void OnEnable()
+    protected override void OnEnable()
     {
-        //회전속도 체크 코르틴
-        StartCoroutine(AngularVelocity());
+        base.OnEnable();
+
         //스테이지3의 상태에 따라
         if (Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] == PuzzleState.Clear)
         {
-            CompleteSetting();
+            //CompleteSetting();
         }
     }
 
-    private void OnDisable()
+
+    //상태 초기화
+    private void Update()
     {
-        StopAllCoroutines();
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Debug.Log("상태초기화");
+            Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] = PuzzleState.DisActive;
+            Manager.PlayableData.SavePuzzleData();
+        }
+        else if (Input.GetKeyDown(KeyCode.O))
+        {
+            Debug.Log("진행중");
+            Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] = PuzzleState.Proceed;
+            Manager.PlayableData.SavePuzzleData();
+        }
+        else if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("클리어");
+            Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] = PuzzleState.Clear;
+            Manager.PlayableData.SavePuzzleData();
+        }
     }
 
-    IEnumerator AngularVelocity()
+    
+    protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
-        while (!isSucess)
+        base.OnSelectEntered(args);
+
+        leverSelect = true;
+        StartCoroutine(LeverRotation());
+    }
+
+    protected override void OnSelectExited(SelectExitEventArgs args)
+    {
+        base.OnSelectExited(args);
+
+        //속도 0으로만든후 회전 시작
+        rb.angularVelocity = Vector3.zero;
+        
+        leverSelect = false;
+        StopAllCoroutines();
+
+        if (success)
         {
-            //회전속도가 일정속도가 되면
-            if (Mathf.Abs(rb.angularVelocity.z) > successSpeed)
+            //퍼즐성공 저장
+            UpdatePuzzleManager(puzzleManager, puzzleIndex);
+            //회전 코르틴 시작
+            StartCoroutine(AngularVelocity());
+            //더이상 조작 못하게
+            if(leverCollider != null) leverCollider.enabled = false;
+            rb.isKinematic = false;
+        }
+    }
+
+    IEnumerator LeverRotation()
+    {
+        startRotation = transform.rotation;
+        previousRotation = transform.rotation;
+
+        while (leverSelect)
+        {
+            yield return null;
+
+            Quaternion currentRotation = transform.rotation;
+            float rotationThisFrame = Quaternion.Angle(previousRotation, currentRotation);
+            //Debug.Log($"rotationThisFrame : {rotationThisFrame}");
+            totalRotation += rotationThisFrame;
+            previousRotation = currentRotation;
+            //Debug.Log($"totalRotation {totalRotation}");
+            if (Mathf.Abs(totalRotation) >= requiredRotation)
             {
-                //어느방향으로 회전중인지
+                success = true;
+                Debug.Log("Success: " + success);
+
                 if (rb.angularVelocity.z >= 0)
                 {
                     leftRotation = true;
@@ -82,18 +153,14 @@ public class WindMill : MonoBehaviour, IPuzzleable
                 {
                     leftRotation = false;
                 }
-
-                CompleteSetting();
-                fanCollider.enabled = false;
-                isSucess = true;
+                break;
             }
-
-            yield return null;
         }
-        
+    }
 
-        //완료했으면 계속 회전
-        while (isSucess)
+    IEnumerator AngularVelocity()
+    {
+        while (true)
         {
             if (leftRotation)
             {
@@ -103,9 +170,8 @@ public class WindMill : MonoBehaviour, IPuzzleable
             {
                 transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
             }
-
             yield return null;
-        }  
+        }
     }
 
 
@@ -139,7 +205,8 @@ public class WindMill : MonoBehaviour, IPuzzleable
     public void CompleteSetting()
     {
         UpdatePuzzleManager(puzzleManager, puzzleIndex);
-        fanCollider.enabled = false;
-        isSucess = true;
+        if (leverCollider != null)
+            leverCollider.enabled = false;
+        StartCoroutine(AngularVelocity());
     }
 }

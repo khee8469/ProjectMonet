@@ -26,9 +26,13 @@ namespace Jc
         }
 
         private Vector3 originPos;
-        private void OnEnable()
+        private void Awake()
         {
             originPos = transform.position;
+        }
+
+        private void OnEnable()
+        {
             mainCameraTr = Camera.main.transform;
 
             if (mainCameraTr == null)

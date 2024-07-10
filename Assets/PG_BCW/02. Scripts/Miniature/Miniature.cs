@@ -3,7 +3,7 @@ using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class Miniature : InteractObject, IPuzzleable
+public class Miniature : InteractObject//, IPuzzleable
 {
     [Tooltip("퍼즐 확인용")]
     [SerializeField]
@@ -26,14 +26,14 @@ public class Miniature : InteractObject, IPuzzleable
     MiniatureManager miniatureManager;
 
 
-    protected override void Awake()
+    /*protected override void Awake()
     {
         base.Awake();
         if (puzzleManager != null)
             RegistObject(puzzleManager);
 
         miniatureManager = GetComponentInParent<MiniatureManager>();
-    }
+    }*/
 
     private void Start()
     {
@@ -100,7 +100,7 @@ public class Miniature : InteractObject, IPuzzleable
         }*/
     }
 
-    private void OnDrawGizmos()
+    /*private void OnDrawGizmos()
     {        
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position, transform.position + Vector3.down * 10);
@@ -136,5 +136,5 @@ public class Miniature : InteractObject, IPuzzleable
     {
         //스테이지 별로 클리어한 퍼즐이면 한번 실행
         puzzleManager.OnClearPuzzle();
-    }
+    }*/
 }

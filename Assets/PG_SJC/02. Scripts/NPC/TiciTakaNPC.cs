@@ -30,6 +30,9 @@ namespace Jc
             dialogText.enabled = true;
             secondDialogText.enabled = false;
 
+            dialogText.text = "";
+            secondDialogText.text = "";
+
             // 현재 할당된 퀘스트가 없는 경우
             if (currentQuest == null)
             {
@@ -53,7 +56,7 @@ namespace Jc
                 // 퀘스트 수주
                 case QuestState.Active:
                     // 대화 종료 체크
-                    if (curQuestDialogIndex >= currentQuest.receiveNarrations.Count - 1)
+                    if (curQuestDialogIndex >= currentQuest.receiveNarrations.Count)
                     {
                         builboardUI.EnableBuilboard = false;
                         dialogText.enabled = false;
@@ -68,21 +71,21 @@ namespace Jc
                     if (curQuestDialogIndex == secondDialogIndex)
                     {
                         dialogText.enabled = false;
-                        builboardUI.enabled = false;
+                        builboardUI.EnableBuilboard = false;
                         secondDialogText.enabled = true;
-                        secondBuilboard.enabled = true;
+                        secondBuilboard.EnableBuilboard = true;
 
                         // 플로팅 애니메이션
                         secondFloatingAnim.SetTrigger(Manager.Param.OnFloating);
-                        dialogText.text = currentQuest.receiveNarrations[curQuestDialogIndex++].text;
+                        secondDialogText.text = currentQuest.receiveNarrations[curQuestDialogIndex++].text;
                     }
                     // 일반 NPC
                     else
                     {
                         dialogText.enabled = true;
-                        builboardUI.enabled = true;
+                        builboardUI.EnableBuilboard = true;
                         secondDialogText.enabled = false;
-                        secondBuilboard.enabled = false;
+                        secondBuilboard.EnableBuilboard = false;
 
                         // 플로팅 애니메이션
                         floatingAnim.SetTrigger(Manager.Param.OnFloating);
@@ -98,7 +101,7 @@ namespace Jc
                 // 퀘스트 완료
                 case QuestState.Clear:
                     // 대화 종료 체크
-                    if (curQuestDialogIndex >= currentQuest.clearNarrations.Count - 1)
+                    if (curQuestDialogIndex >= currentQuest.clearNarrations.Count)
                     {
                         builboardUI.EnableBuilboard = false;
                         dialogText.enabled = false;

@@ -13,22 +13,14 @@ namespace Jc
     /// </summary>
     public class PlayableDataManager : Singleton<PlayableDataManager>
     {
-        [SerializeField]
-        private List<SlotData> inventorySlotDatas;
-        public List<SlotData> InventorySlotDatas { get { return inventorySlotDatas; } }
-
         // 물감 수령 데이터 딕셔너리
         // 추후 아이템 데이터 딕셔너리로 통합 예정
         public Dictionary<int, bool> paintDataList;
-
         // 퍼즐 데이터 딕셔너리
         public Dictionary<int, PuzzleState> puzzleDataDic;
 
-
         private void OnEnable()
         {
-            Debug.Log(Application.persistentDataPath);
-
             InitSetting();
         }
 
@@ -144,6 +136,4 @@ namespace Jc
             File.WriteAllText(SystemPath.GetPath(DataPath.LocalQuestData), jsonData);
         }
     }
-
-
 }

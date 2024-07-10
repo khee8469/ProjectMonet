@@ -51,17 +51,6 @@ public class Chapter2SunHole : PaintRewardPuzzle, IPuzzleable
         meshRenderer.materials = mats; // 변경된 배열 다시 설정
     }
 
-
-
-    public void ItemAdd(int ID)
-    {
-        if(ID != 0)
-        {
-            Manager.Inventory.AddItem(ID); // item 추가. 
-        }
-        
-    }
-
     public override void OnClearPuzzle()
     {
         base.OnClearPuzzle();

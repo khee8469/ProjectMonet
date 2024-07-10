@@ -23,10 +23,9 @@ public class Umbllera : InteractObject, IPuzzleable
     [Tooltip("비활성화할 우산")]
     [SerializeField]
     GameObject umbllera;
-    [Tooltip("활성화할 여성")]
+    [Tooltip("활성화할 여성 or 우산")]
     [SerializeField]
     GameObject umblleraWoman;
-
 
     // 시작위치 저장용
     Vector3 startPosition;
@@ -43,6 +42,10 @@ public class Umbllera : InteractObject, IPuzzleable
 
         if (puzzleManager!=null)
             RegistObject(puzzleManager);
+
+        //puzzleDataDic에 키값이 없으면 할당
+        if (!Manager.PlayableData.puzzleDataDic.ContainsKey(puzzleManager.PuzzleID))
+            Manager.PlayableData.puzzleDataDic.Add(puzzleManager.PuzzleID, PuzzleState.DisActive);
     }
 
     protected override void OnEnable()
@@ -52,9 +55,33 @@ public class Umbllera : InteractObject, IPuzzleable
         //스테이지3의 상태에 따라
         if (Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] == PuzzleState.Clear)
         {
-            CompleteSetting();
+            //CompleteSetting();
         }
     }
+
+    //상태 초기화
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            Debug.Log("상태초기화");
+            Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] = PuzzleState.DisActive;
+            Manager.PlayableData.SavePuzzleData();
+        }
+        else if (Input.GetKeyDown(KeyCode.O))
+        {
+            Debug.Log("진행중");
+            Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] = PuzzleState.Proceed;
+            Manager.PlayableData.SavePuzzleData();
+        }
+        else if (Input.GetKeyDown(KeyCode.P))
+        {
+            Debug.Log("클리어");
+            Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] = PuzzleState.Clear;
+            Manager.PlayableData.SavePuzzleData();
+        }
+    }
+
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
         base.OnSelectEntering(args);
@@ -78,12 +105,11 @@ public class Umbllera : InteractObject, IPuzzleable
             transform.position = startPosition;
             transform.rotation = startRotation;
         }
-        // hit.point 위치에 AttachPoint 생성
+        // hit.point 
         else
         {
-            GameObject tempObject = new GameObject("TempObject");
-            tempObject.transform.position = hit.point;
-            hit.transform.GetComponent<SocketInteractor>().attachTransform = tempObject.transform;
+            transform.position = hit.point;
+            UpdatePuzzleManager(puzzleManager, puzzleIndex);
         }
     }
 
@@ -92,7 +118,8 @@ public class Umbllera : InteractObject, IPuzzleable
     {
         if (raycastPoint.Contain(collider.gameObject.layer))
         {
-            CompleteSetting();
+            //처음에는 성공만 다음에 볼떄 귀부인보이게
+            UpdatePuzzleManager(puzzleManager, puzzleIndex);
         }
     }
 
@@ -131,8 +158,9 @@ public class Umbllera : InteractObject, IPuzzleable
 
     public void CompleteSetting()
     {
+        
         UpdatePuzzleManager(puzzleManager, puzzleIndex);
-        umbllera.SetActive(false);
-        umblleraWoman.SetActive(true);
+        if (umblleraWoman != null) umblleraWoman.SetActive(true);
+        if (umbllera != null) umbllera.SetActive(false);
     }
 }

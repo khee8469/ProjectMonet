@@ -95,8 +95,6 @@ namespace JJH
                 sunHole.OnClearPuzzle();
                 DeAactiveLight_Button();
                 //ChangeRoutine(); --> 등대 계속 켜져 잇어야함. 
-                sunHole.ItemAdd(sunHole.ID);
-
             }
         }
 
