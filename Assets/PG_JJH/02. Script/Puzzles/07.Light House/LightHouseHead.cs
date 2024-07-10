@@ -52,22 +52,8 @@ namespace JJH
         // 빛 기둥 같은 경우는 이제 그냥 켜주기만 하면 되는 느낌이겠지. 
         // ray 보다는 패널 에서 자기 위치 체크를 하는게 낫지 않나? 
 
-        private void Start()
-        {
-            //pillar_Of_Light.gameObject.SetActive(false);
-        }
 
-        private void Update()
-        {
-            // 퍼즐이 On 된 상태에서만 RayCast 및 빛 기둥 발사를 해야한다.
-            if(puzzleOn ==true)
-            {
-                // 다른 함수로 Pillar 를 Active 하는 부분을 CallBack 으로 불러서 (이전 퍼즐에서)
-                // 켜줘야 한다. Ray도 마찬가지고 
-                //RayOn();
-                PillarChange(true);
-            }
-        }
+
         private void RayOn() //Ray 든 뭐 빛 기둥이던 어쨋든 이전 퍼즐을 깨야 발동이 가능하다. 
         {
             RaycastHit hit;
@@ -108,9 +94,7 @@ namespace JJH
             {
                 sunHole.OnClearPuzzle();
                 DeAactiveLight_Button();
-                ChangeRoutine();
-                sunHole.ItemAdd(sunHole.ID);
-
+                //ChangeRoutine(); --> 등대 계속 켜져 잇어야함. 
             }
         }
 
@@ -128,10 +112,15 @@ namespace JJH
             }
         }
 
+        private void onWindowLight(bool boolean)
+        {
+            clearLight.gameObject.SetActive(boolean);
+        }
+
 
         private void ChangeRoutine()
         {
-            //StartCoroutine(ChangeCoRoutine());  --> 등대 빛 없애기 기능 
+            StartCoroutine(ChangeCoRoutine());  //--> 등대 빛 없애기 기능 
         }
 
         private IEnumerator ChangeCoRoutine() 
@@ -165,7 +154,8 @@ namespace JJH
 
             // 등대의 불은 나오고 있어야 함. 
             PillarChange(true);
-
+            onWindowLight(false);
+            Debug.Log("등대의 액티브세팅");
         }
 
         public void CompleteSetting() // 완성되 있는 상태 세팅 ++ 스카이박스 변경 필요.
@@ -173,6 +163,8 @@ namespace JJH
             DeAactiveLight_Button();
             sunHole.OnClearPuzzle();
             PillarChange(true);
+            onWindowLight(true);
+            Debug.Log("등대의 컴플리트 세팅");
             //sunHole.ChangeSkyBox(sunHole.afternoonSkybox); // 낮 상태로 스카이박스 및 마테리얼을 빛 상태로 --> 온 클리어에 같이 있음. 
 
         }
@@ -181,18 +173,22 @@ namespace JJH
         {
             DeAactiveLight_Button(); // 버튼 꺼두기 
             PillarChange(false); // 불이 아직 들어오지 않음 
+            onWindowLight(false);
+            Debug.Log("등대의 디스액티브세팅");
 
         }
 
         public void RegistObject(PuzzleManager puzzle)  // Awake 에서 발동. 
         {
             // 퍼즐 매니저에 자신을 등록 
-            puzzle.puzzleObjects.Add(this); 
+            puzzle.puzzleObjects.Add(this);
+            Debug.Log("등대의 레지스터");
         }
 
         public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
         {
             // 얘는 어차피 완료 조건이 하나 니까 그냥 OnClear 부르는 방식으로 진행 할 것. 
+            Debug.Log("등대의 업데이트 퍼즐");
         }
         #endregion
     }

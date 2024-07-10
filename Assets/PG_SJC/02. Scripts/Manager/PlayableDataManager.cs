@@ -13,23 +13,14 @@ namespace Jc
     /// </summary>
     public class PlayableDataManager : Singleton<PlayableDataManager>
     {
-        [SerializeField]
-        private List<SlotData> inventorySlotDatas { get; set; }
-        public List<SlotData> InventorySlotDatas { get { return inventorySlotDatas; } }
-
         // 물감 수령 데이터 딕셔너리
         // 추후 아이템 데이터 딕셔너리로 통합 예정
         public Dictionary<int, bool> paintDataList;
-
         // 퍼즐 데이터 딕셔너리
         public Dictionary<int, PuzzleState> puzzleDataDic;
 
-
-
         private void OnEnable()
         {
-            Debug.Log(Application.persistentDataPath);
-
             InitSetting();
         }
 
@@ -120,12 +111,12 @@ namespace Jc
             // 구조체 데이터 딕셔너리로 변환
             foreach (QuestListData data in questListData)
             {
-                if (!Manager.Quest.QuestDic.ContainsKey(data.id_quest - DataID.QUEST))
+                if (!Manager.Quest.QuestDic.ContainsKey(data.id_quest))
                 {
                     Debug.LogError($"Key({data.id_quest})값의 퀘스트가 존재하지 않습니다.");
                     break;
                 }
-                Manager.Quest.QuestDic[data.id_quest - DataID.QUEST].State = (QuestState)data.progress;
+                Manager.Quest.QuestDic[data.id_quest].State = (QuestState)data.progress;
             }
 
         }
@@ -137,7 +128,7 @@ namespace Jc
             // Dictionary to List
             foreach (int key in Manager.Quest.QuestDic.Keys)
             {
-                questListData.Add(new QuestListData(key + DataID.QUEST_LIST, key + DataID.QUEST, (int)Manager.Quest.QuestDic[key].State));
+                questListData.Add(new QuestListData(key, key, (int)Manager.Quest.QuestDic[key].State));
             }
 
             // 직렬화한 데이터 쓰기
@@ -145,6 +136,4 @@ namespace Jc
             File.WriteAllText(SystemPath.GetPath(DataPath.LocalQuestData), jsonData);
         }
     }
-
-
 }

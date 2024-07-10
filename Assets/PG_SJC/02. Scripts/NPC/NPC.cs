@@ -1,3 +1,4 @@
+using JJH;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -32,6 +33,9 @@ namespace Jc
         [SerializeField]
         protected TextMeshProUGUI dialogText;     // 다이얼로그 텍스트
         [SerializeField]
+        protected BuilboardUI builboardUI;        // 빌보드 UI
+
+        [SerializeField]
         protected Animator floatingAnim;      // 다이얼로그 텍스트 플로팅 애니메이터
 
         [Space(5)]
@@ -45,12 +49,12 @@ namespace Jc
         protected Quest currentQuest;
 
         [SerializeField]
-        private int basicNarrationIndex = 0;     // 기본 나레이션 인덱스
+        protected int basicNarrationIndex = 0;     // 기본 나레이션 인덱스
 
         [SerializeField]
-        private int curQuestDialogIndex = 0;     // 퀘스트 대화 진행 인덱스
+        protected int curQuestDialogIndex = 0;     // 퀘스트 대화 진행 인덱스
         [SerializeField]
-        private int curBasicDialogIndex = 0;     // 기본 대화 진행 인덱스 
+        protected int curBasicDialogIndex = 0;     // 기본 대화 진행 인덱스 
 
         protected virtual void Start()
         {
@@ -122,30 +126,34 @@ namespace Jc
         // 활성화되어있는 퀘스트 반환
         protected Quest GetQuest()
         {
-            foreach (int id in questIDList)
+            foreach (int questID in questIDList)
             {
-                QuestState state = Manager.Quest.GetQuest(id).State;
-
-                // 비활성화 상태가 아닌 퀘스트를 반환
-                if (state != QuestState.DisActive
-                    && state != QuestState.Complete)
-                    return Manager.Quest.GetQuest(id);
+                QuestState state = Manager.Quest.GetQuest(questID).State;
+                
+                // 현재 진행해줄 수 있는 퀘스트를 할당
+                if ((state == QuestState.Active || state == QuestState.Proceed )&& Manager.Quest.GetQuest(questID).QuestData.acceptNPCID == this.id 
+                    || state == QuestState.Clear && Manager.Quest.GetQuest(questID).QuestData.clearNPCID == this.id)
+                    return Manager.Quest.GetQuest(questID);
             }
             return null;
         }
 
         protected virtual void UpdateDialog(PlayerQuestController questController)
         {
+            builboardUI.EnableBuilboard = true;
             dialogText.enabled = true;
 
             // 현재 할당된 퀘스트가 없는 경우
-            if(currentQuest == null)
+            if (currentQuest == null)
             {
                 // 플로팅 애니메이션
                 floatingAnim.SetTrigger(Manager.Param.OnFloating);
 
                 if (curBasicDialogIndex >= basicNarrations.Count)
-                    dialogText.text = currentQuest.receiveNarrations[basicNarrations.Count-1].text;
+                {
+                    dialogText.enabled = false;
+                    builboardUI.EnableBuilboard = false;
+                }
                 else
                     dialogText.text = currentQuest.receiveNarrations[curBasicDialogIndex++].text;
                 return;
@@ -160,6 +168,7 @@ namespace Jc
                     // 대화 종료 체크
                     if (curQuestDialogIndex >= currentQuest.receiveNarrations.Count)
                     {
+                        builboardUI.EnableBuilboard = false;
                         dialogText.enabled = false;
                         // 최초 등록 (수주 시에만 최초로 등록)
                         // 플레이어에 퀘스트 등록
@@ -184,6 +193,7 @@ namespace Jc
                     // 대화 종료 체크
                     if (curQuestDialogIndex >= currentQuest.clearNarrations.Count)
                     {
+                        builboardUI.EnableBuilboard = false;
                         dialogText.enabled = false;
                         // 퀘스트 완료 상태로 변경
                         currentQuest.ChangeState(QuestState.Complete);

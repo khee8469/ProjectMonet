@@ -58,9 +58,6 @@ namespace Jc
             // 로드된 퍼즐 상태를 기반으로 퍼즐 최초세팅 진행
             InitPuzzleSetting();
 
-            if (activeQuestID != -1)
-                activeQuestID -= DataID.QUEST;  // 퀘스트 ID 매핑
-
             if (!Manager.Quest.QuestDic.ContainsKey(activeQuestID))
             {
                 Debug.Log($"(Puzzle : {this} / QuestID : {activeQuestID}) : 할당된 퀘스트가 없습니다.");

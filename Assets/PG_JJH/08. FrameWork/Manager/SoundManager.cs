@@ -36,6 +36,12 @@ namespace JJH
             sfxSource.PlayOneShot(clip);
         }
 
+        public void PlaySFXLoop(AudioClip clip)
+        {
+            sfxSource.loop = true;
+            sfxSource.PlayOneShot(clip);
+        }
+
         public void StopSFX()
         {
             if (sfxSource.isPlaying == false)

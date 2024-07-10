@@ -10,6 +10,9 @@ namespace JJH
     // 아이템을 체크 하기 위한 인터페이스 상속 --> 실제 아이템에 붙을 친구.
     public class InventoryItem : InteractObject, IInventory
     {
+        [Header("오브젝트 풀링 세팅")]
+        public int size;
+
         // 실제 아이템이 가지고 있을 아이템의 기본적인 id , 타입 등의 데이터 
         [Header("아이템이 가지고 있을 데이터")]
         public InvenItem itemData; // 실제 아이템의 데이터 --가지고 있어야 데이터 쓸 수 있을듯? 
@@ -46,8 +49,6 @@ namespace JJH
             originalScale = transform.localScale;
             rigid = GetComponent<Rigidbody>();
             retainTransformParent = false; // socket 에서 해제 시에도 부모의 자식으로 붙어 있으려함 -> False
-
-
         }
 
         private void Start()
@@ -68,6 +69,7 @@ namespace JJH
         public void SaveScale()
         {
             // 시작 시의 자신의 로컬 스케일을 저장한다. 
+            Debug.Log("자신의 로컬 스케일 " + originalScale);
             transform.localScale = originalScale;
             itemData.SaveOriginalTransform(transform); //자신의 오브젝트의 트랜스폼을 저장해준다. 
 
@@ -96,6 +98,7 @@ namespace JJH
 
         public void AdjustScale()
         {
+            // 임시 --> 나중에는 각자 스케일 조정 해 줄 예정 
             transform.localScale = new Vector3(0.05f, 0.05f, 0.05f);
         }
 
@@ -109,16 +112,20 @@ namespace JJH
         // 이거 interactor 에서 exit을 발동시킬 수 있도록 할 수가 있나? 
         protected override void OnSelectExiting(SelectExitEventArgs args)
         {
+            // 아니 말이 안되는게 재상속을 해서 override를 했는데 도대체 왜 이게 뜨지?
             // 여기서 selected 되던 exit 하던 소켓 내부에 있는 상황이라면 ( slot과 상호작용 하고 있다면)
             // scale의 회복을 발동 시킬 필요가 없음. 
             base.OnSelectExiting(args);
             if (args.interactorObject.transform.GetComponent<InventorySlot>()) //슬롯과 상호작용 중이라면.
             {
 
-            }
+            }        
             else
             {
-                RestoreScale();
+                if (originalScale.x != 0 && originalScale.y != 0 && originalScale.z != 0) return;
+
+                RestoreScale(); // 이게 지금 무조건 발동한단 말이지 inventoryItem을 상속해서 base를 찍어버리면...
+                // 그런데 그렇다고 다시 상속해서 해봤자 의미가 없는게 inventoryitem은 이 효과를 내야 하는게 맞기 때문임.
                 rigid.useGravity = true;
 
             }

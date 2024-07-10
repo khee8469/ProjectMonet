@@ -92,8 +92,6 @@ namespace Jc
         // NPC 상호작용 콜백
         private void OnInteract(InputAction.CallbackContext context)
         {
-            // NPC 상호작용
-            if (Manager.Inventory.isEnable) return;   // 팝업이 열려있는 경우 
             //퀘스트 npc면
             if (nearNPC != null)
             {
