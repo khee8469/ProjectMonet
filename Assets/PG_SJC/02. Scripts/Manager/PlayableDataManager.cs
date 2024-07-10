@@ -19,7 +19,6 @@ namespace Jc
         // 퍼즐 데이터 딕셔너리
         public Dictionary<int, PuzzleState> puzzleDataDic;
 
-
         private void OnEnable()
         {
             InitSetting();
