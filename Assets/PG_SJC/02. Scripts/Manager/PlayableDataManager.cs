@@ -18,9 +18,10 @@ namespace Jc
         public Dictionary<int, bool> paintDataList;
         // 퍼즐 데이터 딕셔너리
         public Dictionary<int, PuzzleState> puzzleDataDic;
-
         // 슬롯 데이터 딕셔너리
         public Dictionary<int, SlotData> slotDataDic;
+        // 아이템 사용정보 데이터 딕셔너리
+        public Dictionary<int, ItemInfoData> itemSaveDataDic;
 
         private void OnEnable()
         {
