@@ -70,11 +70,11 @@ namespace Jc
         // 퀘스트 NPC Trigger Enter 콜백
         private void OnEnterNPC(NPC target)
         {
-            // 기존에 충돌한 NPC 할당해제
+            // 가장 가까운 NPC가 존재할 경우
+            // 다른 NPC 할당하지않음
             if (nearNPC != null)
-                nearNPC = null;
+                return;
 
-            // 가장 가까운 NPC 재할당 
             nearNPC = target;
         }
         // 퀘스트 NPC Trigger Exit 콜백
