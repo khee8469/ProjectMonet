@@ -11,7 +11,7 @@ public class HiddenPatternWall : MonoBehaviour , IPuzzleable
 
     [SerializeField] private Material material;
 
-    [SerializeField] HiddenPatternManager puzzle;
+    [SerializeField] HiddenPatternPuzzle puzzle;
 
     private void Start()
     {

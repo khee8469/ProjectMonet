@@ -13,7 +13,7 @@ namespace JJH
         [SerializeField] private new Collider collider;
 
         [Tooltip("5번 퍼즐의 퍼즐 매니저")]
-        [SerializeField] private HiddenPatternManager puzzle;
+        [SerializeField] private HiddenPatternPuzzle puzzle;
 
         [Tooltip("랜턴이 원상 복귀 될 위치")]
         [SerializeField] private Vector3 flashLightPosition;

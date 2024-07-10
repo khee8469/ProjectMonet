@@ -34,7 +34,7 @@ namespace JJH
 
         [Header("퍼즐 매니저 5번 퍼즐")]
         [Tooltip("5번 퍼즐의 퍼즐 매니저")]
-        [SerializeField] private HiddenPatternManager puzzle;
+        [SerializeField] private HiddenPatternPuzzle puzzle;
 
         [Header("유니티 이벤트 등록 필요함. --> collider")]
         [Tooltip("완료 했을 때 발동시킬 유니티 이벤트 --> 인스펙터에 등록하자.")]
