@@ -1068,7 +1068,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   activeQuestID: 1510012
-  clearQuestID: 1510012
+  clearQuestID: -1
   isClear: 0
   paintItemID: 11
 --- !u!1 &658468641343277057
@@ -2794,7 +2794,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   activeQuestID: 1510010
-  clearQuestID: 1510010
+  clearQuestID: -1
   isClear: 0
   paintItemID: 9
 --- !u!1 &1742060165998574964
@@ -5989,7 +5989,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7143803019258887197}
   m_Layer: 0
-  m_Name: MiniatureST3 new
+  m_Name: MiniatureST3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6131,7 +6131,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5841343585221893214}
-  m_Layer: 0
+  m_Layer: 23
   m_Name: MiniatureItem Socket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9124,7 +9124,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 0
+  m_MovementType: 2
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -9161,7 +9161,7 @@ MonoBehaviour:
   m_ThrowVelocityScale: 1.5
   m_ThrowAngularVelocityScale: 1
   m_ForceGravityOnDetach: 0
-  m_RetainTransformParent: 1
+  m_RetainTransformParent: 0
   m_AttachPointCompatibilityMode: 0
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
@@ -9662,7 +9662,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   activeQuestID: 1510011
-  clearQuestID: 1510011
+  clearQuestID: -1
   isClear: 0
   paintItemID: 10
 --- !u!1 &4808796177954631992
@@ -17143,7 +17143,6 @@ MonoBehaviour:
   interactors: []
   modeOnPosition: {fileID: 3347179414898167842}
   modeOffPosition: {fileID: 8249228893314706389}
-  testPlayer: {fileID: 0}
   charactorController: {fileID: 0}
   miniatureModeCollider: {fileID: 5991804773855177325}
   dynamicMoveProvider: {fileID: 0}
@@ -24504,6 +24503,11 @@ PrefabInstance:
     - target: {fileID: 5489048519314654097, guid: 61b9dd48e54ad8f48b34dd5d75bb8e39,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7116145432746068593, guid: 61b9dd48e54ad8f48b34dd5d75bb8e39,
+        type: 3}
+      propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

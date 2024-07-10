@@ -17,9 +17,6 @@ public class MiniatureMode : InteractObject
     [SerializeField]
     Transform modeOffPosition;
 
-    [Tooltip("TestPlayer 위치")]
-    [SerializeField]
-    Transform testPlayer;
     [Tooltip("플레이어 CharacterController 끄기용")]
     [SerializeField]
     CharacterController charactorController;
@@ -54,8 +51,6 @@ public class MiniatureMode : InteractObject
             Debug.LogError("modeOnPosition을 할당하시오");
         if (modeOffPosition == null)
             Debug.LogError("modeOffPosition을 할당하시오");
-        if (testPlayer == null)
-            Debug.LogError("mine을 할당하시오");
         if (charactorController == null)
             Debug.LogError("charactorController을 할당하시오");
         if (miniatureModeCollider == null)

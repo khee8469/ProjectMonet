@@ -26,30 +26,30 @@ public class WateringCan : InteractObject
     }
 
 
-    protected override void OnSelectEntered(SelectEnterEventArgs args)
+
+    protected override void OnSelectExiting(SelectExitEventArgs args)
     {
-        base.OnSelectEntered(args);
+        base.OnSelectExiting(args);
 
-    }
 
-    protected override void OnSelectExited(SelectExitEventArgs args)
-    {
-        base.OnSelectExited(args);
-
+        Debug.Log(2222);
         //책상위에 놓으면 지정된 소켓위로
-        OriginalPosition();
+        //OriginalPosition();
     }
+
+   
 
     //미니어처 위치 지정
-    public void OriginalPosition()
+    /*public void OriginalPosition()
     {
-        /*RaycastHit hit;
-        if (!Physics.Raycast(transform.position, Vector3.down, out hit, 100, raycastPoint))*/
+        *//*RaycastHit hit;
+        if (!Physics.Raycast(transform.position, Vector3.down, out hit, 100, raycastPoint))*//*
 
         if (specifiedSocket != null)
         {
+            Debug.Log(3333);
             transform.position = specifiedSocket.position;
             transform.rotation = specifiedSocket.rotation;
         }
-    }
+    }*/
 }
