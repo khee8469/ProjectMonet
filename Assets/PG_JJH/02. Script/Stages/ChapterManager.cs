@@ -24,7 +24,7 @@ namespace JJH
         private bool[] isColoredInspector; // 인스펙터에서 값을 설정하는 변수
 
         [Tooltip("그림 포스트프로세싱 관련 bool 변수 -> 로딩루틴에서 이용")]
-        public static bool[] is_Colored; //씬의 갯수만큼 첫 start 에서 가져온다. (실제 빌드에서) 
+        public static bool[] is_Colored; //씬의 갯수만큼 첫 start 에서 가져온다. (실제 빌드에서)  --> 이거는 챕터 해금이랑 따로 관리되는 것 같은데 이 부분은 내가 해주는게 맞을듯? 챕터 해금은 진짜 다음 챕터 열리는 거니까. 
 
         [Tooltip("그림 조각이 다 그려졌는지 확인할 bool static 변수")]
         public static bool[] isDrawing_Complete { get; set; }
