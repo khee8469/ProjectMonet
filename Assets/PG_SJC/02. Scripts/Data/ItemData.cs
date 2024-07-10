@@ -13,12 +13,6 @@ namespace Jc
         [Header("아이템 ID")]
         public int itemID;
 
-        [Header("아이템 획득 여부")]
-        public bool isAccepted;
-
-        [Header("아이템 사용완료 여부")]
-        public bool isClear;
-
         [Header("아이템 이미지")]
         public Sprite itemSprite;
 
