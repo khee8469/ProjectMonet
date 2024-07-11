@@ -19,10 +19,10 @@ public class WateringCan : ItemObject
     {
         base.OnEnable();
 
-        if (Manager.PlayableData.puzzleDataDic[flowerQuestID] == PuzzleState.Clear)
+/*        if (Manager.PlayableData.puzzleDataDic[flowerQuestID] == PuzzleState.Clear)
         {
             gameObject.SetActive(false);
-        }
+        }*/
     }
 
 
