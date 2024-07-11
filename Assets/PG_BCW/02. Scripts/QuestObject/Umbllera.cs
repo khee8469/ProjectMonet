@@ -113,10 +113,11 @@ public class Umbllera : InteractObject, IPuzzleable
         {
             transform.position = hit.point;
             UpdatePuzzleManager(puzzleManager, puzzleIndex);
+            if (umblleraCollider != null) umblleraCollider.enabled = false;
         }
     }
 
-    //raycastPoint 바닥에 닿으면 퍼즐 성공
+    /*//raycastPoint 바닥에 닿으면 퍼즐 성공
     private void OnTriggerEnter(Collider collider)
     {
         if (raycastPoint.Contain(collider.gameObject.layer))
@@ -124,7 +125,7 @@ public class Umbllera : InteractObject, IPuzzleable
             //처음에는 성공만 다음에 볼떄 귀부인보이게
             UpdatePuzzleManager(puzzleManager, puzzleIndex);
         }
-    }
+    }*/
 
     private void OnDrawGizmos()
     {

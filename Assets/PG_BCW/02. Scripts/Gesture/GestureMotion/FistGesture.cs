@@ -29,7 +29,6 @@ public class FistGesture : Gesture
         //호버중인 오브젝트중 물감통 찾기
         if (LeftHandInteractor.hasSelection)
         {
-            //Debug.Log("레프트 제스쳐 피스트 제스쳐");
             //잡고잇는 오브젝트 첫번쨰
             paintBucket = LeftHandInteractor.interactablesSelected[0] as PaintBucket;
             if (paintBucket != null)
@@ -49,7 +48,6 @@ public class FistGesture : Gesture
         }
         else if (!LeftHandInteractor.hasSelection) 
         {
-            //Debug.Log("레프트 제스쳐 피스트 제스쳐22");
             //호버된거도 없으면 끝
             if (LeftHandInteractor.interactablesHovered.Count == 0)
                 return;
@@ -91,7 +89,6 @@ public class FistGesture : Gesture
         //호버중인 오브젝트중 물감통 찾기
         if (RightHandInteractor.hasSelection)
         {
-            //Debug.Log("라이트 제스쳐 피스트 제스쳐33");
             //잡고잇는 오브젝트 첫번쨰
             paintBucket = RightHandInteractor.interactablesSelected[0] as PaintBucket;
             if (paintBucket != null)
@@ -100,7 +97,7 @@ public class FistGesture : Gesture
                 paintBucket.PaintPlay();
                 Debug.Log("물감호출");
             }
-            Debug.Log(RightHandInteractor.interactablesSelected.Count+"숫자");
+
             pen = RightHandInteractor.interactablesSelected[0] as Pen;
             if (pen != null)
             {
@@ -113,8 +110,6 @@ public class FistGesture : Gesture
 
         else if (!RightHandInteractor.hasSelection)
         {
-            //Debug.Log("레프트 제스쳐 피스트 제스쳐44");
-
             //호버된거도 없으면 끝
             if (RightHandInteractor.interactablesHovered.Count == 0)
                 return;

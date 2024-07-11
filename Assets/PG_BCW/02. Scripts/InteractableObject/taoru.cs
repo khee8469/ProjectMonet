@@ -7,7 +7,7 @@ using Unity.VisualScripting;
 using JJH;
 using System;
 
-public class Taoru : InteractObject
+public class Taoru : ItemObject
 {
     //닦은 구역 표시하기
 

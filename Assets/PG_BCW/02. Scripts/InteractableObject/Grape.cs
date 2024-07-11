@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class Grape : InteractObject
+public class Grape : ItemObject
 {
     //맛있는 포도~
 

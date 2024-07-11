@@ -3,7 +3,7 @@ using Jc;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class Swing : InteractObject
+public class Swing : ItemObject
 {
     //범위에 닿앗는지 확인용
     [SerializeField] LayerMask trigger;
