@@ -99,14 +99,8 @@ namespace Jc
 
             switch(questData.type)
             {
-                // 링크 퀘스트의 경우 현재 ID 기준 다음 퀘스트를 활성화
-                case QuestType.Link:
-                    ActiveNextQuest(questID + 1);
-                    break;
                 // 노말 퀘스트의 경우 연계된 퍼즐이 없을경우 바로 완료
                 case QuestType.Normal:
-                    if(questData.puzzleIDList == null || questData.puzzleIDList.Count < 1)
-                        ChangeState(QuestState.Clear);
                     break;
             }
         }
