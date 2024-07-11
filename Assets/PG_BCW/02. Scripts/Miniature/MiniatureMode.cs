@@ -67,12 +67,6 @@ public class MiniatureMode : InteractObject
             Debug.LogError("leftController을 할당하시오");
         if (rightController == null)
             Debug.LogError("rightController 할당하시오");
-
-
-
-        
-        
-
     }
     protected override void OnEnable()
     {

@@ -63,14 +63,9 @@ public class WindMill : InteractObject, IPuzzleable
     {
         base.OnEnable();
         Debug.Log(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
-        //이거로 쓰면되는데 
-        //puzzleManager.PuzzleSetting(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
-        //임시로
-        if (Manager.Quest.QuestDic[puzzleManager.activeQuestID].State == QuestState.Clear)
-        {
-            ActiveSetting();
-        }
-
+        //상태에 따른 세팅 
+        puzzleManager.PuzzleSetting(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
+        
         //스테이지3의 상태에 따라
         if (Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] == PuzzleState.Clear)
         {

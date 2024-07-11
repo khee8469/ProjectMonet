@@ -15,6 +15,5 @@ public class Door : XRSocketInteractor
         base.OnSelectEntered(args);
         Debug.Log("열쇠넣기");
         if(rb != null ) rb.isKinematic = false;
-
     }
 }
