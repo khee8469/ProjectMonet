@@ -18,6 +18,8 @@ public class WateringCan : InteractObject
     {
         base.OnEnable();
 
+        
+
         /*//아이템은 먹은적이없으면
         if (Manager.PlayableData.itemDic[itemId] == false)
         {
