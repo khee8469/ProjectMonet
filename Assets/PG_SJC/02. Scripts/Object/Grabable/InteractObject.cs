@@ -17,7 +17,7 @@ public enum GrabType
 
 namespace Jc
 {
-    public class InteractObject : XRGrabInteractable
+    public class InteractObject : XRGrabInteractable, IInteractable
     {
         [Space(5)]
         [Header("---- 컴포넌트 커스텀 ----")]
@@ -84,6 +84,16 @@ namespace Jc
                     trackPosition = false;
                 }
             }
+        }
+
+        public float GetInteractDistance()
+        {
+            return grabDistance;
+        }
+
+        public Transform GetTransform()
+        {
+            return transform;
         }
     }
 }
