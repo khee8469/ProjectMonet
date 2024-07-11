@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 using Jc;
-namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. --> 차라리 진짜 이미지에 붙이는 방법으로 가보자. 
+namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. --> 차라리 진짜 이미지에 붙이는 방법으로 가보자. 실제 그림에 붙는 친구들 
 {
     // 자신의 알파값이 1F로 증가할 때 같은 ENUM인 친구들을 찾아서 걔네도 같이 알파값을 업데이트 해줘야한다. 
     public enum DrawBoardNumber 
@@ -16,13 +16,13 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
 
     [RequireComponent(typeof(SpriteRenderer))]
-    public class DrawObjectManager : MonoBehaviour , IComparable<DrawObjectManager>, IPuzzleable
+    public class DrawObjectManager : MonoBehaviour , IComparable<DrawObjectManager> //, IPuzzleable
     {
-        [Header("퍼즐 매니저 에디터 세팅")]
+        /*[Header("퍼즐 매니저 에디터 세팅")]
         [SerializeField]
         private PuzzleManager puzzle;
         [SerializeField]
-        private int puzzleIndex;
+        private int puzzleIndex;*/
 
         public List<LineRenderer> lineRenderers = new List<LineRenderer>();
 
@@ -92,13 +92,12 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         [Tooltip("이벤트에 자신의 컬러를 체크하고 콜라이더를 on off 하는 함수를 할당한다.")]
         public static UnityEvent<PaintTypeEnum> colorChangeEvent = new UnityEvent<PaintTypeEnum>();
 
-        private void Awake()
+        /*private void Awake()
         {
             if(puzzle != null)
             // 퍼즐 매니저에 등록
                 RegistObject(puzzle);
-        }
-
+        }*/
 
         private void Start()
         {
@@ -120,7 +119,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             InitializeSpriteSize(); // 시작 시의 각자의 로컬 스케일 적용된 크기를 가져온다. 
             totalArea = worldHeight * worldWidth;
             nonTransparentArea = CalculateNonTransparentArea();
-
 
             myColliderArray = GetComponents<Collider>(); // 자신의 모든 콜라이더 배열 가져오기. pen의 컬러에 맞춰서 자신의 콜라이더를 꺼주고 켜준다. 
 
@@ -289,7 +287,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             Debug.Log("드로우 피니시드");
             drawingCompleteManager.DrawComplete((int)drawBoardNumber, true, DrawID);
             // 퍼즐매니저 업데이트
-            UpdatePuzzleManager(puzzle, puzzleIndex);
+            //UpdatePuzzleManager(puzzle, puzzleIndex);
         }
 
         public void ImageAlphaUp()
@@ -449,7 +447,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             if (other == null) return 1;
             return DrawID.CompareTo(other.DrawID);
         }
-        #region IPuzzleable 인터페이스 오버라이드
+        /*#region IPuzzleable 인터페이스 오버라이드
         public void RegistObject(PuzzleManager puzzle)
         {
             // 퍼즐 매니저에 자신을 등록
@@ -480,7 +478,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             ImageAlphaUp();
             DrawFinished();
         }
-        #endregion
+        #endregion*/
     }
 
 }

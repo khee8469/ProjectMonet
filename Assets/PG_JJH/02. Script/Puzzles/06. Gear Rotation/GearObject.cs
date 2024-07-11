@@ -10,6 +10,11 @@ namespace JJH
     public class GearObject : InventoryItem
     {
         // 인벤토리에 들어가고 잡을 수 있는 아이템
+        // 나중에 상속하는거 itemobject ? 재천이 꺼로 바꾸고
+        // 추가로 기어 4개가 모두 정상적으로 완료되면 active true로 자신의 볼트 생성
+        // 벽에 걸 때 내 손이 아니면 들어가서는 안되고 밑으로 쭉 떨어져야함. --> rigidbody 필수. 
+
+
 
         [Header("할당된 아이템의 ID")] // 프리팹 연동 필요함. 
         [SerializeField] private int itemID;

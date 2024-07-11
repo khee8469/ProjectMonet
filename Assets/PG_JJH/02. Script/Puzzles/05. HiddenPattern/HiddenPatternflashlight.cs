@@ -1,7 +1,4 @@
 using Jc;
-using JJH;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -16,7 +13,7 @@ namespace JJH
         [SerializeField] private new Collider collider;
 
         [Tooltip("5번 퍼즐의 퍼즐 매니저")]
-        [SerializeField] private HiddenPatternManager puzzle;
+        [SerializeField] private HiddenPatternPuzzle puzzle;
 
         [Tooltip("랜턴이 원상 복귀 될 위치")]
         [SerializeField] private Vector3 flashLightPosition;
@@ -32,9 +29,21 @@ namespace JJH
         [Tooltip("레이 캐스트 발사를 관리 할 bool 변수")]
         [SerializeField] private bool isGrabed = false;
 
-        [Tooltip("스포트라이트가 비추는 Renderer 참조")]
-        public Renderer targetRenderer;
-        
+        public bool IsGrabed { get { return isGrabed; } }
+
+
+        [Tooltip("setActive를 변환 시켜 줄  Wall의 Layer")]
+        [SerializeField] private LayerMask wallLayer;
+
+        [Tooltip("스피어 캐스트 크기 조정")]
+        [SerializeField] private float sphereSize = 0.01f;
+
+        [Tooltip("레이캐스트 Distance")]
+        [SerializeField] private float distance = 10f;
+
+        [Tooltip("벽과 부딪힐 콜라이더 ")]
+        [SerializeField] private CapsuleCollider capsuleCollider;
+
         private new void Awake()
         {
             base.Awake();
@@ -46,30 +55,27 @@ namespace JJH
             // 씬 시작 시 원래 위치 저장.
             flashLightPosition = transform.localPosition;
             flashLightRotation = transform.localRotation;
+            spotLight.enabled = false;
 
         }
 
+        RaycastHit[] hits = new RaycastHit[10];
+
+        // update에서 저장된 배열을 다시 저장해 줄 배열 --> else 에서 원상복귀 시켜야 하기 때문에. 
+
         private void Update()
         {
-            if(isGrabbed) // 잡혀 있는 상태라면 RayCast 발사  --> ray에 닿으면 문양을 나타낸다.
+            
+            if (isGrabbed) // 잡혀 있는 상태라면 RayCast 발사  --> ray에 닿으면 문양을 나타낸다.
             {
-                RaycastHit hit;
+                int hitCount = Physics.SphereCastNonAlloc(rayTransform.position, sphereSize, rayTransform.forward, hits,
+                    distance, wallLayer);
 
-                if (Physics.Raycast(rayTransform.position, rayTransform.forward, out hit, 10))
+                for (int i=0;i <hitCount; i++)
                 {
-                    if(hit.transform.gameObject.layer==14) // 14번 레이어 라면.
-                    {
-                        hit.transform.gameObject.layer = 10; // 10번으로 변경. 
-                    }
+                    hits[i].transform.GetComponent<HiddenPatternWall>();
+                    
                 }
-
-                // 저장 안된다. 따로 또 저장해야 하는듯. or 어차피 hit가 누군지를 알고 있으니까. 
-                // 무조건 저 판때기들 이니께.. baseMap 업해주는거 보다는 그래도 느낌 내려면
-                // 이거 판 때기 몇개 동그렇게 두고 ... 박스 캐스트 같은거로 해서
-                // 가운데 맞히면 한 번에 없애버리게 하고 
-                
-                Debug.Log($"히트 저장되나?{hit.transform.gameObject.name}");
-
             }
 
         }
@@ -87,10 +93,9 @@ namespace JJH
             // 사람에게 잡히면 랜턴 불빛이 켜져야 한다.
             // player의 손에 Custom Check 붙여주기. --> 손 판단용임. 
             if (args.interactorObject.transform.GetComponent<CustomCheck>() != null)
-            {
-                Debug.Log("사람에게 잡힘");
+            {             
                 spotLight.enabled = true;  // player에게 닿으면 손전등의 불빛을 켜준다. 
-                isGrabbed = true;
+                isGrabed = true;
             }
         }
 
@@ -98,10 +103,9 @@ namespace JJH
         {
             base.OnSelectExited(args);
             if (args.interactorObject.transform.GetComponent<CustomCheck>() != null)
-            {
-                Debug.Log("사람에게 벗어남");
+            {               
                 spotLight.enabled = false; // 사람의 손을 벗어나면 불을 꺼준다.
-                isGrabbed = false;
+                isGrabed = false;
             }
 
         }
@@ -120,6 +124,13 @@ namespace JJH
             collider.enabled = false; // 더 이상 만지지 못함. 
             spotLight.enabled = false; // 불 꺼줌.
             isGrabbed = false;
+
+
+
+
+
+
+
         }
 
         public void DisActiveSetting()
