@@ -124,6 +124,13 @@ namespace JJH
             collider.enabled = false; // 더 이상 만지지 못함. 
             spotLight.enabled = false; // 불 꺼줌.
             isGrabbed = false;
+
+
+
+
+
+
+
         }
 
         public void DisActiveSetting()

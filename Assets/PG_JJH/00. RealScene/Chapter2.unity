@@ -448,18 +448,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67f4350dbc650da4fb3edbd0f01f81e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &859982662 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3235422744873797217, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2173045557192473751}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85952c184554f4247987ef8561c919df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &879614925 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4434707551008505724, guid: 4bcc8bc77f8be184a8b284febf42738e,
@@ -915,6 +903,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneID: 0
   globalVolume: {fileID: 1900684346313677851}
+--- !u!1 &1573657946 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 758920669272298681, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
+    type: 3}
+  m_PrefabInstance: {fileID: 2173045557192473751}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1573657948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573657946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b219e304c9614d4e91dfdfd5764a723, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rewardItemID: 0
+  puzzleID: -1
+  state: 0
+  conditions: 
+  OnClear:
+    m_PersistentCalls:
+      m_Calls: []
+  activeQuestID: -1
+  clearQuestID: -1
+  isClear: 0
+  paintItemID: 0
+  objects: []
+  flashLight: {fileID: 0}
+  collider: {fileID: 0}
 --- !u!4 &1905774757 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7918129469388023656, guid: 82c3eb4e1962c9a43a1b8ffb386c4a4d,
@@ -1322,6 +1342,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: CirclePuzzle_5
       objectReference: {fileID: 0}
+    - target: {fileID: 2749476712160562384, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
+        type: 3}
+      propertyPath: puzzle
+      value: 
+      objectReference: {fileID: 1573657948}
     - target: {fileID: 4031187491795465159, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1372,10 +1397,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7343547795025836164, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
+        type: 3}
+      propertyPath: puzzle
+      value: 
+      objectReference: {fileID: 1573657948}
+    - target: {fileID: 7343547795025836164, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
+        type: 3}
+      propertyPath: ColliderEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726892204338585807, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
+        type: 3}
+      propertyPath: puzzle
+      value: 
+      objectReference: {fileID: 1573657948}
+    m_RemovedComponents:
+    - {fileID: 3235422744873797217, guid: d6eeb318d4cd0bf4cb44a20b346a387c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 758920669272298681, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1573657948}
   m_SourcePrefab: {fileID: 100100000, guid: d6eeb318d4cd0bf4cb44a20b346a387c, type: 3}
 --- !u!1 &2557022790381267957 stripped
 GameObject:
@@ -1503,7 +1548,7 @@ PrefabInstance:
         type: 3}
       propertyPath: puzzle
       value: 
-      objectReference: {fileID: 859982662}
+      objectReference: {fileID: 0}
     - target: {fileID: 2140162417307484988, guid: 336021916260d9940afc0597110891a5,
         type: 3}
       propertyPath: m_LocalPosition.x

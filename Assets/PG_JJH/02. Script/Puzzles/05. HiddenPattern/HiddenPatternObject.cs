@@ -160,9 +160,6 @@ namespace JJH
 
         }
 
-        
-
-
         // 씬 간 저장도 생각 할 필요 없음. --> 그냥 완료 되었는지 아닌지만 하면 된다. 
         public void ActiveSetting()
         {
