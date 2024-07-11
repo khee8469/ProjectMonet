@@ -97,10 +97,11 @@ namespace Jc
         {
             Debug.Log($"퀘스트 {questID} : 가 진행됩니다.");
 
-            switch(questData.type)
+            switch(questData.proceedType)
             {
-                // 노말 퀘스트의 경우 연계된 퍼즐이 없을경우 바로 완료
-                case QuestType.Normal:
+                // 대화형 퀘스트의 경우 퀘스트 수주 시 바로 완료
+                case QuestProccedType.Dialog:
+                    ChangeState(QuestState.Clear);
                     break;
             }
         }
