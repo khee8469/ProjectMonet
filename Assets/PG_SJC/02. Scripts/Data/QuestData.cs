@@ -17,6 +17,9 @@ namespace Jc
         [Header("퀘스트 타입")]
         public QuestType type;
 
+        [Header("퀘스트 진행 타입")]
+        public QuestProccedType proceedType;
+
         [Header("수주 NPC ID")]
         public int acceptNPCID;
 

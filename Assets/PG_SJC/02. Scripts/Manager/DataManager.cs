@@ -128,6 +128,7 @@ namespace Jc
                 questData.id = questID;
                 questData.questName = csvData[i]["quest_name"] as string;
                 questData.type = (QuestType)(int)csvData[i]["quest_class"];
+                questData.proceedType = (QuestProccedType)(int)csvData[i]["quest_cond"];
                 questData.acceptNPCID = (int)csvData[i]["quest_acc"];
                 questData.clearNPCID = (int)csvData[i]["quest_clear"];
                 questData.next_id = (int)csvData[i]["quest_next"];
