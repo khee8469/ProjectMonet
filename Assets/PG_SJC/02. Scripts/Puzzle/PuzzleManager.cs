@@ -12,6 +12,9 @@ namespace Jc
     {
         [Header("에디터 세팅")]
         [SerializeField]
+        private bool isDebugMode = false;
+
+        [SerializeField]
         private int rewardItemID;
 
         [Header("퍼즐 id")]
@@ -74,6 +77,16 @@ namespace Jc
         // 로드된 데이터를 기반으로 퍼즐 최초세팅
         private void InitPuzzleSetting()
         {
+            // 테스트모드
+            if(isDebugMode)
+            {
+                foreach (IPuzzleable ob in puzzleObjects)
+                    ob.ActiveSetting();
+
+                this.state = PuzzleState.Proceed;
+                return;
+            }
+
             // 속한 퍼즐 오브젝트가 존재하지 않는다면 리턴
             if (puzzleObjects == null || puzzleObjects.Count < 1)
             {

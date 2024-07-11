@@ -175,6 +175,7 @@ namespace Jc
                         questController.ReceiveQuest(currentQuest);
                         // 퀘스트 진행중 상태로 변경
                         currentQuest.ChangeState(QuestState.Proceed);
+                        curQuestDialogIndex = 0;
                         return;
                     }
                     // 플로팅 애니메이션
@@ -199,6 +200,7 @@ namespace Jc
                         currentQuest.ChangeState(QuestState.Complete);
                         // 리워드 지급은 퀘스트 자체에서 진행
                         // NPC 상태 변경
+                        curQuestDialogIndex = 0;
                         return;
                     }
                     // 대화 진행
