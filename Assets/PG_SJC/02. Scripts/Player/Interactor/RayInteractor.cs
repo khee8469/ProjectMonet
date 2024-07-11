@@ -225,7 +225,7 @@ namespace Jc
 
         public override bool CanHover(IXRHoverInteractable interactable)
         {
-            InteractObject itrObject = interactable as InteractObject;
+            IInteractable itrObject = interactable as IInteractable;
 
             if (itrObject == null)
                 return false;
@@ -237,12 +237,11 @@ namespace Jc
         }
         public override bool CanSelect(IXRSelectInteractable interactable)
         {
-            InteractObject itrObject = interactable as InteractObject;
-
+            IInteractable itrObject = interactable as IInteractable;
+            
             if (itrObject == null)
                 return false;
-
-
+            
             if (!GrabableDistance(itrObject))
                 return false;
 
@@ -332,15 +331,15 @@ namespace Jc
         }
 
         // 오브젝트를 잡을 수 있는 거리체크
-        private bool GrabableDistance(InteractObject itrObject)
+        private bool GrabableDistance(IInteractable itrObject)
         {
             if (itrObject == null)
                 return false;
 
             // 오브젝트의 그랩 허용 길이
-            float grabDist = itrObject.GrabDistance;
+            float grabDist = itrObject.GetInteractDistance();
             // 현재 오브젝트와의 거리
-            float distance = (itrObject.transform.position - transform.position).sqrMagnitude;
+            float distance = (itrObject.GetTransform().position - transform.position).sqrMagnitude;
 
             if (distance > grabDist * grabDist)
             {
@@ -358,13 +357,16 @@ namespace Jc
             if (isInventoryMode)
             {
                 ItemObject item = currentGrabObject as ItemObject;
+
                 if (item != null)
                     item.SetScaleWithLerp();
+
                 lineVisual.enabled = false;
             }
             else
             {
                 ItemObject item = currentGrabObject as ItemObject;
+
                 if (item != null)
                     item.ResetScaleWithLerp();
 
@@ -373,7 +375,10 @@ namespace Jc
             lr.enabled = true;
         }
         private void FindSlot()
-        { 
+        {
+            if (currentGrabObject != null && currentGrabObject is not ItemObject)
+                return;
+
             Ray ray = new Ray(transform.position, transform.forward);
             lr.positionCount = 2;
             lr.SetPosition(0, transform.position);
@@ -386,6 +391,7 @@ namespace Jc
                 {
                     if (currentSlot != null)
                         currentSlot.OnHoverExit();
+
                     currentSlot = null;
                     return;
                 }
