@@ -37,12 +37,12 @@ namespace JJH
         [Tooltip("자신을 관리해 줄 컨트롤러")]
         [SerializeField] private HiddenPatternController controller;
 
-        
-        
+
 
         protected override void Awake()
         {
             base.Awake();
+            clampedMotion = false;
         }
 
         private void Start()
@@ -53,25 +53,7 @@ namespace JJH
                 collider.enabled = false; // 이거는 어차피 그대로 
             }
 
-            
         }
-
-
-        public void CheckMyValue()
-        {
-            if(value >= 0.999f)
-            {
-                value = 0.001f;
-                Debug.Log($"자신의 value를 변경 ->{value}");
-            }
-            else if(value <= 0.001f)
-            {
-                value = 0.999f;
-                Debug.Log($"자신의 value를 변경 ->{value}");
-            }
-        }
-
-
 
         public Transform GetTransform() // 자신의 트랜스폼 리턴. 
         {

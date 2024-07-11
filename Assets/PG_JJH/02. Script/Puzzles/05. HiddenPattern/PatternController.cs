@@ -1,6 +1,5 @@
 using Jc;
 using JJH;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,8 +16,8 @@ public class HiddenPatternController : MonoBehaviour, IPuzzleable
     [Tooltip("퍼즐 매니저 가져오기.")]
     [SerializeField] HiddenPatternPuzzle puzzle;
 
-    [Tooltip("약간 보정값 둬서 정답 맞추기 쉽게 하기")]
-    [SerializeField] private float tolerance = 1f; //이게 1이면 1도일듯?
+    [Tooltip("정답 보정값")]
+    [SerializeField] private float tolerance = 10f; //이게 1이면 1도일듯?
 
     [Tooltip("오브젝트 들의 정답 targetRotation")]
     [SerializeField] private Quaternion targetRotation = Quaternion.Euler(0, 0, 0);
@@ -26,6 +25,7 @@ public class HiddenPatternController : MonoBehaviour, IPuzzleable
     [Tooltip("자신의 update 해 줄 퍼즐인덱스")]
     [SerializeField] private int puzzleIndex; // 0 부터 시작 
 
+    private bool isChangingValue = false;
 
     // 여기서 각 원반 list의 rotation 값 체크하고 추가로 update 돌리고 
     // 완료되면 자기 자식들 콜라이더 꺼주고 상태 저장해주고 등등 필요함. 
@@ -46,40 +46,45 @@ public class HiddenPatternController : MonoBehaviour, IPuzzleable
 
     public void CheckRotation()
     {
-        // 자기의 자식들의 localRotaion이 0 0 0 과 가까우면 -- > update 해주기.
-        // 해주고 콜라이더 끄기 
-        Debug.Log("로테이션 값 체크");
+        if (isChangingValue) return;
+
+        isChangingValue = true;
 
         bool isAllTrue = true;
+
         foreach (var pattern in patterns)  // xr knob의 handle의 transform을 가져와야 한다. 
         {
-            if(Quaternion.Angle(pattern.handle.transform.localRotation, targetRotation) < Mathf.Abs( tolerance))
+            float y = pattern.handle.transform.localRotation.eulerAngles.y;
+            Debug.Log($"y의 값 ->{y}");
+            if ((y >= 0 && y <= 0 + tolerance) || (y <= 360 && y >= 360 - tolerance)) // 보정값 나중에 수정하기.
             {
-                Debug.Log($"쿼터니언 앵글값->{Quaternion.Angle(pattern.gameObject.transform.localRotation, targetRotation)}");
+                Debug.Log("정답을 맞췄다.");
             }
-            else //각도가 맞지 않아서 break 되면
+            else
             {
                 isAllTrue = false;
-                Debug.Log($"쿼터니언 앵글값->{Quaternion.Angle(pattern.handle.transform.localRotation, targetRotation)}, " +
-                    $"아직 패턴이 일치 하지 않음.");
-                break;
             }
         }
 
         Debug.Log($"지금 bool 값의 값 ->{isAllTrue}");
 
-        if(isAllTrue) // 모두 값이 자신의 안 이니까.
+        if (isAllTrue) // 모두 값이 자신의 안 이니까. --> 그니까 결국 모두 정답이면 여기서 update해주고.
         {
             puzzle.UpdateCondition(puzzleIndex);
+            UpdatePattern();
+            
         }
+
+        isChangingValue = false;
     }
 
-
-    private void ColliderOff()
+    private void UpdatePattern()
     {
-        foreach(var pattern  in patterns)
+        foreach (var pattern in patterns)
         {
             pattern.collider.enabled = false;  // 자신의 모든 콜라이더를 꺼준다.
+            pattern.interactionLayers = 0; // 0이 아마 nothing임. 
+            pattern.handle.transform.localRotation = Quaternion.identity; // 로테이션 0 0 0 으로 한다.
         }
     }
 
@@ -92,12 +97,12 @@ public class HiddenPatternController : MonoBehaviour, IPuzzleable
     public void UpdatePuzzleManager(PuzzleManager puzzle, int index = -1)
     {
         puzzle.UpdateCondition(index); //일단 기본이 true 인데 어차피 완성되서 날라올 거니까 그냥 true로 하면 된다.
-        ColliderOff(); // 자신의 모든 자식들의 콜라이더를 off 해서 건들지 못하도록 한다. 
+        UpdatePattern();
     }
 
     public void ActiveSetting()
     {
-
+        // 문을 안열면 어차피 못 들어온다. 
     }
 
     public void DisActiveSetting()
@@ -111,18 +116,10 @@ public class HiddenPatternController : MonoBehaviour, IPuzzleable
 
         foreach (var pattern in patterns)
         {
-            pattern.gameObject.layer = 0; // 빛을 받을 수 있도록 Defalut layer로 바꿔주기.
-            pattern.gameObject.transform.localRotation = Quaternion.Euler(0, 0, 0); // 모든 오브젝트를 0 0 0 으로 변경
+            pattern.gameObject.layer = 0; // 빛을 받을 수 있도록 Defalut layer로 바꿔주기. 바꿔 줄 필요 있나?            
         }
 
         puzzle.UpdateCondition(puzzleIndex);
 
     }
-
-
-
-
-
-
-
 }
