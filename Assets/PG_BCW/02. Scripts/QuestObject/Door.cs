@@ -13,7 +13,7 @@ public class Door : XRSocketInteractor
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         base.OnSelectEntered(args);
-
+        Debug.Log("열쇠넣기");
         if(rb != null ) rb.isKinematic = false;
 
     }

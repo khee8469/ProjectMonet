@@ -30,7 +30,7 @@ public class WateringCan : ItemObject
     {
         base.OnSelectExited(args);
 
-        Debug.Log(Manager.PlayableData.puzzleDataDic[flowerQuestID]);
+        //Debug.Log(Manager.PlayableData.puzzleDataDic[flowerQuestID]);
         if (Manager.PlayableData.puzzleDataDic[flowerQuestID] == PuzzleState.Clear)
         {
             gameObject.SetActive(false);

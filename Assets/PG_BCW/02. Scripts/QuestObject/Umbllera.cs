@@ -54,6 +54,14 @@ public class Umbllera : InteractObject, IPuzzleable
     protected override void OnEnable()
     {
         base.OnEnable();
+        Debug.Log(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
+        //이거로 쓰면되는데 
+        //puzzleManager.PuzzleSetting(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
+        //임시로
+        if (Manager.Quest.QuestDic[puzzleManager.activeQuestID].State == QuestState.Clear)
+        {
+            ActiveSetting();
+        }
 
         //스테이지3의 상태에 따라
         if (Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] == PuzzleState.Clear)
@@ -153,11 +161,15 @@ public class Umbllera : InteractObject, IPuzzleable
     public void ActiveSetting()
     {
         //순서인 퀘스트 오브젝트 활성화
+        Debug.Log("양산 퀘스트 진행중");
+        if (umblleraCollider != null) umblleraCollider.enabled = true;
     }
 
     public void DisActiveSetting()
     {
         //순서아닌 퀘스트 오브젝트 비활성화
+        Debug.Log("양산 퀘스트 비활성화");
+        if (umblleraCollider != null) umblleraCollider.enabled = false;
     }
 
     public void CompleteSetting()

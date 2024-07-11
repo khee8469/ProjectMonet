@@ -185,14 +185,12 @@ namespace Jc
                     // 플로팅 애니메이션
                     floatingAnim.SetTrigger(Manager.Param.OnFloating);
                     // 대화 진행
-                    Debug.Log(1);
                     dialogText.text = currentQuest.receiveNarrations[curQuestDialogIndex++].text;
                     break;
                 // 퀘스트 진행중
                 case QuestState.Proceed:
                     // 플로팅 애니메이션
                     floatingAnim.SetTrigger(Manager.Param.OnFloating);
-                    Debug.Log(2);
                     dialogText.text = currentQuest.receiveNarrations[currentQuest.receiveNarrations.Count - 1].text;
                     break;
                 // 퀘스트 완료
@@ -212,7 +210,6 @@ namespace Jc
                     // 대화 진행
                     // 플로팅 애니메이션
                     floatingAnim.SetTrigger(Manager.Param.OnFloating);
-                    Debug.Log(3);
                     dialogText.text = currentQuest.clearNarrations[curQuestDialogIndex++].text;
                     break;
                 default:

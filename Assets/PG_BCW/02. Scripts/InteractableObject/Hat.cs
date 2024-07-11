@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hat : ItemObject
+public class Hat : InteractObject
 {
     //멋진 모자~
 
