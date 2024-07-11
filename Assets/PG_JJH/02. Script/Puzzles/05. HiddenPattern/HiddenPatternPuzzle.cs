@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using JJH;
 using Jc;
+using UnityEngine.XR.Interaction.Toolkit;
 
 namespace JJH
 {
-    public class HiddenPatternManager : PaintRewardPuzzle
+    // 퍼즐 매니저
+    public class HiddenPatternPuzzle : PaintRewardPuzzle
     {
         // 페인트 5번 퍼즐 
 
@@ -28,10 +30,11 @@ namespace JJH
 
 
         // 등대 밖으로 랜턴이 나갔을 시 원위치 복귀
-        private void OnTriggerExit(Collider other)
+        private void OnTriggerEnter(Collider other)
         {
             if(other.gameObject.CompareTag("FlashLight"))
             {
+                flashLight.interactionManager.SelectExit(flashLight.firstInteractorSelecting as IXRSelectInteractor, flashLight as IXRSelectInteractable);
                 flashLight.FlashLightReturn(); // 랜턴 원 위치 
             }
         }

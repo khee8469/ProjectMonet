@@ -35,7 +35,7 @@ namespace JJH
             Debug.Log("온 클리어 퍼즐 발동");
 
             base.OnClearPuzzle();
-            GearRotation();
+            //  GearRotation();
             lightHouse.pillar_Of_Light.gameObject.SetActive(true); // 빛 기둥 켜주기.
 
             for (int i = 0; i < buttonPanels.Length; i++)
@@ -50,14 +50,14 @@ namespace JJH
         {
             for (int i = 0; i < GearObjects.Count; i++) // 둘이 숫자는 어차피 똑같다. 
             {
-                if (realGears[i] != null) // 실제 오브젝트가 있는 경우와 아닌 경우를 따로 파악하기
+                if (realGears.Count > 0) // 실제 오브젝트가 있는 경우와 아닌 경우를 따로 파악하기
                 {
                     GearObjects[i] = realGears[i];
                 }
                 else // real 이 null 이라면 새롭게 씬을 시작 했을 때 Complete 된 상태이므로 
                 {
                     // 프리팹 생성 후 소켓으로 넣어줘야한다. 
-                    GearObject obj = Instantiate(GearObjects[i]);
+                    GearObject obj = Instantiate(GearObjects[i]); // 이거 생성 하지 말기. --> 생성 말고 자식 으로 뒀다가 On 해주기.
 
                     for (int j = 0; j < gearSockets.Length; j++)
                     {

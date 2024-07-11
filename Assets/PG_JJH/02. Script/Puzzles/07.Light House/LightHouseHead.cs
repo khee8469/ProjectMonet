@@ -52,8 +52,7 @@ namespace JJH
         // 빛 기둥 같은 경우는 이제 그냥 켜주기만 하면 되는 느낌이겠지. 
         // ray 보다는 패널 에서 자기 위치 체크를 하는게 낫지 않나? 
 
-
-
+        // Ray 안 쓰고 그냥 각도로 하는 중이니까 각도로 하는게 나을 수도 
         private void RayOn() //Ray 든 뭐 빛 기둥이던 어쨋든 이전 퍼즐을 깨야 발동이 가능하다. 
         {
             RaycastHit hit;
@@ -67,6 +66,7 @@ namespace JJH
                     Debug.Log("구멍 체크 완료");
                 }
             }
+            
         }
 
         private void PillarChange(bool boolean)
