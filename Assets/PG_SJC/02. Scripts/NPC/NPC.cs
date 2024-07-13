@@ -134,7 +134,6 @@ namespace Jc
                 QuestState state = Manager.Quest.GetQuest(questID).State;
 
                 // 현재 진행해줄 수 있는 퀘스트를 할당
-                Debug.Log(1);
                 if ((state == QuestState.Active || state == QuestState.Proceed )&& Manager.Quest.GetQuest(questID).QuestData.acceptNPCID == this.id 
                     || state == QuestState.Clear && Manager.Quest.GetQuest(questID).QuestData.clearNPCID == this.id)
                     return Manager.Quest.GetQuest(questID);
@@ -209,6 +208,14 @@ namespace Jc
                         // 리워드 지급은 퀘스트 자체에서 진행
                         // NPC 상태 변경
                         curQuestDialogIndex = 0;
+
+                        // 철우가 추가함 보상아이템 생성
+                        if (Manager.Item.ItemDataDic.ContainsKey(currentQuest.QuestData.rewardItemID))
+                        {
+                            Debug.Log($"보상이 있따네요{currentQuest.QuestData.rewardItemID}");
+                            currentQuest.RewardItem(bounsItemPosition);
+                        }
+
                         return;
                     }
                     // 대화 진행
@@ -216,12 +223,6 @@ namespace Jc
                     floatingAnim.SetTrigger(Manager.Param.OnFloating);
                     dialogText.text = currentQuest.clearNarrations[curQuestDialogIndex++].text;
 
-                    // 철우가 추가함 보상아이템 생성
-                    if (Manager.Item.ItemDataDic.ContainsKey(currentQuest.QuestData.rewardItemID))
-                    {
-                        Debug.Log($"보상이 있따네요{currentQuest.QuestData.rewardItemID}");
-                        currentQuest.RewardItem(bounsItemPosition);
-                    }
                     break;
                 default:
                     break;

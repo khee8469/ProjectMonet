@@ -45,7 +45,7 @@ public class Flower : MonoBehaviour, IPuzzleable
 
     private void OnEnable()
     {
-        Debug.Log(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
+        //Debug.Log(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
         //상태에 따른 세팅 
         puzzleManager.PuzzleSetting(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
         

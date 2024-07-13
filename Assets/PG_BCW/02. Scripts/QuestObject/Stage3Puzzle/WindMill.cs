@@ -29,12 +29,12 @@ public class WindMill : InteractObject, IPuzzleable
     //어느 방향으로 돌아갓는지
     private bool leftRotation;
 
-    Quaternion startRotation;
-    Quaternion previousRotation;
+    float startRotation;
+    float endRotation;
     private float totalRotation = 0f;
     //레버 돌리기 성공
     bool success;
-    
+
 
 
 
@@ -65,7 +65,7 @@ public class WindMill : InteractObject, IPuzzleable
         Debug.Log(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
         //상태에 따른 세팅 
         puzzleManager.PuzzleSetting(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
-        
+
         //스테이지3의 상태에 따라
         if (Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] == PuzzleState.Clear)
         {
@@ -97,56 +97,44 @@ public class WindMill : InteractObject, IPuzzleable
         }
     }
 
-    
+
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         base.OnSelectEntered(args);
 
-        leverSelect = true;
-        StartCoroutine(LeverRotation());
+        startRotation = transform.eulerAngles.z;
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
     {
         base.OnSelectExited(args);
 
+        endRotation = transform.eulerAngles.z;
+
+        LeverRotation(startRotation, endRotation);
+
         //속도 0으로만든후 회전 시작
         rb.angularVelocity = Vector3.zero;
-        
-        leverSelect = false;
-        StopAllCoroutines();
-
-        if (success)
-        {
-            //퍼즐성공 저장
-            UpdatePuzzleManager(puzzleManager, puzzleIndex);
-            //회전 코르틴 시작
-            StartCoroutine(AngularVelocity());
-            //더이상 조작 못하게
-            if(leverCollider != null) leverCollider.enabled = false;
-            rb.isKinematic = false;
-        }
     }
 
-    IEnumerator LeverRotation()
+    /*IEnumerator LeverRotation()
     {
         startRotation = transform.rotation;
         previousRotation = transform.rotation;
 
         while (leverSelect)
         {
-            yield return null;
+            yield return new WaitForSeconds(0.1f);
 
             Quaternion currentRotation = transform.rotation;
             float rotationThisFrame = Quaternion.Angle(previousRotation, currentRotation);
-            //Debug.Log($"rotationThisFrame : {rotationThisFrame}");
+            Debug.Log($"rotationThisFrame : {rotationThisFrame}");
             totalRotation += rotationThisFrame;
             previousRotation = currentRotation;
             //Debug.Log($"totalRotation {totalRotation}");
             if (Mathf.Abs(totalRotation) >= requiredRotation)
             {
                 success = true;
-                Debug.Log("Success: " + success);
 
                 if (rb.angularVelocity.z >= 0)
                 {
@@ -159,7 +147,40 @@ public class WindMill : InteractObject, IPuzzleable
                 break;
             }
         }
+    }*/
+
+    private void LeverRotation(float startRotation, float endRotation)
+    {
+        // 이전 프레임과 현재 프레임 사이의 회전 각도 차이를 계산
+        float rotationDelta = Mathf.DeltaAngle(startRotation, endRotation);
+
+        Debug.Log(rotationDelta);
+        // 회전 각도를 총 회전 각도에 누적 또는 차감
+        totalRotation += rotationDelta;
+
+        if (Mathf.Abs(totalRotation) >= requiredRotation)
+        {
+            if (totalRotation < 0)
+            {
+                leftRotation = true;
+            }
+            else if (totalRotation > 0)
+            {
+                leftRotation = false;
+            }
+
+
+            //퍼즐성공 저장
+            UpdatePuzzleManager(puzzleManager, puzzleIndex);
+            //회전 코르틴 시작
+            StartCoroutine(AngularVelocity());
+            //더이상 조작 못하게
+            if (leverCollider != null) leverCollider.enabled = false;
+            rb.isKinematic = false;
+        }
     }
+
+
 
     IEnumerator AngularVelocity()
     {
