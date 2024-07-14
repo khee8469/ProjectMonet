@@ -42,8 +42,11 @@ public class Umbllera : InteractObject, IPuzzleable
             Debug.LogError("puzzleManager를 할당하시오");
         if (raycastPoint == 0)
             Debug.LogError("LayerMask를 할당하시오");
+        if (umblleraWoman == null)
+            Debug.Log("umblleraWoman를 할당하시오");
 
-        if (puzzleManager!=null)
+
+            if (puzzleManager!=null)
             RegistObject(puzzleManager);
 
         //puzzleDataDic에 키값이 없으면 할당
@@ -170,8 +173,9 @@ public class Umbllera : InteractObject, IPuzzleable
     public void CompleteSetting()
     {
         UpdatePuzzleManager(puzzleManager, puzzleIndex);
-        if (umblleraWoman != null) umblleraWoman.SetActive(true);
         if (umblleraMesh != null) umblleraMesh.enabled = false;
+        if (umblleraWoman != null) umblleraWoman.SetActive(true);
+        
         if( umblleraCollider != null) umblleraCollider.enabled = false;
     }
 }

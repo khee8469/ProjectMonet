@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class QuestItem : ItemObject
+public class DeliveryItem : ItemObject
 {
     [Header("오브젝트 정보")]
     [SerializeField]
@@ -19,7 +19,6 @@ public class QuestItem : ItemObject
     [SerializeField]
     int clearQuestID;
 
-    //ItemID 이거 써서 할 수 잇나
     [Tooltip("아이템 전달 범위")]
     [SerializeField]
     int itemDeliveryRange;
@@ -31,7 +30,6 @@ public class QuestItem : ItemObject
         base.Awake();
 
         if (rb == null) rb = GetComponent<Rigidbody>();
-
     }
 
     //잡았을때 중력과은 키고, 키메마틱은 끄고
@@ -77,6 +75,10 @@ public class QuestItem : ItemObject
                     {
                         Debug.LogError($"퀘스트를 찾을 수 없습니다: {clearQuestID}");
                     }
+                }
+                else
+                {
+                    Debug.LogError("npcID를 지정하세요");
                 }
             }
         }
