@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chapter2SunHole : PaintRewardPuzzle, IPuzzleable
+public class Chapter2SunHole : PaintRewardPuzzle
 {
     // 챕터 2 의 검은 구멍에 붙여 줄 스크립트
 
@@ -28,11 +28,21 @@ public class Chapter2SunHole : PaintRewardPuzzle, IPuzzleable
     [Tooltip("보상으로 인벤토리에 넣어줄 아이템 ID")]
     [SerializeField] public int ID;
 
+    [Tooltip("새롭게 켜줄 direct light")]
+    [SerializeField] private Light newDirectLight;
+
+
     private MeshRenderer meshRenderer;
 
     /*[Tooltip("새로운 마테리얼 배열 -> 넣어둔 마테리얼을 변경 해주기 위해 새롭게 생성")]
     [SerializeField]
     Material[] mats = new Material[1];*/
+
+
+    private void Awake()
+    {
+        
+    }
 
     private void Start()
     {
@@ -49,44 +59,17 @@ public class Chapter2SunHole : PaintRewardPuzzle, IPuzzleable
         Material[] mats = meshRenderer.materials;
         mats[0] = whiteMaterial; // 첫 번째 메터리얼을 darkMaterial로 설정
         meshRenderer.materials = mats; // 변경된 배열 다시 설정
+        newDirectLight.gameObject.SetActive(true); // 새로운 다이레트 라이트 켜주기.;
     }
 
     public override void OnClearPuzzle()
     {
-        base.OnClearPuzzle();
-        ChangeSkyBox(afternoonSkybox);
+        base.OnClearPuzzle();  
+        ChangeSkyBox(afternoonSkybox);  // 클리어 시 여기서 진행해야 하는 것들 해주자.
         
         // itemID가 일치하는 아이템을 인벤토리로 Add 하는 함수가 필요함. -> 추후 작성 
 
     }
 
-    public void ActiveSetting()
-    {
-        
-    }
-
-    public void CompleteSetting()  // 퀘스트가 완성되어 있는 상태 --> 등대 못 만지고 
-    {
-        
-    }
-
-    public void DisActiveSetting()
-    {
-        
-    }
-
-    public void ImHitByRay()
-    {
-
-    }
-
-    public void RegistObject(PuzzleManager puzzle)
-    {
-        
-    }
-
-    public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
-    {
-        
-    }
+   
 }

@@ -1,17 +1,22 @@
 using Jc;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem.iOS;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace JJH
 {
-    public class LightPanelButton : CustomButton , IPuzzleable
+    public class LightPanelButton : CustomButton , IPuzzleable , IInteractable
     {
 
         public enum Direction
         {
             UP, DOWN, LEFT, RIGHT
         }
+
+        // 이게 지금 좌 우 회전 이랑 상 하 회전이랑 서로 다른 애들을 돌려줘야함. 
+
+        // 상 하 는 --> 그냥 그대로 등대 머리만 이용해서 회전시키자. 
 
 
         [Tooltip("등대 머리 -> 인스펙터 참조")]
@@ -21,6 +26,12 @@ namespace JJH
         [Tooltip("등대의 컴포넌트")]
         [SerializeField]
         private LightHouseHead house;
+
+        [Tooltip("등대 바닥 및 기둥  -> 좌 우 회전 위한")]
+        [SerializeField] private GameObject lightBottom;
+
+        [Tooltip("퍼즐 매니저")]
+        [SerializeField] private Chapter2SunHole puzzleSun;
 
 
         [Tooltip("각 버튼들의 스타트 포지션")]
@@ -33,7 +44,7 @@ namespace JJH
         [SerializeField] private bool isComplete = false;
 
         [Tooltip("등대 회전의 보간이 지속 되는 시간")]
-        [SerializeField] private float duration = 0.5f;
+        [SerializeField] private float duration = 1f;
 
         [Tooltip("버튼 눌리는 보간이 지속 되는 시간")]
         [SerializeField] private float buttonDuration = 0.2f;
@@ -67,35 +78,27 @@ namespace JJH
 
         //등대의 각도가 미리 정해둔 각도 내에 들어왔을 때. --> 완료 체크 할 것. 
 
+        protected override void Awake()
+        {
+            RegistObject(puzzleSun);
+        }
 
         private void Start()
         {
             startPosition = button.localPosition;
             lastPositiion = new Vector3(startPosition.x, startPosition.y + checkPosition, startPosition.z);
 
-
-            /*if(isStart==false) // 이런 식으로 manager에 접근해서 패널 이벤트 꺼주기.
-            {
-            // 오브젝트 끄는게 아니라 이벤트를 꺼줘야함. --> 또는 그냥 나 자신의 스크립트를 비활성화하기.
-                this.gameObject.SetActive(false);
-            }*/
         }
 
-        protected override void OnSelectEntering(SelectEnterEventArgs args)
-        {
-            /*if(args.interactorObject is RayInteractor)
-            {
-                isSelecting = true; // 이 상태면 return 때려버려야함. 
-            }*/
-
-            base.OnSelectEntering(args);
-        }
 
         [Tooltip("버튼 자신의 방향")]
         public Direction myDirection;
 
         public void UpButtonPush()
         {
+            Debug.Log($"isPushing->{isPushing}");
+            Debug.Log($"isRotation ->{isRotating}");
+
             if (isPushing == true || isRotating ==true/* || isSelecting*/) return;
 
             Debug.Log("업 버튼 눌림 체크");
@@ -192,6 +195,9 @@ namespace JJH
         private Quaternion end;
         private Quaternion start;
 
+        private Quaternion bottomEnd;
+        private Quaternion bottomStart;
+
         private void LightHouseRotation(Direction myDirection)
         {
             if (isRotating == true) return;
@@ -204,14 +210,17 @@ namespace JJH
                     end = Quaternion.Euler(lightHouseHead.transform.localEulerAngles + new Vector3(0, 0, -5));
                     start = lightHouseHead.transform.localRotation;
 
+                    // 상 하 는 바닥이 회전 할 필요가 없다.
+                    bottomEnd = Quaternion.Euler(lightBottom.transform.localEulerAngles + new Vector3(0, 0, 0));
+                    bottomStart = lightBottom.transform.localRotation;
+
                     Debug.Log(lightHouseHead.transform.localEulerAngles+"로컬 오일러 앵글");
 
                     // 이게 마이너스 값으로 가면 local euler값이 355 이렇게 됨 --> 355 : -5 와 같음. 
 
                     if (lightHouseHead.transform.localEulerAngles.z >= 315 || lightHouseHead.transform.localEulerAngles.z <= 45  )
                     {
-                        StartCoroutine(RotationRoutine(start, end, duration));
-
+                        StartCoroutine(RotationRoutine(start, end, bottomStart, bottomEnd, duration));
                     }
                     break;
 
@@ -220,43 +229,53 @@ namespace JJH
                     end = Quaternion.Euler(lightHouseHead.transform.localEulerAngles + new Vector3(0, 0, +5));
                     start = lightHouseHead.transform.localRotation;
 
-                    Debug.Log(lightHouseHead.transform.localEulerAngles + "로컬 오일러 앵글");
-
-
+                    bottomEnd = Quaternion.Euler(lightBottom.transform.localEulerAngles + new Vector3(0, 0, 0));
+                    bottomStart = lightBottom.transform.localRotation;
 
                     if (lightHouseHead.transform.localEulerAngles.z >= 315 || lightHouseHead.transform.localEulerAngles.z <= 45)
                     {
-                        StartCoroutine(RotationRoutine(start, end, duration));
+                        StartCoroutine(RotationRoutine(start, end, bottomStart, bottomEnd, duration));
                     }
                     break;
 
-                case Direction.LEFT: // 좌 
+                case Direction.LEFT: // 좌 --> 이게 바닥회전은 y축 회전이 맞다. 그런데 헤드랑 같이 회전한다면? 
 
-                    end = Quaternion.Euler(lightHouseHead.transform.localEulerAngles + new Vector3(0, -5, 0));
+                    // y축 이니까 어차피 head 회전도 y축 회전하면 되고 --> 바닥도 같이 y축 회전 하면 된다.
+                    
+                    // 헤드는 x축 회전이고 바닥은 y축 회전인대 이거 통일 못하나? 
+
+                    end = Quaternion.Euler(lightHouseHead.transform.localEulerAngles + new Vector3(-5, 0, 0));
                     start = lightHouseHead.transform.localRotation;
 
-                    if (lightHouseHead.transform.localEulerAngles.y >= 315 || lightHouseHead.transform.localEulerAngles.y <= 45)
+                    bottomEnd = Quaternion.Euler(lightBottom.transform.localEulerAngles + new Vector3(0, -5, 0));
+                    bottomStart = lightBottom.transform.localRotation;
+
+                    if (lightHouseHead.transform.localEulerAngles.x >= 315 || lightHouseHead.transform.localEulerAngles.x <= 45)
                     {
-                        StartCoroutine(RotationRoutine(start, end, duration));
+                        StartCoroutine(RotationRoutine(start, end, bottomStart,bottomEnd,duration));
                     }                  
                     break; 
 
-                case Direction.RIGHT: // 우 
+                case Direction.RIGHT: // 우 --> 라이트 바텀 같이 회전 시키기. 
 
-                    end = Quaternion.Euler(lightHouseHead.transform.localEulerAngles + new Vector3(0, +5, 0));
+                    end = Quaternion.Euler(lightHouseHead.transform.localEulerAngles + new Vector3(+5, 0, 0));
                     start = lightHouseHead.transform.localRotation;
 
-                    if (lightHouseHead.transform.localEulerAngles.y >= 315 || lightHouseHead.transform.localEulerAngles.y <= 45)
+                    bottomEnd = Quaternion.Euler(lightBottom.transform.localEulerAngles + new Vector3(0, +5, 0));
+                    bottomStart = lightBottom.transform.localRotation;
+
+                    if (lightHouseHead.transform.localEulerAngles.x >= 315 || lightHouseHead.transform.localEulerAngles.x <= 45)
                     {
-                        StartCoroutine(RotationRoutine(start, end, duration));
+                        StartCoroutine(RotationRoutine(start, end, bottomStart,bottomEnd, duration));
                     }
                     break;
             }
         }
 
         // 얘는 단독으로 돌려줘야하는 코루틴이니까 코루틴 매니저 이용 없이 코루틴 따로 돌려주자. 
-        private IEnumerator RotationRoutine(Quaternion start, Quaternion end, float duration)
+        private IEnumerator RotationRoutine(Quaternion start, Quaternion end,Quaternion bottomStart , Quaternion bottomEnd ,float duration)
         {
+            Debug.Log("로테이팅 루틴");
             if (lightHouseSound != null) // manager를 통한 사운드 출력 --> 등대 움직이는 소리
             {
                 Manager.Sound.PlaySFX(lightHouseSound);
@@ -270,6 +289,9 @@ namespace JJH
                 float t = elapsed / duration;
                 // 두 회전 사이 보간
                 lightHouseHead.transform.localRotation = Quaternion.Lerp(start, end, t);
+
+                lightBottom.transform.localRotation = Quaternion.Lerp(bottomStart , bottomEnd, t);
+
                 elapsed += Time.deltaTime;
                 yield return null;
                 
@@ -280,7 +302,13 @@ namespace JJH
             lightHouseHead.transform.localRotation = end;
             CheckMyAngel(end);
             isRotating = false; // 코루틴 끝나면 버튼 눌리도록 
+            Debug.Log("로테이팅 루틴 종료");
         }
+
+        
+
+
+
 
         // 스크립트 별로 코루틴을 저장 해줘서 놓는 순간 다시 돌아오도록 하기. 
         private Coroutine activeCoroutine;
@@ -301,32 +329,48 @@ namespace JJH
             // 내 앵글이 x y z 를 검사해서 x y z 가 그 해당 내부에 있으면 완료 체크를 해주면 되겠죠? 
             house.MyCheckRotation(rotation); 
 
+        }
 
+
+        public void MyEnable(bool boolean)
+        {
+            this.enabled = boolean;
         }
 
         public void RegistObject(PuzzleManager puzzle)
         {
-            throw new System.NotImplementedException();
+            puzzle.puzzleObjects.Add(this);
         }
 
-        public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
+        public void UpdatePuzzleManager(PuzzleManager puzzle, int index)  // 여기서 업데이트 할 거는 없다. 버튼이니까.
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void ActiveSetting()
         {
-            throw new System.NotImplementedException();
+            MyEnable(true);
         }
 
         public void DisActiveSetting()
         {
-            throw new System.NotImplementedException();
+            MyEnable(false);
         }
 
-        public void CompleteSetting()
+        public void CompleteSetting() // 그냥 컴플리트 되면 눌리지 않도록만 해주자. 
         {
-            throw new System.NotImplementedException();
+            MyEnable(false);
+        }
+
+        public float GetInteractDistance()
+        {
+            return 10f;
+        }
+
+        public Transform GetTransform()
+        {
+            Debug.Log($"트랜스폼 ->{this.gameObject.transform}");
+            return this.gameObject.transform;
         }
     }
 }
