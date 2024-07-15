@@ -60,20 +60,26 @@ namespace JJH
 
             isColoredInspector = is_Colored; // 인스펙터 창에서 보기 위해 변수 할당 
 
-            //LoadeData();
+            Manager.PlayableData.LoadCanvasData();  // start 에서 Load 받아서 이닛 세팅 실행. 
 
             InitSetting();
         }
 
         public void InitSetting()
         {
-
+            if (!File.Exists(SystemPath.GetPath(DataPath.LocalCanvasData)))
+            {
+                Debug.Log("캔버스 관련 데이터가 없음!");
+                Debug.Log("챕터 매니저의 이닛 세팅 미 진행!");
+                return;
+            }
+            Debug.Log($"드로우 오브젝트의 숫자 ->{drawObjectManager.Length}");
             is_Colored = new bool[sceneCount]; // 초기화 이후 json에 저장된 값 대입할 것 
 
-            /*for(int i =0; i < Manager.DataManager.GameData.isColoredCheckArr.Length; i++)
+            for (int i = 0; i < Manager.PlayableData.CanvasData.isColoredCheckArr.Length; i++)
             {
-                is_Colored [i] = Manager.DataManager.GameData.isColoredCheckArr[i];
-            }*/
+                is_Colored[i] = Manager.PlayableData.CanvasData.isColoredCheckArr[i];
+            }
 
             for (int i = 0; i < sceneCount; i++)
             {
@@ -83,21 +89,19 @@ namespace JJH
 
             isDrawing_Complete = new bool[drawObjectManager.Length]; // 그림들의 배열의 길이만큼 bool 변수의 크기를 정해준다.
 
-          /*  for (int i = 0; i < drawObjectManager.Length; i++)
+            for (int i = 0; i < drawObjectManager.Length; i++)
             {
-                isDrawing_Complete[i] = Manager.DataManager.GameData.myDrawCompleteCheckArr[i];
-            }*/
+                isDrawing_Complete[i] = Manager.PlayableData.CanvasData.myDrawCompleteCheckArr[i];
+            }
 
             drawPartCheck = new bool[drawObjectManager.Length];
 
-           /* for (int i = 0; i < drawObjectManager.Length; i++)
+            for (int i = 0; i < drawObjectManager.Length; i++)
             {
-                drawPartCheck[i] = Manager.DataManager.GameData.myDrawPartCheckArr[i]; // josn 불러와보자. 
-            }*/
+                drawPartCheck[i] = Manager.PlayableData.CanvasData.myDrawPartCheckArr[i]; // josn 불러와보자. 
+            }
 
         }
-
-
         // 챕터 해금 및 해금된 챕터의 gray color 변경 시켜 줄 함수 들 .
 
         public void UnlockStage(int stageIndex, bool unlock) // 챕터 언락용 함수. 

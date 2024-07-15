@@ -63,7 +63,7 @@ namespace JJH
 
                             // start 에서 로컬 블룸 레이어로 변경하여 그림도 못그리고 + 로컬 블룸의 효과를 받아 흑백이 아니도록 한다.
                             dr.gameObject.layer = 17; // 레이어 변경 시켜줘서 다시 라인 렌더러가 생성 되지 않도록 해줘야한다. 
-                            ChangeLight(dr.currentPaintType);
+                            ChangeLight(dr.currentPaintType);  // 자신의 드로우 오브젝트에 할당되어 있는 색깔 받아서 켜주기.
                         }
                     }
                 }
@@ -80,16 +80,16 @@ namespace JJH
                                                                                     // 싱글턴 매니저와 연계가 필요하다. 
         {
 
-            // 야 이부분 잘못 되었는데? 
+            // 야 이부분 잘못 되었는데? --> 이게 아마 
             ChapterManager.isDrawing_Complete[drawingNumber] = finishied; 
            
-            //Manager.DataManager.GameData.myDrawCompleteCheckArr[drawingNumber] = finishied; // json 같이 저장해주자.
+            Manager.PlayableData.CanvasData.myDrawCompleteCheckArr[drawingNumber] = finishied; // json 같이 저장해주자.
 
             // Json도 같이 저장 
             ChapterManager.drawPartCheck[instanceID] = finishied;
-            //Manager.DataManager.GameData.myDrawPartCheckArr[instanceID] = finishied; // true로 변경 
+            Manager.PlayableData.CanvasData.myDrawPartCheckArr[instanceID] = finishied; // true로 변경 
 
-            //Manager.Chapter.SaveData();
+            Manager.PlayableData.SaveCanvasData();
 
 
             // 임시 키 저장용 리스트 초기화

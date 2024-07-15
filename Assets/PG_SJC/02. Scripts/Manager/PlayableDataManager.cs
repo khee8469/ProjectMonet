@@ -180,5 +180,33 @@ namespace Jc
             string jsonData = JsonConvert.SerializeObject(questListData);
             File.WriteAllText(SystemPath.GetPath(DataPath.LocalQuestData), jsonData);
         }
+
+
+        // 채색 데이터 저장 
+
+        private CanvasData canvasData; // 채색 관련 데이터가 저장된 data 스크립트 
+        public CanvasData CanvasData { get { return canvasData; } }
+
+
+        public void SaveCanvasData()
+        {
+            LocalDirectoryInit(); // 폴더가 없으면 폴더 생성
+
+            string json = JsonUtility.ToJson(canvasData , true);
+            File.WriteAllText(SystemPath.GetPath(DataPath.LocalCanvasData), json);
+        }
+
+        public void LoadCanvasData()
+        {
+            if(!File.Exists(SystemPath.GetPath(DataPath.LocalCanvasData)))
+            {
+                Debug.Log("캔버스 관련 데이터가 없음!");
+                return;
+            }
+
+            string json = File.ReadAllText(SystemPath.GetPath(DataPath.LocalCanvasData));
+        }
+
+
     }
 }
