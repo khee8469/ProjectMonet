@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class WindMill : InteractObject, IPuzzleable
+public class WindMillPuzzle : InteractObject, IPuzzleable
 {
     [Header("현재 오브젝트 정보")]
     [SerializeField]
