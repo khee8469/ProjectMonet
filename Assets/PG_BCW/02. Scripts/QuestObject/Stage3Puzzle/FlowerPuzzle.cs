@@ -2,7 +2,7 @@ using Jc;
 using System.Collections;
 using UnityEngine;
 
-public class Flower : MonoBehaviour, IPuzzleable
+public class FlowerPuzzle : MonoBehaviour, IPuzzleable
 {
     [Header("현재 오브젝트 정보")]
     [Tooltip("부모의 PuzzleManager 할당")]

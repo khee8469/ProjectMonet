@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class Umbllera : InteractObject, IPuzzleable
+public class UmblleraPuzzle : InteractObject, IPuzzleable
 {
     [Header("현재 오브젝트 정보")]
 

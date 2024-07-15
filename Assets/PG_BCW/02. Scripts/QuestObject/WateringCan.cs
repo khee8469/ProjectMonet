@@ -14,10 +14,10 @@ public class WateringCan : ItemObject
         base.OnEnable();
 
         //퀘스트 완료시 제거
-        if (Manager.PlayableData.puzzleDataDic[flowerQuestID] == PuzzleState.Clear)
+        /*if (Manager.PlayableData.puzzleDataDic[flowerQuestID] == PuzzleState.Clear)
         {
             gameObject.SetActive(false);
-        }
+        }*/
     }
 
 
@@ -26,10 +26,10 @@ public class WateringCan : ItemObject
         base.OnSelectExited(args);
 
         //퀘스트 완료시 제거
-        if (Manager.PlayableData.puzzleDataDic[flowerQuestID] == PuzzleState.Clear)
+        /*if (Manager.PlayableData.puzzleDataDic[flowerQuestID] == PuzzleState.Clear)
         {
             gameObject.SetActive(false);
-        }
+        }*/
     }
 
     /*public void GroundCheck()

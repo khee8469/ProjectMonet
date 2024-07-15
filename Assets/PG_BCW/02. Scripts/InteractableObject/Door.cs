@@ -22,7 +22,7 @@ public class Door : XRSocketInteractor
         base.OnSelectEntered(args);
 
         //맞는 아이템이 아니면 셀렉트 취소
-        if(args.interactableObject.transform.GetComponent<Key>().ItemID != openKeyID)
+        if(args.interactableObject.transform.GetComponent<ItemObject>().ItemID != openKeyID)
         {
             this.interactionManager.SelectExit(args.interactorObject, args.interactableObject);
         }
