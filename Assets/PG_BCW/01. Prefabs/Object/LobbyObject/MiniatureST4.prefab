@@ -52,7 +52,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 4294967295
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 66328370850646934}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
   m_StartingSelectedInteractable: {fileID: 0}
@@ -94,6 +94,10 @@ MonoBehaviour:
   m_SocketScaleMode: 0
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+  handTrackingMask:
+    m_Bits: 4194304
+  miniaturaItems: da831500
+  exitPosition: {fileID: 2116428217602152671}
 --- !u!135 &1022468258688782081
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1574,7 +1578,7 @@ Transform:
   m_GameObject: {fileID: 1947822316046015402}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: -0.226, z: 0.542}
+  m_LocalPosition: {x: -0, y: 0, z: 0.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1993,6 +1997,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   activeQuestID: 1510018
+  nextPuzzleManager: {fileID: 0}
   clearQuestID: 1510018
   isClear: 0
   paintItemID: 12
@@ -2501,7 +2506,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_InteractionLayers:
-    m_Bits: 16777216
+    m_Bits: 4194304
   m_AttachTransform: {fileID: 709753908913426619}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
@@ -2544,6 +2549,10 @@ MonoBehaviour:
   m_SocketScaleMode: 0
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+  handTrackingMask:
+    m_Bits: 0
+  miniaturaItems: 
+  exitPosition: {fileID: 0}
 --- !u!65 &879410065217650658
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2702,6 +2711,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &3792210399044121444
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2116428217602152671}
+  m_Layer: 23
+  m_Name: ExitPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2116428217602152671
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3792210399044121444}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.000000029802315, z: -0, w: 1}
+  m_LocalPosition: {x: 0.909, y: 0.08999983, z: 0.476}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7352114012015554965}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3986384396016987372
 GameObject:
   m_ObjectHideFlags: 0
@@ -4222,6 +4262,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6490066000082099498}
+  - {fileID: 2116428217602152671}
   m_Father: {fileID: 8792806608338603821}
   m_LocalEulerAnglesHint: {x: 0, y: -51.402, z: 0}
 --- !u!1 &6519048829218006858
@@ -4734,6 +4775,10 @@ MonoBehaviour:
   m_SocketScaleMode: 0
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+  handTrackingMask:
+    m_Bits: 4194304
+  miniaturaItems: da831500
+  exitPosition: {fileID: 2116428217602152671}
 --- !u!135 &3480311883522130623
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -5006,7 +5051,7 @@ Transform:
   m_GameObject: {fileID: 7465825531705272977}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: -0.055, z: 1.787}
+  m_LocalPosition: {x: 0, y: 0, z: 1.787}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6561,7 +6606,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3448
+  m_VersionIndex: 3460
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -6723,7 +6768,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   m_InteractionLayers:
     m_Bits: 4294967295
-  m_AttachTransform: {fileID: 0}
+  m_AttachTransform: {fileID: 5129829126267582868}
   m_KeepSelectedTargetValid: 1
   m_DisableVisualsWhenBlockedInGroup: 1
   m_StartingSelectedInteractable: {fileID: 0}
@@ -6765,6 +6810,10 @@ MonoBehaviour:
   m_SocketScaleMode: 0
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+  handTrackingMask:
+    m_Bits: 4194304
+  miniaturaItems: da831500
+  exitPosition: {fileID: 2116428217602152671}
 --- !u!135 &7392598325608641249
 SphereCollider:
   m_ObjectHideFlags: 0
