@@ -56,6 +56,9 @@ namespace Jc
         [SerializeField]
         protected int curBasicDialogIndex = 0;     // 기본 대화 진행 인덱스 
 
+        [SerializeField]
+        private Transform bounsItemPosition;
+
         protected virtual void Start()
         {
             LoadData();
@@ -129,11 +132,12 @@ namespace Jc
             foreach (int questID in questIDList)
             {
                 QuestState state = Manager.Quest.GetQuest(questID).State;
-                
+
                 // 현재 진행해줄 수 있는 퀘스트를 할당
                 if ((state == QuestState.Active || state == QuestState.Proceed )&& Manager.Quest.GetQuest(questID).QuestData.acceptNPCID == this.id 
                     || state == QuestState.Clear && Manager.Quest.GetQuest(questID).QuestData.clearNPCID == this.id)
                     return Manager.Quest.GetQuest(questID);
+                
             }
             return null;
         }
@@ -155,7 +159,10 @@ namespace Jc
                     builboardUI.EnableBuilboard = false;
                 }
                 else
+                {
                     dialogText.text = Manager.Data.NarrationDataDic[basicNarrations[curBasicDialogIndex++]].text;
+                }
+                    
                 return;
             }
 
@@ -201,12 +208,21 @@ namespace Jc
                         // 리워드 지급은 퀘스트 자체에서 진행
                         // NPC 상태 변경
                         curQuestDialogIndex = 0;
+
+                        // 철우가 추가함 보상아이템 생성
+                        if (Manager.Item.ItemDataDic.ContainsKey(currentQuest.QuestData.rewardItemID))
+                        {
+                            Debug.Log($"보상이 있따네요{currentQuest.QuestData.rewardItemID}");
+                            currentQuest.RewardItem(bounsItemPosition);
+                        }
+
                         return;
                     }
                     // 대화 진행
                     // 플로팅 애니메이션
                     floatingAnim.SetTrigger(Manager.Param.OnFloating);
                     dialogText.text = currentQuest.clearNarrations[curQuestDialogIndex++].text;
+
                     break;
                 default:
                     break;

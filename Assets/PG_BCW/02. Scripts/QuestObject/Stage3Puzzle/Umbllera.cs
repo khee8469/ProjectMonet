@@ -42,8 +42,11 @@ public class Umbllera : InteractObject, IPuzzleable
             Debug.LogError("puzzleManager를 할당하시오");
         if (raycastPoint == 0)
             Debug.LogError("LayerMask를 할당하시오");
+        if (umblleraWoman == null)
+            Debug.Log("umblleraWoman를 할당하시오");
 
-        if (puzzleManager!=null)
+
+            if (puzzleManager!=null)
             RegistObject(puzzleManager);
 
         //puzzleDataDic에 키값이 없으면 할당
@@ -54,6 +57,9 @@ public class Umbllera : InteractObject, IPuzzleable
     protected override void OnEnable()
     {
         base.OnEnable();
+        Debug.Log(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
+        //상태에 따른 세팅 
+        puzzleManager.PuzzleSetting(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
 
         //스테이지3의 상태에 따라
         if (Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] == PuzzleState.Clear)
@@ -153,18 +159,23 @@ public class Umbllera : InteractObject, IPuzzleable
     public void ActiveSetting()
     {
         //순서인 퀘스트 오브젝트 활성화
+        Debug.Log("양산 퀘스트 진행중");
+        if (umblleraCollider != null) umblleraCollider.enabled = true;
     }
 
     public void DisActiveSetting()
     {
         //순서아닌 퀘스트 오브젝트 비활성화
+        Debug.Log("양산 퀘스트 비활성화");
+        if (umblleraCollider != null) umblleraCollider.enabled = false;
     }
 
     public void CompleteSetting()
     {
         UpdatePuzzleManager(puzzleManager, puzzleIndex);
-        if (umblleraWoman != null) umblleraWoman.SetActive(true);
         if (umblleraMesh != null) umblleraMesh.enabled = false;
+        if (umblleraWoman != null) umblleraWoman.SetActive(true);
+        
         if( umblleraCollider != null) umblleraCollider.enabled = false;
     }
 }

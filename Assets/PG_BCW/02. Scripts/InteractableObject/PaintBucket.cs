@@ -4,7 +4,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class PaintBucket : ItemObject
+public class PaintBucket : InteractObject
 {
     // 얘가 진짜 물감이고 paint는 생성되는 물감임. 
 

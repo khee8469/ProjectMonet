@@ -105,10 +105,10 @@ namespace Jc
                 this.state = PuzzleState.DisActive;
                 return;
             }
-
+            
             // 로드된 데이터는 프로퍼티를 사용하여 다시 저장하지 않음.
             // State -> this.state
-            switch(Manager.PlayableData.puzzleDataDic[puzzleID])
+            switch (Manager.PlayableData.puzzleDataDic[puzzleID])
             {
                 case PuzzleState.DisActive:
                     foreach (IPuzzleable ob in puzzleObjects)

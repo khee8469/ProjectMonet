@@ -45,6 +45,10 @@ public class Flower : MonoBehaviour, IPuzzleable
 
     private void OnEnable()
     {
+        //Debug.Log(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
+        //상태에 따른 세팅 
+        puzzleManager.PuzzleSetting(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
+        
         //스테이지3의 상태에 따라
         if (Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] == PuzzleState.Clear)
         {
@@ -102,22 +106,28 @@ public class Flower : MonoBehaviour, IPuzzleable
         puzzle.puzzleObjects.Add(this);
     }
 
-    public void ActiveSetting()
-    {
-        //순서인 퀘스트 오브젝트 활성화
-    }
-
-    public void DisActiveSetting()
-    {
-        //순서아닌 퀘스트 오브젝트 비활성화
-    }
-
     public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
     {
         puzzle.UpdateCondition(index); //아니면 정재훈잘못
     }
 
-    
+
+
+    //ActiveSetting, DisActiveSetting, CompleteSetting은 PuzzleManager에서 선행퀘스트 상태에 따라 실행시킨다.
+    public void ActiveSetting()
+    {
+        //순서인 퀘스트 오브젝트 활성화
+        Debug.Log("물주기 퀘스트 진행중");
+        if (flowerCollider != null) flowerCollider.enabled = true;
+    }
+
+    public void DisActiveSetting()
+    {
+        //순서아닌 퀘스트 오브젝트 비활성화
+        Debug.Log("물주기 퀘스트 비활성화");
+        if (flowerCollider != null) flowerCollider.enabled = false;
+    }
+
     public void CompleteSetting()
     {
         UpdatePuzzleManager(puzzleManager, puzzleIndex);
