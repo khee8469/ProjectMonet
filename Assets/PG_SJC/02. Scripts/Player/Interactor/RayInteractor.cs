@@ -248,13 +248,13 @@ namespace Jc
 
             currentGrabObject = args.interactableObject as InteractObject; // 현재 플레이어가 쥐고 있는 아이템. 
 
-            // 오브젝트 그랩 시 위치설정
+            /*// 오브젝트 그랩 시 위치설정
             if(currentGrabObject.trackPosition)
             {
                 currentGrabObject.trackPosition = false;
                 //currentGrabObject.transform.position = transform.position + transform.forward * currentGrabObject.GrabDistance;
                 //currentGrabObject.trackPosition = true;
-            }
+            }*/
 
             grabbedTr = args.interactableObject.transform;
             isGrab = true;

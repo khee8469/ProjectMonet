@@ -22,6 +22,9 @@ namespace JJH
         [SerializeField]
         private LightHouseHead house;
 
+        [Tooltip("퍼즐 매니저")]
+        [SerializeField] private Chapter2SunHole puzzleSun;
+
 
         [Tooltip("각 버튼들의 스타트 포지션")]
         [SerializeField] private Vector3 startPosition;
@@ -67,6 +70,10 @@ namespace JJH
 
         //등대의 각도가 미리 정해둔 각도 내에 들어왔을 때. --> 완료 체크 할 것. 
 
+        protected override void Awake()
+        {
+            RegistObject(puzzleSun);
+        }
 
         private void Start()
         {
@@ -297,17 +304,16 @@ namespace JJH
             // 내 앵글이 x y z 를 검사해서 x y z 가 그 해당 내부에 있으면 완료 체크를 해주면 되겠죠? 
             house.MyCheckRotation(rotation); 
 
-
         }
 
         public void RegistObject(PuzzleManager puzzle)
         {
-
+            puzzle.puzzleObjects.Add(this);
         }
 
         public void UpdatePuzzleManager(PuzzleManager puzzle, int index)  // 여기서 업데이트 할 거는 없다. 버튼이니까.
         {
-
+            
         }
 
         public void ActiveSetting()

@@ -59,8 +59,13 @@ public class Chapter2SunHole : PaintRewardPuzzle
 
     public override void OnClearPuzzle()
     {
-        base.OnClearPuzzle();
-        ChangeSkyBox(afternoonSkybox);
+        base.OnClearPuzzle();  
+        ChangeSkyBox(afternoonSkybox);  // 클리어 시 여기서 진행해야 하는 것들 해주자.
+        // 버튼 꺼주기. 
+        // 등대 창문 가로 light 켜주기 등 
+
+
+
         
         // itemID가 일치하는 아이템을 인벤토리로 Add 하는 함수가 필요함. -> 추후 작성 
 
