@@ -10,7 +10,10 @@ namespace JJH
 
     public class LightHouseHead : MonoBehaviour, IPuzzleable
     {
-        
+
+        [Tooltip("퍼즐 매니저")]
+        [SerializeField] private Chapter2SunHole puzzleSun; // 얘 한테 퍼즐매니저 붙어 있음. ㅠㅠ 
+
         [Tooltip("체크 해야 할 검은 구멍")]
         [SerializeField]
         private Chapter2SunHole sunHole;
@@ -41,18 +44,28 @@ namespace JJH
         [SerializeField] private float ZminValue;
 
 
-        [Tooltip("버튼 배열 가지고 있기")]
-        [SerializeField]
-        private LightPanelButton[] buttons;
-
         [Tooltip("클리어 시 창문으로 비칠 햇빛")]
         [SerializeField]
         private Light clearLight;
+
+        
+
+        [Tooltip("버튼이 꺼지는 거는 버튼이 함수로 가지고 있고 그거를 여기서 빌려쓰는 식으로 하자.")]
+        [SerializeField] private LightPanelButton[] buttons;
+        
 
         // 빛 기둥 같은 경우는 이제 그냥 켜주기만 하면 되는 느낌이겠지. 
         // ray 보다는 패널 에서 자기 위치 체크를 하는게 낫지 않나? 
 
         // Ray 안 쓰고 그냥 각도로 하는 중이니까 각도로 하는게 나을 수도 
+
+
+        private void Awake()
+        {
+            RegistObject(puzzleSun);
+        }
+
+
         private void RayOn() //Ray 든 뭐 빛 기둥이던 어쨋든 이전 퍼즐을 깨야 발동이 가능하다. 
         {
             RaycastHit hit;
@@ -78,7 +91,7 @@ namespace JJH
         // 등대의 각도와 태양의 각도 
 
         [Tooltip("오차 범위 설정")]
-        [SerializeField] private float tolerance = 0.2f;
+        [SerializeField] private float tolerance = 3f;
         
         public void MyCheckRotation(Quaternion endRotation)
         {
@@ -90,7 +103,7 @@ namespace JJH
 
             // 각각의 angle 값이 0~360도 중에 어느 정도 값 사이에 들어가 있어야 체크 할지 파악하면된다.
             // 지금 임의적으로 숫자 넣어준거임
-            if ((angleY >= 340 - tolerance && angleY <= 345 + tolerance)&&(angleZ >= 320 - tolerance && angleZ <= 325 + tolerance))
+            if ((angleX >= 25 - tolerance && angleX <= 25 + tolerance)&&(angleZ >= 355 - tolerance && angleZ <= 355 + tolerance))
             {
                 sunHole.OnClearPuzzle();
                 DeAactiveLight_Button();
@@ -106,15 +119,15 @@ namespace JJH
 
         public void DeAactiveLight_Button() // 아 이거 인스펙터창에서 달았었나보다.. 
         {
-            for(int i=0;i<buttons.Length;i++)
+            for(int i=0;i < buttons.Length;i++)
             {
-                buttons[i].enabled = false; // 스크립트 꺼주기
+                buttons[i].MyEnable(false);
             }
         }
 
         private void onWindowLight(bool boolean)
         {
-            clearLight.gameObject.SetActive(boolean);
+            clearLight.gameObject.SetActive(boolean);   
         }
 
 
@@ -147,11 +160,6 @@ namespace JJH
         #region 퍼즐 인터페이스 오버라이드 
         public void ActiveSetting()  // 진행 가능한 상태의 세팅 
         {
-            for (int i = 0; i < buttons.Length; i++)
-            {
-                buttons[i].enabled = true; // 스크립트 켜주기
-            }
-
             // 등대의 불은 나오고 있어야 함. 
             PillarChange(true);
             onWindowLight(false);
@@ -188,6 +196,7 @@ namespace JJH
         public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
         {
             // 얘는 어차피 완료 조건이 하나 니까 그냥 OnClear 부르는 방식으로 진행 할 것. 
+            puzzleSun.OnClearPuzzle();
             Debug.Log("등대의 업데이트 퍼즐");
         }
         #endregion
