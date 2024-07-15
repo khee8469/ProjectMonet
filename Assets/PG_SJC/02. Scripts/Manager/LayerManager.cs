@@ -23,5 +23,8 @@ namespace Jc
 
         [Header("PuzzleTrigger")]
         public LayerMask puzzleLM;
+
+        [Header("Item")]
+        public LayerMask itemLM;
     }
 }

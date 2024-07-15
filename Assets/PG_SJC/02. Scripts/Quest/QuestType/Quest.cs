@@ -127,22 +127,18 @@ namespace Jc
 
             // 연결된 다음 퀘스트 활성화
             ActiveNextQuest(questData.next_id);
+            
+            // 지급할 아이템이 존재할 경우
+            if(questData.rewardItemID != -1)
+            {
+                Manager.Item.GetItem(questData.rewardItemID, true);
+            }
         }
 
         public void OnClearLinkedQuest(Quest quest)
         {
             // 링크된 퀘스트가 모두 클리어된 경우
             ChangeState(QuestState.Clear);
-        }
-
-
-        //철우가 추가함 퀘스트 보상 생성
-        public void RewardItem(Transform transform)
-        {
-
-            Debug.Log("보상아이템 생성");
-            Instantiate(Manager.Item.ItemDataDic[questData.rewardItemID].itemPrefab, transform.position, transform.rotation);
-
         }
     }
 }

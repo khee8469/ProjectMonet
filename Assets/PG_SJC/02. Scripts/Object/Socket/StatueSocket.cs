@@ -28,6 +28,8 @@ namespace Jc
         {
             foreach (GameObject go in roofObs)
                 Destroy(go);
+
+            puzzle.OnClearPuzzle();
         }
 
         public override bool CanHover(IXRHoverInteractable interactable)
