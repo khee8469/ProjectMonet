@@ -21,8 +21,13 @@ namespace JJH
         [Tooltip("기어 소켓 저장")]
         [SerializeField] private GearSocket[] gearSockets;
 
-        [Tooltip("기어 회전을 저장 시키기 위한 List")]
+        [Tooltip("기어 회전을 저장 시키기 위한 List ->실제 삽입 기어 add remove")]
         public List<GearObject> gearList;
+
+        [Tooltip("삽입 되지 않는 장식 기어들의 회전을 위한 저장 list")]
+        public List<DecoGearUpdate> decoGearList;
+        
+
 
         // OnClear 호출을 update 된 ipuzzle 에서 부르기 때문에 관리를 겹치지 않도록 잘 해줘야한다.
         public override void OnClearPuzzle()
@@ -30,15 +35,14 @@ namespace JJH
             Debug.Log("온 클리어 퍼즐 발동");
 
             base.OnClearPuzzle();
-            //  GearRotation();
-            /*lightHouse.pillar_Of_Light.gameObject.SetActive(true); // 빛 기둥 켜주기.
+            lightHouse.pillar_Of_Light.gameObject.SetActive(true); // 빛 기둥 켜주기.
 
             for (int i = 0; i < buttonPanels.Length; i++)
             {
                 buttonPanels[i].enabled = true; // 버튼 켜주기.
-            }*/
+            }
 
-            StartCoroutine(DelayCoroutine());
+            StartCoroutine(DelayCoroutine()); // 딜레이 살짝 줘서 트랙 로테이션이 바로 켜지지 않도록 하기. 
             foreach (GearObject gear in gearList)
             {
                 gear.StartRotate();
@@ -46,7 +50,7 @@ namespace JJH
                 gear.trackRotation = false;
             }
 
-
+            DecoGearRotate(); // 장식 기어들도 회전 시키기. 
             //SoundPlay(); --> 사운드는 어디서 관리 할 지? 
         }
 
@@ -55,6 +59,16 @@ namespace JJH
         {
             yield return new WaitForSeconds(0.5f);
         }
+
+        public void DecoGearRotate()
+        {
+            foreach (var  gear in decoGearList)
+            {
+                gear.RotateRoutine(); // 인수 없이 그냥 돌리고 --> 내부에서 direction 값 줘서 회전 시키자. 
+            }
+        }
+
+
 
         public void SoundPlay()
         {

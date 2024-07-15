@@ -83,11 +83,7 @@ namespace JJH
 
         protected override void OnSelectEntering(SelectEnterEventArgs args)
         {
-            /*if(args.interactorObject is RayInteractor)
-            {
-                isSelecting = true; // 이 상태면 return 때려버려야함. 
-            }*/
-
+           
             base.OnSelectEntering(args);
         }
 
@@ -306,27 +302,27 @@ namespace JJH
 
         public void RegistObject(PuzzleManager puzzle)
         {
-            throw new System.NotImplementedException();
+
         }
 
-        public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
+        public void UpdatePuzzleManager(PuzzleManager puzzle, int index)  // 여기서 업데이트 할 거는 없다. 버튼이니까.
         {
-            throw new System.NotImplementedException();
+
         }
 
         public void ActiveSetting()
         {
-            throw new System.NotImplementedException();
+            this.enabled = true;
         }
 
         public void DisActiveSetting()
         {
-            throw new System.NotImplementedException();
+            this.enabled = false;
         }
 
-        public void CompleteSetting()
+        public void CompleteSetting() // 그냥 컴플리트 되면 눌리지 않도록만 해주자. 
         {
-            throw new System.NotImplementedException();
+            this.enabled = false; // 버튼 스크립트 꺼주기. 
         }
     }
 }

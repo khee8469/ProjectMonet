@@ -79,8 +79,6 @@ namespace JJH
             {
                 gearPuzzle.UpdateCondition(puzzleIndex, false); // bool 값을 false로 변경. 
             }
-            
-
 
         }
 
@@ -92,11 +90,11 @@ namespace JJH
         }
 
         // 각각의 소켓에 대해서 gearIDiTEM을 생성해놓는다. 
-        public void CompleteSetting()
+        public void CompleteSetting() // 다시 세팅 할 
         {
             gearPuzzle.UpdateCondition(puzzleIndex);
             gearPuzzle.OnClearPuzzle();
-            gearGameObject.gameObject.SetActive(true); // 이거 켜주기. 
+            gearGameObject.gameObject.SetActive(true); // 미리 넣어두고 꺼놓은 기어 켜주기. 
 
         }
 

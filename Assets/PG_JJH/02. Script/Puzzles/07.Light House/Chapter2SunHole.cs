@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Chapter2SunHole : PaintRewardPuzzle, IPuzzleable
+public class Chapter2SunHole : PaintRewardPuzzle
 {
     // 챕터 2 의 검은 구멍에 붙여 줄 스크립트
 
@@ -34,6 +34,12 @@ public class Chapter2SunHole : PaintRewardPuzzle, IPuzzleable
     [SerializeField]
     Material[] mats = new Material[1];*/
 
+
+    private void Awake()
+    {
+        
+    }
+
     private void Start()
     {
         meshRenderer= GetComponent<MeshRenderer>();
@@ -60,33 +66,5 @@ public class Chapter2SunHole : PaintRewardPuzzle, IPuzzleable
 
     }
 
-    public void ActiveSetting()
-    {
-        
-    }
-
-    public void CompleteSetting()  // 퀘스트가 완성되어 있는 상태 --> 등대 못 만지고 
-    {
-        
-    }
-
-    public void DisActiveSetting()
-    {
-        
-    }
-
-    public void ImHitByRay()
-    {
-
-    }
-
-    public void RegistObject(PuzzleManager puzzle)
-    {
-        
-    }
-
-    public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
-    {
-        
-    }
+   
 }
