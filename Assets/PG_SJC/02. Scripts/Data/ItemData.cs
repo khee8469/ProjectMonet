@@ -13,6 +13,9 @@ namespace Jc
         [Header("아이템 ID")]
         public int itemID;
 
+        [Header("아이템 명")]
+        public string itemName;
+
         [Header("아이템 이미지")]
         public Sprite itemSprite;
 
