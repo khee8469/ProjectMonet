@@ -903,38 +903,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SceneID: 0
   globalVolume: {fileID: 1900684346313677851}
---- !u!1 &1573657946 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 758920669272298681, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2173045557192473751}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1573657948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1573657946}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b219e304c9614d4e91dfdfd5764a723, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rewardItemID: 0
-  puzzleID: -1
-  state: 0
-  conditions: 
-  OnClear:
-    m_PersistentCalls:
-      m_Calls: []
-  activeQuestID: -1
-  clearQuestID: -1
-  isClear: 0
-  paintItemID: 0
-  objects: []
-  flashLight: {fileID: 0}
-  collider: {fileID: 0}
 --- !u!4 &1905774757 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7918129469388023656, guid: 82c3eb4e1962c9a43a1b8ffb386c4a4d,
@@ -957,6 +925,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2561ed5c42e8ea54db9641ad3b42fbd2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2136055697 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7967379553181495740, guid: 9908bc9148a631d4c958877d483db894,
+    type: 3}
+  m_PrefabInstance: {fileID: 6095069188718828789}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a1bfa20a4a057fe4ea3ff7c98e9739da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2140586367 stripped
@@ -1329,99 +1309,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1900684346313677850}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &2173045557192473751
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 758920669272298681, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
-        type: 3}
-      propertyPath: m_Name
-      value: CirclePuzzle_5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2749476712160562384, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
-        type: 3}
-      propertyPath: puzzle
-      value: 
-      objectReference: {fileID: 1573657948}
-    - target: {fileID: 4031187491795465159, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.194
-      objectReference: {fileID: 0}
-    - target: {fileID: 4031187491795465159, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.95
-      objectReference: {fileID: 0}
-    - target: {fileID: 4031187491795465159, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 12.209
-      objectReference: {fileID: 0}
-    - target: {fileID: 4031187491795465159, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4031187491795465159, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4031187491795465159, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4031187491795465159, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4031187491795465159, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4031187491795465159, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4031187491795465159, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7343547795025836164, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
-        type: 3}
-      propertyPath: puzzle
-      value: 
-      objectReference: {fileID: 1573657948}
-    - target: {fileID: 7343547795025836164, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
-        type: 3}
-      propertyPath: ColliderEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8726892204338585807, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
-        type: 3}
-      propertyPath: puzzle
-      value: 
-      objectReference: {fileID: 1573657948}
-    m_RemovedComponents:
-    - {fileID: 3235422744873797217, guid: d6eeb318d4cd0bf4cb44a20b346a387c, type: 3}
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 758920669272298681, guid: d6eeb318d4cd0bf4cb44a20b346a387c,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1573657948}
-  m_SourcePrefab: {fileID: 100100000, guid: d6eeb318d4cd0bf4cb44a20b346a387c, type: 3}
 --- !u!1 &2557022790381267957 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2557022790448891104, guid: c46b64ff217aefc4aade03834b78359f,
@@ -1552,7 +1439,7 @@ PrefabInstance:
     - target: {fileID: 2140162417307484988, guid: 336021916260d9940afc0597110891a5,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.362
+      value: 4.715
       objectReference: {fileID: 0}
     - target: {fileID: 2140162417307484988, guid: 336021916260d9940afc0597110891a5,
         type: 3}
@@ -1672,6 +1559,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightHousePuzzle_7
       objectReference: {fileID: 0}
+    - target: {fileID: 6432068258645268202, guid: 9908bc9148a631d4c958877d483db894,
+        type: 3}
+      propertyPath: puzzleSun
+      value: 
+      objectReference: {fileID: 2136055697}
     - target: {fileID: 7967379553181495740, guid: 9908bc9148a631d4c958877d483db894,
         type: 3}
       propertyPath: nightDirectionalLight
@@ -1765,6 +1657,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Gear_Puzzle_6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2541116717082452058, guid: 17fd6f626abc920439f04a9e36f5c179,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3718849992514135812, guid: 17fd6f626abc920439f04a9e36f5c179,
         type: 3}
@@ -1961,5 +1858,4 @@ SceneRoots:
   - {fileID: 137550548}
   - {fileID: 6095069188718828789}
   - {fileID: 6991734744244868361}
-  - {fileID: 2173045557192473751}
   - {fileID: 3927688153557410003}

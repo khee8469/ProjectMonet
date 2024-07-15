@@ -39,19 +39,9 @@ namespace JJH
             }
         }
 
-        public override void OnClearPuzzle()
+        public override void OnClearPuzzle() // 온 클리어 퍼즐 --> 인스펙터 에서 할당해도 된다! 
         {
             base.OnClearPuzzle();
-
-            for(int i=0;i<objects.Count;i++)
-            {
-                objects[i].collider.enabled = false; // 모든 오브젝트의 콜라이더 꺼주기.
-            }
-
-            // 톱니바퀴가 인벤토리로 자동 지급 되어야 한다. 
-            Debug.Log("일단 문양 퍼즐 완료함!");
-
-
         }
 
 

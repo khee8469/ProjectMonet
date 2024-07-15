@@ -229,13 +229,13 @@ namespace Jc
 
             if (itrObject == null)
                 return false;
-
+            
             return base.CanHover(interactable);
         }
         public override bool CanSelect(IXRSelectInteractable interactable)
         {
             IInteractable itrObject = interactable as IInteractable;
-            
+
             if (itrObject == null)
                 return false;
 

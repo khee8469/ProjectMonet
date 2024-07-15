@@ -5,7 +5,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace JJH
 
 {
-    public class HiddenPatternflashlight : InteractObject, IPuzzleable
+    public class HiddenPatternflashlight : InteractObject, IPuzzleable 
     {
         // 패턴 퍼즐 용 플래시 라이트 
         // 더이상 잡지 못하도록
@@ -124,13 +124,6 @@ namespace JJH
             collider.enabled = false; // 더 이상 만지지 못함. 
             spotLight.enabled = false; // 불 꺼줌.
             isGrabbed = false;
-
-
-
-
-
-
-
         }
 
         public void DisActiveSetting()

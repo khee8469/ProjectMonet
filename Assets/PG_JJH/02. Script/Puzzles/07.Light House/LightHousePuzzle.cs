@@ -6,7 +6,7 @@ using Jc;
 
 namespace JJH
 {
-    public class LightHousePuzzle : PuzzleManager , IPuzzleable
+    public class LightHousePuzzle : PaintRewardPuzzle
     {
         // button 들에는 XrPushButton 이용 
 
@@ -27,12 +27,6 @@ namespace JJH
             
         }
 
-        // 이벤트 등록
-        //protected override void OnEnable()
-        //{
-            
-        //}
-
         // 이벤트 해제 
         private void OnDisable()
         {
@@ -52,30 +46,7 @@ namespace JJH
 
         }
 
-        public void RegistObject(PuzzleManager puzzle)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void ActiveSetting()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void DisActiveSetting()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public void CompleteSetting()
-        {
-            throw new System.NotImplementedException();
-        }
+       
     }
 
 }
