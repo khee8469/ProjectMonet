@@ -28,6 +28,10 @@ public class Chapter2SunHole : PaintRewardPuzzle
     [Tooltip("보상으로 인벤토리에 넣어줄 아이템 ID")]
     [SerializeField] public int ID;
 
+    [Tooltip("새롭게 켜줄 direct light")]
+    [SerializeField] private Light newDirectLight;
+
+
     private MeshRenderer meshRenderer;
 
     /*[Tooltip("새로운 마테리얼 배열 -> 넣어둔 마테리얼을 변경 해주기 위해 새롭게 생성")]
@@ -55,17 +59,13 @@ public class Chapter2SunHole : PaintRewardPuzzle
         Material[] mats = meshRenderer.materials;
         mats[0] = whiteMaterial; // 첫 번째 메터리얼을 darkMaterial로 설정
         meshRenderer.materials = mats; // 변경된 배열 다시 설정
+        newDirectLight.gameObject.SetActive(true); // 새로운 다이레트 라이트 켜주기.;
     }
 
     public override void OnClearPuzzle()
     {
         base.OnClearPuzzle();  
         ChangeSkyBox(afternoonSkybox);  // 클리어 시 여기서 진행해야 하는 것들 해주자.
-        // 버튼 꺼주기. 
-        // 등대 창문 가로 light 켜주기 등 
-
-
-
         
         // itemID가 일치하는 아이템을 인벤토리로 Add 하는 함수가 필요함. -> 추후 작성 
 

@@ -39,7 +39,7 @@ namespace JJH
 
             for (int i = 0; i < buttonPanels.Length; i++)
             {
-                buttonPanels[i].enabled = true; // 버튼 켜주기.
+                buttonPanels[i].enabled = true; // 버튼 켜주기. --> 등대의 버튼 들 . 
             }
 
             StartCoroutine(DelayCoroutine()); // 딜레이 살짝 줘서 트랙 로테이션이 바로 켜지지 않도록 하기. 
