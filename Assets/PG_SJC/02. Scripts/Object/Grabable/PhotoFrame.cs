@@ -22,6 +22,9 @@ namespace Jc
         [SerializeField]
         private Rigidbody rigid;
 
+        [SerializeField]
+        private float selectedAlpha;        // 셀렉된 상태의 알파값
+
         [Tooltip("활성화 데이터")]
         [SerializeField]
         private PosRotPair activeData;
@@ -117,6 +120,9 @@ namespace Jc
 
             meshRenderer.sharedMaterial = highlightMT;
 
+            highlightMT.color = new Color(highlightMT.color.r, highlightMT.color.g, highlightMT.color.b, selectedAlpha);
+            screenImage.color = new Color(screenImage.color.r, screenImage.color.g, screenImage.color.b, selectedAlpha);
+
             IsGrabbed = true;
         }
         protected override void OnSelectExited(SelectExitEventArgs args)
@@ -125,6 +131,9 @@ namespace Jc
 
             meshRenderer.sharedMaterial = originMT;
             highlightMT.color = originMTColor;    // 머터리얼 색상 원복
+
+            highlightMT.color = new Color(highlightMT.color.r, highlightMT.color.g, highlightMT.color.b, 1f);
+            screenImage.color = new Color(screenImage.color.r, screenImage.color.g, screenImage.color.b, 1f);
 
             grabbedFrame.SetActive(false);
             originFrame.SetActive(true);
@@ -154,12 +163,13 @@ namespace Jc
 
             // 페이드아웃용 머터리얼로 변경
             meshRenderer.sharedMaterial = fadeOutMT;
+            Color startColor = new Color(originMTColor.r, originMTColor.g, originMTColor.b, selectedAlpha);
             float rate = 0f;
             while (rate < 1f)
             {
                 rate += Time.deltaTime * 1.5f;
-                fadeOutMT.color = Color.Lerp(originMTColor, fadeOutColor, rate);
-                screenImage.color = Color.Lerp(originIMGColor, fadeOutIMGColor, rate);
+                fadeOutMT.color = Color.Lerp(startColor, fadeOutColor, rate);
+                screenImage.color = Color.Lerp(startColor, fadeOutIMGColor, rate);
                 yield return null;
             }
 
