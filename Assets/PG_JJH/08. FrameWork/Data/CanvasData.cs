@@ -15,9 +15,6 @@ namespace JJH
         // 그림 조각 저장용
         public bool[] myDrawPartCheckArr = new bool[20];
 
-        // 그림 완성 상태 저장용
-        public bool[] myDrawCompleteCheckArr = new bool[20];
-
         [Tooltip("포스트 프로세싱 컬러 / 흑백 전환 bool 변수 -> 0 1 2 3 각 스테이지 마다 체크 / 로딩루틴 ")]
         // 씬의 포스트 프로세싱 상태 저장용 
         public bool[] isColoredCheckArr = new bool[4];

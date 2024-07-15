@@ -60,6 +60,11 @@ namespace JJH
 
             isColoredInspector = is_Colored; // 인스펙터 창에서 보기 위해 변수 할당 
 
+            is_Colored = new bool[sceneCount];
+            drawPartCheck = new bool[drawObjectManager.Length];
+            //isDrawing_Complete = new bool[drawObjectManager.Length];
+
+
             Manager.PlayableData.LoadCanvasData();  // start 에서 Load 받아서 이닛 세팅 실행. 
 
             InitSetting();
@@ -67,37 +72,32 @@ namespace JJH
 
         public void InitSetting()
         {
-            is_Colored = new bool[sceneCount]; // 초기화 이후 json에 저장된 값 대입할 것 
-            isDrawing_Complete = new bool[drawObjectManager.Length]; // 그림들의 배열의 길이만큼 bool 변수의 크기를 정해준다.
-            drawPartCheck = new bool[drawObjectManager.Length];
-
             if (!File.Exists(SystemPath.GetPath(DataPath.LocalCanvasData)))
             {
                 Debug.Log("캔버스 관련 데이터가 없음!");
                 Debug.Log("챕터 매니저의 이닛 세팅 미 진행!");
                 return;
             }
-            Debug.Log($"드로우 오브젝트의 숫자 ->{drawObjectManager.Length}");
-            
 
             for (int i = 0; i < Manager.PlayableData.CanvasData.isColoredCheckArr.Length; i++)
             {
                 is_Colored[i] = Manager.PlayableData.CanvasData.isColoredCheckArr[i];
             }
 
-            for (int i = 0; i < sceneCount; i++)
+            /*for (int i = 0; i < sceneCount; i++)
             {
                 is_Colored[i] = false; // start 에서 한 번 false 로  --> 어차피 로딩 뤁린 돌릴 때 교체 해주고 싱글턴 start 이기 때문에 단 한번만 돈다. 
                 // 여기서 gamedata에 저장된 변수를 가져와서 true false 정해주자. 
             }
+*/
+            /*for (int i = 0; i < drawObjectManager.Length; i++)
+            {
+                isDrawing_Complete[i] = Manager.PlayableData.CanvasData.myDrawCompleteCheckArr[i];
+            }*/
 
             for (int i = 0; i < drawObjectManager.Length; i++)
             {
-                isDrawing_Complete[i] = Manager.PlayableData.CanvasData.myDrawCompleteCheckArr[i];
-            }
-            for (int i = 0; i < drawObjectManager.Length; i++)
-            {
-                drawPartCheck[i] = Manager.PlayableData.CanvasData.myDrawPartCheckArr[i]; // josn 불러와보자. 
+                drawPartCheck[i] = Manager.PlayableData.CanvasData.myDrawPartCheckArr[i]; 
             }
 
         }

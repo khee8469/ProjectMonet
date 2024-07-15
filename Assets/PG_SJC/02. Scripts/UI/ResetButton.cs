@@ -13,6 +13,14 @@ public class ResetButton : MonoBehaviour
         CSVHelper.Remove(SystemPath.GetPath(DataPath.StageData));
         //CSVHelper.Remove(SystemPath.GetPath(DataPath.LocalCanvasData));
         Manager.Scene.LoadScene("Lobby");
+
+
+        CSVHelper.Remove(SystemPath.GetPath(DataPath.LocalCanvasData)); // 캔버스 json 데이터 삭제 
+
+
+
+
+
     }
 
 
