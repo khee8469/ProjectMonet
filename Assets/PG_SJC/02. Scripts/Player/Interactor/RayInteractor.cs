@@ -242,6 +242,16 @@ namespace Jc
             return base.CanSelect(interactable);
         }
 
+        protected override void OnSelectEntering(SelectEnterEventArgs args)
+        {
+            base.OnSelectEntering(args);
+
+            currentGrabObject = args.interactableObject as InteractObject; // 현재 플레이어가 쥐기 시작할 아이템
+
+            if ((transform.position - attachTransform.position).sqrMagnitude > currentGrabObject.GrabDistance * currentGrabObject.GrabDistance)
+                attachTransform.position = transform.position + transform.forward * currentGrabObject.GrabDistance;
+        }
+
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
