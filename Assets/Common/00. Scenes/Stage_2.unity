@@ -21618,6 +21618,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3170117524373123758, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3170117524373123758, guid: 85f62ae489149e14893cca4524a7e784,
+        type: 3}
       propertyPath: m_LocalRotation.y
       value: -0
       objectReference: {fileID: 0}
@@ -21704,6 +21709,11 @@ PrefabInstance:
     - target: {fileID: 4757176073769040487, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7857006943993466740, guid: 85f62ae489149e14893cca4524a7e784,
+        type: 3}
+      propertyPath: outlineTargets.Array.data[0].IsVisible
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -51904,6 +51914,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   activeQuestID: -1
+  nextPuzzleManager: {fileID: 0}
   clearQuestID: -1
   isClear: 0
   paintItemID: 0
@@ -60330,12 +60341,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   activeQuestID: -1
+  nextPuzzleManager: {fileID: 0}
   clearQuestID: -1
   isClear: 0
   paintItemID: 0
   objects: []
   flashLight: {fileID: 1159962484}
-  collider: {fileID: 2083456379}
 --- !u!1001 &1867173661
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65323,6 +65334,11 @@ PrefabInstance:
       propertyPath: OnClear.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5975848557390358877, guid: c90338e771cf40e448152dbee3923c0c,
+        type: 3}
+      propertyPath: grabType
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 6711272134676902541, guid: c90338e771cf40e448152dbee3923c0c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -65372,6 +65388,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.481
+      objectReference: {fileID: 0}
+    - target: {fileID: 8794498320927250667, guid: c90338e771cf40e448152dbee3923c0c,
+        type: 3}
+      propertyPath: outlineTargets.Array.data[0].IsVisible
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937155346989640855, guid: c90338e771cf40e448152dbee3923c0c,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8937155346989640855, guid: c90338e771cf40e448152dbee3923c0c,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -68397,7 +68428,7 @@ PrefabInstance:
     - target: {fileID: 2226971520003770731, guid: a220c7a0eb70c284aaf660c455921907,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8714599166596113933, guid: a220c7a0eb70c284aaf660c455921907,
         type: 3}

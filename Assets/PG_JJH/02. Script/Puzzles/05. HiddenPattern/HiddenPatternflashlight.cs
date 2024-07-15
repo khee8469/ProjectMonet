@@ -53,8 +53,11 @@ namespace JJH
         private void Start()
         {
             // 씬 시작 시 원래 위치 저장.
-            flashLightPosition = transform.localPosition;
-            flashLightRotation = transform.localRotation;
+            /*flashLightPosition = transform.localPosition;
+            flashLightRotation = transform.localRotation;*/
+
+            flashLightPosition = transform.position;
+            flashLightRotation = transform.rotation;
             spotLight.enabled = false;
 
         }
@@ -81,8 +84,14 @@ namespace JJH
         }
         public void FlashLightReturn() // 원 위치 복귀
         {
-            transform.localPosition = flashLightPosition;
-            transform.localRotation = flashLightRotation;
+            /*transform.localPosition = flashLightPosition;   
+            transform.localRotation = flashLightRotation;*/
+
+            // 글로벌로 빼둬서 글로벌 기준으로 해주자. 
+            transform.position = flashLightPosition;
+            transform.rotation = flashLightRotation;
+
+
         }
 
 

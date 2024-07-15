@@ -157,6 +157,12 @@ namespace JJH
             line.enabled = false; //완료되면 꺼주기. 
         }
 
+        public void MyCompleteRotation() // 등대 위치 저장 해주기.
+        {
+            
+        }
+
+
         #region 퍼즐 인터페이스 오버라이드 
         public void ActiveSetting()  // 진행 가능한 상태의 세팅 
         {
@@ -176,6 +182,9 @@ namespace JJH
             //sunHole.ChangeSkyBox(sunHole.afternoonSkybox); // 낮 상태로 스카이박스 및 마테리얼을 빛 상태로 --> 온 클리어에 같이 있음. 
 
         }
+
+        
+
 
         public void DisActiveSetting()  // 진행 불가능 한 상태의 세팅 --> 퍼즐 진입 전 상태 
         {
