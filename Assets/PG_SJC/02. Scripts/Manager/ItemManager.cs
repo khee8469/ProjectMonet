@@ -55,12 +55,33 @@ namespace Jc
                     return false;
                 }
 
+                if (Manager.PlayableData.itemInfoDataDic.ContainsKey(itemID))
+                {
+                    // 이미 사용한 아이템일 경우
+                    if (Manager.PlayableData.itemInfoDataDic[itemID].isClear)
+                    {
+                        Debug.Log($"ID-{itemID} : 아이템은 사용완료 된 아이템입니다.");
+                        return false;
+                    }
+                    
+                    // 아이템 무결성 검사
+                    foreach (int key in Manager.PlayableData.slotDataDic.Keys)
+                    {
+                        if (Manager.PlayableData.slotDataDic[key].slotItemID == itemID)
+                        {
+                            Debug.Log($"ID-{itemID} : 아이템이 이미 존재합니다.");
+                            return false;
+                        }
+                    }
+                }
 
+                // 비어있는 슬롯 탐색 후 아이템 추가
                 foreach (int key in Manager.PlayableData.slotDataDic.Keys)
                 {
                     if (Manager.PlayableData.slotDataDic[key].slotItemID == -1)
                     {
                         Manager.PlayableData.slotDataDic[key] = new SlotData(key, itemID, 1);
+                        GetItem(itemID);
                         return true;
                     }
                 }
@@ -73,7 +94,31 @@ namespace Jc
             {
                 return false;
             }
+        }
+        // 아이템 획득 성공 (사용전까지 로드 시 아이템을 획득 가능함.)
+        private void GetItem(int itemID)
+        {
+            if (!Manager.PlayableData.itemInfoDataDic.ContainsKey(itemID))
+            {
+                Manager.PlayableData.itemInfoDataDic.Add(itemID, new ItemInfoData(itemID,itemDataDic[itemID].itemName, true, false));
+                return;
+            }
 
+            Manager.PlayableData.itemInfoDataDic[itemID] = new ItemInfoData(itemID, itemDataDic[itemID].itemName, true, false);
+            Manager.PlayableData.SaveItemData();
+        }
+
+        // 아이템 사용 성공 (다음 로드부터는 불러오지 않음)
+        public void UseSuccessItem(int itemID)
+        {
+            if (!Manager.PlayableData.itemInfoDataDic.ContainsKey(itemID))
+            {
+                Manager.PlayableData.itemInfoDataDic.Add(itemID, new ItemInfoData(itemID, itemDataDic[itemID].itemName, true, true));
+                return;
+            }
+
+            Manager.PlayableData.itemInfoDataDic[itemID] = new ItemInfoData(itemID,itemDataDic[itemID].itemName, true, true);
+            Manager.PlayableData.SaveItemData();
         }
     }
 }

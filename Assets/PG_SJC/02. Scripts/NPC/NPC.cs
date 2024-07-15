@@ -131,18 +131,18 @@ namespace Jc
         {
             foreach (int questID in questIDList)
             {
-                QuestState state = Manager.Quest.GetQuest(questID).State;
+                Quest quest = Manager.Quest.GetQuest(questID);
 
                 // 현재 진행해줄 수 있는 퀘스트를 할당
-                if ((state == QuestState.Active || state == QuestState.Proceed )&& Manager.Quest.GetQuest(questID).QuestData.acceptNPCID == this.id 
-                    || state == QuestState.Clear && Manager.Quest.GetQuest(questID).QuestData.clearNPCID == this.id)
-                    return Manager.Quest.GetQuest(questID);
+                if ((quest.State == QuestState.Active || quest.State == QuestState.Proceed ) && quest.QuestData.acceptNPCID == this.id 
+                    || (quest.State == QuestState.Clear || quest.State == QuestState.Proceed) && quest.QuestData.clearNPCID == this.id)
+                    return quest;
                 
             }
             return null;
         }
 
-        protected virtual void UpdateDialog(PlayerQuestController questController)
+        protected virtual void UpdateDialog(PlayerQuestController questController = null)
         {
             builboardUI.EnableBuilboard = true;
             dialogText.enabled = true;
@@ -179,7 +179,7 @@ namespace Jc
                         dialogText.enabled = false;
                         // 최초 등록 (수주 시에만 최초로 등록)
                         // 플레이어에 퀘스트 등록
-                        questController.ReceiveQuest(currentQuest);
+                        questController?.ReceiveQuest(currentQuest);
                         // 퀘스트 진행중 상태로 변경
                         currentQuest.ChangeState(QuestState.Proceed);
                         curQuestDialogIndex = 0;
@@ -208,14 +208,6 @@ namespace Jc
                         // 리워드 지급은 퀘스트 자체에서 진행
                         // NPC 상태 변경
                         curQuestDialogIndex = 0;
-
-                        // 철우가 추가함 보상아이템 생성
-                        if (Manager.Item.ItemDataDic.ContainsKey(currentQuest.QuestData.rewardItemID))
-                        {
-                            Debug.Log($"보상이 있따네요{currentQuest.QuestData.rewardItemID}");
-                            currentQuest.RewardItem(bounsItemPosition);
-                        }
-
                         return;
                     }
                     // 대화 진행
@@ -226,6 +218,27 @@ namespace Jc
                     break;
                 default:
                     break;
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            // 아이템과 트리거된 경우
+            if(Manager.Layer.itemLM.Contain(other.gameObject.layer))
+            {
+                Quest quest = GetQuest();
+                if (quest == null) return;
+                if (quest.State != QuestState.Proceed) return;      // 퀘스트가 진행중이 아닐경우
+                if (quest.QuestData.needItemID == -1) return;       // 퀘스트가 아이템 수령방식이 아닐경우
+                if (quest.QuestData.clearNPCID != this.id) return;  // 퀘스트의 수령 NPC가 현재 NPC가 아닐경우
+
+                quest.ChangeState(QuestState.Clear);
+                currentQuest = quest;
+                UpdateDialog();
+
+                // 아이템 사용 성공
+                Manager.Item.UseSuccessItem(quest.QuestData.needItemID);
+                Destroy(other.gameObject);
             }
         }
     }

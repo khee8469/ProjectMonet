@@ -59,7 +59,7 @@ namespace Jc
             // Dictionary to List
             foreach (int key in itemInfoDataDic.Keys)
             {
-                itemInfoDatas.Add(new ItemInfoData(key, itemInfoDataDic[key].isAccepted, itemInfoDataDic[key].isClear));
+                itemInfoDatas.Add(new ItemInfoData(key, Manager.Item.ItemDataDic[key].itemName, itemInfoDataDic[key].isAccepted, itemInfoDataDic[key].isClear));
             }
 
             // 직렬화한 데이터 쓰기

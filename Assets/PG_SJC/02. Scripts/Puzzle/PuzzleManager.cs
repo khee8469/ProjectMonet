@@ -48,6 +48,9 @@ namespace Jc
         [Header("활성화 퀘스트 ID")]
         public int activeQuestID = -1;
 
+        [Header("클리어 시 활성화 퍼즐 매니저")]
+        public PuzzleManager nextPuzzleManager;
+
         [Header("클리어 퀘스트 ID")]
         public int clearQuestID = -1;
 
@@ -229,6 +232,12 @@ namespace Jc
             isClear = true;
 
             State = PuzzleState.Clear;
+
+            // 다음 퍼즐 활성화
+            if (nextPuzzleManager != null && nextPuzzleManager.State == PuzzleState.DisActive)
+            {
+                nextPuzzleManager.ChangeState(PuzzleState.Proceed);
+            }
 
             if (clearQuestID == -1) return;
             Quest clearQuest = Manager.Quest.QuestDic[clearQuestID];
