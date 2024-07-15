@@ -10,11 +10,12 @@ public class Chapter2SunHole : PaintRewardPuzzle
     [Tooltip("밤 용 스카이박스")] // 어차피 기본 상태에서는 이 스카이 박스를 쓰고 있을 거니까
     [SerializeField] public Material nightSkybox;
 
-    // 맵의 
+    // 이러면 마테리얼이 아니라 스프라이트를 바꿔 줘야 하는듯? 
+
+    // 마테리얼을 바꿔줘야 하는 실제 오브젝트가 아니게 되었으니까 그냥 따로 빼자. 
+
     [Tooltip("낮 용 스카이박스 --> Maybe 태양없는 skybox ")]
     [SerializeField] public Material afternoonSkybox;
-
-    // 완료 이벤트 발동 시키면서 마테리얼 변경해주기.
 
     [Tooltip("Dark 상태에서의 Directional Light")]
     [SerializeField] Light nightDirectionalLight;
@@ -25,18 +26,26 @@ public class Chapter2SunHole : PaintRewardPuzzle
     [Tooltip("화이트 버전 마테리얼")]
     [SerializeField] private Material whiteMaterial;
 
-    [Tooltip("보상으로 인벤토리에 넣어줄 아이템 ID")]
-    [SerializeField] public int ID;
-
     [Tooltip("새롭게 켜줄 direct light")]
     [SerializeField] private Light newDirectLight;
+
+    [Tooltip("moon Panel 을 ON off 해 줄 콜라이더")]
+    [SerializeField] private BoxCollider boxCollider;
 
 
     private MeshRenderer meshRenderer;
 
-    /*[Tooltip("새로운 마테리얼 배열 -> 넣어둔 마테리얼을 변경 해주기 위해 새롭게 생성")]
-    [SerializeField]
-    Material[] mats = new Material[1];*/
+    [Tooltip("스프라이트 -> Moon 스프라이트가 붙어 있는 부모 게임 오브젝트--> 패널과 같이 On Off")]
+    [SerializeField] public GameObject moonPanel;
+
+    
+
+    /*[Tooltip("스프라이트 -> Sun 스프라이트")]
+    [SerializeField] private Sprite sunSprite; // 낮 용 --> Sun 스프라이트 */
+
+    // moon이 스프라이트 인데 갑자기 구체를 멀리 생성하는 것 도 너무 어색할 듯 함.
+    // 스카이 박스만 바꾸는 거는 어떤지 싶음. -> 태양 위치를 대충이라도 맞춰두고 
+
 
 
     private void Awake()
@@ -44,33 +53,64 @@ public class Chapter2SunHole : PaintRewardPuzzle
         
     }
 
-    private void Start()
+    private void Start()   // 렌더러가 아니라 sprite 상태 ++ 가까이 옮겼기 때문에 ... 
     {
-        meshRenderer= GetComponent<MeshRenderer>();
-        Material[] mat = meshRenderer.materials;
-        mat[0] = darkMaterial;
-        meshRenderer.materials = mat;
+        //meshRenderer= GetComponent<MeshRenderer>();
+        //Material[] mat = meshRenderer.materials;
+        //mat[0] = darkMaterial;
+        //meshRenderer.materials = mat;
+        moonPanel.SetActive(false); // 일단 시작 시에는 패널을 무조건 꺼두기. 
     }
 
-    public void ChangeSkyBox(Material _Skybox)
+    public void ChangeSkyBox(Material _Skybox) 
     {
-        RenderSettings.skybox = _Skybox;
-        nightDirectionalLight.gameObject.SetActive(false);
-        Material[] mats = meshRenderer.materials;
-        mats[0] = whiteMaterial; // 첫 번째 메터리얼을 darkMaterial로 설정
-        meshRenderer.materials = mats; // 변경된 배열 다시 설정
+        RenderSettings.skybox = _Skybox; // 밝은 스카이박스로 변경 시켜주기. 
+        nightDirectionalLight.gameObject.SetActive(false);        // 기존 밤 다이레트 꺼주기. 
         newDirectLight.gameObject.SetActive(true); // 새로운 다이레트 라이트 켜주기.;
+        /*Material[] mats = meshRenderer.materials;
+        mats[0] = whiteMaterial; // 첫 번째 메터리얼을 darkMaterial로 설정
+        meshRenderer.materials = mats; // 변경된 배열 다시 설정*/
+        moonPanel.gameObject.SetActive(false); // 등대 앞 패널을 같이 꺼준다. 
+
     }
 
     public override void OnClearPuzzle()
     {
         base.OnClearPuzzle();  
         ChangeSkyBox(afternoonSkybox);  // 클리어 시 여기서 진행해야 하는 것들 해주자.
-
-        
-        // itemID가 일치하는 아이템을 인벤토리로 Add 하는 함수가 필요함. -> 추후 작성 
+        boxCollider.enabled = false; // 콜라이더를 꺼버려서 다시 panel이 켜지는 일을 방지한다. 
 
     }
 
-   
+    private void OnTriggerEnter(Collider other) // 플레이어 등대 문 안으로 들어오면 
+    {
+
+        if(other.gameObject.CompareTag("Player"))
+        {
+            if (moonPanel.activeSelf == true) // 켜져 있었다면 꺼준다. 
+            {
+                moonPanel.SetActive(false);
+            }
+            else  // 꺼져 있었다면 켜주고 
+            {
+                moonPanel.SetActive(true);
+            }
+
+            Debug.Log("플레이어 트리거 진입");
+        }
+
+        
+    }
+
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            moonPanel.SetActive(true); // 임시 켜주기. 
+        }
+    }
+
+
+
 }

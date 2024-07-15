@@ -35,7 +35,7 @@ namespace JJH
             Debug.Log("온 클리어 퍼즐 발동");
 
             base.OnClearPuzzle();
-            lightHouse.pillar_Of_Light.gameObject.SetActive(true); // 빛 기둥 켜주기.
+            lightHouse.pillar_Of_Light.gameObject.SetActive(true); // 빛 기둥 켜주기.  --> 이거 일단 스포트 라이트로 변경 시켜주기. 
 
             for (int i = 0; i < buttonPanels.Length; i++)
             {
@@ -43,21 +43,20 @@ namespace JJH
             }
 
             StartCoroutine(DelayCoroutine()); // 딜레이 살짝 줘서 트랙 로테이션이 바로 켜지지 않도록 하기. 
-            foreach (GearObject gear in gearList)
-            {
-                gear.StartRotate();
-                gear.OnNutActive();
-                gear.trackRotation = false;
-            }
-
-            DecoGearRotate(); // 장식 기어들도 회전 시키기. 
             //SoundPlay(); --> 사운드는 어디서 관리 할 지? 
         }
 
         // onClear 발동 전에 살짝 딜레이 주기 위한 코루틴 (track을 바로 풀어버리면 문제 생겨서 )
         private IEnumerator DelayCoroutine()
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.7f);
+            foreach (GearObject gear in gearList)
+            {
+                gear.StartRotate();
+                gear.OnNutActive();
+                gear.trackRotation = false;
+            }
+            DecoGearRotate(); // 장식 기어들 회전 
         }
 
         public void DecoGearRotate()

@@ -347,14 +347,15 @@ namespace JJH
             
         }
 
-        public void ActiveSetting()
+        public void ActiveSetting()  
         {
             MyEnable(true);
+            //puzzleSun.moonPanel.gameObject.SetActive(true); --> 여기서 말고 이거는 트리거로 따로 관리 해 줘야 할 듯함.
         }
 
         public void DisActiveSetting()
         {
-            MyEnable(false);
+            MyEnable(false);  // 이거 왜 세팅이 안되는거지? 계속 눌리는데.. ㅠㅠ 
         }
 
         public void CompleteSetting() // 그냥 컴플리트 되면 눌리지 않도록만 해주자. 
