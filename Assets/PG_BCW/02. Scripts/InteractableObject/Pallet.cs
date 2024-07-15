@@ -2,7 +2,7 @@ using Jc;
 using JJH;
 using UnityEngine;
 
-public class Pallet : ItemObject
+public class Pallet : InteractObject
 {
     [Tooltip("물감 프리펩")]
     [SerializeField]

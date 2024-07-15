@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -79,7 +77,7 @@ namespace Jc
         {
             // 다음 퀘스트 탐색
             Quest nextQuest = Manager.Quest.GetQuest(id);
-            if(nextQuest == null)
+            if (nextQuest == null)
             {
                 Debug.Log($"{questData.id} : 다음 퀘스트가 존재하지 않습니다.");
                 return;
@@ -97,10 +95,11 @@ namespace Jc
         {
             Debug.Log($"퀘스트 {questID} : 가 진행됩니다.");
 
-            switch(questData.type)
+            switch (questData.proceedType)
             {
-                // 노말 퀘스트의 경우 연계된 퍼즐이 없을경우 바로 완료
-                case QuestType.Normal:
+                // 대화형 퀘스트의 경우 퀘스트 수주 시 바로 완료
+                case QuestProccedType.Dialog:
+                    ChangeState(QuestState.Clear);
                     break;
             }
         }
@@ -134,6 +133,16 @@ namespace Jc
         {
             // 링크된 퀘스트가 모두 클리어된 경우
             ChangeState(QuestState.Clear);
+        }
+
+
+        //철우가 추가함 퀘스트 보상 생성
+        public void RewardItem(Transform transform)
+        {
+
+            Debug.Log("보상아이템 생성");
+            Instantiate(Manager.Item.ItemDataDic[questData.rewardItemID].itemPrefab, transform.position, transform.rotation);
+
         }
     }
 }

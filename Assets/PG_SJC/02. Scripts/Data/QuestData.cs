@@ -17,6 +17,9 @@ namespace Jc
         [Header("퀘스트 타입")]
         public QuestType type;
 
+        [Header("퀘스트 진행 타입")]
+        public QuestProccedType proceedType;
+
         [Header("수주 NPC ID")]
         public int acceptNPCID;
 
@@ -28,6 +31,9 @@ namespace Jc
 
         [Header("보상 아이템 ID")]
         public int rewardItemID;
+
+        [Header("완료 조건 아이템 ID")]
+        public int needItemID;
 
         [Header("수락 나레이션 번들 ID")]
         public int receiveNarrationBundleID;

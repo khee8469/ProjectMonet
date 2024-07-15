@@ -67,25 +67,19 @@ public class MiniatureMode : InteractObject
             Debug.LogError("leftController을 할당하시오");
         if (rightController == null)
             Debug.LogError("rightController 할당하시오");
-
-
-
-        // 입력 이벤트 등록
-        leftController.selectAction.action.performed += OnAnyButtonPressed;
-        
-
-        rightController.selectAction.action.performed += OnAnyButtonPressed;
-        
-
     }
     protected override void OnEnable()
     {
         base.OnEnable();
 
         // 입력 액션 활성화
-        leftController.selectAction.action.Enable();
+        //leftController.selectAction.action.Enable();
 
-        rightController.selectAction.action.Enable();
+        //rightController.selectAction.action.Enable();
+
+        // 입력 이벤트 등록
+        leftController.selectAction.action.performed += OnAnyButtonPressed;
+        rightController.selectAction.action.performed += OnAnyButtonPressed;
     }
 
     protected override void OnDisable()
@@ -93,9 +87,13 @@ public class MiniatureMode : InteractObject
         base.OnDisable();
 
         // 입력 액션 비활성화
-        leftController.selectAction.action.Disable();
+        //leftController.selectAction.action.Disable();
 
-        rightController.selectAction.action.Disable();
+        //rightController.selectAction.action.Disable();
+
+        // 입력 이벤트 취소
+        leftController.selectAction.action.performed -= OnAnyButtonPressed;
+        rightController.selectAction.action.performed -= OnAnyButtonPressed;
     }
 
     private void OnAnyButtonPressed(InputAction.CallbackContext context)
@@ -141,14 +139,15 @@ public class MiniatureMode : InteractObject
     private void ExitMiniatureMode()
     {
         //Debug.Log("미니어처모드 나가기");
+
+        //CharacterController 다시 활성화
+        charactorController.enabled = true;
+        playerMovement.enabled = true;
+        miniatureModeCollider.enabled = true;
+
         // 지정 위치로 이동
         charactorController.transform.position = modeOffPosition.position;
         charactorController.transform.rotation = modeOffPosition.rotation;
-
-        //CharacterController 다시 활성화
-        playerMovement.enabled = true;
-        charactorController.enabled = true;
-        miniatureModeCollider.enabled = true;
 
         // 움직이기 가능하게 설정
         dynamicMoveProvider.moveSpeed = 3;
