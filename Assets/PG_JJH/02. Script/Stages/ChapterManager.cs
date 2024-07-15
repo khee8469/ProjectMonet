@@ -67,6 +67,10 @@ namespace JJH
 
         public void InitSetting()
         {
+            is_Colored = new bool[sceneCount]; // 초기화 이후 json에 저장된 값 대입할 것 
+            isDrawing_Complete = new bool[drawObjectManager.Length]; // 그림들의 배열의 길이만큼 bool 변수의 크기를 정해준다.
+            drawPartCheck = new bool[drawObjectManager.Length];
+
             if (!File.Exists(SystemPath.GetPath(DataPath.LocalCanvasData)))
             {
                 Debug.Log("캔버스 관련 데이터가 없음!");
@@ -74,7 +78,7 @@ namespace JJH
                 return;
             }
             Debug.Log($"드로우 오브젝트의 숫자 ->{drawObjectManager.Length}");
-            is_Colored = new bool[sceneCount]; // 초기화 이후 json에 저장된 값 대입할 것 
+            
 
             for (int i = 0; i < Manager.PlayableData.CanvasData.isColoredCheckArr.Length; i++)
             {
@@ -87,15 +91,10 @@ namespace JJH
                 // 여기서 gamedata에 저장된 변수를 가져와서 true false 정해주자. 
             }
 
-            isDrawing_Complete = new bool[drawObjectManager.Length]; // 그림들의 배열의 길이만큼 bool 변수의 크기를 정해준다.
-
             for (int i = 0; i < drawObjectManager.Length; i++)
             {
                 isDrawing_Complete[i] = Manager.PlayableData.CanvasData.myDrawCompleteCheckArr[i];
             }
-
-            drawPartCheck = new bool[drawObjectManager.Length];
-
             for (int i = 0; i < drawObjectManager.Length; i++)
             {
                 drawPartCheck[i] = Manager.PlayableData.CanvasData.myDrawPartCheckArr[i]; // josn 불러와보자. 
