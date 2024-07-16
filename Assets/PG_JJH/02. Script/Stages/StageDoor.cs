@@ -6,6 +6,8 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace JJH
 {
+    // 씬 이동 용 그림에 붙을 Door Script --> DoorID 번호 저장 잘 해주고. 
+
     public class StageDoor : InteractObject , IComparable<StageDoor> , IActivatable
     {
         [Header("Door 관리 ID")]
