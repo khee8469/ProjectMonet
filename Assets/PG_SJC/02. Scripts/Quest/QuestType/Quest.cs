@@ -151,6 +151,10 @@ namespace Jc
             // 연결된 다음 퀘스트 활성화
             ActiveNextQuest(questData.next_id);
 
+            // 아이템 수령완료
+            if(questData.needItemID != -1)
+                Manager.Item.UseSuccessItem(questData.needItemID);
+
             // 아이템 지급
             RewardItem();
         }
