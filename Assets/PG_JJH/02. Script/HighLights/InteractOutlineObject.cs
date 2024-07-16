@@ -19,6 +19,16 @@ namespace JJH
 
         // MainCamera에 OutLiner objectd에 OutLinable
 
+        [Tooltip("만약 타입이 항상 아웃라인이 있어야 하는 타입이라면")]
+        public enum AllTime
+        {
+            // 항상 아웃라인 그려주기 / 플레이엉 에게 잡혔을 때만 그려주기.
+            Always , Selected 
+        }
+
+
+        public AllTime allTime;
+
         private void Start()
         {
             myOutline = GetComponent<Outlinable>();
@@ -27,7 +37,16 @@ namespace JJH
             myOutline.DrawingMode = OutlinableDrawingMode.Normal;
             myOutline.OutlineLayer = 17; // 사실 크게 의미는 없는듯.
             myOutline.RenderStyle = RenderStyle.FrontBack;
-            myOutline.enabled = false;
+
+            if (allTime == AllTime.Always)
+            {
+                myOutline.enabled = true; // 항상 켜두기.
+            }
+            else
+            {
+                myOutline.enabled = false;
+
+            }
         }
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
@@ -52,7 +71,10 @@ namespace JJH
         {
             base.OnSelectExited(args);
 
-            myOutline.enabled = false;
+            if (allTime == AllTime.Selected)
+            {
+                myOutline.enabled = false;
+            }
 
         }
 

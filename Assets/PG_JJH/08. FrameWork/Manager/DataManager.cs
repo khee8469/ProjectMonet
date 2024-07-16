@@ -7,8 +7,8 @@ namespace JJH
 {
     public class DataManager : Singleton<DataManager>
     {
-        private GameData gameData;
-        public GameData GameData { get { return gameData; } }
+        private CanvasData canvasData;
+        public CanvasData CanvasData { get { return canvasData; } }
 
 
         // 나중에 이 Path 위치만 맞춰주기. 
@@ -20,7 +20,7 @@ namespace JJH
 
         public void NewData()
         {
-            gameData = new GameData();
+            canvasData = new CanvasData();
         }
 
         public void SaveData(int index = 0)
@@ -30,7 +30,7 @@ namespace JJH
                 Directory.CreateDirectory(path);
             }
 
-            string json = JsonUtility.ToJson(gameData, true);
+            string json = JsonUtility.ToJson(canvasData, true);
             File.WriteAllText($"{path}/{index}.txt", json);
         }
 
@@ -45,7 +45,7 @@ namespace JJH
             string json = File.ReadAllText($"{path}/{index}.txt");
             try
             {
-                gameData = JsonUtility.FromJson<GameData>(json);
+                canvasData = JsonUtility.FromJson<CanvasData>(json);
             }
             catch (Exception ex)
             {

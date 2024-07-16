@@ -36,6 +36,15 @@ namespace Jc
                 itemDataDic.Add(itemDatas[i].itemID, itemDatas[i]);
             }
         }
+
+        public void GetItem(List<int> itemIDList, bool isInventroyItem)
+        {
+            for(int i =0; i<itemIDList.Count; i++)
+            {
+                int itemID = itemIDList[i];
+                GetItem(itemID, isInventroyItem);
+            }
+        }
         public bool GetItem(int itemID, bool isInventroyItem)
         {
             // 예외처리 추가
@@ -113,12 +122,23 @@ namespace Jc
         public void UseSuccessItem(int itemID)
         {
             if (!Manager.PlayableData.itemInfoDataDic.ContainsKey(itemID))
-            {
                 Manager.PlayableData.itemInfoDataDic.Add(itemID, new ItemInfoData(itemID, itemDataDic[itemID].itemName, true, true));
-                return;
+            else
+                Manager.PlayableData.itemInfoDataDic[itemID] = new ItemInfoData(itemID, itemDataDic[itemID].itemName, true, true);
+
+            Manager.PlayableData.SaveItemData();
+        }
+        public void UseSuccessItem(List<int> itemIDList)
+        {
+            for (int i = 0; i < itemIDList.Count; i++)
+            {
+                int itemID = itemIDList[i];
+                if (!Manager.PlayableData.itemInfoDataDic.ContainsKey(itemID))
+                    Manager.PlayableData.itemInfoDataDic.Add(itemID, new ItemInfoData(itemID, itemDataDic[itemID].itemName, true, true));
+                else
+                    Manager.PlayableData.itemInfoDataDic[itemID] = new ItemInfoData(itemID, itemDataDic[itemID].itemName, true, true);
             }
 
-            Manager.PlayableData.itemInfoDataDic[itemID] = new ItemInfoData(itemID, itemDataDic[itemID].itemName, true, true);
             Manager.PlayableData.SaveItemData();
         }
     }

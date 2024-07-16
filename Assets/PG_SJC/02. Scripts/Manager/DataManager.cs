@@ -23,6 +23,9 @@ namespace Jc
         private Dictionary<int, ItemData> itemDataDic;
         public Dictionary<int, ItemData> ItemDataDic { get { return itemDataDic; } }    
 
+
+
+
         /// <로딩순서>
         /// 1. CSV 데이터 로드
         /// 2. 로컬 데이터 로드 -> 덮어쓰기
