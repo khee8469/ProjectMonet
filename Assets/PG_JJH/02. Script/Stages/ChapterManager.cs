@@ -105,7 +105,7 @@ namespace JJH
 
         // Enum 으로 채색 --> enum을 jSON으로 저장 
 
-
+        // 수정할거 어차피 여기만 수정해주면 LOAD Save 위치만 잘 정해주고 해보자. 
 
         public void UnlockStage(int stageIndex, bool unlock) // 챕터 언락용 함수. 
         {
@@ -124,7 +124,9 @@ namespace JJH
         public void CheckDrawComplete(int coloredScene, bool isColored) // 이거 그림 완성되면 호출해서 static bool 바꾸기
         {
             is_Colored[coloredScene] = isColored; // 해당하는 씬을 숫자를 통해 컬러로 바꿔주기. 
-            // 각 씬의 로딩 루틴에서는 인덱스를 통해 접근함.
+
+            // json 통해 is colored 저장해주기. --> json 저장 
+            Manager.PlayableData.CanvasData.isColoredCheckArr[coloredScene] = isColored;
 
         }
 
