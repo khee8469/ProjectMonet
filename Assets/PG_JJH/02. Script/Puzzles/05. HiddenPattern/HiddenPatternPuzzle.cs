@@ -10,16 +10,16 @@ namespace JJH
     {
         // 페인트 5번 퍼즐 
 
-        [Header("원반 오브젝트 모음")]
+        /*[Header("원반 오브젝트 모음")]
         [Tooltip("원반 오브젝트들 ")]
         [SerializeField]
-        private List<HiddenPatternObject> objects;
+        private List<HiddenPatternObject> objects;*/
 
         [Tooltip("랜턴 참조 필요하다.")]
         [SerializeField] private HiddenPatternflashlight flashLight;
 
-        [Tooltip("플레이어 레이어")]
-        [SerializeField] private LayerMask layerMask;
+        /*[Tooltip("플레이어 레이어")]
+        [SerializeField] private LayerMask layerMask;*/
 
         [Tooltip("trigger 되면 무조건 꺼줄 moon panel")]
         [SerializeField] private GameObject moonPanel; 
@@ -28,6 +28,7 @@ namespace JJH
         {
 
         }
+
 
         // 등대 밖으로 랜턴이 나갔을 시 원위치 복귀
         private void OnTriggerEnter(Collider other)
@@ -60,6 +61,10 @@ namespace JJH
         public override void OnClearPuzzle() // 온 클리어 퍼즐 --> 인스펙터 에서 할당해도 된다! 
         {
             base.OnClearPuzzle();
+
+            // 인벤토리로 톱니바퀴 지급해주기. 
+
+
         }
 
 

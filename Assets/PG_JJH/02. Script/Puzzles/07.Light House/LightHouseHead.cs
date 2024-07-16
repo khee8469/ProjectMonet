@@ -62,6 +62,7 @@ namespace JJH
 
         private void Awake()
         {
+            PillarChange(false); // 일단 어웨이크 에서 꺼주자.
             RegistObject(puzzleSun);
         }
 
@@ -107,7 +108,10 @@ namespace JJH
             {
                 sunHole.OnClearPuzzle();
                 DeAactiveLight_Button();
-                //ChangeRoutine(); --> 등대 계속 켜져 잇어야함. 
+                ChangeRoutine(); // 등대 빛 일단 끄자 이상해 보임.. 
+
+
+
             }
         }
 
@@ -179,12 +183,9 @@ namespace JJH
             PillarChange(true);
             onWindowLight(true);
             Debug.Log("등대의 컴플리트 세팅");
-            //sunHole.ChangeSkyBox(sunHole.afternoonSkybox); // 낮 상태로 스카이박스 및 마테리얼을 빛 상태로 --> 온 클리어에 같이 있음. 
+            
 
         }
-
-        
-
 
         public void DisActiveSetting()  // 진행 불가능 한 상태의 세팅 --> 퍼즐 진입 전 상태 
         {

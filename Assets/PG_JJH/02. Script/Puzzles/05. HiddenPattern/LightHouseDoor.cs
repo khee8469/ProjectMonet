@@ -48,6 +48,7 @@ namespace JJH
         }
 
 
+        // doorkey의 itemID를 통해서 체크한다. 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             ItemObject item = args.interactableObject as ItemObject;
