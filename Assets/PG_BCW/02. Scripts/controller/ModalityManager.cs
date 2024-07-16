@@ -51,7 +51,6 @@ public class ModalityManager : UnityEngine.XR.Interaction.Toolkit.XRController
     {
         if (controllerState == null || isHandTracking)
         {
-            Debug.Log("컨트롤러 트래킹 정지");
             //currentControllerState.position = Vector3.zero;
             //currentControllerState.rotation = Quaternion.identity;
             currentControllerState.isTracked = false;
@@ -59,7 +58,6 @@ public class ModalityManager : UnityEngine.XR.Interaction.Toolkit.XRController
             return;
         }
             
-        Debug.Log("컨트롤러 트래킹중");
         base.UpdateTrackingInput(controllerState);
     }
 
