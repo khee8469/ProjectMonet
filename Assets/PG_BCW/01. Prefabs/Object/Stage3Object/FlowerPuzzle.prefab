@@ -25,9 +25,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3449252559437233189}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.9025852, z: -0, w: 0.43051124}
+  m_LocalRotation: {x: 0, y: 0.9025852, z: 0, w: 0.43051124}
   m_LocalPosition: {x: -0.687, y: -0.075, z: -0.88}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2501451201988598459}
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDebugMode: 0
-  rewardItemID: 0
+  rewardItemID: 3
   puzzleID: 9
   state: 0
   conditions: 
@@ -54,9 +54,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   activeQuestID: 1510010
+  nextPuzzleManager: {fileID: 0}
   clearQuestID: -1
+  successItemID: -1
   isClear: 0
-  paintItemID: 9
+  paintItemID: 8
 --- !u!1 &5006264284285541227
 GameObject:
   m_ObjectHideFlags: 0
