@@ -53257,7 +53257,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDebugMode: 0
-  rewardItemID: 0
   puzzleID: 7
   state: 0
   conditions: 00000000
@@ -53265,9 +53264,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   activeQuestID: -1
-  nextPuzzleManager: {fileID: 0}
+  nextPuzzleManager: {fileID: 2001387288}
   clearQuestID: -1
-  successItemID: -1
+  rewardItemIDList: 
+  successItemIDList: d3831500d4831500d5831500d6831500
   isClear: 0
   paintItemID: 6
   lightHouse: {fileID: 8989428809878765206}
@@ -61929,17 +61929,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDebugMode: 0
-  rewardItemID: 0
   puzzleID: 6
   state: 0
   conditions: 00000000
   OnClear:
     m_PersistentCalls:
       m_Calls: []
-  activeQuestID: 1510005
-  nextPuzzleManager: {fileID: 0}
+  activeQuestID: 1510006
+  nextPuzzleManager: {fileID: 1633225150}
   clearQuestID: -1
-  successItemID: 1410002
+  rewardItemIDList: d3831500d4831500d5831500d6831500
+  successItemIDList: d2831500
   isClear: 0
   paintItemID: 5
   flashLight: {fileID: 1159962484}
@@ -66871,6 +66871,16 @@ PrefabInstance:
       propertyPath: nightDirectionalLight
       value: 
       objectReference: {fileID: 238804310}
+    - target: {fileID: 1383411354562638627, guid: c90338e771cf40e448152dbee3923c0c,
+        type: 3}
+      propertyPath: rewardItemIDList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1383411354562638627, guid: c90338e771cf40e448152dbee3923c0c,
+        type: 3}
+      propertyPath: rewardItemIDList.Array.data[0]
+      value: 1410007
+      objectReference: {fileID: 0}
     - target: {fileID: 6711272134676902541, guid: c90338e771cf40e448152dbee3923c0c,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -82157,8 +82167,9 @@ MonoBehaviour:
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
   gearPuzzle: {fileID: 1633225150}
   puzzleIndex: 0
-  targetGear: {fileID: 4026466571174359536, guid: 1c8b5a21de5c29f4eaf325e89fab72ee,
+  targetGear: {fileID: 394746390150155424, guid: ccebc29d6c9d1f24ba3d56c9e83d074d,
     type: 3}
+  gearID: 0
   gearGameObject: {fileID: 6988833094322650283}
 --- !u!135 &2468490656702945597
 SphereCollider:
@@ -124590,8 +124601,9 @@ MonoBehaviour:
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
   gearPuzzle: {fileID: 1633225150}
   puzzleIndex: 2
-  targetGear: {fileID: -9032597238621401254, guid: b580acbc4af5ebf419c9eda00bb7eedd,
+  targetGear: {fileID: 4009301450163082983, guid: 63666776ad8e91b42848110179c52cea,
     type: 3}
+  gearID: 0
   gearGameObject: {fileID: 5261752239577337935}
 --- !u!135 &8662442610348951259
 SphereCollider:
@@ -124697,8 +124709,9 @@ MonoBehaviour:
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
   gearPuzzle: {fileID: 1633225150}
   puzzleIndex: 3
-  targetGear: {fileID: -4189849473687081827, guid: e80766d1db43cd647b7ad634e7cfb26b,
+  targetGear: {fileID: 5383421916083261471, guid: 3036dc38f1b0ce64bab93e6404fdf4f2,
     type: 3}
+  gearID: 0
   gearGameObject: {fileID: 1728765565569883865}
 --- !u!135 &8672945590483692944
 SphereCollider:
@@ -125015,8 +125028,9 @@ MonoBehaviour:
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
   gearPuzzle: {fileID: 1633225150}
   puzzleIndex: 1
-  targetGear: {fileID: -3390962723098542220, guid: 7b278df3a031aaf499bc82355852b3cd,
+  targetGear: {fileID: 3249738838456060181, guid: b5b80629ece07db41af89991316265e9,
     type: 3}
+  gearID: 0
   gearGameObject: {fileID: 1247610476361768823}
 --- !u!135 &8826443741972915248
 SphereCollider:
