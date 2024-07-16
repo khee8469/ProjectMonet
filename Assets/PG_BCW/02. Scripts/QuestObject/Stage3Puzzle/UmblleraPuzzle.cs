@@ -133,12 +133,6 @@ public class UmblleraPuzzle : InteractObject, IPuzzleable
         }
     }*/
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * 10);
-    }
-
 
     //AWAKE에서 실행
     public void RegistObject(PuzzleManager puzzle)

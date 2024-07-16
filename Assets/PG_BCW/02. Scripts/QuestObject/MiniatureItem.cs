@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class MiniatureItem : ItemObject
 {
-    //잡앗을떄 스케일..?
+    [Header("미니어처 크기 조절용")]
     [SerializeField]
     Vector3 scale;
 
