@@ -36,7 +36,7 @@ namespace Jc
         public bool IsGrab {get { return isGrab; } }
 
         [SerializeField]
-        private InteractObject currentGrabObject;  // 현재 잡고있는 오브젝트
+        private IInteractable currentGrabObject;  // 현재 잡고있는 오브젝트
 
         private Camera cam;                         // 메인 카메라
         private Transform grabbedTr;                // 그랩한 오브젝트 트랜스폼
@@ -246,17 +246,20 @@ namespace Jc
         {
             base.OnSelectEntering(args);
 
-            currentGrabObject = args.interactableObject as InteractObject; // 현재 플레이어가 쥐기 시작할 아이템
+            currentGrabObject = args.interactableObject as IInteractable; // 현재 플레이어가 쥐기 시작할 아이템
 
-            if ((transform.position - attachTransform.position).sqrMagnitude > currentGrabObject.GrabDistance * currentGrabObject.GrabDistance)
-                attachTransform.position = transform.position + transform.forward * currentGrabObject.GrabDistance;
+            if (currentGrabObject == null) return;
+
+            // 오브젝트의 초기 위치를 지정
+            if ((transform.position - attachTransform.position).sqrMagnitude > currentGrabObject.GetInteractDistance() * currentGrabObject.GetInteractDistance())
+                attachTransform.position = transform.position + transform.forward * currentGrabObject.GetInteractDistance();
         }
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
 
-            currentGrabObject = args.interactableObject as InteractObject; // 현재 플레이어가 쥐고 있는 아이템. 
+            currentGrabObject = args.interactableObject as IInteractable; // 현재 플레이어가 쥐고 있는 아이템. 
 
             grabbedTr = args.interactableObject.transform;
             isGrab = true;
@@ -295,6 +298,7 @@ namespace Jc
             base.OnSelectExited(args);
 
             ItemObject item = currentGrabObject as ItemObject;
+
             if (item != null)
                 item.ResetScale();
 
@@ -332,25 +336,6 @@ namespace Jc
                 return;
 
             currentSlot.PutInItem(item);
-        }
-
-        // 오브젝트를 잡을 수 있는 거리체크
-        private bool GrabableDistance(IInteractable itrObject)
-        {
-            if (itrObject == null)
-                return false;
-
-            // 오브젝트의 그랩 허용 길이
-            float grabDist = itrObject.GetInteractDistance();
-            // 현재 오브젝트와의 거리
-            float distance = (itrObject.GetTransform().position - transform.position).sqrMagnitude;
-
-            if (distance > grabDist * grabDist)
-            {
-                return false;
-            }
-
-            return true;
         }
 
         // UI 매니저 콜백

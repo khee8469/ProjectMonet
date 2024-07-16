@@ -20,7 +20,22 @@ namespace Jc
         [Tooltip("퀘스트 상태")]
         [SerializeField]
         protected QuestState state;
-        public QuestState State { get { return state; } set { state = value; } }
+        public QuestState State 
+        { 
+            get 
+            { 
+                return state; 
+            } 
+            set 
+            { 
+                state = value;
+
+                if (state == QuestState.Complete)
+                {
+                    StartCoroutine(Extension.ActionDelay(0.5f, () => RewardItem()));
+                }
+            } 
+        }
 
         [Space(10)]
         [Header("로딩 데이터")]
@@ -39,6 +54,14 @@ namespace Jc
         public UnityAction<QuestState> OnChangeState;
 
         public UnityAction<Quest> OnClearQuest;
+
+        private void RewardItem()
+        {
+            // 지급할 아이템이 존재할 경우
+            if (questData.rewardItemID == -1) return;
+
+            Manager.Item.GetItem(questData.rewardItemID, true);
+        }
 
         // 퀘스트 상태변경
         public void ChangeState(QuestState state)
@@ -127,12 +150,9 @@ namespace Jc
 
             // 연결된 다음 퀘스트 활성화
             ActiveNextQuest(questData.next_id);
-            
-            // 지급할 아이템이 존재할 경우
-            if(questData.rewardItemID != -1)
-            {
-                Manager.Item.GetItem(questData.rewardItemID, true);
-            }
+
+            // 아이템 지급
+            RewardItem();
         }
 
         public void OnClearLinkedQuest(Quest quest)
