@@ -57,7 +57,7 @@ public class UmblleraPuzzle : InteractObject, IPuzzleable
     protected override void OnEnable()
     {
         base.OnEnable();
-        Debug.Log(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
+
         //상태에 따른 세팅 
         puzzleManager.PuzzleSetting(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
 
@@ -133,12 +133,6 @@ public class UmblleraPuzzle : InteractObject, IPuzzleable
         }
     }*/
 
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * 10);
-    }
-
 
     //AWAKE에서 실행
     public void RegistObject(PuzzleManager puzzle)
@@ -166,7 +160,6 @@ public class UmblleraPuzzle : InteractObject, IPuzzleable
     public void DisActiveSetting()
     {
         //순서아닌 퀘스트 오브젝트 비활성화
-        Debug.Log("양산 퀘스트 비활성화");
         if (umblleraCollider != null) umblleraCollider.enabled = false;
     }
 

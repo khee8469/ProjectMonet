@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ClockPuzzle : InteractObject, IPuzzleable
+public class ClockPuzzle : MonoBehaviour, IPuzzleable
 {
     [Header("현재 오브젝트 정보")]
     [SerializeField]

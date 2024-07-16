@@ -45,7 +45,6 @@ public class FlowerPuzzle : MonoBehaviour, IPuzzleable
 
     private void OnEnable()
     {
-        //Debug.Log(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
         //상태에 따른 세팅 
         puzzleManager.PuzzleSetting(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
         
@@ -124,7 +123,6 @@ public class FlowerPuzzle : MonoBehaviour, IPuzzleable
     public void DisActiveSetting()
     {
         //순서아닌 퀘스트 오브젝트 비활성화
-        Debug.Log("물주기 퀘스트 비활성화");
         if (flowerCollider != null) flowerCollider.enabled = false;
     }
 
