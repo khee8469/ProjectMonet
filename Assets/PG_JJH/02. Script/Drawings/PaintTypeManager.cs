@@ -54,7 +54,14 @@ namespace JJH
         Yellow,
         Black,
         White,
-        Brown
+        Brown,
+        Orange,
+        Coral,
+        Khaki,
+        Olive , 
+        Aquamarine,
+        Purple 
+
     }
 }
 

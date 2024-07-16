@@ -25,6 +25,7 @@ namespace JJH
         [Tooltip("딕셔너리의 무결성 유지를 위한 임시 key 저장용 리스트")]
         List<DrawObjectManager> keysToModifty = new List<DrawObjectManager>();
 
+        [Header("씬에 존재하는 그림 위 색깔조명들")]
         [Tooltip("각 씬에 둘 그림 연계 라이트들")]
         [SerializeField]
         public LightColor [] lights; // 각 씬 마다 직접 할당해서 배열을 주면 어차피 start 에서 배열의 크기가 달라짐. 

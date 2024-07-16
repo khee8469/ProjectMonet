@@ -28,7 +28,7 @@ namespace JJH
 
         private void Start()
         {
-            unLockController = FindObjectOfType<UnLockController>();
+            
             rigidbody =GetComponent<Rigidbody>();
             rigidbody.isKinematic = true;
             throwOnDetach = false;
