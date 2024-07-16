@@ -8,6 +8,7 @@ public class FinishedDraw : MonoBehaviour
 {
     // 얘는 완성된 그림 오브젝트임 --> 
 
+    [Header("isColored 연계 된 스테이지 번호 -> 1챕터 부터 0 번 ")]
     public int drawID; // 0 부터 해서 그냥 한번에 함수에 같이 같은 값으로 붙여주자. 
     SpriteRenderer spriteRenderer;
     private float alphaValue;

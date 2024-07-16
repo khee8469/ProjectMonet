@@ -25,6 +25,7 @@ namespace JJH
         [Tooltip("딕셔너리의 무결성 유지를 위한 임시 key 저장용 리스트")]
         List<DrawObjectManager> keysToModifty = new List<DrawObjectManager>();
 
+        [Header("씬에 존재하는 그림 위 색깔조명들")]
         [Tooltip("각 씬에 둘 그림 연계 라이트들")]
         [SerializeField]
         public LightColor [] lights; // 각 씬 마다 직접 할당해서 배열을 주면 어차피 start 에서 배열의 크기가 달라짐. 
@@ -93,8 +94,6 @@ namespace JJH
             Manager.PlayableData.CanvasData.myDrawPartCheckArr[instanceID] = finishied; // true로 변경 
 
             Manager.PlayableData.SaveCanvasData();
-            
-
 
             // 임시 키 저장용 리스트 초기화
             keysToModifty.Clear(); // 초기화 안하면 이거 계속 들어있음. 
@@ -135,13 +134,10 @@ namespace JJH
 
             if (allComplete) // 이게 지금 모두 true 라면 
             {
-                Debug.Log("올컴플리트 if문 진입");
-
                 // 0 1 2 3 --> 4개의 씬 
                 ChapterManager.Instance.CheckDrawComplete(drawingNumber, true); // 씬의 필터 해제
 
                 // 내부코드는 그대로 받아들이도록 수정함 --> 결국 0 이면 1챕터 개방이므로 + 1 필요 ??
-
 
                 // 씬 해금은 나중에 다른 곳에서 할 수 도 있음. 
 
@@ -151,7 +147,8 @@ namespace JJH
                 }              
                 // 완성본 그림 알파값 업그레이드 해주기
 
-                FinishedDraw.FinishAlphaUp.Invoke(drawingNumber);
+                FinishedDraw.FinishAlphaUp.Invoke(drawingNumber); // 각 씬 마다 UnityEvent 를 부르는데
+                // 챕터에는 어차피 finish 붙은게 하나만 있을 거니까 괜찮을듯. 
             }
         }
 

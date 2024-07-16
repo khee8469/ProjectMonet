@@ -26,8 +26,8 @@ public class LightColor : MonoBehaviour
     [Tooltip("자신의 컬러")]
     Color my_Color;
 
-    [Tooltip("자신의 아이디")]
-    public int IightID;
+    /*[Tooltip("자신의 아이디")]
+    public int IightID;*/
 
 
     private void Awake()

@@ -56,7 +56,7 @@ namespace JJH
         private void Start()
         {
             // 같은 이름의 오브젝트여도 서로 다른 오브젝트라면 다른 key로 판단 가능. 
-            drawObjectManager = GameObject.FindObjectsOfType<DrawObjectManager>(); // 이거 find 하지 말고 인스펙터 할당으로 변경 
+            drawObjectManager = GameObject.FindObjectsOfType<DrawObjectManager>(); // 이거 find 하지 말고 인스펙터 할당으로 변경 할 것.
 
             isColoredInspector = is_Colored; // 인스펙터 창에서 보기 위해 변수 할당 
 
@@ -103,13 +103,19 @@ namespace JJH
         }
         // 챕터 해금 및 해금된 챕터의 gray color 변경 시켜 줄 함수 들 .
 
+        // Enum 으로 채색 --> enum을 jSON으로 저장 
+
+
+
         public void UnlockStage(int stageIndex, bool unlock) // 챕터 언락용 함수. 
         {
 
             if (stageIndex >= 0 && stageIndex < runtimeStageData.stageUnlockStatus.Count)
             {
                 Debug.Log("언락 스테이 발동" + stageIndex);
+
                 runtimeStageData.stageUnlockStatus[stageIndex] = true;
+
                 stageEvent.Invoke(stageIndex, true);
             }
         }
@@ -121,6 +127,10 @@ namespace JJH
             // 각 씬의 로딩 루틴에서는 인덱스를 통해 접근함.
 
         }
+
+
+
+
 
     }
 }

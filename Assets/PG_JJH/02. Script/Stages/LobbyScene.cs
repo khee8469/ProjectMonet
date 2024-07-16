@@ -6,15 +6,13 @@ using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
 namespace JJH
 {
-    public class LobbyScene : BaseScene
+    public class LobbyScene : BaseScene  // 로비는 뭐 딱히 볼륨 안쓰니까 
     {
         [SerializeField] Transform playerStartTr;
 
         private ColorAdjustments colorAdjustments;
         [SerializeField] private int SceneID = 0;
         [SerializeField] Volume globalVolume;
-
-
 
         public override IEnumerator LoadingRoutine()
         {

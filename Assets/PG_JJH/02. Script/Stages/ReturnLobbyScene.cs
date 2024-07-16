@@ -8,7 +8,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace JJH
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class ReturnLobbyScene : InteractObject, IActivatable
+    public class ReturnLobbyScene : InteractObject, IActivatable  // 얘네는 그냥 로비씬으로 전환 시켜주는 --> 씬에 있는 그림에 붙여 줄 스크립트 
     {
         public string sceneName;
 
