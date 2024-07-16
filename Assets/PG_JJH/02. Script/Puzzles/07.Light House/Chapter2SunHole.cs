@@ -85,32 +85,14 @@ public class Chapter2SunHole : PaintRewardPuzzle
     private void OnTriggerEnter(Collider other) // 플레이어 등대 문 안으로 들어오면 
     {
 
-        if(other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            if (moonPanel.activeSelf == true) // 켜져 있었다면 꺼준다. 
-            {
-                moonPanel.SetActive(false);
-            }
-            else  // 꺼져 있었다면 켜주고 
-            {
-                moonPanel.SetActive(true);
-            }
+            moonPanel.SetActive(true); // 내부로 들어오면 켜주기. 
 
             Debug.Log("플레이어 트리거 진입");
         }
 
-        
+
     }
-
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            moonPanel.SetActive(true); // 임시 켜주기. 
-        }
-    }
-
-
 
 }

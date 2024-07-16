@@ -18,6 +18,12 @@ namespace JJH
         [Tooltip("랜턴 참조 필요하다.")]
         [SerializeField] private HiddenPatternflashlight flashLight;
 
+        [Tooltip("플레이어 레이어")]
+        [SerializeField] private LayerMask layerMask;
+
+        [Tooltip("trigger 되면 무조건 꺼줄 moon panel")]
+        [SerializeField] private GameObject moonPanel; 
+        
         private void Start()
         {
 
@@ -40,6 +46,15 @@ namespace JJH
 
                 flashLight.FlashLightReturn(); // 랜턴 원 위치 
             }
+
+
+            if(other.gameObject.CompareTag("Player"))
+            {
+                moonPanel.gameObject.SetActive(false);
+            }
+
+
+
         }
 
         public override void OnClearPuzzle() // 온 클리어 퍼즐 --> 인스펙터 에서 할당해도 된다! 

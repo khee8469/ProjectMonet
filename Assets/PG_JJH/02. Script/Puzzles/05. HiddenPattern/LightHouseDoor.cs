@@ -18,7 +18,7 @@ namespace JJH
         [SerializeField] private new HingeJoint hingeJoint;
 
         [Tooltip("열쇠의 item ID ")]
-        [SerializeField] private int keyID = 100;  // 임시로 내가 체크해야 하는 itemID를 가지고 있다고 치자. 
+        [SerializeField] private int keyID = 1410002;  // 임시로 내가 체크해야 하는 itemID를 가지고 있다고 치자. 
 
         [Tooltip("5번 퍼즐 퍼즐 매니저")]
         [SerializeField] private HiddenPatternPuzzle puzzle;
@@ -53,23 +53,25 @@ namespace JJH
             ItemObject item = args.interactableObject as ItemObject;
             if(item!=null)
             {
-                if(item.GetComponent<DoorKey>()?.keyID == keyID)
+                if(item.GetComponent<DoorKey>()?.ItemID == keyID)
                 {
                     DoorOpen();
                 }
             }
-
-
             base.OnSelectEntered(args);
 
         }
+
+        // door는 ipuzzle 대신에 여기서 아이템을 사용했는지를 체크해서
+        // 아이템을 제대로 사용한 상태면 문을 계속 열어놓기.
+
+
+
         public void DoorOpen() 
         {
             Debug.Log("문이 열렸음.");
             hingeJoint.useLimits = false;
         }
-
-
 
         public void ActiveSetting()
         {
@@ -78,6 +80,8 @@ namespace JJH
 
         public void CompleteSetting()
         {
+            // 소켓 비활성 
+
             hingeJoint.useLimits = false; // 컴플리트 상태면 문이 열려야함. 
         }
 

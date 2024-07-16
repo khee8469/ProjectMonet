@@ -103,7 +103,7 @@ namespace JJH
 
             // 각각의 angle 값이 0~360도 중에 어느 정도 값 사이에 들어가 있어야 체크 할지 파악하면된다.
             // 지금 임의적으로 숫자 넣어준거임
-            if ((angleX >= 20 - tolerance && angleX <= 20 + tolerance)&&(angleZ >= 350 - tolerance && angleZ <= 350 + tolerance))
+            if ((angleX >= 20 - tolerance && angleX <= 20 + tolerance)&&(angleZ >= 355 - tolerance && angleZ <= 355 + tolerance))
             {
                 sunHole.OnClearPuzzle();
                 DeAactiveLight_Button();
