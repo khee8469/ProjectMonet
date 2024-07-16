@@ -37,7 +37,7 @@ namespace Jc
             if (currentQuest == null)
             {
                 // 플로팅 애니메이션
-                floatingAnim.SetTrigger(Manager.Param.OnFloating);
+                floatingAnim.Play("OnFloating");
 
                 if (curBasicDialogIndex >= basicNarrations.Count)
                 {
@@ -76,7 +76,7 @@ namespace Jc
                         secondBuilboard.EnableBuilboard = true;
 
                         // 플로팅 애니메이션
-                        secondFloatingAnim.SetTrigger(Manager.Param.OnFloating);
+                        secondFloatingAnim.Play("OnFloating");
                         secondDialogText.text = currentQuest.receiveNarrations[curQuestDialogIndex++].text;
                     }
                     // 일반 NPC
@@ -88,14 +88,14 @@ namespace Jc
                         secondBuilboard.EnableBuilboard = false;
 
                         // 플로팅 애니메이션
-                        floatingAnim.SetTrigger(Manager.Param.OnFloating);
+                        floatingAnim.Play("OnFloating");
                         dialogText.text = currentQuest.receiveNarrations[curQuestDialogIndex++].text;
                     }
                     break;
                 // 퀘스트 진행중
                 case QuestState.Proceed:
                     // 플로팅 애니메이션
-                    floatingAnim.SetTrigger(Manager.Param.OnFloating);
+                    floatingAnim.Play("OnFloating");
                     dialogText.text = currentQuest.receiveNarrations[currentQuest.receiveNarrations.Count - 1].text;
                     break;
                 // 퀘스트 완료
@@ -113,7 +113,7 @@ namespace Jc
                     }
                     // 대화 진행
                     // 플로팅 애니메이션
-                    floatingAnim.SetTrigger(Manager.Param.OnFloating);
+                    floatingAnim.Play("OnFloating");
                     dialogText.text = currentQuest.clearNarrations[curQuestDialogIndex++].text;
                     break;
                 default:

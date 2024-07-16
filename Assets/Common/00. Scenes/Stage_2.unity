@@ -22743,21 +22743,25 @@ PrefabInstance:
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalPosition.x
+      value: 122.469
       value: 117.56
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalPosition.y
+      value: 2.141
       value: 4.86
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalPosition.z
+      value: 219.65
       value: 263.25
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalRotation.w
+      value: 0.77591574
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
@@ -22768,6 +22772,7 @@ PrefabInstance:
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalRotation.y
+      value: -0.63083655
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
@@ -22783,6 +22788,7 @@ PrefabInstance:
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
+      value: -78.224
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
@@ -53934,6 +53940,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDebugMode: 0
   rewardItemID: 0
+  puzzleID: 7
+  state: 1
   puzzleID: -1
   state: 0
   conditions: 00000000
@@ -62605,12 +62613,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDebugMode: 1
   rewardItemID: 0
-  puzzleID: -1
+  puzzleID: 6
   state: 1
   conditions: 00000000
   OnClear:
     m_PersistentCalls:
       m_Calls: []
+  activeQuestID: 1510005
+  nextPuzzleManager: {fileID: 0}
   activeQuestID: -1
   nextPuzzleManager: {fileID: 1633225150}
   clearQuestID: -1
@@ -67513,6 +67523,11 @@ PrefabInstance:
         type: 3}
       propertyPath: moonSprite
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1383411354562638627, guid: c90338e771cf40e448152dbee3923c0c,
+        type: 3}
+      propertyPath: puzzleID
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1383411354562638627, guid: c90338e771cf40e448152dbee3923c0c,
         type: 3}
