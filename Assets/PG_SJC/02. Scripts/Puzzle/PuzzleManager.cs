@@ -54,6 +54,9 @@ namespace Jc
         [Header("클리어 퀘스트 ID")]
         public int clearQuestID = -1;
 
+        [Header("퍼즐 클리어 시 사용완료 아이템 ID")]
+        public int successItemID = -1; 
+
         [Space(5)]
         [Header("밸런싱")]
         [SerializeField]
@@ -238,6 +241,9 @@ namespace Jc
             {
                 nextPuzzleManager.ChangeState(PuzzleState.Proceed);
             }
+
+            if (successItemID != -1)
+                Manager.Item.UseSuccessItem(successItemID);
 
             if (clearQuestID == -1) return;
             Quest clearQuest = Manager.Quest.QuestDic[clearQuestID];

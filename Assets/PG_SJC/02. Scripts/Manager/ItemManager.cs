@@ -63,7 +63,7 @@ namespace Jc
                         Debug.Log($"ID-{itemID} : 아이템은 사용완료 된 아이템입니다.");
                         return false;
                     }
-                    
+
                     // 아이템 무결성 검사
                     foreach (int key in Manager.PlayableData.slotDataDic.Keys)
                     {
@@ -100,11 +100,12 @@ namespace Jc
         {
             if (!Manager.PlayableData.itemInfoDataDic.ContainsKey(itemID))
             {
-                Manager.PlayableData.itemInfoDataDic.Add(itemID, new ItemInfoData(itemID,itemDataDic[itemID].itemName, true, false));
-                return;
+                Manager.PlayableData.itemInfoDataDic.Add(itemID, new ItemInfoData(itemID, itemDataDic[itemID].itemName, true, false));
             }
-
-            Manager.PlayableData.itemInfoDataDic[itemID] = new ItemInfoData(itemID, itemDataDic[itemID].itemName, true, false);
+            else
+            {
+                Manager.PlayableData.itemInfoDataDic[itemID] = new ItemInfoData(itemID, itemDataDic[itemID].itemName, true, false);
+            }
             Manager.PlayableData.SaveItemData();
         }
 
@@ -117,7 +118,7 @@ namespace Jc
                 return;
             }
 
-            Manager.PlayableData.itemInfoDataDic[itemID] = new ItemInfoData(itemID,itemDataDic[itemID].itemName, true, true);
+            Manager.PlayableData.itemInfoDataDic[itemID] = new ItemInfoData(itemID, itemDataDic[itemID].itemName, true, true);
             Manager.PlayableData.SaveItemData();
         }
     }
