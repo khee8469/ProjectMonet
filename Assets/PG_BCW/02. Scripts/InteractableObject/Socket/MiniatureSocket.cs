@@ -20,6 +20,8 @@ public class MiniatureSocket : XRSocketInteractor
     [SerializeField]
     Transform exitPosition;
 
+
+
     //키를 꽃았을때
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
@@ -35,13 +37,14 @@ public class MiniatureSocket : XRSocketInteractor
             {
                 this.interactionManager.SelectExit(args.interactorObject, args.interactableObject);
                 //팅겨나올 위치
-                itemObject.transform.position = exitPosition.position;
+                if(exitPosition != null)
+                    itemObject.transform.position = exitPosition.position;
             }
             //지정된 아이템이면 레이어변환해서 핸드트래킹으로만 조작가능하게
             else
             {
                 args.interactableObject.transform.GetComponent<ItemObject>().interactionLayers = handTrackingMask;
-                args.interactableObject.transform.localScale = new Vector3(0.4f,0.4f,0.4f);
+                //args.interactableObject.transform.localScale = transform.localScale;
             }
         }
 

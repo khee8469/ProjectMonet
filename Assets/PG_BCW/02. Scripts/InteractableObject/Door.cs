@@ -16,6 +16,25 @@ public class Door : XRSocketInteractor
     [SerializeField]
     int openKeyID;
 
+    [Tooltip("활성화 할 오브젝트")]
+    [SerializeField]
+    ItemObject activeObject;
+
+    [Tooltip("체크할 퍼즐 아이디")]
+    [SerializeField]
+    int questID = 1510010;
+
+    protected override void OnEnable()
+    {
+        if (Manager.Quest.QuestDic[questID].State == QuestState.Complete || Manager.Quest.QuestDic[questID].State == QuestState.Clear)
+        {
+            //이미 클리어했다면 문을 열어두고, 물뿌리게는 못잡게
+            if (rb != null) rb.isKinematic = false;
+            if (activeObject != null) activeObject.enabled = false;
+        }
+    }
+
+
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
@@ -28,8 +47,10 @@ public class Door : XRSocketInteractor
         }
         else
         {
-            Debug.Log("열쇠넣기");
+            //문열기
             if (rb != null) rb.isKinematic = false;
+            //활성화 할 오브젝트
+            if (activeObject != null) activeObject.enabled = true;
         }
     }
 }

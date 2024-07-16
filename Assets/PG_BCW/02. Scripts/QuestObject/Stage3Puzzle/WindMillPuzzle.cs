@@ -62,7 +62,7 @@ public class WindMillPuzzle : InteractObject, IPuzzleable
     protected override void OnEnable()
     {
         base.OnEnable();
-        Debug.Log(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
+
         //상태에 따른 세팅 
         puzzleManager.PuzzleSetting(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
 
@@ -209,7 +209,6 @@ public class WindMillPuzzle : InteractObject, IPuzzleable
     public void DisActiveSetting()
     {
         //순서아닌 퀘스트 오브젝트 비활성화
-        Debug.Log("풍차 퀘스트 비활성화");
         if (leverCollider != null) leverCollider.enabled = false;
     }
 
