@@ -12,7 +12,7 @@ namespace Jc
     //  리턴하지 않는 풀링
     public class ItemManager : Singleton<ItemManager>
     {
-        private Dictionary<int, ItemData> itemDataDic; // 아이템 데이터 매핑
+        private Dictionary<int, ItemData> itemDataDic; // 아이템 데이터 매feat
         public Dictionary<int, ItemData> ItemDataDic { get { return itemDataDic; } }
 
         protected override void Awake()

@@ -1,5 +1,6 @@
 using Jc;
 using JJH;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -70,7 +71,7 @@ public class HiddenPatternController : MonoBehaviour, IPuzzleable
 
         if (isAllTrue) // 모두 값이 자신의 안 이니까. --> 그니까 결국 모두 정답이면 여기서 update해주고.
         {
-            puzzle.UpdateCondition(puzzleIndex);
+            puzzle.UpdateCondition(puzzleIndex); // bool 값 업데이트 
             UpdatePattern();
             
         }
@@ -84,9 +85,19 @@ public class HiddenPatternController : MonoBehaviour, IPuzzleable
         {
             pattern.collider.enabled = false;  // 자신의 모든 콜라이더를 꺼준다.
             pattern.interactionLayers = 0; // 0이 아마 nothing임. 
+
+
+
             pattern.handle.transform.localRotation = Quaternion.identity; // 로테이션 0 0 0 으로 한다.
         }
     }
+
+
+   /* private IEnumerator IdentityRoutine()
+    {
+
+    }
+*/
 
 
     public void RegistObject(PuzzleManager puzzle)
@@ -102,7 +113,7 @@ public class HiddenPatternController : MonoBehaviour, IPuzzleable
 
     public void ActiveSetting()
     {
-        // 문을 안열면 어차피 못 들어온다. 
+        // 문을 안열면 어차피 못 들어온다. 기본 상태가 만질 수 있는 상태. 
     }
 
     public void DisActiveSetting()
@@ -116,8 +127,13 @@ public class HiddenPatternController : MonoBehaviour, IPuzzleable
 
         foreach (var pattern in patterns)
         {
-            pattern.gameObject.layer = 0; // 빛을 받을 수 있도록 Defalut layer로 바꿔주기. 바꿔 줄 필요 있나?            
+            pattern.gameObject.layer = 0; // 빛을 받을 수 있도록 Defalut layer로 바꿔주기. 바꿔 줄 필요 있나?
+            pattern.interactionLayers = 0 ; //nothing 으로 못만지도록  
+            pattern.transform.rotation = Quaternion.identity;   // 0 0 0 으로 초기화. 
         }
+
+        
+
 
         puzzle.UpdateCondition(puzzleIndex);
 

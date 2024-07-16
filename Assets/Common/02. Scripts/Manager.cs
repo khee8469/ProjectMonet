@@ -25,7 +25,6 @@ public static class Manager
     {
         // 싱글턴 객체해제
         JJH.SceneManager.ReleaseInstance();
-        JJH.ChapterManager.ReleaseInstance();
         AnimParamManager.ReleaseInstance();
         LayerManager.ReleaseInstance();
         QuestManager.ReleaseInstance();
@@ -38,7 +37,6 @@ public static class Manager
 
         // 싱글턴 객체생성
         JJH.SceneManager.CreateInstance();
-        JJH.ChapterManager.CreateInstance();
         AnimParamManager.CreateInstance();
         LayerManager.CreateInstance();
         Jc.DataManager.CreateInstance();

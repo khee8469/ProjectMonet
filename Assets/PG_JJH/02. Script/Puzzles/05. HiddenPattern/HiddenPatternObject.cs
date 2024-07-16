@@ -31,12 +31,11 @@ namespace JJH
         [SerializeField] public new Collider collider;
 
         [Tooltip("잡힐 수 있는 거리")]
-        [SerializeField] private float grabDistance = 3f;
+        [SerializeField] private float grabDistance = 10f;
 
 
         [Tooltip("자신을 관리해 줄 컨트롤러")]
         [SerializeField] private HiddenPatternController controller;
-
 
 
         protected override void Awake()
