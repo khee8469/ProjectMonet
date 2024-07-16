@@ -36,7 +36,7 @@ namespace Jc
         public bool IsGrab {get { return isGrab; } }
 
         [SerializeField]
-        private InteractObject currentGrabObject;  // 현재 잡고있는 오브젝트
+        private IInteractable currentGrabObject;  // 현재 잡고있는 오브젝트
 
         private Camera cam;                         // 메인 카메라
         private Transform grabbedTr;                // 그랩한 오브젝트 트랜스폼
@@ -225,36 +225,42 @@ namespace Jc
 
         public override bool CanHover(IXRHoverInteractable interactable)
         {
-            InteractObject itrObject = interactable as InteractObject;
+            IInteractable itrObject = interactable as IInteractable;
 
             if (itrObject == null)
                 return false;
-
-            if (!GrabableDistance(itrObject))
-                return false;
-
+            
             return base.CanHover(interactable);
         }
         public override bool CanSelect(IXRSelectInteractable interactable)
         {
-            InteractObject itrObject = interactable as InteractObject;
+            IInteractable itrObject = interactable as IInteractable;
 
             if (itrObject == null)
                 return false;
 
-
-            if (!GrabableDistance(itrObject))
-                return false;
-
-
             return base.CanSelect(interactable);
+        }
+
+        protected override void OnSelectEntering(SelectEnterEventArgs args)
+        {
+            base.OnSelectEntering(args);
+
+            currentGrabObject = args.interactableObject as IInteractable; // 현재 플레이어가 쥐기 시작할 아이템
+
+            if (currentGrabObject == null) return;
+
+            // 오브젝트의 초기 위치를 지정
+            if ((transform.position - attachTransform.position).sqrMagnitude > currentGrabObject.GetInteractDistance() * currentGrabObject.GetInteractDistance())
+                attachTransform.position = transform.position + transform.forward * currentGrabObject.GetInteractDistance();
         }
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
 
-            currentGrabObject = args.interactableObject as InteractObject; // 현재 플레이어가 쥐고 있는 아이템. 
+            currentGrabObject = args.interactableObject as IInteractable; // 현재 플레이어가 쥐고 있는 아이템. 
+
             grabbedTr = args.interactableObject.transform;
             isGrab = true;
 
@@ -292,6 +298,7 @@ namespace Jc
             base.OnSelectExited(args);
 
             ItemObject item = currentGrabObject as ItemObject;
+
             if (item != null)
                 item.ResetScale();
 
@@ -331,25 +338,6 @@ namespace Jc
             currentSlot.PutInItem(item);
         }
 
-        // 오브젝트를 잡을 수 있는 거리체크
-        private bool GrabableDistance(InteractObject itrObject)
-        {
-            if (itrObject == null)
-                return false;
-
-            // 오브젝트의 그랩 허용 길이
-            float grabDist = itrObject.GrabDistance;
-            // 현재 오브젝트와의 거리
-            float distance = (itrObject.transform.position - transform.position).sqrMagnitude;
-
-            if (distance > grabDist * grabDist)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
         // UI 매니저 콜백
         private void OnPopUp()
         {
@@ -358,22 +346,28 @@ namespace Jc
             if (isInventoryMode)
             {
                 ItemObject item = currentGrabObject as ItemObject;
+
                 if (item != null)
                     item.SetScaleWithLerp();
-                lineVisual.enabled = false;
+                lr.enabled = true;
+                //lineVisual.enabled = false;
             }
             else
             {
                 ItemObject item = currentGrabObject as ItemObject;
+
                 if (item != null)
                     item.ResetScaleWithLerp();
-
-                lineVisual.enabled = true;
+                lr.enabled = false;
+                //lineVisual.enabled = true;
             }
-            lr.enabled = true;
+            //lr.enabled = true;
         }
         private void FindSlot()
-        { 
+        {
+            if (currentGrabObject != null && currentGrabObject is not ItemObject)
+                return;
+
             Ray ray = new Ray(transform.position, transform.forward);
             lr.positionCount = 2;
             lr.SetPosition(0, transform.position);
@@ -386,6 +380,7 @@ namespace Jc
                 {
                     if (currentSlot != null)
                         currentSlot.OnHoverExit();
+
                     currentSlot = null;
                     return;
                 }

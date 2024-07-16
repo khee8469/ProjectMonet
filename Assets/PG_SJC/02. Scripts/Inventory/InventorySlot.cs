@@ -144,7 +144,7 @@ namespace Jc
                 Debug.Log($"{getItemID}에 해당하는 아이템이 존재하지 않습니다.");
                 return null;
             }
-
+            Debug.Log(getItemID);
             ItemObject item = Instantiate(Manager.Item.ItemDataDic[getItemID].itemPrefab, transform.position, Quaternion.identity);
             ItemCount--;
             return item;

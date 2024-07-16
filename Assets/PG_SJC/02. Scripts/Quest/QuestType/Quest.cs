@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -22,7 +20,22 @@ namespace Jc
         [Tooltip("퀘스트 상태")]
         [SerializeField]
         protected QuestState state;
-        public QuestState State { get { return state; } set { state = value; } }
+        public QuestState State 
+        { 
+            get 
+            { 
+                return state; 
+            } 
+            set 
+            { 
+                state = value;
+
+                if (state == QuestState.Complete)
+                {
+                    StartCoroutine(Extension.ActionDelay(0.5f, () => RewardItem()));
+                }
+            } 
+        }
 
         [Space(10)]
         [Header("로딩 데이터")]
@@ -41,6 +54,14 @@ namespace Jc
         public UnityAction<QuestState> OnChangeState;
 
         public UnityAction<Quest> OnClearQuest;
+
+        private void RewardItem()
+        {
+            // 지급할 아이템이 존재할 경우
+            if (questData.rewardItemID == -1) return;
+
+            Manager.Item.GetItem(questData.rewardItemID, true);
+        }
 
         // 퀘스트 상태변경
         public void ChangeState(QuestState state)
@@ -79,7 +100,7 @@ namespace Jc
         {
             // 다음 퀘스트 탐색
             Quest nextQuest = Manager.Quest.GetQuest(id);
-            if(nextQuest == null)
+            if (nextQuest == null)
             {
                 Debug.Log($"{questData.id} : 다음 퀘스트가 존재하지 않습니다.");
                 return;
@@ -97,16 +118,11 @@ namespace Jc
         {
             Debug.Log($"퀘스트 {questID} : 가 진행됩니다.");
 
-            switch(questData.type)
+            switch (questData.proceedType)
             {
-                // 링크 퀘스트의 경우 현재 ID 기준 다음 퀘스트를 활성화
-                case QuestType.Link:
-                    ActiveNextQuest(questID + 1);
-                    break;
-                // 노말 퀘스트의 경우 연계된 퍼즐이 없을경우 바로 완료
-                case QuestType.Normal:
-                    if(questData.puzzleIDList == null || questData.puzzleIDList.Count < 1)
-                        ChangeState(QuestState.Clear);
+                // 대화형 퀘스트의 경우 퀘스트 수주 시 바로 완료
+                case QuestProccedType.Dialog:
+                    ChangeState(QuestState.Clear);
                     break;
             }
         }
@@ -134,6 +150,9 @@ namespace Jc
 
             // 연결된 다음 퀘스트 활성화
             ActiveNextQuest(questData.next_id);
+
+            // 아이템 지급
+            RewardItem();
         }
 
         public void OnClearLinkedQuest(Quest quest)

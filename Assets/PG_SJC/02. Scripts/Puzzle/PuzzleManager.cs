@@ -12,6 +12,9 @@ namespace Jc
     {
         [Header("에디터 세팅")]
         [SerializeField]
+        private bool isDebugMode = false;
+
+        [SerializeField]
         private int rewardItemID;
 
         [Header("퍼즐 id")]
@@ -45,6 +48,9 @@ namespace Jc
         [Header("활성화 퀘스트 ID")]
         public int activeQuestID = -1;
 
+        [Header("클리어 시 활성화 퍼즐 매니저")]
+        public PuzzleManager nextPuzzleManager;
+
         [Header("클리어 퀘스트 ID")]
         public int clearQuestID = -1;
 
@@ -74,6 +80,16 @@ namespace Jc
         // 로드된 데이터를 기반으로 퍼즐 최초세팅
         private void InitPuzzleSetting()
         {
+            // 테스트모드
+            if(isDebugMode)
+            {
+                foreach (IPuzzleable ob in puzzleObjects)
+                    ob.ActiveSetting();
+
+                this.state = PuzzleState.Proceed;
+                return;
+            }
+
             // 속한 퍼즐 오브젝트가 존재하지 않는다면 리턴
             if (puzzleObjects == null || puzzleObjects.Count < 1)
             {
@@ -92,10 +108,10 @@ namespace Jc
                 this.state = PuzzleState.DisActive;
                 return;
             }
-
+            
             // 로드된 데이터는 프로퍼티를 사용하여 다시 저장하지 않음.
             // State -> this.state
-            switch(Manager.PlayableData.puzzleDataDic[puzzleID])
+            switch (Manager.PlayableData.puzzleDataDic[puzzleID])
             {
                 case PuzzleState.DisActive:
                     foreach (IPuzzleable ob in puzzleObjects)
@@ -216,6 +232,12 @@ namespace Jc
             isClear = true;
 
             State = PuzzleState.Clear;
+
+            // 다음 퍼즐 활성화
+            if (nextPuzzleManager != null && nextPuzzleManager.State == PuzzleState.DisActive)
+            {
+                nextPuzzleManager.ChangeState(PuzzleState.Proceed);
+            }
 
             if (clearQuestID == -1) return;
             Quest clearQuest = Manager.Quest.QuestDic[clearQuestID];

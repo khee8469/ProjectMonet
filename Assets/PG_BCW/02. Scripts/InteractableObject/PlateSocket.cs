@@ -24,6 +24,6 @@ public class PlateSocket : XRSocketInteractor
 
         plate.SelectSocket();
         //포도 못잡게하기
-        args.interactableObject.transform.GetComponent<Grape>().interactionLayers = grabOff;
+        //args.interactableObject.transform.GetComponent<Grape>().interactionLayers = grabOff;
     }
 }

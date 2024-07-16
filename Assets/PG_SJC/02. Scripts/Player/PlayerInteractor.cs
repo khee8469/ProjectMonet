@@ -39,7 +39,6 @@ namespace Jc
 
         public UnityAction OnEndInteract;   // NPC와 상호작용 해제
 
-
         private void Awake()
         {
             mainCam = Camera.main.transform;
@@ -109,7 +108,6 @@ namespace Jc
 
         private void OnPopUp(bool isEnable)
         {
-
             // 활성화 시 메인 카메라 트랜스폼을 추적
             if (isEnable)
                 Manager.UI.OpenInfoGroup();
