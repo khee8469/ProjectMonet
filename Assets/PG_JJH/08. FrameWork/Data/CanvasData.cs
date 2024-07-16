@@ -16,16 +16,24 @@ namespace JJH
         public bool[] myDrawPartCheckArr = new bool[20];
 
         [Tooltip("포스트 프로세싱 컬러 / 흑백 전환 bool 변수 -> 0 1 2 3 각 스테이지 마다 체크 / 로딩루틴 ")]
+
+
         // 씬의 포스트 프로세싱 상태 저장용 
-        public bool[] isColoredCheckArr = new bool[4];
+        public bool[] isColoredCheckArr = new bool[4];  // 이게 포스트 프로세싱 상태 체크 용
 
-        [Header("로비 씬 해금")]
+        // 이게 0번이 활성화 되면 -> 첫 번째 1챕터 포스트프로세싱 컬러 상태 --> 이게 즉 결국 2챕터 해금 상태. 
 
-        // 스테이지 언락은 일단 스크립터블로 진행 중 나중에 json 으로 바꾸던지하자.
-        public List<bool> stageUnLockCheckList = new List<bool>();
 
-        [Header("2스테이지 퍼즐 -5 원반 --> 딱히 저장 할 필요 없는 듯?")]
-        public List<Quaternion> myPatternCheckList = new List<Quaternion>();  
+        // 챕터 해금 상태 저장이랑 포스트 프로세싱 이랑 한 번에 좀 열거형으로 저장해주면 어떻게 잘되지 않을까
+        public enum CanvasState
+        {
+            // 비 해금 , 흑백으로 해금됨 , 컬러로 해금 됨 
+            DisActive , Proceed , Clear 
+        }
+
+
+        
+
 
     }
 

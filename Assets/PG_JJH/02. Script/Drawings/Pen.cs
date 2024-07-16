@@ -165,7 +165,7 @@ namespace JJH
 
                     lineList.Add(lineObj);
 
-                    Vector2Int pixelPosition = drawManager.WorldToPixel(drawPosition);
+                    //Vector2Int pixelPosition = drawManager.WorldToPixel(drawPosition);
                 }
                 else // 즉 이미 생성된 경우. 
                 {
@@ -180,7 +180,7 @@ namespace JJH
                         currentDrawing.SetPosition(index, drawPosition);
                         drawManager.AddLineRenderer(currentDrawing, penWidth);
 
-                        Vector2Int pixelPosition = drawManager.WorldToPixel(drawPosition);
+                        //Vector2Int pixelPosition = drawManager.WorldToPixel(drawPosition);
                     }
                 }
                 // 이 부분이 완성된 상태니까. 여기서 추가 함수를 불러서 실제 이미지를 On 해주고 
@@ -208,11 +208,9 @@ namespace JJH
             isNotEntered = true;
             DrawingStop();
             drawManager.ImageAlphaUp();
-            RemoveALLLine();
+            RemoveALLLine();  // 이 함수를 Trigger에서 벗어날 시에 사용해 줘야 할듯? 
             isNotMove = false;
-            PlayerNotMove(isNotMove);
             drawManager.DrawFinished();
-
             StartCoroutine(blockRoutine());
         }
 
@@ -226,7 +224,6 @@ namespace JJH
 
 
         }
-
 
         private bool CheckColorType(DrawObjectManager drawObjectManager)
         {
@@ -243,22 +240,8 @@ namespace JJH
         {
             isDrawing = true; // 그리기 상태로 전환
             isNotMove = true;
-            PlayerNotMove(isNotMove);
 
             // not move 와 함께 --> 플레이어의 움직임 막아버리는 함수 발동 
-
-        }
-
-        private void PlayerNotMove(bool isNotMove)
-        {
-            if (isNotMove)  // true면 움직임 방지 
-            {
-                
-            }
-            else
-            {
-                
-            }
         }
 
         public void DrawingStop()
@@ -269,7 +252,6 @@ namespace JJH
             {
                 currentDrawing = null;
             }
-
         }
 
         // 이 부분은 그냥 잘 바뀌나 확인용으로 둔 함수 --> 실제 사용 x 

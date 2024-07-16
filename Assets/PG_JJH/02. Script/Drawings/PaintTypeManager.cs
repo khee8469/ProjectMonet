@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace JJH
@@ -6,9 +7,11 @@ namespace JJH
     [CreateAssetMenu(fileName = "PaintTypeManager", menuName = "ScriptableObjects/PaintTypeManager", order = 1)]
     public class PaintTypeManager : ScriptableObject
     {
-        public List<PaintTypeColor> paintTypeColors;
+        public List<PaintTypeColor> paintTypeColors;  // 리스트도 Class 인데 --> 열거형이랑 Color 값 넣어놨으니까. --> 이거를 딕셔너리로 분리? 하기? 
 
         // 특정 PaintTypeEnum에 해당하는 색상을 반환하는 메서드
+        
+
 
         public Color GetColorByType(PaintTypeEnum type)
         {
@@ -51,7 +54,14 @@ namespace JJH
         Yellow,
         Black,
         White,
-        Brown
+        Brown,
+        Orange,
+        Coral,
+        Khaki,
+        Olive , 
+        Aquamarine,
+        Purple 
+
     }
 }
 

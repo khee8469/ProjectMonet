@@ -86,18 +86,30 @@ public class HiddenPatternController : MonoBehaviour, IPuzzleable
             pattern.collider.enabled = false;  // 자신의 모든 콜라이더를 꺼준다.
             pattern.interactionLayers = 0; // 0이 아마 nothing임. 
 
-
-
-            pattern.handle.transform.localRotation = Quaternion.identity; // 로테이션 0 0 0 으로 한다.
+            StartCoroutine(IdentityRoutine(pattern));
         }
     }
 
 
-   /* private IEnumerator IdentityRoutine()
+    float duration = 1f; 
+    private IEnumerator IdentityRoutine(HiddenPatternObject pattern) // foreach 의 pattern을 받음. 
     {
 
+        Quaternion startRotation = pattern.handle.transform.localRotation;
+        Quaternion endRotation = Quaternion.identity;
+
+        float elapsed = 0f;
+
+        while(elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            pattern.handle.transform.localRotation = Quaternion.Lerp(startRotation, endRotation, elapsed / duration);
+            yield return null;
+        }
+        pattern.handle.transform.localRotation = endRotation;
+
     }
-*/
+
 
 
     public void RegistObject(PuzzleManager puzzle)
