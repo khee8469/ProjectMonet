@@ -30,12 +30,12 @@ namespace JJH
         [SerializeField]
         public LightColor [] lights; // 각 씬 마다 직접 할당해서 배열을 주면 어차피 start 에서 배열의 크기가 달라짐. 
 
+        [Tooltip("드로우 오브젝트 매니저 할당해주기.")]
+        [SerializeField]
+        private DrawObjectManager[] drawObjectManagers;
 
         private void Start()
         {
-            // Find로 배열을 찾아서 저장한다. --> 배열은 항상 정렬 순서가 보장된다. 이거 그냥 모든 씬에서 모든 그림 인스펙터로 참조 시켜두자. 
-            DrawObjectManager[] drawObjectManagers =
-                GameObject.FindObjectsOfType<DrawObjectManager>();
 
             // DrawObjectManager 에 붙어있는 IComparable 을 이용하여 정렬한다.
             Array.Sort(drawObjectManagers); //어차피 둘이 같은 타입을 찾는 find를 하기 때문에 길이는 무조건 같

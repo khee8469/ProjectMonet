@@ -303,26 +303,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             StartCoroutine(RendererAlphaRoutine(lineRenderer));
         }
 
-        // 이 부분 수정 필요.. 자기 자신의 그림만 나와야 하니까. 그냥 찾지말고. 
-        /*private IEnumerator StartAlphaRoutine()
-        {
-            DrawObjectManager[] drawingBoards = FindObjectsOfType<DrawObjectManager>();
-
-            //현재 오브젝트의 스크립트 가져오기
-            DrawObjectManager currentDrawObjectManager = GetComponent<DrawObjectManager>();
-
-            foreach (DrawObjectManager drawObjectManager in drawingBoards)
-            {
-                if(currentDrawObjectManager!=null && drawObjectManager.drawBoardNumber == currentDrawObjectManager.drawBoardNumber)
-                {
-                    StartCoroutine(SpriteAlphaUpRoutine(drawObjectManager));
-                }
-                
-            }
-
-            yield return null;
-        }
-*/
         private IEnumerator SpriteAlphaUpRoutine() //DrawObjectManager drawObjectManager
         {
             gameObject.layer = 0;
