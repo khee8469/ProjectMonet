@@ -14,9 +14,6 @@ namespace Jc
         [SerializeField]
         private bool isDebugMode = false;
 
-        [SerializeField]
-        private int rewardItemID;
-
         [Header("퍼즐 id")]
         [SerializeField]
         private int puzzleID = -1;
@@ -54,8 +51,11 @@ namespace Jc
         [Header("클리어 퀘스트 ID")]
         public int clearQuestID = -1;
 
-        [Header("퍼즐 클리어 시 사용완료 아이템 ID")]
-        public int successItemID = -1; 
+        [Header("퍼즐 클리어 시 지급 아이템 ID 리스트")]
+        public List<int> rewardItemIDList = new List<int>(); 
+
+        [Header("퍼즐 클리어 시 사용완료 아이템 ID 리스트")]
+        public List<int> successItemIDList = new List<int>();
 
         [Space(5)]
         [Header("밸런싱")]
@@ -242,11 +242,16 @@ namespace Jc
                 nextPuzzleManager.ChangeState(PuzzleState.Proceed);
             }
 
-            if (successItemID != -1)
-                Manager.Item.UseSuccessItem(successItemID);
+            // 아이템 보상 지급
+            if (rewardItemIDList != null && rewardItemIDList.Count > 0)
+                Manager.Item.GetItem(rewardItemIDList,true);
+
+            // 아이템 성공 처리
+            if (successItemIDList != null && successItemIDList.Count > 0)
+                Manager.Item.UseSuccessItem(successItemIDList);
 
             if (clearQuestID == -1) return;
-            Quest clearQuest = Manager.Quest.QuestDic[clearQuestID];
+                Quest clearQuest = Manager.Quest.QuestDic[clearQuestID];
 
             // 퀘스트 예외처리 (이미 수락대기인 퀘스트 or 완료한 퀘스트)
             if (clearQuest == null) 
