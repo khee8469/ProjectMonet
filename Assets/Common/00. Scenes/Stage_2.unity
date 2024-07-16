@@ -12713,7 +12713,7 @@ MonoBehaviour:
         m_CallState: 2
   patternID: 2
   collider: {fileID: 6062330606571574072}
-  grabDistance: 3
+  grabDistance: 10
   controller: {fileID: 4184286837337988674}
 --- !u!1001 &330950172
 PrefabInstance:
@@ -22743,42 +22743,37 @@ PrefabInstance:
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 122.469
-      value: 117.56
+      value: 119.66
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.141
-      value: 4.86
+      value: 4.28
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 219.65
-      value: 263.25
+      value: 259.34
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.77591574
-      value: 1
+      value: 0.7378804
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.63083655
-      value: 0
+      value: -0.6749316
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
@@ -22788,8 +22783,7 @@ PrefabInstance:
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -78.224
-      value: 0
+      value: -84.898
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
@@ -34572,7 +34566,7 @@ MonoBehaviour:
         m_CallState: 2
   patternID: 4
   collider: {fileID: 8067844128250867275}
-  grabDistance: 3
+  grabDistance: 10
   controller: {fileID: 4184286837337988674}
 --- !u!1001 &1027460646
 PrefabInstance:
@@ -34801,7 +34795,7 @@ MonoBehaviour:
         m_CallState: 2
   patternID: 3
   collider: {fileID: 8596892697516578313}
-  grabDistance: 3
+  grabDistance: 10
   controller: {fileID: 4184286837337988674}
 --- !u!43 &1036456640
 Mesh:
@@ -53942,8 +53936,6 @@ MonoBehaviour:
   rewardItemID: 0
   puzzleID: 7
   state: 1
-  puzzleID: -1
-  state: 0
   conditions: 00000000
   OnClear:
     m_PersistentCalls:
@@ -62621,8 +62613,6 @@ MonoBehaviour:
       m_Calls: []
   activeQuestID: 1510005
   nextPuzzleManager: {fileID: 0}
-  activeQuestID: -1
-  nextPuzzleManager: {fileID: 1633225150}
   clearQuestID: -1
   isClear: 0
   paintItemID: 0
@@ -67516,6 +67506,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1383411354562638627, guid: c90338e771cf40e448152dbee3923c0c,
         type: 3}
+      propertyPath: puzzleID
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1383411354562638627, guid: c90338e771cf40e448152dbee3923c0c,
+        type: 3}
       propertyPath: moonPanel
       value: 
       objectReference: {fileID: 13457398}
@@ -67523,11 +67518,6 @@ PrefabInstance:
         type: 3}
       propertyPath: moonSprite
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1383411354562638627, guid: c90338e771cf40e448152dbee3923c0c,
-        type: 3}
-      propertyPath: puzzleID
-      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1383411354562638627, guid: c90338e771cf40e448152dbee3923c0c,
         type: 3}
