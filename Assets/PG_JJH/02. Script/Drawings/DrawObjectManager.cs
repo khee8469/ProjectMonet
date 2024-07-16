@@ -28,7 +28,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
         //[Header("캔버스 구분 열겨형 변수")]
         [Tooltip("스테이지 별 캔버스 구분")]
-        [SerializeField] public DrawBoardNumber drawBoardNumber { get; set; }
+        [SerializeField] public DrawBoardNumber drawBoardNumber;
 
         [Tooltip("결국은 이거 구분해주려면 고유한 ID가 있어야 하네... --> 0번 부터 시작해야함.")]
         [SerializeField] public int DrawID;

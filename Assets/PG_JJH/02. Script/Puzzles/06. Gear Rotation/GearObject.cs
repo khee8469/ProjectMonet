@@ -26,8 +26,11 @@ namespace JJH
 
         private void Start()
         {
-            nut.gameObject.SetActive(false); // 일단 시작 시 에는 꺼주기. 
+            nut.gameObject.SetActive(false); // 일단 시작 시 에는 꺼주기. --> 완성 시에 생성해 줄 nut 
             trackRotation = true;
+
+            rotationDirection = Random.Range(30, 40);
+
         }
 
         // 완료 시 톱니바퀴의 회전 시작. --> 얘네는 어차피 지금 참조 없어. 뭐지 뭐가 문제냐??? 실행을 안하는데

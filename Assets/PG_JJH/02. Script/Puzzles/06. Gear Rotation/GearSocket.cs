@@ -22,6 +22,9 @@ namespace JJH
         [Tooltip("해당 소켓에 들어가야 할 기어 오브젝트")]       
         [SerializeField] private GearObject targetGear; // 이거도 프리팹으로 둬야함!!
 
+        [Tooltip("target gear ID")]
+        [SerializeField] int gearID;
+        
         public GearObject TargetGear { get { return targetGear; } }
 
         [Tooltip("자신의 소켓 충돌 판정콜라이더 --> 퍼즐 상태에 따른 on off 용")]
@@ -59,6 +62,8 @@ namespace JJH
 
             SocketOnRoutine(obj);
             gearPuzzle.gearList.Add(obj);
+
+            // 이거 나중에 수정 
             if (TargetGear.gearID == obj.gearID) // 정답 기어 라면 
             {
                 gearPuzzle.UpdateCondition(puzzleIndex);

@@ -62,6 +62,7 @@ namespace JJH
 
         private void Awake()
         {
+            PillarChange(false); // 일단 어웨이크 에서 꺼주자.
             RegistObject(puzzleSun);
         }
 
@@ -103,11 +104,14 @@ namespace JJH
 
             // 각각의 angle 값이 0~360도 중에 어느 정도 값 사이에 들어가 있어야 체크 할지 파악하면된다.
             // 지금 임의적으로 숫자 넣어준거임
-            if ((angleX >= 25 - tolerance && angleX <= 25 + tolerance)&&(angleZ >= 355 - tolerance && angleZ <= 355 + tolerance))
+            if ((angleX >= 20 - tolerance && angleX <= 20 + tolerance)&&(angleZ >= 355 - tolerance && angleZ <= 355 + tolerance))
             {
                 sunHole.OnClearPuzzle();
                 DeAactiveLight_Button();
-                //ChangeRoutine(); --> 등대 계속 켜져 잇어야함. 
+                ChangeRoutine(); // 등대 빛 일단 끄자 이상해 보임.. 
+
+
+
             }
         }
 
@@ -117,7 +121,7 @@ namespace JJH
             Debug.Log("등대 퍼즐 켜짐");
         }
 
-        public void DeAactiveLight_Button() // 아 이거 인스펙터창에서 달았었나보다.. 
+        public void DeAactiveLight_Button() 
         {
             for(int i=0;i < buttons.Length;i++)
             {
@@ -157,6 +161,12 @@ namespace JJH
             line.enabled = false; //완료되면 꺼주기. 
         }
 
+        public void MyCompleteRotation() // 등대 위치 저장 해주기.
+        {
+            
+        }
+
+
         #region 퍼즐 인터페이스 오버라이드 
         public void ActiveSetting()  // 진행 가능한 상태의 세팅 
         {
@@ -173,7 +183,7 @@ namespace JJH
             PillarChange(true);
             onWindowLight(true);
             Debug.Log("등대의 컴플리트 세팅");
-            //sunHole.ChangeSkyBox(sunHole.afternoonSkybox); // 낮 상태로 스카이박스 및 마테리얼을 빛 상태로 --> 온 클리어에 같이 있음. 
+            
 
         }
 
