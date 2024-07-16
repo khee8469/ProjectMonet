@@ -18,10 +18,19 @@ namespace Jc
         public Dictionary<int, bool> paintDataList;
         // 퍼즐 데이터 딕셔너리
         public Dictionary<int, PuzzleState> puzzleDataDic;
-        // 슬롯 데이터 딕셔너리
+        // 슬롯 데이터 리스트
         public Dictionary<int, SlotData> slotDataDic;
         // 아이템 사용정보 데이터 딕셔너리
         public Dictionary<int, ItemInfoData> itemInfoDataDic;
+
+        [Header("인벤토리 슬롯 총 개수")]
+        public int slotCount;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            RegistSlot();
+        }
 
         private void OnEnable()
         {
@@ -31,7 +40,6 @@ namespace Jc
         public void InitSetting()
         {
             paintDataList = new Dictionary<int, bool>();
-            slotDataDic = new Dictionary<int, SlotData>();
             itemInfoDataDic = new Dictionary<int, ItemInfoData>();
 
             LocalDirectoryInit();
@@ -41,7 +49,16 @@ namespace Jc
             LoadPuzzleData();
             LoadQuestData();
         }
+        private void RegistSlot()
+        {
+            if (slotDataDic == null)
+                slotDataDic = new Dictionary<int, SlotData>();
 
+            for(int i=1; i<=slotCount; i++)
+            {
+                slotDataDic.Add(i,new SlotData(i, -1, 0));
+            }
+        }
         // 로컬 폴더 초기세팅
         private void LocalDirectoryInit()
         {
@@ -92,8 +109,21 @@ namespace Jc
                     break;
                 }
                 itemInfoDataDic.Add(data.itemID, data);
-            }
 
+                // 수령했지만 사용완료하지않은 아이템이라면 슬롯에 그대로 할당
+                if(data.isAccepted && !data.isClear)
+                {
+                    // 빈 슬롯을 찾아 할당
+                    foreach(int key in slotDataDic.Keys)
+                    {
+                        if (slotDataDic[key].slotItemID == -1)
+                        {
+                            slotDataDic[key] = new SlotData(key, data.itemID, 1);
+                            break;
+                        }
+                    }
+                }
+            }
         }
 
         public void LoadPuzzleData()

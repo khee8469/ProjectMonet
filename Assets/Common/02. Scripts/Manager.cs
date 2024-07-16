@@ -32,10 +32,9 @@ public static class Manager
         Jc.DataManager.ReleaseInstance();
         PlayableDataManager.ReleaseInstance();
         ItemManager.ReleaseInstance();
-        Jc.UIManager.ReleaseInstance();
         CameraManager.ReleaseInstance();
         SoundManager.ReleaseInstance();
-
+        Jc.UIManager.ReleaseInstance();
 
         // 싱글턴 객체생성
         JJH.SceneManager.CreateInstance();
@@ -46,8 +45,8 @@ public static class Manager
         QuestManager.CreateInstance();
         PlayableDataManager.CreateInstance();
         ItemManager.CreateInstance();
-        Jc.UIManager.CreateInstance();
         CameraManager.CreateInstance();
         SoundManager.CreateInstance();
+        Jc.UIManager.CreateInstance();
     }
 }
