@@ -1061,7 +1061,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDebugMode: 0
-  rewardItemID: 3
   puzzleID: 11
   state: 0
   conditions: 00
@@ -1071,7 +1070,8 @@ MonoBehaviour:
   activeQuestID: 1510013
   nextPuzzleManager: {fileID: 0}
   clearQuestID: 1510013
-  successItemID: -1
+  rewardItemIDList: 
+  successItemIDList: 
   isClear: 0
   paintItemID: 11
 --- !u!1 &658468641343277057
@@ -2647,7 +2647,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDebugMode: 0
-  rewardItemID: 3
   puzzleID: 9
   state: 0
   conditions: 0000000000
@@ -2657,7 +2656,8 @@ MonoBehaviour:
   activeQuestID: 1510010
   nextPuzzleManager: {fileID: 0}
   clearQuestID: 1510010
-  successItemID: -1
+  rewardItemIDList: 
+  successItemIDList: 
   isClear: 0
   paintItemID: 9
 --- !u!1 &1742060165998574964
@@ -4075,6 +4075,7 @@ GameObject:
   - component: {fileID: 502994214553034017}
   - component: {fileID: 3104078363935799877}
   - component: {fileID: 4323762485791616550}
+  - component: {fileID: 7127637897032270256}
   - component: {fileID: 921642065057165042}
   - component: {fileID: 3614839258197969249}
   m_Layer: 0
@@ -4149,6 +4150,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7127637897032270256
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2442671521183343206}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 20, y: 1, z: 20}
+  m_Center: {x: 0.022868857, y: 1.3, z: 0.005991161}
 --- !u!114 &921642065057165042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4290,6 +4312,7 @@ MonoBehaviour:
   handTrackingMask:
     m_Bits: 4194304
   miniaturaItems: d9831500
+  socketItemScale: 0.3
   exitPosition: {fileID: 368828278960466904}
 --- !u!65 &3543318733203033444
 BoxCollider:
@@ -8407,7 +8430,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDebugMode: 0
-  rewardItemID: 3
   puzzleID: 10
   state: 0
   conditions: 00
@@ -8417,7 +8439,8 @@ MonoBehaviour:
   activeQuestID: 1510012
   nextPuzzleManager: {fileID: 0}
   clearQuestID: 1510012
-  successItemID: -1
+  rewardItemIDList: 
+  successItemIDList: 
   isClear: 0
   paintItemID: 10
 --- !u!1 &4808796177954631992
@@ -15525,6 +15548,7 @@ MonoBehaviour:
   handTrackingMask:
     m_Bits: 4194304
   miniaturaItems: d9831500
+  socketItemScale: 0.3
   exitPosition: {fileID: 368828278960466904}
 --- !u!65 &3412163466358834963
 BoxCollider:
@@ -15644,6 +15668,7 @@ MonoBehaviour:
   handTrackingMask:
     m_Bits: 4194304
   miniaturaItems: d9831500
+  socketItemScale: 0.3
   exitPosition: {fileID: 368828278960466904}
 --- !u!65 &3328064592272730388
 BoxCollider:

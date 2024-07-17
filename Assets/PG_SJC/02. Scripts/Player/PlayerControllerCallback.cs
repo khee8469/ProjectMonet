@@ -82,45 +82,45 @@ namespace Jc
         #region 왼손 컨트롤러 콜백
         public void OnLeftTriggerEnter(InputAction.CallbackContext context) 
         {
-            Debug.Log(1);
+            
         }
         public void OnLeftGripEnter(InputAction.CallbackContext context) 
         {
-            Debug.Log(2);
+            
         }
         public void OnLeftMenuButtonEnter(InputAction.CallbackContext context) 
         {
-            Debug.Log(3);
+            
         }
         public void OnLeftXButtonEnter(InputAction.CallbackContext context) 
         {
-            Debug.Log(4);
+            
         }
         public void OnLeftYButtonEnter(InputAction.CallbackContext context) 
         {
-            Debug.Log(5);
+            
         }
 
-        public void OnLeftTriggerExit(InputAction.CallbackContext context) { Debug.Log(6); }
-        public void OnLeftGripExit(InputAction.CallbackContext context) { Debug.Log(7); }
-        public void OnLeftMenuButtonExit(InputAction.CallbackContext context) { Debug.Log(8); }
-        public void OnLeftXButtonExit(InputAction.CallbackContext context) { Debug.Log(9); }
-        public void OnLeftYButtonExit(InputAction.CallbackContext context) { Debug.Log(10); }
+        public void OnLeftTriggerExit(InputAction.CallbackContext context) {  }
+        public void OnLeftGripExit(InputAction.CallbackContext context) {  }
+        public void OnLeftMenuButtonExit(InputAction.CallbackContext context) {  }
+        public void OnLeftXButtonExit(InputAction.CallbackContext context) { }
+        public void OnLeftYButtonExit(InputAction.CallbackContext context) {  }
         #endregion
 
         #region 오른손 컨트롤러 콜백
 
-        public void OnRightTriggerEnter(InputAction.CallbackContext context) { Debug.Log(11); }
-        public void OnRightGripEnter(InputAction.CallbackContext context) { Debug.Log(12); }
-        public void OnRightOculusButtonEnter(InputAction.CallbackContext context) { Debug.Log(13); }
-        public void OnRightAButtonEnter(InputAction.CallbackContext context) { Debug.Log(14); }
-        public void OnRightBButtonEnter(InputAction.CallbackContext context) { Debug.Log(15); }
+        public void OnRightTriggerEnter(InputAction.CallbackContext context) {  }
+        public void OnRightGripEnter(InputAction.CallbackContext context) {  }
+        public void OnRightOculusButtonEnter(InputAction.CallbackContext context) {  }
+        public void OnRightAButtonEnter(InputAction.CallbackContext context) {  }
+        public void OnRightBButtonEnter(InputAction.CallbackContext context) {  }
 
-        public void OnRightTriggerExit(InputAction.CallbackContext context) { Debug.Log(16); }
-        public void OnRightGripExit(InputAction.CallbackContext context) { Debug.Log(17); }
-        public void OnRightOculusButtonExit(InputAction.CallbackContext context) { Debug.Log(18); }
-        public void OnRightAButtonExit(InputAction.CallbackContext context) { Debug.Log(19); }
-        public void OnRightBButtonExit(InputAction.CallbackContext context) { Debug.Log(20); }
+        public void OnRightTriggerExit(InputAction.CallbackContext context) {  }
+        public void OnRightGripExit(InputAction.CallbackContext context) {  }
+        public void OnRightOculusButtonExit(InputAction.CallbackContext context) {  }
+        public void OnRightAButtonExit(InputAction.CallbackContext context) {  }
+        public void OnRightBButtonExit(InputAction.CallbackContext context) {  }
         #endregion
     }
 }
