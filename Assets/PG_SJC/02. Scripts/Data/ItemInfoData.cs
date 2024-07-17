@@ -22,12 +22,16 @@ namespace Jc
         [Header("아이템 사용완료 여부")]
         public bool isClear;
 
-        public ItemInfoData(int itemID, string itemName, bool isAccepted, bool isClear)
+        [Header("인벤토리 전용 아이템")]
+        public bool isInventoryItem;
+
+        public ItemInfoData(int itemID, string itemName, bool isAccepted, bool isClear, bool isInventoryItem = true)
         {
             this.itemID = itemID;
-            this.itemName = itemName;   
+            this.itemName = itemName;
             this.isAccepted = isAccepted;
             this.isClear = isClear;
+            this.isInventoryItem = isInventoryItem;
         }
     }
 }
