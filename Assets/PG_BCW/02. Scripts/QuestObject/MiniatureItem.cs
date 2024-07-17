@@ -6,65 +6,23 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 public class MiniatureItem : ItemObject
 {
-    [Header("미니어처 크기 조절용")]
+    [Header("미니어처 아이템")]
+
+    [Tooltip("클리어 확인 할 퍼즐")]
     [SerializeField]
-    Vector3 scale;
+    int puzzleID;
 
-
-    /*protected override void OnSelectEntered(SelectEnterEventArgs args)
+    protected override void OnEnable()
     {
-        base.OnSelectEntered(args);
+        base.OnEnable();
 
+        if (!Manager.PlayableData.puzzleDataDic.ContainsKey(puzzleID)) return;
 
-            StartCoroutine(SuccessRoutine(args));
-        
-
-            // 실패
-            //StartCoroutine(ResetRoutine());
-        
+        //퍼즐을 클리어 했으면 비활성화
+        if (Manager.PlayableData.puzzleDataDic[puzzleID] == PuzzleState.Clear)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
-    // 오브젝트 소켓 트래킹 루틴 
-    IEnumerator SuccessRoutine(SelectEnterEventArgs args)
-    {
-        float rate = 0f;
-        *//*Vector3 startPos = transform.position;
-        Quaternion startRot = transform.rotation;*//*
-        Vector3 endPos = args.interactorObject
-        Quaternion endRot = socketTransfrom.rotation;
-
-        while (rate < 1f)
-        {
-            rate += Time.deltaTime / trackingTime;
-            transform.position = Vector3.Lerp(startPos, endPos, rate);
-            transform.rotation = Quaternion.Lerp(startRot, endRot, rate);
-            yield return null;
-        }
-
-        transform.localPosition = Vector3.zero;
-        transform.localRotation = Quaternion.identity;
-        // 퍼즐매니저 업데이트
-        UpdatePuzzleManager(puzzle, puzzleIndex);
-    }
-    IEnumerator ResetRoutine()
-    {
-        float rate = 0f;
-        Vector3 startPos = transform.position;
-        Quaternion startRot = transform.rotation;
-        Vector3 endPos = originPos;
-        Quaternion endRot = originRot;
-
-        boxCollider.enabled = false;
-        while (rate < 1f)
-        {
-            rate += Time.deltaTime / trackingTime;
-            transform.position = Vector3.Lerp(startPos, endPos, rate);
-            transform.rotation = Quaternion.Lerp(startRot, endRot, rate);
-            yield return Time.deltaTime;
-        }
-
-        transform.position = originPos;
-        transform.rotation = originRot;
-        boxCollider.enabled = true;
-    }*/
 }
