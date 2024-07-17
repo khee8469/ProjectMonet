@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.XR.Interaction.Toolkit;
 using static ConvertValueToHue;
 
 namespace JJH
@@ -86,7 +87,13 @@ namespace JJH
         [Tooltip("update 여러번 진입 방지를 위한 bool 변수")]
         [SerializeField] private bool isNotEntered;
 
-        
+
+        [Tooltip("자신의 시작 시의 위치")]
+        public Vector3 startPosition;
+
+        [Tooltip("자신의 로테이션 위치")]
+        public Quaternion startRotation;
+            
 
         private void Start() // 시작 시에는 무조건 하얀색. 
         {
@@ -98,6 +105,9 @@ namespace JJH
                 tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType);
             }
             drawingLayer = LayerMask.GetMask("DrawBoard");
+
+            startPosition = transform.position;
+            startRotation = transform.rotation;
 
         }
 
@@ -270,7 +280,7 @@ namespace JJH
             currentPaintType = paintTypes[currentIndex];
 
             // 새로운 색상 타입에 해당하는 색상을 가져와 펜촉의 마테리얼에 적용합니다.
-            tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType);
+          //   tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType);
 
             DrawObjectManager.colorChangeEvent?.Invoke(currentPaintType);
 
@@ -281,7 +291,7 @@ namespace JJH
         {
             currentPaintType = _paintTypeEnum;
             Debug.Log($"색깔 변경 +{_paintTypeEnum} ");
-            tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType);
+          //  tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType); --> 팁이 없으니까 일단 색 변경 
 
             DrawObjectManager.colorChangeEvent.Invoke(currentPaintType);
 
@@ -302,6 +312,22 @@ namespace JJH
             }
 
         }
+
+
+        protected override void OnSelectExited(SelectExitEventArgs args)
+        {
+            base.OnSelectExited(args);
+
+            if(args.interactorObject.transform.GetComponent<CustomCheck>() != null)
+            {
+                transform.position = startPosition;
+                transform.rotation = startRotation;
+            }
+
+        }
+
+
+
     }
 }
 

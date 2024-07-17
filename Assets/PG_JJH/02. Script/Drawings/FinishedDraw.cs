@@ -1,3 +1,4 @@
+using Jc;
 using JJH;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ public class FinishedDraw : MonoBehaviour
     
     public static UnityEvent <int> FinishAlphaUp = new UnityEvent<int> ();
 
+    [Tooltip("채색이 완료 될 시에 완료 될 퀘스트 아이디 할당.")]
+    public int CompleteQuestID;
 
     private void Awake()
     {
@@ -29,6 +32,7 @@ public class FinishedDraw : MonoBehaviour
         if (ChapterManager.is_Colored[drawID]==true)
         {
             alphaValue = 1f; //켜져있으면.
+
             Debug.Log("원본 그림 켜짐");
         }
         else
@@ -41,6 +45,7 @@ public class FinishedDraw : MonoBehaviour
         spriteRenderer.color = color; // 변경된 알파 값을 반영합니다.
 
         FinishAlphaUp.AddListener(finishedPaint_AlphaUp);
+        
 
     }
 
@@ -55,9 +60,30 @@ public class FinishedDraw : MonoBehaviour
             Debug.Log("이벤트의 if문 내부 진입");
             color.a = 1f; // 1로 돌려주기. 
             spriteRenderer.color = color; //구조체라 다시 대입 필요 
-            
-            
+
+            QuestComplete(CompleteQuestID);  // 해당하는 그림이 알파 업 될 때 해당 퀘스트도 진행 상태로 변경해주기. 
+
         }
+
+
+    }
+
+    public void QuestComplete(int questID)
+    {
+        if (questID < 1)
+            return;
+
+        if (!Manager.Quest.QuestDic.ContainsKey(questID))
+        {
+            Debug.Log($"{questID} : 퀘스트가 존재하지 않습니다.");
+            return;
+        }
+
+        Quest quest = Manager.Quest.QuestDic[questID];
+        if (quest.State == QuestState.Clear || quest.State == QuestState.Complete)
+            return;
+
+        quest.ChangeState(QuestState.Clear);
     }
 
 

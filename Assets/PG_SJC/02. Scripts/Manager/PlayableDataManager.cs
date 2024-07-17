@@ -182,6 +182,11 @@ namespace Jc
         }
 
 
+
+
+
+
+
         // 채색 데이터 저장 
 
         private CanvasData canvasData; // 채색 관련 데이터가 저장된 data 스크립트 
