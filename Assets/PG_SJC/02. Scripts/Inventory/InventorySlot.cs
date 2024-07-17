@@ -95,10 +95,10 @@ namespace Jc
         private void Awake()
         {
             originColor = hoverIMG.color;
-            if (Manager.PlayableData.slotDataDic == null)
-                Manager.PlayableData.slotDataDic = new Dictionary<int, SlotData>();
+            //if (Manager.PlayableData.slotDataDic == null)
+            //    Manager.PlayableData.slotDataDic = new Dictionary<int, SlotData>();
 
-            Manager.PlayableData.slotDataDic[slotID] = new SlotData(slotID, getItemID, itemCount);
+            //Manager.PlayableData.slotDataDic[slotID] = new SlotData(slotID, getItemID, itemCount);
         }
 
         private void OnEnable()

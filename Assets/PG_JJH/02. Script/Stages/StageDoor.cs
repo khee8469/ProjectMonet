@@ -1,6 +1,7 @@
 using Jc;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -26,12 +27,24 @@ namespace JJH
 
         new Rigidbody rigidbody;
 
+        [Tooltip("자신을 숨겨줄 이젤 커버")]
+        [SerializeField] GameObject cover;
+
         private void Start()
         {
             
             rigidbody =GetComponent<Rigidbody>();
             rigidbody.isKinematic = true;
             throwOnDetach = false;
+        }
+
+        public void CoverOff()
+        {
+            if(cover!=null)
+            {
+                Destroy(cover); // 게임 오브젝트 파괴해주기. 
+            }
+            
         }
 
         protected override void OnHoverEntered(HoverEnterEventArgs args)
@@ -50,11 +63,11 @@ namespace JJH
             base.OnSelectEntered(args);
         }
 
-        protected override void OnSelectEntering(SelectEnterEventArgs args)
+        /*protected override void OnSelectEntering(SelectEnterEventArgs args)
         {
             return;
             
-        }
+        }*/
         // 할당된 ID 순서대로 정렬 . 
         public int CompareTo(StageDoor other)
         {
@@ -64,8 +77,8 @@ namespace JJH
 
         public void Activate() // 맵이 열려 있으면 TRUE 리턴 / 안 열려 있으면 FLASE 리턴. 
         {
-            Debug.Log("Activate 발동");
-            // 맵이 열려 있으면 해당 씬 로딩 가능. 
+            
+           /* // 맵이 열려 있으면 해당 씬 로딩 가능. 
             if (Manager.Chapter.runtimeStageData.stageUnlockStatus.Count > doorID &&
                 Manager.Chapter.runtimeStageData.stageUnlockStatus[doorID])
             {
@@ -74,16 +87,18 @@ namespace JJH
             else
             {
                 Debug.Log("해당 스테이지는 잠겨 있습니다.");
+            }*/
+            if (Manager.PlayableData.CanvasData.stageUnlockStatus[doorID])  // doorID가 true 라면 --> 해금되어 있는 상태 
+            {
+                Manager.Scene.LoadScene(SceneName);
             }
-        }
-
-
-
-        // Static object의 끌려 들어온 coliider를 원 상태로 복구 시켜준다. 
-        public void ResetColliderPosition()
-        {
+            else
+            {
+                Debug.Log("해당 스테이지는 잠겨 있습니다.");
+            }
 
         }
+
     }
 }
 

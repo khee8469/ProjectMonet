@@ -49,7 +49,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDebugMode: 1
-  rewardItemID: 0
   puzzleID: -1
   state: 1
   conditions: 
@@ -59,6 +58,8 @@ MonoBehaviour:
   activeQuestID: -1
   nextPuzzleManager: {fileID: 0}
   clearQuestID: -1
+  rewardItemIDList: 
+  successItemIDList: 
   isClear: 0
   paintItemID: 7
   nightSkybox: {fileID: 2100000, guid: 3876d0e183013044aab5adba683217d7, type: 2}
@@ -66,8 +67,9 @@ MonoBehaviour:
   nightDirectionalLight: {fileID: 0}
   darkMaterial: {fileID: 2100000, guid: 2e1193f93e840cf44ac4fcc8b1918603, type: 2}
   whiteMaterial: {fileID: 2100000, guid: 8dee4bd979641f74b89dbc359c80e7d0, type: 2}
-  ID: 0
   newDirectLight: {fileID: 0}
+  boxCollider: {fileID: 0}
+  moonPanel: {fileID: 0}
 --- !u!108 &3084663288261201558
 Light:
   m_ObjectHideFlags: 0

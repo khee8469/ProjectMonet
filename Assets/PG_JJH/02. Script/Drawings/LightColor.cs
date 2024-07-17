@@ -17,9 +17,6 @@ public class LightColor : MonoBehaviour
     [Tooltip("색깔의 스크립터블 오브젝트와 연계된 컬러")]
     [SerializeField] public PaintTypeEnum lightPaintType;
 
-    [Tooltip("자신의 레이어 와 그림을 연계")]
-    [SerializeField]LayerMask layerMask;
-
     [Tooltip("자신의 마테리얼 ")]
     Material material;
 

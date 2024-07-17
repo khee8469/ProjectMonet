@@ -68,7 +68,8 @@ namespace Jc
                         return;
                     }
                     // 티키타카
-                    if (curQuestDialogIndex == secondDialogIndex)
+                    // 첫 퀘스트에만
+                    if (currentQuest.QuestID == 1510001 && curQuestDialogIndex == secondDialogIndex)
                     {
                         dialogText.enabled = false;
                         builboardUI.EnableBuilboard = false;

@@ -36,20 +36,14 @@ namespace JJH
         [SerializeField]
         private DrawObjectManager[] drawObjectManagers;
 
+
         private void Start()
         {
 
             // DrawObjectManager 에 붙어있는 IComparable 을 이용하여 정렬한다.
             Array.Sort(drawObjectManagers); //어차피 둘이 같은 타입을 찾는 find를 하기 때문에 길이는 무조건 같
 
-            // DrawobjectMnager 들은 지금 drawID 값에 따라서 0 1 2 3... 순으로 정렬되고 있다.
-
-            foreach(var drawObjectManager in drawObjectManagers)
-            {
-                Debug.Log(drawObjectManager.gameObject.name);
-            }
-
-            for (int i = 0; i < drawObjectManagers.Length; i++) //어차피 이 둘은 길이가 똑같음. 
+            for (int i = 0; i < drawObjectManagers.Length; i++) //어차피 이 둘은 길이가 똑같음. 여기서 id 로만 int key 가능하면 어떻게든 될텐데... 
             {
 
                 drawCompleteCheckDic.Add(drawObjectManagers[i], ChapterManager.drawPartCheck[i]);
@@ -75,8 +69,6 @@ namespace JJH
                     }
                 }
             }
-            // start 에서 이벤트 발동 시켜서... 씬 해금 상태 유지 및 씬 컬러 상태 체크 해주기.
-            // 씬 컬러 상태는 유지라기 보다는 한 번만 발동해주면 (static bool만 바꿔주면 계속 유지됨. )
 
         }
 
@@ -94,6 +86,7 @@ namespace JJH
             // Json도 같이 저장 
             ChapterManager.drawPartCheck[instanceID] = finishied;
             Manager.PlayableData.CanvasData.myDrawPartCheckArr[instanceID] = finishied; // true로 변경 
+            Manager.PlayableData.SaveCanvasData();
 
             // 임시 키 저장용 리스트 초기화
             keysToModifty.Clear(); // 초기화 안하면 이거 계속 들어있음. 
@@ -130,27 +123,20 @@ namespace JJH
                 }
             }
 
-            // 아 이부분 한 번 또 enum 으로 if문 체크해줘야 하나? 아니면 어차피 순차적으로니까 또 체크해줄 필요는없나?
-
             if (allComplete) // 이게 지금 모두 true 라면 
             {
                 // 0 1 2 3 --> 4개의 씬 
-                ChapterManager.Instance.CheckDrawComplete(drawingNumber, true); // 씬의 필터 해제
-
-                
-
+                ChapterManager.Instance.CheckDrawComplete(drawingNumber, true); // 씬의 필터 해제 --> isColored를 변경해주는 함수 
                 if(drawingNumber<=2)
                 {
-                    ChapterManager.Instance.UnlockStage(drawingNumber + 1, true); // 3 부터는 인덱스 터짐. 
+                    ChapterManager.Instance.UnlockStage(drawingNumber + 1, true); // 3 부터는 인덱스 터짐. -> 여기서 stage 개방 json 저장 실행한다.  
                 }              
                 // 완성본 그림 알파값 업그레이드 해주기
 
                 FinishedDraw.FinishAlphaUp.Invoke(drawingNumber); // 각 씬 마다 UnityEvent 를 부르는데
                 // 챕터에는 어차피 finish 붙은게 하나만 있을 거니까 괜찮을듯. 
+
             }
-
-            Manager.PlayableData.SaveCanvasData();
-
         }
 
         public void ChangeLight(PaintTypeEnum _currentPaintType)

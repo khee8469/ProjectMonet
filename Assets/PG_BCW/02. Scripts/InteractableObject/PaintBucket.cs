@@ -32,25 +32,38 @@ public class PaintBucket : InteractObject
     [Tooltip("컬러 데이터 스크립터블 오브젝트")]
     public PaintTypeManager paintTypeManager;
 
+    [Tooltip("시작 포지션 저장")]
+    public Vector3 startPosition;
+
+    [Tooltip("시작 로테이션 저장")]
+    public Quaternion startRotation;
+
 
     protected override void OnEnable() // 자신이 켜 졌을 때 
     {
         base.OnEnable();
         if (paintTypeManager != null)
         {
-            myColor = paintTypeManager.GetColorByType(color);
-            GetComponent<Renderer>().material.color = myColor;
+            myColor = paintTypeManager.GetColorByType(color); 
+            //GetComponent<Renderer>().material.color = myColor; 마테리얼 색깔 변경 중지. 
         }
+
+        // 자기 포지션 위치 저장해둬야함. 
+
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+
+
     }
 
     private void Start()
-    {
-        
+    {      
         if (paintTypeManager != null)
         {
             myColor = paintTypeManager.GetColorByType(color);
-            GetComponent<Renderer>().material.color = myColor;
+            //GetComponent<Renderer>().material.color = myColor;
         }
+
     }
 
     //물감나오는거 구현
@@ -68,12 +81,23 @@ public class PaintBucket : InteractObject
     }
 
 
-    
-
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {
         base.OnSelectEntering(args);
         Debug.Log("엔터드");
+    }
+
+
+    protected override void OnSelectExited(SelectExitEventArgs args)
+    {
+        base.OnSelectExited(args);
+
+        if(args.interactorObject.transform.GetComponent<CustomCheck>() != null)  // 어차피 손으로만 잡히고 손이 ray의 direct interactor 니까 그냥 거기에 이 스크립트 붙이면 된다.
+        {
+            transform.position = startPosition;
+            transform.rotation = startRotation;
+        }
+
     }
 
 
