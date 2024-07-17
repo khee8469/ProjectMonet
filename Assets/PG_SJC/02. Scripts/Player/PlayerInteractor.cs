@@ -55,6 +55,9 @@ namespace Jc
             //controllerCallback.debugMenuBTNRef.action.performed += OnPopUpCanvas;   // 디버그 인벤토리/퀘스트 버튼 등록
 
             controllerCallback.leftTriggerRef.action.performed += OnInteract;    // NPC 상호작용 등록
+
+            // 아이템 로드
+            Manager.Item.InitItem();
         }
         private void OnDisable()
         {

@@ -25,29 +25,28 @@ public static class Manager
     {
         // 싱글턴 객체해제
         JJH.SceneManager.ReleaseInstance();
+        JJH.ChapterManager.ReleaseInstance();
         AnimParamManager.ReleaseInstance();
         LayerManager.ReleaseInstance();
         QuestManager.ReleaseInstance();
         Jc.DataManager.ReleaseInstance();
         PlayableDataManager.ReleaseInstance();
         ItemManager.ReleaseInstance();
-        Jc.UIManager.ReleaseInstance();
         CameraManager.ReleaseInstance();
         SoundManager.ReleaseInstance();
-        JJH.ChapterManager.ReleaseInstance();
-
+        Jc.UIManager.ReleaseInstance();
 
         // 싱글턴 객체생성
         JJH.SceneManager.CreateInstance();
+        JJH.ChapterManager.CreateInstance();
         AnimParamManager.CreateInstance();
         LayerManager.CreateInstance();
         Jc.DataManager.CreateInstance();
         QuestManager.CreateInstance();
         PlayableDataManager.CreateInstance();
         ItemManager.CreateInstance();
-        Jc.UIManager.CreateInstance();
         CameraManager.CreateInstance();
         SoundManager.CreateInstance();
-        JJH.ChapterManager.CreateInstance();
+        Jc.UIManager.CreateInstance();
     }
 }

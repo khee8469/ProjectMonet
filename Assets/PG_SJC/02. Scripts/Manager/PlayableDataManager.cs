@@ -18,10 +18,19 @@ namespace Jc
         public Dictionary<int, bool> paintDataList;
         // 퍼즐 데이터 딕셔너리
         public Dictionary<int, PuzzleState> puzzleDataDic;
-        // 슬롯 데이터 딕셔너리
+        // 슬롯 데이터 리스트
         public Dictionary<int, SlotData> slotDataDic;
         // 아이템 사용정보 데이터 딕셔너리
         public Dictionary<int, ItemInfoData> itemInfoDataDic;
+
+        [Header("인벤토리 슬롯 총 개수")]
+        public int slotCount;
+
+        protected override void Awake()
+        {
+            base.Awake();
+            RegistSlot();
+        }
 
         private void OnEnable()
         {
@@ -31,7 +40,6 @@ namespace Jc
         public void InitSetting()
         {
             paintDataList = new Dictionary<int, bool>();
-            slotDataDic = new Dictionary<int, SlotData>();
             itemInfoDataDic = new Dictionary<int, ItemInfoData>();
 
             LocalDirectoryInit();
@@ -41,7 +49,16 @@ namespace Jc
             LoadPuzzleData();
             LoadQuestData();
         }
+        private void RegistSlot()
+        {
+            if (slotDataDic == null)
+                slotDataDic = new Dictionary<int, SlotData>();
 
+            for(int i=1; i<=slotCount; i++)
+            {
+                slotDataDic.Add(i,new SlotData(i, -1, 0));
+            }
+        }
         // 로컬 폴더 초기세팅
         private void LocalDirectoryInit()
         {
@@ -59,7 +76,10 @@ namespace Jc
             // Dictionary to List
             foreach (int key in itemInfoDataDic.Keys)
             {
-                itemInfoDatas.Add(new ItemInfoData(key, Manager.Item.ItemDataDic[key].itemName, itemInfoDataDic[key].isAccepted, itemInfoDataDic[key].isClear));
+                if(itemInfoDataDic[key].isInventoryItem)
+                    itemInfoDatas.Add(new ItemInfoData(key, Manager.Item.ItemDataDic[key].itemName, itemInfoDataDic[key].isAccepted, itemInfoDataDic[key].isClear, true));
+                else
+                    itemInfoDatas.Add(new ItemInfoData(key, $"\"로비 : {key}\"", itemInfoDataDic[key].isAccepted, itemInfoDataDic[key].isClear, false));
             }
 
             // 직렬화한 데이터 쓰기
@@ -92,9 +112,51 @@ namespace Jc
                     break;
                 }
                 itemInfoDataDic.Add(data.itemID, data);
-            }
 
+                // 수령했지만 사용완료하지않은 아이템이라면 슬롯에 그대로 할당
+                if(data.isAccepted && !data.isClear && data.isInventoryItem)
+                {
+                    int emptySlotID = -1;
+                    // 빈 슬롯을 찾아 할당
+                    foreach(int key in slotDataDic.Keys)
+                    {
+                        if (emptySlotID == -1 && slotDataDic[key].slotItemID == -1)
+                            emptySlotID = key;
+                            
+                        if (slotDataDic[key].slotItemID == data.itemID)
+                        {
+                            emptySlotID = -1;
+                            break;
+                        }
+                    }
+
+                    if (emptySlotID != -1)
+                        slotDataDic[emptySlotID] = new SlotData(emptySlotID, data.itemID, 1);
+                }
+            }
         }
+
+        // 아이템이 슬롯에 존재하는지 확인
+        public bool CheckItemInInventory(int itemID)
+        {
+            foreach(SlotData slot in slotDataDic.Values)
+            {
+                if (slot.slotItemID == itemID)
+                    return true;
+            }
+            return false;
+        }
+        // 비어있는 슬롯 리턴
+        public int FindEmptySlot()
+        {
+            foreach(int key in slotDataDic.Keys)
+            {
+                if (slotDataDic[key].slotItemID == -1)
+                    return key;
+            }
+            return -1;
+        }
+
 
         public void LoadPuzzleData()
         {
@@ -198,7 +260,6 @@ namespace Jc
             string json = JsonUtility.ToJson(canvasData , true);
             File.WriteAllText(SystemPath.GetPath(DataPath.LocalCanvasData), json);
         }
-
         public void LoadCanvasData()
         {
             if(!File.Exists(SystemPath.GetPath(DataPath.LocalCanvasData)))
@@ -219,7 +280,6 @@ namespace Jc
                 NewData(); 
             }
         }
-
         public void NewData()
         {
             canvasData = new CanvasData(); // 새로운 데이터 생성. --> 데이터가 없을 시 . 
