@@ -122,7 +122,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
             myColliderArray = GetComponents<Collider>(); // 자신의 모든 콜라이더 배열 가져오기. pen의 컬러에 맞춰서 자신의 콜라이더를 꺼주고 켜준다. 
 
-            pen = GameObject.FindObjectOfType<Pen>();
+            //pen = GameObject.FindObjectOfType<Pen>(); --> 인스페터 할당으로 변경. 
 
             if (pen != null)
             {

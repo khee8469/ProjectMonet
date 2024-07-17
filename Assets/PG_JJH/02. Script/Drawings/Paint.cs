@@ -4,7 +4,7 @@ namespace JJH
 {
     public class Paint : MonoBehaviour
     {
-        // < 물감 >에 붙일 친구 니까 이거를 이제 펜과 연계해서
+        // < 물감 >에 붙일 친구?? 니까 이거를 이제 펜과 연계해서
         // 펜이 이 물감의 color를 가져와서 그 부분을 펜의 tip에 컬러에 넣는다.
         // 그 부분을 해줘야한다. 
 
@@ -19,8 +19,6 @@ namespace JJH
         [Tooltip("각자 자신이 가지고 있는 컬러의 상태")]
         [SerializeField] private Color color;
 
-        [Tooltip("물감이 충돌가능한 레이어")]
-        [SerializeField] private LayerMask colliderLayer;
 
         private void Start() // 자신의 색깔을 시작할 때 가지고 오도록 (물감의 색깔임) 
         {
@@ -60,7 +58,7 @@ namespace JJH
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.gameObject.CompareTag("PaintPen"))
+            if(other.gameObject.CompareTag("DrawPen"))
             {
                 Debug.Log("트리거 진입함");
                 Pen pen =other.gameObject?.GetComponent<Pen>();
@@ -71,6 +69,12 @@ namespace JJH
                 }
             }
         }
+
+
+
+
+
+
     }
 
 }

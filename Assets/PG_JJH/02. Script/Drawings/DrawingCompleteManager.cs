@@ -36,6 +36,7 @@ namespace JJH
         [SerializeField]
         private DrawObjectManager[] drawObjectManagers;
 
+
         private void Start()
         {
 
@@ -134,6 +135,7 @@ namespace JJH
 
                 FinishedDraw.FinishAlphaUp.Invoke(drawingNumber); // 각 씬 마다 UnityEvent 를 부르는데
                 // 챕터에는 어차피 finish 붙은게 하나만 있을 거니까 괜찮을듯. 
+
             }
         }
 

@@ -1,6 +1,7 @@
 using Jc;
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -26,12 +27,24 @@ namespace JJH
 
         new Rigidbody rigidbody;
 
+        [Tooltip("자신을 숨겨줄 이젤 커버")]
+        [SerializeField] GameObject cover;
+
         private void Start()
         {
             
             rigidbody =GetComponent<Rigidbody>();
             rigidbody.isKinematic = true;
             throwOnDetach = false;
+        }
+
+        public void CoverOff()
+        {
+            if(cover!=null)
+            {
+                Destroy(cover); // 게임 오브젝트 파괴해주기. 
+            }
+            
         }
 
         protected override void OnHoverEntered(HoverEnterEventArgs args)

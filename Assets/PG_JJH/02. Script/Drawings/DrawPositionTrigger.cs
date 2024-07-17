@@ -55,7 +55,7 @@ namespace JJH
                         Debug.Log("진입");
                         isTrigger = true;
                         originalSpeed = move.moveSpeed;
-                        player.transform.rotation = playerMovePos.rotation;
+                        player.transform.rotation = playerMovePos.localRotation;
                         player.transform.position = playerMovePos.position; // 정해진 위치로 플레이어 이동
                         move.moveSpeed = 0;
                     }
