@@ -88,8 +88,8 @@ public class MiniatureSocket : XRSocketInteractor
             yield return null;
         }
 
-        args.interactableObject.transform.localPosition = Vector3.zero;
-        args.interactableObject.transform.localRotation = Quaternion.identity;
+        //args.interactableObject.transform.localPosition = Vector3.zero;
+        //args.interactableObject.transform.localRotation = Quaternion.identity;
 
 
         StopCoroutine(coroutine);
