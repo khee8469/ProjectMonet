@@ -55,6 +55,7 @@ namespace JJH
                 gear.StartRotate();
                 gear.OnNutActive();
                 gear.trackRotation = false;
+                gear.interactionLayers = -1 ;
             }
             DecoGearRotate(); // 장식 기어들 회전 
         }

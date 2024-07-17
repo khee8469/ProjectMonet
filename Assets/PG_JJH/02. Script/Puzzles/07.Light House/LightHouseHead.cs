@@ -108,7 +108,7 @@ namespace JJH
             {
                 sunHole.OnClearPuzzle();
                 DeAactiveLight_Button();
-                ChangeRoutine(); // 등대 빛 일단 끄자 이상해 보임.. 
+                //ChangeRoutine(); // 등대 빛 일단 끄자 이상해 보임.. 
 
 
 
