@@ -13,9 +13,10 @@ public class HandColliderController : MonoBehaviour
         handColliders = GetComponentsInChildren<Collider>();
     }
 
-    private void Start()
+
+    private void OnEnable()
     {
-        //OffColliders();
+        OffColliders();
     }
 
     //콜라이더 키기

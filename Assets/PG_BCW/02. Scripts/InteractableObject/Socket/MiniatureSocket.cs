@@ -10,7 +10,7 @@ public class MiniatureSocket : XRSocketInteractor
 
     [Tooltip("소켓 지정 시 변경할 레이어")]
     [SerializeField]
-    InteractionLayerMask handTrackingMask;
+    InteractionLayerMask handTrackingMask = InteractionLayerMask.NameToLayer("HandTracking");
 
     [Tooltip("소켓 지정 아이템")]
     [SerializeField]
@@ -18,7 +18,11 @@ public class MiniatureSocket : XRSocketInteractor
 
     [Tooltip("소켓에 들어 올 때 크기")]
     [SerializeField]
-    float socketItemScale;
+    float socketItemScale = 0.3f;
+
+    [Tooltip("소켓에 들어오는 시간")]
+    [SerializeField]
+    float trackingTime = 0.5f;
 
     [Tooltip("Exit 포지션")]
     [SerializeField]
@@ -48,7 +52,8 @@ public class MiniatureSocket : XRSocketInteractor
             else
             {
                 args.interactableObject.transform.GetComponent<ItemObject>().interactionLayers = handTrackingMask;
-                args.interactableObject.transform.localScale = new Vector3(socketItemScale, socketItemScale, socketItemScale);
+
+                coroutine = StartCoroutine(SuccessRoutine(args));
             }
         }
 
@@ -58,6 +63,58 @@ public class MiniatureSocket : XRSocketInteractor
     protected override void OnSelectExited(SelectExitEventArgs args)
     {
         base.OnSelectExited(args);
-        
     }
+
+
+
+    Coroutine coroutine;
+    // 오브젝트 소켓 트래킹 루틴 
+    IEnumerator SuccessRoutine(SelectEnterEventArgs args)
+    {
+        float rate = 0f;
+        Vector3 startPos = args.interactableObject.transform.position;
+        Quaternion startRot = args.interactableObject.transform.rotation;
+        Vector3 startScale = args.interactableObject.transform.localScale;
+        Vector3 endPos = transform.position;
+        Quaternion endRot = transform.rotation;
+        Vector3 endScale = new Vector3(socketItemScale, socketItemScale, socketItemScale);
+
+        while (rate < 1f)
+        {
+            rate += Time.deltaTime / trackingTime;
+            args.interactableObject.transform.position = Vector3.Lerp(startPos, endPos, rate);
+            args.interactableObject.transform.rotation = Quaternion.Lerp(startRot, endRot, rate);
+            args.interactableObject.transform.localScale = Vector3.Lerp(startScale, endScale, rate);
+            yield return null;
+        }
+
+        //args.interactableObject.transform.localPosition = Vector3.zero;
+        //args.interactableObject.transform.localRotation = Quaternion.identity;
+
+
+        StopCoroutine(coroutine);
+    }
+
+
+    /*IEnumerator ResetRoutine()
+    {
+        float rate = 0f;
+        Vector3 startPos = transform.position;
+        Quaternion startRot = transform.rotation;
+        Vector3 endPos = originPos;
+        Quaternion endRot = originRot;
+
+        boxCollider.enabled = false;
+        while (rate < 1f)
+        {
+            rate += Time.deltaTime / trackingTime;
+            transform.position = Vector3.Lerp(startPos, endPos, rate);
+            transform.rotation = Quaternion.Lerp(startRot, endRot, rate);
+            yield return Time.deltaTime;
+        }
+
+        transform.position = originPos;
+        transform.rotation = originRot;
+        boxCollider.enabled = true;
+    }*/
 }
