@@ -13,8 +13,8 @@ namespace JJH
         [Tooltip("실제 씬 갯수 만큼 삽입")]
         [SerializeField] private static int sceneCount = 4;
 
-        public StageData stageData; //스크립터블 오브젝트 
-        public StageData runtimeStageData; //에디터 런타임용 스크립터블 오브젝트 
+        /*public StageData stageData; //스크립터블 오브젝트 
+        public StageData runtimeStageData; //에디터 런타임용 스크립터블 오브젝트 */
 
         public UnityEvent<int, bool> stageEvent = new UnityEvent<int, bool>();
 
@@ -44,12 +44,12 @@ namespace JJH
         {
             base.Awake();
 
-#if UNITY_EDITOR
+/*#if UNITY_EDITOR
             // 런타임에 스크립터블 오브젝트를 복제하여 원본 자산에 영향을 주지 않도록 함
             runtimeStageData = Instantiate(stageData);
 #else
         runtimeStageData = stageData;
-#endif
+#endif*/
 
         }
 
@@ -74,7 +74,7 @@ namespace JJH
         {
             if (!File.Exists(SystemPath.GetPath(DataPath.LocalCanvasData)))
             {
-                Debug.Log("캔버스 관련 데이터가 없음!");
+                
                 Debug.Log("챕터 매니저의 이닛 세팅 미 진행!");
                 return;
             }
@@ -105,18 +105,20 @@ namespace JJH
 
         // Enum 으로 채색 --> enum을 jSON으로 저장 
 
-
+        // 수정할거 어차피 여기만 수정해주면 LOAD Save 위치만 잘 정해주고 해보자. 
 
         public void UnlockStage(int stageIndex, bool unlock) // 챕터 언락용 함수. 
         {
 
-            if (stageIndex >= 0 && stageIndex < runtimeStageData.stageUnlockStatus.Count)
+            if (stageIndex >= 0 && stageIndex < Manager.PlayableData.CanvasData.stageUnlockStatus.Length)
             {
                 Debug.Log("언락 스테이 발동" + stageIndex);
 
-                runtimeStageData.stageUnlockStatus[stageIndex] = true;
-
+                //runtimeStageData.stageUnlockStatus[stageIndex] = true;
+                Manager.PlayableData.CanvasData.stageUnlockStatus[stageIndex] = true;  // json 저장 
                 stageEvent.Invoke(stageIndex, true);
+                Manager.PlayableData.SaveCanvasData(); // save json 
+
             }
         }
 
@@ -124,7 +126,9 @@ namespace JJH
         public void CheckDrawComplete(int coloredScene, bool isColored) // 이거 그림 완성되면 호출해서 static bool 바꾸기
         {
             is_Colored[coloredScene] = isColored; // 해당하는 씬을 숫자를 통해 컬러로 바꿔주기. 
-            // 각 씬의 로딩 루틴에서는 인덱스를 통해 접근함.
+
+            // json 통해 is colored 저장해주기. --> json 저장 
+            Manager.PlayableData.CanvasData.isColoredCheckArr[coloredScene] = isColored;
 
         }
 
