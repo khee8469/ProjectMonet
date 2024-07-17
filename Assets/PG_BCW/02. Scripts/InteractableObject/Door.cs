@@ -26,8 +26,11 @@ public class Door : XRSocketInteractor
 
     protected override void OnEnable()
     {
+        base.OnEnable();
+
         if (Manager.Quest.QuestDic[questID].State == QuestState.Complete || Manager.Quest.QuestDic[questID].State == QuestState.Clear)
         {
+            Debug.Log(123123);
             //이미 클리어했다면 문을 열고, 비활성화할 오브젝트 세팅
             if (rb != null) rb.isKinematic = false;
             if (activeObject.Length != 0)
@@ -40,15 +43,14 @@ public class Door : XRSocketInteractor
         }
     }
 
-
-
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         base.OnSelectEntered(args);
-
+        
         //맞는 아이템이 아니면 셀렉트 취소
-        if(args.interactableObject.transform.GetComponent<ItemObject>().ItemID != openKeyID)
+        if (args.interactableObject.transform.GetComponent<ItemObject>().ItemID != openKeyID)
         {
+            Debug.Log(123);
             this.interactionManager.SelectExit(args.interactorObject, args.interactableObject);
         }
         else
