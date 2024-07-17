@@ -54,7 +54,7 @@ namespace JJH
             ItemObject item = args.interactableObject as ItemObject;
             if(item!=null)
             {
-                if(item.GetComponent<DoorKey>()?.ItemID == keyID)
+                if(item.ItemID == keyID)
                 {
                     DoorOpen();
                 }

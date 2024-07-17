@@ -206,10 +206,10 @@ namespace JJH
                     CompleteDrawing();
                 }
             }
-            /*else 
+            else
             {
                 DrawingStop();
-            }*/
+            }
         }
 
         private void CompleteDrawing()
@@ -280,7 +280,7 @@ namespace JJH
             currentPaintType = paintTypes[currentIndex];
 
             // 새로운 색상 타입에 해당하는 색상을 가져와 펜촉의 마테리얼에 적용합니다.
-          //   tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType);
+             tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType);
 
             DrawObjectManager.colorChangeEvent?.Invoke(currentPaintType);
 
@@ -291,7 +291,7 @@ namespace JJH
         {
             currentPaintType = _paintTypeEnum;
             Debug.Log($"색깔 변경 +{_paintTypeEnum} ");
-          //  tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType); --> 팁이 없으니까 일단 색 변경 
+            tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType); 
 
             DrawObjectManager.colorChangeEvent.Invoke(currentPaintType);
 
