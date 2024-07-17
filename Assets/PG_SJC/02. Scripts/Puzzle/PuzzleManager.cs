@@ -65,7 +65,7 @@ namespace Jc
         private void OnEnable()
         {
             // 로드된 퍼즐 상태를 기반으로 퍼즐 최초세팅 진행
-            InitPuzzleSetting();
+            StartCoroutine(Extension.ActionDelay(0.1f, ()=> InitPuzzleSetting()));
 
             if (!Manager.Quest.QuestDic.ContainsKey(activeQuestID))
             {
