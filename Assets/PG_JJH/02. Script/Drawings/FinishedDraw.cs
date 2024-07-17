@@ -32,7 +32,11 @@ public class FinishedDraw : MonoBehaviour
         {
             alphaValue = 1f; //켜져있으면.
             Debug.Log("원본 그림 켜짐");
-            cover.gameObject.SetActive(false); // 꺼주기. --> 커버 
+            if(cover !=null)
+            {
+                cover.gameObject.SetActive(false); // 꺼주기. --> 커버 
+
+            }
 
         }
         else
@@ -53,8 +57,10 @@ public class FinishedDraw : MonoBehaviour
             color.a = 1f; // 1로 돌려주기.
             spriteRenderer.color = color; //구조체라 다시 대입 필요
             QuestComplete(CompleteQuestID);  // 해당하는 그림이 알파 업 될 때 해당 퀘스트도 진행 상태로 변경해주기.
-            cover.gameObject.SetActive(false); // 꺼주기. --> 커버 
-
+            if (cover != null)
+            {
+                cover.gameObject.SetActive(false); // 꺼주기. --> 커버 
+            }
 
         }
     }

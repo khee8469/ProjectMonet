@@ -9815,12 +9815,12 @@ PrefabInstance:
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
       propertyPath: m_Size.z
-      value: 1.8810291
+      value: 1.1996012
       objectReference: {fileID: 0}
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
       propertyPath: m_Center.x
-      value: -0.2042058
+      value: -0.2042065
       objectReference: {fileID: 0}
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
@@ -9830,7 +9830,7 @@ PrefabInstance:
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
       propertyPath: m_Center.z
-      value: 0.39051443
+      value: 0.7312278
       objectReference: {fileID: 0}
     - target: {fileID: 4021487838176017004, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
@@ -10008,12 +10008,12 @@ PrefabInstance:
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
       propertyPath: m_Size.z
-      value: 0.49277812
+      value: 1.5340804
       objectReference: {fileID: 0}
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
       propertyPath: m_Center.x
-      value: 0.34071198
+      value: 0.3407014
       objectReference: {fileID: 0}
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
@@ -10023,7 +10023,7 @@ PrefabInstance:
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
       propertyPath: m_Center.z
-      value: 1.1136407
+      value: 1.6342922
       objectReference: {fileID: 0}
     - target: {fileID: 4021487838176017004, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
@@ -10048,7 +10048,7 @@ PrefabInstance:
     - target: {fileID: 4021487838176017004, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.474
+      value: 2.32
       objectReference: {fileID: 0}
     - target: {fileID: 4021487838176017004, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
@@ -10090,6 +10090,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5481184798166926653, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8180192068844072057, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
       propertyPath: move
@@ -10100,6 +10105,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 524204686}
+    - target: {fileID: 8180192068844072057, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
+        type: 3}
+      propertyPath: m_Button
+      value: 
+      objectReference: {fileID: 1330048893}
     - target: {fileID: 8180192068844072057, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
       propertyPath: returnPos
@@ -19287,60 +19297,6 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 0}
-  m_SecondaryAttachTransform: {fileID: 0}
-  m_UseDynamicAttach: 0
-  m_MatchAttachPosition: 1
-  m_MatchAttachRotation: 1
-  m_SnapToColliderVolume: 1
-  m_ReinitializeDynamicAttachEverySingleGrab: 1
-  m_AttachEaseInTime: 0.15
-  m_MovementType: 2
-  m_VelocityDamping: 1
-  m_VelocityScale: 1
-  m_AngularVelocityDamping: 1
-  m_AngularVelocityScale: 1
-  m_TrackPosition: 1
-  m_SmoothPosition: 0
-  m_SmoothPositionAmount: 8
-  m_TightenPosition: 0.1
-  m_TrackRotation: 1
-  m_SmoothRotation: 0
-  m_SmoothRotationAmount: 8
-  m_TightenRotation: 0.1
-  m_TrackScale: 1
-  m_SmoothScale: 0
-  m_SmoothScaleAmount: 8
-  m_TightenScale: 0.1
-  m_ThrowOnDetach: 1
-  m_ThrowSmoothingDuration: 0.25
-  m_ThrowSmoothingCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  m_ThrowVelocityScale: 1.5
-  m_ThrowAngularVelocityScale: 1
-  m_ForceGravityOnDetach: 0
-  m_RetainTransformParent: 1
-  m_AttachPointCompatibilityMode: 0
-  m_StartingSingleGrabTransformers: []
-  m_StartingMultipleGrabTransformers: []
-  m_AddDefaultGrabTransformers: 1
-  grabType: 2
-  isTwoHanded: 0
-  grabDistance: 10
-  interactors: []
   playerMovePos: {fileID: 459861656241750223}
   playerLayer:
     serializedVersion: 2
