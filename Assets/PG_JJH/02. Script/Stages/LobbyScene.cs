@@ -8,6 +8,7 @@ namespace JJH
 {
     public class LobbyScene : BaseScene  // 로비는 뭐 딱히 볼륨 안쓰니까 
     {
+        [Header("로비는 딱히 뭐 건드릴거 없는듯함")]
         [SerializeField] Transform playerStartTr;
 
         private ColorAdjustments colorAdjustments;

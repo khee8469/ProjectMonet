@@ -16,7 +16,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
 
     [RequireComponent(typeof(SpriteRenderer))]
-    public class DrawObjectManager : MonoBehaviour , IComparable<DrawObjectManager> //, IPuzzleable
+    public class DrawObjectManager : MonoBehaviour , IComparable<DrawObjectManager> 
     {
         /*[Header("퍼즐 매니저 에디터 세팅")]
         [SerializeField]
@@ -153,7 +153,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
         }
 
-        //라인 렌더러를 리스트에 추가하는 함수
+        //라인 렌더러를 리스트에 추가하는 함수 --> 삭제[ 할 때 어디의 list를 삭제할지 생각할 것. 또ㅓ는 하나로 합칠 것. 
         public void AddLineRenderer(LineRenderer lineRenderer, float penWidth)
         {
             lineRenderers.Add(lineRenderer);
@@ -186,7 +186,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         }
 
         // 월드 좌표를 텍스처 픽셀 좌표로 변환하는 함수
-        public Vector2Int WorldToPixel(Vector3 worldPosition)
+        /*public Vector2Int WorldToPixel(Vector3 worldPosition)
         {
             // 월드 좌표를 로컬 좌표로 변환
             Vector3 localPos = spriteRenderer.transform.InverseTransformPoint(worldPosition);
@@ -207,9 +207,9 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             );
 
             return roundedPixelPos;
-        }
+        }*/
 
-        private bool IsPixelWithinTexture(Vector2Int pixel)
+       /* private bool IsPixelWithinTexture(Vector2Int pixel)
         {
             if (spriteRenderer == null || spriteRenderer.sprite == null)
             {
@@ -221,7 +221,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             Debug.Log($"Pixel Position: {pixel}, Within Texture Bounds: {withinBounds}");
 
             return withinBounds;
-        }
+        }*/
 
         // 새로운 라인 렌더러의 영역을 계산하여 업데이트하는 함수 
 
@@ -325,8 +325,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             spriteColor.a = 1f;
             spriteRenderer.color = spriteColor;
             
-
-
         }
 
         // 해당 오브젝트 뿐만이 아닌.. 같은 id? 등을 가진 다른 오브젝트가 있으면 걔네도 켜줘야함.
@@ -366,7 +364,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             materialInstance.color = materialColor;
 
 
-            lineRenderers.Remove(lineRenderer);
+            lineRenderers.Remove(lineRenderer); // 여기서 list 삭제해주네?
 
             yield return null;
         }
@@ -399,6 +397,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
         }
 
+        // 픽셀 관련 기능 
         private void MakeTextureReadable(ref Texture2D texture)
         {
             RenderTexture renderTexture = RenderTexture.GetTemporary(

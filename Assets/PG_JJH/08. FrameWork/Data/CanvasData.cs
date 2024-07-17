@@ -25,14 +25,16 @@ namespace JJH
 
 
         // 챕터 해금 상태 저장이랑 포스트 프로세싱 이랑 한 번에 좀 열거형으로 저장해주면 어떻게 잘되지 않을까
-        public enum CanvasState
+        /*public enum CanvasState
         {
             // 비 해금 , 흑백으로 해금됨 , 컬러로 해금 됨 
             DisActive , Proceed , Clear 
         }
+*/
 
+        [Tooltip("스테이지 해금 상태 저장용 배열 변수")]
+        public bool[] stageUnlockStatus = new bool[4]; // 어차피 스테이지 4개니까 그냥 4로 하자. 
 
-        
 
 
     }

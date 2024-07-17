@@ -203,7 +203,7 @@ namespace Jc
         {
             if(!File.Exists(SystemPath.GetPath(DataPath.LocalCanvasData)))
             {
-                Debug.Log("캔버스 관련 데이터가 없음!");
+                
                 NewData();
                 return;
             }
