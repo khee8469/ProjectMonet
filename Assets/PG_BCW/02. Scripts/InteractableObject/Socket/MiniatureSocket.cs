@@ -16,6 +16,10 @@ public class MiniatureSocket : XRSocketInteractor
     [SerializeField]
     int[] miniaturaItems;
 
+    [Tooltip("소켓에 들어 올 때 크기")]
+    [SerializeField]
+    float socketItemScale;
+
     [Tooltip("Exit 포지션")]
     [SerializeField]
     Transform exitPosition;
@@ -44,7 +48,7 @@ public class MiniatureSocket : XRSocketInteractor
             else
             {
                 args.interactableObject.transform.GetComponent<ItemObject>().interactionLayers = handTrackingMask;
-                //args.interactableObject.transform.localScale = transform.localScale;
+                args.interactableObject.transform.localScale = new Vector3(socketItemScale, socketItemScale, socketItemScale);
             }
         }
 
