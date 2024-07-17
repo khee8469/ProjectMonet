@@ -56,9 +56,9 @@ public class ModalityManager : UnityEngine.XR.Interaction.Toolkit.XRController
             currentControllerState.isTracked = false;
             currentControllerState.inputTrackingState = InputTrackingState.None;
             return;
-        }
-            
-        base.UpdateTrackingInput(controllerState);
+        }    
+        
+        //base.UpdateTrackingInput(controllerState);
     }
 
 
