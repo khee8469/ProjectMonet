@@ -4,15 +4,26 @@ using UnityEngine;
 
 public class UpdateRotating : MonoBehaviour
 {
-    [SerializeField] private float Direction = 60;
+    [Tooltip("회전 방향")]
+    [SerializeField] private float direction = 60f;
+
+    public float Direction { get { return direction; } }
 
     private void Start()
     {
-        Direction = Random.Range(30, 40);
+        StartCoroutine(RotationRoutine(direction));
     }
 
-    private void Update()
+
+    private IEnumerator RotationRoutine(float direction)
     {
-        transform.Rotate(Vector3.up, Direction * Time.deltaTime);
+        while (true)
+        {
+            transform.Rotate(direction * Time.deltaTime, 0, 0);
+            yield return null;
+        }
+
     }
+
+
 }

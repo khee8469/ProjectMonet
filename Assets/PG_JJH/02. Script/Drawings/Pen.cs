@@ -312,8 +312,6 @@ namespace JJH
             }
 
         }
-
-
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
