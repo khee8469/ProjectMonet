@@ -27,8 +27,8 @@ namespace JJH
 
         new Rigidbody rigidbody;
 
-        [Tooltip("자신을 숨겨줄 이젤 커버")]
-        [SerializeField] GameObject cover;
+        /*[Tooltip("자신을 숨겨줄 이젤 커버")]
+        [SerializeField] GameObject cover;*/
 
         private void Start()
         {
@@ -38,14 +38,15 @@ namespace JJH
             throwOnDetach = false;
         }
 
-        public void CoverOff()
+        /*public void CoverOff()
         {
             if(cover!=null)
             {
-                Destroy(cover); // 게임 오브젝트 파괴해주기. 
+                Debug.Log("커버드 발동");
+                cover.gameObject.SetActive(false);
             }
             
-        }
+        }*/
 
         protected override void OnHoverEntered(HoverEnterEventArgs args)
         {

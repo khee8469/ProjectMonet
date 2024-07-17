@@ -2,13 +2,11 @@ using Jc;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
-using static ConvertValueToHue;
 
 namespace JJH
 {
-    public class Pen :InteractObject
+    public class Pen : InteractObject
     {
         // 어차피 한 번에 하나의 색 밖에 안되니까 크게 문제 없을것 같기는함. 
         // 새로운 line을 생성해주는거니까. 나중에 문제 생기면 마테리얼이 같이 바뀌는거는 그때 해결해주자. 
@@ -59,7 +57,7 @@ namespace JJH
         [SerializeField] private LayerMask drawingLayer;
 
         [Tooltip("레이어 체크 거리")]
-        [SerializeField]private float distance = 2.5f;
+        [SerializeField] private float distance = 2.5f;
 
         [Header("삭제 및 이미지 연계")]
         [Tooltip("생성된 라인렌더러를 저장 해 줄 리스트")]
@@ -93,7 +91,7 @@ namespace JJH
 
         [Tooltip("자신의 로테이션 위치")]
         public Quaternion startRotation;
-            
+
 
         private void Start() // 시작 시에는 무조건 하얀색. 
         {
@@ -117,14 +115,14 @@ namespace JJH
         {
             // 컬러의 타입이 None이 아니고 동시에 isDrawing 상태면 그리기 가능. 
 
-            if(Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 SwitchColor();
             }
 
             if (isDrawing && currentPaintType != PaintTypeEnum.None)
-            {           
-                Draw();        
+            {
+                Draw();
             }
         }
 
@@ -136,21 +134,26 @@ namespace JJH
 
             // 레이 캐스트 박스의 센터 
             Vector3 boxCenter = tip.position;
-            if (Physics.Raycast(tip.position , tip.forward , out hit, distance  ,drawingLayer))
+            if (Physics.Raycast(tip.position, tip.forward, out hit, distance, drawingLayer))
             {
                 Debug.DrawRay(tip.position, tip.forward * distance, Color.red, 0.5f);
 
                 Vector3 drawPosition = hit.point + hit.normal * NormalDis;
                 drawManager = hit.collider?.GetComponent<DrawObjectManager>();
 
+                Debug.Log("레이캐스트 내부");
+
                 if (!CheckColorType(drawManager)) // 컬러 타입이 같을 때만 그릴 수 있게 컬러타입을 체크 해줘야한다.
                 {
                     DrawingStop();
+                    Debug.Log("리턴");
                     return;
                 }
                 if (currentDrawing == null) //이 부분에서 현재 물감에 알맞는 색상으로 만들어줘야 할 것 같아. 
                 {
                     index = 0;
+
+                    Debug.Log("현재 드로잉 널 진입");
 
                     GameObject lineObj = new GameObject("Line");
 
@@ -182,6 +185,8 @@ namespace JJH
                     var currentPos = currentDrawing.GetPosition(index);
                     currentDrawing.material.color = paintTypeManager.GetColorByType(currentPaintType);
 
+                    Debug.Log("라인이 이미 생성된 경우");
+
                     if (Vector3.Distance(currentPos, drawPosition) > 0.01f)
                     {
                         index++;
@@ -206,10 +211,10 @@ namespace JJH
                     CompleteDrawing();
                 }
             }
-            else
+           /* else
             {
                 DrawingStop();
-            }
+            }*/
         }
 
         private void CompleteDrawing()
@@ -280,7 +285,7 @@ namespace JJH
             currentPaintType = paintTypes[currentIndex];
 
             // 새로운 색상 타입에 해당하는 색상을 가져와 펜촉의 마테리얼에 적용합니다.
-             tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType);
+            tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType);
 
             DrawObjectManager.colorChangeEvent?.Invoke(currentPaintType);
 
@@ -291,7 +296,7 @@ namespace JJH
         {
             currentPaintType = _paintTypeEnum;
             Debug.Log($"색깔 변경 +{_paintTypeEnum} ");
-            tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType); 
+            tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType);
 
             DrawObjectManager.colorChangeEvent.Invoke(currentPaintType);
 
@@ -314,17 +319,12 @@ namespace JJH
         }
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
+            
             base.OnSelectExited(args);
-
-            if(args.interactorObject.transform.GetComponent<CustomCheck>() != null)
-            {
-                transform.position = startPosition;
-                transform.rotation = startRotation;
-            }
+            transform.position = startPosition;
+            transform.rotation = startRotation;
 
         }
-
-
 
     }
 }

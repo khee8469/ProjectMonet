@@ -58,19 +58,20 @@ namespace JJH
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.gameObject.CompareTag("DrawPen"))
+            if(other.gameObject.CompareTag("PaintPen"))
             {
-                Debug.Log("트리거 진입함");
-                Pen pen =other.gameObject?.GetComponent<Pen>();
+                Debug.Log("트리거 진입함"); //여기까지는 문제가 없음. 
+                Pen pen =other.gameObject.GetComponent<Pen>();
                 if(pen!=null)
                 {
+                    Debug.Log("펜 체인지드 컬러 내부 진입");
                     pen.ChangeColor(GetPaintType());
 
                 }
             }
         }
 
-
+        
 
 
 
