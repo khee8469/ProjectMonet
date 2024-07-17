@@ -99,8 +99,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lineRenderers: []
-  drawBoardNumber: 0
-  DrawID: 2
+  drawBoardNumber: 2
+  DrawID: 9
   boardColorTypeList: []
   myColor: {r: 1, g: 1, b: 1, a: 0}
   spriteRenderer: {fileID: 0}
@@ -112,7 +112,7 @@ MonoBehaviour:
   nonTransparentArea: 0
   tolerance: 0.02
   paintTypeManager: {fileID: 11400000, guid: e3bb3a82badd59e488a56163b21dd1dc, type: 2}
-  currentPaintType: 3
+  currentPaintType: 1
   drawingCompleteManager: {fileID: 0}
   pen: {fileID: 0}
   myColliderArray: []
@@ -135,8 +135,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 8.944952, y: 2.2858052, z: 0.049999997}
-  m_Center: {x: -1.7775606, y: 3.5289752, z: 0.0000011408337}
+  m_Size: {x: 12.968894, y: 7.7191286, z: 0.049999997}
+  m_Center: {x: -3.7895257, y: -3.6603131, z: -0.0000060835873}
 --- !u!1 &2388659678844340339
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,8 +237,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lineRenderers: []
-  drawBoardNumber: 0
-  DrawID: 0
+  drawBoardNumber: 2
+  DrawID: 8
   boardColorTypeList: []
   myColor: {r: 1, g: 1, b: 1, a: 0}
   spriteRenderer: {fileID: 0}
@@ -250,7 +250,7 @@ MonoBehaviour:
   nonTransparentArea: 0
   tolerance: 0.02
   paintTypeManager: {fileID: 11400000, guid: e3bb3a82badd59e488a56163b21dd1dc, type: 2}
-  currentPaintType: 7
+  currentPaintType: 3
   drawingCompleteManager: {fileID: 0}
   pen: {fileID: 0}
   myColliderArray: []
@@ -273,8 +273,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 6.71511, y: 1.3994296, z: 0.049999997}
-  m_Center: {x: -0.7724498, y: 0.39566335, z: 0.0000006634562}
+  m_Size: {x: 20.379078, y: 8.927181, z: 0.049999997}
+  m_Center: {x: 0.038151063, y: -3.3681765, z: -0.000005847788}
 --- !u!65 &3403489270227711002
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -294,8 +294,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.5348241, y: 4.7270927, z: 0.049999997}
-  m_Center: {x: 4.3420396, y: 1.9802145, z: 0.000000069291296}
+  m_Size: {x: 3.4399486, y: 4.727093, z: 0.049999997}
+  m_Center: {x: -3.2233837, y: 1.9802027, z: 0.0000013978358}
 --- !u!1 &4936412253520351889
 GameObject:
   m_ObjectHideFlags: 0
@@ -738,6 +738,7 @@ GameObject:
   - component: {fileID: 901517072423924943}
   - component: {fileID: 8527956955544392793}
   - component: {fileID: 1818165540701553993}
+  - component: {fileID: 5180103938120715091}
   m_Layer: 13
   m_Name: ch3_sky
   m_TagString: Untagged
@@ -825,8 +826,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lineRenderers: []
-  drawBoardNumber: 0
-  DrawID: 1
+  drawBoardNumber: 2
+  DrawID: 7
   boardColorTypeList: []
   myColor: {r: 1, g: 1, b: 1, a: 0}
   spriteRenderer: {fileID: 0}
@@ -861,5 +862,26 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 12.5424, y: 6.1316853, z: 0.05}
-  m_Center: {x: -0.021138793, y: -1.5112158, z: 0}
+  m_Size: {x: 20.604416, y: 7.490893, z: 0.049999997}
+  m_Center: {x: -0.033715867, y: 3.893904, z: 0.0000006979227}
+--- !u!65 &5180103938120715091
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7838024584272790986}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.8581798, y: 3.6643164, z: 0.049999997}
+  m_Center: {x: 4.410448, y: -5.495597, z: 0.00041730044}
