@@ -178,11 +178,11 @@ namespace JJH
 
         public void CompleteSetting() // 완성되 있는 상태 세팅 ++ 스카이박스 변경 필요.
         {
+            Debug.Log("등대의 컴플리트 세팅");  // 스카이박스 변경 부르기 
             DeAactiveLight_Button();
             sunHole.OnClearPuzzle();
             PillarChange(true);
             onWindowLight(true);
-            Debug.Log("등대의 컴플리트 세팅");  // 스카이박스 변경 부르기 
             sunHole.OnClearPuzzle();
             sunHole.ChangeSkyBox(sunHole.afternoonSkybox);
 

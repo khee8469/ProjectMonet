@@ -27,26 +27,30 @@ namespace JJH
 
         new Rigidbody rigidbody;
 
-        /*[Tooltip("자신을 숨겨줄 이젤 커버")]
-        [SerializeField] GameObject cover;*/
+        [Tooltip(" stage를 넘어갈 수 있도록 풀어줘야 하는 bool 변수")]
+        [SerializeField] private bool isOn = false;
+        
 
         private void Start()
-        {
-            
+        {        
             rigidbody =GetComponent<Rigidbody>();
             rigidbody.isKinematic = true;
             
         }
 
-        /*public void CoverOff()
+        // playerPositionTrigger에서 참조해서 door의 layer를 nothing everything 으로 전환해주는 함수
+        public void stageOn(bool boolean)
         {
-            if(cover!=null)
+            if (boolean)
             {
-                Debug.Log("커버드 발동");
-                cover.gameObject.SetActive(false);
+                isOn = true;
             }
-            
-        }*/
+            else
+            {
+                isOn = false;
+                
+            }
+        }
 
         protected override void OnHoverEntered(HoverEnterEventArgs args)
         {
@@ -86,7 +90,10 @@ namespace JJH
             }*/
             if (Manager.PlayableData.CanvasData.stageUnlockStatus[doorID])  // doorID가 true 라면 --> 해금되어 있는 상태 
             {
-                Manager.Scene.LoadScene(SceneName);
+                if(isOn==true) // 트리거 모드 일때는 눌러도 아무런 반응이 없도록
+                {
+                    Manager.Scene.LoadScene(SceneName);
+                }
             }
             else
             {

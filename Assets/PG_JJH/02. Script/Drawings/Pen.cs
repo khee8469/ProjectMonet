@@ -113,14 +113,13 @@ namespace JJH
         // 레이캐스트를 계속 체크해야 하기 때문에 update 밖에 없나? 어떻게 해야할지... 
         private void Update()
         {
-            // 컬러의 타입이 None이 아니고 동시에 isDrawing 상태면 그리기 가능. 
-
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            
+            if (isSelected == true)
             {
-                SwitchColor();
+                StartDrawing(); // 오브젝트가 잡혀 있는 상황이라면 true로 지속 
             }
 
-            if (isDrawing && currentPaintType != PaintTypeEnum.None)
+            if (isDrawing && currentPaintType != PaintTypeEnum.None) // 잡고 있을 때만 
             {
                 Draw();
             }
@@ -132,8 +131,6 @@ namespace JJH
 
             RaycastHit hit;
 
-            // 레이 캐스트 박스의 센터 
-            Vector3 boxCenter = tip.position;
             if (Physics.Raycast(tip.position, tip.forward, out hit, distance, drawingLayer))
             {
                 Debug.DrawRay(tip.position, tip.forward * distance, Color.red, 0.5f);
@@ -163,7 +160,7 @@ namespace JJH
                     currentDrawing.material = new Material(drawingMaterial);
 
                     // 현재 색상 설정
-                    currentDrawing.material.color = paintTypeManager.GetColorByType(currentPaintType);
+                    currentDrawing.material.color = paintTypeManager.GetColorByType(currentPaintType); 
 
                     // 현재 색상 설정
                     currentDrawing.startColor = currentDrawing.endColor = paintTypeManager.GetColorByType(currentPaintType);
@@ -211,10 +208,10 @@ namespace JJH
                     CompleteDrawing();
                 }
             }
-           /* else
+            else
             {
                 DrawingStop();
-            }*/
+            }
         }
 
         private void CompleteDrawing()
@@ -223,12 +220,10 @@ namespace JJH
             isNotEntered = true;
             DrawingStop();
             drawManager.ImageAlphaUp();
-            RemoveALLLine();  // 이 함수를 Trigger에서 벗어날 시에 사용해 줘야 할듯? 
-            isNotMove = false;
+            RemoveALLLine();
             drawManager.DrawFinished();
             StartCoroutine(blockRoutine());
         }
-
 
         private IEnumerator blockRoutine()
         {
@@ -236,7 +231,6 @@ namespace JJH
             yield return new WaitForSeconds(1f);
             isNotEntered = false;
             yield return null;
-
 
         }
 
@@ -254,7 +248,6 @@ namespace JJH
         public void StartDrawing()
         {
             isDrawing = true; // 그리기 상태로 전환
-            isNotMove = true;
 
             // not move 와 함께 --> 플레이어의 움직임 막아버리는 함수 발동 
         }
@@ -294,11 +287,17 @@ namespace JJH
         // 실제로 색깔 변경을 위해 사용 할 함수
         public void ChangeColor(PaintTypeEnum _paintTypeEnum)
         {
+            ChangeColorAllStop(); // 일단 이전 버전을 다 지우고 시작하는게 맞을 듯 ? 
             currentPaintType = _paintTypeEnum;
             Debug.Log($"색깔 변경 +{_paintTypeEnum} ");
             tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType);
 
             DrawObjectManager.colorChangeEvent.Invoke(currentPaintType);
+            
+            // 이게 컬러가 체인지 될 때 이미 있는 라인 렌더러가 색이 변해버리는데 그거를 해결하려면 어떻게 해야할지 생각해보자. 
+
+
+
 
         }
 
@@ -317,15 +316,45 @@ namespace JJH
             }
 
         }
+
+        protected override void OnSelectEntered(SelectEnterEventArgs args)
+        {
+            base.OnSelectEntered(args);
+
+            StartDrawing();
+        }
+
+
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
-            
+
             base.OnSelectExited(args);
             transform.position = startPosition;
             transform.rotation = startRotation;
 
+            DrawingStop();
+            RemoveALLLine(); //라인 다 지우고
+                             // 해당하고 있는 DrawObject의 퍼센트를 초기화한다. --> 라인이 그려져 있는 DrawManager가 뭔지를 알고 있어야 하는데... 
+
+            // 채워진 양 초기화 시키기. --> 어차피 놓는 순간까지는 잡고 있을 거니까.. 아마도 그냥 빼면 될 듯 
+            // ray를 소던 마지막 drawmanager의 함수 발동
+            if (drawManager != null)
+            {
+                drawManager.PercentReset();
+            }
+            
         }
 
+        // ChangeColor 할 때 불러줄 함수 
+        public void ChangeColorAllStop() // 어차피 지금 같은 색깔 일 때만 drawmanager에 저장이 되니까 이거를 
+        {
+            DrawingStop();
+            RemoveALLLine();
+            if(drawManager!=null)
+            {
+                drawManager.PercentReset(); 
+            }
+        }
     }
 }
 
