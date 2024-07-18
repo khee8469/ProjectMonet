@@ -9,7 +9,7 @@ namespace JJH
 {
     // 씬 이동 용 그림에 붙을 Door Script --> DoorID 번호 저장 잘 해주고. 
 
-    public class StageDoor : InteractObject , IComparable<StageDoor> , IActivatable
+    public class StageDoor : XRSimpleInteractable , IComparable<StageDoor> , IActivatable , IInteractable
     {
         [Header("Door 관리 ID")]
         [Tooltip("id에 따라 on /off 결정")]
@@ -35,7 +35,7 @@ namespace JJH
             
             rigidbody =GetComponent<Rigidbody>();
             rigidbody.isKinematic = true;
-            throwOnDetach = false;
+            
         }
 
         /*public void CoverOff()
@@ -64,12 +64,7 @@ namespace JJH
             base.OnSelectEntered(args);
         }
 
-        /*protected override void OnSelectEntering(SelectEnterEventArgs args)
-        {
-            return;
-            
-        }*/
-        // 할당된 ID 순서대로 정렬 . 
+  
         public int CompareTo(StageDoor other)
         {
             if (other == null) return 1;
@@ -100,6 +95,15 @@ namespace JJH
 
         }
 
+        public float GetInteractDistance()
+        {
+            return 10f;
+        }
+
+        public Transform GetTransform()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 
