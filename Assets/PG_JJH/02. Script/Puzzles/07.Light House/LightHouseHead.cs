@@ -130,11 +130,6 @@ namespace JJH
             }
         }
 
-        private void onWindowLight(bool boolean)
-        {
-            clearLight.gameObject.SetActive(boolean);   
-        }
-
 
         private void ChangeRoutine()
         {
@@ -177,7 +172,6 @@ namespace JJH
         {
             // 등대의 불은 나오고 있어야 함. 
             PillarChange(true);
-            onWindowLight(false);
             Debug.Log("등대의 액티브세팅");
         }
 
@@ -187,18 +181,13 @@ namespace JJH
             DeAactiveLight_Button();
             sunHole.OnClearPuzzle();
             PillarChange(true);
-            onWindowLight(true);
-            sunHole.OnClearPuzzle();
-            sunHole.ChangeSkyBox(sunHole.afternoonSkybox);
             MyCompleteRotation(); // 클리어 세팅에서 자신의 등대 저장 
-
         }
 
         public void DisActiveSetting()  // 진행 불가능 한 상태의 세팅 --> 퍼즐 진입 전 상태 
         {
             DeAactiveLight_Button(); // 버튼 꺼두기 
             PillarChange(false); // 불이 아직 들어오지 않음 
-            onWindowLight(false);
             Debug.Log("등대의 디스액티브세팅");
 
         }
