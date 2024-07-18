@@ -110,7 +110,8 @@ namespace JJH
                 sunHole.OnClearPuzzle();
                 Debug.Log("정답 체크");
                 DeAactiveLight_Button();
-                //ChangeRoutine(); // 등대 빛 일단 끄자 이상해 보임.. 
+                ChangeRoutine(); // 등대 빛 일단 끄자 이상해 보임.. 
+                MyCompleteRotation();
 
             }
         }
@@ -149,6 +150,10 @@ namespace JJH
             LineRenderer line = pillar_Of_Light.GetComponent<LineRenderer>();
             float during = 2f;
             float elapse = 0f;
+            if (line == null)
+            {
+                yield break;
+            }
 
             while (elapse < during)
             {
@@ -161,9 +166,9 @@ namespace JJH
             line.enabled = false; //완료되면 꺼주기. 
         }
 
-        public void MyCompleteRotation() // 등대 위치 저장 해주기.
+        public void MyCompleteRotation() //클리어 했을 때의 등대 위치 저장. 
         {
-            
+            Debug.Log("등대 로테이션 저장... but 저장해야 하는게 등대 머리랑 바닥이랑 두개라서 거의 불가능 할 것 같음...");
         }
 
 
@@ -185,6 +190,7 @@ namespace JJH
             onWindowLight(true);
             sunHole.OnClearPuzzle();
             sunHole.ChangeSkyBox(sunHole.afternoonSkybox);
+            MyCompleteRotation(); // 클리어 세팅에서 자신의 등대 저장 
 
         }
 

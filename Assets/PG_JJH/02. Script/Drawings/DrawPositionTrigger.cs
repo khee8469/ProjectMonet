@@ -62,7 +62,11 @@ namespace JJH
                         player.transform.rotation = playerMovePos.rotation;
                         player.transform.position = playerMovePos.position; // 정해진 위치로 플레이어 이동
                         move.moveSpeed = 0;
-                        door.stageOn(false); // 트리거 진입하면 activate 발동하지 않는다.
+                        if(door!=null)
+                        {
+                            door.stageOn(false); // 트리거 진입하면 activate 발동하지 않는다.
+                        }
+                        
                     }
                     else
                     {
@@ -70,7 +74,11 @@ namespace JJH
                         isTrigger = false;
                         move.moveSpeed = originalSpeed;
                         player.transform.position = returnPos.position; // 정해진 위치로 플레이어 이동
-                        door.stageOn(true); // 트리거 벗어나면 다시 activate가 발동된다. 
+                        if(door!=null)
+                        {
+                            door.stageOn(true); // 트리거 벗어나면 다시 activate가 발동된다. 
+                        }
+                        
                     }
                 }
                 if (characterController != null)
