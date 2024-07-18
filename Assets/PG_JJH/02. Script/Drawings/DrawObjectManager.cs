@@ -92,6 +92,9 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         [Tooltip("이벤트에 자신의 컬러를 체크하고 콜라이더를 on off 하는 함수를 할당한다.")]
         public static UnityEvent<PaintTypeEnum> colorChangeEvent = new UnityEvent<PaintTypeEnum>();
 
+        
+
+
         /*private void Awake()
         {
             if(puzzle != null)
@@ -121,8 +124,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             nonTransparentArea = CalculateNonTransparentArea();
 
             myColliderArray = GetComponents<Collider>(); // 자신의 모든 콜라이더 배열 가져오기. pen의 컬러에 맞춰서 자신의 콜라이더를 꺼주고 켜준다. 
-
-            //pen = GameObject.FindObjectOfType<Pen>(); --> 인스페터 할당으로 변경. 
 
             if (pen != null)
             {
@@ -156,7 +157,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         //라인 렌더러를 리스트에 추가하는 함수 --> 삭제[ 할 때 어디의 list를 삭제할지 생각할 것. 또ㅓ는 하나로 합칠 것. 
         public void AddLineRenderer(LineRenderer lineRenderer, float penWidth)
         {
-            lineRenderers.Add(lineRenderer);
+            // lineRenderers.Add(lineRenderer);
             UpdateFilledArea(lineRenderer, penWidth);
 
         }
@@ -329,7 +330,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
         // 해당 오브젝트 뿐만이 아닌.. 같은 id? 등을 가진 다른 오브젝트가 있으면 걔네도 켜줘야함.
 
-        private IEnumerator RendererAlphaRoutine(LineRenderer lineRenderer)
+        private IEnumerator RendererAlphaRoutine(LineRenderer lineRenderer)  // 여기서 라인렌더러의 list가 어떤 역할을 하는거지? 역할이 있는건가? 그냥 Add Remove아니여?
         {
             // 생성된 라인렌더러의 마테리얼을 복제하여 생성 --> 원본 마테리얼에 영향이 가지 않도록
             Material materialInstance = Instantiate(lineRenderer.material);
@@ -363,8 +364,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             materialColor.a = targetAlpha;
             materialInstance.color = materialColor;
 
-
-            lineRenderers.Remove(lineRenderer); // 여기서 list 삭제해주네?
+            // lineRenderers.Remove(lineRenderer); // 여기서 list 삭제해주네?
 
             yield return null;
         }
@@ -458,6 +458,15 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             DrawFinished();
         }
         #endregion*/
+
+        public void PercentReset()  // 그림 중단 시 그림의 퍼센트를 리셋한다.
+        {
+            filledArea = 0f; // 채워진 양 초기화.
+            Debug.Log($"{filledArea} 현재 채줘진 Area");
+            Debug.Log($"해당 드로잉 파트의 총 Area {totalArea}");
+        }
+
+
     }
 
 }

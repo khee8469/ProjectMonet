@@ -20,13 +20,13 @@ namespace JJH
 
         private void FixedUpdate()
         {
-            pen.StartDrawing();  // 그리기 시작
+            //pen.StartDrawing();  // 그리기 시작
 
         }
         protected override void OnActivated(ActivateEventArgs args)
         {
             base.OnActivated(args);
-            pen.StartDrawing();  // 그리기 시작
+            //pen.StartDrawing();  // 그리기 시작
             // 여기서 라인 렌더러 생성. 
         }
 

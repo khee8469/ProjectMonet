@@ -7,7 +7,8 @@ public class PaintBucket : InteractObject
 {
     // 얘가 진짜 물감이고 paint는 생성되는 물감임. 
 
-
+    [Space(5)]
+    [Header("커스텀 컴포넌트")]    
     [Tooltip("생성 할 물감 색상")]
     [SerializeField]
     private PaintTypeEnum color;
@@ -16,7 +17,7 @@ public class PaintBucket : InteractObject
     private Paint paint;
     [Tooltip("물감 생성 위치")]
     [SerializeField]
-    private Transform attach;
+    private Transform SpawnPosition;
 
     [Tooltip("자신의 아이템 ID")]
     [SerializeField] int paintItemID;
@@ -66,7 +67,7 @@ public class PaintBucket : InteractObject
     //물감나오는거 구현
     public void PaintPlay()
     {
-        Paint paintPrefab = Instantiate(paint, attach.position, Quaternion.identity);
+        Paint paintPrefab = Instantiate(paint, SpawnPosition.position, Quaternion.identity);
         paintPrefab.paintType = color;
 
         //Destroy(gameObject); 생성 성공하면 파괴되어야함. 

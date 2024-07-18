@@ -7,13 +7,11 @@ public class Chapter2SunHole : PaintRewardPuzzle
 {
     // 챕터 2 의 검은 구멍에 붙여 줄 스크립트
 
-    [Tooltip("밤 용 스카이박스")] // 어차피 기본 상태에서는 이 스카이 박스를 쓰고 있을 거니까
-    [SerializeField] public Material nightSkybox;
 
     // 이러면 마테리얼이 아니라 스프라이트를 바꿔 줘야 하는듯? 
 
     // 마테리얼을 바꿔줘야 하는 실제 오브젝트가 아니게 되었으니까 그냥 따로 빼자. 
-
+    
     [Tooltip("낮 용 스카이박스 --> Maybe 태양없는 skybox ")]
     [SerializeField] public Material afternoonSkybox;
 
@@ -31,9 +29,6 @@ public class Chapter2SunHole : PaintRewardPuzzle
 
     [Tooltip("moon Panel 을 ON off 해 줄 콜라이더")]
     [SerializeField] private BoxCollider boxCollider;
-
-
-    private MeshRenderer meshRenderer;
 
     [Tooltip("스프라이트 -> Moon 스프라이트가 붙어 있는 부모 게임 오브젝트--> 패널과 같이 On Off")]
     [SerializeField] public GameObject moonPanel;
@@ -71,6 +66,7 @@ public class Chapter2SunHole : PaintRewardPuzzle
         mats[0] = whiteMaterial; // 첫 번째 메터리얼을 darkMaterial로 설정
         meshRenderer.materials = mats; // 변경된 배열 다시 설정*/
         moonPanel.gameObject.SetActive(false); // 등대 앞 패널을 같이 꺼준다. 
+        Debug.Log("퍼즐 매니저의 ChangeSkyBox 발동됨"); 
 
     }
 
@@ -78,6 +74,7 @@ public class Chapter2SunHole : PaintRewardPuzzle
     {
         base.OnClearPuzzle();  
         ChangeSkyBox(afternoonSkybox);  // 클리어 시 여기서 진행해야 하는 것들 해주자.
+
         boxCollider.enabled = false; // 콜라이더를 꺼버려서 다시 panel이 켜지는 일을 방지한다. 
         Debug.Log("등대 온클리어");
 

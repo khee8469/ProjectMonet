@@ -37,14 +37,13 @@ namespace JJH
         {
             base.Awake();
             RegistObject(puzzle); // 퍼즐 등록 
-            rb = GetComponent<Rigidbody>();
             hingeJoint.useLimits = true; // 이 부분 순서 잘 생각하기. --> start 에서 안돌려도 되면 인터페이스로 옮기기.
         }
 
         protected override void Start()
         {
             base.Start();
-            hingeJoint = GetComponent<HingeJoint>();           
+      
         }
 
 
