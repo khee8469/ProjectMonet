@@ -56,9 +56,6 @@ namespace Jc
         [SerializeField]
         protected int curBasicDialogIndex = 0;     // 기본 대화 진행 인덱스 
 
-        [SerializeField]
-        private Transform bounsItemPosition;
-
         private Coroutine removeTextRoutine;
         private Coroutine disableBuilboardRoutine;
 
