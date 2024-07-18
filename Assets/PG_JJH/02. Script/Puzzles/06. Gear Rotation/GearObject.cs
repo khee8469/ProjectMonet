@@ -17,7 +17,7 @@ namespace JJH
 
         [Tooltip("기어가 회전 할 방향을 정해 줄 int 값")]
         [SerializeField]
-        private float rotationDirection = 60f;
+        private float rotationDirection;
 
         [Tooltip("정답 판정 시 생성해줄 너트")]
         public GameObject nut;
@@ -30,7 +30,7 @@ namespace JJH
             nut.gameObject.SetActive(false); // 일단 시작 시 에는 꺼주기. --> 완성 시에 생성해 줄 nut 
             trackRotation = true;
 
-            rotationDirection = Random.Range(30, 40);
+            rotationDirection = Random.Range(15, 30);
 
         }
 
@@ -55,10 +55,6 @@ namespace JJH
             }
 
         }
-
-        
-
-
 
     }
 

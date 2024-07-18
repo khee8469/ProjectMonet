@@ -2,6 +2,7 @@ using Jc;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
+using JJH;
 
 namespace JJH
 {
@@ -32,6 +33,9 @@ namespace JJH
         [Tooltip("플레이어를 돌려 줄 위치 ")]
         [SerializeField] private Transform returnPos;
 
+        [Tooltip("해당 트리거가 진입되는 그림 door ")]
+        [SerializeField] private StageDoor door;
+
 
         public void Activate()
         {
@@ -58,6 +62,11 @@ namespace JJH
                         player.transform.rotation = playerMovePos.rotation;
                         player.transform.position = playerMovePos.position; // 정해진 위치로 플레이어 이동
                         move.moveSpeed = 0;
+                        if(door!=null)
+                        {
+                            door.stageOn(false); // 트리거 진입하면 activate 발동하지 않는다.
+                        }
+                        
                     }
                     else
                     {
@@ -65,6 +74,11 @@ namespace JJH
                         isTrigger = false;
                         move.moveSpeed = originalSpeed;
                         player.transform.position = returnPos.position; // 정해진 위치로 플레이어 이동
+                        if(door!=null)
+                        {
+                            door.stageOn(true); // 트리거 벗어나면 다시 activate가 발동된다. 
+                        }
+                        
                     }
                 }
                 if (characterController != null)

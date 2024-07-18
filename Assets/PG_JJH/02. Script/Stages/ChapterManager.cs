@@ -74,8 +74,7 @@ namespace JJH
         {
             if (!File.Exists(SystemPath.GetPath(DataPath.LocalCanvasData)))
             {
-                
-                Debug.Log("챕터 매니저의 이닛 세팅 미 진행!");
+                              
                 return;
             }
 
