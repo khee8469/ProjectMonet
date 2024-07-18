@@ -183,6 +183,7 @@ namespace JJH
             onWindowLight(true);
             Debug.Log("등대의 컴플리트 세팅");  // 스카이박스 변경 부르기 
             sunHole.OnClearPuzzle();
+            sunHole.ChangeSkyBox(sunHole.afternoonSkybox);
 
         }
 
