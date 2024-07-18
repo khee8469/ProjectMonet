@@ -38,42 +38,47 @@ public class TrainSchedulePuzzle : XRSocketInteractor, IPuzzleable
         if(clearPoint == null) Debug.LogError($"TrainSchedulePuzzle 에 MeshRenderer 참조하시오");
     }
 
-    //충돌체가 찢어진 시간표인지 확인
-    /*private void OnTriggerEnter(Collider collider)
+
+    protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
-        Debug.Log("충돌");
-        int itemObject = collider.GetComponent<ItemObject>().ItemID;
+        base.OnSelectEntered(args);
 
-        if (itemObject != itemID)
+        //아이디값이 같은거만 셀렉트
+        if(args.interactableObject.transform.GetComponent<ItemObject>().ItemID != itemID)
+        {
+            this.interactionManager.SelectExit(this, args.interactableObject);
             return;
+        }
 
-        collider.transform.parent = transform;
-        StartCoroutine(SuccessRoutine(collider));
+        Transform selectObject = args.interactableObject.transform;
+        selectObject.parent = transform;
+        StartCoroutine(SuccessRoutine(selectObject));
     }
 
+
     // 오브젝트 소켓 트래킹 루틴 
-    IEnumerator SuccessRoutine(Collider collider)
+    IEnumerator SuccessRoutine(Transform selectObject)
     {
         Debug.Log("코르틴시작");
         float rate = 0f;
-        Vector3 startPos = collider.transform.position;
-        Quaternion startRot = collider.transform.rotation;
+        Vector3 startPos = selectObject.position;
+        Quaternion startRot = selectObject.rotation;
         Vector3 endPos = clearPoint.transform.position;
         Quaternion endRot = clearPoint.transform.rotation;
 
         while (rate < 1f)
         {
             rate += Time.deltaTime / trackingTime;
-            collider.transform.position = Vector3.Lerp(startPos, endPos, rate);
-            collider.transform.rotation = Quaternion.Lerp(startRot, endRot, rate);
+            selectObject.position = Vector3.Lerp(startPos, endPos, rate);
+            selectObject.rotation = Quaternion.Lerp(startRot, endRot, rate);
             yield return null;
         }
 
-        collider.transform.localPosition = Vector3.zero;
-        collider.transform.localRotation = Quaternion.identity;
+        selectObject.localPosition = Vector3.zero;
+        selectObject.localRotation = Quaternion.identity;
         // 퍼즐매니저 업데이트
         UpdatePuzzleManager(puzzle, puzzleIndex);
-    }*/
+    }
 
     // 인터페이스 재정의 
     public void RegistObject(PuzzleManager puzzle)
