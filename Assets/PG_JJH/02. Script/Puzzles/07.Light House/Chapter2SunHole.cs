@@ -15,17 +15,11 @@ public class Chapter2SunHole : PaintRewardPuzzle
     [Tooltip("낮 용 스카이박스 --> Maybe 태양없는 skybox ")]
     [SerializeField] public Material afternoonSkybox;
 
-    [Tooltip("Dark 상태에서의 Directional Light")]
-    [SerializeField] Light nightDirectionalLight;
-
     [Tooltip("dark 버전 마테리얼")]
     [SerializeField] private Material darkMaterial;
 
     [Tooltip("화이트 버전 마테리얼")]
     [SerializeField] private Material whiteMaterial;
-
-    [Tooltip("새롭게 켜줄 direct light")]
-    [SerializeField] private Light newDirectLight;
 
     [Tooltip("moon Panel 을 ON off 해 줄 콜라이더")]
     [SerializeField] private BoxCollider boxCollider;
@@ -33,20 +27,14 @@ public class Chapter2SunHole : PaintRewardPuzzle
     [Tooltip("스프라이트 -> Moon 스프라이트가 붙어 있는 부모 게임 오브젝트--> 패널과 같이 On Off")]
     [SerializeField] public GameObject moonPanel;
 
-    
+    [SerializeField]
+    private Light directionalLight;
 
     /*[Tooltip("스프라이트 -> Sun 스프라이트")]
     [SerializeField] private Sprite sunSprite; // 낮 용 --> Sun 스프라이트 */
 
     // moon이 스프라이트 인데 갑자기 구체를 멀리 생성하는 것 도 너무 어색할 듯 함.
     // 스카이 박스만 바꾸는 거는 어떤지 싶음. -> 태양 위치를 대충이라도 맞춰두고 
-
-
-
-    private void Awake()
-    {
-        
-    }
 
     private void Start()   // 렌더러가 아니라 sprite 상태 ++ 가까이 옮겼기 때문에 ... 
     {
@@ -57,31 +45,11 @@ public class Chapter2SunHole : PaintRewardPuzzle
         moonPanel.SetActive(false); // 일단 시작 시에는 패널을 무조건 꺼두기. 
     }
 
-
-    public void ChangeSkyBox(Material _Skybox) 
-    {
-        /*RenderSettings.skybox = _Skybox; // 밝은 스카이박스로 변경 시켜주기. 
-        nightDirectionalLight.gameObject.SetActive(false);        // 기존 밤 다이레트 꺼주기. 
-        newDirectLight.gameObject.SetActive(true); // 새로운 다이레트 라이트 켜주기.;
-        *//*Material[] mats = meshRenderer.materials;
-        mats[0] = whiteMaterial; // 첫 번째 메터리얼을 darkMaterial로 설정
-        meshRenderer.materials = mats; // 변경된 배열 다시 설정*//*
-        moonPanel.gameObject.SetActive(false); // 등대 앞 패널을 같이 꺼준다. 
-        Debug.Log("퍼즐 매니저의 ChangeSkyBox 발동됨"); */
-
-    }
-
-    public void SkyBoxIntensity()
-    {
-        
-    }
-
-
     public override void OnClearPuzzle()
     {
-        base.OnClearPuzzle();  
-        ChangeSkyBox(afternoonSkybox);  // 클리어 시 여기서 진행해야 하는 것들 해주자.
+        base.OnClearPuzzle();
 
+        directionalLight.intensity = 1.0f;
         boxCollider.enabled = false; // 콜라이더를 꺼버려서 다시 panel이 켜지는 일을 방지한다. 
         Debug.Log("등대 온클리어");
 
