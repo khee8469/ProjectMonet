@@ -1,5 +1,6 @@
 using Jc;
 using JJH;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -114,13 +115,14 @@ public class HiddenPatternController : MonoBehaviour, IPuzzleable
 
     public void RegistObject(PuzzleManager puzzle)
     {
+        Debug.Log($"{controllerID} : 컨트롤러 등록");
         puzzle.puzzleObjects.Add(this);
     }
 
     public void UpdatePuzzleManager(PuzzleManager puzzle, int index = -1)
     {
         puzzle.UpdateCondition(index); //일단 기본이 true 인데 어차피 완성되서 날라올 거니까 그냥 true로 하면 된다.
-        UpdatePattern();
+        
     }
 
     public void ActiveSetting()
@@ -137,17 +139,13 @@ public class HiddenPatternController : MonoBehaviour, IPuzzleable
     {
         // 자기 자식 콜라이더 다 꺼줘서 못 만지게 하기. or 스크립트를 꺼버리기
 
-        foreach (var pattern in patterns)
+        foreach (HiddenPatternObject pattern in patterns)
         {
-            pattern.gameObject.layer = 0; // 빛을 받을 수 있도록 Defalut layer로 바꿔주기. 바꿔 줄 필요 있나?
+            Debug.Log($"{pattern.PatternID} : 컴플릿");
+            pattern.handle.gameObject.layer = 0; // 빛을 받을 수 있도록 Defalut layer로 바꿔주기. 바꿔 줄 필요 있나?
             pattern.interactionLayers = 0 ; //nothing 으로 못만지도록  
-            pattern.transform.rotation = Quaternion.identity;   // 0 0 0 으로 초기화. 
+            pattern.handle.transform.localRotation = Quaternion.identity;   // 0 0 0 으로 초기화. 
         }
-
-        
-
-
-        puzzle.UpdateCondition(puzzleIndex);
-
+        UpdatePuzzleManager(puzzle, puzzleIndex);
     }
 }

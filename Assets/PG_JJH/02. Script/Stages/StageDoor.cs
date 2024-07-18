@@ -9,7 +9,7 @@ namespace JJH
 {
     // 씬 이동 용 그림에 붙을 Door Script --> DoorID 번호 저장 잘 해주고. 
 
-    public class StageDoor : InteractObject , IComparable<StageDoor> , IActivatable
+    public class StageDoor : XRSimpleInteractable , IComparable<StageDoor> , IActivatable , IInteractable
     {
         [Header("Door 관리 ID")]
         [Tooltip("id에 따라 on /off 결정")]
@@ -27,25 +27,26 @@ namespace JJH
 
         new Rigidbody rigidbody;
 
-        [Tooltip("자신을 숨겨줄 이젤 커버")]
-        [SerializeField] GameObject cover;
+        /*[Tooltip("자신을 숨겨줄 이젤 커버")]
+        [SerializeField] GameObject cover;*/
 
         private void Start()
         {
             
             rigidbody =GetComponent<Rigidbody>();
             rigidbody.isKinematic = true;
-            throwOnDetach = false;
+            
         }
 
-        public void CoverOff()
+        /*public void CoverOff()
         {
             if(cover!=null)
             {
-                Destroy(cover); // 게임 오브젝트 파괴해주기. 
+                Debug.Log("커버드 발동");
+                cover.gameObject.SetActive(false);
             }
             
-        }
+        }*/
 
         protected override void OnHoverEntered(HoverEnterEventArgs args)
         {
@@ -63,12 +64,7 @@ namespace JJH
             base.OnSelectEntered(args);
         }
 
-        /*protected override void OnSelectEntering(SelectEnterEventArgs args)
-        {
-            return;
-            
-        }*/
-        // 할당된 ID 순서대로 정렬 . 
+  
         public int CompareTo(StageDoor other)
         {
             if (other == null) return 1;
@@ -99,6 +95,15 @@ namespace JJH
 
         }
 
+        public float GetInteractDistance()
+        {
+            return 10f;
+        }
+
+        public Transform GetTransform()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

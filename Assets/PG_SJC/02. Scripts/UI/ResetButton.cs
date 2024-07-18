@@ -10,12 +10,14 @@ public class ResetButton : MonoBehaviour
     public void OnClickResetButton()
     {
         // 세이브 폴더 내 파일 삭제
-        CSVHelper.Remove(SystemPath.GetPath(DataPath.StageData));
+        CSVHelper.Remove(SystemPath.GetPath(DataPath.LocalCanvasData)); // 캔버스 json 데이터 삭제 
+        CSVHelper.Remove(SystemPath.GetPath(DataPath.LocalItemInfoData));
+        CSVHelper.Remove(SystemPath.GetPath(DataPath.LocalPuzzleData));
+        CSVHelper.Remove(SystemPath.GetPath(DataPath.LocalQuestData));
         //CSVHelper.Remove(SystemPath.GetPath(DataPath.LocalCanvasData));
         Manager.Scene.LoadScene("Lobby");
 
 
-        CSVHelper.Remove(SystemPath.GetPath(DataPath.LocalCanvasData)); // 캔버스 json 데이터 삭제 
 
 
 
