@@ -22,8 +22,8 @@ namespace JJH
         [Tooltip("해당 소켓에 들어가야 할 기어 오브젝트")]       
         [SerializeField] private GearObject targetGear; // 이거도 프리팹으로 둬야함!!
 
-        [Tooltip("target gear ID")]
-        [SerializeField] int gearID;
+        /*[Tooltip("target gear ID")]
+        [SerializeField] int gearID;*/
         
         public GearObject TargetGear { get { return targetGear; } }
 

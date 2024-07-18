@@ -27,7 +27,6 @@ public class PinchGesture : Gesture
     public override void LeftGestureEnter()
     {
         PaintBucket paintBucket = null;
-        Pen pen = null;
         //호버중인 오브젝트중 물감통 찾기
         if (LeftHandInteractor.hasSelection)
         {
@@ -37,15 +36,6 @@ public class PinchGesture : Gesture
             {
                 //물감나오는거 함수 호출
                 paintBucket.PaintPlay();
-                Debug.Log("물감호출");
-            }
-
-            pen = LeftHandInteractor.interactablesSelected[0] as Pen;
-            if (pen != null)
-            {
-                // Pen의 그리기 가능 함수 호출 
-                pen.StartDrawing();
-                Debug.Log("Pen is Not NULL");
             }
         }
         else if (!LeftHandInteractor.hasSelection)
@@ -68,15 +58,6 @@ public class PinchGesture : Gesture
                     break;
                 }
             }
-
-            pen = LeftHandInteractor.interactablesSelected[0] as Pen;
-            if (pen != null)
-            {
-                // Pen의 그리기 가능 함수 호출 
-                pen.StartDrawing();
-                Debug.Log("Pen is Not NULL");
-            }
-
         }
     }
 
@@ -85,13 +66,10 @@ public class PinchGesture : Gesture
 
     }
 
-
-
     //기능 물건 잡기, 물감짜기
     public override void RightGestureEnter()
     {
         PaintBucket paintBucket = null;
-        Pen pen = null;
         //호버중인 오브젝트중 물감통 찾기
         if (RightHandInteractor.hasSelection)
         {
@@ -101,17 +79,7 @@ public class PinchGesture : Gesture
             {
                 //물감나오는거 함수 호출
                 paintBucket.PaintPlay();
-                Debug.Log("물감호출");
             }
-            
-            pen = RightHandInteractor.interactablesSelected[0] as Pen;
-            if (pen != null)
-            {
-                // Pen의 그리기 가능 함수 호출 
-                pen.StartDrawing();
-                Debug.Log("Pen is Not NULL");
-            }
-
         }
 
         else if (!RightHandInteractor.hasSelection)
@@ -133,15 +101,6 @@ public class PinchGesture : Gesture
                     break;
                 }
             }
-
-            pen = RightHandInteractor.interactablesSelected[0] as Pen;
-            if (pen != null)
-            {
-                // Pen의 그리기 가능 함수 호출 
-                pen.StartDrawing();
-                Debug.Log("Pen is Not NULL");
-            }
-
         }
     }
 

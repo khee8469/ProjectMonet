@@ -14,6 +14,7 @@ namespace JJH
         /*[Tooltip("퍼즐 매니저")]
         [SerializeField] private Chapter2SunHole puzzleSun; // 얘 한테 퍼즐매니저 붙어 있음. ㅠㅠ */
 
+        [Header("퍼즐 매니저 sunhole")]
         [Tooltip("체크 해야 할 검은 구멍")]
         [SerializeField]
         private Chapter2SunHole sunHole;
@@ -109,7 +110,8 @@ namespace JJH
                 sunHole.OnClearPuzzle();
                 Debug.Log("정답 체크");
                 DeAactiveLight_Button();
-                //ChangeRoutine(); // 등대 빛 일단 끄자 이상해 보임.. 
+                ChangeRoutine(); // 등대 빛 일단 끄자 이상해 보임.. 
+                MyCompleteRotation();
 
             }
         }
@@ -148,6 +150,10 @@ namespace JJH
             LineRenderer line = pillar_Of_Light.GetComponent<LineRenderer>();
             float during = 2f;
             float elapse = 0f;
+            if (line == null)
+            {
+                yield break;
+            }
 
             while (elapse < during)
             {
@@ -160,9 +166,9 @@ namespace JJH
             line.enabled = false; //완료되면 꺼주기. 
         }
 
-        public void MyCompleteRotation() // 등대 위치 저장 해주기.
+        public void MyCompleteRotation() //클리어 했을 때의 등대 위치 저장. 
         {
-            
+            Debug.Log("등대 로테이션 저장... but 저장해야 하는게 등대 머리랑 바닥이랑 두개라서 거의 불가능 할 것 같음...");
         }
 
 
@@ -177,13 +183,14 @@ namespace JJH
 
         public void CompleteSetting() // 완성되 있는 상태 세팅 ++ 스카이박스 변경 필요.
         {
+            Debug.Log("등대의 컴플리트 세팅");  // 스카이박스 변경 부르기 
             DeAactiveLight_Button();
             sunHole.OnClearPuzzle();
             PillarChange(true);
             onWindowLight(true);
-            Debug.Log("등대의 컴플리트 세팅");  // 스카이박스 변경 부르기 
             sunHole.OnClearPuzzle();
             sunHole.ChangeSkyBox(sunHole.afternoonSkybox);
+            MyCompleteRotation(); // 클리어 세팅에서 자신의 등대 저장 
 
         }
 

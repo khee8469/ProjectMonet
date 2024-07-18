@@ -105,8 +105,6 @@ namespace JJH
             }
         }
 
-
-
         private void SetUpFadeUI()
         {
             if (playerCamera != null && fade != null)
