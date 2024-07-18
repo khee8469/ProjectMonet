@@ -1,8 +1,7 @@
 using Jc;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem.iOS;
-using UnityEngine.XR.Interaction.Toolkit;
+
 
 namespace JJH
 {
