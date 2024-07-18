@@ -9025,8 +9025,9 @@ GameObject:
   m_Component:
   - component: {fileID: 275904684}
   - component: {fileID: 275904686}
+  - component: {fileID: 275904687}
   m_Layer: 0
-  m_Name: MoonPlane
+  m_Name: RealMoon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9099,6 +9100,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &275904687
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275904683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f0b25b879406334db6dce2caed426fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCameraTr: {fileID: 559000154}
+  enableBuilboard: 1
 --- !u!1001 &278633858
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16036,6 +16051,12 @@ Transform:
 --- !u!20 &559000147 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 3735236454438844432, guid: 85f62ae489149e14893cca4524a7e784,
+    type: 3}
+  m_PrefabInstance: {fileID: 684815699}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &559000154 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3170117524373123758, guid: 85f62ae489149e14893cca4524a7e784,
     type: 3}
   m_PrefabInstance: {fileID: 684815699}
   m_PrefabAsset: {fileID: 0}
@@ -25358,7 +25379,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2607773170294258295, guid: ee316b22ead356641bf650184827666c, type: 3}
+    - {fileID: 260098672017031003, guid: ee316b22ead356641bf650184827666c, type: 3}
+    - {fileID: 3321928302065321144, guid: ee316b22ead356641bf650184827666c, type: 3}
+    - {fileID: 1734831125688775518, guid: ee316b22ead356641bf650184827666c, type: 3}
+    - {fileID: 6794560969274388897, guid: ee316b22ead356641bf650184827666c, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ee316b22ead356641bf650184827666c, type: 3}
