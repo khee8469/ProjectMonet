@@ -7,8 +7,6 @@ public class Chapter2SunHole : PaintRewardPuzzle
 {
     // 챕터 2 의 검은 구멍에 붙여 줄 스크립트
 
-    [Tooltip("밤 용 스카이박스")] // 어차피 기본 상태에서는 이 스카이 박스를 쓰고 있을 거니까
-    [SerializeField] public Material nightSkybox;
 
     // 이러면 마테리얼이 아니라 스프라이트를 바꿔 줘야 하는듯? 
 
@@ -78,6 +76,10 @@ public class Chapter2SunHole : PaintRewardPuzzle
     {
         base.OnClearPuzzle();  
         ChangeSkyBox(afternoonSkybox);  // 클리어 시 여기서 진행해야 하는 것들 해주자.
+
+        // 약간 여기서 페이드 인 아웃 해야 하는데 
+
+
         boxCollider.enabled = false; // 콜라이더를 꺼버려서 다시 panel이 켜지는 일을 방지한다. 
         Debug.Log("등대 온클리어");
 

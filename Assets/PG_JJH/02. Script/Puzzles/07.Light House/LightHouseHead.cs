@@ -14,6 +14,7 @@ namespace JJH
         /*[Tooltip("퍼즐 매니저")]
         [SerializeField] private Chapter2SunHole puzzleSun; // 얘 한테 퍼즐매니저 붙어 있음. ㅠㅠ */
 
+        [Header("퍼즐 매니저 sunhole")]
         [Tooltip("체크 해야 할 검은 구멍")]
         [SerializeField]
         private Chapter2SunHole sunHole;
