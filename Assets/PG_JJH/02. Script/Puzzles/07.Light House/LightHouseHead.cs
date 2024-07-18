@@ -49,7 +49,9 @@ namespace JJH
         [SerializeField]
         private Light clearLight;
 
-        
+        [SerializeField]
+        private int puzzleIndex = 0;
+
 
         [Tooltip("버튼이 꺼지는 거는 버튼이 함수로 가지고 있고 그거를 여기서 빌려쓰는 식으로 하자.")]
         [SerializeField] private LightPanelButton[] buttons;
@@ -65,10 +67,11 @@ namespace JJH
         {
             PillarChange(false); // 일단 어웨이크 에서 꺼주자.
             RegistObject(sunHole);
+            
         }
 
 
-        private void RayOn() //Ray 든 뭐 빛 기둥이던 어쨋든 이전 퍼즐을 깨야 발동이 가능하다. 
+      /*  private void RayOn() //Ray 든 뭐 빛 기둥이던 어쨋든 이전 퍼즐을 깨야 발동이 가능하다. 
         {
             RaycastHit hit;
             Debug.DrawRay(rayStartPos.position, rayStartPos.forward * distance, Color.red);
@@ -82,7 +85,7 @@ namespace JJH
                 }
             }
             
-        }
+        }*/
 
         private void PillarChange(bool boolean)
         {
@@ -112,14 +115,8 @@ namespace JJH
                 DeAactiveLight_Button();
                 ChangeRoutine(); // 등대 빛 일단 끄자 이상해 보임.. 
                 MyCompleteRotation();
-
+                UpdatePuzzleManager(sunHole,puzzleIndex); // 이거로 해서 업데이트 해보자. 
             }
-        }
-
-        public void PuzzleOn()
-        {
-            puzzleOn = true;
-            Debug.Log("등대 퍼즐 켜짐");
         }
 
         public void DeAactiveLight_Button() 
@@ -188,7 +185,6 @@ namespace JJH
             sunHole.OnClearPuzzle();
             PillarChange(true);
             onWindowLight(true);
-            sunHole.OnClearPuzzle();
             sunHole.ChangeSkyBox(sunHole.afternoonSkybox);
             MyCompleteRotation(); // 클리어 세팅에서 자신의 등대 저장 
 
@@ -213,6 +209,7 @@ namespace JJH
         public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
         {
             // 얘는 어차피 완료 조건이 하나 니까 그냥 OnClear 부르는 방식으로 진행 할 것. 
+            puzzle.UpdateCondition(puzzleIndex);
             sunHole.OnClearPuzzle();
             Debug.Log("등대의 업데이트 퍼즐");
         }

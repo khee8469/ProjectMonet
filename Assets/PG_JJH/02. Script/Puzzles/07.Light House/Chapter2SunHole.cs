@@ -57,18 +57,25 @@ public class Chapter2SunHole : PaintRewardPuzzle
         moonPanel.SetActive(false); // 일단 시작 시에는 패널을 무조건 꺼두기. 
     }
 
+
     public void ChangeSkyBox(Material _Skybox) 
     {
-        RenderSettings.skybox = _Skybox; // 밝은 스카이박스로 변경 시켜주기. 
+        /*RenderSettings.skybox = _Skybox; // 밝은 스카이박스로 변경 시켜주기. 
         nightDirectionalLight.gameObject.SetActive(false);        // 기존 밤 다이레트 꺼주기. 
         newDirectLight.gameObject.SetActive(true); // 새로운 다이레트 라이트 켜주기.;
-        /*Material[] mats = meshRenderer.materials;
+        *//*Material[] mats = meshRenderer.materials;
         mats[0] = whiteMaterial; // 첫 번째 메터리얼을 darkMaterial로 설정
-        meshRenderer.materials = mats; // 변경된 배열 다시 설정*/
+        meshRenderer.materials = mats; // 변경된 배열 다시 설정*//*
         moonPanel.gameObject.SetActive(false); // 등대 앞 패널을 같이 꺼준다. 
-        Debug.Log("퍼즐 매니저의 ChangeSkyBox 발동됨"); 
+        Debug.Log("퍼즐 매니저의 ChangeSkyBox 발동됨"); */
 
     }
+
+    public void SkyBoxIntensity()
+    {
+        
+    }
+
 
     public override void OnClearPuzzle()
     {
