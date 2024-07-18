@@ -279,17 +279,11 @@ namespace Jc
             if (args.interactableObject is IActivatable)
             {
                 IActivatable active = args.interactableObject as IActivatable;
-                active.Activate();
-
-                if (active is InteractObject)
+                if(active != null)
                 {
-                    InteractObject obj = active as InteractObject;
-                    if (obj != null)
-                    {
-                        this.interactionManager.SelectExit(this as IXRSelectInteractor, obj as IXRSelectInteractable);
-                        Debug.Log("active 오브젝트 놓기");
-                    }
 
+                    Debug.Log("인터페이스 not null");
+                    active.Activate();
                 }
             }
         }

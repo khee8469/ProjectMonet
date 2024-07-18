@@ -8,7 +8,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace JJH
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class ReturnLobbyScene : InteractObject, IActivatable  // 얘네는 그냥 로비씬으로 전환 시켜주는 --> 씬에 있는 그림에 붙여 줄 스크립트 
+    public class ReturnLobbyScene : XRSimpleInteractable, IActivatable ,IInteractable // 얘네는 그냥 로비씬으로 전환 시켜주는 --> 씬에 있는 그림에 붙여 줄 스크립트 
     {
         public string sceneName;
 
@@ -18,19 +18,19 @@ namespace JJH
         {
             rigidbody = GetComponent<Rigidbody>();
             rigidbody.isKinematic = true;
-            throwOnDetach = false;
+            
         }
         public void Activate()
         {
             Manager.Scene.LoadScene(sceneName);
         }
 
-        protected override void OnHoverEntered(HoverEnterEventArgs args)
+        /*protected override void OnHoverEntered(HoverEnterEventArgs args)
         {
             base.OnHoverEntered(args);
-        }
+        }*/
 
-        protected override void OnActivated(ActivateEventArgs args)
+        /*protected override void OnActivated(ActivateEventArgs args)
         {
             base.OnActivated(args);
             //Activate();
@@ -45,11 +45,15 @@ namespace JJH
         {
             return;
 
+        }*/
+        public float GetInteractDistance()
+        {
+            return 10f;
         }
 
-        public void ResetColliderPosition()
+        public Transform GetTransform()
         {
-
+            throw new System.NotImplementedException();
         }
     }
 }

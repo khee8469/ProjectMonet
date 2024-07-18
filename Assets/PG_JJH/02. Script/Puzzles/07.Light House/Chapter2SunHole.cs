@@ -79,6 +79,7 @@ public class Chapter2SunHole : PaintRewardPuzzle
         base.OnClearPuzzle();  
         ChangeSkyBox(afternoonSkybox);  // 클리어 시 여기서 진행해야 하는 것들 해주자.
         boxCollider.enabled = false; // 콜라이더를 꺼버려서 다시 panel이 켜지는 일을 방지한다. 
+        Debug.Log("등대 온클리어");
 
     }
 

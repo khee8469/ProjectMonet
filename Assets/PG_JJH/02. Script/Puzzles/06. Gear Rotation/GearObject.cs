@@ -22,7 +22,8 @@ namespace JJH
         [Tooltip("정답 판정 시 생성해줄 너트")]
         public GameObject nut;
 
-
+        [Tooltip("꺼줄 기어 콜라이더")]
+        [SerializeField] public Collider col;
 
         private void Start()
         {

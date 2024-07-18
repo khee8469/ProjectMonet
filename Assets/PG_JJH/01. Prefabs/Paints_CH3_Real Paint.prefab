@@ -404,10 +404,10 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5451617690374067032}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.028670816, y: 0.9427279, z: -0.08135671, w: -0.32221615}
+  m_LocalRotation: {x: -0.028674256, y: 0.9427269, z: -0.08135905, w: -0.3222181}
   m_LocalPosition: {x: -93.403114, y: 2.7970004, z: 2.0870013}
-  m_LocalScale: {x: 0.07, y: 0.07, z: 0.07}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.04, y: 0.04, z: 0.04}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 9104308473804297744}
   - {fileID: 6085424092315711095}
@@ -446,7 +446,7 @@ Transform:
   m_GameObject: {fileID: 6980893434230295879}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: -0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -565,7 +565,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   drawID: 2
-  CompleteQuestID: 0
+  CompleteQuestID: 1510014
+  cover: {fileID: 0}
 --- !u!114 &7359191003048057380
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -668,64 +669,9 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  m_AttachTransform: {fileID: 0}
-  m_SecondaryAttachTransform: {fileID: 0}
-  m_UseDynamicAttach: 0
-  m_MatchAttachPosition: 1
-  m_MatchAttachRotation: 1
-  m_SnapToColliderVolume: 1
-  m_ReinitializeDynamicAttachEverySingleGrab: 1
-  m_AttachEaseInTime: 0.15
-  m_MovementType: 2
-  m_VelocityDamping: 1
-  m_VelocityScale: 1
-  m_AngularVelocityDamping: 1
-  m_AngularVelocityScale: 1
-  m_TrackPosition: 1
-  m_SmoothPosition: 0
-  m_SmoothPositionAmount: 8
-  m_TightenPosition: 0.1
-  m_TrackRotation: 1
-  m_SmoothRotation: 0
-  m_SmoothRotationAmount: 8
-  m_TightenRotation: 0.1
-  m_TrackScale: 1
-  m_SmoothScale: 0
-  m_SmoothScaleAmount: 8
-  m_TightenScale: 0.1
-  m_ThrowOnDetach: 1
-  m_ThrowSmoothingDuration: 0.25
-  m_ThrowSmoothingCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  m_ThrowVelocityScale: 1.5
-  m_ThrowAngularVelocityScale: 1
-  m_ForceGravityOnDetach: 0
-  m_RetainTransformParent: 1
-  m_AttachPointCompatibilityMode: 0
-  m_StartingSingleGrabTransformers: []
-  m_StartingMultipleGrabTransformers: []
-  m_AddDefaultGrabTransformers: 1
-  grabType: 2
-  isTwoHanded: 0
-  grabDistance: 10
-  interactors: []
-  doorID: 0
+  doorID: 2
   unLockController: {fileID: 0}
   SceneName: Stage_3
-  cover: {fileID: 0}
 --- !u!1 &7838024584272790986
 GameObject:
   m_ObjectHideFlags: 0
@@ -740,7 +686,7 @@ GameObject:
   - component: {fileID: 1818165540701553993}
   - component: {fileID: 5180103938120715091}
   m_Layer: 13
-  m_Name: ch3_sky
+  m_Name: ch3_skyBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
