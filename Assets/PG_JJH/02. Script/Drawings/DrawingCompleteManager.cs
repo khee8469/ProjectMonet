@@ -63,7 +63,7 @@ namespace JJH
                             sprite.color = color;
 
                             // start 에서 로컬 블룸 레이어로 변경하여 그림도 못그리고 + 로컬 블룸의 효과를 받아 흑백이 아니도록 한다.
-                            dr.gameObject.layer = 17; // 레이어 변경 시켜줘서 다시 라인 렌더러가 생성 되지 않도록 해줘야한다. 
+                            dr.gameObject.layer = 17; // 혹시 모르니까 여기서 로컬블룸으로 변경하는 거인듯? 
                             ChangeLight(dr.currentPaintType);  // 자신의 드로우 오브젝트에 할당되어 있는 색깔 받아서 켜주기.
                         }
                     }

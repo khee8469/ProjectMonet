@@ -68,9 +68,6 @@ namespace JJH
             {
                 gearPuzzle.UpdateCondition(puzzleIndex);
             }
-
-            
-
         }
 
         protected override void OnSelectExited(SelectExitEventArgs args)

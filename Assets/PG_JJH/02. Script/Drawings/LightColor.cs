@@ -35,7 +35,7 @@ public class LightColor : MonoBehaviour
     private void Start()
     {
         // start 에서 그림이 기본 defalut고 완료된 상태라면 local volume 으로 바꿔주고 있으므로 layer를 똑같이 따라가면 된다.
-        DrawObjectManager draw = myLinkDraw.GetComponent<DrawObjectManager>(); // 이 부분을 사용을 안하는데?
+        
     }
 
     public void drawLightLink(PaintTypeEnum currentPaintType)
