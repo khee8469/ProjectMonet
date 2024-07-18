@@ -60,7 +60,6 @@ namespace JJH
                 }
             }
 
-            SocketOnRoutine(obj);
             gearPuzzle.gearList.Add(obj);
 
             // 이거 나중에 수정 
