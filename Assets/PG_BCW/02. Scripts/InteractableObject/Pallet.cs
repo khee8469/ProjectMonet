@@ -1,6 +1,7 @@
 using Jc;
 using JJH;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Pallet : InteractObject
 {
@@ -17,6 +18,10 @@ public class Pallet : InteractObject
     [Tooltip("떨어진 오브젝트와 색깔을 판단해 줄 자신의 paint들")]
     private Paint [] paintPos;
 
+    public Vector3 startPosition;
+    public Quaternion startRotation;
+
+
 
     private void Start()
     {
@@ -24,6 +29,11 @@ public class Pallet : InteractObject
         {
             paintPos[i].gameObject.SetActive(false); // 일단 씬 시작 하면 False로 꺼두기. 
         }
+
+        startPosition = transform.position;
+        startRotation = transform.rotation;
+
+
     }
 
 
@@ -53,6 +63,13 @@ public class Pallet : InteractObject
         }
     }
 
+    protected override void OnSelectExited(SelectExitEventArgs args)
+    {
+        base.OnSelectExited(args);
+        transform.position = startPosition;
+        transform.rotation = startRotation;
+
+    }
 
 
 

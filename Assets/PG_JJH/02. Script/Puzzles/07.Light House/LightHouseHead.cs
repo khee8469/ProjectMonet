@@ -11,8 +11,8 @@ namespace JJH
     public class LightHouseHead : MonoBehaviour, IPuzzleable
     {
 
-        [Tooltip("퍼즐 매니저")]
-        [SerializeField] private Chapter2SunHole puzzleSun; // 얘 한테 퍼즐매니저 붙어 있음. ㅠㅠ 
+        /*[Tooltip("퍼즐 매니저")]
+        [SerializeField] private Chapter2SunHole puzzleSun; // 얘 한테 퍼즐매니저 붙어 있음. ㅠㅠ */
 
         [Tooltip("체크 해야 할 검은 구멍")]
         [SerializeField]
@@ -63,7 +63,7 @@ namespace JJH
         private void Awake()
         {
             PillarChange(false); // 일단 어웨이크 에서 꺼주자.
-            RegistObject(puzzleSun);
+            RegistObject(sunHole);
         }
 
 
@@ -107,10 +107,9 @@ namespace JJH
             if ((angleX >= 20 - tolerance && angleX <= 20 + tolerance)&&(angleZ >= 355 - tolerance && angleZ <= 355 + tolerance))
             {
                 sunHole.OnClearPuzzle();
+                Debug.Log("정답 체크");
                 DeAactiveLight_Button();
-                ChangeRoutine(); // 등대 빛 일단 끄자 이상해 보임.. 
-
-
+                //ChangeRoutine(); // 등대 빛 일단 끄자 이상해 보임.. 
 
             }
         }
@@ -182,8 +181,9 @@ namespace JJH
             sunHole.OnClearPuzzle();
             PillarChange(true);
             onWindowLight(true);
-            Debug.Log("등대의 컴플리트 세팅");
-            
+            Debug.Log("등대의 컴플리트 세팅");  // 스카이박스 변경 부르기 
+            sunHole.OnClearPuzzle();
+            sunHole.ChangeSkyBox(sunHole.afternoonSkybox);
 
         }
 
@@ -206,7 +206,7 @@ namespace JJH
         public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
         {
             // 얘는 어차피 완료 조건이 하나 니까 그냥 OnClear 부르는 방식으로 진행 할 것. 
-            puzzleSun.OnClearPuzzle();
+            sunHole.OnClearPuzzle();
             Debug.Log("등대의 업데이트 퍼즐");
         }
         #endregion

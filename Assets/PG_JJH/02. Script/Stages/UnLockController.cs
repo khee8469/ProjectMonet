@@ -74,9 +74,10 @@ namespace JJH
                 //ChapterManager.Instance.runtimeStageData.stageUnlockStatus[number] = unLock; // bool 값을 변경 시켜줌. 
                 Manager.PlayableData.CanvasData.stageUnlockStatus[number] = unLock; // 사실 이거 어차피 무조건 트루긴 함.. 
 
+                Debug.Log($"열어주는 numbert 상태{number}");
                 doors[number].interactionLayers = unLock ? -1 : 0;
 
-                doors[number].CoverOff(); 
+                // doors[number].CoverOff(); 
 
                 Manager.PlayableData.SaveCanvasData(); // 값 변경 시키고 여기서 저장. 
 

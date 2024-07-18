@@ -1,6 +1,5 @@
 using Jc;
 using JJH;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -44,7 +43,7 @@ public class PaintBucket : InteractObject
         base.OnEnable();
         if (paintTypeManager != null)
         {
-            myColor = paintTypeManager.GetColorByType(color); 
+            myColor = paintTypeManager.GetColorByType(color);
             //GetComponent<Renderer>().material.color = myColor; 마테리얼 색깔 변경 중지. 
         }
 
@@ -52,12 +51,10 @@ public class PaintBucket : InteractObject
 
         startPosition = transform.position;
         startRotation = transform.rotation;
-
-
     }
 
     private void Start()
-    {      
+    {
         if (paintTypeManager != null)
         {
             myColor = paintTypeManager.GetColorByType(color);
@@ -91,12 +88,9 @@ public class PaintBucket : InteractObject
     protected override void OnSelectExited(SelectExitEventArgs args)
     {
         base.OnSelectExited(args);
+        transform.position = startPosition;
+        transform.rotation = startRotation;
 
-        if(args.interactorObject.transform.GetComponent<CustomCheck>() != null)  // 어차피 손으로만 잡히고 손이 ray의 direct interactor 니까 그냥 거기에 이 스크립트 붙이면 된다.
-        {
-            transform.position = startPosition;
-            transform.rotation = startRotation;
-        }
 
     }
 
