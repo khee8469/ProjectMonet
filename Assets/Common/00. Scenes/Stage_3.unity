@@ -4203,6 +4203,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1621996155}
+    - targetCorrespondingSourceObject: {fileID: 3888966442225193623, guid: 2d68281d4f622e447b0ff4e54af01108,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1876141219}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d68281d4f622e447b0ff4e54af01108, type: 3}
 --- !u!4 &359634081 stripped
@@ -24744,6 +24748,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 724156085507819317, guid: 56e4a2ab4cc0830489f68df520c8eb8e,
         type: 3}
+      propertyPath: currentPaintType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 724156085507819317, guid: 56e4a2ab4cc0830489f68df520c8eb8e,
+        type: 3}
       propertyPath: drawingCompleteManager
       value: 
       objectReference: {fileID: 262792491}
@@ -24809,9 +24818,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6410709358398368602, guid: 56e4a2ab4cc0830489f68df520c8eb8e,
         type: 3}
+      propertyPath: currentPaintType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6410709358398368602, guid: 56e4a2ab4cc0830489f68df520c8eb8e,
+        type: 3}
       propertyPath: drawingCompleteManager
       value: 
       objectReference: {fileID: 262792491}
+    - target: {fileID: 8126400770393842345, guid: 56e4a2ab4cc0830489f68df520c8eb8e,
+        type: 3}
+      propertyPath: currentPaintType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8126400770393842345, guid: 56e4a2ab4cc0830489f68df520c8eb8e,
         type: 3}
       propertyPath: drawingCompleteManager
@@ -24819,16 +24838,17 @@ PrefabInstance:
       objectReference: {fileID: 262792491}
     - target: {fileID: 9072804285001675099, guid: 56e4a2ab4cc0830489f68df520c8eb8e,
         type: 3}
+      propertyPath: currentPaintType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072804285001675099, guid: 56e4a2ab4cc0830489f68df520c8eb8e,
+        type: 3}
       propertyPath: drawingCompleteManager
       value: 
       objectReference: {fileID: 262792491}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4665376080091113947, guid: 56e4a2ab4cc0830489f68df520c8eb8e,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1876141219}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56e4a2ab4cc0830489f68df520c8eb8e, type: 3}
 --- !u!114 &1621996151 stripped
@@ -26979,42 +26999,57 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1621996155}
+    m_TransformParent: {fileID: 359634081}
     m_Modifications:
     - target: {fileID: 1829634210614927746, guid: aa4932b077d412549a17efd1f4eed182,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.0015
+      objectReference: {fileID: 0}
+    - target: {fileID: 1829634210614927746, guid: aa4932b077d412549a17efd1f4eed182,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.0014999997
+      objectReference: {fileID: 0}
+    - target: {fileID: 1829634210614927746, guid: aa4932b077d412549a17efd1f4eed182,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.0015
+      objectReference: {fileID: 0}
+    - target: {fileID: 1829634210614927746, guid: aa4932b077d412549a17efd1f4eed182,
+        type: 3}
       propertyPath: m_LocalPosition.x
-      value: -93.423
+      value: -111.65184
       objectReference: {fileID: 0}
     - target: {fileID: 1829634210614927746, guid: aa4932b077d412549a17efd1f4eed182,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.01
+      value: -103.997314
       objectReference: {fileID: 0}
     - target: {fileID: 1829634210614927746, guid: aa4932b077d412549a17efd1f4eed182,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.076
+      value: -110.989586
       objectReference: {fileID: 0}
     - target: {fileID: 1829634210614927746, guid: aa4932b077d412549a17efd1f4eed182,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.3222181
+      value: -0.6246462
       objectReference: {fileID: 0}
     - target: {fileID: 1829634210614927746, guid: aa4932b077d412549a17efd1f4eed182,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.028674256
+      value: -0.0531279
       objectReference: {fileID: 0}
     - target: {fileID: 1829634210614927746, guid: aa4932b077d412549a17efd1f4eed182,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.9427269
+      value: 0.77905244
       objectReference: {fileID: 0}
     - target: {fileID: 1829634210614927746, guid: aa4932b077d412549a17efd1f4eed182,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.08135905
+      value: 0.008476891
       objectReference: {fileID: 0}
     - target: {fileID: 1829634210614927746, guid: aa4932b077d412549a17efd1f4eed182,
         type: 3}
@@ -27033,9 +27068,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2384842054297739270, guid: aa4932b077d412549a17efd1f4eed182,
         type: 3}
+      propertyPath: currentPaintType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2384842054297739270, guid: aa4932b077d412549a17efd1f4eed182,
+        type: 3}
       propertyPath: drawingCompleteManager
       value: 
       objectReference: {fileID: 262792491}
+    - target: {fileID: 3439460725543135845, guid: aa4932b077d412549a17efd1f4eed182,
+        type: 3}
+      propertyPath: currentPaintType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3439460725543135845, guid: aa4932b077d412549a17efd1f4eed182,
         type: 3}
       propertyPath: drawingCompleteManager
@@ -27045,6 +27090,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Paints_CH2_Real
+      objectReference: {fileID: 0}
+    - target: {fileID: 8770296957010862951, guid: aa4932b077d412549a17efd1f4eed182,
+        type: 3}
+      propertyPath: currentPaintType
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8770296957010862951, guid: aa4932b077d412549a17efd1f4eed182,
         type: 3}

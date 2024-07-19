@@ -6868,6 +6868,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1628550321}
     m_Modifications:
+    - target: {fileID: 724156085507819317, guid: 56e4a2ab4cc0830489f68df520c8eb8e,
+        type: 3}
+      propertyPath: currentPaintType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4665376080091113947, guid: 56e4a2ab4cc0830489f68df520c8eb8e,
         type: 3}
       propertyPath: m_LocalScale.y
@@ -6927,6 +6932,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: paint_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6410709358398368602, guid: 56e4a2ab4cc0830489f68df520c8eb8e,
+        type: 3}
+      propertyPath: currentPaintType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8126400770393842345, guid: 56e4a2ab4cc0830489f68df520c8eb8e,
+        type: 3}
+      propertyPath: currentPaintType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9072804285001675099, guid: 56e4a2ab4cc0830489f68df520c8eb8e,
+        type: 3}
+      propertyPath: currentPaintType
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -20233,6 +20253,11 @@ PrefabInstance:
     - target: {fileID: 3321928302065321144, guid: ee316b22ead356641bf650184827666c,
         type: 3}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4602579929653371694, guid: ee316b22ead356641bf650184827666c,
+        type: 3}
+      propertyPath: m_CastShadows
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4602579929653371694, guid: ee316b22ead356641bf650184827666c,
@@ -92048,7 +92073,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aff2e148c80f87f41b1ab1fce0d0016a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 60
+  direction: 20
 --- !u!33 &7960134220250896002
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -92621,7 +92646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aff2e148c80f87f41b1ab1fce0d0016a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 60
+  direction: 20
 --- !u!23 &8442131515295605048
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -97618,7 +97643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aff2e148c80f87f41b1ab1fce0d0016a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 60
+  direction: 20
 --- !u!64 &8488079579658966738
 MeshCollider:
   m_ObjectHideFlags: 0
