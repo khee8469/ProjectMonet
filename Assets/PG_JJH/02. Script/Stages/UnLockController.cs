@@ -70,11 +70,9 @@ namespace JJH
 
             if (number >= 0 && number < doors.Length)
             {
-                print("스테이지 언락 if문 내부 진입");
+                
                 //ChapterManager.Instance.runtimeStageData.stageUnlockStatus[number] = unLock; // bool 값을 변경 시켜줌. 
                 Manager.PlayableData.CanvasData.stageUnlockStatus[number] = unLock; // 사실 이거 어차피 무조건 트루긴 함.. 
-
-                Debug.Log($"열어주는 numbert 상태{number}");
                 doors[number].interactionLayers = unLock ? -1 : 0;
 
                 // doors[number].CoverOff(); 

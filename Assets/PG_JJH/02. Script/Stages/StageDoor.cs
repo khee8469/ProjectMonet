@@ -63,7 +63,7 @@ namespace JJH
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
-            Activate();
+            //Activate();
 
         }
 
