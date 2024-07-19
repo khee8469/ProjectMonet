@@ -61,7 +61,7 @@ namespace JJH
             isColoredInspector = is_Colored; // 인스펙터 창에서 보기 위해 변수 할당 
 
             is_Colored = new bool[sceneCount];
-            drawPartCheck = new bool[drawObjectManager.Length];
+            drawPartCheck = new bool[12];
             //isDrawing_Complete = new bool[drawObjectManager.Length];
 
 

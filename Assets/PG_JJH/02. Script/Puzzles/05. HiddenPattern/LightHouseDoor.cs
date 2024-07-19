@@ -81,7 +81,6 @@ namespace JJH
         public void CompleteSetting()
         {
             // 소켓 비활성 
-
             hingeJoint.useLimits = false; // 컴플리트 상태면 문이 열려야함. 
         }
 

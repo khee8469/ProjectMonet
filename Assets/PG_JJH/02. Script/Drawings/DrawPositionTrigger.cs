@@ -43,14 +43,14 @@ namespace JJH
             if (player != null)
             {
                 // 캐릭터 컨트롤러를 잠시 끄고 위치를 이동시킨다.
-                characterController = player.GetComponent<CharacterController>();
+                //characterController = player.GetComponent<CharacterController>();
                 if (characterController != null)
                 {
                     Debug.Log("캐컨 널 아님");
                     characterController.enabled = false;
 
                 }
-                move = player.GetComponentInChildren<DynamicMoveProvider>();
+                //move = player.GetComponentInChildren<DynamicMoveProvider>();
 
                 if (move != null)
                 {
@@ -62,20 +62,21 @@ namespace JJH
                         player.transform.rotation = playerMovePos.rotation;
                         player.transform.position = playerMovePos.position; // 정해진 위치로 플레이어 이동
                         move.moveSpeed = 0;
+                        characterController.radius = 0.1f;
                         if(door!=null)
                         {
                             door.stageOn(false); // 트리거 진입하면 activate 발동하지 않는다.
                         }
                         
                     }
-
                     else
                     {
                         Debug.Log("탈출");
                         isTrigger = false;
                         move.moveSpeed = originalSpeed;
                         player.transform.position = returnPos.position; // 정해진 위치로 플레이어 이동
-                        if(door!=null)
+                        characterController.radius = 0.2f;
+                        if (door!=null)
                         {
                             door.stageOn(true); // 트리거 벗어나면 다시 activate가 발동된다. 
                         }
