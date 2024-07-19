@@ -52,9 +52,10 @@ namespace JJH
 
                 if (drawCompleteCheckDic.TryGetValue(drawObjectManagers[i], out bool isTrue))
                 {
-                    if (isTrue)
+                    DrawObjectManager dr = drawObjectManagers[i].GetComponent<DrawObjectManager>();
+
+                    if (isTrue && dr.currentPaintType == PaintTypeEnum.None) // 예상대로라면 여기서 챕터에 있는 안쓰는 애들은 None이니까 if문 내부 안들어가도 된다. 
                     {
-                        DrawObjectManager dr = drawObjectManagers[i].GetComponent<DrawObjectManager>();
                         if (dr != null)
                         {
                             SpriteRenderer sprite = dr.GetComponent<SpriteRenderer>();
@@ -75,15 +76,8 @@ namespace JJH
         // 그림 조각이 하나 그려질 때 마다 이 DrawComplete가 불러진다.
         // -> 여기서 이제 AllComplete를 체크해서 한 스테이지의 그림이 모두 완성되었는지를 체크한다.
         public void DrawComplete(int drawingNumber, bool finishied, int instanceID) // 그림이 완성되었을 때 (완전히) 진행할 함수 
-                                                                                    // 챕터도 해금 시켜줘야 하고. 포스트프로세싱도 종료 시켜줘야하기 때문에 
-                                                                                    // 싱글턴 매니저와 연계가 필요하다. 
-        {
-           /* // 야 이부분 잘못 되었는데? --> 이게 아마 
-            ChapterManager.isDrawing_Complete[drawingNumber] = finishied; 
-           
-            Manager.PlayableData.CanvasData.myDrawCompleteCheckArr[drawingNumber] = finishied; // json 같이 저장해주자.*/
-
-            // Json도 같이 저장 
+                                                                                    // 챕터도 해금 시켜줘야 하고. 포스트프로세싱도 종료 시켜줘야하기 때문에                                                                                    
+        {          
             ChapterManager.drawPartCheck[instanceID] = finishied;
             Manager.PlayableData.CanvasData.myDrawPartCheckArr[instanceID] = finishied; // true로 변경 
             Manager.PlayableData.SaveCanvasData();

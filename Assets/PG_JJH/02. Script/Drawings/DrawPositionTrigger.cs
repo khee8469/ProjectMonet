@@ -68,6 +68,7 @@ namespace JJH
                         }
                         
                     }
+
                     else
                     {
                         Debug.Log("탈출");
@@ -106,10 +107,10 @@ namespace JJH
             {
                 player = other.gameObject; // player 참조 시작. 
             }*/
-            if (other.gameObject.CompareTag("Player"))
+            /*if (other.gameObject.CompareTag("Player"))
             {
                 player = other.gameObject;
-            }
+            }*/
             // 이거 그냥 태그로 하자. 
 
         }
