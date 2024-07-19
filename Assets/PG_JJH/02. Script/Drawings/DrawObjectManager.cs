@@ -125,8 +125,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             {
                 for(int i=0; i< myColliderArray.Length;i++)
                 {
-                    myColliderArray[i].enabled = true;
-                    Debug.Log("콜라이더 온");
+                    myColliderArray[i].enabled = true;               
                 }
             }
             else // 일치하지 않으면 모든 paint object 들은 자신의 콜라이더 배열을 꺼준다. 
@@ -134,8 +133,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
                 for(int i=0; i < myColliderArray.Length;i++)
                 {
                     myColliderArray[i].enabled = false;
-                    Debug.Log("콜라이더 오프");
-
                 }
             }
 
@@ -236,8 +233,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
                 filledArea += segmentArea;
             }
-
-            Debug.Log($"Filled Area: {filledArea}, Total Area: {totalArea}, Fill Percentage: {filledArea / totalArea * 100}%");
         }
 
         private Vector2Int NormalizePoint(Vector3 point, float tolerance)
@@ -272,7 +267,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         // 그림이 그려졌을 때 부를 드로우 피니시드 함수 
         public void DrawFinished() // 열거형 drawingNumber를 int로 형변환 해서 넘겨줌 . 
         {
-            Debug.Log("드로우 피니시드");
             drawingCompleteManager.DrawComplete((int)drawBoardNumber, true, DrawID);
             // 퍼즐매니저 업데이트
             //UpdatePuzzleManager(puzzle, puzzleIndex);

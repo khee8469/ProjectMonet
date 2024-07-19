@@ -35,13 +35,13 @@ namespace JJH
         {
             if (other.gameObject.CompareTag("FlashLight"))
             {
-                Debug.Log("충돌");
+                
 
                 // 그냥 멀리 날아가면 돌아오게?? 잡고 있는 중 체크 ㄴㄴ
 
                 if(flashLight.firstInteractorSelecting != null) // NULL 이 아닐 때만 하는게 맞나? 
                 {
-                    Debug.Log("퍼스트 셀렉팅이 널이 아님");
+                    
                     flashLight.interactionManager.SelectExit(flashLight.firstInteractorSelecting as IXRSelectInteractor, flashLight as IXRSelectInteractable);
                 }
 

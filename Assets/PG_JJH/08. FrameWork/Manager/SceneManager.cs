@@ -73,9 +73,8 @@ namespace JJH
                 
             SetUpFadeUI(); // 새롭게 카메라를 할당하고 실행 해보기. 
 
-            yield return new WaitForSecondsRealtime(1.5f); // 이 부분 시간 차 어떻게 둘지 생각해보기. 
+            yield return new WaitForSecondsRealtime(3f); // 이 부분 시간 차 어떻게 둘지 생각해보기. 
             yield return curScene?.LoadingRoutine();
-
 
             loadingBar.gameObject.SetActive(false);
             Time.timeScale = 1f;

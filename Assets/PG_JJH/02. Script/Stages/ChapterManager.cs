@@ -63,8 +63,6 @@ namespace JJH
             is_Colored = new bool[sceneCount];
             drawPartCheck = new bool[12];
             //isDrawing_Complete = new bool[drawObjectManager.Length];
-
-
             Manager.PlayableData.LoadCanvasData();  // start 에서 Load 받아서 이닛 세팅 실행. 
 
             InitSetting();
@@ -128,7 +126,6 @@ namespace JJH
 
             // json 통해 is colored 저장해주기. --> json 저장 
             Manager.PlayableData.CanvasData.isColoredCheckArr[coloredScene] = isColored;
-
         }
 
 
