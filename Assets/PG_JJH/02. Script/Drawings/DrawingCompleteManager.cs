@@ -58,7 +58,7 @@ namespace JJH
                 {
                     DrawObjectManager dr = drawObjectManagers[i].GetComponent<DrawObjectManager>();
 
-                    if (isTrue && dr.currentPaintType == PaintTypeEnum.None) // 예상대로라면 여기서 챕터에 있는 안쓰는 애들은 None이니까 if문 내부 안들어가도 된다. 
+                    if (isTrue && dr.currentPaintType != PaintTypeEnum.None) // 예상대로라면 여기서 챕터에 있는 안쓰는 애들은 None이니까 if문 내부 안들어가도 된다. 
                     {
                         if (dr != null)
                         {
@@ -95,7 +95,7 @@ namespace JJH
                 {
                     if (obj.Key.DrawID == instanceID)
                     {
-                        Debug.Log($"{obj.Key} 의 if문 들어가서 true 값으로 변환됨.");
+                        
                         keysToModifty.Add(obj.Key);
                     }
                 }
@@ -115,7 +115,7 @@ namespace JJH
             {
                 if ((kvp.Key.drawBoardNumber == (DrawBoardNumber)drawingNumber) && kvp.Value == false) // 같은 PART 에 있는 그림이 전부 그려졌는지를 체크하는 반복문 
                 {
-                    Debug.Log($"{kvp.Key}의 작업이 아직 완료되지 않았습니다.");
+                    
                     allComplete = false;
                     break;
                 }

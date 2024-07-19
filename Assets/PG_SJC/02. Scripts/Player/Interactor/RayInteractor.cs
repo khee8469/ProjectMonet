@@ -279,8 +279,6 @@ namespace Jc
                 IActivatable active = args.interactableObject as IActivatable;
                 if (active != null)
                 {
-
-                    Debug.Log("인터페이스 not null");
                     active.Activate();
                 }
             }

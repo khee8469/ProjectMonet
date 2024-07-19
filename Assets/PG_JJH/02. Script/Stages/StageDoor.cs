@@ -56,15 +56,11 @@ namespace JJH
         protected override void OnActivated(ActivateEventArgs args)
         {
             base.OnActivated(args);
-            Debug.Log("온 액티베이트");
-
         }
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
-            //Activate();
-
         }
 
         public int CompareTo(StageDoor other)
@@ -75,17 +71,6 @@ namespace JJH
 
         public void Activate() // 맵이 열려 있으면 TRUE 리턴 / 안 열려 있으면 FLASE 리턴. 
         {
-
-            /* // 맵이 열려 있으면 해당 씬 로딩 가능. 
-             if (Manager.Chapter.runtimeStageData.stageUnlockStatus.Count > doorID &&
-                 Manager.Chapter.runtimeStageData.stageUnlockStatus[doorID])
-             {
-                 Manager.Scene.LoadScene(SceneName);
-             }
-             else
-             {
-                 Debug.Log("해당 스테이지는 잠겨 있습니다.");
-             }*/
             if (Manager.PlayableData.CanvasData.stageUnlockStatus[doorID])  // doorID가 true 라면 --> 해금되어 있는 상태 
             {
 
@@ -94,7 +79,7 @@ namespace JJH
             }
             else
             {
-                Debug.Log("해당 스테이지는 잠겨 있습니다.");
+                
             }
 
         }

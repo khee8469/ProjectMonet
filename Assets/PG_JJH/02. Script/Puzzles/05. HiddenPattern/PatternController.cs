@@ -57,10 +57,10 @@ public class HiddenPatternController : MonoBehaviour, IPuzzleable
         foreach (var pattern in patterns)  // xr knob의 handle의 transform을 가져와야 한다. 
         {
             float y = pattern.handle.transform.localRotation.eulerAngles.y;
-            Debug.Log($"y의 값 ->{y}");
+            
             if ((y >= 0 && y <= 0 + tolerance) || (y <= 360 && y >= 360 - tolerance)) // 보정값 나중에 수정하기.
             {
-                Debug.Log("정답을 맞췄다.");
+                
             }
             else
             {
@@ -112,7 +112,7 @@ public class HiddenPatternController : MonoBehaviour, IPuzzleable
 
     public void RegistObject(PuzzleManager puzzle)
     {
-        Debug.Log($"{controllerID} : 컨트롤러 등록");
+        
         puzzle.puzzleObjects.Add(this);
     }
 
@@ -137,8 +137,7 @@ public class HiddenPatternController : MonoBehaviour, IPuzzleable
         // 자기 자식 콜라이더 다 꺼줘서 못 만지게 하기. or 스크립트를 꺼버리기
 
         foreach (HiddenPatternObject pattern in patterns)
-        {
-            Debug.Log($"{pattern.PatternID} : 컴플릿");
+        {      
             pattern.handle.gameObject.layer = 0; // 빛을 받을 수 있도록 Defalut layer로 바꿔주기. 바꿔 줄 필요 있나?
             pattern.interactionLayers = 0 ; //nothing 으로 못만지도록  
             pattern.handle.transform.localRotation = Quaternion.identity;   // 0 0 0 으로 초기화. 

@@ -24,18 +24,10 @@ namespace JJH
         [Tooltip("펜의 크기 조절 기능")]
         [Range(0.01f, 0.1f)] public float penWidth = 0.01f;
 
-        /*[Tooltip("펜의 색상 배열")] //추후에 이 리스트를 이용해서 아이템과 연계로 색 변화 발생시키기? 이 부분은 나중에 추가로 생각해보기. 
-        public List<Color> penColors = new List<Color>();*/
-
         [Header("렌더러와 컬러 관리")]
         [Tooltip("그려줄 라인 렌더러")]
         [SerializeField] public LineRenderer currentDrawing; // 드로우 오브젝트들과 비교해줄 펜의 현재 라인렌더러
 
-        /* [Tooltip("컬러 리스트의 인덱스")] // 이거 리스트 말고 딕셔너리로 해야하나? 컬러 색깔 구분해 줄 때 뭐가 편할지 생각해보자. 
-         [SerializeField] private int index;
-
-         [Tooltip("현재 컬러 인덱스")]
-         [SerializeField] int currentColorIndex;*/
 
         [Header("스크립터블 오브젝트 관련")]
         [Tooltip("현재 컬러 타입")]
@@ -71,11 +63,7 @@ namespace JJH
         [Tooltip("라인렌더러의 포지션 위한 인덱스")]
         [SerializeField] private int index;
 
-        /*[Header("레이캐스트 박스 설정")]
-        [Tooltip("박스의 크기")]
-        public Vector3 boxSize = new Vector3(0.2f, 0.2f, 0.2f);
-        [Tooltip("박스의 방향")]
-        public Quaternion boxOrientation = Quaternion.identity;*/
+       
 
         [Tooltip("update 여러번 진입 방지를 위한 bool 변수")]
         [SerializeField] private bool isNotEntered;
@@ -104,8 +92,6 @@ namespace JJH
 
         }
 
-        // 지금 update 없이 xrBase의 update 용 콜백을 받아도 제대로 동작이 안해서 이 부분 나중에 시간나면 수정하기. 
-        // 레이캐스트를 계속 체크해야 하기 때문에 update 밖에 없나? 어떻게 해야할지... 
         private void Update()
         {
             
@@ -122,7 +108,6 @@ namespace JJH
 
         public void Draw()
         {
-            //if (!isDrawing || currentPaintType == PaintTypeEnum.None) return; // 그리기 상태가 아니면 리턴 
 
             RaycastHit hit;
 
@@ -133,20 +118,14 @@ namespace JJH
                 Vector3 drawPosition = hit.point + hit.normal * NormalDis;
                 drawManager = hit.collider?.GetComponent<DrawObjectManager>();
 
-                Debug.Log("레이캐스트 내부");
-
                 if (!CheckColorType(drawManager)) // 컬러 타입이 같을 때만 그릴 수 있게 컬러타입을 체크 해줘야한다.
                 {
                     DrawingStop();
-                    Debug.Log("리턴");
                     return;
                 }
                 if (currentDrawing == null) //이 부분에서 현재 물감에 알맞는 색상으로 만들어줘야 할 것 같아. 
                 {
                     index = 0;
-
-                    Debug.Log("현재 드로잉 널 진입");
-
                     GameObject lineObj = new GameObject("Line");
 
                     lineObj.transform.position = tip.position;
@@ -177,8 +156,6 @@ namespace JJH
                     var currentPos = currentDrawing.GetPosition(index);
                     currentDrawing.material.color = paintTypeManager.GetColorByType(currentPaintType);
 
-                    Debug.Log("라인이 이미 생성된 경우");
-
                     if (Vector3.Distance(currentPos, drawPosition) > 0.01f)
                     {
                         index++;
@@ -208,10 +185,8 @@ namespace JJH
                 DrawingStop();
             }
         }
-
         private void CompleteDrawing()
         {
-            Debug.Log("퍼센트 완료");
             isNotEntered = true;
             DrawingStop();
             drawManager.ImageAlphaUp();
@@ -243,8 +218,6 @@ namespace JJH
         public void StartDrawing()
         {
             isDrawing = true; // 그리기 상태로 전환
-
-            // not move 와 함께 --> 플레이어의 움직임 막아버리는 함수 발동 
         }
 
         public void DrawingStop()
@@ -284,7 +257,6 @@ namespace JJH
         {
             ChangeColorAllStop(); // 일단 이전 버전을 다 지우고 시작하는게 맞을 듯 ? 
             currentPaintType = _paintTypeEnum;
-            Debug.Log($"색깔 변경 +{_paintTypeEnum} ");
             tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType);
 
             DrawObjectManager.colorChangeEvent.Invoke(currentPaintType);
