@@ -55,8 +55,9 @@ namespace JJH
                 gear.StartRotate();
                 gear.OnNutActive();
                 gear.trackRotation = false;
-                gear.interactionLayers = -1 ;
-                gear.col.enabled = false;
+                gear.interactionLayers = 0; // Nothing이 0 번. 
+
+                //gear.col.enabled = false; // 콜라이더를 꺼주면 기어들이 바닥으로 떨어짐. 
             }
             DecoGearRotate(); // 장식 기어들 회전 
         }
@@ -68,8 +69,6 @@ namespace JJH
                 gear.RotateRoutine(); // 인수 없이 그냥 돌리고 --> 내부에서 direction 값 줘서 회전 시키자. 
             }
         }
-
-
 
         public void SoundPlay()
         {

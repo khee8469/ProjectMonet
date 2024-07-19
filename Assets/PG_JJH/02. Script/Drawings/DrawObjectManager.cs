@@ -108,7 +108,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
             InitializeSpriteSize(); // 시작 시의 각자의 로컬 스케일 적용된 크기를 가져온다. 
             totalArea = worldHeight * worldWidth;
-            nonTransparentArea = CalculateNonTransparentArea();
+            nonTransparentArea = CalculateNonTransparentArea();  // 실제로 계산한 투명을 제외한 부분의 크기 
 
             myColliderArray = GetComponents<Collider>(); // 자신의 모든 콜라이더 배열 가져오기. pen의 컬러에 맞춰서 자신의 콜라이더를 꺼주고 켜준다. 
 
@@ -170,44 +170,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
         }
 
-        // 월드 좌표를 텍스처 픽셀 좌표로 변환하는 함수
-        /*public Vector2Int WorldToPixel(Vector3 worldPosition)
-        {
-            // 월드 좌표를 로컬 좌표로 변환
-            Vector3 localPos = spriteRenderer.transform.InverseTransformPoint(worldPosition);
-
-            // 스프라이트의 피벗 및 스케일 적용
-            Vector2 pivot = spriteRenderer.sprite.pivot;
-
-            // 로컬 좌표를 픽셀 좌표로 변환
-            Vector2 pixelPos = new Vector2(
-                (localPos.x * spriteRenderer.sprite.pixelsPerUnit) + pivot.x,
-                (localPos.y * spriteRenderer.sprite.pixelsPerUnit) + pivot.y
-            );
-
-            // 픽셀 좌표를 반올림하여 정수 좌표로 변환
-            Vector2Int roundedPixelPos = new Vector2Int(
-                Mathf.RoundToInt(pixelPos.x),
-                Mathf.RoundToInt(pixelPos.y)
-            );
-
-            return roundedPixelPos;
-        }*/
-
-       /* private bool IsPixelWithinTexture(Vector2Int pixel)
-        {
-            if (spriteRenderer == null || spriteRenderer.sprite == null)
-            {
-                return false;
-            }
-
-            Texture2D texture = spriteRenderer.sprite.texture;
-            bool withinBounds = pixel.x >= 0 && pixel.x < texture.width && pixel.y >= 0 && pixel.y < texture.height;
-            Debug.Log($"Pixel Position: {pixel}, Within Texture Bounds: {withinBounds}");
-
-            return withinBounds;
-        }*/
-
         // 새로운 라인 렌더러의 영역을 계산하여 업데이트하는 함수 
 
         private void UpdateFilledArea(LineRenderer lineRenderer, float penWidth)
@@ -258,8 +220,11 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         // 스프라이트의 채워진 비율을 반환하는 함수
         public float GetFillPercentage() // 완성 되었는지 확인하는 함수 --> Pen 에서 부르고 있다. 
         {
-           
-            return ( filledArea / totalArea )* 10f;
+            // 이 부분에서 Percent 체크를 할 때 --> fiil 대신 nonTransparentArea 사용해보기. 
+
+            //return (filledArea / totalArea); // *10f 없앴음. 
+
+            return (filledArea / nonTransparentArea); 
 
         }
 
@@ -267,9 +232,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         // 그림이 그려졌을 때 부를 드로우 피니시드 함수 
         public void DrawFinished() // 열거형 drawingNumber를 int로 형변환 해서 넘겨줌 . 
         {
-            drawingCompleteManager.DrawComplete((int)drawBoardNumber, true, DrawID);
-            // 퍼즐매니저 업데이트
-            //UpdatePuzzleManager(puzzle, puzzleIndex);
+            drawingCompleteManager.DrawComplete((int)drawBoardNumber, true, DrawID);            
         }
 
         public void ImageAlphaUp()
@@ -326,7 +289,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             float initialAlpha = materialColor.a;
             // 최종 알파값 (예: 0으로 설정하여 투명하게 만들기)
             float targetAlpha = 0f;
-
 
             while (elaspedTime < duration)
             {
@@ -443,8 +405,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         public void PercentReset()  // 그림 중단 시 그림의 퍼센트를 리셋한다.
         {
             filledArea = 0f; // 채워진 양 초기화.
-            Debug.Log($"{filledArea} 현재 채줘진 Area");
-            Debug.Log($"해당 드로잉 파트의 총 Area {totalArea}");
         }
 
 
