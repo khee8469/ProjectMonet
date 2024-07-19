@@ -11,6 +11,8 @@ namespace JJH
         [SerializeField] Image fade;
         [SerializeField] Slider loadingBar;
         [SerializeField] float fadeTime;
+        [Tooltip("자기 자신 캔버스")]
+        [SerializeField] Canvas canvas;
 
         [SerializeField]
         private GameObject playerObject;
@@ -61,10 +63,12 @@ namespace JJH
                 yield return null;
             }
 
-
             BaseScene curScene = GetCurScene();
 
-            yield return null; // 이 부분 시간 차 어떻게 둘지 생각해보기. 
+            if (playerCamera == null)
+                playerCamera = Camera.main;
+
+            yield return new WaitForSecondsRealtime(1.5f); // 이 부분 시간 차 어떻게 둘지 생각해보기. 
             yield return curScene?.LoadingRoutine();
 
 
@@ -107,11 +111,10 @@ namespace JJH
 
         private void SetUpFadeUI()
         {
-            if (playerCamera != null && fade != null)
+            if (playerCamera != null && fade != null && canvas !=null)
             {
-                // 캔버스가 VR 카메라 앞에 위치하도록 설정
-                Canvas canvas = fade.GetComponentInParent<Canvas>();
-                canvas.renderMode = RenderMode.WorldSpace;
+                // 캔버스가 VR 카메라 앞에 위치하도록 설정               
+                canvas.renderMode = RenderMode.WorldSpace;  // 월드 스페이스로 변경했음. 
                 canvas.worldCamera = playerCamera;
                 canvas.transform.position = playerCamera.transform.position + playerCamera.transform.forward * 0.1f; // 카메라 앞 0.5m 위치
                 canvas.transform.rotation = playerCamera.transform.rotation;
@@ -121,10 +124,9 @@ namespace JJH
 
         private void RestoreFadeUI()
         {
-            if (fade != null)
-            {
-                Canvas canvas = fade.GetComponentInParent<Canvas>();
-                canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+            if (fade != null && canvas!=null)
+            {                
+                // canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             }
         }
 

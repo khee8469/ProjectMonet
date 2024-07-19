@@ -119,7 +119,7 @@ namespace JJH
         {
             base.OnActivated(args);
             Debug.Log("포지션 액티베이트");
-            Activate();
+            //Activate();
         }
 
 
