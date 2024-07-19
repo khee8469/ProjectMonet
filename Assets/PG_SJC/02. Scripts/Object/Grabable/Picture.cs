@@ -125,11 +125,13 @@ namespace Jc
         }
         public void ActiveSetting()
         {
-            GetComponent<Collider>().enabled = true;
+            if(boxCollider != null)
+            boxCollider.enabled = true;
         }
         public void DisActiveSetting()
         {
-            GetComponent<Collider>().enabled = false;
+            if(boxCollider != null)
+            boxCollider.enabled = false;
         }
         public void CompleteSetting()
         {

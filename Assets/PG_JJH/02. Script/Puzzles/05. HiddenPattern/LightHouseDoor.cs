@@ -70,19 +70,21 @@ namespace JJH
         public void DoorOpen() 
         {
             Debug.Log("문이 열렸음.");
-            hingeJoint.useLimits = false;
+            if (hingeJoint != null)
+                hingeJoint.useLimits = false;
         }
 
         public void ActiveSetting()
         {
+            if(hingeJoint != null)
             hingeJoint.useLimits = true;
         }
 
         public void CompleteSetting()
         {
             // 소켓 비활성 
-
-            hingeJoint.useLimits = false; // 컴플리트 상태면 문이 열려야함. 
+            if (hingeJoint != null)
+                hingeJoint.useLimits = false; // 컴플리트 상태면 문이 열려야함. 
         }
 
         public void DisActiveSetting() { }

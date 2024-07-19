@@ -31,7 +31,7 @@ namespace Jc
 
             Debug.Log("오두막 진입");
 
-            if (!sunObject.activeSelf)
+            if (sunObject != null && !sunObject.activeSelf)
                 sunObject.SetActive(true);
 
         }
