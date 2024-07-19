@@ -17,7 +17,6 @@ namespace JJH
 
         public int DoorID { get; private set; }
 
-
         [SerializeField]
         UnLockController unLockController;  // 각 door 들이 참조할 스테이지 관리 매니저
 
