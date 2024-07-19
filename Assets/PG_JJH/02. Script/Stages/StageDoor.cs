@@ -60,7 +60,8 @@ namespace JJH
         protected override void OnActivated(ActivateEventArgs args)
         {
             base.OnActivated(args);
-            //Activate();
+            Debug.Log("온 액티베이트");
+            Activate();
         }
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -68,7 +69,6 @@ namespace JJH
             base.OnSelectEntered(args);
         }
 
-  
         public int CompareTo(StageDoor other)
         {
             if (other == null) return 1;
