@@ -279,7 +279,7 @@ namespace Jc
             if (args.interactableObject is IActivatable)
             {
                 IActivatable active = args.interactableObject as IActivatable;
-                if(active != null)
+                if (active != null)
                 {
 
                     Debug.Log("인터페이스 not null");
