@@ -10,7 +10,7 @@ public class MiniatureSocket : XRSocketInteractor
 
     [Tooltip("소켓 지정 시 변경할 레이어")]
     [SerializeField]
-    InteractionLayerMask handTrackingMask = InteractionLayerMask.NameToLayer("HandTracking");
+    InteractionLayerMask handTrackingMask;
 
     [Tooltip("소켓 지정 아이템")]
     [SerializeField]
