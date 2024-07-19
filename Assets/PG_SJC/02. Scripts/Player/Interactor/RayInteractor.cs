@@ -275,17 +275,17 @@ namespace Jc
                 oppositeInteractor.interactionManager.SelectExit(oppositeInteractor as IXRSelectInteractor, oppositeInteractor.currentGrabObject as IXRSelectInteractable);
             }
 
-           /* // 오브젝트 활성화
+            // 오브젝트 활성화
             if (args.interactableObject is IActivatable)
             {
                 IActivatable active = args.interactableObject as IActivatable;
-                if(active != null)
+                if (active != null)
                 {
 
                     Debug.Log("인터페이스 not null");
                     active.Activate();
                 }
-            }*/
+            }
         }
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
