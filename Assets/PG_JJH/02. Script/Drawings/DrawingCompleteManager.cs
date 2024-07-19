@@ -14,8 +14,7 @@ namespace JJH
 
         [Tooltip("그림의 bool 변수 체크해줄 딕셔너리")]
         [SerializeField]
-        public Dictionary<DrawObjectManager, bool> drawCompleteCheckDic
-           = new Dictionary<DrawObjectManager, bool>();
+        public Dictionary<DrawObjectManager, bool> drawCompleteCheckDic;
 
         [Tooltip("완성된 그림을 가지고 있는 배열")]
         // 이를 이용해 변수에 따라 오브젝트를 켜줘서 해당 오브젝트에서 onEnable 발동 할 수 있도록 한다. 
@@ -35,6 +34,11 @@ namespace JJH
         [Tooltip("드로우 오브젝트 매니저 할당해주기.")]
         [SerializeField]
         private DrawObjectManager[] drawObjectManagers;
+
+        private void Awake()
+        {
+            drawCompleteCheckDic = new Dictionary<DrawObjectManager, bool>();
+        }
 
 
         private void Start()

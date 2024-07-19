@@ -13,6 +13,9 @@ namespace JJH
         [Tooltip("실제 씬 갯수 만큼 삽입")]
         [SerializeField] private static int sceneCount = 4;
 
+        [SerializeField]
+        private const int drawManagerCount = 12;
+
         /*public StageData stageData; //스크립터블 오브젝트 
         public StageData runtimeStageData; //에디터 런타임용 스크립터블 오브젝트 */
 
@@ -56,12 +59,12 @@ namespace JJH
         private void Start()
         {
             // 같은 이름의 오브젝트여도 서로 다른 오브젝트라면 다른 key로 판단 가능. 
-            drawObjectManager = GameObject.FindObjectsOfType<DrawObjectManager>(); // 이거 find 하지 말고 인스펙터 할당으로 변경 할 것.
+            //drawObjectManager = GameObject.FindObjectsOfType<DrawObjectManager>(); // 이거 find 하지 말고 인스펙터 할당으로 변경 할 것.
 
             isColoredInspector = is_Colored; // 인스펙터 창에서 보기 위해 변수 할당 
 
             is_Colored = new bool[sceneCount];
-            drawPartCheck = new bool[drawObjectManager.Length];
+            drawPartCheck = new bool[drawManagerCount];
             //isDrawing_Complete = new bool[drawObjectManager.Length];
 
 
@@ -94,7 +97,7 @@ namespace JJH
                 isDrawing_Complete[i] = Manager.PlayableData.CanvasData.myDrawCompleteCheckArr[i];
             }*/
 
-            for (int i = 0; i < drawObjectManager.Length; i++)
+            for (int i = 0; i < drawManagerCount; i++)
             {
                 drawPartCheck[i] = Manager.PlayableData.CanvasData.myDrawPartCheckArr[i]; 
             }
