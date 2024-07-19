@@ -68,6 +68,7 @@ namespace JJH
                         }
                         
                     }
+
                     else
                     {
                         Debug.Log("탈출");
@@ -106,10 +107,10 @@ namespace JJH
             {
                 player = other.gameObject; // player 참조 시작. 
             }*/
-            if (other.gameObject.CompareTag("Player"))
+            /*if (other.gameObject.CompareTag("Player"))
             {
                 player = other.gameObject;
-            }
+            }*/
             // 이거 그냥 태그로 하자. 
 
         }
@@ -117,17 +118,14 @@ namespace JJH
         protected override void OnActivated(ActivateEventArgs args)
         {
             base.OnActivated(args);
-            Debug.Log("온 액티베이티드");
+            Debug.Log("포지션 액티베이트");
+            Activate();
         }
 
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
-        {
-            
-            base.OnSelectEntered(args);
-            Debug.Log("버튼 클릭됨");
-            //Activate();
-
+        {           
+            base.OnSelectEntered(args);           
         }
 
         public float GetInteractDistance()

@@ -30,14 +30,11 @@ public class FinishedDraw : MonoBehaviour
         Color color = spriteRenderer.color;
         if (ChapterManager.is_Colored[drawID] == true)
         {
-            alphaValue = 1f; //켜져있으면.
-            Debug.Log("원본 그림 켜짐");
+            alphaValue = 1f; //켜져있으면.           
             if(cover !=null)
             {
                 cover.gameObject.SetActive(false); // 꺼주기. --> 커버 
-
             }
-
         }
         else
         {

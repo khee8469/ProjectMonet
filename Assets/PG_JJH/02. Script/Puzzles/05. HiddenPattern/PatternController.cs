@@ -68,13 +68,10 @@ public class HiddenPatternController : MonoBehaviour, IPuzzleable
             }
         }
 
-        Debug.Log($"지금 bool 값의 값 ->{isAllTrue}");
-
         if (isAllTrue) // 모두 값이 자신의 안 이니까. --> 그니까 결국 모두 정답이면 여기서 update해주고.
         {
             puzzle.UpdateCondition(puzzleIndex); // bool 값 업데이트 
-            UpdatePattern();
-            
+            UpdatePattern();          
         }
 
         isChangingValue = false;

@@ -44,12 +44,8 @@ namespace JJH
         [Tooltip("색상 데이터를 관리하는 스크립터블 오브젝트")]
         public PaintTypeManager paintTypeManager;
 
-
         [Tooltip("그리기 상태 관리")]
         [SerializeField] private bool isDrawing = false;
-
-        [Header("플레이어의 움직임 방지(그림그리는 중)")]
-        [SerializeField] private bool isNotMove = false;
 
         [Header("상호작용 오브젝트 관리")]
         [Tooltip("그리기를 허용할 레이어 마스크")]
@@ -75,12 +71,11 @@ namespace JJH
         [Tooltip("라인렌더러의 포지션 위한 인덱스")]
         [SerializeField] private int index;
 
-
-        [Header("레이캐스트 박스 설정")]
+        /*[Header("레이캐스트 박스 설정")]
         [Tooltip("박스의 크기")]
         public Vector3 boxSize = new Vector3(0.2f, 0.2f, 0.2f);
         [Tooltip("박스의 방향")]
-        public Quaternion boxOrientation = Quaternion.identity;
+        public Quaternion boxOrientation = Quaternion.identity;*/
 
         [Tooltip("update 여러번 진입 방지를 위한 bool 변수")]
         [SerializeField] private bool isNotEntered;

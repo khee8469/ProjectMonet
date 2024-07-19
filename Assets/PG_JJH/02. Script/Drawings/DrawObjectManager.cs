@@ -14,7 +14,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         Compartment1, Compartment2, Compartment3, Compartment4, Finished , END
     }
 
-
     [RequireComponent(typeof(SpriteRenderer))]
     public class DrawObjectManager : MonoBehaviour , IComparable<DrawObjectManager> 
     {
@@ -92,16 +91,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         [Tooltip("이벤트에 자신의 컬러를 체크하고 콜라이더를 on off 하는 함수를 할당한다.")]
         public static UnityEvent<PaintTypeEnum> colorChangeEvent = new UnityEvent<PaintTypeEnum>();
 
-        
-
-
-        /*private void Awake()
-        {
-            if(puzzle != null)
-            // 퍼즐 매니저에 등록
-                RegistObject(puzzle);
-        }*/
-
         private void Start()
         {
             myColor = paintTypeManager.GetColorByType(currentPaintType);
@@ -112,11 +101,9 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
                 texture = spriteRenderer.sprite.texture;
 
                 if (!texture.isReadable)
-                {
-                    
+                {                 
                     MakeTextureReadable(ref texture);
                 }
-
             }
 
             InitializeSpriteSize(); // 시작 시의 각자의 로컬 스케일 적용된 크기를 가져온다. 

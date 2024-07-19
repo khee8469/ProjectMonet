@@ -343,7 +343,7 @@ namespace JJH
 
         public void UpdatePuzzleManager(PuzzleManager puzzle, int index)  // 여기서 업데이트 할 거는 없다. 버튼이니까.
         {
-            
+            puzzle.UpdateCondition(index);
         }
 
         public void ActiveSetting()  

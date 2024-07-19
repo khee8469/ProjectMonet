@@ -5,7 +5,7 @@ using UnityEngine;
 public class UpdateRotating : MonoBehaviour
 {
     [Tooltip("회전 방향")]
-    [SerializeField] private float direction = 60f;
+    [SerializeField] private float direction = 30f;
 
     public float Direction { get { return direction; } }
 
