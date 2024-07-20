@@ -13,9 +13,6 @@ namespace JJH
         [SerializeField] private Transform playerMovePos;
         [SerializeField] private LayerMask playerLayer;
 
-        [SerializeField] private bool drawOn = false;
-        // 여기도 결국 트리거 키로 진입을 해야 하기 때문에... 트리거 되서 진입해야함.
-
         [SerializeField] private GameObject player;
 
         [SerializeField]private CharacterController characterController; // 플레이어의 캐릭터 컨트롤러. 
