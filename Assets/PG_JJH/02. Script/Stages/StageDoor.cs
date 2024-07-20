@@ -37,15 +37,16 @@ namespace JJH
         // playerPositionTrigger에서 참조해서 door의 layer를 nothing everything 으로 전환해주는 함수
         public void stageOn(bool boolean)
         {
-            /* if (boolean==true)
-             {
-                 isOn = true;
-             }
-             else if(boolean==false)
-             {
-                 isOn = false;
+            // 제대로 동작을 안함... 
+            /*if (boolean == true)
+            {
+                isOn = true;
+            }
+            else if (boolean == false)
+            {
+                isOn = false;
 
-             }*/
+            }*/
         }
 
         protected override void OnHoverEntered(HoverEnterEventArgs args)
@@ -73,9 +74,11 @@ namespace JJH
         {
             if (Manager.PlayableData.CanvasData.stageUnlockStatus[doorID])  // doorID가 true 라면 --> 해금되어 있는 상태 
             {
+                if(isOn==true)
+                {
+                    Manager.Scene.LoadScene(SceneName);
 
-                Manager.Scene.LoadScene(SceneName);
-
+                }
             }
             else
             {

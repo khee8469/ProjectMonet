@@ -55,7 +55,7 @@ namespace JJH
         private DrawObjectManager drawManager;
 
         [Tooltip("Noraml 벡터 크기")]
-        private float NormalDis = 0.01f;
+        private float NormalDis = 0.007f;
 
         [Tooltip("원하는 완료 퍼센트")]
         [SerializeField] private float percent = 5;
@@ -126,6 +126,11 @@ namespace JJH
                 if (currentDrawing == null) //이 부분에서 현재 물감에 알맞는 색상으로 만들어줘야 할 것 같아. 
                 {
                     index = 0;
+
+                    // 여기부분을 미리 준비해둔 LineRenderer 붙인 프리팹을 pooling 해둔다음에
+                    // material 이나 color나 이런것들 세팅 해주고
+                    // 생성 위치 같은 경우는 어차피 SetPosition 그대로 하고 있으니까 pooling 으로 바꿔보자. 
+
                     GameObject lineObj = new GameObject("Line");
 
                     lineObj.transform.position = tip.position;
@@ -276,10 +281,10 @@ namespace JJH
                 LineRenderer lineObj = lineList[i]?.GetComponent<LineRenderer>();
                 drawManager?.RemoveLineRenderer(lineObj);
 
-                Destroy(lineObj.gameObject);
-                lineList.RemoveAt(i);
+                Destroy(lineObj.gameObject);  // 이 Remove All 도 Destroy 대신에 pooling 적용하기. 
+                //lineList.RemoveAt(i);
             }
-
+            lineList.Clear();
         }
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {

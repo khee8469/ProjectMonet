@@ -225,8 +225,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             // 이 부분에서 Percent 체크를 할 때 --> fiil 대신 nonTransparentArea 사용해보기. 
 
             //return (filledArea / totalArea); // *10f 없앴음. 
-            Debug.Log($"현재 fiilPercent ->fiiledAred:{filledArea} , nonTransParneArea->{nonTransparentArea}" +
-                $" , percent ->{filledArea / nonTransparentArea}");
             return (filledArea / nonTransparentArea);
 
         }

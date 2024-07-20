@@ -71,7 +71,6 @@ namespace JJH
                         move.moveSpeed = originalSpeed;
                         player.transform.position = returnPos.position; // 정해진 위치로 플레이어 이동
                         //characterController.radius = 0.2f;
-
                         if (door!=null)
                         {
                             door.stageOn(true); // 트리거 벗어나면 다시 activate가 발동된다. 
