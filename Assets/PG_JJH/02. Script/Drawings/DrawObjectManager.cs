@@ -165,7 +165,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             worldWidth = textureWidth / spriteRenderer.sprite.pixelsPerUnit;
             worldHeight = textureHeight / spriteRenderer.sprite.pixelsPerUnit;
 
-            // 스케일 적용
+            // lossy scale 사용 하지 말 것.
 
             worldWidth *= spriteRenderer.transform.localScale.x;
             worldHeight *= spriteRenderer.transform.localScale.y;
@@ -331,7 +331,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         {
 
             Color32[] pixels = texture.GetPixels32();
-
             int trasparentPixelCount = 0;
 
             foreach (var pixel in pixels)
