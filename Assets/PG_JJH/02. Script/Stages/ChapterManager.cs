@@ -15,9 +15,6 @@ namespace JJH
 
         private const int DrawingCount = 12;
 
-        /*public StageData stageData; //스크립터블 오브젝트 
-        public StageData runtimeStageData; //에디터 런타임용 스크립터블 오브젝트 */
-
         public UnityEvent<int, bool> stageEvent = new UnityEvent<int, bool>();
 
         [Header("그림 관련 변수들")]
@@ -45,34 +42,24 @@ namespace JJH
         protected override void Awake()
         {
             base.Awake();
-
-/*#if UNITY_EDITOR
-            // 런타임에 스크립터블 오브젝트를 복제하여 원본 자산에 영향을 주지 않도록 함
-            runtimeStageData = Instantiate(stageData);
-#else
-        runtimeStageData = stageData;
-#endif*/
-
         }
 
         private void Start()
         {
-            // 같은 이름의 오브젝트여도 서로 다른 오브젝트라면 다른 key로 판단 가능. 
-
             isColoredInspector = is_Colored; // 인스펙터 창에서 보기 위해 변수 할당 
 
             is_Colored = new bool[sceneCount];
             drawPartCheck = new bool[DrawingCount];
             Manager.PlayableData.LoadCanvasData();  // start 에서 Load 받아서 이닛 세팅 실행. 
 
+            
             InitSetting();
         }
 
         public void InitSetting()
         {
             if (!File.Exists(SystemPath.GetPath(DataPath.LocalCanvasData)))
-            {
-                              
+            {                           
                 return;
             }
 
@@ -81,37 +68,18 @@ namespace JJH
                 is_Colored[i] = Manager.PlayableData.CanvasData.isColoredCheckArr[i];
             }
 
-            /*for (int i = 0; i < sceneCount; i++)
-            {
-                is_Colored[i] = false; // start 에서 한 번 false 로  --> 어차피 로딩 뤁린 돌릴 때 교체 해주고 싱글턴 start 이기 때문에 단 한번만 돈다. 
-                // 여기서 gamedata에 저장된 변수를 가져와서 true false 정해주자. 
-            }
-*/
-            /*for (int i = 0; i < drawObjectManager.Length; i++)
-            {
-                isDrawing_Complete[i] = Manager.PlayableData.CanvasData.myDrawCompleteCheckArr[i];
-            }*/
-
             for (int i = 0; i < DrawingCount; i++)
             {
                 drawPartCheck[i] = Manager.PlayableData.CanvasData.myDrawPartCheckArr[i]; 
             }
 
         }
-        // 챕터 해금 및 해금된 챕터의 gray color 변경 시켜 줄 함수 들 .
-
-        // Enum 으로 채색 --> enum을 jSON으로 저장 
-
-        // 수정할거 어차피 여기만 수정해주면 LOAD Save 위치만 잘 정해주고 해보자. 
 
         public void UnlockStage(int stageIndex, bool unlock) // 챕터 언락용 함수. 
         {
 
             if (stageIndex >= 0 && stageIndex < Manager.PlayableData.CanvasData.stageUnlockStatus.Length)
             {
-                Debug.Log("언락 스테이 발동" + stageIndex);
-
-                //runtimeStageData.stageUnlockStatus[stageIndex] = true;
                 Manager.PlayableData.CanvasData.stageUnlockStatus[stageIndex] = true;  // json 저장 
                 stageEvent.Invoke(stageIndex, true);
                 Manager.PlayableData.SaveCanvasData(); // save json 
@@ -124,13 +92,8 @@ namespace JJH
         {
             is_Colored[coloredScene] = isColored; // 해당하는 씬을 숫자를 통해 컬러로 바꿔주기. 
 
-            // json 통해 is colored 저장해주기. --> json 저장 
             Manager.PlayableData.CanvasData.isColoredCheckArr[coloredScene] = isColored;
         }
-
-
-
-
 
     }
 }

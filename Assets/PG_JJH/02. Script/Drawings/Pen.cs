@@ -231,7 +231,7 @@ namespace JJH
         }
 
         // 이 부분은 그냥 잘 바뀌나 확인용으로 둔 함수 --> 실제 사용 x 
-        public void SwitchColor()  // 색상 전환은 일단 나중에.
+        /*public void SwitchColor()  // 색상 전환은 일단 나중에.
         {
             // PaintTypeEnum의 모든 값을 배열로 가져옵니다.
             PaintTypeEnum[] paintTypes = (PaintTypeEnum[])System.Enum.GetValues(typeof(PaintTypeEnum));
@@ -250,7 +250,7 @@ namespace JJH
 
             DrawObjectManager.colorChangeEvent?.Invoke(currentPaintType);
 
-        }
+        }*/
 
         // 실제로 색깔 변경을 위해 사용 할 함수
         public void ChangeColor(PaintTypeEnum _paintTypeEnum)
@@ -280,14 +280,12 @@ namespace JJH
             }
 
         }
-
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
 
             StartDrawing();
         }
-
 
         protected override void OnSelectExited(SelectExitEventArgs args)
         {

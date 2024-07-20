@@ -191,7 +191,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 12.499999, y: 9.343751, z: 0.5}
+  m_Size: {x: 24, y: 20, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3047742662001120245
 Rigidbody:
@@ -340,6 +340,7 @@ MonoBehaviour:
   doorID: 1
   unLockController: {fileID: 0}
   SceneName: Stage_2
+  isOn: 0
 --- !u!1 &4261957641524632500
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +354,7 @@ GameObject:
   - component: {fileID: 2384842054297739270}
   - component: {fileID: 6493930646022323002}
   - component: {fileID: 659619726967262699}
+  - component: {fileID: 1011912147396591940}
   m_Layer: 13
   m_Name: Ch2_Yellow
   m_TagString: Untagged
@@ -369,7 +371,7 @@ Transform:
   m_GameObject: {fileID: 4261957641524632500}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -457,6 +459,7 @@ MonoBehaviour:
   drawingCompleteManager: {fileID: 0}
   pen: {fileID: 0}
   myColliderArray: []
+  paint: {fileID: 0}
 --- !u!65 &6493930646022323002
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -476,8 +479,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 25.02978, y: 5.571859, z: 0.049999997}
-  m_Center: {x: 0.03856328, y: 6.922973, z: -0.000012113523}
+  m_Size: {x: 14.835461, y: 5.5718603, z: 0.049999997}
+  m_Center: {x: -5.058597, y: 6.9229674, z: -0.000010485783}
 --- !u!65 &659619726967262699
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -497,8 +500,29 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 25.000015, y: 8.212186, z: 0.05}
-  m_Center: {x: 0.00022043103, y: -5.5134754, z: -0.100015506}
+  m_Size: {x: 24.925072, y: 10.602549, z: 0.050000004}
+  m_Center: {x: -0.037251405, y: -4.318292, z: -0.10001936}
+--- !u!65 &1011912147396591940
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4261957641524632500}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 8.346078, y: 5.5718594, z: 0.049999997}
+  m_Center: {x: 8.404689, y: 6.922965, z: -0.000009892056}
 --- !u!1 &5484177152917060549
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,6 +641,7 @@ MonoBehaviour:
   drawingCompleteManager: {fileID: 0}
   pen: {fileID: 0}
   myColliderArray: []
+  paint: {fileID: 0}
 --- !u!65 &7655242440380583465
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -657,8 +682,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5, y: 0.5, z: 0.05}
-  m_Center: {x: 2.8, y: 3.63, z: -0.000022888184}
+  m_Size: {x: 1.232388, y: 1.0091181, z: 0.05}
+  m_Center: {x: 2.7865438, y: 3.7397845, z: -0.00002244082}
 --- !u!65 &1141619599535050398
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -832,6 +857,7 @@ MonoBehaviour:
   drawingCompleteManager: {fileID: 0}
   pen: {fileID: 0}
   myColliderArray: []
+  paint: {fileID: 0}
 --- !u!65 &5154518489350006476
 BoxCollider:
   m_ObjectHideFlags: 0
