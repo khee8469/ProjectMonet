@@ -15,8 +15,9 @@ public class ResetButton : MonoBehaviour
         CSVHelper.Remove(SystemPath.GetPath(DataPath.LocalPuzzleData));
         CSVHelper.Remove(SystemPath.GetPath(DataPath.LocalQuestData));
         //CSVHelper.Remove(SystemPath.GetPath(DataPath.LocalCanvasData));
-        Manager.Scene.LoadScene("Lobby");
 
+        Debug.Log("데이터초기화");
+        Application.Quit();
 
 
 

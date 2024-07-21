@@ -13,7 +13,7 @@ namespace Jc
         public override void OnClearPuzzle()
         {
             base.OnClearPuzzle();
-            Debug.Log(123);
+
             // 아이템 획득
             Manager.Item.GetItem(paintItemID, false);
         }
