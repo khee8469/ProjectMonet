@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.ProBuilder.MeshOperations;
 
-public class PictureBook : MonoBehaviour
+public class PictureBook : PaintRewardPuzzle
 {
     [Header("에디터 세팅")]
     [SerializeField]
     private Animator anim;
 
     [SerializeField]
-    private List<BookPage> pageGroup;  // 페이지 그룹
+    private List<GameObject> pageGroup;  // 페이지 그룹
     private BookPage currentDepth;     // 현재 페이지
+    public BookPage CurrentDepth {get { return currentDepth; } }
 
     [SerializeField]
     private int maxPage;
@@ -21,10 +22,12 @@ public class PictureBook : MonoBehaviour
     [SerializeField]
     private int prevPage = -1;
 
+    #region 애니메이터 파라미터 캐싱
     private int id_NextPage;
     private int id_PrevPage;
     private int id_OpenBook;
     private int id_CloseBook;
+    #endregion
 
     private void Awake()
     {
@@ -39,11 +42,14 @@ public class PictureBook : MonoBehaviour
     {
         prevPage = currentPage;
         currentPage++;
-        if (currentPage == -1)
+        if (currentPage == 0)
             anim.SetTrigger(id_OpenBook);
         // 다음 페이지가 존재한다면
-        else if (currentPage < maxPage)
+        else if (currentPage <= maxPage)
+        { 
             anim.SetTrigger(id_NextPage);
+            DisActivePageDepth();
+        }
         // 다음 페이지가 없을 경우
         else
             currentPage = maxPage;
@@ -57,12 +63,20 @@ public class PictureBook : MonoBehaviour
         if (currentPage >= 0)
         {
             anim.SetTrigger(id_PrevPage);
+            DisActivePageDepth();
         }
-        // 이전 페이지가 없을 경우
+        // 최초 버튼 클릭 시
+        else if(currentPage < -1)
+        {
+            currentPage = -1;
+            NextPage();
+        }
+        // 이전 페이지가 존재하지 않을 경우
         else
         {
             currentPage = 0;
         }
+        
         prevPage = -1;
     }
 
@@ -72,7 +86,7 @@ public class PictureBook : MonoBehaviour
     {
         if(prevPage >= 0 && prevPage < pageGroup.Count)
         {
-            pageGroup[prevPage].gameObject.SetActive(false);
+            pageGroup[prevPage].SetActive(false);
         }
     }
 
@@ -81,8 +95,8 @@ public class PictureBook : MonoBehaviour
     {
         if(currentPage >=0 && currentPage < pageGroup.Count)
         {
-            currentDepth = pageGroup[currentPage];
-            currentDepth.gameObject.SetActive(true);
+            pageGroup[currentPage].SetActive(true);
+            currentDepth = pageGroup[currentPage].GetComponent<BookPage>();
         }
     }
     #endregion
