@@ -35,7 +35,7 @@ public class LightColor : MonoBehaviour
     private void Start()
     {
         // start 에서 그림이 기본 defalut고 완료된 상태라면 local volume 으로 바꿔주고 있으므로 layer를 똑같이 따라가면 된다.
-        DrawObjectManager draw = myLinkDraw.GetComponent<DrawObjectManager>();
+        
     }
 
     public void drawLightLink(PaintTypeEnum currentPaintType)
@@ -46,7 +46,7 @@ public class LightColor : MonoBehaviour
 
             material.SetColor("_BaseColor", my_Color);
 
-            gameObject.layer = myLinkDraw.layer; // 레이어 맞추기. --> 인스펙터에서 그림이 할당되어 있음. 
+            gameObject.layer = myLinkDraw.gameObject.layer; // 레이어 맞추기. --> 인스펙터에서 그림이 할당되어 있음. 
         }
     }
 

@@ -66,7 +66,7 @@ namespace JJH
 
         // update에서 저장된 배열을 다시 저장해 줄 배열 --> else 에서 원상복귀 시켜야 하기 때문에. 
 
-        private void Update()
+       /* private void Update()
         {
             
             if (isGrabbed) // 잡혀 있는 상태라면 RayCast 발사  --> ray에 닿으면 문양을 나타낸다.
@@ -81,7 +81,8 @@ namespace JJH
                 }
             }
 
-        }
+        }*/
+
         public void FlashLightReturn() // 원 위치 복귀
         {
             /*transform.localPosition = flashLightPosition;   
@@ -123,35 +124,33 @@ namespace JJH
         // 그냥 시작 전 상태 완료 상태 두 가지만 생각하자. 
         public void ActiveSetting()
         {
-            Debug.Log("액티브 세팅");
-            collider.enabled = true; // 퍼즐이 활성화 되면 만질 수 있도록.
+            /*Debug.Log("액티브 세팅");
+            collider.enabled = true; // 퍼즐이 활성화 되면 만질 수 있도록.*/
         }
 
         public void CompleteSetting()
         {
-            Debug.Log("컴플리트 세팅");
+            /*Debug.Log("컴플리트 세팅");
             collider.enabled = false; // 더 이상 만지지 못함. 
             spotLight.enabled = false; // 불 꺼줌.
-            isGrabbed = false;
+            isGrabbed = false;*/
         }
 
         public void DisActiveSetting()
         {
-            // 이거 지금 발동되니까 일단 주석 처리 해놓고 시작하자.
-            Debug.Log("디스액티브 세팅");
-            // collider.enabled = false;
+            
         }
 
         public void RegistObject(PuzzleManager puzzle)
         {
-            Debug.Log("레지스트");
+            
             puzzle.puzzleObjects.Add(this);
         }
 
         // 구현 할 필요 x 
         public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
         {
-            Debug.Log("업데이트 퍼즐");
+            
         }
     }
 }
