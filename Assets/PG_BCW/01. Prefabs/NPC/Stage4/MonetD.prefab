@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &33441218435587410
+--- !u!1 &162641581268701264
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,32 +8,31 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 8319821383064301656}
+  - component: {fileID: 7962528981227852230}
   m_Layer: 0
-  m_Name: Dummy001
+  m_Name: Hobo_Josh_ L Forearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &8319821383064301656
+--- !u!4 &7962528981227852230
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 33441218435587410}
+  m_GameObject: {fileID: 162641581268701264}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.052756682, y: -0.705136, z: -0.05275665, w: 0.70513594}
-  m_LocalPosition: {x: -5.8535893e-10, y: 0.8608303, z: 0.01339149}
+  m_LocalRotation: {x: 0.0000000107210285, y: -0.000000043757126, z: 0.11566429, w: 0.9932884}
+  m_LocalPosition: {x: -0.24974659, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1996211463160834401}
-  - {fileID: 4187142756933210847}
-  m_Father: {fileID: 109066230087371411}
+  - {fileID: 8084740124817191790}
+  m_Father: {fileID: 6735086795023033923}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &183251676446152803
+--- !u!1 &302751943512083791
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,29 +40,30 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1996211463160834401}
+  - component: {fileID: 6281616121043129738}
   m_Layer: 0
-  m_Name: Bone001
+  m_Name: Hobo_Josh_ L Finger01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1996211463160834401
+--- !u!4 &6281616121043129738
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 183251676446152803}
+  m_GameObject: {fileID: 302751943512083791}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.45724857, y: 0.5399861, z: 0.5186303, w: 0.4799598}
-  m_LocalPosition: {x: 0.005060358, y: -0.04107666, z: 0.049737018}
+  m_LocalRotation: {x: -0.000000014942437, y: -0.000000014859774, z: -0.002773713,
+    w: 0.9999962}
+  m_LocalPosition: {x: -0.039783247, y: 0, z: -0.000000076293944}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4995780090640409324}
-  m_Father: {fileID: 8319821383064301656}
+  - {fileID: 2970146033254947964}
+  m_Father: {fileID: 4310378337291404885}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &360844639471717225
 GameObject:
@@ -91,15 +91,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 360844639471717225}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -5.1353264, y: 7.8541327, z: 3.7514343}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 109066230087371411}
+  - {fileID: 2126219204641105633}
   - {fileID: 1200212647761529742}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!136 &4194209672159546581
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9d503df65a2be449b8f8a492c105968, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 0
+  id: 1220013
   npcData:
     id: 0
     npcName: 
@@ -151,7 +151,7 @@ MonoBehaviour:
   basicNarrationIndex: 0
   curQuestDialogIndex: 0
   curBasicDialogIndex: 0
---- !u!1 &765496083125431181
+--- !u!1 &385016260890083331
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -159,31 +159,31 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6777239437420678707}
+  - component: {fileID: 4554192990984223970}
   m_Layer: 0
-  m_Name: Bone003
+  m_Name: Hobo_Josh_ R Finger4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6777239437420678707
+--- !u!4 &4554192990984223970
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 765496083125431181}
+  m_GameObject: {fileID: 385016260890083331}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0009659967, y: 0.020391561, z: 0.03338746, w: 0.99923396}
-  m_LocalPosition: {x: -0.3350389, y: 0.000000057220458, z: 0}
+  m_LocalRotation: {x: 0.004254709, y: -0.21186087, z: -0.12904528, w: 0.9687333}
+  m_LocalPosition: {x: -0.062799074, y: -0.002583313, z: -0.033363238}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 3820001373533226055}
-  m_Father: {fileID: 4995780090640409324}
+  - {fileID: 8534463898010285234}
+  m_Father: {fileID: 6098826814759216559}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &919026410773711389
+--- !u!1 &514339615720624760
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,31 +191,35 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4995780090640409324}
+  - component: {fileID: 6098826814759216559}
   m_Layer: 0
-  m_Name: Bone002
+  m_Name: Hobo_Josh_ R Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4995780090640409324
+--- !u!4 &6098826814759216559
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919026410773711389}
+  m_GameObject: {fileID: 514339615720624760}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0014684013, y: -0.088372394, z: 0.03134328, w: 0.9955932}
-  m_LocalPosition: {x: -0.38966644, y: 0.0000007343292, z: 0.0000000166893}
+  m_LocalRotation: {x: 0.7068252, y: 0.000000002633129, z: 0.0000000026352265, w: 0.7073882}
+  m_LocalPosition: {x: -0.25118124, y: 0.000000009536743, z: 0.00000015258789}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6777239437420678707}
-  m_Father: {fileID: 1996211463160834401}
+  - {fileID: 5250859580375137438}
+  - {fileID: 422477120134613420}
+  - {fileID: 3213173142705324419}
+  - {fileID: 7885341528258832033}
+  - {fileID: 4554192990984223970}
+  m_Father: {fileID: 5510724430262928308}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1451317951391861261
+--- !u!1 &552954698227617801
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -223,98 +227,400 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3920506767902595486}
-  - component: {fileID: 911530960125593455}
+  - component: {fileID: 5092593658821760692}
   m_Layer: 0
-  m_Name: H_Male_A03
+  m_Name: Hobo_Josh_
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3920506767902595486
+--- !u!4 &5092593658821760692
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1451317951391861261}
+  m_GameObject: {fileID: 552954698227617801}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0.000000076293944, z: 0}
+  m_LocalRotation: {x: -0.50000036, y: 0.49999964, z: 0.49999964, w: 0.50000036}
+  m_LocalPosition: {x: -0, y: 0.95863706, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1548366527471996106}
+  m_Father: {fileID: 2126219204641105633}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &789425257810014562
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 488530840835023531}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ R Finger11
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &488530840835023531
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789425257810014562}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.000000006972833, y: 0.00000001148002, z: -0.042155474, w: 0.99911106}
+  m_LocalPosition: {x: -0.036739808, y: -0.00000015258789, z: 0.000000019073486}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 624649915161888333}
+  m_Father: {fileID: 422477120134613420}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &931531168382509595
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8194073658096261588}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ L Finger12
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8194073658096261588
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931531168382509595}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.0000000037246335, y: 6.9962064e-11, z: -0.018780297, w: 0.99982363}
+  m_LocalPosition: {x: -0.028896026, y: 0.00000015258789, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 109066230087371411}
+  m_Father: {fileID: 7985857109363008322}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!137 &911530960125593455
-SkinnedMeshRenderer:
+--- !u!1 &1048356757432339579
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1451317951391861261}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 3
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: -1390895889689450739, guid: 0a795946efe7413418247740050cd6f3, type: 3}
-  - {fileID: -400310251153081761, guid: 0a795946efe7413418247740050cd6f3, type: 3}
-  - {fileID: -1580535799172915004, guid: 0a795946efe7413418247740050cd6f3, type: 3}
-  - {fileID: 9003353085549565770, guid: 0a795946efe7413418247740050cd6f3, type: 3}
-  - {fileID: 4835078630258379571, guid: 0a795946efe7413418247740050cd6f3, type: 3}
-  - {fileID: -2586296408049715105, guid: 0a795946efe7413418247740050cd6f3, type: 3}
-  - {fileID: -3446339310715084947, guid: 0a795946efe7413418247740050cd6f3, type: 3}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7985857109363008322}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ L Finger11
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7985857109363008322
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1048356757432339579}
   serializedVersion: 2
-  m_Quality: 0
-  m_UpdateWhenOffscreen: 0
-  m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 7357429208390058839, guid: 0a795946efe7413418247740050cd6f3, type: 3}
-  m_Bones:
-  - {fileID: 8319821383064301656}
-  - {fileID: 4187142756933210847}
-  - {fileID: 1996211463160834401}
-  - {fileID: 2566082623351729226}
-  - {fileID: 6254037280666576810}
-  - {fileID: 4995780090640409324}
-  - {fileID: 4892637697647577329}
-  - {fileID: 6777239437420678707}
-  - {fileID: 3820001373533226055}
-  m_BlendShapeWeights: []
-  m_RootBone: {fileID: 8319821383064301656}
-  m_AABB:
-    m_Center: {x: 0.035841107, y: 0.0029022694, z: 0.0027531385}
-    m_Extent: {x: 0.31933472, y: 0.9338397, z: 0.32236952}
-  m_DirtyAABB: 0
+  m_LocalRotation: {x: -0.00000000665875, y: 0.000000018923975, z: -0.042155486, w: 0.99911106}
+  m_LocalPosition: {x: -0.036739845, y: -0.00000015258789, z: -0.000000019073486}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8194073658096261588}
+  m_Father: {fileID: 4798043068777260845}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1201934754517710210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2126219204641105633}
+  - component: {fileID: 1619867863779254037}
+  - component: {fileID: 5222007785121543081}
+  m_Layer: 0
+  m_Name: MonetD
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2126219204641105633
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201934754517710210}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5092593658821760692}
+  - {fileID: 5753412377701605983}
+  - {fileID: 591328357139687879}
+  m_Father: {fileID: 429326344764896399}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!95 &1619867863779254037
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201934754517710210}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 981cdde5fefc70440aea7f668e9235a5, type: 3}
+  m_Controller: {fileID: 9100000, guid: 8ce31dc3453a70943a44005cbbfdf65a, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!136 &5222007785121543081
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1201934754517710210}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!1 &1227760335622929797
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8824226222886042716}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ L Finger2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8824226222886042716
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227760335622929797}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.0013477547, y: 0.028054839, z: 0.0060782414, w: 0.999587}
+  m_LocalPosition: {x: -0.07884109, y: -0.006861725, z: -0.0038186167}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8219245287772540872}
+  m_Father: {fileID: 8084740124817191790}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1538402077667585158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7369808446365294126}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ R Finger21
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7369808446365294126
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538402077667585158}
+  serializedVersion: 2
+  m_LocalRotation: {x: 9.450197e-10, y: 0.0000000018557335, z: -0.0073671704, w: 0.9999729}
+  m_LocalPosition: {x: -0.039643783, y: 0, z: -0.000000009536743}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2278420055432857739}
+  m_Father: {fileID: 3213173142705324419}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1682256126475072562
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1548366527471996106}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ Pelvis
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1548366527471996106
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682256126475072562}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.49785256, y: 0.5021376, z: 0.50213754, w: 0.497854}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 706731038861703501}
+  - {fileID: 4399283935703823926}
+  - {fileID: 2219696414120642714}
+  m_Father: {fileID: 5092593658821760692}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1943167813438903858
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4399283935703823926}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ R Thigh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4399283935703823926
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1943167813438903858}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.03539061, y: 0.9989539, z: 0.00016607516, w: -0.02896133}
+  m_LocalPosition: {x: -0.00000015258789, y: -0.00000007808208, z: -0.08636365}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7762793976558003321}
+  m_Father: {fileID: 1548366527471996106}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2041396336494362343
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7319696313775464185}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ R Finger31
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7319696313775464185
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2041396336494362343}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.0000000038978447, y: -0.0000000035443442, z: -0.04744605,
+    w: 0.99887383}
+  m_LocalPosition: {x: -0.04001873, y: -0.00000015258789, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3272046689083413282}
+  m_Father: {fileID: 7885341528258832033}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2155592728149139792
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5727681582971413084}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ L Finger41
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5727681582971413084
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2155592728149139792}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0000000073331132, y: 0.000000007566223, z: 0.015643781, w: 0.99987763}
+  m_LocalPosition: {x: -0.031502534, y: 0, z: 0.000000019073486}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5927891754638675506}
+  m_Father: {fileID: 189871109117248931}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2237142621097892579
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,7 +755,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &2262767629121261513
+--- !u!1 &2328672166506084195
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -457,30 +763,30 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3820001373533226055}
+  - component: {fileID: 1180039436045863111}
   m_Layer: 0
-  m_Name: Bone004
+  m_Name: Hobo_Josh_ R Finger42
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3820001373533226055
+--- !u!4 &1180039436045863111
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2262767629121261513}
+  m_GameObject: {fileID: 2328672166506084195}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0068293796, y: -0.1620013, z: -0.002135416, w: 0.9867646}
-  m_LocalPosition: {x: -0.15747039, y: -0.0000000047683715, z: 0.000000028610229}
+  m_LocalRotation: {x: 0, y: 0, z: 0.015643856, w: 0.99987763}
+  m_LocalPosition: {x: -0.0188916, y: 0.000000076293944, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6777239437420678707}
+  m_Father: {fileID: 8534463898010285234}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2739496017686630099
+--- !u!1 &2392148356791942140
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -488,31 +794,31 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4187142756933210847}
+  - component: {fileID: 5455882394366334111}
   m_Layer: 0
-  m_Name: Bone005
+  m_Name: Hobo_Josh_ L Finger32
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4187142756933210847
+--- !u!4 &5455882394366334111
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2739496017686630099}
+  m_GameObject: {fileID: 2392148356791942140}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.43723872, y: 0.55631244, z: 0.5357997, w: 0.46071413}
-  m_LocalPosition: {x: 0.005060348, y: -0.04107666, z: -0.10811785}
+  m_LocalRotation: {x: -0.0000000035892693, y: -0.000000007517054, z: 0.018173821,
+    w: 0.9998349}
+  m_LocalPosition: {x: -0.026593208, y: 0, z: -0.000000009536743}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2566082623351729226}
-  m_Father: {fileID: 8319821383064301656}
+  m_Children: []
+  m_Father: {fileID: 4173223952893212238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2987565321522629823
+--- !u!1 &2411133174435716817
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -520,31 +826,31 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2566082623351729226}
+  - component: {fileID: 189871109117248931}
   m_Layer: 0
-  m_Name: Bone006
+  m_Name: Hobo_Josh_ L Finger4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2566082623351729226
+--- !u!4 &189871109117248931
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2987565321522629823}
+  m_GameObject: {fileID: 2411133174435716817}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0014684008, y: -0.08837239, z: 0.031343278, w: 0.9955932}
-  m_LocalPosition: {x: -0.3896664, y: 0.0000007390976, z: 0.000000014305114}
+  m_LocalRotation: {x: -0.004254712, y: 0.21186087, z: -0.12904525, w: 0.9687333}
+  m_LocalPosition: {x: -0.06279903, y: -0.002583313, z: 0.03336322}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6254037280666576810}
-  m_Father: {fileID: 4187142756933210847}
+  - {fileID: 5727681582971413084}
+  m_Father: {fileID: 8084740124817191790}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6623425528825498011
+--- !u!1 &2659176927826160944
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -552,29 +858,836 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6254037280666576810}
+  - component: {fileID: 7773773451436520355}
   m_Layer: 0
-  m_Name: Bone007
+  m_Name: Hobo_Josh_ Head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6254037280666576810
+--- !u!4 &7773773451436520355
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6623425528825498011}
+  m_GameObject: {fileID: 2659176927826160944}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.00096599775, y: 0.020391567, z: 0.033387452, w: 0.99923396}
-  m_LocalPosition: {x: -0.3350389, y: 0.000000057220458, z: -0.0000000047683715}
+  m_LocalRotation: {x: -2.6105905e-13, y: -0.0000003985047, z: 0.14367844, w: 0.98962444}
+  m_LocalPosition: {x: -0.06477295, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4892637697647577329}
-  m_Father: {fileID: 2566082623351729226}
+  - {fileID: 7720286430684000310}
+  - {fileID: 6119993681610518271}
+  - {fileID: 5670645728929845569}
+  m_Father: {fileID: 2621028225345686767}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2870945058385327745
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2621028225345686767}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ Neck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2621028225345686767
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2870945058385327745}
+  serializedVersion: 2
+  m_LocalRotation: {x: -8.091679e-15, y: 0.00000048163093, z: -0.17364827, w: 0.9848078}
+  m_LocalPosition: {x: -0.22089142, y: 0.013792977, z: 0.000000018641511}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7773773451436520355}
+  m_Father: {fileID: 627241976744028821}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3008543480096460035
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3272046689083413282}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ R Finger32
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3272046689083413282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3008543480096460035}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000007313944, y: 0.000000007584755, z: 0.018173834, w: 0.9998349}
+  m_LocalPosition: {x: -0.026593246, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7319696313775464185}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3144072195364335389
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2219696414120642714}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ Spine
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2219696414120642714
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3144072195364335389}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.000002083424, y: 0.00000069663923, z: -0.0046824175, w: 0.99998903}
+  m_LocalPosition: {x: -0.09946571, y: -0.013510428, z: 0.00000022515552}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 627241976744028821}
+  m_Father: {fileID: 1548366527471996106}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3550664929814018802
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8755281898481929950}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ L Finger3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8755281898481929950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3550664929814018802}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.0016420095, y: 0.15182732, z: 0.0079383105, w: 0.9883738}
+  m_LocalPosition: {x: -0.07236324, y: -0.0057029724, z: 0.012948589}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4173223952893212238}
+  m_Father: {fileID: 8084740124817191790}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3693355415778045829
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 624649915161888333}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ R Finger12
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &624649915161888333
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3693355415778045829}
+  serializedVersion: 2
+  m_LocalRotation: {x: -6.996199e-11, y: -0.000000003724633, z: -0.01878028, w: 0.99982363}
+  m_LocalPosition: {x: -0.028896026, y: 0, z: -0.000000019073486}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 488530840835023531}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3712577761430938582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1190964426398324125}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ R Clavicle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1190964426398324125
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3712577761430938582}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.61868924, y: 0.035771962, z: 0.7843316, w: 0.027711736}
+  m_LocalPosition: {x: -0.18224975, y: -0.029256076, z: -0.030227315}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6219316809825771846}
+  m_Father: {fileID: 627241976744028821}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4263173633824209763
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4798043068777260845}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ L Finger1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4798043068777260845
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4263173633824209763}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0051062116, y: -0.11658117, z: -0.0028422591, w: 0.993164}
+  m_LocalPosition: {x: -0.07877304, y: -0.007615814, z: -0.026460528}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7985857109363008322}
+  m_Father: {fileID: 8084740124817191790}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4468943503290870427
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5315645149940780119}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ R Toe0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5315645149940780119
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4468943503290870427}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.000000010185955, y: 0.000000020722668, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -0.057048477, y: 0.14667171, z: 0.000000019073486}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2713367259397509636}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4482726327239120868
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2970146033254947964}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ L Finger02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2970146033254947964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4482726327239120868}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000029695983, y: 0.0000000025153823, z: 0.08440222, w: 0.99643177}
+  m_LocalPosition: {x: -0.029525641, y: -0.000000038146972, z: 0.000000076293944}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6281616121043129738}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4705545886424639198
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4182180633732581440}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ L Foot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4182180633732581440
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4705545886424639198}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.07278629, y: 0.032645907, z: -0.049032647, w: 0.9956065}
+  m_LocalPosition: {x: -0.44632426, y: 0, z: 0.000000009536743}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5726610130640397365}
+  m_Father: {fileID: 894387816112394859}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4749021267599582586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6726676467771421607}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ L Clavicle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6726676467771421607
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4749021267599582586}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.6186892, y: -0.03577411, z: 0.7843315, w: 0.027713481}
+  m_LocalPosition: {x: -0.18224975, y: -0.029256243, z: 0.0302271}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6735086795023033923}
+  m_Father: {fileID: 627241976744028821}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4772866713380786547
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 894387816112394859}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ L Calf
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &894387816112394859
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4772866713380786547}
+  serializedVersion: 2
+  m_LocalRotation: {x: 6.983492e-10, y: 1.4118162e-11, z: 0.020212349, w: 0.99979573}
+  m_LocalPosition: {x: -0.43181786, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4182180633732581440}
+  m_Father: {fileID: 706731038861703501}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4834215099180197159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8084740124817191790}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ L Hand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8084740124817191790
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4834215099180197159}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7068252, y: -0.000000011199188, z: -0.00000000987371, w: 0.7073883}
+  m_LocalPosition: {x: -0.25118133, y: 0.000000009536743, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4310378337291404885}
+  - {fileID: 4798043068777260845}
+  - {fileID: 8824226222886042716}
+  - {fileID: 8755281898481929950}
+  - {fileID: 189871109117248931}
+  m_Father: {fileID: 7962528981227852230}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5105148023954363011
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5753412377701605983}
+  - component: {fileID: 1469072524624948200}
+  m_Layer: 0
+  m_Name: Hobo_Josh_mesh_body
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5753412377701605983
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5105148023954363011}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2126219204641105633}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!137 &1469072524624948200
+SkinnedMeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5105148023954363011}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 3
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 2b0b35eeac4fc14479642afd2428747e, type: 2}
+  - {fileID: 2100000, guid: 08684d6ac6ab6cd47b188f6c0783e0b4, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_SkinnedMotionVectors: 1
+  m_Mesh: {fileID: -6037830594969896607, guid: 981cdde5fefc70440aea7f668e9235a5, type: 3}
+  m_Bones:
+  - {fileID: 2219696414120642714}
+  - {fileID: 627241976744028821}
+  - {fileID: 1548366527471996106}
+  - {fileID: 6726676467771421607}
+  - {fileID: 6735086795023033923}
+  - {fileID: 7773773451436520355}
+  - {fileID: 706731038861703501}
+  - {fileID: 4399283935703823926}
+  - {fileID: 1190964426398324125}
+  - {fileID: 6219316809825771846}
+  - {fileID: 894387816112394859}
+  - {fileID: 4182180633732581440}
+  - {fileID: 5726610130640397365}
+  - {fileID: 2713367259397509636}
+  - {fileID: 5315645149940780119}
+  - {fileID: 7762793976558003321}
+  - {fileID: 7962528981227852230}
+  - {fileID: 8084740124817191790}
+  - {fileID: 4310378337291404885}
+  - {fileID: 6281616121043129738}
+  - {fileID: 5510724430262928308}
+  - {fileID: 6098826814759216559}
+  - {fileID: 5250859580375137438}
+  - {fileID: 7988936431703926162}
+  - {fileID: 1777930985770279965}
+  - {fileID: 8219245287772540872}
+  - {fileID: 8824226222886042716}
+  - {fileID: 8755281898481929950}
+  - {fileID: 4173223952893212238}
+  - {fileID: 4798043068777260845}
+  - {fileID: 7985857109363008322}
+  - {fileID: 5455882394366334111}
+  - {fileID: 189871109117248931}
+  - {fileID: 2970146033254947964}
+  - {fileID: 5727681582971413084}
+  - {fileID: 8194073658096261588}
+  - {fileID: 5927891754638675506}
+  - {fileID: 2278420055432857739}
+  - {fileID: 7369808446365294126}
+  - {fileID: 3213173142705324419}
+  - {fileID: 7885341528258832033}
+  - {fileID: 7319696313775464185}
+  - {fileID: 422477120134613420}
+  - {fileID: 488530840835023531}
+  - {fileID: 3272046689083413282}
+  - {fileID: 4554192990984223970}
+  - {fileID: 5976924768029425041}
+  - {fileID: 8534463898010285234}
+  - {fileID: 624649915161888333}
+  - {fileID: 1180039436045863111}
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 1548366527471996106}
+  m_AABB:
+    m_Center: {x: 0.07128656, y: -0.013008527, z: 0.00000032782555}
+    m_Extent: {x: 0.9002538, y: 0.19725496, z: 0.7564312}
+  m_DirtyAABB: 0
+--- !u!1 &5286962854053356679
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4173223952893212238}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ L Finger31
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4173223952893212238
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5286962854053356679}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: -0.047446024, w: 0.99887383}
+  m_LocalPosition: {x: -0.040018693, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5455882394366334111}
+  m_Father: {fileID: 8755281898481929950}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5588545981792090285
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5250859580375137438}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ R Finger0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5250859580375137438
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5588545981792090285}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.63044417, y: 0.37500736, z: 0.12000055, w: 0.6689615}
+  m_LocalPosition: {x: -0.01381813, y: 0.004550781, z: 0.029579282}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7988936431703926162}
+  m_Father: {fileID: 6098826814759216559}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5701300961633907834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7720286430684000310}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ eye_Left
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7720286430684000310
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5701300961633907834}
+  serializedVersion: 2
+  m_LocalRotation: {x: 4.1599954e-10, y: 0.0000029229582, z: -0.70738876, w: 0.70682466}
+  m_LocalPosition: {x: -0.09164474, y: 0.09060464, z: 0.03160514}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7773773451436520355}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5876517712008764883
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8534463898010285234}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ R Finger41
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8534463898010285234
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5876517712008764883}
+  serializedVersion: 2
+  m_LocalRotation: {x: 1.1655528e-10, y: -0.0000000074496693, z: 0.015643783, w: 0.99987763}
+  m_LocalPosition: {x: -0.031502493, y: 0, z: 0.000000019073486}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1180039436045863111}
+  m_Father: {fileID: 4554192990984223970}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5936554858416274534
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 422477120134613420}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ R Finger1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &422477120134613420
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5936554858416274534}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.0051062074, y: 0.116581164, z: -0.0028422896, w: 0.993164}
+  m_LocalPosition: {x: -0.078773074, y: -0.007615814, z: 0.026460541}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 488530840835023531}
+  m_Father: {fileID: 6098826814759216559}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5965548561441169261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5976924768029425041}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ R Finger02
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5976924768029425041
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5965548561441169261}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0000000012576918, y: -0.000000014847991, z: 0.08440227, w: 0.99643177}
+  m_LocalPosition: {x: -0.029525641, y: -0.000000038146972, z: -0.000000076293944}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7988936431703926162}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6271788477085467123
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5927891754638675506}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ L Finger42
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5927891754638675506
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6271788477085467123}
+  serializedVersion: 2
+  m_LocalRotation: {x: -1.165556e-10, y: 0.000000007449669, z: 0.015643828, w: 0.99987763}
+  m_LocalPosition: {x: -0.0188916, y: 0.00000015258789, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5727681582971413084}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6533197073802075525
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6735086795023033923}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ L UpperArm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6735086795023033923
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6533197073802075525}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.08982498, y: -0.16665931, z: 0.02297464, w: 0.98164576}
+  m_LocalPosition: {x: -0.16342708, y: 0, z: 0.00000015258789}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7962528981227852230}
+  m_Father: {fileID: 6726676467771421607}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6706435079510764729
 GameObject:
@@ -697,7 +1810,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &8709591777157525817
+--- !u!1 &7089030559393646380
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -705,32 +1818,31 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 109066230087371411}
+  - component: {fileID: 7885341528258832033}
   m_Layer: 0
-  m_Name: MonetC Mesh
+  m_Name: Hobo_Josh_ R Finger3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &109066230087371411
+--- !u!4 &7885341528258832033
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8709591777157525817}
+  m_GameObject: {fileID: 7089030559393646380}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.000000029802322, z: -0, w: -1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.0016420028, y: -0.15182734, z: 0.00793828, w: 0.9883738}
+  m_LocalPosition: {x: -0.072363354, y: -0.0057028197, z: -0.012948608}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8319821383064301656}
-  - {fileID: 3920506767902595486}
-  m_Father: {fileID: 429326344764896399}
-  m_LocalEulerAnglesHint: {x: 0, y: -106.593, z: 0}
---- !u!1 &8959025564803562824
+  - {fileID: 7319696313775464185}
+  m_Father: {fileID: 6098826814759216559}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7246144592062829352
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -738,26 +1850,567 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4892637697647577329}
+  - component: {fileID: 5510724430262928308}
   m_Layer: 0
-  m_Name: Bone008
+  m_Name: Hobo_Josh_ R Forearm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4892637697647577329
+--- !u!4 &5510724430262928308
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8959025564803562824}
+  m_GameObject: {fileID: 7246144592062829352}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.006829379, y: -0.16200131, z: -0.0021354163, w: 0.9867646}
-  m_LocalPosition: {x: -0.15747039, y: 0, z: 0.000000023841856}
+  m_LocalRotation: {x: -0.00000001627146, y: 0.000000043110802, z: 0.11566431, w: 0.99328834}
+  m_LocalPosition: {x: -0.24974662, y: 0, z: -0.00000015258789}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6098826814759216559}
+  m_Father: {fileID: 6219316809825771846}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7355775710086515739
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8219245287772540872}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ L Finger21
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8219245287772540872
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7355775710086515739}
+  serializedVersion: 2
+  m_LocalRotation: {x: -4.9480886e-10, y: -0.000000003954583, z: -0.007367185, w: 0.9999729}
+  m_LocalPosition: {x: -0.039643746, y: 0, z: -0.000000009536743}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1777930985770279965}
+  m_Father: {fileID: 8824226222886042716}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7422452888346641829
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 706731038861703501}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ L Thigh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &706731038861703501
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7422452888346641829}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.035390567, y: 0.9989539, z: -0.00016751744, w: 0.028959949}
+  m_LocalPosition: {x: 0.00000015258789, y: 0.00000016152859, z: 0.08636365}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 894387816112394859}
+  m_Father: {fileID: 1548366527471996106}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7464001699520333317
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5670645728929845569}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ Jaw
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5670645728929845569
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7464001699520333317}
+  serializedVersion: 2
+  m_LocalRotation: {x: -5.013044e-10, y: -0.0000039042807, z: 0.9349151, w: -0.35487145}
+  m_LocalPosition: {x: -0.06291931, y: 0.033731397, z: 0.000000047625495}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 6254037280666576810}
+  m_Father: {fileID: 7773773451436520355}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7587669761905871390
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6219316809825771846}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ R UpperArm
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6219316809825771846
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7587669761905871390}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.08982498, y: 0.16665933, z: 0.02297465, w: 0.98164576}
+  m_LocalPosition: {x: -0.16342704, y: -0.0000000047683715, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5510724430262928308}
+  m_Father: {fileID: 1190964426398324125}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7784436697723941075
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7988936431703926162}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ R Finger01
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7988936431703926162
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7784436697723941075}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000014859774, y: -0.000000014942437, z: -0.0027736833,
+    w: 0.9999962}
+  m_LocalPosition: {x: -0.039783247, y: 0.000000038146972, z: 0.000000076293944}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5976924768029425041}
+  m_Father: {fileID: 5250859580375137438}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7971577099981236585
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6119993681610518271}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ eye_Right
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6119993681610518271
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7971577099981236585}
+  serializedVersion: 2
+  m_LocalRotation: {x: -4.1314355e-10, y: 0.0000010010665, z: -0.70738876, w: 0.70682466}
+  m_LocalPosition: {x: -0.09164474, y: 0.09060483, z: -0.03160464}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7773773451436520355}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8225453806452653295
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2713367259397509636}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ R Foot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2713367259397509636
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8225453806452653295}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.07278627, y: -0.03264594, z: -0.049032636, w: 0.9956065}
+  m_LocalPosition: {x: -0.4463243, y: 0, z: -0.000000009536743}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5315645149940780119}
+  m_Father: {fileID: 7762793976558003321}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8255461032844822476
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1777930985770279965}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ L Finger22
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1777930985770279965
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8255461032844822476}
+  serializedVersion: 2
+  m_LocalRotation: {x: 2.2733072e-10, y: 0.000000009310453, z: -0.024409449, w: 0.9997021}
+  m_LocalPosition: {x: -0.027604103, y: -0.00000015258789, z: 0.000000019073486}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8219245287772540872}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8409107247427868848
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 627241976744028821}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ Spine1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &627241976744028821
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8409107247427868848}
+  serializedVersion: 2
+  m_LocalRotation: {x: -9.368634e-14, y: -0.000000085286935, z: 0.030749539, w: 0.99952716}
+  m_LocalPosition: {x: -0.22453445, y: -0.0001784587, z: -4.949743e-10}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6726676467771421607}
+  - {fileID: 2621028225345686767}
+  - {fileID: 1190964426398324125}
+  m_Father: {fileID: 2219696414120642714}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8469245772701332828
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 591328357139687879}
+  - component: {fileID: 3686018706928054481}
+  m_Layer: 0
+  m_Name: Hobo_Josh_mesh_head
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &591328357139687879
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8469245772701332828}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2126219204641105633}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!137 &3686018706928054481
+SkinnedMeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8469245772701332828}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 3
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 2b0b35eeac4fc14479642afd2428747e, type: 2}
+  - {fileID: 2100000, guid: 782ac05bf1d50a547b115d4b56b2981d, type: 2}
+  - {fileID: 2100000, guid: 08684d6ac6ab6cd47b188f6c0783e0b4, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  serializedVersion: 2
+  m_Quality: 0
+  m_UpdateWhenOffscreen: 0
+  m_SkinnedMotionVectors: 1
+  m_Mesh: {fileID: 8072642292710644828, guid: 981cdde5fefc70440aea7f668e9235a5, type: 3}
+  m_Bones:
+  - {fileID: 7773773451436520355}
+  - {fileID: 2621028225345686767}
+  - {fileID: 5670645728929845569}
+  - {fileID: 627241976744028821}
+  - {fileID: 6119993681610518271}
+  - {fileID: 7720286430684000310}
+  m_BlendShapeWeights: []
+  m_RootBone: {fileID: 627241976744028821}
+  m_AABB:
+    m_Center: {x: -0.33320087, y: 0.07079088, z: -0.00000010430813}
+    m_Extent: {x: 0.16665676, y: 0.1451923, z: 0.09919087}
+  m_DirtyAABB: 0
+--- !u!1 &8485431405445476741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2278420055432857739}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ R Finger22
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2278420055432857739
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8485431405445476741}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.000000007516561, y: 0.0000000026112708, z: -0.024409492,
+    w: 0.9997021}
+  m_LocalPosition: {x: -0.027603988, y: 0, z: 0.000000009536743}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7369808446365294126}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8553453597159013102
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3213173142705324419}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ R Finger2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3213173142705324419
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8553453597159013102}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0013477574, y: -0.02805483, z: 0.006078211, w: 0.999587}
+  m_LocalPosition: {x: -0.07884117, y: -0.006861877, z: 0.0038186072}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7369808446365294126}
+  m_Father: {fileID: 6098826814759216559}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8917840229948907324
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7762793976558003321}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ R Calf
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7762793976558003321
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8917840229948907324}
+  serializedVersion: 2
+  m_LocalRotation: {x: 1.12945285e-10, y: -0.0000000055867937, z: 0.020212347, w: 0.99979573}
+  m_LocalPosition: {x: -0.4318178, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2713367259397509636}
+  m_Father: {fileID: 4399283935703823926}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9140743690198138133
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4310378337291404885}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ L Finger0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4310378337291404885
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9140743690198138133}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.63044417, y: -0.37500733, z: 0.12000056, w: 0.6689615}
+  m_LocalPosition: {x: -0.013818092, y: 0.004550781, z: -0.029579291}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 6281616121043129738}
+  m_Father: {fileID: 8084740124817191790}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &9145098717376852225
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5726610130640397365}
+  m_Layer: 0
+  m_Name: Hobo_Josh_ L Toe0
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5726610130640397365
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9145098717376852225}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.000000015454312, y: 0.000000015454313, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -0.057048477, y: 0.14667171, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4182180633732581440}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

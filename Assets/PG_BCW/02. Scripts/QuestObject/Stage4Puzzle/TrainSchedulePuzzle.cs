@@ -23,7 +23,7 @@ public class TrainSchedulePuzzle : XRSocketInteractor, IPuzzleable
     private Collider triggerCollider;
     [Tooltip("클리어 활성화 렌더러 위치")]
     [SerializeField]
-    private MeshRenderer clearPoint;
+    private SpriteRenderer clearPoint;
 
 
 
@@ -31,12 +31,17 @@ public class TrainSchedulePuzzle : XRSocketInteractor, IPuzzleable
 
     protected override void Awake()
     {
+        base.Awake();
+
         RegistObject(puzzle);
 
         if (puzzle == null) Debug.LogError($"TrainSchedulePuzzle 에 PuzzleManager를 참조하시오");
+        if (itemID == 0) Debug.Log($"itemID 에 찢어진 시간표ID를 참조하시오");
         if (triggerCollider == null) Debug.LogError($"TrainSchedulePuzzle 에 Collider 참조하시오");
         if(clearPoint == null) Debug.LogError($"TrainSchedulePuzzle 에 MeshRenderer 참조하시오");
     }
+
+
 
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -63,8 +68,8 @@ public class TrainSchedulePuzzle : XRSocketInteractor, IPuzzleable
         float rate = 0f;
         Vector3 startPos = selectObject.position;
         Quaternion startRot = selectObject.rotation;
-        Vector3 endPos = clearPoint.transform.position;
-        Quaternion endRot = clearPoint.transform.rotation;
+        Vector3 endPos = attachTransform.position;
+        Quaternion endRot = attachTransform.rotation;
 
         while (rate < 1f)
         {
@@ -76,6 +81,11 @@ public class TrainSchedulePuzzle : XRSocketInteractor, IPuzzleable
 
         selectObject.localPosition = Vector3.zero;
         selectObject.localRotation = Quaternion.identity;
+
+        //아이템 삭제
+        Destroy(selectObject.gameObject);
+        //완성이미지 활성화
+        clearPoint.enabled = true;
         // 퍼즐매니저 업데이트
         UpdatePuzzleManager(puzzle, puzzleIndex);
     }
@@ -95,14 +105,12 @@ public class TrainSchedulePuzzle : XRSocketInteractor, IPuzzleable
     }
     public void DisActiveSetting()
     {
-        //triggerCollider.enabled = false;
+        triggerCollider.enabled = false;
     }
     public void CompleteSetting()
     {
-        Debug.Log("컴플리트");
-        //MeshRenderer On
-        clearPoint.enabled = false;
-        //Instantiate(Manager.Item.ItemDataDic[itemID].itemPrefab, prefabPoint.position, prefabPoint.rotation);
+        //MeshRenderer 키기
+        clearPoint.enabled = true;
         puzzle.UpdateCondition(puzzleIndex);
     }
 }

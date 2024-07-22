@@ -57,6 +57,9 @@ public class Door : XRSocketInteractor
         {
             //문열기
             if (rb != null) rb.isKinematic = false;
+
+
+            args.interactableObject.transform.GetComponent<Collider>().enabled = false;
         }
     }
 }

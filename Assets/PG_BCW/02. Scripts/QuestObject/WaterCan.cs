@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class MiniatureItem : ItemObject
+public class WaterCan : ItemObject
 {
     [Header("미니어처 아이템")]
 
@@ -25,4 +25,5 @@ public class MiniatureItem : ItemObject
         }
     }
 
+    
 }
