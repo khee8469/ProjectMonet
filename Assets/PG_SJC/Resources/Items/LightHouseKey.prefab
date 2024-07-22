@@ -105,7 +105,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.6, y: 0.6, z: 0.6}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &5955598401221862039
 Rigidbody:
@@ -287,7 +287,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 5
   interactors: []
   itemID: 1410002

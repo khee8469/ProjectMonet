@@ -1,12 +1,10 @@
 using Jc;
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem.iOS;
-using UnityEngine.XR.Interaction.Toolkit;
 
 namespace JJH
 {
-    public class LightPanelButton : CustomButton , IPuzzleable , IInteractable
+    public class LightPanelButton : CustomButton, IPuzzleable, IInteractable
     {
 
         public enum Direction
@@ -102,7 +100,7 @@ namespace JJH
             Debug.Log($"isPushing->{isPushing}");
             Debug.Log($"isRotation ->{isRotating}");
 
-            if (isPushing == true || isRotating ==true/* || isSelecting*/) return;
+            if (isPushing == true || isRotating == true/* || isSelecting*/) return;
 
             Debug.Log("업 버튼 눌림 체크");
             StartAndStopCoroutine(PushLerpRoutine(startPosition, lastPositiion, buttonDuration));
@@ -167,6 +165,7 @@ namespace JJH
             isPushing = true; // 누르고 있으면 다른 키 누르지 못하게 함.
             while (elapsed < duration)
             {
+
                 float t = elapsed / duration;
                 button.transform.localPosition = Vector3.Lerp(start, end, t);
                 elapsed += Time.fixedDeltaTime;
@@ -217,13 +216,15 @@ namespace JJH
                     bottomEnd = Quaternion.Euler(lightBottom.transform.localEulerAngles + new Vector3(0, 0, 0));
                     bottomStart = lightBottom.transform.localRotation;
 
-                    Debug.Log(lightHouseHead.transform.localEulerAngles+"로컬 오일러 앵글");
+                    Debug.Log(lightHouseHead.transform.localEulerAngles + "로컬 오일러 앵글");
 
                     // 이게 마이너스 값으로 가면 local euler값이 355 이렇게 됨 --> 355 : -5 와 같음. 
 
-                    if (lightHouseHead.transform.localEulerAngles.z >= 315 || lightHouseHead.transform.localEulerAngles.z <= 45  )
+                    if (lightHouseHead.transform.localEulerAngles.z >= 315 || lightHouseHead.transform.localEulerAngles.z <= 45+0.1f)
                     {
-                        StartCoroutine(RotationRoutine(start, end, bottomStart, bottomEnd, duration));
+                       
+
+                        StartCoroutine(RotationRoutine(start, end, bottomStart, bottomEnd, duration)); // 눌리는 루틴인데 이 조건이 지금 
                     }
                     break;
 
@@ -235,8 +236,11 @@ namespace JJH
                     bottomEnd = Quaternion.Euler(lightBottom.transform.localEulerAngles + new Vector3(0, 0, 0));
                     bottomStart = lightBottom.transform.localRotation;
 
-                    if (lightHouseHead.transform.localEulerAngles.z >= 315 || lightHouseHead.transform.localEulerAngles.z <= 45)
+                    
+
+                    if (lightHouseHead.transform.localEulerAngles.z >= 315 - 0.1f || lightHouseHead.transform.localEulerAngles.z <= 45)
                     {
+                        
                         StartCoroutine(RotationRoutine(start, end, bottomStart, bottomEnd, duration));
                     }
                     break;
@@ -244,7 +248,7 @@ namespace JJH
                 case Direction.LEFT: // 좌 --> 이게 바닥회전은 y축 회전이 맞다. 그런데 헤드랑 같이 회전한다면? 
 
                     // y축 이니까 어차피 head 회전도 y축 회전하면 되고 --> 바닥도 같이 y축 회전 하면 된다.
-                    
+
                     // 헤드는 x축 회전이고 바닥은 y축 회전인대 이거 통일 못하나? 
 
                     end = Quaternion.Euler(lightHouseHead.transform.localEulerAngles + new Vector3(-5, 0, 0));
@@ -253,11 +257,14 @@ namespace JJH
                     bottomEnd = Quaternion.Euler(lightBottom.transform.localEulerAngles + new Vector3(0, -5, 0));
                     bottomStart = lightBottom.transform.localRotation;
 
-                    if (lightHouseHead.transform.localEulerAngles.x >= 315 || lightHouseHead.transform.localEulerAngles.x <= 45)
+
+                    if (lightHouseHead.transform.localEulerAngles.x >= 315 || lightHouseHead.transform.localEulerAngles.x <= 45+0.1f)
                     {
-                        StartCoroutine(RotationRoutine(start, end, bottomStart,bottomEnd,duration));
-                    }                  
-                    break; 
+                        
+
+                        StartCoroutine(RotationRoutine(start, end, bottomStart, bottomEnd, duration));
+                    }
+                    break;
 
                 case Direction.RIGHT: // 우 --> 라이트 바텀 같이 회전 시키기. 
 
@@ -267,16 +274,17 @@ namespace JJH
                     bottomEnd = Quaternion.Euler(lightBottom.transform.localEulerAngles + new Vector3(0, +5, 0));
                     bottomStart = lightBottom.transform.localRotation;
 
-                    if (lightHouseHead.transform.localEulerAngles.x >= 315 || lightHouseHead.transform.localEulerAngles.x <= 45)
+
+                    if (lightHouseHead.transform.localEulerAngles.x >= 315 - 0.1f || lightHouseHead.transform.localEulerAngles.x <= 45)
                     {
-                        StartCoroutine(RotationRoutine(start, end, bottomStart,bottomEnd, duration));
+                        StartCoroutine(RotationRoutine(start, end, bottomStart, bottomEnd, duration));
                     }
                     break;
             }
         }
 
         // 얘는 단독으로 돌려줘야하는 코루틴이니까 코루틴 매니저 이용 없이 코루틴 따로 돌려주자. 
-        private IEnumerator RotationRoutine(Quaternion start, Quaternion end,Quaternion bottomStart , Quaternion bottomEnd ,float duration)
+        private IEnumerator RotationRoutine(Quaternion start, Quaternion end, Quaternion bottomStart, Quaternion bottomEnd, float duration)
         {
             Debug.Log("로테이팅 루틴");
             if (lightHouseSound != null) // manager를 통한 사운드 출력 --> 등대 움직이는 소리
@@ -286,18 +294,35 @@ namespace JJH
 
             isRotating = true; // 로테이팅 중이면 버튼 안 눌리도록 
             float elapsed = 0f;
-            while(elapsed < duration)
+            while (elapsed < duration)
             {
                 // Lerp 의 T값 증가
                 float t = elapsed / duration;
                 // 두 회전 사이 보간
                 lightHouseHead.transform.localRotation = Quaternion.Lerp(start, end, t);
 
-                lightBottom.transform.localRotation = Quaternion.Lerp(bottomStart , bottomEnd, t);
+                lightBottom.transform.localRotation = Quaternion.Lerp(bottomStart, bottomEnd, t);
+
+                /*if (lightHouseHead.transform.localEulerAngles.x >= 45)
+                {
+                    break;
+                }
+                if (lightHouseHead.transform.localEulerAngles.x <= 315)
+                {
+                    break;
+                }
+                if(lightHouseHead.transform.localEulerAngles.z <=315)
+                {
+                    break;
+                }
+                if (lightHouseHead.transform.localEulerAngles.z >=45)
+                {
+                    break;
+                }*/
 
                 elapsed += Time.deltaTime;
                 yield return null;
-                
+
             }
 
             Mathf.Clamp(elapsed, 0f, 1f);
@@ -308,7 +333,7 @@ namespace JJH
             Debug.Log("로테이팅 루틴 종료");
         }
 
-        
+
 
 
 
@@ -330,7 +355,7 @@ namespace JJH
         private void CheckMyAngel(Quaternion rotation)
         {
             // 내 앵글이 x y z 를 검사해서 x y z 가 그 해당 내부에 있으면 완료 체크를 해주면 되겠죠? 
-            house.MyCheckRotation(rotation); 
+            house.MyCheckRotation(rotation);
 
         }
 
@@ -350,7 +375,7 @@ namespace JJH
             puzzle.UpdateCondition(index);
         }
 
-        public void ActiveSetting()  
+        public void ActiveSetting()
         {
             MyEnable(true);
             //puzzleSun.moonPanel.gameObject.SetActive(true); --> 여기서 말고 이거는 트리거로 따로 관리 해 줘야 할 듯함.
@@ -373,7 +398,6 @@ namespace JJH
 
         public Transform GetTransform()
         {
-            Debug.Log($"트랜스폼 ->{this.gameObject.transform}");
             return transform;
         }
 

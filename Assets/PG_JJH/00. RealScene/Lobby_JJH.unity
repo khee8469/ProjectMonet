@@ -1285,37 +1285,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4021487837328764004}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &150200779
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 150200780}
-  m_Layer: 0
-  m_Name: OilPaint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &150200780
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 150200779}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.1014585, y: 2.9019885, z: -2.925458}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &153465825
 GameObject:
   m_ObjectHideFlags: 0
@@ -3056,7 +3025,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   paint: {fileID: 7223165024548654580, guid: cc49c7992d698d94285c9ca6c27f5f0a, type: 3}
@@ -4534,7 +4505,7 @@ PrefabInstance:
     - target: {fileID: 8313518568061495949, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5353,7 +5324,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   color: 2
@@ -6407,7 +6380,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   paint: {fileID: 7223165024548654580, guid: cc49c7992d698d94285c9ca6c27f5f0a, type: 3}
@@ -7389,7 +7364,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   color: 3
@@ -8392,7 +8369,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   color: 2
@@ -8849,7 +8828,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   tip: {fileID: 1089067930}
@@ -9353,7 +9334,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   color: 3
@@ -9952,7 +9935,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   paint: {fileID: 7223165024548654580, guid: cc49c7992d698d94285c9ca6c27f5f0a, type: 3}
@@ -10432,7 +10417,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   tip: {fileID: 139552068}
@@ -10995,6 +10982,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8180192068844072057, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 282375967}
+    - target: {fileID: 8180192068844072057, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
+        type: 3}
       propertyPath: playerLayer.m_Bits
       value: 32776
       objectReference: {fileID: 0}
@@ -11211,6 +11203,11 @@ PrefabInstance:
       propertyPath: grabDistance
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 8180192068844072057, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
+        type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 282375967}
     - target: {fileID: 8180192068844072057, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
       propertyPath: playerLayer.m_Bits
@@ -12080,7 +12077,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   color: 4
@@ -12472,7 +12471,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   color: 7
@@ -13225,7 +13226,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   color: 1
@@ -13832,7 +13835,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   tip: {fileID: 1713648795}
@@ -14891,7 +14896,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   color: 2
@@ -15378,7 +15385,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   color: 7
@@ -16793,7 +16802,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   paint: {fileID: 7223165024548654580, guid: cc49c7992d698d94285c9ca6c27f5f0a, type: 3}
@@ -20563,7 +20574,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   tip: {fileID: 1951602399}
@@ -21181,14 +21194,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   playerMovePos: {fileID: 459861656241750223}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 32776
   player: {fileID: 524204686}
   characterController: {fileID: 282375970}
   move: {fileID: 660145669}
   returnPos: {fileID: 519125765}
   door: {fileID: 593902513}
+  playerMovement: {fileID: 282375967}
 --- !u!114 &8180192069657770609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21292,14 +21303,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   playerMovePos: {fileID: 459861655064547534}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 32776
   player: {fileID: 524204686}
   characterController: {fileID: 282375970}
   move: {fileID: 660145669}
   returnPos: {fileID: 141046630}
   door: {fileID: 7359191004216950676}
+  playerMovement: {fileID: 282375967}
 --- !u!4 &8245406923238907369
 Transform:
   m_ObjectHideFlags: 0
@@ -21727,4 +21736,3 @@ SceneRoots:
   - {fileID: 457833133}
   - {fileID: 1726554920}
   - {fileID: 2100934114}
-  - {fileID: 150200780}

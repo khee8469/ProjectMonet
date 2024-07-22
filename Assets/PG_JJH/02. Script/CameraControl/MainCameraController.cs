@@ -54,18 +54,26 @@ public class MainCameraController : MonoBehaviour
         subCamera.clearFlags = CameraClearFlags.Depth;
         subCamera.depth = mainCamera.depth + 1;
         // 컬링 마스크를 통해 특정 레이어에 있는 객체만 렌더링 가능하다. 
-        subCamera.cullingMask = LayerMask.GetMask("LocalVolume");
+        //subCamera.cullingMask = LayerMask.GetMask("LocalVolume");
+        
         
         // 0 보다 1이 위에 그려진다. -> 메인 위에 서브 카메라 렌더링을 그리기 위함. 
         UniversalAdditionalCameraData subCamera1 = subCamera.GetComponent<UniversalAdditionalCameraData>();
         if(subCamera != null)
         {
             subCamera1.renderPostProcessing = true;
-            //subCamera1.volumeLayerMask = LayerMask.GetMask("LocalVolume");
+            //subCamera1.volumeLayerMask = LayerMask.GetMask("LocalVolume"); // ui , slot , localVolume 3종류 
             //subCamera1.clearDepth = false; --> 이거 clearDepth 빼줘야함.
         }
         
 
+
+    }
+
+
+    // 그림 완성 후 사용 할 모네 셰이더 
+    public void MonetSettings()
+    {
 
     }
 

@@ -23,7 +23,7 @@ namespace JJH
                     // 0 -> nothing 1 -> everything 
                     gear.interactionLayers = 0;
                     gear.transform.position = gearReturnPosition.position;
-                    gear.interactionLayers = 1;
+                    gear.interactionLayers = -1;
                 }
             }
         }
