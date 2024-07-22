@@ -40,7 +40,6 @@ public class FlowerPuzzle : MonoBehaviour, IPuzzleable
         //puzzleDataDic에 키값이 없으면 할당
         if (!Manager.PlayableData.puzzleDataDic.ContainsKey(puzzleManager.PuzzleID))
             Manager.PlayableData.puzzleDataDic.Add(puzzleManager.PuzzleID, PuzzleState.DisActive);
-
     }
 
     private void OnEnable()

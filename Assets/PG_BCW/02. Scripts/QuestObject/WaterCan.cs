@@ -30,7 +30,8 @@ public class WaterCan : ItemObject
     {
         base.OnDestroy();
 
-        StopCoroutine(coroutine);
+        if(coroutine != null)
+            StopCoroutine(coroutine);
     }
 
 

@@ -46,7 +46,7 @@ public class UmblleraPuzzle : InteractObject, IPuzzleable
             Debug.Log("umblleraWoman를 할당하시오");
 
 
-            if (puzzleManager!=null)
+        if (puzzleManager!=null)
             RegistObject(puzzleManager);
 
         //puzzleDataDic에 키값이 없으면 할당
