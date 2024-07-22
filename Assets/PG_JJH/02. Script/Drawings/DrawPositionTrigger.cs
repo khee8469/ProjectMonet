@@ -111,12 +111,17 @@ namespace JJH
 
         public Transform GetTransform()
         {
-            throw new System.NotImplementedException();
+            return transform;
         }
 
         public float GetDistanceThreshold()
         {
             return 0; 
+        }
+
+        public bool GetSingleGrab()
+        {
+            return false;
         }
     }
 
