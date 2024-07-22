@@ -259,11 +259,6 @@ namespace Jc
 
         public void SaveCanvasData()
         {
-            if(Directory.Exists(DataPath.LocalCanvasData) ==false)
-            {
-                Debug.Log("디렉토리가 존재하지 않음 -> 캔버스 데이터");
-                Directory.CreateDirectory(DataPath.LocalCanvasData); // 디렉토리 생성? 
-            }
             string json = JsonUtility.ToJson(canvasData , true);
             File.WriteAllText(SystemPath.GetPath(DataPath.LocalCanvasData), json);
         }

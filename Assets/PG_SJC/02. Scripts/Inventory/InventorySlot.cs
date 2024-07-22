@@ -145,8 +145,9 @@ namespace Jc
                 return null;
             }
             Debug.Log(getItemID);
-            ItemObject item = Instantiate(Manager.Item.ItemDataDic[getItemID].itemPrefab, transform.position, Quaternion.identity);
+            int itemID = getItemID;
             ItemCount--;
+            ItemObject item = Instantiate(Manager.Item.ItemDataDic[itemID].itemPrefab, transform.position, Quaternion.identity);
             return item;
         }
 
