@@ -24,6 +24,10 @@ namespace JJH
         // 모네풍 셰이더 Featrue 이름 
         private const string renderFeatureName = "OilPaint";
 
+        /*[Tooltip("그림 완성 시에 켜 줄 ui 셰이더 방지용 카메라")]
+        [SerializeField]
+        private Camera uiCamera;*/
+
 
         // 로딩 루틴 별로 카메라 찾아서 포스트 프로세싱 조절 해줄 것 
 
@@ -31,6 +35,7 @@ namespace JJH
 
         private void Awake()
         {
+            //uiCamera.gameObject.SetActive(false); // 기본적으로는 꺼준다. 
             ChangeFeature(false); // 일단 시작할 때 꺼주기. 
             Debug.Log("씬 전환 Awake");
         }
@@ -48,7 +53,10 @@ namespace JJH
                         colorAdjustments.saturation.value = 0f; // 0 이 흑백 해제.
                         if(localCamera != null)
                         {
-                            localCamera.gameObject.SetActive(false); // 로컬 카메라 꺼주기. --> 최적화 
+                            // local 카메라를 꺼주는 대신에 포스트프로세싱을 안받게 해서 ui / slot 등은 제대로 나오도록 해야함.
+                            // 어쨋든 지금 글로벌 블룸도 everything을 전부 culling 해주고 있기 때문에 
+                            // 아니면 ui 전용 not postprocessing 용도를 만들어서
+                            // local 꺼주고 ui용 카메라 켜주고 하는 식도 나쁘지 않음
                         }
                     }
                 }
