@@ -16,9 +16,11 @@ namespace Jc
         [SerializeField]
         private PuzzleManager puzzle;
 
+        [Header("모네 팜플렛 메시렌더러")]
         [SerializeField]
-        private Image oImage;   // O 이미지 (M'o'net)
-
+        private MeshRenderer proceedRenderer;
+        [SerializeField]
+        private MeshRenderer clearRenderer;
 
         [SerializeField]
         private float targetScale;      // 타깃 스케일
@@ -63,8 +65,10 @@ namespace Jc
             targetSun.IsLoaded = true;
             Destroy(targetSun.gameObject);
             puzzle.OnClearPuzzle();
-            // 0 글자 활성화
-            oImage.color = new Color(1, 1, 1, 1);
+
+            proceedRenderer.gameObject.SetActive(false);
+            clearRenderer.gameObject.SetActive(true);
+            clearRenderer.sharedMaterial.color = Color.white;
         }
 
         public void DisActiveSetting()
@@ -87,15 +91,20 @@ namespace Jc
             float rate = 0f;
             Color startColor = new Color(1f, 1f, 1f, 0f);
             Color endColor = new Color(1f, 1f, 1f, 1f);
+            clearRenderer.sharedMaterial.color = startColor;
+            clearRenderer.enabled = true;
 
             while (rate < 1)
             {
                 rate += Time.deltaTime / 2f;
-                oImage.color = Color.Lerp(startColor, endColor, rate);
+                proceedRenderer.sharedMaterial.color = Color.Lerp(endColor, startColor, rate);
+                clearRenderer.sharedMaterial.color = Color.Lerp(startColor, endColor, rate);
                 yield return null;
             }
 
-            oImage.color = endColor;
+            proceedRenderer.gameObject.SetActive(false);
+            proceedRenderer.sharedMaterial.color = endColor;
+            yield return null;
         }
     }
 }
