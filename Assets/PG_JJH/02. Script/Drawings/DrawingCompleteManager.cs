@@ -111,18 +111,19 @@ namespace JJH
                 }
             }
 
+            // 이 부분 UnLockStage 없애기 
             if (allComplete) // 이게 지금 모두 true 라면 
             {
                 // 0 1 2 3 --> 4개의 씬 
                 ChapterManager.Instance.CheckDrawComplete(drawingNumber, true); // 씬의 필터 해제 --> isColored를 변경해주는 함수 
-                if(drawingNumber<=2)
+                // 완성본 그림 알파값 업그레이드 해주기
+                FinishedDraw.FinishAlphaUp.Invoke(drawingNumber); // 각 씬 마다 UnityEvent 를 부르는데
+
+                // 여기서 챕터 해금 하는 부분임. --> 퀘스트 부분으로 보내주기. 
+                if (drawingNumber<=2)
                 {
                     ChapterManager.Instance.UnlockStage(drawingNumber + 1, true); // 3 부터는 인덱스 터짐. -> 여기서 stage 개방 json 저장 실행한다.  
-                }              
-                // 완성본 그림 알파값 업그레이드 해주기
-
-                FinishedDraw.FinishAlphaUp.Invoke(drawingNumber); // 각 씬 마다 UnityEvent 를 부르는데
-                // 챕터에는 어차피 finish 붙은게 하나만 있을 거니까 괜찮을듯. 
+                }
             }
         }
 
@@ -137,6 +138,17 @@ namespace JJH
             }
         }
 
+        // 퀘스트 완료 시 부를 챕터 unLock 함수. (1챕터에서 0 2챕터에서 1 3챕터에서 2 부르면 된다.)
+        public void ChapterUnLock(int chapterNumber)
+        {
+            if(chapterNumber<=2)
+            {
+                ChapterManager.Instance.UnlockStage(chapterNumber + 1, true);
+            }
+
+        }
+
+        
     }
 }
 
