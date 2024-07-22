@@ -98,12 +98,17 @@ namespace JJH
 
         public Transform GetTransform()
         {
-            throw new NotImplementedException();
+            return transform;
         }
 
         public float GetDistanceThreshold()
         {
             return distance;
+        }
+
+        public bool GetSingleGrab()
+        {
+            return false;
         }
     }
 }

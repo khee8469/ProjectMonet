@@ -68,17 +68,11 @@ namespace JJH
         {
             return grabDistance;
         }
+
+        public bool GetSingleGrab()
+        {
+            return true;
+        }
     }
-
-    [System.Serializable] // json으로 저장해서 씬 간 저장해 둘 쿼터니언 값 
-    public class PatternData
-    {
-        // 원반의 현재 회전값 --> 그런데 이거 저장 해줘야하나?
-        Quaternion rotation;
-
-    }
-
-
-
 }
 
