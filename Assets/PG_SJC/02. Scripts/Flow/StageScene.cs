@@ -59,9 +59,7 @@ namespace JJH
                         }
                     }
                 }
-
                 // 그림이 완성된 상태로 들어오게 되면 모네풍 셰이더 On 해줄것.
-
                 ChangeFeature(true);
 
             }
