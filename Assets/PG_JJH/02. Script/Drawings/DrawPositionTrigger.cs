@@ -59,6 +59,7 @@ namespace JJH
 
                         if(door!=null)
                         {
+                            Debug.Log($"도어 TRIGGER -> 진입 Door.false");
                             door.stageOn(false); // 트리거 진입하면 activate 발동하지 않는다.
                         }                   
                     }
@@ -70,6 +71,7 @@ namespace JJH
                         //characterController.radius = 0.2f;
                         if (door!=null)
                         {
+                            Debug.Log($"도어 TRIGGER -> 진입 Door.true");
                             door.stageOn(true); // 트리거 벗어나면 다시 activate가 발동된다. 
                         }
                         

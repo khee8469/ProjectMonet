@@ -37,7 +37,7 @@ namespace JJH
                         colorAdjustments.saturation.value = 0f; // 0 이 흑백 해제.
                         if(localCamera != null)
                         {
-                            localCamera.gameObject.SetActive(false); // 로컬 볼룸 꺼주기. --> 최적화 그래도 좋아지지 않을까 
+                            localCamera.gameObject.SetActive(false); // 로컬 카메라 꺼주기. --> 최적화 
                         }
                     }
                 }

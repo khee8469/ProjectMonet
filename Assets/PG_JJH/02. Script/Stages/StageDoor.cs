@@ -74,10 +74,11 @@ namespace JJH
         {
             if (Manager.PlayableData.CanvasData.stageUnlockStatus[doorID])  // doorID가 true 라면 --> 해금되어 있는 상태 
             {
-                if(isOn==true)
-                {
-                    Manager.Scene.LoadScene(SceneName);
+                Manager.Scene.LoadScene(SceneName);
 
+                if (isOn==true)
+                {
+                    
                 }
             }
             else
