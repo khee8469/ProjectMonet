@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -228,6 +229,12 @@ namespace Jc
             IInteractable itrObject = interactable as IInteractable;
 
             if (itrObject == null)
+                return false;
+
+            float maxDistance = itrObject.GetInteractDistance();
+            // 그랩 임계치 확인
+            // 설정되어있지 않다면 레이의 최대거리로 고정
+            if (maxDistance != 0 && (transform.position - itrObject.GetTransform().position).sqrMagnitude > maxDistance * maxDistance)
                 return false;
             
             return base.CanHover(interactable);

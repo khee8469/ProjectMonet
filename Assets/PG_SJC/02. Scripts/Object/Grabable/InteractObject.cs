@@ -34,7 +34,11 @@ namespace Jc
         protected bool isGrabbed = false;   // 오브젝트의 그랩 여부
 
         [SerializeField]
-        protected float grabDistance;
+        protected float grabDistanceThreshold;  // 그랩 최대거리
+        public float GrabDistanceThreshold  {get { return grabDistanceThreshold; } }
+
+        [SerializeField]
+        protected float grabDistance;       // 그랩 시 오브젝트가 위치할 거리
         public float GrabDistance {get { return grabDistance; } }
 
         [SerializeField]
@@ -84,6 +88,11 @@ namespace Jc
                     trackPosition = false;
                 }
             }
+        }
+
+        public float GetDistanceThreshold()
+        {
+            return grabDistanceThreshold;
         }
 
         public float GetInteractDistance()
