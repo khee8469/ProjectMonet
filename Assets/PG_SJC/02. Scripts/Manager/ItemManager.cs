@@ -136,6 +136,7 @@ namespace Jc
                 Debug.Log("슬롯이 가득차 아이템을 넣지 못했습니다.");
                 return false;
             }
+
             // 로비 스폰 아이템 Get
             else
             {

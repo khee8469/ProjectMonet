@@ -15,12 +15,11 @@ namespace JJH
         // SceneID 맞춰서 포스트 프로세싱 적용 
         [SerializeField] private int SceneID;
         [SerializeField] Volume globalVolume;
-        [Tooltip("맵이 컬러로 변했으면 더 이상 로컬 카메라가 의미가 없어지므로 로컬 카메라 꺼주기.")]
+        [Tooltip("맵이 컬러로 변했으면 더 이상 로컬 카메라가 의미가 없어지므로 로컬 카메라 꺼주기???.")]
         [SerializeField] Camera localCamera;
 
         [Tooltip("모네풍 셰이더 적용을 위한 forward renderer data")]
         [SerializeField] private UniversalRendererData data;
-
         // 모네풍 셰이더 Featrue 이름 
         private const string renderFeatureName = "OilPaint";
 

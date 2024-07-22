@@ -1,4 +1,5 @@
 using Jc;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -55,21 +56,38 @@ namespace JJH
             {
                 if(item.ItemID == keyID)
                 {
+                    Rigidbody rb = item.GetComponent<Rigidbody>();
+                    Collider col = item.GetComponent<Collider>();
                     DoorOpen();
+                    rb.isKinematic = true;
+                    rb.useGravity = false;
+                    col.enabled = false;
+
+                    //StartCoroutine(DelayCoroutine(item));                 
                 }
             }
             base.OnSelectEntered(args);
-
         }
 
         // door는 ipuzzle 대신에 여기서 아이템을 사용했는지를 체크해서
         // 아이템을 제대로 사용한 상태면 문을 계속 열어놓기.
 
-
+        private IEnumerator DelayCoroutine(ItemObject item)
+        {
+            Debug.Log("도어오픈");
+            DoorOpen();
+            yield return new WaitForSeconds(0.5f);
+            item.interactionLayers = 0; // nothing
+        }
 
         public void DoorOpen() 
         {
             Debug.Log("문이 열렸음.");
+
+
+
+
+
             hingeJoint.useLimits = false;
         }
 
@@ -84,7 +102,11 @@ namespace JJH
             hingeJoint.useLimits = false; // 컴플리트 상태면 문이 열려야함. 
         }
 
-        public void DisActiveSetting() { }
+        public void DisActiveSetting() 
+        {
+            Debug.Log("Door의 디스액티브 세팅");
+            hingeJoint.useLimits = true; 
+        }
 
         public void RegistObject(PuzzleManager puzzle)
         {

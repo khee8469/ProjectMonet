@@ -223,7 +223,7 @@ namespace JJH
 
                     if (lightHouseHead.transform.localEulerAngles.z >= 315 || lightHouseHead.transform.localEulerAngles.z <= 45  )
                     {
-                        StartCoroutine(RotationRoutine(start, end, bottomStart, bottomEnd, duration));
+                        StartCoroutine(RotationRoutine(start, end, bottomStart, bottomEnd, duration)); // 눌리는 루틴인데 이 조건이 지금 
                     }
                     break;
 

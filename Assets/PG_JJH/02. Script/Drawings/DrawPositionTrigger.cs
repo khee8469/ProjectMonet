@@ -11,7 +11,6 @@ namespace JJH
     public class DrawPositionTrigger : XRSimpleInteractable, IActivatable , IInteractable
     {
         [SerializeField] private Transform playerMovePos;
-        [SerializeField] private LayerMask playerLayer;
 
         [SerializeField] private GameObject player;
 
@@ -30,6 +29,9 @@ namespace JJH
 
         [Tooltip("해당 트리거가 진입되는 그림 door ")]
         [SerializeField] private StageDoor door;
+
+        [Tooltip("플레이어 playerMovement on off ")]
+        [SerializeField] private PlayerMovement playerMovement;
 
 
         public void Activate()
@@ -56,11 +58,16 @@ namespace JJH
                         player.transform.position = playerMovePos.position; // 정해진 위치로 플레이어 이동
                         move.moveSpeed = 0;
                         //characterController.radius = 0.1f;
+                        if (characterController != null)
+                        {
+                            characterController.enabled = false;
+                        }
+                        playerMovement.enabled = false;
 
-                        if(door!=null)
+                        if (door!=null)
                         {
                             Debug.Log($"도어 TRIGGER -> 진입 Door.false");
-                            door.stageOn(false); // 트리거 진입하면 activate 발동하지 않는다.
+                            door.stageOn(true); // 트리거 진입하면 activate 발동하지 않는다.
                         }                   
                     }
                     else
@@ -72,14 +79,16 @@ namespace JJH
                         if (door!=null)
                         {
                             Debug.Log($"도어 TRIGGER -> 진입 Door.true");
-                            door.stageOn(true); // 트리거 벗어나면 다시 activate가 발동된다. 
+                            door.stageOn(false); // 트리거 벗어나면 다시 activate가 발동된다. 
                         }
-                        
+
+                        if (characterController != null)
+                        {
+                            characterController.enabled = true;
+                        }
+                        playerMovement.enabled = true;
+
                     }
-                }
-                if (characterController != null)
-                {                    
-                    characterController.enabled = true;
                 }
 
                 move.enabled = false;

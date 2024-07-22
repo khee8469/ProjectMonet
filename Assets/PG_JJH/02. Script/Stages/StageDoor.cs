@@ -28,8 +28,6 @@ namespace JJH
 
         [SerializeField] private float distance = 5f;
 
-
-
         private void Start()
         {
             rigidbody = GetComponent<Rigidbody>();
@@ -40,16 +38,14 @@ namespace JJH
         // playerPositionTrigger에서 참조해서 door의 layer를 nothing everything 으로 전환해주는 함수
         public void stageOn(bool boolean)
         {
-            // 제대로 동작을 안함... 
-            /*if (boolean == true)
+            if(boolean==true)  // true 면 진입한 것 -> 누르지 못하도록 door 닫아버리기.
             {
-                isOn = true;
+                this.interactionLayers = 0;
             }
-            else if (boolean == false)
+            else
             {
-                isOn = false;
-
-            }*/
+                this.interactionLayers = -1; 
+            }
         }
 
         protected override void OnHoverEntered(HoverEnterEventArgs args)
@@ -78,11 +74,6 @@ namespace JJH
             if (Manager.PlayableData.CanvasData.stageUnlockStatus[doorID])  // doorID가 true 라면 --> 해금되어 있는 상태 
             {
                 Manager.Scene.LoadScene(SceneName);
-
-                if (isOn==true)
-                {
-                    
-                }
             }
             else
             {
