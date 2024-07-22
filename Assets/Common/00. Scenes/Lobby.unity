@@ -3025,7 +3025,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   paint: {fileID: 7223165024548654580, guid: cc49c7992d698d94285c9ca6c27f5f0a, type: 3}
@@ -5312,7 +5314,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   color: 2
@@ -5778,6 +5782,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6907247496526502227, guid: b6abe470450c3d448824b515ddabb0cb,
+        type: 3}
+      propertyPath: data
+      value: 
+      objectReference: {fileID: 11400000, guid: a3a80ba2148179043af846bfb9193e0a,
+        type: 2}
     - target: {fileID: 7670879977415719554, guid: b6abe470450c3d448824b515ddabb0cb,
         type: 3}
       propertyPath: m_Name
@@ -6366,7 +6376,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   paint: {fileID: 7223165024548654580, guid: cc49c7992d698d94285c9ca6c27f5f0a, type: 3}
@@ -7348,7 +7360,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   color: 3
@@ -8351,7 +8365,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   color: 2
@@ -8808,7 +8824,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   tip: {fileID: 1089067930}
@@ -9312,7 +9330,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   color: 3
@@ -9911,7 +9931,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   paint: {fileID: 7223165024548654580, guid: cc49c7992d698d94285c9ca6c27f5f0a, type: 3}
@@ -10391,7 +10413,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   tip: {fileID: 139552068}
@@ -10830,7 +10854,7 @@ PrefabInstance:
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
       propertyPath: m_Size.x
-      value: 1.5084131
+      value: 2.627117
       objectReference: {fileID: 0}
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
@@ -10840,12 +10864,12 @@ PrefabInstance:
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
       propertyPath: m_Size.z
-      value: 0.5946215
+      value: 0.59462076
       objectReference: {fileID: 0}
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
       propertyPath: m_Center.x
-      value: -0.2042202
+      value: -0.052156594
       objectReference: {fileID: 0}
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
@@ -10855,7 +10879,7 @@ PrefabInstance:
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
       propertyPath: m_Center.z
-      value: 1.7004213
+      value: 1.7004186
       objectReference: {fileID: 0}
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
@@ -10954,6 +10978,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8180192068844072057, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 282375967}
+    - target: {fileID: 8180192068844072057, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
+        type: 3}
       propertyPath: playerLayer.m_Bits
       value: 32776
       objectReference: {fileID: 0}
@@ -10972,7 +11001,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: DrawTrigger_CH1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5481184798166926653, guid: 8dc7b86256ef8604f9cfc8e761c6c08f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4021487838176017004, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
@@ -10998,7 +11028,7 @@ PrefabInstance:
     - target: {fileID: 459861656348001990, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.402
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 459861656348001990, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
@@ -11008,7 +11038,7 @@ PrefabInstance:
     - target: {fileID: 459861656348001990, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.356
+      value: 0.39
       objectReference: {fileID: 0}
     - target: {fileID: 459861656348001990, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
@@ -11043,7 +11073,7 @@ PrefabInstance:
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
       propertyPath: m_Size.x
-      value: 1.7814577
+      value: 2.220496
       objectReference: {fileID: 0}
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
@@ -11053,12 +11083,12 @@ PrefabInstance:
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
       propertyPath: m_Size.z
-      value: 1.6248435
+      value: 1.342393
       objectReference: {fileID: 0}
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
       propertyPath: m_Center.x
-      value: 0.34066463
+      value: 0.5601724
       objectReference: {fileID: 0}
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
@@ -11068,7 +11098,7 @@ PrefabInstance:
     - target: {fileID: 2197023552571771413, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
       propertyPath: m_Center.z
-      value: 2.7537088
+      value: 2.8949327
       objectReference: {fileID: 0}
     - target: {fileID: 4021487838176017004, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
@@ -11172,6 +11202,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8180192068844072057, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
         type: 3}
+      propertyPath: playerMovement
+      value: 
+      objectReference: {fileID: 282375967}
+    - target: {fileID: 8180192068844072057, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
+        type: 3}
       propertyPath: playerLayer.m_Bits
       value: 32776
       objectReference: {fileID: 0}
@@ -11190,7 +11225,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: DrawTrigger_CH3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5481184798166926653, guid: 8dc7b86256ef8604f9cfc8e761c6c08f, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4021487838176017004, guid: 8dc7b86256ef8604f9cfc8e761c6c08f,
@@ -12039,7 +12075,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   color: 4
@@ -12431,7 +12469,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   color: 7
@@ -13184,7 +13224,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   color: 1
@@ -13791,7 +13833,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   tip: {fileID: 1713648795}
@@ -13807,7 +13851,7 @@ MonoBehaviour:
     m_Bits: 8192
   distance: 0.8
   lineList: []
-  percent: 0.5
+  percent: 0.45
   index: 0
   isNotEntered: 0
   startPosition: {x: 0, y: 0, z: 0}
@@ -14850,7 +14894,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   color: 2
@@ -15337,7 +15383,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   color: 7
@@ -16703,7 +16751,7 @@ MonoBehaviour:
       m_Calls: []
   m_AttachTransform: {fileID: 0}
   m_SecondaryAttachTransform: {fileID: 0}
-  m_UseDynamicAttach: 0
+  m_UseDynamicAttach: 1
   m_MatchAttachPosition: 1
   m_MatchAttachRotation: 1
   m_SnapToColliderVolume: 1
@@ -16752,7 +16800,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   paint: {fileID: 7223165024548654580, guid: cc49c7992d698d94285c9ca6c27f5f0a, type: 3}
@@ -17889,7 +17939,7 @@ Transform:
   m_GameObject: {fileID: 6183549308768601047}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.04510793, z: -0, w: 0.9989822}
-  m_LocalPosition: {x: -0.401, y: 0.7, z: 1.716}
+  m_LocalPosition: {x: -0.426, y: 0.625, z: 1.438}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -17904,7 +17954,7 @@ Transform:
   m_GameObject: {fileID: 6183549310000239574}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.13, y: 0.7, z: -0.3}
+  m_LocalPosition: {x: -0.13, y: 0.547, z: -0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -19329,48 +19379,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!65 &5481184798274487092
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9188600896806746105}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 10, y: 10, z: 15.10247}
-  m_Center: {x: 0.0000027661567, y: 4.7300005, z: -5.741226}
---- !u!65 &5481184799467164469
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9188600898013538296}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 10, y: 10, z: 15.10247}
-  m_Center: {x: 0.0000027661567, y: 4.7300005, z: -5.741226}
 --- !u!4 &5482619476809047212
 Transform:
   m_ObjectHideFlags: 0
@@ -20522,7 +20530,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
   tip: {fileID: 1951602399}
@@ -20538,7 +20548,7 @@ MonoBehaviour:
     m_Bits: 8192
   distance: 0.8
   lineList: []
-  percent: 0.5
+  percent: 0.4
   index: 0
   isNotEntered: 0
   startPosition: {x: 0, y: 0, z: 0}
@@ -20881,7 +20891,7 @@ PrefabInstance:
     - target: {fileID: 1335587075326134428, guid: 7389f22bd42077240b0ae43f9c99d5fa,
         type: 3}
       propertyPath: SceneName
-      value: Stage_4
+      value: Lobby
       objectReference: {fileID: 0}
     - target: {fileID: 1335587075326134428, guid: 7389f22bd42077240b0ae43f9c99d5fa,
         type: 3}
@@ -21140,14 +21150,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   playerMovePos: {fileID: 459861656241750223}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 32776
   player: {fileID: 524204686}
   characterController: {fileID: 282375970}
   move: {fileID: 660145669}
   returnPos: {fileID: 519125765}
   door: {fileID: 593902513}
+  playerMovement: {fileID: 282375967}
 --- !u!114 &8180192069657770609
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21251,14 +21259,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   playerMovePos: {fileID: 459861655064547534}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 32776
   player: {fileID: 524204686}
   characterController: {fileID: 282375970}
   move: {fileID: 660145669}
   returnPos: {fileID: 141046630}
   door: {fileID: 7359191004216950676}
+  playerMovement: {fileID: 282375967}
 --- !u!4 &8245406923238907369
 Transform:
   m_ObjectHideFlags: 0
@@ -21638,7 +21644,6 @@ GameObject:
   - component: {fileID: 4021487838282792037}
   - component: {fileID: 1436092509999272498}
   - component: {fileID: 2881073189864485837}
-  - component: {fileID: 5481184798274487092}
   - component: {fileID: 8180192068468337264}
   - component: {fileID: 6744948140018898226}
   - component: {fileID: 2197023552138103836}
@@ -21660,7 +21665,6 @@ GameObject:
   - component: {fileID: 4021487837328764004}
   - component: {fileID: 1436092509057303091}
   - component: {fileID: 2881073191045358540}
-  - component: {fileID: 5481184799467164469}
   - component: {fileID: 8180192069657770609}
   - component: {fileID: 6744948138834707763}
   - component: {fileID: 2197023551221210141}

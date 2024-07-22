@@ -28,27 +28,6 @@ namespace JJH
             Manager.Scene.LoadScene(sceneName);
         }
 
-        /*protected override void OnHoverEntered(HoverEnterEventArgs args)
-        {
-            base.OnHoverEntered(args);
-        }*/
-
-        /*protected override void OnActivated(ActivateEventArgs args)
-        {
-            base.OnActivated(args);
-            //Activate();
-        }
-
-        protected override void OnSelectEntered(SelectEnterEventArgs args)
-        {
-            base.OnSelectEntered(args);
-        }
-
-        protected override void OnSelectEntering(SelectEnterEventArgs args)
-        {
-            return;
-
-        }*/
         public float GetInteractDistance()
         {
             return 10f;
