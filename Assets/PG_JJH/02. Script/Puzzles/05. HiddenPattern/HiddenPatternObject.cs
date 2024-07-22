@@ -30,8 +30,8 @@ namespace JJH
         [Tooltip("자식으로 있는 Hnadle의 콜라이더 --> 인스펙터에서 직접 할당 ")]
         [SerializeField] public new Collider collider;
 
-        [Tooltip("잡힐 수 있는 거리")]
-        [SerializeField] private float grabDistance = 10f;
+        [Tooltip("딸려 오는 거리")]
+        [SerializeField] private float grabDistance = 3f;
 
 
         [Tooltip("자신을 관리해 줄 컨트롤러")]
@@ -60,6 +60,11 @@ namespace JJH
         }
 
         public float GetInteractDistance()
+        {
+            return 0;
+        }
+
+        public float GetDistanceThreshold()
         {
             return grabDistance;
         }
