@@ -101,9 +101,6 @@ namespace JJH
             base.OnSelectEntered(args);           
         }
 
-
-
-
         public float GetInteractDistance()
         {
             return 10f;
@@ -111,7 +108,7 @@ namespace JJH
 
         public Transform GetTransform()
         {
-            throw new System.NotImplementedException();
+            return transform;
         }
 
         public float GetDistanceThreshold()

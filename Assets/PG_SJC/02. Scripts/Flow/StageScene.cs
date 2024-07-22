@@ -18,15 +18,26 @@ namespace JJH
         [Tooltip("맵이 컬러로 변했으면 더 이상 로컬 카메라가 의미가 없어지므로 로컬 카메라 꺼주기.")]
         [SerializeField] Camera localCamera;
 
+        [Tooltip("모네풍 셰이더 적용을 위한 forward renderer data")]
+        [SerializeField] private UniversalRendererData data;
+
+        // 모네풍 셰이더 Featrue 이름 
+        private const string renderFeatureName = "OilPaint";
+
+
         // 로딩 루틴 별로 카메라 찾아서 포스트 프로세싱 조절 해줄 것 
 
         // 임시 체크
-    
+
+        private void Awake()
+        {
+            ChangeFeature(false); // 일단 시작할 때 꺼주기. 
+            Debug.Log("씬 전환 Awake");
+        }
+
         public override IEnumerator LoadingRoutine()
         {
-            Debug.Log("챕터1 씬 로딩루틴 진행");
-
-            // Volume 하나에 뭉쳐놓는게 낫지 어차피 여러 기능 쓸 거니까 그냥 volume을 찾자.
+            Debug.Log("씬 전환 로딩 루틴");
 
             if (ChapterManager.is_Colored[SceneID] == true) // true 라면 흑백효과 풀기. --> 챕터1 이 0 번 ? 
             {
@@ -41,6 +52,11 @@ namespace JJH
                         }
                     }
                 }
+
+                // 그림이 완성된 상태로 들어오게 되면 모네풍 셰이더 On 해줄것.
+
+                ChangeFeature(true);
+
             }
             else // true가 되지 않은 상태라면 흑백효과 그대로 적용 
             {
@@ -55,5 +71,21 @@ namespace JJH
 
             yield return null;
         }
+
+        private void ChangeFeature(bool isEnabled)
+        {
+            if (data != null) // 포워드 렌더러가 Null이 아니라면 모네풍 적용 
+            {
+                foreach (var feature in data.rendererFeatures)
+                {
+                    if (feature.name == renderFeatureName)
+                    {
+                        feature.SetActive(isEnabled);
+                    }
+                }
+            }
+        }
+
+
     }
 }

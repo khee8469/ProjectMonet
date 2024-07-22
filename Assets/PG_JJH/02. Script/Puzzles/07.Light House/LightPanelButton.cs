@@ -373,8 +373,7 @@ namespace JJH
 
         public Transform GetTransform()
         {
-            Debug.Log($"트랜스폼 ->{this.gameObject.transform}");
-            return this.gameObject.transform;
+            return transform;
         }
 
         public float GetDistanceThreshold()

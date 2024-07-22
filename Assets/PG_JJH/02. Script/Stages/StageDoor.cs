@@ -98,7 +98,7 @@ namespace JJH
 
         public Transform GetTransform()
         {
-            throw new NotImplementedException();
+            return transform;
         }
 
         public float GetDistanceThreshold()

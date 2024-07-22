@@ -15,6 +15,13 @@ namespace JJH
         [SerializeField] private int SceneID = 0;
         [SerializeField] Volume globalVolume;
 
+        private void Start()
+        {
+            
+        }
+
+
+
         public override IEnumerator LoadingRoutine()
         {
             /*if(Manager.Scene.PlayerObject !=null)
