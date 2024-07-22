@@ -8,4 +8,5 @@ public interface IInteractable
     public float GetDistanceThreshold();
     public float GetInteractDistance();
     public Transform GetTransform();
+    public bool GetSingleGrab();
 }

@@ -231,7 +231,7 @@ namespace Jc
             if (itrObject == null)
                 return false;
 
-            float maxDistance = itrObject.GetInteractDistance();
+            float maxDistance = itrObject.GetDistanceThreshold();
             // 그랩 임계치 확인
             // 설정되어있지 않다면 레이의 최대거리로 고정
             if (maxDistance != 0 && (transform.position - itrObject.GetTransform().position).sqrMagnitude > maxDistance * maxDistance)
@@ -255,7 +255,8 @@ namespace Jc
 
             currentGrabObject = args.interactableObject as IInteractable; // 현재 플레이어가 쥐기 시작할 아이템
 
-            if (currentGrabObject == null) return;
+            if (currentGrabObject == null) 
+                return;
 
             // 오브젝트의 초기 위치를 지정
             if ((transform.position - attachTransform.position).sqrMagnitude > currentGrabObject.GetInteractDistance() * currentGrabObject.GetInteractDistance())
@@ -271,12 +272,10 @@ namespace Jc
             grabbedTr = args.interactableObject.transform;
             isGrab = true;
 
-            // 착시 오브젝트의 경우 무조건 한 손으로만 상호작용 해야함.
+            // 양손 그랩 여부를 판단하여
             // 반대 인터렉터의 오브젝트 강제로 놓기
-            if (oppositeInteractor.isGrab
-                && oppositeInteractor.currentGrabObject != null
-                && (currentGrabObject is ResizingObject
-                || currentGrabObject is PhotoFrame))
+            if ((oppositeInteractor.isGrab && oppositeInteractor.currentGrabObject != null)
+                && (oppositeInteractor.currentGrabObject.GetSingleGrab() && currentGrabObject.GetSingleGrab()))
             {
                 Debug.Log("Opposite interactor select exit");
                 oppositeInteractor.interactionManager.SelectExit(oppositeInteractor as IXRSelectInteractor, oppositeInteractor.currentGrabObject as IXRSelectInteractable);

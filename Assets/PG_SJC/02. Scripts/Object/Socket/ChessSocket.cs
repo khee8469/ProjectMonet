@@ -15,6 +15,9 @@ namespace Jc
         private int puzzleIndex;            // 퍼즐 인덱스
         [SerializeField]
         private GameObject pillar;          // 체스말 받침대
+        [SerializeField]
+        private Collider col;
+
 
         [SerializeField]
         private ChessObject targetChess; // 타깃 체스말
@@ -84,8 +87,24 @@ namespace Jc
         {
             puzzle.UpdateCondition(index);
         }
-        public void ActiveSetting(){}
-        public void DisActiveSetting(){}
+        public void ActiveSetting()
+        {
+            if(col == null)
+            {
+                Debug.Log("체스 소켓에 충돌체가 존재하지 않습니다.");
+                return;
+            }
+            col.enabled = true;
+        }
+        public void DisActiveSetting()
+        {
+            if (col == null)
+            {
+                Debug.Log("체스 소켓에 충돌체가 존재하지 않습니다.");
+                return;
+            }
+            col.enabled = false;
+        }
         public void CompleteSetting()
         {
             // 완성 세팅

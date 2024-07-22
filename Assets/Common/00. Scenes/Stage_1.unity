@@ -1302,7 +1302,8 @@ GameObject:
   - component: {fileID: 56617384}
   - component: {fileID: 56617387}
   - component: {fileID: 56617386}
-  m_Layer: 0
+  - component: {fileID: 56617388}
+  m_Layer: 8
   m_Name: Frame (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1318,7 +1319,7 @@ Transform:
   m_GameObject: {fileID: 56617383}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.236, y: 0.0031899363, z: 1}
+  m_LocalPosition: {x: -0.23639885, y: 0.0031899363, z: 0.2000472}
   m_LocalScale: {x: 0.02, y: 0.5727367, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1374,6 +1375,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 56617383}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &56617388
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56617383}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000002, y: 1.0000001, z: 1.0000002}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &56695046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1385,7 +1407,8 @@ GameObject:
   - component: {fileID: 56695047}
   - component: {fileID: 56695050}
   - component: {fileID: 56695049}
-  m_Layer: 0
+  - component: {fileID: 56695051}
+  m_Layer: 8
   m_Name: Frame (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1401,7 +1424,7 @@ Transform:
   m_GameObject: {fileID: 56695046}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.009, y: -0.29071006, z: 1.2}
+  m_LocalPosition: {x: -0.009398838, y: -0.29071006, z: 0.40004724}
   m_LocalScale: {x: 0.025, y: 0.47033805, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1457,6 +1480,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 56695046}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &56695051
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 56695046}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000002, y: 1.0000005, z: 1.0000002}
+  m_Center: {x: 0, y: 0, z: -0.00024414062}
 --- !u!1 &57044946
 GameObject:
   m_ObjectHideFlags: 0
@@ -4421,7 +4465,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1.5
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -4842,7 +4886,7 @@ Transform:
   m_GameObject: {fileID: 163310725}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 39.24842, y: -3.81907, z: 15.344002}
+  m_LocalPosition: {x: 39.304, y: -3.81907, z: 15.344002}
   m_LocalScale: {x: 0.07999999, y: 0.08, z: 0.07999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5001,8 +5045,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
-  grabDistanceThreshold: 0
+  grabDistanceThreshold: 3
   grabDistance: 1.2
   interactors: []
   puzzle: {fileID: 483406465}
@@ -5027,16 +5072,16 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 552598271
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &163310730
 BoxCollider:
@@ -5467,6 +5512,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7179829307361168105, guid: 36c7b6024ddc69c42a8a49b2d967d231,
         type: 3}
+      propertyPath: col
+      value: 
+      objectReference: {fileID: 178130215}
+    - target: {fileID: 7179829307361168105, guid: 36c7b6024ddc69c42a8a49b2d967d231,
+        type: 3}
       propertyPath: pillar
       value: 
       objectReference: {fileID: 1365184576}
@@ -5565,6 +5615,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36c7b6024ddc69c42a8a49b2d967d231, type: 3}
+--- !u!65 &178130215 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 2845608229756771735, guid: 36c7b6024ddc69c42a8a49b2d967d231,
+    type: 3}
+  m_PrefabInstance: {fileID: 178130214}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &178925498
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5738,7 +5794,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 20
+  m_Intensity: 3
   m_Range: 12.3
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -5777,7 +5833,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -6907,7 +6963,7 @@ Transform:
   m_GameObject: {fileID: 245064896}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 39.24842, y: -3.3790703, z: 15.278}
+  m_LocalPosition: {x: 39.304, y: -3.3790703, z: 15.278}
   m_LocalScale: {x: 0.07999999, y: 0.08, z: 0.07999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7066,8 +7122,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
-  grabDistanceThreshold: 0
+  grabDistanceThreshold: 3
   grabDistance: 1.2
   interactors: []
   puzzle: {fileID: 483406465}
@@ -7092,16 +7149,16 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 552598271
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &245064901
 BoxCollider:
@@ -7396,7 +7453,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 20
+  m_Intensity: 3
   m_Range: 12.3
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -7435,7 +7492,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -7457,6 +7514,10 @@ PrefabInstance:
     - target: {fileID: 100000, guid: e712748253b139349b2a6e8544f23013, type: 3}
       propertyPath: m_Name
       value: Board
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: e712748253b139349b2a6e8544f23013, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: e712748253b139349b2a6e8544f23013, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -9814,7 +9875,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 20
+  m_Intensity: 3
   m_Range: 12.3
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -9853,7 +9914,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -10674,9 +10735,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00c10694db87af443a50570051c15dd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDebugMode: 0
+  isDebugMode: 1
   puzzleID: 1
-  state: 0
+  state: 1
   conditions: 0000000000000000
   OnClear:
     m_PersistentCalls:
@@ -12011,7 +12072,7 @@ Transform:
   m_GameObject: {fileID: 538159106}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 39.24842, y: -3.99107, z: 15.282}
+  m_LocalPosition: {x: 39.304, y: -3.99107, z: 15.282}
   m_LocalScale: {x: 0.07999999, y: 0.08, z: 0.07999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12170,8 +12231,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
-  grabDistanceThreshold: 0
+  grabDistanceThreshold: 3
   grabDistance: 1.2
   interactors: []
   puzzle: {fileID: 483406465}
@@ -12196,16 +12258,16 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 552598271
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &538159111
 BoxCollider:
@@ -12460,7 +12522,7 @@ Transform:
   m_GameObject: {fileID: 564610650}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 39.24842, y: -4.0900702, z: 15.204002}
+  m_LocalPosition: {x: 39.304, y: -4.0900702, z: 15.204002}
   m_LocalScale: {x: 0.07999999, y: 0.08, z: 0.07999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12619,8 +12681,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
-  grabDistanceThreshold: 0
+  grabDistanceThreshold: 3
   grabDistance: 1.2
   interactors: []
   puzzle: {fileID: 483406465}
@@ -12645,16 +12708,16 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 552598271
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &564610655
 BoxCollider:
@@ -13773,6 +13836,10 @@ PrefabInstance:
       value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: fe8232f2d2f3aff44a1c3b3b1b841658, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: fe8232f2d2f3aff44a1c3b3b1b841658, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
@@ -14410,7 +14477,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 20
+  m_Intensity: 3
   m_Range: 12.3
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -14449,7 +14516,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -14749,6 +14816,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
   grabDistanceThreshold: 0
   grabDistance: 100
@@ -15464,6 +15532,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7179829307361168105, guid: 36c7b6024ddc69c42a8a49b2d967d231,
         type: 3}
+      propertyPath: col
+      value: 
+      objectReference: {fileID: 724941502}
+    - target: {fileID: 7179829307361168105, guid: 36c7b6024ddc69c42a8a49b2d967d231,
+        type: 3}
       propertyPath: pillar
       value: 
       objectReference: {fileID: 1214323823}
@@ -15562,6 +15635,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36c7b6024ddc69c42a8a49b2d967d231, type: 3}
+--- !u!65 &724941502 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 2845608229756771735, guid: 36c7b6024ddc69c42a8a49b2d967d231,
+    type: 3}
+  m_PrefabInstance: {fileID: 724941501}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &728692311 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: cf9d868e07fd438458873688b99458d7,
@@ -17191,14 +17270,11 @@ PrefabInstance:
       propertyPath: m_MovementType
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8431211750346945819, guid: 59d9113694557784894f92c080d8a2f4, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3512516612782886831, guid: 59d9113694557784894f92c080d8a2f4,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1505444013}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59d9113694557784894f92c080d8a2f4, type: 3}
 --- !u!4 &853536988 stripped
 Transform:
@@ -18119,6 +18195,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4580864849546407855, guid: 85f62ae489149e14893cca4524a7e784,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8313518568061495949, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -23177,6 +23258,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
   grabDistanceThreshold: 0
   grabDistance: 100
@@ -24856,6 +24938,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
   grabDistanceThreshold: 0
   grabDistance: 100
@@ -26865,9 +26948,9 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 20
+  m_Intensity: 3
   m_Range: 12.3
-  m_SpotAngle: 30
+  m_SpotAngle: 62.231834
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
@@ -26904,7 +26987,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -28347,9 +28430,9 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 20
+  m_Intensity: 3
   m_Range: 12.3
-  m_SpotAngle: 30
+  m_SpotAngle: 29.917612
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
@@ -28386,7 +28469,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -28446,24 +28529,6 @@ MeshRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 511292301}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1505444006 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3512516612782886831, guid: 59d9113694557784894f92c080d8a2f4,
-    type: 3}
-  m_PrefabInstance: {fileID: 853536987}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1505444013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1505444006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62fb9fb1177925e4b8a383be2b9db66c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1509874152
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28487,6 +28552,11 @@ PrefabInstance:
       propertyPath: m_Size.z
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 7179829307361168105, guid: 36c7b6024ddc69c42a8a49b2d967d231,
+        type: 3}
+      propertyPath: col
+      value: 
+      objectReference: {fileID: 1509874153}
     - target: {fileID: 7179829307361168105, guid: 36c7b6024ddc69c42a8a49b2d967d231,
         type: 3}
       propertyPath: pillar
@@ -28587,6 +28657,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36c7b6024ddc69c42a8a49b2d967d231, type: 3}
+--- !u!65 &1509874153 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 2845608229756771735, guid: 36c7b6024ddc69c42a8a49b2d967d231,
+    type: 3}
+  m_PrefabInstance: {fileID: 1509874152}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1513936518
 GameObject:
   m_ObjectHideFlags: 0
@@ -29038,6 +29114,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
   grabDistanceThreshold: 0
   grabDistance: 100
@@ -29407,7 +29484,7 @@ Transform:
   m_GameObject: {fileID: 1559706758}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 39.24842, y: -3.47407, z: 17.389}
+  m_LocalPosition: {x: 39.304, y: -3.47407, z: 17.389}
   m_LocalScale: {x: 0.07999999, y: 0.08, z: 0.07999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -29566,8 +29643,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
-  grabDistanceThreshold: 0
+  grabDistanceThreshold: 3
   grabDistance: 1.2
   interactors: []
   puzzle: {fileID: 483406465}
@@ -29592,16 +29670,16 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 552598271
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &1559706763
 BoxCollider:
@@ -31465,6 +31543,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
   grabDistanceThreshold: 0
   grabDistance: 100
@@ -33220,7 +33299,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 20
+  m_Intensity: 3
   m_Range: 12.3
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -33259,7 +33338,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -33467,7 +33546,8 @@ GameObject:
   - component: {fileID: 1828693284}
   - component: {fileID: 1828693287}
   - component: {fileID: 1828693286}
-  m_Layer: 0
+  - component: {fileID: 1828693288}
+  m_Layer: 8
   m_Name: Frame (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33483,7 +33563,7 @@ Transform:
   m_GameObject: {fileID: 1828693283}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -0.009, y: 0.29528993, z: 1.2}
+  m_LocalPosition: {x: -0.009398838, y: 0.29528993, z: 0.40004724}
   m_LocalScale: {x: 0.025, y: 0.47033805, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -33539,6 +33619,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1828693283}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &1828693288
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1828693283}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000002, y: 1.0000005, z: 1.0000002}
+  m_Center: {x: -0.0000076293945, y: 0, z: -0.00024414062}
 --- !u!4 &1833548155 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 423380, guid: a1fd755120d9506439f8437092f88653,
@@ -34046,6 +34147,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
   grabDistanceThreshold: 0
   grabDistance: 100
@@ -34142,7 +34244,7 @@ Transform:
   m_GameObject: {fileID: 1853190427}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 39.24842, y: -3.8570702, z: 17.375}
+  m_LocalPosition: {x: 39.304, y: -3.8570702, z: 17.375}
   m_LocalScale: {x: 0.07999999, y: 0.08, z: 0.07999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -34301,8 +34403,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
-  grabDistanceThreshold: 0
+  grabDistanceThreshold: 3
   grabDistance: 1.2
   interactors: []
   puzzle: {fileID: 483406465}
@@ -34327,16 +34430,16 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 552598271
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &1853190432
 BoxCollider:
@@ -34846,6 +34949,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
   grabDistanceThreshold: 0
   grabDistance: 100
@@ -35854,6 +35958,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
   grabDistanceThreshold: 0
   grabDistance: 100
@@ -36287,6 +36392,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 0
   isTwoHanded: 0
   grabDistanceThreshold: 0
   grabDistance: 5
@@ -36743,6 +36849,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 0
   isTwoHanded: 0
   grabDistanceThreshold: 0
   grabDistance: 100
@@ -36908,7 +37015,7 @@ Transform:
   m_GameObject: {fileID: 1979412249}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 39.24842, y: -4.14207, z: 17.467995}
+  m_LocalPosition: {x: 39.304, y: -4.14207, z: 17.467995}
   m_LocalScale: {x: 0.07999999, y: 0.08, z: 0.07999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37067,8 +37174,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
-  grabDistanceThreshold: 0
+  grabDistanceThreshold: 3
   grabDistance: 1.2
   interactors: []
   puzzle: {fileID: 483406465}
@@ -37093,16 +37201,16 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 552598271
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &1979412254
 BoxCollider:
@@ -37267,7 +37375,7 @@ Transform:
   m_GameObject: {fileID: 1981458241}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 39.24842, y: -3.9920702, z: 17.478996}
+  m_LocalPosition: {x: 39.304, y: -3.9920702, z: 17.478996}
   m_LocalScale: {x: 0.07999999, y: 0.08, z: 0.07999999}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37426,8 +37534,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
-  grabDistanceThreshold: 0
+  grabDistanceThreshold: 3
   grabDistance: 1.2
   interactors: []
   puzzle: {fileID: 483406465}
@@ -37452,16 +37561,16 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 552598271
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!65 &1981458246
 BoxCollider:
@@ -37845,7 +37954,8 @@ GameObject:
   - component: {fileID: 1992961188}
   - component: {fileID: 1992961191}
   - component: {fileID: 1992961190}
-  m_Layer: 0
+  - component: {fileID: 1992961192}
+  m_Layer: 8
   m_Name: Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37861,7 +37971,7 @@ Transform:
   m_GameObject: {fileID: 1992961187}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.2164, y: 0.0031899363, z: 1}
+  m_LocalPosition: {x: 0.216, y: 0.0031899363, z: 0.2}
   m_LocalScale: {x: 0.02, y: 0.56862944, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37917,6 +38027,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1992961187}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &1992961192
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1992961187}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000002, y: 1.0000001, z: 1.0000002}
+  m_Center: {x: 0, y: 0.0000009536743, z: 0}
 --- !u!1001 &1994033655
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38561,6 +38692,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
   grabDistanceThreshold: 0
   grabDistance: 100
@@ -39410,6 +39542,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
   grabDistanceThreshold: 0
   grabDistance: 100
@@ -41758,6 +41891,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 1
+  isSingleGrab: 1
   isTwoHanded: 0
   grabDistanceThreshold: 0
   grabDistance: 5
@@ -43316,6 +43450,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7179829307361168105, guid: 36c7b6024ddc69c42a8a49b2d967d231,
         type: 3}
+      propertyPath: col
+      value: 
+      objectReference: {fileID: 8346730510197637267}
+    - target: {fileID: 7179829307361168105, guid: 36c7b6024ddc69c42a8a49b2d967d231,
+        type: 3}
       propertyPath: pillar
       value: 
       objectReference: {fileID: 1362534342}
@@ -43409,6 +43548,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36c7b6024ddc69c42a8a49b2d967d231, type: 3}
+--- !u!65 &8346730510197637267 stripped
+BoxCollider:
+  m_CorrespondingSourceObject: {fileID: 2845608229756771735, guid: 36c7b6024ddc69c42a8a49b2d967d231,
+    type: 3}
+  m_PrefabInstance: {fileID: 8346730510197637266}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &8443960532389769961
 RectTransform:
   m_ObjectHideFlags: 0
@@ -43663,6 +43808,7 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 0
   isTwoHanded: 0
   grabDistanceThreshold: 0
   grabDistance: 5

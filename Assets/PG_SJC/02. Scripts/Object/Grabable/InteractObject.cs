@@ -27,6 +27,10 @@ namespace Jc
         protected GrabType grabType;
         public GrabType GrabType {get { return grabType; } }
 
+        [Header("기본값 true : 반댓손 오브젝트를 SelectExit")]
+        [SerializeField]
+        protected bool isSingleGrab = true;
+
         [Header("양손 그랩 오브젝트인지?")]
         [SerializeField]
         protected bool isTwoHanded = false;
@@ -98,6 +102,11 @@ namespace Jc
         public float GetInteractDistance()
         {
             return grabDistance;
+        }
+
+        public bool GetSingleGrab()
+        {
+            return isSingleGrab;
         }
 
         public Transform GetTransform()

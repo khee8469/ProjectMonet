@@ -115,6 +115,11 @@ namespace JJH
         {
             return 0; 
         }
+
+        public bool GetSingleGrab()
+        {
+            return false;
+        }
     }
 
 }

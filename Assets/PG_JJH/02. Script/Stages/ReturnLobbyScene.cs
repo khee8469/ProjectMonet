@@ -42,6 +42,11 @@ namespace JJH
         {
             return distance;
         }
+
+        public bool GetSingleGrab()
+        {
+            return false;
+        }
     }
 }
 
