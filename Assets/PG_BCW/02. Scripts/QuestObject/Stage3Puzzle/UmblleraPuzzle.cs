@@ -46,7 +46,7 @@ public class UmblleraPuzzle : InteractObject, IPuzzleable
             Debug.Log("umblleraWoman를 할당하시오");
 
 
-            if (puzzleManager!=null)
+        if (puzzleManager!=null)
             RegistObject(puzzleManager);
 
         //puzzleDataDic에 키값이 없으면 할당
@@ -68,28 +68,6 @@ public class UmblleraPuzzle : InteractObject, IPuzzleable
         }
     }
 
-    //상태 초기화
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            Debug.Log("상태초기화");
-            Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] = PuzzleState.DisActive;
-            Manager.PlayableData.SavePuzzleData();
-        }
-        else if (Input.GetKeyDown(KeyCode.O))
-        {
-            Debug.Log("진행중");
-            Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] = PuzzleState.Proceed;
-            Manager.PlayableData.SavePuzzleData();
-        }
-        else if (Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log("클리어");
-            Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] = PuzzleState.Clear;
-            Manager.PlayableData.SavePuzzleData();
-        }
-    }
 
     protected override void OnSelectEntering(SelectEnterEventArgs args)
     {

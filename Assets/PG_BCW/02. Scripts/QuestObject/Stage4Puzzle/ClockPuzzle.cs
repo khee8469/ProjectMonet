@@ -2,8 +2,9 @@ using Jc;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
-public class ClockPuzzle : MonoBehaviour, IPuzzleable
+public class ClockPuzzle : InteractObject, IPuzzleable
 {
     [Header("현재 오브젝트 정보")]
     [SerializeField]
@@ -11,34 +12,53 @@ public class ClockPuzzle : MonoBehaviour, IPuzzleable
     [Tooltip("퍼즐 클리어 조건 번호")]
     [SerializeField]
     int puzzleIndex;
+    [Tooltip("boxcollider")]
+    [SerializeField]
+    Collider clockCollider;
 
 
-    
-    
+    [Tooltip("minuteCollider")]
+    [SerializeField]
+    Collider minuteCollider;
 
 
-    public void ActiveSetting()
+
+    protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
-        throw new System.NotImplementedException();
+        base.OnSelectEntered(args);
+
+        //인벤토리에 넣으면 성공으로
+
+        if( puzzleManager != null )
+        {
+            UpdatePuzzleManager(puzzleManager, puzzleIndex);
+        }
     }
 
-    public void CompleteSetting()
-    {
-        throw new System.NotImplementedException();
-    }
 
-    public void DisActiveSetting()
-    {
-        throw new System.NotImplementedException();
-    }
 
     public void RegistObject(PuzzleManager puzzle)
     {
-        throw new System.NotImplementedException();
+        puzzle.puzzleObjects.Add(this);
     }
-
-    public void UpdatePuzzleManager(PuzzleManager puzzle, int index = -1)
+    public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
     {
-        throw new System.NotImplementedException();
+        puzzle.UpdateCondition(index);
+    }
+    public void ActiveSetting()
+    {
+        clockCollider.enabled = true;
+    }
+    public void DisActiveSetting()
+    {
+        clockCollider.enabled = false;
+    }
+    public void CompleteSetting()
+    {
+        if (puzzleManager != null)
+        {
+            UpdatePuzzleManager(puzzleManager, puzzleIndex);
+        }
+        Destroy(gameObject);
     }
 }
