@@ -4,8 +4,9 @@ using UnityEngine;
 using JJH;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.Rendering;
+using Jc;
 
-namespace Jc
+namespace JJH
 {
     public class StageScene : BaseScene
     {
@@ -14,6 +15,8 @@ namespace Jc
         // SceneID 맞춰서 포스트 프로세싱 적용 
         [SerializeField] private int SceneID;
         [SerializeField] Volume globalVolume;
+        [Tooltip("맵이 컬러로 변했으면 더 이상 로컬 카메라가 의미가 없어지므로 로컬 카메라 꺼주기.")]
+        [SerializeField] Camera localCamera;
 
         // 로딩 루틴 별로 카메라 찾아서 포스트 프로세싱 조절 해줄 것 
 
@@ -32,6 +35,10 @@ namespace Jc
                     if (globalVolume.profile.TryGet<ColorAdjustments>(out colorAdjustments))
                     {
                         colorAdjustments.saturation.value = 0f; // 0 이 흑백 해제.
+                        if(localCamera != null)
+                        {
+                            localCamera.gameObject.SetActive(false); // 로컬 카메라 꺼주기. --> 최적화 
+                        }
                     }
                 }
             }

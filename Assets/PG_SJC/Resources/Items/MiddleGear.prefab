@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2087204627934058783}
   - component: {fileID: 5336098644806181631}
   - component: {fileID: 4009301450163082983}
-  - component: {fileID: 1859114086558180853}
+  - component: {fileID: 5728433420250094218}
   m_Layer: 29
   m_Name: MiddleGear
   m_TagString: Untagged
@@ -225,9 +225,9 @@ MonoBehaviour:
   gearID: 2
   rotationDirection: 60
   nut: {fileID: 6227627102078265464}
-  col: {fileID: 6573507432239252507}
---- !u!64 &1859114086558180853
-MeshCollider:
+  col: {fileID: 5728433420250094218}
+--- !u!65 &5728433420250094218
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -244,10 +244,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 0}
+  serializedVersion: 3
+  m_Size: {x: 0.3, y: 0.3, z: 0.02}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &741820489766495295
 GameObject:
   m_ObjectHideFlags: 0
@@ -5211,7 +5210,6 @@ GameObject:
   - component: {fileID: 6956610132477726695}
   - component: {fileID: 597666413700863524}
   - component: {fileID: 8984309452183375197}
-  - component: {fileID: 6573507432239252507}
   m_Layer: 29
   m_Name: MiddleSizeP
   m_TagString: Untagged
@@ -5286,28 +5284,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6573507432239252507
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5620975920871086616}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -9088942238483126069, guid: 5281536e92d3c9b46a1f764a73b8b8c2, type: 3}
 --- !u!1 &6227627102078265464
 GameObject:
   m_ObjectHideFlags: 0
@@ -5319,7 +5295,6 @@ GameObject:
   - component: {fileID: 5021031724177481278}
   - component: {fileID: 1478114712022896703}
   - component: {fileID: 8948899690249887820}
-  - component: {fileID: 5869345233860517597}
   m_Layer: 29
   m_Name: MiddleNut
   m_TagString: Untagged
@@ -5392,18 +5367,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!111 &5869345233860517597
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6227627102078265464}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0

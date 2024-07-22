@@ -191,7 +191,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 12.499999, y: 9.343751, z: 0.5}
+  m_Size: {x: 24, y: 20, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3047742662001120245
 Rigidbody:
@@ -340,6 +340,7 @@ MonoBehaviour:
   doorID: 1
   unLockController: {fileID: 0}
   SceneName: Stage_2
+  isOn: 0
 --- !u!1 &4261957641524632500
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,6 +354,7 @@ GameObject:
   - component: {fileID: 2384842054297739270}
   - component: {fileID: 6493930646022323002}
   - component: {fileID: 659619726967262699}
+  - component: {fileID: 1011912147396591940}
   m_Layer: 13
   m_Name: Ch2_Yellow
   m_TagString: Untagged
@@ -369,7 +371,7 @@ Transform:
   m_GameObject: {fileID: 4261957641524632500}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -457,6 +459,7 @@ MonoBehaviour:
   drawingCompleteManager: {fileID: 0}
   pen: {fileID: 0}
   myColliderArray: []
+  paint: {fileID: 0}
 --- !u!65 &6493930646022323002
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -476,8 +479,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 25.02978, y: 5.571859, z: 0.049999997}
-  m_Center: {x: 0.03856328, y: 6.922973, z: -0.000012113523}
+  m_Size: {x: 7.3052173, y: 2.8586953, z: 0.04999997}
+  m_Center: {x: -2.5748267, y: 3.4768999, z: 0.000013545795}
 --- !u!65 &659619726967262699
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -497,8 +500,29 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 25.000015, y: 8.212186, z: 0.05}
-  m_Center: {x: 0.00022043103, y: -5.5134754, z: -0.100015506}
+  m_Size: {x: 12.353188, y: 5.4926925, z: 0.049999997}
+  m_Center: {x: -0.0013465405, y: -2.1133947, z: -0.100022376}
+--- !u!65 &1011912147396591940
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4261957641524632500}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.717335, y: 2.6419532, z: 0.04999997}
+  m_Center: {x: 4.280962, y: 3.493739, z: -0.000064074186}
 --- !u!1 &5484177152917060549
 GameObject:
   m_ObjectHideFlags: 0
@@ -617,6 +641,7 @@ MonoBehaviour:
   drawingCompleteManager: {fileID: 0}
   pen: {fileID: 0}
   myColliderArray: []
+  paint: {fileID: 0}
 --- !u!65 &7655242440380583465
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -636,8 +661,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 14.38256, y: 4.4671535, z: 0.049999997}
-  m_Center: {x: 3.061291, y: 7.348533, z: -0.000017976558}
+  m_Size: {x: 7.600783, y: 2.2732646, z: 0.04999997}
+  m_Center: {x: 2.3510766, y: 3.767492, z: -0.000044792887}
 --- !u!65 &2698916205625720946
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -657,8 +682,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.5, y: 0.5, z: 0.05}
-  m_Center: {x: 2.8, y: 3.63, z: -0.000022888184}
+  m_Size: {x: 1.0632443, y: 1.5129905, z: 0.04999997}
+  m_Center: {x: 1.2853191, y: 2.2046053, z: -0.0000402655}
 --- !u!65 &1141619599535050398
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -678,8 +703,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 2.6205587, y: 9.430821, z: 0.05}
-  m_Center: {x: 2.654434, y: -5.011132, z: -0.000040297542}
+  m_Size: {x: 1.159247, y: 4.868218, z: 0.04999997}
+  m_Center: {x: 1.3606604, y: -2.348888, z: -0.00004669988}
 --- !u!1 &6099247580091448813
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,6 +857,7 @@ MonoBehaviour:
   drawingCompleteManager: {fileID: 0}
   pen: {fileID: 0}
   myColliderArray: []
+  paint: {fileID: 0}
 --- !u!65 &5154518489350006476
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -851,5 +877,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 24.89758, y: 17.060736, z: 0.05}
-  m_Center: {x: -0.022096962, y: -1.2463858, z: 0.0000017799852}
+  m_Size: {x: 12.593655, y: 8.546308, z: 0.04999997}
+  m_Center: {x: -0.06349734, y: -0.49267247, z: -0.0000017986279}

@@ -13,9 +13,6 @@ namespace JJH
         [SerializeField] private Transform playerMovePos;
         [SerializeField] private LayerMask playerLayer;
 
-        [SerializeField] private bool drawOn = false;
-        // 여기도 결국 트리거 키로 진입을 해야 하기 때문에... 트리거 되서 진입해야함.
-
         [SerializeField] private GameObject player;
 
         [SerializeField]private CharacterController characterController; // 플레이어의 캐릭터 컨트롤러. 
@@ -62,6 +59,7 @@ namespace JJH
 
                         if(door!=null)
                         {
+                            Debug.Log($"도어 TRIGGER -> 진입 Door.false");
                             door.stageOn(false); // 트리거 진입하면 activate 발동하지 않는다.
                         }                   
                     }
@@ -71,9 +69,9 @@ namespace JJH
                         move.moveSpeed = originalSpeed;
                         player.transform.position = returnPos.position; // 정해진 위치로 플레이어 이동
                         //characterController.radius = 0.2f;
-
                         if (door!=null)
                         {
+                            Debug.Log($"도어 TRIGGER -> 진입 Door.true");
                             door.stageOn(true); // 트리거 벗어나면 다시 activate가 발동된다. 
                         }
                         
@@ -103,6 +101,9 @@ namespace JJH
             base.OnSelectEntered(args);           
         }
 
+
+
+
         public float GetInteractDistance()
         {
             return 10f;
@@ -111,6 +112,11 @@ namespace JJH
         public Transform GetTransform()
         {
             throw new System.NotImplementedException();
+        }
+
+        public float GetDistanceThreshold()
+        {
+            return 0; 
         }
     }
 

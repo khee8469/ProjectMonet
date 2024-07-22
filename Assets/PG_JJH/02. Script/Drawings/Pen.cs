@@ -55,7 +55,7 @@ namespace JJH
         private DrawObjectManager drawManager;
 
         [Tooltip("Noraml 벡터 크기")]
-        private float NormalDis = 0.01f;
+        private float NormalDis = 0.007f;
 
         [Tooltip("원하는 완료 퍼센트")]
         [SerializeField] private float percent = 5;
@@ -126,6 +126,11 @@ namespace JJH
                 if (currentDrawing == null) //이 부분에서 현재 물감에 알맞는 색상으로 만들어줘야 할 것 같아. 
                 {
                     index = 0;
+
+                    // 여기부분을 미리 준비해둔 LineRenderer 붙인 프리팹을 pooling 해둔다음에
+                    // material 이나 color나 이런것들 세팅 해주고
+                    // 생성 위치 같은 경우는 어차피 SetPosition 그대로 하고 있으니까 pooling 으로 바꿔보자. 
+
                     GameObject lineObj = new GameObject("Line");
 
                     lineObj.transform.position = tip.position;
@@ -180,9 +185,10 @@ namespace JJH
                     CompleteDrawing();
                 }
             }
-            else
+            else  // RayCast가 닿지 않을 때도 stop 이후에 다시 그리게 되면 너무 line Renderer가 많이 생성되는 문제가 발생한다. 
             {
                 DrawingStop();
+                Debug.Log("펜 is Else 상태진입");
             }
         }
         private void CompleteDrawing()
@@ -231,7 +237,7 @@ namespace JJH
         }
 
         // 이 부분은 그냥 잘 바뀌나 확인용으로 둔 함수 --> 실제 사용 x 
-        public void SwitchColor()  // 색상 전환은 일단 나중에.
+        /*public void SwitchColor()  // 색상 전환은 일단 나중에.
         {
             // PaintTypeEnum의 모든 값을 배열로 가져옵니다.
             PaintTypeEnum[] paintTypes = (PaintTypeEnum[])System.Enum.GetValues(typeof(PaintTypeEnum));
@@ -250,7 +256,7 @@ namespace JJH
 
             DrawObjectManager.colorChangeEvent?.Invoke(currentPaintType);
 
-        }
+        }*/
 
         // 실제로 색깔 변경을 위해 사용 할 함수
         public void ChangeColor(PaintTypeEnum _paintTypeEnum)
@@ -275,12 +281,11 @@ namespace JJH
                 LineRenderer lineObj = lineList[i]?.GetComponent<LineRenderer>();
                 drawManager?.RemoveLineRenderer(lineObj);
 
-                Destroy(lineObj.gameObject);
-                lineList.RemoveAt(i);
+                Destroy(lineObj.gameObject);  // 이 Remove All 도 Destroy 대신에 pooling 적용하기. 
+                //lineList.RemoveAt(i);
             }
-
+            lineList.Clear();
         }
-
         protected override void OnSelectEntered(SelectEnterEventArgs args)
         {
             base.OnSelectEntered(args);
@@ -288,11 +293,11 @@ namespace JJH
             StartDrawing();
         }
 
-
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
 
             base.OnSelectExited(args);
+            Debug.Log("펜 셀렉트 엑시트");
             transform.position = startPosition;
             transform.rotation = startRotation;
 

@@ -268,8 +268,7 @@ namespace Jc
         public void LoadCanvasData()
         {
             if(!File.Exists(SystemPath.GetPath(DataPath.LocalCanvasData)))
-            {
-                
+            {               
                 NewData();
                 return;
             }

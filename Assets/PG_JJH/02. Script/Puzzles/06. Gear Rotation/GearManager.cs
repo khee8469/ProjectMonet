@@ -26,8 +26,9 @@ namespace JJH
 
         [Tooltip("삽입 되지 않는 장식 기어들의 회전을 위한 저장 list")]
         public List<DecoGearUpdate> decoGearList;
-        
 
+        [Tooltip("등대 퍼즐의 moon object")]
+        [SerializeField] private GameObject moonPanel;
 
         // OnClear 호출을 update 된 ipuzzle 에서 부르기 때문에 관리를 겹치지 않도록 잘 해줘야한다.
         public override void OnClearPuzzle()
@@ -36,6 +37,10 @@ namespace JJH
 
             base.OnClearPuzzle();
             lightHouse.pillar_Of_Light.gameObject.SetActive(true); // 빛 기둥 켜주기.  --> 이거 일단 스포트 라이트로 변경 시켜주기. 
+            if(moonPanel != null)
+            {
+                moonPanel.gameObject.SetActive(true);
+            }
 
             for (int i = 0; i < buttonPanels.Length; i++)
             {
@@ -55,8 +60,9 @@ namespace JJH
                 gear.StartRotate();
                 gear.OnNutActive();
                 gear.trackRotation = false;
-                gear.interactionLayers = -1 ;
-                gear.col.enabled = false;
+                gear.interactionLayers = 0; // Nothing이 0 번. 
+
+                //gear.col.enabled = false; // 콜라이더를 꺼주면 기어들이 바닥으로 떨어짐. 
             }
             DecoGearRotate(); // 장식 기어들 회전 
         }
@@ -68,8 +74,6 @@ namespace JJH
                 gear.RotateRoutine(); // 인수 없이 그냥 돌리고 --> 내부에서 direction 값 줘서 회전 시키자. 
             }
         }
-
-
 
         public void SoundPlay()
         {

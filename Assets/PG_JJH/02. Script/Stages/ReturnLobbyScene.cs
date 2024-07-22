@@ -14,6 +14,9 @@ namespace JJH
 
         new Rigidbody rigidbody;
 
+        [SerializeField] private float distance = 5f;
+
+
         private void Start()
         {
             rigidbody = GetComponent<Rigidbody>();
@@ -54,6 +57,11 @@ namespace JJH
         public Transform GetTransform()
         {
             throw new System.NotImplementedException();
+        }
+
+        public float GetDistanceThreshold()
+        {
+            return distance;
         }
     }
 }

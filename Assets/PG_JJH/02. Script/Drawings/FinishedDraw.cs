@@ -18,7 +18,7 @@ public class FinishedDraw : MonoBehaviour
     [Tooltip("그냥 일단 얘가 다음 파트의 커버 가지고 있다가 얘가 커버 없애주자 그냥")]
     [SerializeField] public GameObject cover;
 
-
+    // 챕터에 있는 완성 그림에 이거 있어야함. 
 
     private void Awake()
     {

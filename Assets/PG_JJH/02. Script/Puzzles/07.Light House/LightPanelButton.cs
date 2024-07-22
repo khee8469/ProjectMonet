@@ -73,6 +73,9 @@ namespace JJH
         [Tooltip("등대 회전 중 버튼 클릭 방지 위한 bool 변수")]
         [SerializeField] private static bool isRotating;
 
+
+        [SerializeField] private float distance = 3f;
+
         /*[Tooltip("Ray로 눌리기 방지 ")]
         [SerializeField] private bool isSelecting;*/
 
@@ -372,6 +375,11 @@ namespace JJH
         {
             Debug.Log($"트랜스폼 ->{this.gameObject.transform}");
             return this.gameObject.transform;
+        }
+
+        public float GetDistanceThreshold()
+        {
+            return distance;
         }
     }
 }

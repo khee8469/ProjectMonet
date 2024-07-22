@@ -3,19 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.XR.Interaction.Toolkit;
-using Jc;
 namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. --> 차라리 진짜 이미지에 붙이는 방법으로 가보자. 실제 그림에 붙는 친구들 
 {
     // 자신의 알파값이 1F로 증가할 때 같은 ENUM인 친구들을 찾아서 걔네도 같이 알파값을 업데이트 해줘야한다. 
-    public enum DrawBoardNumber 
+    public enum DrawBoardNumber
     {
         // 0 1 2 3 
-        Compartment1, Compartment2, Compartment3, Compartment4, Finished , END
+        Compartment1, Compartment2, Compartment3, Compartment4, Finished, END, NotLobby
     }
 
     [RequireComponent(typeof(SpriteRenderer))]
-    public class DrawObjectManager : MonoBehaviour , IComparable<DrawObjectManager> 
+    public class DrawObjectManager : MonoBehaviour, IComparable<DrawObjectManager>
     {
         /*[Header("퍼즐 매니저 에디터 세팅")]
         [SerializeField]
@@ -61,8 +59,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
         [Tooltip("동일 부분을 체크할 해시셋")]
         [SerializeField]
-        private HashSet<Vector2Int> checkPointsSet =
-            new HashSet<Vector2Int>();
+        private HashSet<Vector2Int> checkPointsSet;
         [Tooltip("좌표 보정 값 float값 보정위함")]
         [SerializeField] private float tolerance = 0.02f;
 
@@ -75,13 +72,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         [Tooltip("그림 완성 매니저 참조")]
         [SerializeField] private DrawingCompleteManager drawingCompleteManager;
 
-        /*
-        [Tooltip("로비 제외한 씬에서 연결된 조명")]
-        [SerializeField] private GameObject lights;*/
-
-
-        // 얘는 싱글턴이 아님.
-
         [Tooltip("Pen 참조 해두자..")]
         [SerializeField] private Pen pen;
 
@@ -91,46 +81,58 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         [Tooltip("이벤트에 자신의 컬러를 체크하고 콜라이더를 on off 하는 함수를 할당한다.")]
         public static UnityEvent<PaintTypeEnum> colorChangeEvent = new UnityEvent<PaintTypeEnum>();
 
+        [Header("참조 해 둘 그림 물감")]
+        [Tooltip("자신이 완성되면 꺼줄 그림물감")]
+        [SerializeField] private PaintBucket paint;
+
+        private void Awake()
+        {
+            checkPointsSet =
+            new HashSet<Vector2Int>();
+        }
+
         private void Start()
         {
-            myColor = paintTypeManager.GetColorByType(currentPaintType);
-            
-            spriteRenderer = GetComponent<SpriteRenderer>();
-            if (spriteRenderer != null)
+            if (drawBoardNumber != DrawBoardNumber.NotLobby)  // 로비가 아닌 곳에서 자신의 크기를 구할 필요가 없음. 
             {
-                texture = spriteRenderer.sprite.texture;
+                myColor = paintTypeManager.GetColorByType(currentPaintType);
 
-                if (!texture.isReadable)
-                {                 
-                    MakeTextureReadable(ref texture);
+                spriteRenderer = GetComponent<SpriteRenderer>();
+                if (spriteRenderer != null)
+                {
+                    texture = spriteRenderer.sprite.texture;
+
+                    if (!texture.isReadable)
+                    {
+                        MakeTextureReadable(ref texture);
+                    }
+                }
+
+                InitializeSpriteSize(); // 시작 시의 각자의 로컬 스케일 적용된 크기를 가져온다. 
+                totalArea = worldHeight * worldWidth;
+                nonTransparentArea = CalculateNonTransparentArea();  // 실제로 계산한 투명을 제외한 부분의 크기 
+
+                myColliderArray = GetComponents<Collider>(); // 자신의 모든 콜라이더 배열 가져오기. pen의 컬러에 맞춰서 자신의 콜라이더를 꺼주고 켜준다. 
+
+                if (pen != null)
+                {
+                    colorChangeEvent.AddListener(OnOffCollider);
                 }
             }
-
-            InitializeSpriteSize(); // 시작 시의 각자의 로컬 스케일 적용된 크기를 가져온다. 
-            totalArea = worldHeight * worldWidth;
-            nonTransparentArea = CalculateNonTransparentArea();
-
-            myColliderArray = GetComponents<Collider>(); // 자신의 모든 콜라이더 배열 가져오기. pen의 컬러에 맞춰서 자신의 콜라이더를 꺼주고 켜준다. 
-
-            if (pen != null)
-            {
-                colorChangeEvent.AddListener(OnOffCollider);
-            }
-
         }
 
         private void OnOffCollider(PaintTypeEnum _paintTypeEnum)
         {
-            if(currentPaintType == _paintTypeEnum) // 현재 pen의 색깔과 자신의 현재 색깔이 일치한다면
+            if (currentPaintType == _paintTypeEnum) // 현재 pen의 색깔과 자신의 현재 색깔이 일치한다면
             {
-                for(int i=0; i< myColliderArray.Length;i++)
+                for (int i = 0; i < myColliderArray.Length; i++)
                 {
-                    myColliderArray[i].enabled = true;               
+                    myColliderArray[i].enabled = true;
                 }
             }
             else // 일치하지 않으면 모든 paint object 들은 자신의 콜라이더 배열을 꺼준다. 
             {
-                for(int i=0; i < myColliderArray.Length;i++)
+                for (int i = 0; i < myColliderArray.Length; i++)
                 {
                     myColliderArray[i].enabled = false;
                 }
@@ -163,50 +165,12 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             worldWidth = textureWidth / spriteRenderer.sprite.pixelsPerUnit;
             worldHeight = textureHeight / spriteRenderer.sprite.pixelsPerUnit;
 
-            // 스케일 적용
+            // lossy scale 사용 하지 말 것.
 
             worldWidth *= spriteRenderer.transform.localScale.x;
             worldHeight *= spriteRenderer.transform.localScale.y;
 
         }
-
-        // 월드 좌표를 텍스처 픽셀 좌표로 변환하는 함수
-        /*public Vector2Int WorldToPixel(Vector3 worldPosition)
-        {
-            // 월드 좌표를 로컬 좌표로 변환
-            Vector3 localPos = spriteRenderer.transform.InverseTransformPoint(worldPosition);
-
-            // 스프라이트의 피벗 및 스케일 적용
-            Vector2 pivot = spriteRenderer.sprite.pivot;
-
-            // 로컬 좌표를 픽셀 좌표로 변환
-            Vector2 pixelPos = new Vector2(
-                (localPos.x * spriteRenderer.sprite.pixelsPerUnit) + pivot.x,
-                (localPos.y * spriteRenderer.sprite.pixelsPerUnit) + pivot.y
-            );
-
-            // 픽셀 좌표를 반올림하여 정수 좌표로 변환
-            Vector2Int roundedPixelPos = new Vector2Int(
-                Mathf.RoundToInt(pixelPos.x),
-                Mathf.RoundToInt(pixelPos.y)
-            );
-
-            return roundedPixelPos;
-        }*/
-
-       /* private bool IsPixelWithinTexture(Vector2Int pixel)
-        {
-            if (spriteRenderer == null || spriteRenderer.sprite == null)
-            {
-                return false;
-            }
-
-            Texture2D texture = spriteRenderer.sprite.texture;
-            bool withinBounds = pixel.x >= 0 && pixel.x < texture.width && pixel.y >= 0 && pixel.y < texture.height;
-            Debug.Log($"Pixel Position: {pixel}, Within Texture Bounds: {withinBounds}");
-
-            return withinBounds;
-        }*/
 
         // 새로운 라인 렌더러의 영역을 계산하여 업데이트하는 함수 
 
@@ -252,14 +216,16 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         {
             float length = Vector3.Distance(start, end);
 
-            return length * width *100; 
+            return length * width * 100;
         }
 
         // 스프라이트의 채워진 비율을 반환하는 함수
         public float GetFillPercentage() // 완성 되었는지 확인하는 함수 --> Pen 에서 부르고 있다. 
         {
-           
-            return ( filledArea / totalArea )* 10f;
+            // 이 부분에서 Percent 체크를 할 때 --> fiil 대신 nonTransparentArea 사용해보기. 
+
+            //return (filledArea / totalArea); // *10f 없앴음. 
+            return (filledArea / nonTransparentArea);
 
         }
 
@@ -268,8 +234,18 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         public void DrawFinished() // 열거형 drawingNumber를 int로 형변환 해서 넘겨줌 . 
         {
             drawingCompleteManager.DrawComplete((int)drawBoardNumber, true, DrawID);
-            // 퍼즐매니저 업데이트
-            //UpdatePuzzleManager(puzzle, puzzleIndex);
+
+            if(paint!=null)
+            {
+                // 딕셔너리에 현재 페인트 id에 해당하는 페인트가 존재 한다면 
+                if(Manager.PlayableData.itemInfoDataDic.ContainsKey(paint.PaintItemID))
+                {
+                    Debug.Log($"{paint.PaintItemID}");
+                    Debug.Log($"{Manager.PlayableData.itemInfoDataDic[paint.PaintItemID]}");
+                    paint.gameObject.SetActive(false);
+                    Manager.Item.NotItemDataDicUseSucessItem(paint.PaintItemID);
+                }
+            }
         }
 
         public void ImageAlphaUp()
@@ -306,7 +282,7 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
 
             spriteColor.a = 1f;
             spriteRenderer.color = spriteColor;
-            
+
         }
 
         // 해당 오브젝트 뿐만이 아닌.. 같은 id? 등을 가진 다른 오브젝트가 있으면 걔네도 켜줘야함.
@@ -326,7 +302,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             float initialAlpha = materialColor.a;
             // 최종 알파값 (예: 0으로 설정하여 투명하게 만들기)
             float targetAlpha = 0f;
-
 
             while (elaspedTime < duration)
             {
@@ -354,7 +329,6 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
         {
 
             Color32[] pixels = texture.GetPixels32();
-
             int trasparentPixelCount = 0;
 
             foreach (var pixel in pixels)
@@ -407,44 +381,10 @@ namespace JJH  // 캔버스(그림 그려지는 곳 ) 에 붙을 스크립트. -
             if (other == null) return 1;
             return DrawID.CompareTo(other.DrawID);
         }
-        /*#region IPuzzleable 인터페이스 오버라이드
-        public void RegistObject(PuzzleManager puzzle)
-        {
-            // 퍼즐 매니저에 자신을 등록
-            puzzle.puzzleObjects.Add(this);
-        }
-
-        // 그림이 다 그려진다면 호출 해야함.
-        public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
-        {
-            puzzle.UpdateCondition(index);
-        }
-
-        // 그랩 오브젝트일 경우 : 충돌체만 켜줌
-        public void ActiveSetting()
-        {
-            return;
-        }
-        // 그랩 오브젝트일 경우 : 충돌체만 꺼줌
-        // 잡을 수 있는애는 셰이더 표시할건데 셰이더 표시도 꺼줘야할 가능성이 있음.
-        public void DisActiveSetting()
-        {
-            return;
-        }
-
-        // 완성되었을 때 퍼즐 상태
-        public void CompleteSetting()
-        {
-            ImageAlphaUp();
-            DrawFinished();
-        }
-        #endregion*/
 
         public void PercentReset()  // 그림 중단 시 그림의 퍼센트를 리셋한다.
         {
             filledArea = 0f; // 채워진 양 초기화.
-            Debug.Log($"{filledArea} 현재 채줘진 Area");
-            Debug.Log($"해당 드로잉 파트의 총 Area {totalArea}");
         }
 
 
