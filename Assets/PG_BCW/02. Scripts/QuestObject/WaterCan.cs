@@ -25,5 +25,39 @@ public class WaterCan : ItemObject
         }
     }
 
-    
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+
+        StopCoroutine(coroutine);
+    }
+
+
+    protected override void OnSelectEntered(SelectEnterEventArgs args)
+    {
+        base.OnSelectEntered(args);
+
+        coroutine = StartCoroutine(PuzzleCheck());
+    }
+
+    protected override void OnSelectExited(SelectExitEventArgs args)
+    {
+        base.OnSelectExited(args);
+
+        StopCoroutine(coroutine);
+        coroutine = null;
+    }
+
+
+    Coroutine coroutine;
+    IEnumerator PuzzleCheck()
+    {
+        while(Manager.PlayableData.puzzleDataDic[puzzleID] != PuzzleState.Clear)
+        {
+            yield return new WaitForSeconds(0.1F);
+        }
+
+        Destroy(gameObject);
+    }
 }

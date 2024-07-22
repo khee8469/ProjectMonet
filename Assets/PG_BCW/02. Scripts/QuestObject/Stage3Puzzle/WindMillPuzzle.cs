@@ -66,11 +66,8 @@ public class WindMillPuzzle : InteractObject, IPuzzleable
         //상태에 따른 세팅 
         puzzleManager.PuzzleSetting(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
 
-        //스테이지3의 상태에 따라
-        if (Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] == PuzzleState.Clear)
-        {
-            //CompleteSetting();
-        }
+
+        
     }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -78,6 +75,8 @@ public class WindMillPuzzle : InteractObject, IPuzzleable
         base.OnSelectEntered(args);
 
         startRotation = transform.eulerAngles.z;
+
+        //rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
@@ -90,39 +89,10 @@ public class WindMillPuzzle : InteractObject, IPuzzleable
 
         //속도 0으로만든후 회전 시작
         rb.angularVelocity = Vector3.zero;
+
+        rb.constraints = 0;
     }
 
-    /*IEnumerator LeverRotation()
-    {
-        startRotation = transform.rotation;
-        previousRotation = transform.rotation;
-
-        while (leverSelect)
-        {
-            yield return new WaitForSeconds(0.1f);
-
-            Quaternion currentRotation = transform.rotation;
-            float rotationThisFrame = Quaternion.Angle(previousRotation, currentRotation);
-            Debug.Log($"rotationThisFrame : {rotationThisFrame}");
-            totalRotation += rotationThisFrame;
-            previousRotation = currentRotation;
-            //Debug.Log($"totalRotation {totalRotation}");
-            if (Mathf.Abs(totalRotation) >= requiredRotation)
-            {
-                success = true;
-
-                if (rb.angularVelocity.z >= 0)
-                {
-                    leftRotation = true;
-                }
-                else if (rb.angularVelocity.z < 0)
-                {
-                    leftRotation = false;
-                }
-                break;
-            }
-        }
-    }*/
 
     private void LeverRotation(float startRotation, float endRotation)
     {

@@ -23,15 +23,6 @@ public class MinuteHand : ItemObject, IPuzzleable
     [SerializeField]
     InteractObject interactObject;
 
-    protected override void Awake()
-    {
-        base.Awake();
-
-        if (puzzleManager == null) Debug.LogError($"MinuteHand에 puzzleManager 할당하시오");
-        if (clockCollider == null) Debug.LogError($"MinuteHand에 clockCollider 할당하시오");
-        if (rb == null) Debug.LogError($"MinuteHand에 rb 할당하시오");
-    }
-
 
     protected override void OnEnable()
     {
@@ -39,7 +30,11 @@ public class MinuteHand : ItemObject, IPuzzleable
 
         if (Manager.PlayableData.CheckItemInInventory(ItemID))
         {
-            Destroy(clockCollider.gameObject);
+            if(clockCollider != null)
+            {
+                Destroy(clockCollider.gameObject);
+            }
+            
         }
         else
         {
@@ -54,15 +49,33 @@ public class MinuteHand : ItemObject, IPuzzleable
         base.OnSelectEntered(args);
 
         //인벤토리에 생성
-        Manager.Item.GetItem(ItemID, true);
-        //퍼즐 클리어
-        if (puzzleManager != null)
+        //Manager.Item.GetItem(ItemID, true);
+        //퍼즐 클리어        
+    }
+
+
+    protected override void OnSelectExited(SelectExitEventArgs args)
+    {
+        base.OnSelectExited(args);
+
+        //인벤토리에 넣엇으면 클리어
+        if (Manager.PlayableData.CheckItemInInventory(ItemID))
         {
-            UpdatePuzzleManager(puzzleManager, puzzleIndex);
+            if (puzzleManager != null)
+                UpdatePuzzleManager(puzzleManager, puzzleIndex);
         }
 
         Destroy(gameObject);
     }
+
+
+
+
+
+
+
+
+
 
     //시계를 잡아야 분침을 잡을수있게
     private void MinuteColliderOn(SelectEnterEventArgs args)
@@ -81,11 +94,13 @@ public class MinuteHand : ItemObject, IPuzzleable
     }
     public void ActiveSetting()
     {
-        clockCollider.enabled = true;
+        if (clockCollider != null)
+            clockCollider.enabled = true;
     }
     public void DisActiveSetting()
     {
-        clockCollider.enabled = false;
+        if (clockCollider != null)
+            clockCollider.enabled = false;
     }
     public void CompleteSetting()
     {
