@@ -47,6 +47,14 @@ namespace Jc
             socketRotation = targetSocket.rotation;
         }
 
+        protected override void OnSelectEntering(SelectEnterEventArgs args)
+        {
+            base.OnSelectEntering(args);
+            // 현재 페이지의 소켓을 할당하지 않은 상태로 변경
+            if (book.CurrentDepth.isAssigned)
+                book.CurrentDepth.isAssigned = false;
+        }
+
         protected override void OnSelectExited(SelectExitEventArgs args)
         {
             base.OnSelectExited(args);
@@ -107,6 +115,7 @@ namespace Jc
             float rate = 0f;
             Color startColor = Color.white;
             Color endColor = new Color(1, 1, 1, 0);
+            rigid.velocity = Vector3.zero;
 
             while (rate < 1f)
             {
@@ -128,6 +137,7 @@ namespace Jc
             Quaternion startRot = transform.rotation;
             Vector3 endPos = socketPosition;
             Quaternion endRot = socketRotation;
+
             while (rate < 1f)
             {
                 rate += Time.deltaTime * 3f;
@@ -135,6 +145,7 @@ namespace Jc
                 transform.rotation = Quaternion.Lerp(startRot, endRot, rate);
                 yield return null;
             }
+
             transform.parent = book.CurrentDepth.socketTransform;
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
