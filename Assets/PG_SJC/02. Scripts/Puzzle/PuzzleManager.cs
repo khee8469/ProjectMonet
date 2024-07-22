@@ -75,7 +75,7 @@ namespace Jc
 
             Quest activeQuest = Manager.Quest.QuestDic[activeQuestID];
 
-            // 이미 완료된 퀘스트가 아닐경우 콜백 등록
+            // 퀘스트 활성화와 동시에 퍼즐도 활성화
             if (activeQuest.State != QuestState.Complete)
                 activeQuest.OnChangeState += PuzzleSetting;
         }
@@ -144,6 +144,7 @@ namespace Jc
             switch (state)
             {
                 case QuestState.DisActive:
+                case QuestState.Active:
                     // 퍼즐 비활성화
                     foreach (IPuzzleable ob in puzzleObjects)
                         ob.DisActiveSetting();    // 모든 퍼즐 오브젝트 비활성화

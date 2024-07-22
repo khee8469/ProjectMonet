@@ -15,6 +15,27 @@ namespace JJH
         [SerializeField] private int SceneID = 0;
         [SerializeField] Volume globalVolume;
 
+        [Tooltip("혹시 로비 씬 에서 켜지는 거를 방지할 포워드렌더러")]
+        [SerializeField] private UniversalRendererData data;
+
+        private const string renderFeatureName = "OilPaint";
+
+        private void Start()
+        {
+            if (data != null) // 포워드 렌더러가 Null이 아니라면 모네풍 적용 
+            {
+                foreach (var feature in data.rendererFeatures)
+                {
+                    if (feature.name == renderFeatureName)
+                    {
+                        feature.SetActive(false);  // 로비씬에서는 무조건 꺼주기. 
+                    }
+                }
+            }
+        }
+
+
+
         public override IEnumerator LoadingRoutine()
         {
             /*if(Manager.Scene.PlayerObject !=null)

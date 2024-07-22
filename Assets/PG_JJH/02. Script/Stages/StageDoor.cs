@@ -26,6 +26,7 @@ namespace JJH
         [Tooltip(" stage를 넘어갈 수 있도록 풀어줘야 하는 bool 변수")]
         [SerializeField] private bool isOn = false;
 
+        [SerializeField] private float distance = 5f;
 
         private void Start()
         {
@@ -37,15 +38,14 @@ namespace JJH
         // playerPositionTrigger에서 참조해서 door의 layer를 nothing everything 으로 전환해주는 함수
         public void stageOn(bool boolean)
         {
-            /* if (boolean==true)
-             {
-                 isOn = true;
-             }
-             else if(boolean==false)
-             {
-                 isOn = false;
-
-             }*/
+            if(boolean==true)  // true 면 진입한 것 -> 누르지 못하도록 door 닫아버리기.
+            {
+                this.interactionLayers = 0;
+            }
+            else
+            {
+                this.interactionLayers = -1; 
+            }
         }
 
         protected override void OnHoverEntered(HoverEnterEventArgs args)
@@ -73,9 +73,7 @@ namespace JJH
         {
             if (Manager.PlayableData.CanvasData.stageUnlockStatus[doorID])  // doorID가 true 라면 --> 해금되어 있는 상태 
             {
-
                 Manager.Scene.LoadScene(SceneName);
-
             }
             else
             {
@@ -91,7 +89,17 @@ namespace JJH
 
         public Transform GetTransform()
         {
-            throw new NotImplementedException();
+            return transform;
+        }
+
+        public float GetDistanceThreshold()
+        {
+            return distance;
+        }
+
+        public bool GetSingleGrab()
+        {
+            return false;
         }
     }
 }

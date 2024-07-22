@@ -27,6 +27,10 @@ namespace Jc
         protected GrabType grabType;
         public GrabType GrabType {get { return grabType; } }
 
+        [Header("기본값 true : 반댓손 오브젝트를 SelectExit")]
+        [SerializeField]
+        protected bool isSingleGrab = true;
+
         [Header("양손 그랩 오브젝트인지?")]
         [SerializeField]
         protected bool isTwoHanded = false;
@@ -34,7 +38,11 @@ namespace Jc
         protected bool isGrabbed = false;   // 오브젝트의 그랩 여부
 
         [SerializeField]
-        protected float grabDistance;
+        protected float grabDistanceThreshold;  // 그랩 최대거리
+        public float GrabDistanceThreshold  {get { return grabDistanceThreshold; } }
+
+        [SerializeField]
+        protected float grabDistance;       // 그랩 시 오브젝트가 위치할 거리
         public float GrabDistance {get { return grabDistance; } }
 
         [SerializeField]
@@ -86,9 +94,19 @@ namespace Jc
             }
         }
 
+        public float GetDistanceThreshold()
+        {
+            return grabDistanceThreshold;
+        }
+
         public float GetInteractDistance()
         {
             return grabDistance;
+        }
+
+        public bool GetSingleGrab()
+        {
+            return isSingleGrab;
         }
 
         public Transform GetTransform()

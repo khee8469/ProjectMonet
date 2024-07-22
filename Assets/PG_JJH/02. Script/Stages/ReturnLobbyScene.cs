@@ -14,6 +14,9 @@ namespace JJH
 
         new Rigidbody rigidbody;
 
+        [SerializeField] private float distance = 5f;
+
+
         private void Start()
         {
             rigidbody = GetComponent<Rigidbody>();
@@ -25,27 +28,6 @@ namespace JJH
             Manager.Scene.LoadScene(sceneName);
         }
 
-        /*protected override void OnHoverEntered(HoverEnterEventArgs args)
-        {
-            base.OnHoverEntered(args);
-        }*/
-
-        /*protected override void OnActivated(ActivateEventArgs args)
-        {
-            base.OnActivated(args);
-            //Activate();
-        }
-
-        protected override void OnSelectEntered(SelectEnterEventArgs args)
-        {
-            base.OnSelectEntered(args);
-        }
-
-        protected override void OnSelectEntering(SelectEnterEventArgs args)
-        {
-            return;
-
-        }*/
         public float GetInteractDistance()
         {
             return 10f;
@@ -53,7 +35,17 @@ namespace JJH
 
         public Transform GetTransform()
         {
-            throw new System.NotImplementedException();
+            return transform;
+        }
+
+        public float GetDistanceThreshold()
+        {
+            return distance;
+        }
+
+        public bool GetSingleGrab()
+        {
+            return false;
         }
     }
 }

@@ -34,6 +34,7 @@ namespace Jc
         public override bool CanHover(IXRHoverInteractable interactable)
         {
             if (interactable is not PhotoFrame) return false;
+            
             return base.CanHover(interactable);
         }
         public override bool CanSelect(IXRSelectInteractable interactable)

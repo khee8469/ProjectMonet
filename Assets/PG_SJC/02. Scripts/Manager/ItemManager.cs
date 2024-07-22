@@ -1,3 +1,4 @@
+using Jc;
 using JJH;
 using System;
 using System.Collections;
@@ -135,6 +136,7 @@ namespace Jc
                 Debug.Log("슬롯이 가득차 아이템을 넣지 못했습니다.");
                 return false;
             }
+
             // 로비 스폰 아이템 Get
             else
             {
@@ -193,5 +195,22 @@ namespace Jc
 
             Manager.PlayableData.SaveItemData();
         }
+
+        // 초반에 프리팹데이터 매핑을 시켜놓지 않은 물감 아이템들을 딕셔너리에서 제거해주는 함수 
+        public void NotItemDataDicUseSucessItem(int itemID)
+        {
+            if(!Manager.PlayableData.itemInfoDataDic.ContainsKey(itemID))                
+            {
+                // isClear 부분을 true로 바꿔주면 PaintManager에서 On 하지 않음. 
+                Manager.PlayableData.itemInfoDataDic.Add(itemID,new ItemInfoData(itemID, $"\"로비 : {itemID}\"", true, true, false));
+            }
+            else
+            {
+                Manager.PlayableData.itemInfoDataDic [itemID] = new ItemInfoData(itemID, $"\"로비 : {itemID}\"", true, true, false);
+            }
+
+            Manager.PlayableData.SaveItemData();
+        }
+
     }
 }
