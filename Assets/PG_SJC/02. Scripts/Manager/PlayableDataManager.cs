@@ -226,6 +226,8 @@ namespace Jc
                     break;
                 }
                 Manager.Quest.QuestDic[data.id_quest].State = (QuestState)data.progress;
+                if ((QuestState)data.progress == QuestState.Proceed || (QuestState)data.progress == QuestState.Clear)
+                    StartCoroutine(Extension.ActionDelay(0.5f,()=>Manager.UI.CreateEntry(Manager.Quest.QuestDic[data.id_quest])));
             }
 
         }
