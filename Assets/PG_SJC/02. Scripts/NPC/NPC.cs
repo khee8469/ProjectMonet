@@ -36,6 +36,9 @@ namespace Jc
         protected BuilboardUI builboardUI;        // 빌보드 UI
 
         [SerializeField]
+        protected Animator npcHoverAnim;    // NPC 호버링 애니메이션
+
+        [SerializeField]
         protected Animator floatingAnim;      // 다이얼로그 텍스트 플로팅 애니메이터
 
         [Space(5)]
@@ -108,6 +111,15 @@ namespace Jc
             basicNarrations = Manager.Data.NarrationBundleDic[npcData.narrationBundleID[basicNarrationIndex]];
         }
 
+        public void HoverEnterNPC()
+        {
+            npcHoverAnim.SetBool(Manager.Param.OnFloating, true);
+        }
+        public void HoverExitNPC()
+        {
+            npcHoverAnim.SetBool(Manager.Param.OnFloating, false);
+        }
+
         // 상호작용 시 
         public virtual bool OnInteract(PlayerQuestController questController)
         {
@@ -137,10 +149,9 @@ namespace Jc
                 Quest quest = Manager.Quest.GetQuest(questID);
 
                 // 현재 진행해줄 수 있는 퀘스트를 할당
-                if ((quest.State == QuestState.Active || quest.State == QuestState.Proceed) && quest.QuestData.acceptNPCID == this.id
-                    || (quest.State == QuestState.Clear || quest.State == QuestState.Proceed) && quest.QuestData.clearNPCID == this.id)
+                if ((quest.State != QuestState.Complete && quest.State != QuestState.DisActive) 
+                    && (quest.QuestData.acceptNPCID == this.id || quest.QuestData.clearNPCID == this.id))
                     return quest;
-
             }
             return null;
         }
@@ -171,15 +182,11 @@ namespace Jc
 
                 if (curBasicDialogIndex >= basicNarrations.Count)
                 {
-                    dialogText.enabled = false;
-                    builboardUI.EnableBuilboard = false;
-                }
-                else
-                {
-                    dialogText.text = Manager.Data.NarrationDataDic[basicNarrations[curBasicDialogIndex++]].text;
-                    removeTextRoutine = StartCoroutine(Extension.ActionDelay(2.0f, () => dialogText.enabled = false));
+                    curBasicDialogIndex = 0;
                 }
 
+                dialogText.text = Manager.Data.NarrationDataDic[basicNarrations[curBasicDialogIndex++]].text;
+                removeTextRoutine = StartCoroutine(Extension.ActionDelay(2.0f, () => dialogText.enabled = false));
                 return;
             }
 
@@ -222,6 +229,21 @@ namespace Jc
                     break;
                 // 퀘스트 완료
                 case QuestState.Clear:
+                    // 수주 NPC와 완료 NPC가 다른 경우 
+                    // 수주 NPC의 마지막 대사 진행
+                    if(currentQuest.QuestData.acceptNPCID == id)
+                    {
+                        Debug.Log("마지막 대사 출력");
+                        // 대화 진행
+                        // 플로팅 애니메이션
+                        floatingAnim.Play("OnFloating");
+                        dialogText.text = currentQuest.receiveNarrations[currentQuest.receiveNarrations.Count-1].text;
+
+                        removeTextRoutine = StartCoroutine(Extension.ActionDelay(2.0f, () => dialogText.enabled = false));
+                        disableBuilboardRoutine = StartCoroutine(Extension.ActionDelay(2.0f, () => builboardUI.EnableBuilboard = false));
+                        return;
+                    }
+
                     // 대화 종료 체크
                     if (curQuestDialogIndex >= currentQuest.clearNarrations.Count - 1)
                     {

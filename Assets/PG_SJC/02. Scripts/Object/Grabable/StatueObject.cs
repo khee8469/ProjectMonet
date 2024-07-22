@@ -27,25 +27,13 @@ namespace Jc
 
         private Coroutine enableRoutine;
 
-        protected override void OnEnable()
-        {
-            base.OnEnable();
-
-            enableRoutine = StartCoroutine(EnableRoutine());
-        }
-
         // 시작 루틴 종료
         public void StopRoutine()
         {
-            if(enableRoutine != null)
-            {
-                StopCoroutine(enableRoutine);
-                col.enabled = false;
-                spotLight.enabled = false;
-                transform.position = startTransform.position;
-                rigid.useGravity = false;
-                enableRoutine = null;
-            }
+            rigid.velocity = Vector3.zero;
+            col.enabled = false;
+            transform.position = startTransform.position;
+            rigid.useGravity = false;
         }
 
         IEnumerator EnableRoutine()
@@ -59,8 +47,8 @@ namespace Jc
             Vector3 endPos = startTransform.position;
             Vector3 startScale = Vector3.one * 2;
             Vector3 endScale = Vector3.one;
-            
-            while(rate < 1f)
+
+            while (rate < 1f)
             {
                 rate += Time.deltaTime / enableRoutineTime;
                 transform.Rotate(Vector3.up, 2f);
