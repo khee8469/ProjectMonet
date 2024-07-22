@@ -1,6 +1,4 @@
 using Jc;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -24,56 +22,61 @@ public class MinuteHand : ItemObject, IPuzzleable
     InteractObject interactObject;
 
 
+    protected override void Awake()
+    {
+        base.Awake();
+
+        //퍼즐매니저에 등록
+        if (puzzleManager != null)
+            RegistObject(puzzleManager);
+
+        //puzzleDataDic에 키값이 없으면 할당
+        if (!Manager.PlayableData.puzzleDataDic.ContainsKey(puzzleManager.PuzzleID))
+            Manager.PlayableData.puzzleDataDic.Add(puzzleManager.PuzzleID, PuzzleState.DisActive);
+    }
+
     protected override void OnEnable()
     {
         base.OnEnable();
 
-        if (Manager.PlayableData.CheckItemInInventory(ItemID))
-        {
-            if(clockCollider != null)
-            {
-                Destroy(clockCollider.gameObject);
-            }
-            
-        }
-        else
-        {
-            if (interactObject != null)
-                interactObject.selectEntered.AddListener(MinuteColliderOn);
-        }
+        //상태에 따른 세팅 
+        puzzleManager.PuzzleSetting(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
+
+
+        if (interactObject != null)
+            interactObject.selectEntered.AddListener(MinuteColliderOn);
     }
 
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)
     {
         base.OnSelectEntered(args);
-
+        Debug.Log(123);
         //인벤토리에 생성
-        //Manager.Item.GetItem(ItemID, true);
-        //퍼즐 클리어        
+        Manager.Item.GetItem(ItemID, true);
+        //퍼즐 클리어
+        if (puzzleManager != null)
+        {
+            UpdatePuzzleManager(puzzleManager, puzzleIndex);
+        }
     }
 
 
-    protected override void OnSelectExited(SelectExitEventArgs args)
+    /*protected override void OnSelectExited(SelectExitEventArgs args)
     {
         base.OnSelectExited(args);
 
-        //인벤토리에 넣엇으면 클리어
+        ////인벤토리에 넣엇으면 클리어
         if (Manager.PlayableData.CheckItemInInventory(ItemID))
         {
             if (puzzleManager != null)
                 UpdatePuzzleManager(puzzleManager, puzzleIndex);
+
+            Destroy(gameObject);
         }
 
-        Destroy(gameObject);
-    }
-
-
-
-
-
-
-
+        //원위치 시켜야함
+    }*/
 
 
 
@@ -94,20 +97,20 @@ public class MinuteHand : ItemObject, IPuzzleable
     }
     public void ActiveSetting()
     {
-        if (clockCollider != null)
-            clockCollider.enabled = true;
+        /*if (clockCollider != null)
+            clockCollider.enabled = true;*/
     }
     public void DisActiveSetting()
     {
-        if (clockCollider != null)
-            clockCollider.enabled = false;
+        /*if (clockCollider != null)
+            clockCollider.enabled = false;*/
     }
     public void CompleteSetting()
     {
-        if (puzzleManager != null)
+        if (clockCollider != null)
         {
-            UpdatePuzzleManager(puzzleManager, puzzleIndex);
+            Debug.Log(3);
+            Destroy(clockCollider.gameObject);
         }
-        Destroy(gameObject);
     }
 }

@@ -65,9 +65,6 @@ public class WindMillPuzzle : InteractObject, IPuzzleable
 
         //상태에 따른 세팅 
         puzzleManager.PuzzleSetting(Manager.Quest.QuestDic[puzzleManager.activeQuestID].State);
-
-
-        
     }
 
     protected override void OnSelectEntered(SelectEnterEventArgs args)

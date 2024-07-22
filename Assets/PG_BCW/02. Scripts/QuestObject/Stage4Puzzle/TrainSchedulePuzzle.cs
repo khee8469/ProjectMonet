@@ -33,7 +33,12 @@ public class TrainSchedulePuzzle : XRSocketInteractor, IPuzzleable
     {
         base.Awake();
 
-        RegistObject(puzzle);
+        if (puzzle != null)
+            RegistObject(puzzle);
+
+        //puzzleDataDic에 키값이 없으면 할당
+        if (!Manager.PlayableData.puzzleDataDic.ContainsKey(puzzle.PuzzleID))
+            Manager.PlayableData.puzzleDataDic.Add(puzzle.PuzzleID, PuzzleState.DisActive);
 
         if (puzzle == null) Debug.LogError($"TrainSchedulePuzzle 에 PuzzleManager를 참조하시오");
         if (itemID == 0) Debug.Log($"itemID 에 찢어진 시간표ID를 참조하시오");
