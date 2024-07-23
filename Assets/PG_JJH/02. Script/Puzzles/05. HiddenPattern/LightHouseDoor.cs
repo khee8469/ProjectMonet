@@ -84,10 +84,6 @@ namespace JJH
         {
             Debug.Log("문이 열렸음.");
 
-
-
-
-
             hingeJoint.useLimits = false;
         }
 
