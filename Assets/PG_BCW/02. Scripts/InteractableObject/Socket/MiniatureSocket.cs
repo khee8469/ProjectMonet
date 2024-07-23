@@ -10,7 +10,7 @@ public class MiniatureSocket : XRSocketInteractor
 
     [Tooltip("소켓 지정 시 변경할 레이어")]
     [SerializeField]
-    InteractionLayerMask handTrackingMask = InteractionLayerMask.NameToLayer("HandTracking");
+    InteractionLayerMask handTrackingMask;
 
     [Tooltip("소켓 지정 아이템")]
     [SerializeField]
@@ -38,6 +38,9 @@ public class MiniatureSocket : XRSocketInteractor
 
         //미니어처 퍼즐에 필요한 아이템만 세팅 가능
         ItemObject itemObject = args.interactableObject.transform.GetComponent<ItemObject>();
+
+        if (itemObject == null) return;
+
         for(int i = 0; i < miniaturaItems.Length; i++)
         {
             //지정된 아이템이 아니면 소켓 세팅 불가

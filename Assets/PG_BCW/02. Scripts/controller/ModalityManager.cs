@@ -29,12 +29,12 @@ public class ModalityManager : UnityEngine.XR.Interaction.Toolkit.XRController
     {
         base.OnEnable();
 
-        if(xRInputModalityManager != null)
+        if (xRInputModalityManager != null)
         {
             xRInputModalityManager.trackedHandModeStarted.AddListener(SetHandTrackingOn);
             xRInputModalityManager.trackedHandModeEnded.AddListener(SetHandTrackingOff);
         }
-        
+
     }
 
     public void SetHandTrackingOn()
@@ -49,16 +49,14 @@ public class ModalityManager : UnityEngine.XR.Interaction.Toolkit.XRController
 
     protected override void UpdateTrackingInput(XRControllerState controllerState)
     {
-        if (controllerState == null || isHandTracking)
+        if (controllerState != null && isHandTracking)
         {
             //currentControllerState.position = Vector3.zero;
             //currentControllerState.rotation = Quaternion.identity;
             currentControllerState.isTracked = false;
             currentControllerState.inputTrackingState = InputTrackingState.None;
             return;
-        }    
-        
-        //base.UpdateTrackingInput(controllerState);
+        }
     }
 
 
@@ -182,7 +180,7 @@ public class ModalityManager : UnityEngine.XR.Interaction.Toolkit.XRController
                 Debug.Log($"Right Controller Position: {rightPosition}");
             }
 
-            if (rightController.TryGetFeatureValue(UnityEngine.XR.CommonUsages.deviceRotation, out Quaternion rightRotation))
+//            if (rightController.TryGetFeatureValue(UnityEngine.XR.CommonUsages.deviceRotation, out Quaternion rightRotation))
             {
                 Debug.Log($"Right Controller Rotation: {rightRotation}");
             }

@@ -42,7 +42,7 @@ namespace Jc
             base.OnSelectEntered(args);
 
             SunObject obj = args.interactableObject as SunObject;
-            if (obj == null) 
+            if (obj == null)
                 return;
             if (obj.transform.localScale.x < targetScale - scaleThreshold
                 || obj.transform.localScale.x > targetScale + scaleThreshold)
@@ -58,7 +58,8 @@ namespace Jc
         }
         public void ActiveSetting()
         {
-            col.enabled = true;
+            if (col != null)
+                col.enabled = true;
         }
 
         public void CompleteSetting()
@@ -74,7 +75,8 @@ namespace Jc
 
         public void DisActiveSetting()
         {
-            col.enabled = false;
+            if (col != null)
+                col.enabled = false;
         }
 
         public void RegistObject(PuzzleManager puzzle)

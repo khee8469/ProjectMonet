@@ -78,11 +78,13 @@ namespace Jc
 
         public void ActiveSetting()
         {
-            col.enabled = true;
+            if(col != null)
+                col.enabled = true;
         }
         public void DisActiveSetting()
         {
-            col.enabled = false;
+            if (col != null)
+                col.enabled = false;
         }
         public void CompleteSetting()
         {

@@ -40,7 +40,6 @@ public class FlowerPuzzle : MonoBehaviour, IPuzzleable
         //puzzleDataDic에 키값이 없으면 할당
         if (!Manager.PlayableData.puzzleDataDic.ContainsKey(puzzleManager.PuzzleID))
             Manager.PlayableData.puzzleDataDic.Add(puzzleManager.PuzzleID, PuzzleState.DisActive);
-
     }
 
     private void OnEnable()
@@ -55,28 +54,6 @@ public class FlowerPuzzle : MonoBehaviour, IPuzzleable
         }
     }
 
-    //상태 초기화
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            Debug.Log("상태초기화");
-            Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] = PuzzleState.DisActive;
-            Manager.PlayableData.SavePuzzleData();
-        }
-        else if (Input.GetKeyDown(KeyCode.O))
-        {
-            Debug.Log("진행중");
-            Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] = PuzzleState.Proceed;
-            Manager.PlayableData.SavePuzzleData();
-        }
-        else if (Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log("클리어");
-            Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] = PuzzleState.Clear;
-            Manager.PlayableData.SavePuzzleData();
-        }
-    }
 
     //파티클과 충돌시 실행
     private void OnParticleCollision(GameObject gameObject)
