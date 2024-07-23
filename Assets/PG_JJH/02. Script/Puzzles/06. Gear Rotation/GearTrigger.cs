@@ -20,7 +20,13 @@ namespace JJH
                 GearObject gear = other.GetComponent<GearObject>();
                 if (gear != null)
                 {
-                   StartCoroutine(ReturnRoutine(gear));
+                    //StartCoroutine(ReturnRoutine(gear));
+
+                    gear.interactionLayers = 0;
+                    gear.transform.position = gearReturnPosition.position;
+                    gear.interactionLayers = -1; // EveryThing
+
+
                 }
             }
         }
