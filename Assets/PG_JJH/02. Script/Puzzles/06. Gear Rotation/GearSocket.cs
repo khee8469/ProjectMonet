@@ -96,6 +96,7 @@ namespace JJH
             gearPuzzle.UpdateCondition(puzzleIndex);
             gearPuzzle.OnClearPuzzle();
             gearGameObject.gameObject.SetActive(true); // 미리 넣어두고 꺼놓은 기어 켜주기. 
+            socketCollider.enabled = false;
 
         }
 
@@ -103,6 +104,7 @@ namespace JJH
         public void DisActiveSetting()
         {
             socketCollider.enabled = false;
+            
         }
 
         // 퍼즐 등록 

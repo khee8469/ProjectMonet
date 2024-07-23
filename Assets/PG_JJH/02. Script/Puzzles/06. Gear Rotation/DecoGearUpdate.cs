@@ -6,9 +6,11 @@ public class DecoGearUpdate : MonoBehaviour
 {
 
     [Tooltip("회전 방향")]
-    [SerializeField] private float direction = 20f;
+    [SerializeField] private float direction = 5f;
 
     public float Direction { get { return direction; } }
+
+    
 
     public void RotateRoutine()
     {
