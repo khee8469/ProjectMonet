@@ -33,6 +33,8 @@ namespace Jc
         [SerializeField]
         private int questSize;
 
+        public List<int> unLockTypeQuestID = new List<int>();
+
         protected override void Awake()
         {
             base.Awake();
