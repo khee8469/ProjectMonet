@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEditor;
 using UnityEngine;
 
@@ -254,7 +255,7 @@ namespace Jc
         // 채색 데이터 저장 
 
         private CanvasData canvasData; // 채색 관련 데이터가 저장된 data 스크립트 
-        public CanvasData CanvasData { get { return canvasData; } }
+        public CanvasData CanvasData { get { return canvasData; } set{ canvasData = value; } }
 
 
         public void SaveCanvasData()
