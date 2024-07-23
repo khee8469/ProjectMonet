@@ -51,6 +51,7 @@ namespace Jc
             obj.transform.localScale = new Vector3(targetScale, targetScale, targetScale);
             obj.transform.position = attachTransform.position;
             obj.ActiveObject();
+            clearRenderer.gameObject.SetActive(true);
             // 퍼즐 클리어
             puzzle.OnClearPuzzle();
             StartCoroutine(ImageFadeRoutine());
