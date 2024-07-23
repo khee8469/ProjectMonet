@@ -60,7 +60,7 @@ namespace JJH
                 gear.StartRotate();
                 gear.OnNutActive();
                 gear.trackRotation = false;
-                gear.interactionLayers = 0; // Nothing이 0 번. everything이 -1 번. 
+                //gear.interactionLayers = 0; // Nothing이 0 번. everything이 -1 번. 
 
                 //gear.col.enabled = false; // 콜라이더를 꺼주면 기어들이 바닥으로 떨어짐. --> rigidbody가 있기 때문에. 
             }

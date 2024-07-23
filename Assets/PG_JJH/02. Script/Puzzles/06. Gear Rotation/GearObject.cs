@@ -25,12 +25,17 @@ namespace JJH
         [Tooltip("꺼줄? 기어 콜라이더--> 안쓸듯")]
         [SerializeField] public Collider col;
 
+        [Tooltip("리지드바디 ")]
+        private Rigidbody rb;
+
         private void Start()
         {
             nut.gameObject.SetActive(false); // 일단 시작 시 에는 꺼주기. --> 완성 시에 생성해 줄 nut 
             trackRotation = true;
 
-            rotationDirection = Random.Range(15, 30);
+            rotationDirection = Random.Range(5, 10);
+
+            rb = GetComponent<Rigidbody>();
 
         }
 
@@ -56,6 +61,12 @@ namespace JJH
 
         }
 
+        public void RigidChange()
+        {
+            rb.useGravity = false;
+            rb.isKinematic = true;
+            col.enabled = false;
+        }
 
 
 

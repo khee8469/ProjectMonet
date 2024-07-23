@@ -188,7 +188,7 @@ namespace JJH
             else  // RayCast가 닿지 않을 때도 stop 이후에 다시 그리게 되면 너무 line Renderer가 많이 생성되는 문제가 발생한다. 
             {
                 DrawingStop();
-                Debug.Log("펜 is Else 상태진입");
+                
             }
         }
         private void CompleteDrawing()
