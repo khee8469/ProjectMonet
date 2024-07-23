@@ -1,9 +1,6 @@
 using Jc;
-using JJH;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
 
 namespace JJH
 {
@@ -57,19 +54,13 @@ namespace JJH
                 transform.Rotate(0, 0, Direction * Time.deltaTime);
                 yield return null;
             }
-
         }
-
         public void RigidChange()
         {
             rb.useGravity = false;
             rb.isKinematic = true;
             col.enabled = false;
         }
-
-
-
-
     }
 
 }
