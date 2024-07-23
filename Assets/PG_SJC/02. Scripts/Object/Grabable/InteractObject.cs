@@ -5,6 +5,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.XR;
 using UnityEngine.XR.Interaction.Toolkit;
+using JJH;
+using EPOOutline;
 
 // 상호작용할 오브젝트의 타입
 public enum GrabType
@@ -15,8 +17,10 @@ public enum GrabType
     Ray
 }
 
+
 namespace Jc
 {
+    /*[RequireComponent(typeof(Outlinable))]*/  // RequireMent로 넣은 스크립트는 이거 꺼주면 알아서 나가는 듯?
     public class InteractObject : XRGrabInteractable, IInteractable
     {
         [Space(5)]
@@ -55,7 +59,21 @@ namespace Jc
             return interactors.Count >= 2;
         }
 
+        protected override void Awake()
+        {
+            base.Awake();
+            /*Outlinable outlinable = GetComponent<Outlinable>();
+            outlinable.enabled = false; // 일단 꺼주기 --> Hover 되거나 Select 되었을 때만 아웃라인이 발생해야 한다. */
+        }
+
+
         // 상속하는 자식에서 다양화
+
+        
+
+
+
+
         protected override void OnSelectEntering(SelectEnterEventArgs args)
         {
             base.OnSelectEntering(args);
@@ -73,6 +91,9 @@ namespace Jc
                     trackPosition = true;
                 }
             }
+
+
+
         }
 
         protected override void OnSelectExiting(SelectExitEventArgs args)
