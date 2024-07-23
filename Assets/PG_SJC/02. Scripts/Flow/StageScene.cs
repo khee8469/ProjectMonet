@@ -48,8 +48,7 @@ namespace JJH
                     {
                         colorAdjustments.saturation.value = 0f; // 0 이 흑백 해제.
                         if(localCamera != null)
-                        {
-                            
+                        {                           
                             localCamera.enabled = false;
                         }
                     }
