@@ -228,7 +228,7 @@ namespace Jc
                 case QuestState.Clear:
                     // 수주 NPC와 완료 NPC가 다른 경우 
                     // 수주 NPC의 마지막 대사 진행
-                    if(currentQuest.QuestData.acceptNPCID == id)
+                    if(currentQuest.QuestData.clearNPCID != id)
                     {
                         Debug.Log("마지막 대사 출력");
                         // 대화 진행

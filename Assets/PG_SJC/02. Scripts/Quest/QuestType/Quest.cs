@@ -142,6 +142,18 @@ namespace Jc
         {
             OnClearQuest?.Invoke(this);
 
+            // 아이템 수령완료
+            if (questData.needItemID != -1)
+                Manager.Item.UseSuccessItem(questData.needItemID);
+
+            foreach(int unLockID in Manager.Quest.unLockTypeQuestID)
+            {
+                if(unLockID == this.questID)
+                {
+
+                }
+            }
+
             if (questData.next_id < 1)
             {
                 // 연계된 퀘스트가 있다면 연계된 퀘스트 클리어
@@ -151,14 +163,9 @@ namespace Jc
             // 연결된 다음 퀘스트 활성화
             ActiveNextQuest(questData.next_id);
 
-            // 아이템 수령완료
-            if(questData.needItemID != -1)
-                Manager.Item.UseSuccessItem(questData.needItemID);
-
             // 아이템 지급
             RewardItem();
         }
-
         public void OnClearLinkedQuest(Quest quest)
         {
             // 링크된 퀘스트가 모두 클리어된 경우
