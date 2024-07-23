@@ -34,8 +34,6 @@ namespace JJH
             }
         }
 
-
-
         public override IEnumerator LoadingRoutine()
         {
             /*if(Manager.Scene.PlayerObject !=null)
