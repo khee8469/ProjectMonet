@@ -59,7 +59,12 @@ namespace JJH
         {
             rb.useGravity = false;
             rb.isKinematic = true;
-            col.enabled = false;
+            if (col != null)
+            {
+                col.enabled = false;
+            }
+
+
         }
     }
 
