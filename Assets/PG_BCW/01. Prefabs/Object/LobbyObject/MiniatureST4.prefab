@@ -358,7 +358,9 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 10
   interactors: []
   modeOnPosition: {fileID: 6579365431444249041}
@@ -2359,16 +2361,15 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 0
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0
   interactors: []
-  itemID: 0
-  scalingSpeed: 4
-  inventoryScale: {x: 0, y: 0, z: 0}
-  originScale: {x: 0, y: 0, z: 0}
   puzzleManager: {fileID: 3436578458498586532}
   puzzleIndex: 0
-  coll: {fileID: 0}
+  clockCollider: {fileID: 0}
+  minuteCollider: {fileID: 0}
 --- !u!1 &2806814064908022445
 GameObject:
   m_ObjectHideFlags: 0
@@ -6584,7 +6585,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 3493
+  m_VersionIndex: 3496
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
