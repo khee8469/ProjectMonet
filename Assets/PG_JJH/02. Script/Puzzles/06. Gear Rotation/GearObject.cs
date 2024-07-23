@@ -23,7 +23,7 @@ namespace JJH
         [SerializeField] public Collider col;
 
         [Tooltip("리지드바디 ")]
-        private Rigidbody rb;
+        [SerializeField] private Rigidbody rb;
 
         private void Start()
         {
@@ -57,6 +57,7 @@ namespace JJH
         }
         public void RigidChange()
         {
+            Debug.Log("Rigid Change");
             rb.useGravity = false;
             rb.isKinematic = true;
             if (col != null)

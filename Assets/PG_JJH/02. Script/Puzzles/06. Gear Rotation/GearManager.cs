@@ -30,12 +30,16 @@ namespace JJH
         [Tooltip("등대 퍼즐의 moon object")]
         [SerializeField] private GameObject moonPanel;
 
+        [Tooltip("완성 상태로 bool 변수를 변경시켜서 Exit 안되게 해보자.")]
+        [SerializeField] public bool notExitBool = false;
+
         // OnClear 호출을 update 된 ipuzzle 에서 부르기 때문에 관리를 겹치지 않도록 잘 해줘야한다.
         public override void OnClearPuzzle()
         {
             Debug.Log("온 클리어 퍼즐 발동");
 
             base.OnClearPuzzle();
+            notExitBool = true;
             lightHouse.pillar_Of_Light.gameObject.SetActive(true); // 빛 기둥 켜주기.  --> 이거 일단 스포트 라이트로 변경 시켜주기. 
             if(moonPanel != null)
             {
@@ -53,15 +57,15 @@ namespace JJH
 
         // onClear 발동 전에 살짝 딜레이 주기 위한 코루틴 (track을 바로 풀어버리면 문제 생겨서 )
         private IEnumerator DelayCoroutine()
-        {
+        {         
             yield return new WaitForSeconds(0.7f);
+
             foreach (GearObject gear in gearList)
             {
+                gear.RigidChange(); // 이거를 발동해서 완성 시켜도 안 만져지도록 하기. (기어 다시 뽑기 못하도록)
                 gear.StartRotate();
                 gear.OnNutActive();
                 gear.trackRotation = false;
-                gear.RigidChange(); // 이거를 발동해서 완성 시켜도 안 만져지도록 하기. (기어 다시 뽑기 못하도록)
-
                 //gear.interactionLayers = 0; // Nothing이 0 번. everything이 -1 번. 
                 //gear.col.enabled = false; // 콜라이더를 꺼주면 기어들이 바닥으로 떨어짐. --> rigidbody가 있기 때문에. 
             }

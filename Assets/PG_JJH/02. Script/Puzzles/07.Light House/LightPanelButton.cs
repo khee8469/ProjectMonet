@@ -333,11 +333,6 @@ namespace JJH
             Debug.Log("로테이팅 루틴 종료");
         }
 
-
-
-
-
-
         // 스크립트 별로 코루틴을 저장 해줘서 놓는 순간 다시 돌아오도록 하기. 
         private Coroutine activeCoroutine;
         private void StartAndStopCoroutine(IEnumerator coroutine)

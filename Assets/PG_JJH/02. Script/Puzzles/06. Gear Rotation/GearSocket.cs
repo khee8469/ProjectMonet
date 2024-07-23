@@ -73,9 +73,16 @@ namespace JJH
         {
             base.OnSelectExited(args);
 
-            GearObject obj = args.interactableObject as GearObject;
-            gearPuzzle.gearList.Remove(obj);
+            // 이거 exit 되면서 뭔가 List가 Clear 되는 거 같음. 
 
+            GearObject obj = args.interactableObject as GearObject;
+
+            if(gearPuzzle.notExitBool!=true)
+            {
+                gearPuzzle.gearList.Remove(obj);
+                Debug.Log("슬롯 Exit Remove List");
+            }
+           
             if (TargetGear.gearID == obj.gearID) // 정답 기어 라면 
             {
                 gearPuzzle.UpdateCondition(puzzleIndex, false); // bool 값을 false로 변경. 
@@ -119,7 +126,6 @@ namespace JJH
         {
             puzzle.UpdateCondition(index); // 이거는 그냥 만들어만 두고 부르는 곳이 없는듯?
         }
-
 
         private IEnumerator SocketOnRoutine(GearObject obj)
         {

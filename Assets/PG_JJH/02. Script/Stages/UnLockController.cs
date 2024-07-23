@@ -28,7 +28,7 @@ namespace JJH
 
         private void LoadStageData() // 저장된 스테이지 데이터 로드 
         {
-            Array.Sort(doors); //DoorId를 기준으로 정렬시도.
+            
 
             for (int i = 0; i < doors.Length; i++)    // 이게 List 라서 이렇게 하고 있는데 이거 배열로 바꿔서 한다면? 
             {
