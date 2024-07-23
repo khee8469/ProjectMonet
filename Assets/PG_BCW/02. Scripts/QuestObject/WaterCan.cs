@@ -21,6 +21,7 @@ public class WaterCan : ItemObject
         //퍼즐을 클리어 했으면 비활성화
         if (Manager.PlayableData.puzzleDataDic[puzzleID] == PuzzleState.Clear)
         {
+            Debug.Log(1);
             gameObject.SetActive(false);
         }
     }
@@ -62,7 +63,7 @@ public class WaterCan : ItemObject
         {
             yield return new WaitForSeconds(0.1F);
         }
-
+        Debug.Log(2);
         Destroy(gameObject);
     }
 }
