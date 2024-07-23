@@ -17078,6 +17078,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: H_Male_A01_Sit02 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4651820117475635290, guid: 59d9113694557784894f92c080d8a2f4,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4651820117475635290, guid: 59d9113694557784894f92c080d8a2f4,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5623862296779074119, guid: 59d9113694557784894f92c080d8a2f4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -18982,8 +18992,40 @@ PrefabInstance:
     - {fileID: 1891698763744465853, guid: 971892cfab0afaf4bb59b83d8d7c679c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7308510907172428376, guid: 971892cfab0afaf4bb59b83d8d7c679c,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 944117918}
   m_SourcePrefab: {fileID: 100100000, guid: 971892cfab0afaf4bb59b83d8d7c679c, type: 3}
+--- !u!1 &944117917 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7308510907172428376, guid: 971892cfab0afaf4bb59b83d8d7c679c,
+    type: 3}
+  m_PrefabInstance: {fileID: 944117916}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &944117918
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 944117917}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4891524235082050076, guid: c289a94b305e8bd4eb44e5d735963b63, type: 3}
 --- !u!1001 &946644517
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36952,6 +36994,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4267096338179923360, guid: bc0d1019553109e4aa046a4f1683beaa,
         type: 3}
+      propertyPath: distance
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4267096338179923360, guid: bc0d1019553109e4aa046a4f1683beaa,
+        type: 3}
       propertyPath: sceneName
       value: Lobby
       objectReference: {fileID: 0}
@@ -37631,7 +37678,7 @@ PrefabInstance:
         type: 3}
       propertyPath: data
       value: 
-      objectReference: {fileID: 11400000, guid: a3a80ba2148179043af846bfb9193e0a,
+      objectReference: {fileID: 11400000, guid: 402e9a04da77f154e9f959465e755fbe,
         type: 2}
     - target: {fileID: 2271054692281082213, guid: 770b2e8778465f84eb4757510fc5ba38,
         type: 3}
@@ -37932,7 +37979,7 @@ MonoBehaviour:
   m_SnapToColliderVolume: 1
   m_ReinitializeDynamicAttachEverySingleGrab: 1
   m_AttachEaseInTime: 0.15
-  m_MovementType: 2
+  m_MovementType: 0
   m_VelocityDamping: 1
   m_VelocityScale: 1
   m_AngularVelocityDamping: 1
@@ -37974,11 +38021,11 @@ MonoBehaviour:
   m_StartingSingleGrabTransformers: []
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
-  grabType: 0
+  grabType: 2
   isSingleGrab: 0
   isTwoHanded: 0
-  grabDistanceThreshold: 0
-  grabDistance: 5
+  grabDistanceThreshold: 3
+  grabDistance: 1.2
   interactors: []
   spotLight: {fileID: 0}
   rigid: {fileID: 1953720345}
@@ -42868,7 +42915,7 @@ GameObject:
   - component: {fileID: 6594207752583853969}
   - component: {fileID: 4266622317660168068}
   - component: {fileID: 6024841734904434548}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42886,7 +42933,7 @@ GameObject:
   - component: {fileID: 1512750451789579423}
   - component: {fileID: 8806562236715927203}
   - component: {fileID: 8478969814505736835}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: IMG_Capture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44640,7 +44687,7 @@ GameObject:
   - component: {fileID: 8443960532389769961}
   - component: {fileID: 803965865438192068}
   - component: {fileID: 1047358641053250922}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: IMG_BackGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44862,7 +44909,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8227024372487812628
 Transform:
   m_ObjectHideFlags: 0
@@ -44911,7 +44958,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!33 &8298607917103491756
 MeshFilter:
   m_ObjectHideFlags: 0

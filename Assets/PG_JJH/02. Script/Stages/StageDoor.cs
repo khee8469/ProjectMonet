@@ -23,9 +23,6 @@ namespace JJH
 
         new Rigidbody rigidbody;
 
-        [Tooltip(" stage를 넘어갈 수 있도록 풀어줘야 하는 bool 변수")]
-        [SerializeField] private bool isOn = false;
-
         [SerializeField] private float distance = 5f;
 
         private void Start()

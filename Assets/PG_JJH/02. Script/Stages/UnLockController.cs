@@ -19,8 +19,6 @@ namespace JJH
 
             // Lobby 씬에서 Load 할 때 --> 이 부분을 Json을 이용해서 Josn 한 번 Load 해주고
             // 그 값을 통해서 체크 한 다음에 씬 해금 상태를 확인 할 것. 
-
-
             //LoadStageData(); // 씬이 시작될 때 스테이지 데이터 로드 --> 이거를 json 으로 해주고.
 
             Manager.PlayableData.LoadCanvasData(); // 캔버스 데이터 로드 -> 여기 list가 같이 있음. 이거 그냥 배열로 바꾸는게 나을 것 같은데. 
@@ -74,15 +72,7 @@ namespace JJH
                 //ChapterManager.Instance.runtimeStageData.stageUnlockStatus[number] = unLock; // bool 값을 변경 시켜줌. 
                 Manager.PlayableData.CanvasData.stageUnlockStatus[number] = unLock; // 사실 이거 어차피 무조건 트루긴 함.. 
                 doors[number].interactionLayers = unLock ? -1 : 0;
-
-                // doors[number].CoverOff(); 
-
                 Manager.PlayableData.SaveCanvasData(); // 값 변경 시키고 여기서 저장. 
-
-                // 여기서 Josn Save 한 번 하죠.
-                
-
-
             }
         }
 
