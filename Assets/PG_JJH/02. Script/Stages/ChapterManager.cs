@@ -49,8 +49,20 @@ namespace JJH
             drawPartCheck = new bool[DrawingCount];
             Manager.PlayableData.LoadCanvasData();  // start 에서 Load 받아서 이닛 세팅 실행. 
 
-            
             InitSetting();
+        }
+
+        public void DebugInitSetting()
+        {
+            for (int i = 0; i < Manager.PlayableData.CanvasData.isColoredCheckArr.Length; i++)
+            {
+                is_Colored[i] = Manager.PlayableData.CanvasData.isColoredCheckArr[i];
+            }
+
+            for (int i = 0; i < DrawingCount; i++)
+            {
+                drawPartCheck[i] = Manager.PlayableData.CanvasData.myDrawPartCheckArr[i];
+            }
         }
 
         public void InitSetting()

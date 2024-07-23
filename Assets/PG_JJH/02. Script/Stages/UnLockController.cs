@@ -21,14 +21,13 @@ namespace JJH
             // 그 값을 통해서 체크 한 다음에 씬 해금 상태를 확인 할 것. 
             //LoadStageData(); // 씬이 시작될 때 스테이지 데이터 로드 --> 이거를 json 으로 해주고.
 
-            Manager.PlayableData.LoadCanvasData(); // 캔버스 데이터 로드 -> 여기 list가 같이 있음. 이거 그냥 배열로 바꾸는게 나을 것 같은데. 
+            //Manager.PlayableData.LoadCanvasData(); // 캔버스 데이터 로드 -> 여기 list가 같이 있음. 이거 그냥 배열로 바꾸는게 나을 것 같은데. 
             LoadStageData();
-
         }
 
         private void LoadStageData() // 저장된 스테이지 데이터 로드 
         {
-            
+            //Array.Sort(doors); //DoorId를 기준으로 정렬시도.
 
             for (int i = 0; i < doors.Length; i++)    // 이게 List 라서 이렇게 하고 있는데 이거 배열로 바꿔서 한다면? 
             {
