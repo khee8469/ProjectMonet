@@ -348,7 +348,7 @@ namespace Jc
                 if (item != null)
                     item.SetScaleWithLerp();
                 lr.enabled = true;
-                //lineVisual.enabled = false;
+                lineVisual.enabled = false;
             }
             else
             {
@@ -357,7 +357,7 @@ namespace Jc
                 if (item != null)
                     item.ResetScaleWithLerp();
                 lr.enabled = false;
-                //lineVisual.enabled = true;
+                lineVisual.enabled = true;
             }
             //lr.enabled = true;
         }
