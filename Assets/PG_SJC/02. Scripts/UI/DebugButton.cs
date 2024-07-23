@@ -50,10 +50,25 @@ namespace Jc
             int curStageIndex = stageIndex - 1;
 
             // 슬롯 비우기
-            foreach(int key in Manager.PlayableData.slotDataDic.Keys)
+            for (int i = 1; i <= 6; i++)
             {
-                Manager.PlayableData.slotDataDic[key] = new SlotData(key, -1, 0);
+                Manager.PlayableData.slotDataDic[i] = new SlotData(i, -1, 0);
             }
+
+            // 아이템 데이터 재할당
+            Manager.PlayableData.itemInfoDataDic.Clear();
+            for (int i = 0; i < curStageIndex + 1; i++)
+            {
+                List<ItemInfoData> itemInfos = itemInfoDatas[i].infoDatas;
+                foreach (ItemInfoData data in itemInfos)
+                {
+                    if (Manager.PlayableData.itemInfoDataDic.ContainsKey(data.itemID))
+                        Manager.PlayableData.itemInfoDataDic[data.itemID] = data;
+                    else
+                        Manager.PlayableData.itemInfoDataDic.Add(data.itemID, data);
+                }
+            }
+            Manager.PlayableData.SaveItemData();
 
             // 퍼즐 데이터 재할당
             Manager.PlayableData.puzzleDataDic.Clear();
@@ -80,21 +95,6 @@ namespace Jc
                 clearCount--;
             }
             Manager.PlayableData.SaveQuestData();
-
-            // 아이템 데이터 재할당
-            Manager.PlayableData.itemInfoDataDic.Clear();
-            for (int i = 0; i < curStageIndex + 1; i++)
-            {
-                List<ItemInfoData> itemInfos = itemInfoDatas[i].infoDatas;
-                foreach (ItemInfoData data in itemInfos)
-                {
-                    if (Manager.PlayableData.itemInfoDataDic.ContainsKey(data.itemID))
-                        Manager.PlayableData.itemInfoDataDic[data.itemID] = data;
-                    else
-                        Manager.PlayableData.itemInfoDataDic.Add(data.itemID, data);
-                }
-            }
-            Manager.PlayableData.SaveItemData();
 
             // 캔버스 데이터 재할당
             Manager.PlayableData.CanvasData = new JJH.CanvasData();

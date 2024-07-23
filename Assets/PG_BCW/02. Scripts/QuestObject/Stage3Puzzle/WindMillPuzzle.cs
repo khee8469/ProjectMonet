@@ -73,7 +73,6 @@ public class WindMillPuzzle : InteractObject, IPuzzleable
 
         startRotation = transform.eulerAngles.z;
 
-        //rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY;
     }
 
     protected override void OnSelectExited(SelectExitEventArgs args)
@@ -87,7 +86,6 @@ public class WindMillPuzzle : InteractObject, IPuzzleable
         //속도 0으로만든후 회전 시작
         rb.angularVelocity = Vector3.zero;
 
-        rb.constraints = 0;
     }
 
 
