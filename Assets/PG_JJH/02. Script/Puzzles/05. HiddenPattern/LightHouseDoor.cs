@@ -24,7 +24,7 @@ namespace JJH
         [Tooltip("5번 퍼즐 퍼즐 매니저")]
         [SerializeField] private HiddenPatternPuzzle puzzle;
 
-        [Tooltip("자신의 리지드 바디")]
+        [Tooltip("문의 리지드 바디")]
         [SerializeField] private Rigidbody rb;
 
 
@@ -32,7 +32,6 @@ namespace JJH
         // 앞으로 힌지 조인트 계속 켜주면 된다. 
 
         // 이거는 퍼즐이 아니니까 인터페이스를 상속하면 안될텐데 관리를 어떻게 해 줄지 고민해야함. 
-
 
         protected override void Awake()
         {
@@ -46,7 +45,6 @@ namespace JJH
             base.Start();
       
         }
-
 
         // doorkey의 itemID를 통해서 체크한다. 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -84,11 +82,8 @@ namespace JJH
         {
             Debug.Log("문이 열렸음.");
 
-
-
-
-
             hingeJoint.useLimits = false;
+            rb.isKinematic = false; // 키네마틱 꺼주기 
         }
 
         public void ActiveSetting()

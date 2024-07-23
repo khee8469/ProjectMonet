@@ -187,8 +187,10 @@ namespace JJH
             }
             else  // RayCast가 닿지 않을 때도 stop 이후에 다시 그리게 되면 너무 line Renderer가 많이 생성되는 문제가 발생한다. 
             {
+                // 이게 다른 콜라이더에 닿으면 당연히 ELSE 인 상황이라서 많이 생성될 수 밖에 없음 --> 이건 무조건 풀링 써야 함. 
+
                 DrawingStop();
-                Debug.Log("펜 is Else 상태진입");
+                
             }
         }
         private void CompleteDrawing()

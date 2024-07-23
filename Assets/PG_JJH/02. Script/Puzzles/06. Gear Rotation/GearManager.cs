@@ -60,8 +60,9 @@ namespace JJH
                 gear.StartRotate();
                 gear.OnNutActive();
                 gear.trackRotation = false;
-                gear.interactionLayers = 0; // Nothing이 0 번. everything이 -1 번. 
+                gear.RigidChange(); // 이거를 발동해서 완성 시켜도 안 만져지도록 하기. (기어 다시 뽑기 못하도록)
 
+                //gear.interactionLayers = 0; // Nothing이 0 번. everything이 -1 번. 
                 //gear.col.enabled = false; // 콜라이더를 꺼주면 기어들이 바닥으로 떨어짐. --> rigidbody가 있기 때문에. 
             }
             DecoGearRotate(); // 장식 기어들 회전 

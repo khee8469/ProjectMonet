@@ -67,22 +67,6 @@ namespace JJH
         }
 
 
-        private void RayOn() //Ray 든 뭐 빛 기둥이던 어쨋든 이전 퍼즐을 깨야 발동이 가능하다. 
-        {
-            RaycastHit hit;
-            Debug.DrawRay(rayStartPos.position, rayStartPos.forward * distance, Color.red);
-            if (Physics.Raycast(rayStartPos.position , rayStartPos.forward , out hit , distance, layerMask))
-            {
-                // 이미 레이어 마스크 체크로 들어갔기 때문에 그냥 레이가 부딪혔으면 부딪힌 거임.
-                sunHole = hit.collider.GetComponent<Chapter2SunHole>();
-                if(sunHole != null)
-                {
-                    Debug.Log("구멍 체크 완료");
-                }
-            }
-            
-        }
-
         private void PillarChange(bool boolean)
         {
             pillar_Of_Light.SetActive(boolean);

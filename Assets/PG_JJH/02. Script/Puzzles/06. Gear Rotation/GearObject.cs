@@ -1,9 +1,6 @@
 using Jc;
-using JJH;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit;
 
 namespace JJH
 {
@@ -25,19 +22,23 @@ namespace JJH
         [Tooltip("꺼줄? 기어 콜라이더--> 안쓸듯")]
         [SerializeField] public Collider col;
 
+        [Tooltip("리지드바디 ")]
+        private Rigidbody rb;
+
         private void Start()
         {
             nut.gameObject.SetActive(false); // 일단 시작 시 에는 꺼주기. --> 완성 시에 생성해 줄 nut 
             trackRotation = true;
 
-            rotationDirection = Random.Range(15, 30);
+            rotationDirection = Random.Range(5, 10);
+
+            rb = GetComponent<Rigidbody>();
 
         }
 
         // 완료 시 톱니바퀴의 회전 시작. --> 얘네는 어차피 지금 참조 없어. 뭐지 뭐가 문제냐??? 실행을 안하는데
         public void StartRotate()
         {
-            Debug.Log("코루틴 호출 됨");
             StartCoroutine(RotationRoutine(rotationDirection));
         }
 
@@ -53,13 +54,18 @@ namespace JJH
                 transform.Rotate(0, 0, Direction * Time.deltaTime);
                 yield return null;
             }
+        }
+        public void RigidChange()
+        {
+            rb.useGravity = false;
+            rb.isKinematic = true;
+            if (col != null)
+            {
+                col.enabled = false;
+            }
+
 
         }
-
-
-
-
-
     }
 
 }
