@@ -22,10 +22,10 @@ namespace JJH
                 {
                     //StartCoroutine(ReturnRoutine(gear));
 
+                    // 코루틴으로 돌리면 소켓에 들어갈 때도 out 당함 (trigger exit 이 소켓에 들어가는 순간에도 발동됨... )
                     gear.interactionLayers = 0;
                     gear.transform.position = gearReturnPosition.position;
                     gear.interactionLayers = -1; // EveryThing
-
 
                 }
             }

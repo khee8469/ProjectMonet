@@ -42,7 +42,6 @@ namespace JJH
         // 완료 시 톱니바퀴의 회전 시작. --> 얘네는 어차피 지금 참조 없어. 뭐지 뭐가 문제냐??? 실행을 안하는데
         public void StartRotate()
         {
-            Debug.Log("코루틴 호출 됨");
             StartCoroutine(RotationRoutine(rotationDirection));
         }
 
