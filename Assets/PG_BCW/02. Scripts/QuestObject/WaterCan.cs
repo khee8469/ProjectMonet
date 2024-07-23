@@ -46,8 +46,12 @@ public class WaterCan : ItemObject
     {
         base.OnSelectExited(args);
 
-        StopCoroutine(coroutine);
-        coroutine = null;
+        if(coroutine != null)
+        {
+            StopCoroutine(coroutine);
+            coroutine = null;
+        }
+        
     }
 
 
