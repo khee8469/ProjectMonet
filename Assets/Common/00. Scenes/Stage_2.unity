@@ -2371,7 +2371,8 @@ GameObject:
   m_Component:
   - component: {fileID: 71458065}
   - component: {fileID: 71458066}
-  m_Layer: 0
+  - component: {fileID: 71458067}
+  m_Layer: 17
   m_Name: Attach
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2387,7 +2388,7 @@ Transform:
   m_GameObject: {fileID: 71458064}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.009, y: 0.98, z: -0.154}
+  m_LocalPosition: {x: -1.009, y: 0.992, z: -0.268}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2412,8 +2413,73 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.16959472, y: 0.29999995, z: 0.23292807}
-  m_Center: {x: 0.09199498, y: 7.87978e-11, z: -0.1780607}
+  m_Size: {x: 0.3792919, y: 0.29999995, z: 0.42935637}
+  m_Center: {x: 0.024841892, y: 1.1569831e-11, z: 0.07700879}
+--- !u!114 &71458067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71458064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4894a23d42f93449bd35dd7e8471855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InteractionManager: {fileID: 0}
+  m_InteractionLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_InteractionLayers:
+    m_Bits: 4294967295
+  m_AttachTransform: {fileID: 71458065}
+  m_KeepSelectedTargetValid: 1
+  m_DisableVisualsWhenBlockedInGroup: 1
+  m_StartingSelectedInteractable: {fileID: 0}
+  m_StartingTargetFilter: {fileID: 0}
+  m_HoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_HoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_SelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_StartingHoverFilters: []
+  m_StartingSelectFilters: []
+  m_OnHoverEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnHoverExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectEntered:
+    m_PersistentCalls:
+      m_Calls: []
+  m_OnSelectExited:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ShowInteractableHoverMeshes: 1
+  m_InteractableHoverMeshMaterial: {fileID: 2100000, guid: af929ce582c833c4aa6945da7e6df38a,
+    type: 2}
+  m_InteractableCantHoverMeshMaterial: {fileID: 0}
+  m_SocketActive: 1
+  m_InteractableHoverScale: 1
+  m_RecycleDelayTime: 1
+  m_HoverSocketSnapping: 0
+  m_SocketSnappingRadius: 0.1
+  m_SocketScaleMode: 0
+  m_FixedScale: {x: 1, y: 1, z: 1}
+  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+  hingeJoint: {fileID: 3238682409947677000}
+  keyID: 1410002
+  puzzle: {fileID: 1866665792}
+  rb: {fileID: 7040396720254473169}
 --- !u!1 &82120131
 GameObject:
   m_ObjectHideFlags: 0
@@ -10673,80 +10739,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 441421604}
   m_Mesh: {fileID: 4300004, guid: 5b10a3532c8c3cc4da4dc079804cdf2a, type: 3}
---- !u!1001 &444369079
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3779927481505470027, guid: 9908bc9148a631d4c958877d483db894,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.73
-      objectReference: {fileID: 0}
-    - target: {fileID: 3779927481505470027, guid: 9908bc9148a631d4c958877d483db894,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.285186
-      objectReference: {fileID: 0}
-    - target: {fileID: 3779927481505470027, guid: 9908bc9148a631d4c958877d483db894,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 12.22
-      objectReference: {fileID: 0}
-    - target: {fileID: 3779927481505470027, guid: 9908bc9148a631d4c958877d483db894,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3779927481505470027, guid: 9908bc9148a631d4c958877d483db894,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3779927481505470027, guid: 9908bc9148a631d4c958877d483db894,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3779927481505470027, guid: 9908bc9148a631d4c958877d483db894,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3779927481505470027, guid: 9908bc9148a631d4c958877d483db894,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3779927481505470027, guid: 9908bc9148a631d4c958877d483db894,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 3779927481505470027, guid: 9908bc9148a631d4c958877d483db894,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5710596966318001190, guid: 9908bc9148a631d4c958877d483db894,
-        type: 3}
-      propertyPath: m_Name
-      value: LightHousePuzzle_7
-      objectReference: {fileID: 0}
-    - target: {fileID: 5710596966318001190, guid: 9908bc9148a631d4c958877d483db894,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2705810873057694299, guid: 9908bc9148a631d4c958877d483db894, type: 3}
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9908bc9148a631d4c958877d483db894, type: 3}
 --- !u!1001 &446146833
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14984,7 +14976,7 @@ PrefabInstance:
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 116.29
+      value: 114.47
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
@@ -14994,12 +14986,12 @@ PrefabInstance:
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 262.25
+      value: 255.98
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.14062111
+      value: -0.691735
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
@@ -15009,7 +15001,7 @@ PrefabInstance:
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.9900635
+      value: -0.7221515
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
@@ -15024,7 +15016,7 @@ PrefabInstance:
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -163.832
+      value: -267.535
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
@@ -69016,7 +69008,6 @@ GameObject:
   - component: {fileID: 7040396720254473169}
   - component: {fileID: 3238682409947677000}
   - component: {fileID: 8910123657569848765}
-  - component: {fileID: 8910123657569848766}
   m_Layer: 0
   m_Name: Puzzle_Door
   m_TagString: Untagged
@@ -100007,70 +99998,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.8297529, y: 1.68663, z: 0.3}
   m_Center: {x: -0.53793913, y: 0.9984708, z: -0.04022142}
---- !u!114 &8910123657569848766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4977402510656473185}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4894a23d42f93449bd35dd7e8471855, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
-  m_InteractionLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_InteractionLayers:
-    m_Bits: 4294967295
-  m_AttachTransform: {fileID: 71458065}
-  m_KeepSelectedTargetValid: 1
-  m_DisableVisualsWhenBlockedInGroup: 1
-  m_StartingSelectedInteractable: {fileID: 0}
-  m_StartingTargetFilter: {fileID: 0}
-  m_HoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_HoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_SelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_StartingHoverFilters: []
-  m_StartingSelectFilters: []
-  m_OnHoverEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnHoverExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectEntered:
-    m_PersistentCalls:
-      m_Calls: []
-  m_OnSelectExited:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ShowInteractableHoverMeshes: 1
-  m_InteractableHoverMeshMaterial: {fileID: 0}
-  m_InteractableCantHoverMeshMaterial: {fileID: 0}
-  m_SocketActive: 1
-  m_InteractableHoverScale: 1
-  m_RecycleDelayTime: 1
-  m_HoverSocketSnapping: 0
-  m_SocketSnappingRadius: 0.1
-  m_SocketScaleMode: 0
-  m_FixedScale: {x: 1, y: 1, z: 1}
-  m_TargetBoundsSize: {x: 1, y: 1, z: 1}
-  hingeJoint: {fileID: 3238682409947677000}
-  keyID: 1410002
-  puzzle: {fileID: 1866665792}
-  rb: {fileID: 7040396720254473169}
 --- !u!23 &8935562060640363014
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -101100,7 +101027,6 @@ SceneRoots:
   - {fileID: 6654980532262752756}
   - {fileID: 684815699}
   - {fileID: 2113784600144567102}
-  - {fileID: 444369079}
   - {fileID: 1159962482}
   - {fileID: 1866665791}
   - {fileID: 1633225149}
