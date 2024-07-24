@@ -30,7 +30,7 @@ namespace Jc
             { 
                 state = value;
 
-                if (state == QuestState.Complete)
+                if (state == QuestState.Complete && questData.rewardItemID != -1)
                 {
                     StartCoroutine(Extension.ActionDelay(0.5f, () => RewardItem()));
                 }
