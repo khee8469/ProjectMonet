@@ -18,7 +18,7 @@ public class HiddenPatternController : MonoBehaviour, IPuzzleable
     [Tooltip("퍼즐 매니저 가져오기.")]
     [SerializeField] HiddenPatternPuzzle puzzle;
 
-    [Tooltip("정답 보정값")]
+    [Tooltip("정답 보정값 ")]
     [SerializeField] private float tolerance = 10f; //이게 1이면 1도일듯?
 
     [Tooltip("오브젝트 들의 정답 targetRotation")]
@@ -44,7 +44,6 @@ public class HiddenPatternController : MonoBehaviour, IPuzzleable
     {
 
     }
-
 
     public void CheckRotation()
     {
@@ -107,8 +106,6 @@ public class HiddenPatternController : MonoBehaviour, IPuzzleable
         pattern.handle.transform.localRotation = endRotation;
 
     }
-
-
 
     public void RegistObject(PuzzleManager puzzle)
     {
