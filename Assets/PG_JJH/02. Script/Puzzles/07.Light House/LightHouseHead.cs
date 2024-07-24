@@ -43,15 +43,15 @@ namespace JJH
         [SerializeField] private float ZmaxValue;
         [SerializeField] private float ZminValue;
 
-
         [Tooltip("클리어 시 창문으로 비칠 햇빛")]
         [SerializeField]
         private Light clearLight;
 
-        
-
         [Tooltip("버튼이 꺼지는 거는 버튼이 함수로 가지고 있고 그거를 여기서 빌려쓰는 식으로 하자.")]
         [SerializeField] private LightPanelButton[] buttons;
+
+        [Tooltip("퍼즐 인덱스")]
+        [SerializeField] private int puzzleIndex; 
         
 
         // 빛 기둥 같은 경우는 이제 그냥 켜주기만 하면 되는 느낌이겠지. 
@@ -62,7 +62,7 @@ namespace JJH
 
         private void Awake()
         {
-            PillarChange(false); // 일단 어웨이크 에서 꺼주자.
+            //PillarChange(false); // 일단 어웨이크 에서 꺼주자.
             RegistObject(sunHole);
         }
 
@@ -95,7 +95,7 @@ namespace JJH
                 DeAactiveLight_Button();
                 ChangeRoutine(); // 등대 빛 일단 끄자 이상해 보임.. 
                 MyCompleteRotation();
-
+                sunHole.UpdateCondition(puzzleIndex);
             }
         }
 
@@ -110,6 +110,14 @@ namespace JJH
             for(int i=0;i < buttons.Length;i++)
             {
                 buttons[i].MyEnable(false);
+            }
+        }
+
+        public void ActiveLight_Button()
+        {
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                buttons[i].MyEnable(true);
             }
         }
 
@@ -155,6 +163,7 @@ namespace JJH
         {
             // 등대의 불은 나오고 있어야 함. 
             PillarChange(true);
+            ActiveLight_Button();
             Debug.Log("등대의 액티브세팅");
         }
 
@@ -163,8 +172,9 @@ namespace JJH
             Debug.Log("등대의 컴플리트 세팅");  // 스카이박스 변경 부르기 
             DeAactiveLight_Button();
             sunHole.OnClearPuzzle();
-            PillarChange(true);
+            PillarChange(false);
             MyCompleteRotation(); // 클리어 세팅에서 자신의 등대 저장 
+
         }
 
         public void DisActiveSetting()  // 진행 불가능 한 상태의 세팅 --> 퍼즐 진입 전 상태 
@@ -185,6 +195,7 @@ namespace JJH
         public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
         {
             // 얘는 어차피 완료 조건이 하나 니까 그냥 OnClear 부르는 방식으로 진행 할 것. 
+            puzzle.UpdateCondition(index);
             sunHole.OnClearPuzzle();
             Debug.Log("등대의 업데이트 퍼즐");
         }
