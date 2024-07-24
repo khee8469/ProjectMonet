@@ -27,12 +27,7 @@ public class ClockPuzzle : InteractObject, IPuzzleable
     {
         base.OnSelectEntered(args);
 
-        //인벤토리에 넣으면 성공으로
-
-        if( puzzleManager != null )
-        {
-            UpdatePuzzleManager(puzzleManager, puzzleIndex);
-        }
+        
     }
 
 

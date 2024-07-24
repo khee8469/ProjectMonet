@@ -35,6 +35,10 @@ public class TrainSchedulePuzzle : XRSocketInteractor, IPuzzleable
 
         if (puzzleManager != null)
             RegistObject(puzzleManager);
+
+        //puzzleDataDic에 키값이 없으면 할당
+        if (!Manager.PlayableData.puzzleDataDic.ContainsKey(puzzleManager.PuzzleID))
+            Manager.PlayableData.puzzleDataDic.Add(puzzleManager.PuzzleID, PuzzleState.DisActive);
     }
 
     protected override void OnEnable()
