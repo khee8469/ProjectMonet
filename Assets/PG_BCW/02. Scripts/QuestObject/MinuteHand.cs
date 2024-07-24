@@ -56,25 +56,18 @@ public class MinuteHand : ItemObject, IPuzzleable
     {
         base.OnSelectEntered(args);
 
-        Debug.Log(123123);
 
-        //인벤토리에 생성
-        if (!Manager.PlayableData.CheckItemInInventory(ItemID))
-        {
-            Manager.Item.GetItem(ItemID, true);
-
-            //퍼즐 클리어
-            if (puzzleManager != null)
-            {
-                UpdatePuzzleManager(puzzleManager, puzzleIndex);
-            }
-        }
-
-        //this.interactionManager.SelectExit(args.interactorObject, this);
-        //this.gameObject.SetActive(false);
     }
 
-    
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+
+        if (Manager.PlayableData.CheckItemInInventory(ItemID))
+        {
+
+        }
+    }
 
 
     //시계를 잡아야 분침을 잡을수있게
