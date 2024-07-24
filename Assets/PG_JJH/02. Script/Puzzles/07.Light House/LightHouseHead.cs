@@ -164,7 +164,11 @@ namespace JJH
             // 등대의 불은 나오고 있어야 함. 
             PillarChange(true);
             ActiveLight_Button();
-            Debug.Log("등대의 액티브세팅");
+            sunHole.MoonChange(true);
+            sunHole.SunChange(false);
+            sunHole.DarkSkyBox();
+
+            // 그냥 달 이랑 태양 이랑 밖에서도 보이게 하기
         }
 
         public void CompleteSetting() // 완성되 있는 상태 세팅 ++ 스카이박스 변경 필요.
@@ -174,6 +178,7 @@ namespace JJH
             sunHole.OnClearPuzzle();
             PillarChange(false);
             MyCompleteRotation(); // 클리어 세팅에서 자신의 등대 저장 
+            sunHole.UpdateCondition(puzzleIndex);
 
         }
 
@@ -181,6 +186,8 @@ namespace JJH
         {
             DeAactiveLight_Button(); // 버튼 꺼두기 
             PillarChange(false); // 불이 아직 들어오지 않음 
+            sunHole.DarkSkyBox();
+            // 달 태양 모두 꺼둬야함. 
             Debug.Log("등대의 디스액티브세팅");
 
         }
