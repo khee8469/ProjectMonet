@@ -256,7 +256,7 @@ namespace Jc
                 return;
 
             // 오브젝트의 초기 위치를 지정
-            if ((transform.position - attachTransform.position).sqrMagnitude > currentGrabObject.GetInteractDistance() * currentGrabObject.GetInteractDistance())
+            if ((transform.position - currentGrabObject.GetTransform().position).sqrMagnitude > currentGrabObject.GetInteractDistance() * currentGrabObject.GetInteractDistance())
                 attachTransform.position = transform.position + transform.forward * currentGrabObject.GetInteractDistance();
         }
 
