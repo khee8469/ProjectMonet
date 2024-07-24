@@ -64,6 +64,7 @@ namespace JJH
         {
             //PillarChange(false); // 일단 어웨이크 에서 꺼주자.
             RegistObject(sunHole);
+
         }
 
 

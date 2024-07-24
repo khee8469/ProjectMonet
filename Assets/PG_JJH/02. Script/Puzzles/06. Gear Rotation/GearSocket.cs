@@ -74,7 +74,7 @@ namespace JJH
             base.OnSelectExited(args);
 
             // 이거 exit 되면서 뭔가 List가 Clear 되는 거 같음. 
-
+            Debug.Log("기본 슬롯 엑시트");
             GearObject obj = args.interactableObject as GearObject;
 
             if(gearPuzzle.notExitBool!=true)
