@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4688374420350350286
+--- !u!1 &3086704517877778895
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,49 +8,47 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4521222959050853268}
-  - component: {fileID: 7664678841283783306}
-  - component: {fileID: 5672972406907932080}
-  - component: {fileID: 8599061357008723108}
-  - component: {fileID: 1116492519061992149}
-  - component: {fileID: 2163569199587396577}
+  - component: {fileID: 6158886371095310741}
+  - component: {fileID: 114901277231304843}
+  - component: {fileID: 2701082868132050865}
+  - component: {fileID: 7905170508264343286}
   m_Layer: 0
-  m_Name: Minute
+  m_Name: MinuteMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4521222959050853268
+--- !u!4 &6158886371095310741
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4688374420350350286}
+  m_GameObject: {fileID: 3086704517877778895}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.70710677, y: -0, z: -0, w: 0.7071069}
-  m_LocalPosition: {x: 0.000059268903, y: 0.004446764, z: 0.0006408682}
-  m_LocalScale: {x: 0.00037492818, y: 0.00051186123, z: 0.008865899}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.0014997128, y: 0.0020474447, z: 0.035463598}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &7664678841283783306
+  m_Father: {fileID: 5625337115113584584}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!33 &114901277231304843
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4688374420350350286}
+  m_GameObject: {fileID: 3086704517877778895}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &5672972406907932080
+--- !u!23 &2701082868132050865
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4688374420350350286}
+  m_GameObject: {fileID: 3086704517877778895}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -86,13 +84,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &8599061357008723108
+--- !u!65 &7905170508264343286
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4688374420350350286}
+  m_GameObject: {fileID: 3086704517877778895}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -105,15 +103,49 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 50, y: 20, z: 2}
-  m_Center: {x: 0, y: 7.9, z: 0}
---- !u!54 &1116492519061992149
+  m_Size: {x: 20, y: 5, z: 1.0000002}
+  m_Center: {x: -0.00390625, y: -2.73, z: 0}
+--- !u!1 &4696628590905776827
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5625337115113584584}
+  - component: {fileID: 4449525615024313269}
+  - component: {fileID: 7765095210706355634}
+  m_Layer: 0
+  m_Name: Minute
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5625337115113584584
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4696628590905776827}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.000059268903, y: 0.004446764, z: 0.0006408682}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 6158886371095310741}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &4449525615024313269
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4688374420350350286}
+  m_GameObject: {fileID: 4696628590905776827}
   serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
@@ -134,13 +166,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2163569199587396577
+--- !u!114 &7765095210706355634
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4688374420350350286}
+  m_GameObject: {fileID: 4696628590905776827}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7819d883e2ae6b44d9c82ed6cc07628c, type: 3}
@@ -287,16 +319,16 @@ MonoBehaviour:
   m_StartingMultipleGrabTransformers: []
   m_AddDefaultGrabTransformers: 1
   grabType: 2
+  isSingleGrab: 1
   isTwoHanded: 0
+  grabDistanceThreshold: 0
   grabDistance: 0.12
   interactors: []
   itemID: 1410010
   scalingSpeed: 4
-  inventoryScale: {x: 1, y: 1, z: 1}
-  originScale: {x: 1, y: 1, z: 1}
+  inventoryScale: {x: 5, y: 5, z: 5}
+  originScale: {x: 5, y: 5, z: 5}
   puzzleManager: {fileID: 0}
   puzzleIndex: 0
-  rb: {fileID: 1116492519061992149}
-  clockCollider: {fileID: 0}
-  minuteCollider: {fileID: 8599061357008723108}
-  interactObject: {fileID: 0}
+  minuteCollider: {fileID: 7905170508264343286}
+  pocketWatch: {fileID: 0}
