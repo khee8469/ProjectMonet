@@ -50,6 +50,7 @@ namespace JJH
                         if(localCamera != null)
                         {                           
                             localCamera.enabled = false;
+                            globalVolume.enabled = false;
                         }
                     }
                 }

@@ -45,9 +45,15 @@ public class Chapter2SunHole : PaintRewardPuzzle
         moonPanel.SetActive(false); // 일단 시작 시에는 패널을 무조건 꺼두기. 
     }
 
+    public void OnPanelOff()
+    {
+        moonPanel.SetActive(false);
+    }
+
     public override void OnClearPuzzle()
     {
         base.OnClearPuzzle();
+        OnPanelOff();
 
         directionalLight.intensity = 1.0f;
         boxCollider.enabled = false; // 콜라이더를 꺼버려서 다시 panel이 켜지는 일을 방지한다. 
@@ -55,17 +61,16 @@ public class Chapter2SunHole : PaintRewardPuzzle
 
     }
 
-    private void OnTriggerEnter(Collider other) // 플레이어 등대 문 안으로 들어오면 
-    {
 
+    // 그냥 퀘스트 깻을 때만 달 켜주자. ?? 달 이나 해는 그냥 계속 떠있어야하나??
+    /*private void OnTriggerEnter(Collider other) // 플레이어 등대 문 안으로 들어오면 
+    {
         if (other.gameObject.CompareTag("Player"))
         {
             moonPanel.SetActive(true); // 내부로 들어오면 켜주기. 
 
             Debug.Log("플레이어 트리거 진입");
         }
-
-
-    }
+    }*/
 
 }

@@ -28,15 +28,11 @@ namespace JJH
         {
 
         }
-
-
         // 등대 밖으로 랜턴이 나갔을 시 원위치 복귀
         private void OnTriggerEnter(Collider other)
         {
             if (other.gameObject.CompareTag("FlashLight"))
             {
-                
-
                 // 그냥 멀리 날아가면 돌아오게?? 잡고 있는 중 체크 ㄴㄴ
 
                 if(flashLight.firstInteractorSelecting != null) // NULL 이 아닐 때만 하는게 맞나? 
@@ -48,16 +44,12 @@ namespace JJH
                 flashLight.FlashLightReturn(); // 랜턴 원 위치 
             }
 
-
-            if(other.gameObject.CompareTag("Player"))
+            // 달은 앞으로 퀘스트 깻을 때만 켜주는 식으로 한다.
+            /*if(other.gameObject.CompareTag("Player"))
             {
                 moonPanel.gameObject.SetActive(false);
-            }
-
-
-
+            }*/
         }
-
         public override void OnClearPuzzle() // 온 클리어 퍼즐 --> 인스펙터 에서 할당해도 된다! 
         {
             base.OnClearPuzzle();

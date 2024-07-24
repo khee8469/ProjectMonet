@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using JJH;
-using Jc;
 
 namespace JJH
 {
@@ -26,7 +23,7 @@ namespace JJH
         [Header("씬에 존재하는 그림 위 색깔조명들")]
         [Tooltip("각 씬에 둘 그림 연계 라이트들")]
         [SerializeField]
-        public LightColor [] lights; // 각 씬 마다 직접 할당해서 배열을 주면 어차피 start 에서 배열의 크기가 달라짐. 
+        public LightColor[] lights; // 각 씬 마다 직접 할당해서 배열을 주면 어차피 start 에서 배열의 크기가 달라짐. 
 
         [Tooltip("드로우 오브젝트 매니저 할당해주기.")]
         [SerializeField]
@@ -48,34 +45,28 @@ namespace JJH
                 drawCompleteCheckDic.Add(drawObjectManagers[i], ChapterManager.drawPartCheck[i]);
                 // 어차피 씬 넘어갈 때마다 이 딕셔너리는 초기화 되기 때문에 그냥 Add 해주면된다. 
                 // json을 이용한다면 ... 챕터 매니저에 저장된 drawPartCheck 를 이용해서 
+                DrawObjectManager dr = drawObjectManagers[i].GetComponent<DrawObjectManager>();
 
-                if (drawCompleteCheckDic.TryGetValue(drawObjectManagers[i], out bool isTrue))
+                if (ChapterManager.drawPartCheck[i] && dr.currentPaintType != PaintTypeEnum.None) // 예상대로라면 여기서 챕터에 있는 안쓰는 애들은 None이니까 if문 내부 안들어가도 된다. 
                 {
-                    DrawObjectManager dr = drawObjectManagers[i].GetComponent<DrawObjectManager>();
-
-                    if (isTrue && dr.currentPaintType != PaintTypeEnum.None) // 예상대로라면 여기서 챕터에 있는 안쓰는 애들은 None이니까 if문 내부 안들어가도 된다. 
+                    if (dr != null)
                     {
-                        if (dr != null)
-                        {
-                            SpriteRenderer sprite = dr.GetComponent<SpriteRenderer>();
-                            Color color = sprite.color;
-                            color.a = 1f;
-                            sprite.color = color;
+                        SpriteRenderer sprite = dr.GetComponent<SpriteRenderer>();
+                        Color color = sprite.color;
+                        color.a = 1f;
+                        sprite.color = color;
 
-                            dr.gameObject.layer = 17; // 혹시 모르니까 여기서 로컬블룸으로 변경하는 거인듯? 
-                            ChangeLight(dr.currentPaintType);  // 자신의 드로우 오브젝트에 할당되어 있는 색깔 받아서 켜주기. 
-                        }
+                        dr.gameObject.layer = 17; // 혹시 모르니까 여기서 로컬블룸으로 변경하는 거인듯? 
+                        ChangeLight(dr.currentPaintType);  // 자신의 드로우 오브젝트에 할당되어 있는 색깔 받아서 켜주기. 
                     }
                 }
             }
-
         }
-
         // 그림 조각이 하나 그려질 때 마다 이 DrawComplete가 불러진다.
         // -> 여기서 이제 AllComplete를 체크해서 한 스테이지의 그림이 모두 완성되었는지를 체크한다.
         public void DrawComplete(int drawingNumber, bool finishied, int instanceID) // 그림이 완성되었을 때 (완전히) 진행할 함수 
                                                                                     // 챕터도 해금 시켜줘야 하고. 포스트프로세싱도 종료 시켜줘야하기 때문에                                                                                    
-        {          
+        {
             ChapterManager.drawPartCheck[instanceID] = finishied;
             Manager.PlayableData.CanvasData.myDrawPartCheckArr[instanceID] = finishied; // true로 변경 
             Manager.PlayableData.SaveCanvasData();
@@ -105,7 +96,7 @@ namespace JJH
             foreach (var kvp in drawCompleteCheckDic)
             {
                 if ((kvp.Key.drawBoardNumber == (DrawBoardNumber)drawingNumber) && kvp.Value == false) // 같은 PART 에 있는 그림이 전부 그려졌는지를 체크하는 반복문 
-                {                   
+                {
                     allComplete = false;
                     break;
                 }
@@ -120,7 +111,7 @@ namespace JJH
                 FinishedDraw.FinishAlphaUp.Invoke(drawingNumber); // 각 씬 마다 UnityEvent 를 부르는데
 
                 // 여기서 챕터 해금 하는 부분임. --> 퀘스트 부분으로 보내주기. 
-                if (drawingNumber<=2)
+                if (drawingNumber <= 2)
                 {
                     ChapterManager.Instance.UnlockStage(drawingNumber + 1, true); // 3 부터는 인덱스 터짐. -> 여기서 stage 개방 json 저장 실행한다.  
                 }
@@ -129,9 +120,9 @@ namespace JJH
 
         public void ChangeLight(PaintTypeEnum _currentPaintType)
         {
-            if(lights.Length>=1) //1개 이상 할당이 되어 있으면. 
+            if (lights.Length >= 1) //1개 이상 할당이 되어 있으면. 
             {
-                for(int i=0;i<lights.Length; i++)
+                for (int i = 0; i < lights.Length; i++)
                 {
                     lights[i].drawLightLink(_currentPaintType);
                 }
@@ -141,14 +132,14 @@ namespace JJH
         // 퀘스트 완료 시 부를 챕터 unLock 함수. (1챕터에서 0 2챕터에서 1 3챕터에서 2 부르면 된다.)
         public void ChapterUnLock(int chapterNumber)
         {
-            if(chapterNumber<=2)
+            if (chapterNumber <= 2)
             {
                 ChapterManager.Instance.UnlockStage(chapterNumber + 1, true);
             }
 
         }
 
-        
+
     }
 }
 

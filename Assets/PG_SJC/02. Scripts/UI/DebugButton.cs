@@ -30,10 +30,10 @@ namespace Jc
 
     public class DebugButton : MonoBehaviour
     {
-        public List<int> puzzleClearCount = new List<int>();
-        public List<int> questClearCount = new List<int>();
-        public List<DebugCanvas> canvasData = new List<DebugCanvas>();
-        public List<DebugItem> itemInfoDatas = new List<DebugItem>();
+        public List<int> puzzleClearCount;
+        public List<int> questClearCount;
+        public List<DebugCanvas> canvasData;
+        public List<DebugItem> itemInfoDatas;
 
         // 임시
         // 저장된 데이터 삭제 후 다시 로드
@@ -83,7 +83,7 @@ namespace Jc
             for (int i = 1; i <= Manager.Quest.QuestDic.Count; i++)
             {
                 int questID = i + DataID.QUEST;
-                Manager.Quest.QuestDic[questID].State = QuestState.Complete;
+
                 // 다음 퀘스트 활성화
                 if (clearCount > 0)
                     Manager.Quest.QuestDic[questID].State = QuestState.Complete;
