@@ -62,7 +62,7 @@ namespace JJH
 
         private void Awake()
         {
-            PillarChange(false); // 일단 어웨이크 에서 꺼주자.
+            //PillarChange(false); // 일단 어웨이크 에서 꺼주자.
             RegistObject(sunHole);
         }
 
@@ -113,6 +113,14 @@ namespace JJH
             }
         }
 
+        public void ActiveLight_Button()
+        {
+            for (int i = 0; i < buttons.Length; i++)
+            {
+                buttons[i].MyEnable(true);
+            }
+        }
+
 
         private void ChangeRoutine()
         {
@@ -155,6 +163,7 @@ namespace JJH
         {
             // 등대의 불은 나오고 있어야 함. 
             PillarChange(true);
+            ActiveLight_Button();
             Debug.Log("등대의 액티브세팅");
         }
 
@@ -163,7 +172,7 @@ namespace JJH
             Debug.Log("등대의 컴플리트 세팅");  // 스카이박스 변경 부르기 
             DeAactiveLight_Button();
             sunHole.OnClearPuzzle();
-            PillarChange(true);
+            PillarChange(false);
             MyCompleteRotation(); // 클리어 세팅에서 자신의 등대 저장 
 
         }

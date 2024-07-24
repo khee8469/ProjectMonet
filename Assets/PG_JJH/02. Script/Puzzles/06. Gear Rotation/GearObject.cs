@@ -62,7 +62,7 @@ namespace JJH
             rb.isKinematic = true;
             if (col != null)
             {
-                col.enabled = false;
+                //col.enabled = false;
             }
 
 

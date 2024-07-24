@@ -38,7 +38,7 @@ namespace JJH
             base.Awake();
             RegistObject(gearPuzzle);
             socketCollider = GetComponent<Collider>();
-            gearGameObject.SetActive(false); 
+            gearGameObject.SetActive(false); // complete setting의 기어를 숨겨 둠. 
         }
 
         protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -81,6 +81,10 @@ namespace JJH
             {
                 gearPuzzle.gearList.Remove(obj);
                 Debug.Log("슬롯 Exit Remove List");
+            }
+            else
+            {
+                Debug.Log("현재 True 상태라 remove 되지 않음");
             }
            
             if (TargetGear.gearID == obj.gearID) // 정답 기어 라면 

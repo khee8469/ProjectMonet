@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace JJH
 {
-    public class LightPanelButton : CustomButton, IPuzzleable, IInteractable
+    public class LightPanelButton : CustomButton, /*IPuzzleable,*/ IInteractable
     {
 
         public enum Direction
@@ -81,7 +81,7 @@ namespace JJH
 
         protected override void Awake()
         {
-            RegistObject(puzzleSun);
+            //RegistObject(puzzleSun);
         }
 
         private void Start()
@@ -360,7 +360,7 @@ namespace JJH
             this.enabled = boolean;
         }
 
-        public void RegistObject(PuzzleManager puzzle)
+       /* public void RegistObject(PuzzleManager puzzle)
         {
             puzzle.puzzleObjects.Add(this);
         }
@@ -373,6 +373,7 @@ namespace JJH
         public void ActiveSetting()
         {
             MyEnable(true);
+            Debug.Log("버튼의 액티브 세팅");
             //puzzleSun.moonPanel.gameObject.SetActive(true); --> 여기서 말고 이거는 트리거로 따로 관리 해 줘야 할 듯함.
         }
 
@@ -384,7 +385,8 @@ namespace JJH
         public void CompleteSetting() // 그냥 컴플리트 되면 눌리지 않도록만 해주자. 
         {
             MyEnable(false);
-        }
+            Debug.Log("버튼의 컴플리트 세팅");
+        }*/
 
         public float GetInteractDistance()
         {

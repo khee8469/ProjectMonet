@@ -62,7 +62,7 @@ public class Chapter2SunHole : PaintRewardPuzzle
     }
 
 
-    // 그냥 퀘스트 깻을 때만 달 켜주자. 
+    // 그냥 퀘스트 깻을 때만 달 켜주자. ?? 달 이나 해는 그냥 계속 떠있어야하나??
     /*private void OnTriggerEnter(Collider other) // 플레이어 등대 문 안으로 들어오면 
     {
         if (other.gameObject.CompareTag("Player"))
