@@ -13,8 +13,11 @@ namespace Jc
     public enum QuestState { DisActive = -1, Active = 1, Proceed, Clear, Complete}
 
     // 퀘스트 타입
-    //                    { 기본형, 자동 클리어형, 연계형 } 
-    public enum QuestType { Normal = 1, AutoClear, Link}
+    //                    { 기본형, 자동 클리어형 } 
+    public enum QuestType { Normal = 1, AutoClear}
+
+    // 퀘스트 진행타입
+    public enum QuestProccedType { Dialog = 1, Puzzle, Item, Canvas}
 
     public class QuestManager : Singleton<QuestManager>
     {
@@ -29,6 +32,8 @@ namespace Jc
         [Header("퀘스트 개수")]
         [SerializeField]
         private int questSize;
+
+        public List<int> unLockTypeQuestID = new List<int>();
 
         protected override void Awake()
         {

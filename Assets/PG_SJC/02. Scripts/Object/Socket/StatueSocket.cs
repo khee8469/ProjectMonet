@@ -28,6 +28,8 @@ namespace Jc
         {
             foreach (GameObject go in roofObs)
                 Destroy(go);
+
+            puzzle.OnClearPuzzle();
         }
 
         public override bool CanHover(IXRHoverInteractable interactable)
@@ -86,10 +88,11 @@ namespace Jc
         {
             statue.gameObject.SetActive(true);
             statue.StopRoutine();
-            statue.GetComponent<Rigidbody>().isKinematic = true;
-            statue.GetComponent<Collider>().enabled = false;
             statue.transform.position = attachTransform.position;
             statue.transform.rotation = attachTransform.rotation;
+            statue.GetComponent<Rigidbody>().isKinematic = true;
+            statue.GetComponent<Collider>().enabled = false;
+
             // 조각상이 끼워진 경우 이벤트 발생
             ActiveEvent();
         }

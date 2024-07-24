@@ -14,6 +14,9 @@ namespace Jc
         public int ItemID { get { return itemID; }}
 
         [SerializeField]
+        private float scalingSpeed = 4f;
+
+        [SerializeField]
         private Vector3 inventoryScale;
 
         [Space(10)]
@@ -94,7 +97,7 @@ namespace Jc
             Vector3 endScale = targetScale;
             while(rate < 1f)
             {
-                rate += Time.deltaTime * 4f;
+                rate += Time.deltaTime * scalingSpeed;
                 transform.localScale = Vector3.Lerp(startScale, endScale, rate);
                 yield return null;
             }

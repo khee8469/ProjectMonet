@@ -95,10 +95,10 @@ namespace Jc
         private void Awake()
         {
             originColor = hoverIMG.color;
-            if (Manager.PlayableData.slotDataDic == null)
-                Manager.PlayableData.slotDataDic = new Dictionary<int, SlotData>();
+            //if (Manager.PlayableData.slotDataDic == null)
+            //    Manager.PlayableData.slotDataDic = new Dictionary<int, SlotData>();
 
-            Manager.PlayableData.slotDataDic[slotID] = new SlotData(slotID, getItemID, itemCount);
+            //Manager.PlayableData.slotDataDic[slotID] = new SlotData(slotID, getItemID, itemCount);
         }
 
         private void OnEnable()
@@ -144,9 +144,10 @@ namespace Jc
                 Debug.Log($"{getItemID}에 해당하는 아이템이 존재하지 않습니다.");
                 return null;
             }
-
-            ItemObject item = Instantiate(Manager.Item.ItemDataDic[getItemID].itemPrefab, transform.position, Quaternion.identity);
+            Debug.Log(getItemID);
+            int itemID = getItemID;
             ItemCount--;
+            ItemObject item = Instantiate(Manager.Item.ItemDataDic[itemID].itemPrefab, transform.position, Quaternion.identity);
             return item;
         }
 

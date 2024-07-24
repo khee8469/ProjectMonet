@@ -13,15 +13,9 @@ namespace Jc
         public override void OnClearPuzzle()
         {
             base.OnClearPuzzle();
-            
-            if(Manager.PlayableData.paintDataList.ContainsKey(paintItemID))
-            {
-                Debug.Log($"ID({paintItemID}) : 이미 활성화된 페인트 아이템이 존재합니다.");
-                return;
-            }
 
-            // 페인트 아이템 활성화
-            Manager.PlayableData.paintDataList.Add(paintItemID, true);
+            // 아이템 획득
+            Manager.Item.GetItem(paintItemID, false);
         }
     }
 }

@@ -2,12 +2,11 @@ using Jc;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-using static ConvertValueToHue;
+using UnityEngine.XR.Interaction.Toolkit;
 
 namespace JJH
 {
-    public class Pen :InteractObject
+    public class Pen : InteractObject
     {
         // 어차피 한 번에 하나의 색 밖에 안되니까 크게 문제 없을것 같기는함. 
         // 새로운 line을 생성해주는거니까. 나중에 문제 생기면 마테리얼이 같이 바뀌는거는 그때 해결해주자. 
@@ -25,18 +24,10 @@ namespace JJH
         [Tooltip("펜의 크기 조절 기능")]
         [Range(0.01f, 0.1f)] public float penWidth = 0.01f;
 
-        /*[Tooltip("펜의 색상 배열")] //추후에 이 리스트를 이용해서 아이템과 연계로 색 변화 발생시키기? 이 부분은 나중에 추가로 생각해보기. 
-        public List<Color> penColors = new List<Color>();*/
-
         [Header("렌더러와 컬러 관리")]
         [Tooltip("그려줄 라인 렌더러")]
         [SerializeField] public LineRenderer currentDrawing; // 드로우 오브젝트들과 비교해줄 펜의 현재 라인렌더러
 
-        /* [Tooltip("컬러 리스트의 인덱스")] // 이거 리스트 말고 딕셔너리로 해야하나? 컬러 색깔 구분해 줄 때 뭐가 편할지 생각해보자. 
-         [SerializeField] private int index;
-
-         [Tooltip("현재 컬러 인덱스")]
-         [SerializeField] int currentColorIndex;*/
 
         [Header("스크립터블 오브젝트 관련")]
         [Tooltip("현재 컬러 타입")]
@@ -45,12 +36,8 @@ namespace JJH
         [Tooltip("색상 데이터를 관리하는 스크립터블 오브젝트")]
         public PaintTypeManager paintTypeManager;
 
-
         [Tooltip("그리기 상태 관리")]
         [SerializeField] private bool isDrawing = false;
-
-        [Header("플레이어의 움직임 방지(그림그리는 중)")]
-        [SerializeField] private bool isNotMove = false;
 
         [Header("상호작용 오브젝트 관리")]
         [Tooltip("그리기를 허용할 레이어 마스크")]
@@ -58,7 +45,7 @@ namespace JJH
         [SerializeField] private LayerMask drawingLayer;
 
         [Tooltip("레이어 체크 거리")]
-        [SerializeField]private float distance = 2.5f;
+        [SerializeField] private float distance = 2.5f;
 
         [Header("삭제 및 이미지 연계")]
         [Tooltip("생성된 라인렌더러를 저장 해 줄 리스트")]
@@ -68,7 +55,7 @@ namespace JJH
         private DrawObjectManager drawManager;
 
         [Tooltip("Noraml 벡터 크기")]
-        private float NormalDis = 0.01f;
+        private float NormalDis = 0.007f;
 
         [Tooltip("원하는 완료 퍼센트")]
         [SerializeField] private float percent = 5;
@@ -76,17 +63,18 @@ namespace JJH
         [Tooltip("라인렌더러의 포지션 위한 인덱스")]
         [SerializeField] private int index;
 
-
-        [Header("레이캐스트 박스 설정")]
-        [Tooltip("박스의 크기")]
-        public Vector3 boxSize = new Vector3(0.2f, 0.2f, 0.2f);
-        [Tooltip("박스의 방향")]
-        public Quaternion boxOrientation = Quaternion.identity;
+       
 
         [Tooltip("update 여러번 진입 방지를 위한 bool 변수")]
         [SerializeField] private bool isNotEntered;
 
-        
+
+        [Tooltip("자신의 시작 시의 위치")]
+        public Vector3 startPosition;
+
+        [Tooltip("자신의 로테이션 위치")]
+        public Quaternion startRotation;
+
 
         private void Start() // 시작 시에는 무조건 하얀색. 
         {
@@ -99,34 +87,31 @@ namespace JJH
             }
             drawingLayer = LayerMask.GetMask("DrawBoard");
 
+            startPosition = transform.position;
+            startRotation = transform.rotation;
+
         }
 
-        // 지금 update 없이 xrBase의 update 용 콜백을 받아도 제대로 동작이 안해서 이 부분 나중에 시간나면 수정하기. 
-        // 레이캐스트를 계속 체크해야 하기 때문에 update 밖에 없나? 어떻게 해야할지... 
         private void Update()
         {
-            // 컬러의 타입이 None이 아니고 동시에 isDrawing 상태면 그리기 가능. 
-
-            if(Input.GetKeyDown(KeyCode.Alpha1))
+            
+            if (isSelected == true)
             {
-                SwitchColor();
+                StartDrawing(); // 오브젝트가 잡혀 있는 상황이라면 true로 지속 
             }
 
-            if (isDrawing && currentPaintType != PaintTypeEnum.None)
-            {           
-                Draw();        
+            if (isDrawing && currentPaintType != PaintTypeEnum.None) // 잡고 있을 때만 
+            {
+                Draw();
             }
         }
 
         public void Draw()
         {
-            //if (!isDrawing || currentPaintType == PaintTypeEnum.None) return; // 그리기 상태가 아니면 리턴 
 
             RaycastHit hit;
 
-            // 레이 캐스트 박스의 센터 
-            Vector3 boxCenter = tip.position;
-            if (Physics.Raycast(tip.position , tip.forward , out hit, distance  ,drawingLayer))
+            if (Physics.Raycast(tip.position, tip.forward, out hit, distance, drawingLayer))
             {
                 Debug.DrawRay(tip.position, tip.forward * distance, Color.red, 0.5f);
 
@@ -142,6 +127,10 @@ namespace JJH
                 {
                     index = 0;
 
+                    // 여기부분을 미리 준비해둔 LineRenderer 붙인 프리팹을 pooling 해둔다음에
+                    // material 이나 color나 이런것들 세팅 해주고
+                    // 생성 위치 같은 경우는 어차피 SetPosition 그대로 하고 있으니까 pooling 으로 바꿔보자. 
+
                     GameObject lineObj = new GameObject("Line");
 
                     lineObj.transform.position = tip.position;
@@ -150,7 +139,7 @@ namespace JJH
                     currentDrawing.material = new Material(drawingMaterial);
 
                     // 현재 색상 설정
-                    currentDrawing.material.color = paintTypeManager.GetColorByType(currentPaintType);
+                    currentDrawing.material.color = paintTypeManager.GetColorByType(currentPaintType); 
 
                     // 현재 색상 설정
                     currentDrawing.startColor = currentDrawing.endColor = paintTypeManager.GetColorByType(currentPaintType);
@@ -165,7 +154,7 @@ namespace JJH
 
                     lineList.Add(lineObj);
 
-                    Vector2Int pixelPosition = drawManager.WorldToPixel(drawPosition);
+                    //Vector2Int pixelPosition = drawManager.WorldToPixel(drawPosition);
                 }
                 else // 즉 이미 생성된 경우. 
                 {
@@ -180,7 +169,7 @@ namespace JJH
                         currentDrawing.SetPosition(index, drawPosition);
                         drawManager.AddLineRenderer(currentDrawing, penWidth);
 
-                        Vector2Int pixelPosition = drawManager.WorldToPixel(drawPosition);
+                        //Vector2Int pixelPosition = drawManager.WorldToPixel(drawPosition);
                     }
                 }
                 // 이 부분이 완성된 상태니까. 여기서 추가 함수를 불러서 실제 이미지를 On 해주고 
@@ -196,26 +185,23 @@ namespace JJH
                     CompleteDrawing();
                 }
             }
-            /*else 
+            else  // RayCast가 닿지 않을 때도 stop 이후에 다시 그리게 되면 너무 line Renderer가 많이 생성되는 문제가 발생한다. 
             {
-                DrawingStop();
-            }*/
-        }
+                // 이게 다른 콜라이더에 닿으면 당연히 ELSE 인 상황이라서 많이 생성될 수 밖에 없음 --> 이건 무조건 풀링 써야 함. 
 
+                DrawingStop();
+                
+            }
+        }
         private void CompleteDrawing()
         {
-            Debug.Log("퍼센트 완료");
             isNotEntered = true;
             DrawingStop();
             drawManager.ImageAlphaUp();
             RemoveALLLine();
-            isNotMove = false;
-            PlayerNotMove(isNotMove);
             drawManager.DrawFinished();
-
             StartCoroutine(blockRoutine());
         }
-
 
         private IEnumerator blockRoutine()
         {
@@ -224,9 +210,7 @@ namespace JJH
             isNotEntered = false;
             yield return null;
 
-
         }
-
 
         private bool CheckColorType(DrawObjectManager drawObjectManager)
         {
@@ -242,23 +226,6 @@ namespace JJH
         public void StartDrawing()
         {
             isDrawing = true; // 그리기 상태로 전환
-            isNotMove = true;
-            PlayerNotMove(isNotMove);
-
-            // not move 와 함께 --> 플레이어의 움직임 막아버리는 함수 발동 
-
-        }
-
-        private void PlayerNotMove(bool isNotMove)
-        {
-            if (isNotMove)  // true면 움직임 방지 
-            {
-                
-            }
-            else
-            {
-                
-            }
         }
 
         public void DrawingStop()
@@ -269,11 +236,10 @@ namespace JJH
             {
                 currentDrawing = null;
             }
-
         }
 
         // 이 부분은 그냥 잘 바뀌나 확인용으로 둔 함수 --> 실제 사용 x 
-        public void SwitchColor()  // 색상 전환은 일단 나중에.
+        /*public void SwitchColor()  // 색상 전환은 일단 나중에.
         {
             // PaintTypeEnum의 모든 값을 배열로 가져옵니다.
             PaintTypeEnum[] paintTypes = (PaintTypeEnum[])System.Enum.GetValues(typeof(PaintTypeEnum));
@@ -292,16 +258,18 @@ namespace JJH
 
             DrawObjectManager.colorChangeEvent?.Invoke(currentPaintType);
 
-        }
+        }*/
 
         // 실제로 색깔 변경을 위해 사용 할 함수
         public void ChangeColor(PaintTypeEnum _paintTypeEnum)
         {
+            ChangeColorAllStop(); // 일단 이전 버전을 다 지우고 시작하는게 맞을 듯 ? 
             currentPaintType = _paintTypeEnum;
-            Debug.Log($"색깔 변경 +{_paintTypeEnum} ");
             tipMaterial.color = paintTypeManager.GetColorByType(currentPaintType);
 
             DrawObjectManager.colorChangeEvent.Invoke(currentPaintType);
+            
+            // 이게 컬러가 체인지 될 때 이미 있는 라인 렌더러가 색이 변해버리는데 그거를 해결하려면 어떻게 해야할지 생각해보자. 
 
         }
 
@@ -315,10 +283,48 @@ namespace JJH
                 LineRenderer lineObj = lineList[i]?.GetComponent<LineRenderer>();
                 drawManager?.RemoveLineRenderer(lineObj);
 
-                Destroy(lineObj.gameObject);
-                lineList.RemoveAt(i);
+                Destroy(lineObj.gameObject);  // 이 Remove All 도 Destroy 대신에 pooling 적용하기. 
+                //lineList.RemoveAt(i);
             }
+            lineList.Clear();
+        }
+        protected override void OnSelectEntered(SelectEnterEventArgs args)
+        {
+            base.OnSelectEntered(args);
 
+            StartDrawing();
+        }
+
+        protected override void OnSelectExited(SelectExitEventArgs args)
+        {
+
+            base.OnSelectExited(args);
+            Debug.Log("펜 셀렉트 엑시트");
+            transform.position = startPosition;
+            transform.rotation = startRotation;
+
+            DrawingStop();
+            RemoveALLLine(); //라인 다 지우고
+                             // 해당하고 있는 DrawObject의 퍼센트를 초기화한다. --> 라인이 그려져 있는 DrawManager가 뭔지를 알고 있어야 하는데... 
+
+            // 채워진 양 초기화 시키기. --> 어차피 놓는 순간까지는 잡고 있을 거니까.. 아마도 그냥 빼면 될 듯 
+            // ray를 소던 마지막 drawmanager의 함수 발동
+            if (drawManager != null)
+            {
+                drawManager.PercentReset();
+            }
+            
+        }
+
+        // ChangeColor 할 때 불러줄 함수 
+        public void ChangeColorAllStop() // 어차피 지금 같은 색깔 일 때만 drawmanager에 저장이 되니까 이거를 
+        {
+            DrawingStop();
+            RemoveALLLine();
+            if(drawManager!=null)
+            {
+                drawManager.PercentReset(); 
+            }
         }
     }
 }

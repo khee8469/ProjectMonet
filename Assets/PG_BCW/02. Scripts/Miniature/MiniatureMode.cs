@@ -17,6 +17,10 @@ public class MiniatureMode : InteractObject
     [SerializeField]
     Transform modeOffPosition;
 
+
+    [Tooltip("플레이어 playerMovement 끄기용")]
+    [SerializeField]
+    PlayerMovement playerMovement;
     [Tooltip("플레이어 CharacterController 끄기용")]
     [SerializeField]
     CharacterController charactorController;
@@ -40,7 +44,7 @@ public class MiniatureMode : InteractObject
     [SerializeField]
     XRInputModalityManager modalityManager;*/
 
-
+    private Coroutine modeChangeRoutine;
 
 
     protected override void Awake()
@@ -51,6 +55,8 @@ public class MiniatureMode : InteractObject
             Debug.LogError("modeOnPosition을 할당하시오");
         if (modeOffPosition == null)
             Debug.LogError("modeOffPosition을 할당하시오");
+        if (playerMovement == null)
+            Debug.LogError("playerMovement을 할당하시오");
         if (charactorController == null)
             Debug.LogError("charactorController을 할당하시오");
         if (miniatureModeCollider == null)
@@ -61,27 +67,19 @@ public class MiniatureMode : InteractObject
             Debug.LogError("leftController을 할당하시오");
         if (rightController == null)
             Debug.LogError("rightController 할당하시오");
-
-
-
-        // 입력 이벤트 등록
-        leftController.selectAction.action.performed += OnAnyButtonPressed;
-        
-
-        rightController.selectAction.action.performed += OnAnyButtonPressed;
-        
-
     }
-
-
     protected override void OnEnable()
     {
         base.OnEnable();
 
         // 입력 액션 활성화
-        leftController.selectAction.action.Enable();
+        //leftController.selectAction.action.Enable();
 
-        rightController.selectAction.action.Enable();
+        //rightController.selectAction.action.Enable();
+
+        // 입력 이벤트 등록
+        leftController.selectAction.action.performed += OnAnyButtonPressed;
+        rightController.selectAction.action.performed += OnAnyButtonPressed;
     }
 
     protected override void OnDisable()
@@ -89,9 +87,13 @@ public class MiniatureMode : InteractObject
         base.OnDisable();
 
         // 입력 액션 비활성화
-        leftController.selectAction.action.Disable();
+        //leftController.selectAction.action.Disable();
 
-        rightController.selectAction.action.Disable();
+        //rightController.selectAction.action.Disable();
+
+        // 입력 이벤트 취소
+        leftController.selectAction.action.performed -= OnAnyButtonPressed;
+        rightController.selectAction.action.performed -= OnAnyButtonPressed;
     }
 
     private void OnAnyButtonPressed(InputAction.CallbackContext context)
@@ -112,19 +114,24 @@ public class MiniatureMode : InteractObject
             //못움직이게
             dynamicMoveProvider.moveSpeed = 0;
 
-            //서로 충돌하지않게 콜라이더 끄기
-            miniatureModeCollider.enabled = false;
+            //충돌하지않게 콜라이더 끄기
+            playerMovement.enabled = false;
             charactorController.enabled = false;
+            miniatureModeCollider.enabled = false;
 
             //지정위치로 이동
-            Vector3 setPosition = modeOnPosition.position;
-            Quaternion setRotation = modeOnPosition.rotation;
-            charactorController.transform.position = setPosition;
-            charactorController.transform.rotation = setRotation;
+            charactorController.transform.position = modeOnPosition.position;
+            charactorController.transform.rotation = modeOnPosition.rotation;
+
+            if (modeChangeRoutine != null)
+            {
+                StopCoroutine(modeChangeRoutine);
+                modeChangeRoutine = null;
+            }
 
             //모드 체크
-            miniatureMode = true;
-            //StartCoroutine(ModeChangeTime());
+            //miniatureMode = true;
+            modeChangeRoutine = StartCoroutine(ModeChangeTime());
         }
     }
 
@@ -132,22 +139,28 @@ public class MiniatureMode : InteractObject
     private void ExitMiniatureMode()
     {
         //Debug.Log("미니어처모드 나가기");
-        // 지정 위치로 이동
-        Vector3 setPosition = modeOffPosition.position;
-        Quaternion setRotation = modeOffPosition.rotation;
-        charactorController.transform.position = setPosition;
-        charactorController.transform.rotation = setRotation;
 
-        // 콜라이더 및 CharacterController 다시 활성화
-        miniatureModeCollider.enabled = true;
+        //CharacterController 다시 활성화
         charactorController.enabled = true;
+        playerMovement.enabled = true;
+        miniatureModeCollider.enabled = true;
+
+        // 지정 위치로 이동
+        charactorController.transform.position = modeOffPosition.position;
+        charactorController.transform.rotation = modeOffPosition.rotation;
 
         // 움직이기 가능하게 설정
         dynamicMoveProvider.moveSpeed = 3;
 
+        if(modeChangeRoutine != null)
+        {
+            StopCoroutine(modeChangeRoutine);
+            modeChangeRoutine = null;
+        }
+
         // 모드 체크 해제
-        miniatureMode = false;
-        //StartCoroutine(ModeChangeTime());
+        //miniatureMode = false;
+        modeChangeRoutine = StartCoroutine(ModeChangeTime());
     }
 
 
@@ -156,5 +169,6 @@ public class MiniatureMode : InteractObject
     {
         yield return new WaitForSeconds(0.1f);
         miniatureMode = !miniatureMode;
+        modeChangeRoutine = null;
     }
 }

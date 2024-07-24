@@ -5,5 +5,8 @@ using UnityEngine;
 // 아이템 상호작용 인터페이스 
 public interface IInteractable
 {
-    public void Interact();
+    public float GetDistanceThreshold();
+    public float GetInteractDistance();
+    public Transform GetTransform();
+    public bool GetSingleGrab();
 }

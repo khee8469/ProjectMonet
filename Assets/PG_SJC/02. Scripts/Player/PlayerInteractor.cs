@@ -31,6 +31,9 @@ namespace Jc
         [Header("밸런싱")]
         [Tooltip("퀘스트 NPC")]
         [SerializeField]
+        private List<NPC> enteredNPCList = new List<NPC>();
+
+        [SerializeField]
         private NPC nearNPC;
 
 
@@ -38,7 +41,6 @@ namespace Jc
         private Transform camTr;               // 메인 카메라 트랜스폼
 
         public UnityAction OnEndInteract;   // NPC와 상호작용 해제
-
 
         private void Awake()
         {
@@ -56,6 +58,10 @@ namespace Jc
             //controllerCallback.debugMenuBTNRef.action.performed += OnPopUpCanvas;   // 디버그 인벤토리/퀘스트 버튼 등록
 
             controllerCallback.leftTriggerRef.action.performed += OnInteract;    // NPC 상호작용 등록
+            controllerCallback.rightTriggerRef.action.performed += OnInteract;  
+
+            // 아이템 로드
+            Manager.Item.InitItem();
         }
         private void OnDisable()
         {
@@ -64,26 +70,59 @@ namespace Jc
             trigger.OnNPCExit -= OnExitNPC;
 
             controllerCallback.leftMenuBTNRef.action.performed -= OnPopUpCanvas;
+
             controllerCallback.leftTriggerRef.action.performed -= OnInteract;
+            controllerCallback.rightTriggerRef.action.performed -= OnInteract;
+        }
+
+        // 가장 가까운 NPC를 할당
+        private void SetNearestNPC()
+        {
+            if (enteredNPCList.Count < 1) 
+                return;
+
+            int index = -1;
+            float nearDistance = -1f;
+            for(int i =0; i<enteredNPCList.Count; i++)
+            {
+                float curDistance = (enteredNPCList[i].transform.position - transform.position).sqrMagnitude;
+                if (nearDistance == -1f || (enteredNPCList[i].transform.position - transform.position).sqrMagnitude < nearDistance)
+                {
+                    index = i;
+                    nearDistance = curDistance;
+                }
+            }
+
+            if (index == -1)
+                return;
+
+            if(nearNPC != null && nearNPC != enteredNPCList[index])
+            {
+                // 기존 NPC 탈출
+                nearNPC.HoverExitNPC();
+            }
+
+            nearNPC = enteredNPCList[index];
+            nearNPC.HoverEnterNPC();
         }
 
         // 퀘스트 NPC Trigger Enter 콜백
         private void OnEnterNPC(NPC target)
         {
-            // 가장 가까운 NPC가 존재할 경우
-            // 다른 NPC 할당하지않음
-            if (nearNPC != null)
-                return;
-
-            nearNPC = target;
+            enteredNPCList.Add(target);
+            SetNearestNPC();
         }
         // 퀘스트 NPC Trigger Exit 콜백
         private void OnExitNPC(NPC target)
         {
+            enteredNPCList.Remove(target);
+
             if (target == nearNPC)
             {
+                nearNPC.HoverExitNPC();
                 OnEndInteract?.Invoke();
                 OnEndInteract -= target.OnExitInteract;
+                Debug.Log("NPC 탈출");
                 nearNPC = null;
             }
         }
@@ -92,6 +131,8 @@ namespace Jc
         // NPC 상호작용 콜백
         private void OnInteract(InputAction.CallbackContext context)
         {
+            SetNearestNPC();
+
             //퀘스트 npc면
             if (nearNPC != null)
             {
@@ -109,7 +150,6 @@ namespace Jc
 
         private void OnPopUp(bool isEnable)
         {
-
             // 활성화 시 메인 카메라 트랜스폼을 추적
             if (isEnable)
                 Manager.UI.OpenInfoGroup();

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
+using UnityEngine.UI;
 
 namespace Jc
 {
@@ -14,6 +15,12 @@ namespace Jc
         private SphereCollider col;
         [SerializeField]
         private PuzzleManager puzzle;
+
+        [Header("모네 팜플렛 메시렌더러")]
+        [SerializeField]
+        private MeshRenderer proceedRenderer;
+        [SerializeField]
+        private MeshRenderer clearRenderer;
 
         [SerializeField]
         private float targetScale;      // 타깃 스케일
@@ -28,13 +35,6 @@ namespace Jc
         }
         public override bool CanHover(IXRHoverInteractable interactable)
         {
-            if (interactable is not SunObject)
-                return false;
-
-            if (targetScale + scaleThreshold < interactable.transform.localScale.x
-                || targetScale - scaleThreshold > interactable.transform.localScale.x)
-                return false;
-
             return base.CanHover(interactable);
         }
         protected override void OnSelectEntered(SelectEnterEventArgs args)
@@ -42,7 +42,8 @@ namespace Jc
             base.OnSelectEntered(args);
 
             SunObject obj = args.interactableObject as SunObject;
-            if (obj == null) return;
+            if (obj == null)
+                return;
             if (obj.transform.localScale.x < targetScale - scaleThreshold
                 || obj.transform.localScale.x > targetScale + scaleThreshold)
                 return;
@@ -50,12 +51,15 @@ namespace Jc
             obj.transform.localScale = new Vector3(targetScale, targetScale, targetScale);
             obj.transform.position = attachTransform.position;
             obj.ActiveObject();
+            clearRenderer.gameObject.SetActive(true);
             // 퍼즐 클리어
             puzzle.OnClearPuzzle();
+            StartCoroutine(ImageFadeRoutine());
         }
         public void ActiveSetting()
         {
-            col.enabled = true;
+            if (col != null)
+                col.enabled = true;
         }
 
         public void CompleteSetting()
@@ -63,12 +67,16 @@ namespace Jc
             targetSun.IsLoaded = true;
             Destroy(targetSun.gameObject);
             puzzle.OnClearPuzzle();
-            // 0 글자 활성화
+
+            proceedRenderer.gameObject.SetActive(false);
+            clearRenderer.gameObject.SetActive(true);
+            clearRenderer.sharedMaterial.color = Color.white;
         }
 
         public void DisActiveSetting()
         {
-            col.enabled = false;
+            if (col != null)
+                col.enabled = false;
         }
 
         public void RegistObject(PuzzleManager puzzle)
@@ -79,6 +87,27 @@ namespace Jc
         public void UpdatePuzzleManager(PuzzleManager puzzle, int index)
         {
             puzzle.UpdateCondition(index);
+        }
+
+        IEnumerator ImageFadeRoutine()
+        {
+            float rate = 0f;
+            Color startColor = new Color(1f, 1f, 1f, 0f);
+            Color endColor = new Color(1f, 1f, 1f, 1f);
+            clearRenderer.sharedMaterial.color = startColor;
+            clearRenderer.enabled = true;
+
+            while (rate < 1)
+            {
+                rate += Time.deltaTime / 2f;
+                proceedRenderer.sharedMaterial.color = Color.Lerp(endColor, startColor, rate);
+                clearRenderer.sharedMaterial.color = Color.Lerp(startColor, endColor, rate);
+                yield return null;
+            }
+
+            proceedRenderer.gameObject.SetActive(false);
+            proceedRenderer.sharedMaterial.color = endColor;
+            yield return null;
         }
     }
 }

@@ -37,7 +37,7 @@ namespace Jc
             if (currentQuest == null)
             {
                 // 플로팅 애니메이션
-                floatingAnim.SetTrigger(Manager.Param.OnFloating);
+                floatingAnim.Play("OnFloating");
 
                 if (curBasicDialogIndex >= basicNarrations.Count)
                 {
@@ -68,7 +68,8 @@ namespace Jc
                         return;
                     }
                     // 티키타카
-                    if (curQuestDialogIndex == secondDialogIndex)
+                    // 첫 퀘스트에만
+                    if (currentQuest.QuestID == 1510001 && curQuestDialogIndex == secondDialogIndex)
                     {
                         dialogText.enabled = false;
                         builboardUI.EnableBuilboard = false;
@@ -76,7 +77,7 @@ namespace Jc
                         secondBuilboard.EnableBuilboard = true;
 
                         // 플로팅 애니메이션
-                        secondFloatingAnim.SetTrigger(Manager.Param.OnFloating);
+                        secondFloatingAnim.Play("OnFloating");
                         secondDialogText.text = currentQuest.receiveNarrations[curQuestDialogIndex++].text;
                     }
                     // 일반 NPC
@@ -88,18 +89,30 @@ namespace Jc
                         secondBuilboard.EnableBuilboard = false;
 
                         // 플로팅 애니메이션
-                        floatingAnim.SetTrigger(Manager.Param.OnFloating);
+                        floatingAnim.Play("OnFloating");
                         dialogText.text = currentQuest.receiveNarrations[curQuestDialogIndex++].text;
                     }
                     break;
                 // 퀘스트 진행중
                 case QuestState.Proceed:
                     // 플로팅 애니메이션
-                    floatingAnim.SetTrigger(Manager.Param.OnFloating);
+                    floatingAnim.Play("OnFloating");
                     dialogText.text = currentQuest.receiveNarrations[currentQuest.receiveNarrations.Count - 1].text;
                     break;
                 // 퀘스트 완료
                 case QuestState.Clear:
+                    // 수주 NPC와 완료 NPC가 다른 경우 
+                    // 수주 NPC의 마지막 대사 진행
+                    if (currentQuest.QuestData.clearNPCID != id)
+                    {
+                        Debug.Log("마지막 대사 출력");
+                        // 대화 진행
+                        // 플로팅 애니메이션
+                        floatingAnim.Play("OnFloating");
+                        dialogText.text = currentQuest.receiveNarrations[currentQuest.receiveNarrations.Count - 1].text;
+                        return;
+                    }
+
                     // 대화 종료 체크
                     if (curQuestDialogIndex >= currentQuest.clearNarrations.Count)
                     {
@@ -113,7 +126,7 @@ namespace Jc
                     }
                     // 대화 진행
                     // 플로팅 애니메이션
-                    floatingAnim.SetTrigger(Manager.Param.OnFloating);
+                    floatingAnim.Play("OnFloating");
                     dialogText.text = currentQuest.clearNarrations[curQuestDialogIndex++].text;
                     break;
                 default:

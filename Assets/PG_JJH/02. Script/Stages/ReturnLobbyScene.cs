@@ -8,48 +8,44 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace JJH
 {
     [RequireComponent(typeof(Rigidbody))]
-    public class ReturnLobbyScene : InteractObject, IActivatable
+    public class ReturnLobbyScene : XRSimpleInteractable, IActivatable ,IInteractable // 얘네는 그냥 로비씬으로 전환 시켜주는 --> 씬에 있는 그림에 붙여 줄 스크립트 
     {
         public string sceneName;
 
         new Rigidbody rigidbody;
 
+        [SerializeField] private float distance = 5f;
+
+
         private void Start()
         {
             rigidbody = GetComponent<Rigidbody>();
             rigidbody.isKinematic = true;
-            throwOnDetach = false;
+            
         }
         public void Activate()
         {
             Manager.Scene.LoadScene(sceneName);
         }
 
-        protected override void OnHoverEntered(HoverEnterEventArgs args)
+        public float GetInteractDistance()
         {
-            base.OnHoverEntered(args);
+            return 10f;
         }
 
-        protected override void OnActivated(ActivateEventArgs args)
+        public Transform GetTransform()
         {
-            base.OnActivated(args);
-            //Activate();
+            return transform;
         }
 
-        protected override void OnSelectEntered(SelectEnterEventArgs args)
+        public float GetDistanceThreshold()
         {
-            base.OnSelectEntered(args);
+            return distance;
         }
 
-        protected override void OnSelectEntering(SelectEnterEventArgs args)
+        public bool GetSingleGrab()
         {
-            return;
-
-        }
-
-        public void ResetColliderPosition()
-        {
-
+            return false;
         }
     }
 }

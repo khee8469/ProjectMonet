@@ -81,46 +81,46 @@ namespace Jc
 
         #region 왼손 컨트롤러 콜백
         public void OnLeftTriggerEnter(InputAction.CallbackContext context) 
-        { 
-
+        {
+            
         }
         public void OnLeftGripEnter(InputAction.CallbackContext context) 
-        { 
-
+        {
+            
         }
         public void OnLeftMenuButtonEnter(InputAction.CallbackContext context) 
-        { 
-
+        {
+            
         }
         public void OnLeftXButtonEnter(InputAction.CallbackContext context) 
-        { 
-
+        {
+            
         }
         public void OnLeftYButtonEnter(InputAction.CallbackContext context) 
-        { 
-
+        {
+            
         }
 
-        public void OnLeftTriggerExit(InputAction.CallbackContext context) { }
-        public void OnLeftGripExit(InputAction.CallbackContext context) { }
-        public void OnLeftMenuButtonExit(InputAction.CallbackContext context) { }
+        public void OnLeftTriggerExit(InputAction.CallbackContext context) {  }
+        public void OnLeftGripExit(InputAction.CallbackContext context) {  }
+        public void OnLeftMenuButtonExit(InputAction.CallbackContext context) {  }
         public void OnLeftXButtonExit(InputAction.CallbackContext context) { }
-        public void OnLeftYButtonExit(InputAction.CallbackContext context) { }
+        public void OnLeftYButtonExit(InputAction.CallbackContext context) {  }
         #endregion
 
         #region 오른손 컨트롤러 콜백
 
-        public void OnRightTriggerEnter(InputAction.CallbackContext context) { }
-        public void OnRightGripEnter(InputAction.CallbackContext context) { }
-        public void OnRightOculusButtonEnter(InputAction.CallbackContext context) { }
-        public void OnRightAButtonEnter(InputAction.CallbackContext context) { }
-        public void OnRightBButtonEnter(InputAction.CallbackContext context) { }
+        public void OnRightTriggerEnter(InputAction.CallbackContext context) {  }
+        public void OnRightGripEnter(InputAction.CallbackContext context) {  }
+        public void OnRightOculusButtonEnter(InputAction.CallbackContext context) {  }
+        public void OnRightAButtonEnter(InputAction.CallbackContext context) {  }
+        public void OnRightBButtonEnter(InputAction.CallbackContext context) {  }
 
-        public void OnRightTriggerExit(InputAction.CallbackContext context) { }
-        public void OnRightGripExit(InputAction.CallbackContext context) { }
-        public void OnRightOculusButtonExit(InputAction.CallbackContext context) { }
-        public void OnRightAButtonExit(InputAction.CallbackContext context) { }
-        public void OnRightBButtonExit(InputAction.CallbackContext context) { }
+        public void OnRightTriggerExit(InputAction.CallbackContext context) {  }
+        public void OnRightGripExit(InputAction.CallbackContext context) {  }
+        public void OnRightOculusButtonExit(InputAction.CallbackContext context) {  }
+        public void OnRightAButtonExit(InputAction.CallbackContext context) {  }
+        public void OnRightBButtonExit(InputAction.CallbackContext context) {  }
         #endregion
     }
 }
