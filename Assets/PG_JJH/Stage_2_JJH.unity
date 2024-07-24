@@ -3308,6 +3308,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 117480979}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &123332430 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5605549043973937601, guid: da71a381c040ee04185cded928e47297,
+    type: 3}
+  m_PrefabInstance: {fileID: 3272012465749765756}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &131483902
 GameObject:
   m_ObjectHideFlags: 0
@@ -8491,8 +8497,8 @@ MonoBehaviour:
   m_MaxAngle: 360
   m_MinAngle: 0
   m_AngleIncrement: 1
-  m_PositionTrackedRadius: 0.1
-  m_TwistSensitivity: 1
+  m_PositionTrackedRadius: 1
+  m_TwistSensitivity: 1.5
   m_OnValueChange:
     m_PersistentCalls:
       m_Calls:
@@ -14845,22 +14851,22 @@ PrefabInstance:
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 123.51
+      value: 116.87
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.066
+      value: 23.76
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 218.69
+      value: 270.22
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.76171976
+      value: 0.66780597
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
@@ -14870,7 +14876,7 @@ PrefabInstance:
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.64790666
+      value: -0.7443355
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
@@ -14885,7 +14891,7 @@ PrefabInstance:
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -80.768
+      value: -96.204
       objectReference: {fileID: 0}
     - target: {fileID: 3787038017777282017, guid: 85f62ae489149e14893cca4524a7e784,
         type: 3}
@@ -15436,8 +15442,8 @@ MonoBehaviour:
   m_MaxAngle: 0
   m_MinAngle: 0
   m_AngleIncrement: 1
-  m_PositionTrackedRadius: 0.1
-  m_TwistSensitivity: 1
+  m_PositionTrackedRadius: 1
+  m_TwistSensitivity: 1.5
   m_OnValueChange:
     m_PersistentCalls:
       m_Calls: []
@@ -21988,12 +21994,12 @@ MonoBehaviour:
       m_Calls: []
   m_Handle: {fileID: 8067844128250867274}
   m_Value: 0.2
-  m_ClampedMotion: 0
+  m_ClampedMotion: 1
   m_MaxAngle: 360
   m_MinAngle: 0
   m_AngleIncrement: 1
-  m_PositionTrackedRadius: 0.1
-  m_TwistSensitivity: 1
+  m_PositionTrackedRadius: 1
+  m_TwistSensitivity: 1.5
   m_OnValueChange:
     m_PersistentCalls:
       m_Calls:
@@ -22207,8 +22213,8 @@ MonoBehaviour:
   m_MaxAngle: 360
   m_MinAngle: 0
   m_AngleIncrement: 1
-  m_PositionTrackedRadius: 0.1
-  m_TwistSensitivity: 1
+  m_PositionTrackedRadius: 1
+  m_TwistSensitivity: 1.5
   m_OnValueChange:
     m_PersistentCalls:
       m_Calls:
@@ -40370,7 +40376,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b219e304c9614d4e91dfdfd5764a723, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDebugMode: 0
+  isDebugMode: 1
   puzzleID: 6
   state: 0
   conditions: 00000000
@@ -43613,6 +43619,11 @@ PrefabInstance:
       objectReference: {fileID: 13457398}
     - target: {fileID: 1383411354562638627, guid: c90338e771cf40e448152dbee3923c0c,
         type: 3}
+      propertyPath: sunObject
+      value: 
+      objectReference: {fileID: 123332430}
+    - target: {fileID: 1383411354562638627, guid: c90338e771cf40e448152dbee3923c0c,
+        type: 3}
       propertyPath: moonSprite
       value: 
       objectReference: {fileID: 0}
@@ -46086,25 +46097,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: MoonPanel
       objectReference: {fileID: 0}
-    - target: {fileID: 27744428733404308, guid: 80cae255b15a8c74dbfea356fd56c869,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5506486418501419329, guid: 80cae255b15a8c74dbfea356fd56c869,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -6.1
+      value: -57.51
       objectReference: {fileID: 0}
     - target: {fileID: 5506486418501419329, guid: 80cae255b15a8c74dbfea356fd56c869,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5138035
+      value: 31.93
       objectReference: {fileID: 0}
     - target: {fileID: 5506486418501419329, guid: 80cae255b15a8c74dbfea356fd56c869,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.36532593
+      value: 29.24
       objectReference: {fileID: 0}
     - target: {fileID: 5506486418501419329, guid: 80cae255b15a8c74dbfea356fd56c869,
         type: 3}
@@ -46146,11 +46152,6 @@ PrefabInstance:
       propertyPath: mainCameraTr
       value: 
       objectReference: {fileID: 559000154}
-    - target: {fileID: 9064397241160154415, guid: 80cae255b15a8c74dbfea356fd56c869,
-        type: 3}
-      propertyPath: m_Layer
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -64428,17 +64429,17 @@ PrefabInstance:
     - target: {fileID: 1776979446206565827, guid: da71a381c040ee04185cded928e47297,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 106.042
+      value: -22.7
       objectReference: {fileID: 0}
     - target: {fileID: 1776979446206565827, guid: da71a381c040ee04185cded928e47297,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 26.88
+      value: 55.3
       objectReference: {fileID: 0}
     - target: {fileID: 1776979446206565827, guid: da71a381c040ee04185cded928e47297,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 269.42
+      value: 334.5
       objectReference: {fileID: 0}
     - target: {fileID: 1776979446206565827, guid: da71a381c040ee04185cded928e47297,
         type: 3}
