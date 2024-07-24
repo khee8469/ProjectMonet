@@ -83,7 +83,7 @@ namespace Jc
             for (int i = 1; i <= Manager.Quest.QuestDic.Count; i++)
             {
                 int questID = i + DataID.QUEST;
-                Manager.Quest.QuestDic[questID].State = QuestState.Complete;
+
                 // 다음 퀘스트 활성화
                 if (clearCount > 0)
                     Manager.Quest.QuestDic[questID].State = QuestState.Complete;
