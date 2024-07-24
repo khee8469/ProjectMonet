@@ -1,4 +1,5 @@
 using Jc;
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -50,6 +51,17 @@ public class Chapter2SunHole : PaintRewardPuzzle
     [Tooltip("어두운 상태의 Exposure")]
     [SerializeField] private float darkExposure = 0.6f;
 
+    [Tooltip("상 하 버튼 카운트")]
+    [SerializeField] private int upDownCount;
+
+    public int UpDownCount { get { return upDownCount; } set { upDownCount = value; } }  
+
+
+    [Tooltip("좌 우 버튼 카운트")]
+    [SerializeField] private int leftRightCount;
+
+    public int LeftRightCount { get {return leftRightCount; } set {leftRightCount=value ; } }
+
 
 
     /*[Tooltip("스프라이트 -> Sun 스프라이트")]
@@ -69,6 +81,12 @@ public class Chapter2SunHole : PaintRewardPuzzle
         {
             sunObject.SetActive(false);
         }
+
+        // 시작 시 0 으로 count 초기화 
+        upDownCount = 0;
+        leftRightCount = 0;
+
+
     }
 
     public void MoonChange(bool boolean)

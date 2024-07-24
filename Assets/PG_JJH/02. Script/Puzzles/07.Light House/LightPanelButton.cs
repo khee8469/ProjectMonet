@@ -188,9 +188,7 @@ namespace JJH
                 elapsed += Time.fixedDeltaTime;
                 yield return null;
             }
-            Debug.Log("Release 루틴 종료");
             button.localPosition = start;
-
         }
 
         // 등대 머리의 로테이션 상태 체크 
@@ -220,11 +218,22 @@ namespace JJH
 
                     // 이게 마이너스 값으로 가면 local euler값이 355 이렇게 됨 --> 355 : -5 와 같음. 
 
-                    if (lightHouseHead.transform.localEulerAngles.z >= 315 || lightHouseHead.transform.localEulerAngles.z <= 45+0.1f)
-                    {
-                       
-
+                    /*if (lightHouseHead.transform.localEulerAngles.z >= 315 || lightHouseHead.transform.localEulerAngles.z <= 45+0.1f)
+                    { 
                         StartCoroutine(RotationRoutine(start, end, bottomStart, bottomEnd, duration)); // 눌리는 루틴인데 이 조건이 지금 
+                    }*/
+
+                    // up button -> 9번 까지는 눌려져야 한다.
+                    puzzleSun.UpDownCount++;
+                    Debug.Log($"{puzzleSun.UpDownCount} updowncount");
+                    if(puzzleSun.UpDownCount < 10)
+                    {
+                        StartCoroutine(RotationRoutine(start, end, bottomStart, bottomEnd, duration)); // 눌리는 루틴인데 이 조건이 지금 
+                    }
+                    else
+                    {
+                        puzzleSun.UpDownCount = Mathf.Clamp(puzzleSun.UpDownCount, -9, 9); // -9 ~ 9 사이로 값 제한
+                        Debug.Log($"{puzzleSun.UpDownCount} -> mathf.clamp로 제한해줌");
                     }
                     break;
 
@@ -236,12 +245,22 @@ namespace JJH
                     bottomEnd = Quaternion.Euler(lightBottom.transform.localEulerAngles + new Vector3(0, 0, 0));
                     bottomStart = lightBottom.transform.localRotation;
 
-                    
-
-                    if (lightHouseHead.transform.localEulerAngles.z >= 315 - 0.1f || lightHouseHead.transform.localEulerAngles.z <= 45)
+                    /*if (lightHouseHead.transform.localEulerAngles.z >= 315 - 0.1f || lightHouseHead.transform.localEulerAngles.z <= 45)
                     {
-                        
                         StartCoroutine(RotationRoutine(start, end, bottomStart, bottomEnd, duration));
+                    }*/
+
+                    puzzleSun.UpDownCount--;
+                    Debug.Log($"{puzzleSun.UpDownCount} updowncount");
+                    
+                    if(puzzleSun.UpDownCount > -10)
+                    {
+                        StartCoroutine(RotationRoutine(start, end, bottomStart, bottomEnd, duration));
+                    }
+                    else
+                    {
+                        puzzleSun.UpDownCount = Mathf.Clamp(puzzleSun.UpDownCount, -9, 9); // -9 ~ 9 사이로 값 제한
+                        Debug.Log($"{puzzleSun.UpDownCount} -> mathf.clamp로 제한해줌");
                     }
                     break;
 
@@ -258,11 +277,22 @@ namespace JJH
                     bottomStart = lightBottom.transform.localRotation;
 
 
-                    if (lightHouseHead.transform.localEulerAngles.x >= 315 || lightHouseHead.transform.localEulerAngles.x <= 45+0.1f)
+                    /*if (lightHouseHead.transform.localEulerAngles.x >= 315 || lightHouseHead.transform.localEulerAngles.x <= 45+0.1f)
                     {
-                        
-
                         StartCoroutine(RotationRoutine(start, end, bottomStart, bottomEnd, duration));
+                    }*/
+
+                    // 좌 --> -9 까지 회전 가능
+                    puzzleSun.LeftRightCount--;
+                    Debug.Log($"LeftRightCount {puzzleSun.LeftRightCount}");
+                    if(puzzleSun.LeftRightCount > -10)
+                    {
+                        StartCoroutine(RotationRoutine(start, end, bottomStart, bottomEnd, duration));
+                    }
+                    else  // left right 값이 -10에 도달해버리면 
+                    {
+                        puzzleSun.LeftRightCount = Mathf.Clamp(puzzleSun.LeftRightCount, -9, 9); // -9 ~ 9 사이로 값 제한
+                        Debug.Log($"{puzzleSun.LeftRightCount} -> mathf.clamp로 제한해줌");
                     }
                     break;
 
@@ -274,10 +304,22 @@ namespace JJH
                     bottomEnd = Quaternion.Euler(lightBottom.transform.localEulerAngles + new Vector3(0, +5, 0));
                     bottomStart = lightBottom.transform.localRotation;
 
+                    /* if (lightHouseHead.transform.localEulerAngles.x >= 315 - 0.1f || lightHouseHead.transform.localEulerAngles.x <= 45)
+                     {
+                         StartCoroutine(RotationRoutine(start, end, bottomStart, bottomEnd, duration));
+                     }*/
 
-                    if (lightHouseHead.transform.localEulerAngles.x >= 315 - 0.1f || lightHouseHead.transform.localEulerAngles.x <= 45)
+                    puzzleSun.LeftRightCount++;
+                    Debug.Log($"LeftRightCount {puzzleSun.LeftRightCount}");
+                    if(puzzleSun.LeftRightCount < 10)
                     {
                         StartCoroutine(RotationRoutine(start, end, bottomStart, bottomEnd, duration));
+                    }
+                    else
+                    {
+                        puzzleSun.LeftRightCount = Mathf.Clamp(puzzleSun.LeftRightCount, -9, 9); // -9 ~ 9 사이로 값 제한
+                        Debug.Log($"{puzzleSun.LeftRightCount} -> mathf.clamp로 제한해줌");
+
                     }
                     break;
             }
@@ -330,7 +372,6 @@ namespace JJH
             lightHouseHead.transform.localRotation = end;
             CheckMyAngel(end);
             isRotating = false; // 코루틴 끝나면 버튼 눌리도록 
-            Debug.Log("로테이팅 루틴 종료");
         }
 
         // 스크립트 별로 코루틴을 저장 해줘서 놓는 순간 다시 돌아오도록 하기. 
