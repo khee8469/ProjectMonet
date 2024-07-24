@@ -8,7 +8,7 @@ public class TrainSchedulePuzzle : XRSocketInteractor, IPuzzleable
     [Header("에디터 세팅")]
 
     [SerializeField]
-    private PuzzleManager puzzle;
+    private PuzzleManager puzzleManager;
     [Tooltip("퍼즐 인덱스")]
     [SerializeField]
     private int puzzleIndex;
@@ -33,17 +33,19 @@ public class TrainSchedulePuzzle : XRSocketInteractor, IPuzzleable
     {
         base.Awake();
 
-        if (puzzle != null)
-            RegistObject(puzzle);
+        if (puzzleManager != null)
+            RegistObject(puzzleManager);
+    }
 
-        //puzzleDataDic에 키값이 없으면 할당
-        if (!Manager.PlayableData.puzzleDataDic.ContainsKey(puzzle.PuzzleID))
-            Manager.PlayableData.puzzleDataDic.Add(puzzle.PuzzleID, PuzzleState.DisActive);
+    protected override void OnEnable()
+    {
+        base.OnEnable();
 
-        if (puzzle == null) Debug.LogError($"TrainSchedulePuzzle 에 PuzzleManager를 참조하시오");
-        if (itemID == 0) Debug.Log($"itemID 에 찢어진 시간표ID를 참조하시오");
-        if (triggerCollider == null) Debug.LogError($"TrainSchedulePuzzle 에 Collider 참조하시오");
-        if(clearPoint == null) Debug.LogError($"TrainSchedulePuzzle 에 MeshRenderer 참조하시오");
+        //맞춘적이있으면 활성화
+        if (Manager.PlayableData.puzzleDataDic[puzzleManager.PuzzleID] == PuzzleState.Clear)
+        {
+            CompleteSetting();
+        }
     }
 
 
@@ -92,7 +94,7 @@ public class TrainSchedulePuzzle : XRSocketInteractor, IPuzzleable
         //완성이미지 활성화
         clearPoint.enabled = true;
         // 퍼즐매니저 업데이트
-        UpdatePuzzleManager(puzzle, puzzleIndex);
+        UpdatePuzzleManager(puzzleManager, puzzleIndex);
     }
 
     // 인터페이스 재정의 
@@ -116,6 +118,6 @@ public class TrainSchedulePuzzle : XRSocketInteractor, IPuzzleable
     {
         //MeshRenderer 키기
         clearPoint.enabled = true;
-        puzzle.UpdateCondition(puzzleIndex);
+        puzzleManager.UpdateCondition(puzzleIndex);
     }
 }
