@@ -603,6 +603,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: TornTrainTimetable
       objectReference: {fileID: 0}
+    - target: {fileID: 8530678549417212431, guid: 9fb901bd3d6caf147ad398cfe630be94,
+        type: 3}
+      propertyPath: m_RenderingLayerMask
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8530678549417212431, guid: 9fb901bd3d6caf147ad398cfe630be94,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15923,6 +15933,79 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1958168612}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1960155159
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 529541757804071826, guid: d9c976415f045e548973aaf6ed19f2e4,
+        type: 3}
+      propertyPath: m_Name
+      value: Paints_CH3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682503602528538486, guid: d9c976415f045e548973aaf6ed19f2e4,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 31.081924
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682503602528538486, guid: d9c976415f045e548973aaf6ed19f2e4,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 425.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682503602528538486, guid: d9c976415f045e548973aaf6ed19f2e4,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 406.4372
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682503602528538486, guid: d9c976415f045e548973aaf6ed19f2e4,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.51391834
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682503602528538486, guid: d9c976415f045e548973aaf6ed19f2e4,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682503602528538486, guid: d9c976415f045e548973aaf6ed19f2e4,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.85783905
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682503602528538486, guid: d9c976415f045e548973aaf6ed19f2e4,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682503602528538486, guid: d9c976415f045e548973aaf6ed19f2e4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682503602528538486, guid: d9c976415f045e548973aaf6ed19f2e4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 118.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8682503602528538486, guid: d9c976415f045e548973aaf6ed19f2e4,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8956034826827925942, guid: d9c976415f045e548973aaf6ed19f2e4,
+        type: 3}
+      propertyPath: sceneName
+      value: Lobby
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d9c976415f045e548973aaf6ed19f2e4, type: 3}
 --- !u!1001 &1963590996
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22038,6 +22121,7 @@ GameObject:
   - component: {fileID: 363037634192648572}
   - component: {fileID: 7321532553902118250}
   - component: {fileID: 8961999639596668592}
+  - component: {fileID: 8961999639596668593}
   m_Layer: 0
   m_Name: pCube1
   m_TagString: Untagged
@@ -22162,11 +22246,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ClockPuzzle
-      objectReference: {fileID: 0}
-    - target: {fileID: 7149836282965615097, guid: 6c1b814d3bc9b0540b1ff4454a28f014,
-        type: 3}
-      propertyPath: pocketWatch
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23302,6 +23381,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &8961999639596668593
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6793768305002052226}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 3.2727168, y: 1.7743632, z: 0.19905305}
+  m_Center: {x: 0, y: 1.8914876, z: 0.01747669}
 --- !u!4 &8985019210199955585
 Transform:
   m_ObjectHideFlags: 0
@@ -23480,3 +23580,4 @@ SceneRoots:
   - {fileID: 1502492262}
   - {fileID: 2016974576}
   - {fileID: 152596972}
+  - {fileID: 1960155159}

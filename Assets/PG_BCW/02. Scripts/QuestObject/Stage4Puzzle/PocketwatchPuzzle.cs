@@ -2,7 +2,7 @@ using Jc;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-public class MinuteHand : ItemObject, IPuzzleable
+public class PocketwatchPuzzle: ItemObject, IPuzzleable
 {
     [Header("현재 오브젝트 정보")]
     [SerializeField]
@@ -26,7 +26,13 @@ public class MinuteHand : ItemObject, IPuzzleable
         //퍼즐매니저에 등록
         if (puzzleManager != null)
             RegistObject(puzzleManager);
-      
+
+        //puzzleDataDic에 키값이 없으면
+        if (puzzleManager != null)
+        {
+            if (!Manager.PlayableData.puzzleDataDic.ContainsKey(puzzleManager.PuzzleID))
+                Manager.PlayableData.puzzleDataDic.Add(puzzleManager.PuzzleID, PuzzleState.DisActive);
+        }
     }
 
     protected override void OnEnable()
@@ -37,7 +43,7 @@ public class MinuteHand : ItemObject, IPuzzleable
             pocketWatch.selectEntered.AddListener(MinuteColliderOn);
 
         //이미 획득햇으면 회중시계 비활성화
-        if (Manager.PlayableData.CheckItemInInventory(ItemID) && puzzleManager != null)
+        if (puzzleManager != null || Manager.PlayableData.CheckItemInInventory(ItemID))
         {
             pocketWatch.gameObject.SetActive(false);
         }
@@ -63,9 +69,12 @@ public class MinuteHand : ItemObject, IPuzzleable
     {
         base.OnDestroy();
 
-        if (Manager.PlayableData.CheckItemInInventory(ItemID))
+        if (puzzleManager != null)
         {
-
+            if (Manager.PlayableData.CheckItemInInventory(ItemID))
+            {
+                UpdatePuzzleManager(puzzleManager, puzzleIndex);
+            }
         }
     }
 
@@ -95,6 +104,6 @@ public class MinuteHand : ItemObject, IPuzzleable
     }
     public void CompleteSetting()
     {
-        
+
     }
 }
